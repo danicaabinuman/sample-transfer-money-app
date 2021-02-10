@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollViewContent"
+        style="@style/MatchWrapParent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchParent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewLogo"
+                android:layout_width="@dimen/image_view_success_large"
+                android:layout_height="@dimen/image_view_success_large"
+                android:layout_marginBottom="@dimen/content_spacing"
+                app:layout_constraintBottom_toTopOf="@+id/textViewEmailTakenTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@drawable/logo_migration_successful" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewEmailTakenTitle"
+                style="@style/TextHeaderLight"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_margin"
+                android:layout_marginLeft="@dimen/content_margin"
+                android:layout_marginTop="@dimen/content_group_spacing"
+                android:layout_marginEnd="@dimen/content_margin"
+                android:layout_marginRight="@dimen/content_margin"
+                android:gravity="center"
+                android:text="@string/title_migration_successful"
+                app:layout_constraintBottom_toTopOf="@+id/textViewEmailTakenDesc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewEmailTakenDesc"
+                style="@style/TextViewThemeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_margin"
+                android:layout_marginTop="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_margin"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                android:text="@string/msg_migration_successful"
+                app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEmailTakenTitle"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonLogin"
+                style="@style/RoundedButtonOrange"
+                android:layout_marginLeft="@dimen/button_content_margin"
+                android:layout_marginTop="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/button_content_margin"
+                android:text="@string/action_login"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEmailTakenDesc"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonMigrateAnotherAccount"
+                style="@style/RoundedButtonLightOverlay"
+                android:layout_marginLeft="@dimen/button_content_margin"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/button_content_margin"
+                android:layout_marginBottom="@dimen/content_group_spacing"
+                android:text="@string/action_migrate_another_account"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/viewLoadingState"
+        style="@style/MatchConstraint"
+        layout="@layout/widget_loading_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

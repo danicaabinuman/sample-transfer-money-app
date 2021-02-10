@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutItemChannel"
+    style="@style/MatchWrapParent"
+    android:background="@drawable/bg_rectangle_white">
+
+    <View
+        android:id="@+id/viewBorder1"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewChannel"
+        style="@style/ImageViewIconLarge"
+        android:layout_width="@dimen/image_view_initial_size"
+        android:layout_height="@dimen/image_view_channel_size"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_ub_orange"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewChannelDesc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewChannel" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewChannel"
+        style="@style/TextViewDarkLarge"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:text="@string/title_make_transfer"
+        app:layout_constraintBottom_toTopOf="@+id/textViewChannelDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageViewChannel"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorder1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewChannelDesc"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing_half"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_spacing_half"
+        android:lineSpacingExtra="@dimen/text_view_spacing"
+        android:textColor="@color/colorLightGray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/viewBorder2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageViewChannel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChannel"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <View
+        android:id="@+id/viewBorder2"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

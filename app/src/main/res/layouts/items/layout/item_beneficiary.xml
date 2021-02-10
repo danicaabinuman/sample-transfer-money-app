@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewBeneficiary"
+    style="@style/CardViewItem">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutBeneficiary"
+        style="@style/MatchWrapParent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTitle"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginTop="@dimen/text_view_margin"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textViewCode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.6" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewCode"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            android:gravity="end"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewTitle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewAccountNumber"
+            style="@style/TextViewDarkSmall"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            android:textColor="@color/colorLightGray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewName"
+            style="@style/TextViewDarkSmall"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            android:textColor="@color/colorLightGray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAccountNumber" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

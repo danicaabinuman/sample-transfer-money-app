@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:height="@dimen/field_height">
+        <shape>
+            <corners android:radius="@dimen/field_radius" />
+            <solid android:color="@color/colorDisableTextInputEditText" />
+        </shape>
+    </item>
+</layer-list>

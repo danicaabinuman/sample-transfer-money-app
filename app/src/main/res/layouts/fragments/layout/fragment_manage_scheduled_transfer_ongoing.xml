@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DefaultBackgroundMatchParent"
+    android:id="@+id/constraintLayout"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewSearchLayout"
+        layout="@layout/widget_search_layout"
+        android:visibility="gone"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutManageScheduledTransfer"
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toTopOf="@+id/viewApprovalsNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout">
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/recyclerViewApprovalManageScheduledTransfer"
+            style="@style/RecyclerViewLight"
+            android:paddingTop="@dimen/content_spacing"
+            android:paddingBottom="@dimen/content_spacing"
+            tools:listitem="@layout/item_manage_scheduled_transfer" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/viewLoadingState"
+        style="@style/MatchConstraint"
+        layout="@layout/widget_full_loading_state"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/viewApprovalsNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewState"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_spacing_large"
+        android:layout_marginRight="@dimen/content_spacing_large"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/viewApprovalsNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout" />
+
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/recyclerViewTutorial"
+        style="@style/RecyclerViewLight.Tutorial"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_width="@dimen/match_constraint"
+        android:paddingTop="@dimen/content_spacing"
+        android:paddingBottom="@dimen/content_spacing"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/viewApprovalsNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutTable"
+        style="@style/MatchConstraint"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/viewApprovalsNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout">
+
+        <include
+            android:id="@+id/viewTable"
+            layout="@layout/widget_table_view" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/viewApprovalsNavigation"
+        android:visibility="gone"
+        layout="@layout/widget_approvals_navigation"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintStart_toStartOf="@+id/viewApprovalsNavigation"
+        app:layout_constraintEnd_toEndOf="@+id/viewApprovalsNavigation"
+        app:layout_constraintTop_toTopOf="@+id/viewApprovalsNavigation"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

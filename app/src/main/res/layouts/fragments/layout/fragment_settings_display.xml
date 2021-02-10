@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/DefaultBackgroundMatchParent"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutContent"
+        style="@style/MatchWrapParent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewHeader"
+            style="@style/CircleBadgeOrange"
+            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/content_spacing"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewHeader" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewHeader"
+            style="@style/TextViewDarkLarge"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_spacing"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginRight="@dimen/content_spacing"
+            android:gravity="center_vertical"
+            android:text="@string/desc_settings_display"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewHeader"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/viewBorderTop"
+            style="@style/BorderHorizontal"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHeader" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutCardView"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/field_content_spacing"
+            android:paddingBottom="@dimen/field_content_spacing"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewBorderTop">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCardViewTitle"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/title_card_view"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewCardView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCardView"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/desc_display_card_view"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewCardView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCardViewTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewCardView"
+                style="@style/ImageViewIcon"
+                android:layout_marginStart="@dimen/field_content_spacing"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:padding="@dimen/content_single_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewCardViewTitle"
+                app:srcCompat="@drawable/ic_solid_check_orange"
+                app:tint="?colorAccent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/viewBorderCardView"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutCardView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutListView"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/field_content_spacing"
+            android:paddingBottom="@dimen/field_content_spacing"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewBorderCardView">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewListViewTitle"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/title_list_view"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewListView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewListView"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/desc_display_list_view"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewListView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewListViewTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewListView"
+                style="@style/ImageViewIcon"
+                android:layout_marginStart="@dimen/field_content_spacing"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:padding="@dimen/content_single_line"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewListViewTitle"
+                app:srcCompat="@drawable/ic_solid_check_orange"
+                app:tint="?colorAccent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/viewBorderListView"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutListView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

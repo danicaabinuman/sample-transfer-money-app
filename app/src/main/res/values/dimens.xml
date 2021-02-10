@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <dimen name="grid_0">0dp</dimen>
+    <dimen name="grid_1_half">4dp</dimen>
+    <dimen name="grid_1">8dp</dimen>
+    <dimen name="grid_3_half">12dp</dimen>
+    <dimen name="grid_2">16dp</dimen>
+    <dimen name="grid_5_half">20dp</dimen>
+    <dimen name="grid_3">24dp</dimen>
+    <dimen name="grid_7_half">28dp</dimen>
+    <dimen name="grid_4">32dp</dimen>
+    <dimen name="grid_9_half">36dp</dimen>
+    <dimen name="grid_5">40dp</dimen>
+    <dimen name="grid_11_half">44dp</dimen>
+    <dimen name="grid_6">48dp</dimen>
+    <dimen name="grid_7">56dp</dimen>
+    <dimen name="grid_8">64dp</dimen>
+    <dimen name="grid_9">72dp</dimen>
+    <dimen name="grid_10">80dp</dimen>
+    <dimen name="grid_21_half">84dp</dimen>
+    <dimen name="grid_11">88dp</dimen>
+    <dimen name="grid_12">96dp</dimen>
+    <dimen name="grid_13">104dp</dimen>
+    <dimen name="grid_14">112dp</dimen>
+    <dimen name="grid_15">120dp</dimen>
+    <dimen name="grid_16">128dp</dimen>
+    <dimen name="grid_17">136dp</dimen>
+    <dimen name="grid_18">144dp</dimen>
+    <dimen name="grid_20">160dp</dimen>
+    <dimen name="grid_21">168dp</dimen>
+    <dimen name="grid_22">176dp</dimen>
+    <dimen name="grid_23">184dp</dimen>
+    <dimen name="grid_24">200dp</dimen>
+    <dimen name="grid_25">208dp</dimen>
+    <dimen name="grid_26">216dp</dimen>
+    <dimen name="grid_27">224dp</dimen>
+    <dimen name="grid_29">232dp</dimen>
+    <dimen name="grid_30">240dp</dimen>
+    <dimen name="grid_31">248dp</dimen>
+    <dimen name="grid_32">256dp</dimen>
+    <dimen name="grid_33">264dp</dimen>
+    <dimen name="grid_34">272dp</dimen>
+    <dimen name="grid_35">280dp</dimen>
+    <dimen name="grid_36">288dp</dimen>
+    <dimen name="grid_37">296dp</dimen>
+    <dimen name="grid_38">304dp</dimen>
+    <dimen name="grid_39">312dp</dimen>
+    <dimen name="grid_40">320dp</dimen>
+    <dimen name="grid_41">328dp</dimen>
+    <dimen name="grid_42">336dp</dimen>
+    <dimen name="grid_43">344dp</dimen>
+    <dimen name="grid_44">352dp</dimen>
+    <dimen name="grid_45">360dp</dimen>
+    <dimen name="grid_46">368dp</dimen>
+    <dimen name="grid_47">376dp</dimen>
+    <dimen name="grid_48">384dp</dimen>
+    <dimen name="grid_49">392dp</dimen>
+    <dimen name="grid_50">400dp</dimen>
+
+    <dimen name="text_5">5sp</dimen>
+    <dimen name="text_6">6sp</dimen>
+    <dimen name="text_7">7sp</dimen>
+    <dimen name="text_8">8sp</dimen>
+    <dimen name="text_9">9sp</dimen>
+    <dimen name="text_10">10sp</dimen>
+    <dimen name="text_11">11sp</dimen>
+    <dimen name="text_12">12sp</dimen>
+    <dimen name="text_13">13sp</dimen>
+    <dimen name="text_14">14sp</dimen>
+    <dimen name="text_16">16sp</dimen>
+    <dimen name="text_18">18sp</dimen>
+    <dimen name="text_20">20sp</dimen>
+    <dimen name="text_22">22sp</dimen>
+    <dimen name="text_24">24sp</dimen>
+    <dimen name="text_25">25sp</dimen>
+    <dimen name="text_26">26sp</dimen>
+    <dimen name="text_28">28sp</dimen>
+    <dimen name="text_30">30sp</dimen>
+    <dimen name="text_32">32sp</dimen>
+    <dimen name="text_34">34sp</dimen>
+    <dimen name="text_36">36sp</dimen>
+    <dimen name="text_38">38sp</dimen>
+    <dimen name="text_40">40sp</dimen>
+    <dimen name="text_42">42sp</dimen>
+    <dimen name="text_44">44sp</dimen>
+    <dimen name="text_46">46sp</dimen>
+    <dimen name="text_48">48sp</dimen>
+    <dimen name="text_50">50sp</dimen>
+
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">6dp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">6dp</dimen>
+
+    <dimen name="text_badge_initial">15dp</dimen>
+
+    <dimen name="content_form">@dimen/grid_5</dimen>
+    <dimen name="content_vertical_spacing">@dimen/grid_3</dimen>
+    <dimen name="content_group_spacing">@dimen/grid_3</dimen>
+    <dimen name="content_spacing_small">@dimen/grid_1_half</dimen>
+    <dimen name="content_spacing">@dimen/grid_2</dimen>
+    <dimen name="content_spacing_large">@dimen/grid_4</dimen>
+    <dimen name="content_spacing_xl">@dimen/grid_5</dimen>
+    <dimen name="content_spacing_xxl">@dimen/grid_6</dimen>
+    <dimen name="content_spacing_xxxl">@dimen/grid_7</dimen>
+    <dimen name="content_item_spacing">@dimen/grid_1</dimen>
+    <dimen name="content_item_spacing_half">2dp</dimen>
+
+    <dimen name="content_app_bar_spacing">56dp</dimen>
+    <dimen name="content_app_bar_with_tab_spacing">104dp</dimen>
+    <dimen name="content_bottom_bar_spacing">56dp</dimen>
+    <dimen name="content_section_top_spacing">@dimen/grid_4</dimen>
+    <dimen name="content_section_bottom_spacing">@dimen/grid_3</dimen>
+
+    <dimen name="content_spacing_edit_text">@dimen/grid_1</dimen>
+    <dimen name="content_spacing_half">@dimen/grid_1</dimen>
+    <dimen name="content_spacing_halfx">@dimen/grid_3_half</dimen>
+    <dimen name="content_spacing_form_header">@dimen/content_spacing</dimen>
+    <dimen name="content_shadow_spacing">2dp</dimen>
+    <dimen name="content_margin">@dimen/grid_5</dimen>
+    <dimen name="content_margin_single_line">1dp</dimen>
+    <dimen name="content_margin_two_line">2dp</dimen>
+    <dimen name="content_margin_three_line">3dp</dimen>
+    <dimen name="content_margin_five_line">5dp</dimen>
+    <dimen name="content_single_line">1dp</dimen>
+    <dimen name="content_margin_main_splash_top">@dimen/grid_6</dimen>
+    <dimen name="content_margin_splash_top">@dimen/grid_10</dimen>
+
+    <dimen name="card_elevation">@dimen/grid_1_half</dimen>
+    <dimen name="card_node_elevation">@dimen/grid_1</dimen>
+    <dimen name="card_button_content_padding">@dimen/grid_3_half</dimen>
+    <dimen name="card_content_spacing">@dimen/grid_2</dimen>
+    <dimen name="card_content_radius">@dimen/grid_1</dimen>
+    <dimen name="card_content_elevation">@dimen/grid_1_half</dimen>
+    <dimen name="card_elevation_edit_text">1dp</dimen>
+    <dimen name="card_content_elevation_batch">@dimen/grid_1_half</dimen>
+    <dimen name="card_child_content_elevation">@dimen/grid_1_half</dimen>
+    <dimen name="card_view_node_group">80dp</dimen>
+    <dimen name="card_view_node_operator">60dp</dimen>
+    <dimen name="card_view_node_operator_margin">20dp</dimen>
+    <dimen name="card_margin">@dimen/grid_1</dimen>
+    <dimen name="card_radius_small">@dimen/grid_1_half</dimen>
+    <dimen name="card_radius_edit_text">@dimen/grid_5_half</dimen>
+    <dimen name="card_radius">@dimen/grid_1</dimen>
+    <dimen name="card_radius_x">@dimen/grid_3_half</dimen>
+    <dimen name="card_radius_xx">@dimen/grid_2</dimen>
+    <dimen name="card_corner">2dp</dimen>
+    <dimen name="card_view_item_account">@dimen/grid_16</dimen>
+    <dimen name="card_view_item_account_selection">@dimen/grid_11</dimen>
+    <dimen name="card_view_item_organization_transfers_batch">@dimen/grid_2</dimen>
+    <dimen name="card_view_initial_height_loading">200dp</dimen>
+
+    <dimen name="button_content_spacing">@dimen/grid_8</dimen>
+    <dimen name="button_content_spacing_large">@dimen/grid_10</dimen>
+    <dimen name="button_content_margin">@dimen/grid_6</dimen>
+    <dimen name="button_padding_bottom">@dimen/grid_6</dimen>
+    <dimen name="button_padding">@dimen/grid_1</dimen>
+    <dimen name="button_padding_large">@dimen/grid_3</dimen>
+    <dimen name="button_radius">@dimen/grid_5</dimen>
+    <dimen name="button_radius_small">@dimen/grid_1</dimen>
+    <dimen name="button_tutorial_radius_button">@dimen/grid_1_half</dimen>
+    <dimen name="button_tutorial_height">@dimen/grid_7_half</dimen>
+    <dimen name="button_tutorial_width">@dimen/grid_11</dimen>
+    <dimen name="button_menu_action_small_size">@dimen/grid_7_half</dimen>
+    <dimen name="button_approval_list">@dimen/grid_7_half</dimen>
+    <dimen name="button_small_size">@dimen/grid_4</dimen>
+    <dimen name="button_normal_size">@dimen/grid_5</dimen>
+    <dimen name="button_large_size">@dimen/grid_6</dimen>
+    <dimen name="button_small_padding">@dimen/grid_1</dimen>
+
+    <dimen name="shadow_size">1dp</dimen>
+    <dimen name="shadow_bottom_size">1.5dp</dimen>
+    <dimen name="border_half">1dp</dimen>
+    <dimen name="border">2dp</dimen>
+    <dimen name="border_shadow">3dp</dimen>
+    <dimen name="border_medium">4dp</dimen>
+    <dimen name="border_large">6dp</dimen>
+
+    <dimen name="selector_content_radius">@dimen/grid_4</dimen>
+
+    <dimen name="bottom_notification_margin">@dimen/grid_3_half</dimen>
+    <dimen name="bottom_navigation_default_height">@dimen/grid_9</dimen>
+    <dimen name="bottom_navigation_icon">@dimen/grid_7_half</dimen>
+    <dimen name="bottom_navigation_margin_bottom">@dimen/content_spacing_small</dimen>
+    <dimen name="bottom_tutorial_margin">@dimen/grid_6</dimen>
+
+    <dimen name="text_view_padding_small">@dimen/grid_1_half</dimen>
+    <dimen name="text_view_padding">@dimen/grid_1</dimen>
+    <dimen name="text_view_margin">@dimen/grid_1_half</dimen>
+    <dimen name="text_view_spacing_small">2dp</dimen>
+    <dimen name="text_view_spacing">@dimen/grid_1_half</dimen>
+    <dimen name="text_view_spacing_medium">@dimen/grid_1</dimen>
+    <dimen name="text_view_spacing_large">@dimen/grid_2</dimen>
+    <dimen name="text_view_tutorial_max_width">@dimen/grid_26</dimen>
+    <dimen name="text_view_tutorial_max_width_right">@dimen/grid_24</dimen>
+    <dimen name="text_view_max_width_details">@dimen/grid_20</dimen>
+
+    <dimen name="dialog_width">300dp</dimen>
+    <dimen name="dialog_height">1000dp</dimen>
+    <dimen name="linearlayout_dialog_height">300dp</dimen>
+
+    <dimen name="image_view_ebilling_qr_code_icon">@dimen/grid_4</dimen>
+    <dimen name="image_view_ebilling_qr">@dimen/grid_20</dimen>
+    <dimen name="image_view_qr_code">@dimen/grid_9</dimen>
+    <dimen name="image_view_header_width">@dimen/grid_17</dimen>
+    <dimen name="image_view_header_height">@dimen/grid_8</dimen>
+    <dimen name="image_view_logo_height">@dimen/grid_12</dimen>
+    <dimen name="image_view_logo_width">@dimen/grid_24</dimen>
+    <dimen name="image_view_success">@dimen/grid_13</dimen>
+    <dimen name="image_view_success_large">@dimen/grid_23</dimen>
+    <dimen name="image_view_tutorial_icon">@dimen/grid_10</dimen>
+    <dimen name="image_view_icon_transfer_type">@dimen/grid_3_half</dimen>
+    <dimen name="image_view_icon_mini_size">@dimen/grid_3_half</dimen>
+    <dimen name="image_view_icon_small_size">@dimen/grid_2</dimen>
+    <dimen name="image_view_icon_size">@dimen/grid_3</dimen>
+    <dimen name="image_view_icon_large_size">@dimen/grid_4</dimen>
+    <dimen name="image_view_icon_xl_size">@dimen/grid_5</dimen>
+    <dimen name="image_view_icon_xxl_size">@dimen/grid_7</dimen>
+    <dimen name="image_view_icon_xxxl_size">@dimen/grid_9</dimen>
+    <dimen name="image_view_tutorial_size">@dimen/grid_6</dimen>
+    <dimen name="image_view_icon_padding">@dimen/grid_1_half</dimen>
+    <dimen name="image_view_capture_camera">@dimen/grid_6</dimen>
+    <dimen name="image_view_icon_half_dialog_padding">@dimen/grid_1</dimen>
+    <dimen name="image_view_field_padding">@dimen/grid_3_half</dimen>
+    <dimen name="image_view_initial_size">@dimen/grid_6</dimen>
+    <dimen name="image_view_channel_size">@dimen/grid_5</dimen>
+    <dimen name="image_view_initial_org_size">@dimen/grid_5</dimen>
+    <dimen name="image_view_transaction_icon_size">@dimen/grid_9_half</dimen>
+    <dimen name="image_view_password_strength_size">@dimen/grid_2</dimen>
+    <dimen name="image_view_x_padding">5dp</dimen>
+    <dimen name="image_view_main_on_boarding_height">350dp</dimen>
+    <dimen name="image_view_on_boarding_height">310dp</dimen>
+    <dimen name="image_view_device_width_size">@dimen/grid_4</dimen>
+    <dimen name="image_view_device_height_size">@dimen/grid_5</dimen>
+    <dimen name="image_view_login_fingerprint_size">@dimen/grid_7</dimen>
+    <dimen name="image_view_notification_detail_icon">@dimen/grid_6</dimen>
+    <dimen name="image_view_max_height_preview">@dimen/grid_16</dimen>
+    <dimen name="image_view_card_selection_width">@dimen/grid_16</dimen>
+    <dimen name="image_view_card_selection_height">@dimen/grid_8</dimen>
+    <dimen name="image_view_dao_checking_type_width">@dimen/grid_10</dimen>
+    <dimen name="image_view_dao_checking_type_height">@dimen/grid_10</dimen>
+
+    <dimen name="badge_organization">@dimen/grid_2</dimen>
+    <dimen name="badge_circle_activity_log_size">10dp</dimen>
+
+
+    <dimen name="edit_text_pincode_size">@dimen/grid_5</dimen>
+    <dimen name="edit_text_search_height">@dimen/grid_4</dimen>
+    <dimen name="edit_text_border_size">1dp</dimen>
+    <dimen name="edit_text_padding">@dimen/grid_2</dimen>
+    <dimen name="edit_text_border_size_focus">2dp</dimen>
+
+    <dimen name="field_content_spacing">@dimen/grid_3_half</dimen>
+    <dimen name="field_height_search">@dimen/grid_9_half</dimen>
+    <dimen name="field_height">@dimen/grid_6</dimen>
+    <dimen name="field_multiline_height">@dimen/grid_15</dimen>
+    <dimen name="text_input_background_padding_top">@dimen/grid_1_half</dimen>
+    <dimen name="field_image_view_right_height">43dp</dimen>
+    <dimen name="field_height_small">@dimen/grid_4</dimen>
+    <dimen name="field_content_spacing_small">@dimen/grid_1</dimen>
+    <dimen name="field_content_spacing_normal">@dimen/grid_2</dimen>
+    <dimen name="field_content_spacing_large">@dimen/grid_3</dimen>
+    <dimen name="field_content_spacing_xlarge">@dimen/grid_4</dimen>
+    <dimen name="field_content_spacing_xxlarge">@dimen/grid_5</dimen>
+    <dimen name="field_content_spacing_xxxlarge">@dimen/grid_11_half</dimen>
+    <dimen name="field_radius">@dimen/grid_1_half</dimen>
+    <dimen name="field_radius_search">@dimen/grid_1</dimen>
+    <dimen name="field_padding">@dimen/grid_1</dimen>
+    <dimen name="field_padding_mobile_number">@dimen/grid_13</dimen>
+    <dimen name="field_sme_login_height">@dimen/grid_6</dimen>
+
+
+    <dimen name="list_padding_top_search_view">6dp</dimen>
+
+    <dimen name="circle_icon_size">@dimen/grid_7</dimen>
+
+    <dimen name="dialog_progress">100dp</dimen>
+
+    <dimen name="list_item_size_large">80dp</dimen>
+    <dimen name="list_item_medium">70dp</dimen>
+    <dimen name="list_item_size">60dp</dimen>
+    <dimen name="list_header_size">50dp</dimen>
+
+    <dimen name="constraint_approval_hierarchy_small">180dp</dimen>
+    <dimen name="constraint_approval_hierarchy_min_size">120dp</dimen>
+    <dimen name="constraint_approval_hierarchy_max_size">300dp</dimen>
+    <dimen name="constraint_approval_hierarchy_margin_horizontal">50dp</dimen>
+    <dimen name="constraint_approval_hierarchy_margin_vertical">15dp</dimen>
+    <dimen name="constraint_approval_hierarchy_size_max">200dp</dimen>
+    <dimen name="approval_hierarchy_path_size">2dp</dimen>
+    <dimen name="approval_hierarchy_path_stroke_size">2dp</dimen>
+    <dimen name="approval_hierarchy_arrow_height_size">5dp</dimen>
+    <dimen name="approval_hierarchy_arrow_width_size">8dp</dimen>
+
+    <dimen name="view_tutorial_radius_padding">@dimen/grid_1_half</dimen>
+
+    <dimen name="circular_border_stroke_width">0.5dp</dimen>
+
+    <dimen name="default_elevation">4dp</dimen>
+
+    <dimen name="margin_circle_tutorial_dashboard">1dp</dimen>
+    <dimen name="margin_circle_tutorial">10dp</dimen>
+
+    <dimen name="fab_margin">@dimen/grid_2</dimen>
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_size_padding">80dp</dimen>
+    <dimen name="fab_label_radius">@dimen/grid_1</dimen>
+    <dimen name="fab_elevation">@dimen/grid_1</dimen>
+
+    <dimen name="ci_margin">@dimen/grid_1_half</dimen>
+    <dimen name="ci_size">6dp</dimen>
+    <dimen name="border_height_form">47dp</dimen>
+    <dimen name="border_margin_top_form">4dp</dimen>
+    <dimen name="border_margin_top_form_amount">5dp</dimen>
+
+    <dimen name="navigation_bottom_text_size_normal">10dp</dimen>
+    <dimen name="navigation_bottom_text_size_active">11dp</dimen>
+
+    <dimen name="circular_progress_bar_size">@dimen/grid_13</dimen>
+    <dimen name="circular_progress_bar_line_size">@dimen/grid_1</dimen>
+    <dimen name="table_row_width">@dimen/grid_24</dimen>
+    <dimen name="table_row_height">@dimen/grid_10</dimen>
+    <dimen name="table_row_padding">@dimen/grid_5_half</dimen>
+    <dimen name="table_row_vertical_padding">@dimen/grid_3_half</dimen>
+
+
+    <dimen name="match_constraint">@dimen/grid_0</dimen>
+
+    <dimen name="mini_progress_bar">@dimen/grid_3</dimen>
+
+    <dimen name="anchor_offset">224dp</dimen>
+    <dimen name="peek_height">192dp</dimen>
+
+    <dimen name="badge_padding_top">2dp</dimen>
+    <dimen name="badge_padding_side">5dp</dimen>
+    <dimen name="progress_step_height">@dimen/grid_1</dimen>
+
+    <dimen name="dialog_radius">@dimen/grid_3_half</dimen>
+    <dimen name="dialog_logo_size">@dimen/grid_15</dimen>
+
+    <dimen name="toolbar_shadow_height">@dimen/grid_1_half</dimen>
+    <dimen name="toolbar_elevation">@dimen/grid_2</dimen>
+
+    <dimen name="seek_bar_size">@dimen/grid_3</dimen>
+    <dimen name="seek_bar_stroke_size">@dimen/grid_1</dimen>
+
+    <dimen name="image_view_signature_height_size">@dimen/grid_18</dimen>
+    <dimen name="image_view_signature_width_size">@dimen/grid_24</dimen>
+
+</resources>

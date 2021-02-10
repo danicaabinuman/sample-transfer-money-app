@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewHeader"
+        style="@style/TextHeaderLight"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:layout_marginTop="@dimen/content_margin_main_splash_top"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="center"
+        android:text="@string/title_reminders"
+        android:textColor="?colorText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/sv_reminders"
+        style="@style/MatchConstraint"
+        android:layout_marginTop="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeader">
+
+        <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRemindersSub"
+                style="@style/TextViewTheme"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_xxl"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:layout_marginEnd="@dimen/content_spacing_xxl"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                android:text="@string/desc_check_deposit_important_sub"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReminders1"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_xxl"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_xxl"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayoutReminders2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRemindersSub"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/ImageViewIconLarge"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReminders1"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    android:maxLines="10"
+                    android:text="@string/desc_check_deposit_reminders_1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReminders2"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_xxl"
+                android:layout_marginEnd="@dimen/content_spacing_xxl"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayoutReminders3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutReminders1"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/ImageViewIconLarge"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReminders2"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    android:maxLines="10"
+                    android:text="@string/desc_check_deposit_reminders_2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReminders3"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_xxl"
+                android:layout_marginEnd="@dimen/content_spacing_xxl"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayoutReminders5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutReminders2"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/ImageViewIconLarge"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReminders3"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    android:maxLines="10"
+                    android:text="@string/desc_check_deposit_reminders_3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReminders5"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_xxl"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_xxl"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutReminders3"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/ImageViewIconLarge"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReminders5"
+                        style="@style/TextViewTheme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:lineSpacingExtra="@dimen/text_view_spacing"
+                        android:maxLines="10"
+                        android:text="@string/desc_check_deposit_reminders_5" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReminders5Sub"
+                        style="@style/TextViewThemeSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/content_spacing_small"
+                        android:gravity="start"
+                        android:lineSpacingExtra="@dimen/text_view_spacing"
+                        android:maxLines="10"
+                        android:text="@string/desc_check_deposit_reminders_5_sub"
+
+                        android:textSize="@dimen/text_11" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewChecks"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayoutReminders5"
+                app:layout_constraintStart_toStartOf="@+id/linearLayoutReminders5"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutReminders5"
+                app:srcCompat="@drawable/logo_check_deposit_splash_4" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReminders6"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_xxl"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_xxl"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewChecks"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/ImageViewIconLarge"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReminders6"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    android:maxLines="10"
+                    android:text="@string/desc_check_deposit_reminders_6" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReminders7"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_xxl"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_xxl"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutReminders6"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/ImageViewIconLarge"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReminders7"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    android:maxLines="10"
+                    android:text="@string/desc_check_deposit_reminders_7" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReminders8"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_xxl"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_xxl"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutReminders7"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/ImageViewIconLarge"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReminders8"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    android:maxLines="10"
+                    android:text="@string/desc_check_deposit_reminders_8" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutReminders9"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_xxl"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_xxl"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutReminders8"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/ImageViewIconLarge"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReminders9"
+                    style="@style/TextViewTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    android:maxLines="10"
+                    android:text="@string/desc_check_deposit_reminders_9" />
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/viewButtonNext"
+                layout="@layout/widget_button_orange"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_large"
+                android:layout_marginBottom="@dimen/content_item_spacing"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayoutReminders9"
+                app:layout_constraintStart_toStartOf="@+id/linearLayoutReminders9"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutReminders9" />
+
+            <include
+                android:id="@+id/viewButtonCancel"
+                layout="@layout/widget_button_gray"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:layout_marginBottom="@dimen/content_spacing_large"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayoutReminders9"
+                app:layout_constraintStart_toStartOf="@+id/linearLayoutReminders9"
+                app:layout_constraintTop_toBottomOf="@+id/viewButtonNext" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_arrow"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_270"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/content_group_spacing"
+            app:backgroundTint="?colorAccent"
+            app:elevation="@dimen/fab_elevation"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="@color/colorRippleHover"
+            app:srcCompat="@drawable/ic_arrow_down_orange_normal"
+            app:tint="@color/colorWhite" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

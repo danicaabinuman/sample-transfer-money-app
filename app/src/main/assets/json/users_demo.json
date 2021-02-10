@@ -1,0 +1,20 @@
+[
+  {
+    "role_id": "bc04680b-2ccc-4e4c-86ee-f4b99dca6b7e",
+    "role_name": "Jellorie ROle",
+    "organization_name": "Demo Organization A",
+    "organization_id": "1e0065c9-46fb-4d9f-94e2-9d03810e7971"
+  },
+  {
+    "role_id": "bc04680b-2ccc-4e4c-86ee-f4b99dca6b7a",
+    "role_name": "Jellorie ROle",
+    "organization_name": "Demo Organization B",
+    "organization_id": "1e0065c9-46fb-4d9f-94e2-9d03810e7972"
+  },
+  {
+    "role_id": "bc04680b-2ccc-4e4c-86ee-f4b99dca6b7b",
+    "role_name": "Jellorie ROle",
+    "organization_name": "Demo Organization C",
+    "organization_id": "1e0065c9-46fb-4d9f-94e2-9d03810e7973"
+  }
+]

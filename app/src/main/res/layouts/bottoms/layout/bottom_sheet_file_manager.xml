@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_background"
+        style="@style/BottomSheetBackground"
+        android:layout_marginTop="@dimen/content_section_top_spacing"
+        android:padding="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTitle"
+            style="@style/TextViewTheme"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/content_group_spacing"
+            android:layout_marginTop="@dimen/content_group_spacing"
+            android:layout_marginEnd="@dimen/content_group_spacing"
+            android:gravity="center"
+            android:text="@string/title_max_file_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_take_photo"
+            style="@style/RoundedButtonOrangeSmall"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginTop="@dimen/content_group_spacing"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:layout_marginBottom="@dimen/content_spacing"
+            android:paddingStart="@dimen/content_spacing_half"
+            android:paddingEnd="@dimen/content_spacing_half"
+            android:text="@string/action_take_photo"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_open_file_manager"
+            style="@style/RoundedButtonOrangeSmall"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginTop="@dimen/content_spacing_half"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:layout_marginBottom="@dimen/content_spacing"
+            android:paddingStart="@dimen/content_spacing_half"
+            android:paddingEnd="@dimen/content_spacing_half"
+            android:text="@string/action_open_file_manager"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_take_photo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            style="@style/RoundedButtonBorderedLightOverLay"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginTop="@dimen/content_spacing_half"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:layout_marginBottom="@dimen/content_spacing"
+            android:paddingStart="@dimen/content_spacing_half"
+            android:paddingEnd="@dimen/content_spacing_half"
+            android:text="@string/action_cancel"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_open_file_manager" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewCicleIcon"
+        android:layout_width="@dimen/circle_icon_size"
+        android:layout_height="@dimen/circle_icon_size"
+        android:background="@drawable/circle_solid_orange"
+        app:layout_constraintBottom_toTopOf="@+id/cl_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cl_background" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewIcon"
+        style="@style/MatchConstraint"
+        android:scaleType="centerInside"
+        android:padding="@dimen/image_view_icon_half_dialog_padding"
+        app:layout_constraintBottom_toBottomOf="@+id/viewCicleIcon"
+        app:layout_constraintEnd_toEndOf="@+id/viewCicleIcon"
+        app:layout_constraintStart_toStartOf="@+id/viewCicleIcon"
+        app:layout_constraintTop_toTopOf="@+id/viewCicleIcon"
+        app:srcCompat="@drawable/ic_photo_library_white_36dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

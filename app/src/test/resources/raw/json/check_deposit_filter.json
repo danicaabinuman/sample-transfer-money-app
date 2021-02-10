@@ -1,0 +1,108 @@
+{
+  "check_number": "2021",
+  "amount": null,
+  "check_start_date": null,
+  "check_end_date": null,
+  "deposit_account": {
+    "id": 4783,
+    "status": {
+      "type": "A",
+      "description": "Active",
+      "color": "GREEN"
+    },
+    "card": {
+      "type": "CAA",
+      "description": "RETAIL REGULAR CHECKING",
+      "color": "BLACK"
+    },
+    "currency": "PHP",
+    "headers": [
+      {
+        "name": "AVLBAL",
+        "display": "Available Balance",
+        "value": null
+      },
+      {
+        "name": "CURBAL",
+        "display": "Current Balance",
+        "value": null
+      },
+      {
+        "name": "FNDCLR",
+        "display": "Funds in Clearing",
+        "value": null
+      }
+    ],
+    "name": "UPASS CA001 TEST ACCOUNT",
+    "account_number": "000590080118",
+    "product_code": "CA001",
+    "product_code_desc": "RETAIL REGULAR CHECKING",
+    "product_type": "CAA",
+    "permission_collection": {
+      "create_transaction_ubp": true,
+      "create_transaction_pesonet": true,
+      "create_transaction_pddts": false,
+      "create_transaction_swift": false,
+      "create_transaction_instapay": true,
+      "create_transaction_eon": true,
+      "create_transaction_own": true,
+      "create_transaction": true,
+      "create_transaction_adhoc": true,
+      "create_transaction_beneficiary_master": true,
+      "view_transaction_view_details": true,
+      "view_transaction": true,
+      "create_transaction_scheduled": true,
+      "view_channel": true,
+      "view_transaction_delete_scheduled": true,
+      "create_beneficiary_master": true,
+      "view_beneficiary_master": true,
+      "btr_view_transaction": true,
+      "btr_view_balance": true,
+      "create_bills_payment": true,
+      "create_bills_payment_adhoc": true,
+      "scheduled_bills_payment": true,
+      "delete_scheduled_bills_payment": false,
+      "view_bills_payment_history": true,
+      "create_bills_payment_frequent": true,
+      "view_bills_payment_history_details": true,
+      "create_frequent_biller": true,
+      "delete_frequent_biller": true
+    },
+    "isLoading": true,
+    "isError": false,
+    "isSelected": false,
+    "isViewableBalance": true,
+    "isViewableCheckBox": true
+  },
+  "status": "FOR_CLEARING,REJECTED,POSTED",
+  "status_to_display": "All",
+  "status_state": [
+    {
+      "data": {
+        "id": "FOR_CLEARING",
+        "type": null,
+        "value": "Pending Verification"
+      },
+      "state": true
+    },
+    {
+      "data": {
+        "id": "REJECTED",
+        "type": null,
+        "value": "Transaction Rejected"
+      },
+      "state": true
+    },
+    {
+      "data": {
+        "id": "POSTED",
+        "type": null,
+        "value": "For Clearing"
+      },
+      "state": true
+    }
+  ],
+  "start_date_created": null,
+  "end_date_created": null,
+  "filter_count": 3
+}

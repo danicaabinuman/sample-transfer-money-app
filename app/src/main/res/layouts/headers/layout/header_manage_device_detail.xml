@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutHeaderTitle"
+    style="@style/MatchWrapParent">
+
+    <include
+        android:id="@+id/cardViewDevice"
+        layout="@layout/widget_device_card_view"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing_small"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_spacing"
+        app:layout_constraintBottom_toTopOf="@+id/buttonTrustedDevice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Space
+        android:id="@+id/spaceHeader"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/content_spacing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewDevice"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonTrustedDevice"
+        style="@style/RoundedButtonOrange"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:text="@string/action_trust_device"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spaceHeader"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonForgetDevice"
+        style="@style/RoundedButtonLightOverlay"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing_half"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_spacing_small"
+        android:text="@string/action_forget_device"
+        android:textColor="@color/colorInfo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTrustedDevice"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

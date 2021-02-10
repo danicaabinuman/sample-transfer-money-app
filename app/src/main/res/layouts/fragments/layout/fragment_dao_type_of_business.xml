@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:id="@+id/constraint_layout">
+
+    <ScrollView
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchWrapParent"
+            android:paddingBottom="@dimen/content_spacing_large">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.95"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:gravity="start"
+                android:text="@string/title_type_of_business"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/rg_type_of_business"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_edit_text"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_sole_proprietorship"
+                    style="@style/TextViewDark"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:drawableEnd="@drawable/ic_warning_circle_light_orange"
+                    android:drawablePadding="@dimen/content_spacing_half"
+                    android:text="@string/title_sole_proprietorship"
+                    app:buttonTint="?colorAccent" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_partnership"
+                    style="@style/TextViewDark"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:drawableEnd="@drawable/ic_warning_circle_light_orange"
+                    android:drawablePadding="@dimen/content_spacing_half"
+                    android:text="@string/title_partnership"
+                    app:buttonTint="?colorAccent" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_corporation"
+                    style="@style/TextViewDark"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:drawableEnd="@drawable/ic_warning_circle_light_orange"
+                    android:drawablePadding="@dimen/content_spacing_half"
+                    android:text="@string/title_corporation"
+                    app:buttonTint="?colorAccent" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_cooperative"
+                    style="@style/TextViewDark"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:drawableEnd="@drawable/ic_warning_circle_light_orange"
+                    android:drawablePadding="@dimen/content_spacing_half"
+                    android:text="@string/title_cooperative"
+                    app:buttonTint="?colorAccent" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_non_government"
+                    style="@style/TextViewDark"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:drawableEnd="@drawable/ic_warning_circle_light_orange"
+                    android:drawablePadding="@dimen/content_spacing_half"
+                    android:text="@string/title_non_government"
+                    app:buttonTint="?colorAccent" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_others"
+                    style="@style/TextViewDark"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:text="@string/title_others_specify"
+                    app:buttonTint="?colorAccent" />
+
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_others"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:hint="@string/hint_other_type_of_business"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/rg_type_of_business">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_others"
+                    android:text="-"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_type_of_industry"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing_large"
+                android:gravity="start"
+                android:text="@string/title_type_of_industry"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_others" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_business_industry"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:hint="@string/hint_select_a_business_industry"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_type_of_industry">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_business_industry"
+                    style="@style/TextInputEditTextForm.DropDownOrange" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

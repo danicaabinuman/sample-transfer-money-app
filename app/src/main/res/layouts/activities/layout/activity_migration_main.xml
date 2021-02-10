@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLayout"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewStep"
+        style="@style/TextViewTheme"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:text="@string/param_steps"
+        android:textAllCaps="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/viewToolbar"
+        app:layout_constraintEnd_toEndOf="@+id/viewToolbar"
+        app:layout_constraintTop_toTopOf="@+id/viewToolbar" />
+
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
+        android:id="@+id/viewPagerMigration"
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

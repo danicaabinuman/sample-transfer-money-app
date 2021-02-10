@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <include
+            android:id="@+id/viewSearchLayout"
+            layout="@layout/widget_search_layout"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayoutSourceAccounts"
+            style="@style/MatchConstraint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout">
+
+            <com.airbnb.epoxy.EpoxyRecyclerView
+                android:id="@+id/recyclerViewSourceAccounts"
+                style="@style/RecyclerViewLight"
+                tools:listitem="@layout/item_source_account" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSelectAccounts"
+            style="@style/RoundedButtonOrangeSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_margin="@dimen/content_spacing"
+            android:text="@string/params_select_accounts"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <include
+            android:id="@+id/viewLoadingState"
+            style="@style/MatchConstraint"
+            layout="@layout/widget_full_loading_state"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewState"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_spacing_large"
+            android:layout_marginRight="@dimen/content_spacing_large"
+            android:gravity="center"
+            android:text="@string/title_no_source_accounts"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

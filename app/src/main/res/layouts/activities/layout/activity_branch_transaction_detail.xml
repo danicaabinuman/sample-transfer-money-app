@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewBatchTransaction"
+                style="@style/CardViewLight"
+                android:layout_margin="@dimen/content_spacing"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCheckAccountNumberTitle"
+                        style="@style/TextViewHeaderFormOrange"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_check_account_number"
+                        app:layout_constraintBottom_toTopOf="@+id/viewBorderCheckAccountNumber"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCheckAccountNumber"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewCheckAccountNumberTitle"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/viewBorderCheckAccountNumber"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCheckAccountNumber" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCheckNumberTitle"
+                        style="@style/TextViewHeaderFormOrange"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_check_number"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckAccountNumber" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCheckNumber"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        android:lineSpacingExtra="@dimen/text_view_spacing"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewCheckNumberTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckAccountNumber" />
+
+                    <View
+                        android:id="@+id/viewBorderCheckNumber"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCheckNumber" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCheckDateTitle"
+                        style="@style/TextViewHeaderFormOrange"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_date_front_of_check"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckNumber" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCheckDate"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        android:lineSpacingExtra="@dimen/text_view_spacing"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewCheckDateTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckNumber" />
+
+                    <View
+                        android:id="@+id/viewBorderCheckDate"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCheckDate" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAmountTitle"
+                        style="@style/TextViewHeaderFormOrange"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_amount"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckDate" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAmount"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewAmountTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckDate" />
+
+                    <View
+                        android:id="@+id/viewBorderAmount"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewAmount" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewRemarksTitle"
+                        style="@style/TextViewHeaderFormOrange"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_remarks"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderAmount" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewRemarks"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewRemarksTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderAmount" />
+
+                    <androidx.legacy.widget.Space
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_height="@dimen/content_spacing"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewRemarks" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,41 @@
+{
+  "transaction_date": "2019-09-23T00:00:00.000",
+  "posting_date": "2020-12-02T09:24:19.000",
+  "account": {
+    "id": 2170745,
+    "status": {
+      "type": null,
+      "description": null,
+      "color": null
+    },
+    "card": null,
+    "currency": "PHP",
+    "headers": [],
+    "name": "ABC SAMPLE ORGANIZATION",
+    "account_number": "000590080120",
+    "product_code": "CA001",
+    "product_code_desc": "RETAIL REGULAR CHECKING",
+    "product_type": "CAA"
+  },
+  "reference_number": "UB2734",
+  "description": "REVERSAL FOR UB2729",
+  "amount": {
+    "currency": "PHP",
+    "value": 1
+  },
+  "check_number": null,
+  "transaction_class": {
+    "type": "C",
+    "description": "Credit",
+    "detailed_description": "Credit",
+    "remarks": null,
+    "contextual_class": "SUCCESS",
+    "title": null,
+    "message": null,
+    "sub_message": null
+  },
+  "transaction_type": null,
+  "portal_transaction": null,
+  "remittance": null,
+  "bills_payment": null
+}

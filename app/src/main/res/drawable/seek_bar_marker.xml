@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval"
+    android:visible="false">
+
+    <size android:height="@dimen/seek_bar_size" android:width="@dimen/seek_bar_size"/>
+    <stroke android:width="@dimen/seek_bar_stroke_size" android:color="#88F69420"/>
+    <solid android:color="?colorAccent" />
+
+</shape>

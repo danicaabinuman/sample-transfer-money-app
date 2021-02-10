@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutTutorial"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewArrow"
+        android:layout_width="@dimen/image_view_tutorial_size"
+        android:layout_height="@dimen/image_view_tutorial_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_upper_right_small" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTutorialMessage"
+        style="@style/TextViewTheme"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/text_view_spacing"
+        android:maxWidth="@dimen/text_view_tutorial_max_width"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@+id/buttonOk"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSkiptutorial"
+        app:layout_constraintStart_toStartOf="@+id/textViewSkiptutorial"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonOk"
+        style="@style/TutorialOkButton"
+        android:layout_marginBottom="@dimen/content_spacing_small"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSkiptutorial"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSkiptutorial"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textViewSkiptutorial"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewSkiptutorial"
+        style="@style/TutorialSkipTextView"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing_small"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewArrow"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageViewArrow"
+        app:layout_constraintTop_toTopOf="@+id/imageViewArrow"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

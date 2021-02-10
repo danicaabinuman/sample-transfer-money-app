@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/view_share_content"
+        layout="@layout/view_e_billing_share"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/sv_parent"
+        style="@style/DefaultBackgroundMatchConstraint"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchParent"
+            android:paddingTop="@dimen/content_spacing"
+            android:paddingBottom="@dimen/content_spacing">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_logo"
+                style="@style/ImageViewLogo"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:padding="@dimen/grid_1"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_account_name"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="center"
+                android:text="@string/title_electronic_billing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_logo"
+                app:layout_constraintWidth_percent="0.7" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_account_number"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/grid_1_half"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="center"
+                android:text="@string/title_electronic_billing"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_name"
+                app:layout_constraintWidth_percent="0.7" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_qr_code"
+                android:layout_width="@dimen/image_view_ebilling_qr"
+                android:layout_height="@dimen/image_view_ebilling_qr"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_account_number" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_qr_code_icon"
+                android:layout_width="@dimen/image_view_ebilling_qr_code_icon"
+                android:layout_height="@dimen/image_view_ebilling_qr_code_icon"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_qr_code"
+                app:layout_constraintEnd_toEndOf="@+id/iv_qr_code"
+                app:layout_constraintStart_toStartOf="@+id/iv_qr_code"
+                app:layout_constraintTop_toTopOf="@+id/iv_qr_code"
+                app:srcCompat="@drawable/ic_ebilling_qr_code" />
+
+            <include
+                android:id="@+id/view_share_button"
+                layout="@layout/widget_button_share_outline"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing_xxl"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:layout_marginBottom="@dimen/content_spacing_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_qr_code" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_make_another"
+                style="@style/RoundedButtonGrayTransparent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:layout_marginBottom="@dimen/content_spacing_large"
+                android:text="@string/action_make_another_qr_code"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_share_button" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

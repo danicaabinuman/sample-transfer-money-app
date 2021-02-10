@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_layout"
+    style="@style/MatchParent">
+
+    <com.otaliastudios.cameraview.CameraView
+        android:id="@+id/cameraView"
+        style="@style/MatchConstraint"
+        android:keepScreenOn="true"
+        app:cameraAudio="off"
+        app:cameraAutoFocusMarker="@string/cameraview_default_autofocus_marker"
+        app:cameraAutoFocusResetDelay="0"
+        app:cameraEngine="camera2"
+        app:cameraExperimental="false"
+        app:cameraFacing="back"
+        app:cameraFlash="off"
+        app:cameraGestureTap="autoFocus"
+        app:cameraMode="picture"
+        app:cameraPictureFormat="jpeg"
+        app:cameraPlaySounds="true"
+        app:cameraPreview="glSurface"
+        app:cameraPreviewFrameRateExact="true"
+        app:cameraUseDeviceOrientation="false"
+        app:layout_constraintBottom_toBottomOf="@id/gl_seperator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutOverLay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineTop"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.30"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineBottom"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.70"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <View
+                android:id="@+id/shadeTop"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:background="@color/colorCheckDepositOverlay"
+                app:layout_constraintBottom_toBottomOf="@+id/guidelineTop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/shadeBottom"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:background="@color/colorCheckDepositOverlay"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineBottom" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineStart"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineEnd"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.95"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/shadeStart"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:background="@color/colorCheckDepositOverlay"
+                app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineStart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+
+            <View
+                android:id="@+id/shadeEnd"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:background="@color/colorCheckDepositOverlay"
+                app:layout_constraintBottom_toBottomOf="@+id/guidelineBottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintTop_toTopOf="@+id/guidelineTop" />
+
+            <View
+                android:id="@+id/viewOverlay"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewOverlayBottomStart"
+                app:layout_constraintEnd_toEndOf="@+id/imageViewOverlayTopEnd"
+                app:layout_constraintStart_toStartOf="@+id/imageViewOverlayTopStart"
+                app:layout_constraintTop_toTopOf="@+id/imageViewOverlayTopStart" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewOverlayTopStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+                app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
+                app:srcCompat="@drawable/ic_camera_overlay_top_start" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewOverlayTopEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
+                app:srcCompat="@drawable/ic_camera_overlay_top_end" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewOverlayBottomStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+                app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+                app:srcCompat="@drawable/ic_camera_overlay_bottom_start" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewOverlayBottomEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+                app:srcCompat="@drawable/ic_camera_overlay_bottom_end" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.otaliastudios.cameraview.CameraView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_seperator"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.70"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_start"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/match_constraint"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_end"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/match_constraint"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.95"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        style="@style/TextViewThemeLarge"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:text="@string/title_scan_your_signature"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_desc"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/gl_seperator"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_desc"
+        style="@style/TextViewTheme"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginTop="@dimen/content_spacing_half"
+        android:layout_marginBottom="@dimen/content_spacing_half"
+        android:gravity="center"
+        android:text="@string/msg_scan_your_signature"
+        app:layout_constraintBottom_toTopOf="@id/imageViewCapture"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewCapture"
+        android:layout_width="@dimen/image_view_capture_camera"
+        android:layout_height="@dimen/image_view_capture_camera"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:background="@drawable/selector_dark_capture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/gl_end"
+        app:layout_constraintStart_toStartOf="@id/gl_start" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

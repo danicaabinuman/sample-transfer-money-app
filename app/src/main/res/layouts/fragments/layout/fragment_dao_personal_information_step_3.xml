@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_layout"
+    style="@style/MatchParent">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content"
+            style="@style/MatchWrapParent"
+            android:paddingBottom="@dimen/content_spacing_large">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.95"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_header_info"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:gravity="start"
+                android:text="@string/title_personal_info_3_header_info"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_country"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_country"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_header_info">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_country"
+                    style="@style/TextInputEditTextForm.DropDownOrange" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_province"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_province"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_country">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_province"
+                    style="@style/TextInputEditTextForm.DropDownOrange" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <include
+                android:id="@+id/viewLoadingProvince"
+                layout="@layout/widget_edit_text_loading"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/til_province"
+                app:layout_constraintEnd_toEndOf="@id/til_province"
+                app:layout_constraintStart_toStartOf="@id/til_province"
+                app:layout_constraintTop_toTopOf="@id/til_province" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_city"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_city"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_province">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_city"
+                    style="@style/TextInputEditTextForm.DropDownOrange" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <include
+                android:id="@+id/viewLoadingCity"
+                layout="@layout/widget_edit_text_loading"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/til_city"
+                app:layout_constraintEnd_toEndOf="@id/til_city"
+                app:layout_constraintStart_toStartOf="@id/til_city"
+                app:layout_constraintTop_toTopOf="@id/til_city" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_zip_code"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_zip_code"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_city">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_zip_code"
+                    style="@style/TextInputEditTextForm"
+                    android:digits="@string/digits_numeric_space"
+                    android:inputType="number"
+                    android:maxLength="@integer/max_zip_code_length" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_village_brgy"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:hint="@string/hint_barangay"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_zip_code">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_village_brgy"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_street_name"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:hint="@string/hint_bldg_street_name"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_village_brgy">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_street_name"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_home_address"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_unit_house_no"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_street_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_home_address"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cb_permanent_address"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:checked="true"
+                android:text="@string/desc_permanent_address"
+                android:textColor="@color/colorInfo"
+                app:buttonTint="?colorAccent"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_home_address" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_permanent_address"
+                style="@style/MatchWrapParent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/cb_permanent_address">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_permanent_country"
+                    style="@style/TextInputLayoutForm"
+                    android:hint="@string/hint_country"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_permanent_country"
+                        style="@style/TextInputEditTextForm.DropDownOrange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_permanent_province"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_marginTop="@dimen/content_spacing_half"
+                    android:hint="@string/hint_province"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_permanent_country">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_permanent_province"
+                        style="@style/TextInputEditTextForm.DropDownOrange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <include
+                    android:id="@+id/viewLoadingPermanentProvince"
+                    layout="@layout/widget_edit_text_loading"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="@dimen/match_constraint"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/til_permanent_province"
+                    app:layout_constraintEnd_toEndOf="@id/til_permanent_province"
+                    app:layout_constraintStart_toStartOf="@id/til_permanent_province"
+                    app:layout_constraintTop_toTopOf="@id/til_permanent_province" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_permanent_city"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_marginTop="@dimen/content_spacing_half"
+                    android:hint="@string/hint_city"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_permanent_province">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_permanent_city"
+                        style="@style/TextInputEditTextForm.DropDownOrange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <include
+                    android:id="@+id/viewLoadingPermanentCity"
+                    layout="@layout/widget_edit_text_loading"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="@dimen/match_constraint"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/til_permanent_city"
+                    app:layout_constraintEnd_toEndOf="@id/til_permanent_city"
+                    app:layout_constraintStart_toStartOf="@id/til_permanent_city"
+                    app:layout_constraintTop_toTopOf="@id/til_permanent_city" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_permanent_zip_code"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_marginTop="@dimen/content_spacing_half"
+                    android:hint="@string/hint_zip_code"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_permanent_city">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_permanent_zip_code"
+                        style="@style/TextInputEditTextForm"
+                        android:digits="@string/digits_numeric_space"
+                        android:inputType="number"
+                        android:maxLength="@integer/max_zip_code_length" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_permanent_village_brgy"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_marginTop="@dimen/content_spacing_half"
+                    android:hint="@string/hint_barangay"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_permanent_zip_code">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_permanent_village_brgy"
+                        style="@style/TextInputEditTextForm" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_permanent_street_name"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_marginTop="@dimen/content_spacing_half"
+                    android:hint="@string/hint_bldg_street_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_permanent_village_brgy">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_permanent_street_name"
+                        style="@style/TextInputEditTextForm" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_permanent_home_address"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_marginTop="@dimen/content_spacing_half"
+                    android:hint="@string/hint_unit_house_no"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_permanent_street_name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_permanent_home_address"
+                        style="@style/TextInputEditTextForm" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

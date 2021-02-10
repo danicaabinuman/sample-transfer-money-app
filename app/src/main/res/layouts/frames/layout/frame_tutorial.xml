@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutTutorial"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewTutorial"
+        android:layout_width="@dimen/image_view_tutorial_icon"
+        android:layout_height="@dimen/image_view_tutorial_icon"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTutorialTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/ic_tutorial_accounts_orange" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTutorialTitle"
+        style="@style/TextViewThemeXL"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTutorialMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewTutorial"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTutorialMessage"
+        style="@style/TextViewTheme"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/text_view_spacing"
+        android:maxWidth="@dimen/text_view_tutorial_max_width"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@+id/buttonOk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTutorialTitle"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonOk"
+        style="@style/TutorialOkButton"
+        android:layout_marginTop="@dimen/content_spacing"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSkiptutorial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTutorialMessage"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewSkiptutorial"
+        style="@style/TutorialSkipTextView"
+        android:layout_marginTop="@dimen/content_spacing_small"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOk"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

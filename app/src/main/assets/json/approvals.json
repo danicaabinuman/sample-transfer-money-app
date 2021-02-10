@@ -1,0 +1,37 @@
+[
+  {
+    "id": "167626",
+    "frequency": null,
+    "channel": "UnionBank Account",
+    "remarks": "ABC Company",
+    "currency": "PHP",
+    "immediate": false,
+    "approved": null,
+    "fields": null,
+    "proposed_transaction_date": "2018-12-28 10:00:00.435",
+    "start_date": "2018-12-28 10:00:00.435",
+    "biller_name": null,
+    "beneficiary_name": null,
+    "transaction_status":  {
+      "type": "Pending Approval",
+      "description": "",
+      "contextual_class": ""
+    },
+    "approval_status": "IN_PROGRESS",
+    "total_amount": "999999999999.99",
+    "created_by": "Amanda Smith",
+    "created_date": "2018-05-27 09:00:00.000",
+    "posted_date": "2018-09-27",
+    "source_account_number": "000770008690",
+    "destination_account_number": "347518273746",
+    "batch_type": "SINGLE",
+    "approval_process_id": "25ad14e5-f407-4bb4-898c-0257309fb3ec",
+    "source_account_name": "GOLDEN ARCHES DEVELOPMENT CORPORATION",
+    "transaction_reference_id": null,
+    "swift_code": null,
+    "bank_address": "",
+    "receiving_bank": null,
+    "number_of_transactions": 1,
+    "frequent_biller_version_id": null
+  }
+]

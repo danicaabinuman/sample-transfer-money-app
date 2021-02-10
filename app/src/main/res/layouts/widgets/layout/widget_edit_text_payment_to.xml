@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPaymentTo"
+        style="@style/TextViewHeaderFormOrange"
+        android:text="@string/title_payment_to"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPaymentToBiller"
+        style="@style/TextViewDark"
+        android:layout_marginTop="@dimen/content_spacing_edit_text"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPaymentTo" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutPaymentTo"
+        style="@style/TextInputLayoutForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing_edit_text"
+        android:hint="@string/hint_payment_to"
+        app:boxBackgroundColor="@color/colorDisableTextInputEditText"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPaymentTo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditTextPaymentTo"
+            style="@style/TextInputEditTextForm.Selector"
+            android:enabled="false" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutFrequentBiller"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing_edit_text"
+        android:background="@drawable/bg_border_rectangle"
+        android:paddingTop="@dimen/content_spacing"
+        android:paddingBottom="@dimen/content_spacing"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPaymentTo">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewFrequentBillerTitle"
+            style="@style/TextViewDarkInActiveSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:gravity="start"
+            android:text="@string/hint_frequent_biller"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewFrequentBiller"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginLeft="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/content_spacing_half"
+            android:layout_marginRight="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewFrequentBillerClose"
+            app:layout_constraintStart_toEndOf="@+id/textViewFrequentBillerTitle"
+            app:layout_constraintTop_toTopOf="@+id/textViewFrequentBillerTitle"
+            app:layout_constraintWidth_percent="0.5" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutFrequentFields"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFrequentBiller" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewFrequentBillerClose"
+            style="@style/ImageViewCloseIcon"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:layout_marginRight="@dimen/content_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewTutorialPaymentTo"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutFrequentBiller"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutPaymentTo"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutPaymentTo"
+        app:layout_constraintTop_toTopOf="@+id/textViewPaymentTo" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBillerFields"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFrequentBiller" />
+
+    <View
+        android:id="@+id/viewTutorialBillerFields"
+        style="@style/ViewTutorial"
+        android:layout_marginTop="@dimen/content_spacing_edit_text"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutBillerFields"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayoutBillerFields"
+        app:layout_constraintStart_toStartOf="@+id/linearLayoutBillerFields"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutBillerFields" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

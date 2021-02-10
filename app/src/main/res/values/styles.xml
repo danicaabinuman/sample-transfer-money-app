@@ -1,0 +1,821 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="WrapContent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MatchParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MatchWrapParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="WrapMatchParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MatchConstraint">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/match_constraint</item>
+    </style>
+
+    <style name="DefaultBackgroundMatchParent" parent="MatchParent">
+        <item name="android:background">@drawable/bg_content_background</item>
+    </style>
+
+    <style name="DefaultBackgroundMatchConstraint" parent="MatchConstraint">
+        <item name="android:background">@drawable/bg_content_background</item>
+    </style>
+
+    <style name="ContentMatchParentWithMargin" parent="MatchParent">
+        <item name="android:layout_margin">@dimen/grid_5_half</item>
+    </style>
+
+    <style name="ContentMatchWrapWithMargin" parent="MatchWrapParent">
+        <item name="android:layout_margin">@dimen/grid_5_half</item>
+    </style>
+
+    <style name="ContentMatchWrapWithMargin16" parent="MatchWrapParent">
+        <item name="android:layout_margin">@dimen/grid_2</item>
+    </style>
+
+    <style name="CounterOverFlowTheme">
+        <item name="android:textSize">@dimen/text_8</item>
+        <item name="android:textColor">?colorText</item>
+    </style>
+
+    <style name="TabLayoutTextAppearance">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextViewThemeSmall" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_8</item>
+        <item name="android:textColor">?colorText</item>
+    </style>
+
+    <style name="TextViewTheme" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">?colorText</item>
+    </style>
+
+    <style name="TextViewThemeLarge" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">?colorText</item>
+    </style>
+
+    <style name="TextViewThemeXL" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">?colorText</item>
+    </style>
+
+    <style name="TextViewDarkSmall" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_8</item>
+        <item name="android:textColor">@color/colorInfo</item>
+    </style>
+
+    <style name="TextViewDark" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="android:textColor">@color/colorInfo</item>
+    </style>
+
+    <style name="TextViewDarkSub" parent="TextViewDark">
+        <item name="android:lineSpacingExtra">@dimen/text_view_spacing</item>
+    </style>
+
+    <style name="TextViewOrangeHeaderTableRow" parent="TextViewOrangeLarge">
+        <item name="android:gravity">start</item>
+        <item name="android:layout_width">@dimen/table_row_width</item>
+        <item name="android:paddingStart">@dimen/table_row_padding</item>
+        <item name="android:paddingEnd">@dimen/table_row_padding</item>
+        <item name="android:paddingTop">@dimen/table_row_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/table_row_vertical_padding</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="TextViewDarkTableRow" parent="TextViewDark">
+        <item name="android:gravity">start</item>
+        <item name="android:layout_width">@dimen/table_row_width</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:padding">@dimen/table_row_padding</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="TextViewDarkLarge" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">@color/colorInfo</item>
+    </style>
+
+    <style name="TextViewDarkXL" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/colorInfo</item>
+    </style>
+
+    <style name="TextViewDarkSingleLine" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="TextViewDarkInActiveSmall" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_8</item>
+        <item name="android:textColor">@color/colorInActive</item>
+    </style>
+
+    <style name="TextViewDarkInActive" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="android:textColor">@color/colorInActive</item>
+    </style>
+
+    <style name="TextViewDarkInActiveLarge" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">@color/colorInActive</item>
+    </style>
+
+    <style name="TextViewOrangeSmall" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_8</item>
+        <item name="android:textColor">?colorAccent</item>
+    </style>
+
+    <style name="TextViewOrange" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="android:textColor">?colorAccent</item>
+    </style>
+
+    <style name="TextViewOrangeLarge" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">?colorAccent</item>
+    </style>
+
+    <style name="TextViewOrangeXL" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">?colorAccent</item>
+    </style>
+
+    <style name="TextViewLightOrange" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="android:textColor">?colorAccent</item>
+    </style>
+
+    <style name="TextViewLightOrangeLarge" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">@color/colorLightAccent</item>
+    </style>
+
+    <style name="TextViewLightOrangeXL" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/colorLightAccent</item>
+    </style>
+
+    <style name="TextViewHeaderFormOrange" parent="TextViewOrange">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewDarkForm" parent="TextViewDark">
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:maxLines">10</item>
+    </style>
+
+    <style name="TextViewOrangeForm" parent="TextViewOrange">
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:maxLines">10</item>
+    </style>
+
+    <style name="TextViewServiceFee" parent="TextViewDark">
+        <item name="android:background">@drawable/bg_textview_orange_borderless</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingLeft">@dimen/grid_3_half</item>
+        <item name="android:paddingRight">@dimen/grid_3_half</item>
+    </style>
+
+    <style name="TextViewDarkHeaderDetail" parent="TextViewDarkForm">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewOrangeHeaderDetail" parent="TextViewOrangeForm">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RecyclerViewLight" parent="MatchParent">
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+        <item name="android:layoutAnimation">@anim/anim_layout_animation_fall_down</item>
+        <item name="android:overScrollMode">never</item>
+    </style>
+
+    <style name="RecyclerViewWithoutAnimationLight" parent="MatchParent">
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+        <item name="android:overScrollMode">never</item>
+    </style>
+
+    <style name="RecyclerViewLight.Tutorial">
+        <item name="layoutManager">androidx.recyclerview.widget.LinearLayoutManager</item>
+        <item name="android:layoutAnimation">@anim/anim_layout_animation_fall_down</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:background">@drawable/bg_content_background</item>
+    </style>
+
+    <style name="BorderHorizontal">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/border_half</item>
+    </style>
+
+    <style name="BorderVertical">
+        <item name="android:layout_width">@dimen/border_half</item>
+        <item name="android:layout_height">@dimen/match_constraint</item>
+    </style>
+
+    <style name="TextHeaderOrange" parent="TextViewLightOrange">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_28</item>
+    </style>
+
+    <style name="TextHeaderLight" parent="TextViewTheme">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_28</item>
+        <item name="android:textColor">?colorHighlight</item>
+    </style>
+
+    <style name="TextHeaderDark" parent="TextViewDark">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_26</item>
+    </style>
+
+    <style name="SearchBarProgressBar">
+        <item name="android:layout_width">@dimen/image_view_icon_size</item>
+        <item name="android:layout_height">@dimen/image_view_icon_size</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:layout_margin">@dimen/content_spacing_half</item>
+    </style>
+
+    <style name="AppCompatEditText" parent="MatchWrapParent">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:maxLength">50</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ems">10</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="AppCompatEditTextDark" parent="AppCompatEditText">
+        <item name="android:backgroundTint" tools:targetApi="lollipop">@color/colorInfo</item>
+        <item name="android:textColorHint">@color/colorInfo</item>
+        <item name="android:textColor">@color/colorInfo</item>
+    </style>
+
+    <style name="AppCompatEditTextDark.SME">
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="PinCodeEditText" parent="AppCompatEditText">
+        <item name="android:layout_width">@dimen/edit_text_pincode_size</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:longClickable">false</item>
+        <item name="android:background">@drawable/bg_edittext_underline_normal</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:textSize">@dimen/text_44</item>
+        <item name="android:inputType">number</item>
+        <item name="android:gravity">center</item>
+        <item name="android:theme">@style/EditTextTheme</item>
+        <item name="android:backgroundTint" tools:targetApi="lollipop">?colorHighlight</item>
+        <item name="android:textColorHint">?colorHighlight</item>
+        <item name="android:textColor">?colorHighlight</item>
+    </style>
+
+    <style name="PinCodeEditText.Dark">
+        <item name="android:theme">@style/EditTextDarkAccent</item>
+    </style>
+
+    <style name="EditTextTheme">
+        <item name="colorControlActivated">?colorHighlight</item>
+        <item name="colorControlHighlight">?colorHighlight</item>
+    </style>
+
+    <style name="EditTextDarkAccent">
+        <item name="colorControlActivated">@color/colorInfo</item>
+        <item name="colorControlHighlight">@color/colorInfo</item>
+    </style>
+
+    <style name="EditTextTransparentAccent">
+        <item name="colorControlActivated">@color/colorTransparent</item>
+        <item name="colorControlHighlight">@color/colorTransparent</item>
+    </style>
+
+    <style name="TextInputEditTextAccent">
+        <item name="colorControlActivated">@color/colorLightAccent</item>
+        <item name="colorControlHighlight">@color/colorLightAccent</item>
+        <item name="colorControlNormal">?colorText</item>
+    </style>
+
+    <style name="RoundedButtonOrangeSmall" parent="MatchConstraint">
+        <item name="android:background">@drawable/bg_gradient_orange</item>
+        <item name="android:layout_height">@dimen/button_normal_size</item>
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="android:textColor">@color/colorWhiteDirty</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="rippleColor">@color/colorRippleHover</item>
+    </style>
+
+    <style name="RoundedButtonOrange" parent="RoundedButtonOrangeSmall">
+        <item name="android:layout_height">@dimen/button_normal_size</item>
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
+    <style name="RoundedButtonLightOverlay">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/button_normal_size</item>
+        <item name="backgroundTint">@color/colorWhiteDirty</item>
+        <item name="cornerRadius">@dimen/button_radius</item>
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">@color/colorButtonGray</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+    </style>
+
+    <style name="BorderedButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/button_small_size</item>
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="cornerRadius">@dimen/button_radius</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="rippleColor">@color/colorRippleHover</item>
+    </style>
+
+    <style name="RoundedButtonGrayTransparent" parent="BorderedButton">
+        <item name="android:textColor">@color/colorButtonGray</item>
+        <item name="strokeColor">@color/colorButtonGray</item>
+    </style>
+
+    <style name="RoundedButtonRedTransparent" parent="BorderedButton">
+        <item name="android:textColor">@color/colorDanger</item>
+        <item name="strokeColor">@color/colorDanger</item>
+    </style>
+
+    <style name="RoundedButtonOrangeTransparent" parent="BorderedButton">
+        <item name="android:textColor">?colorAccentApp</item>
+        <item name="strokeColor">?colorAccentApp</item>
+    </style>
+
+    <style name="RoundedButtonBorderedLightOverLay" parent="BorderedButton">
+        <item name="backgroundTint">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="strokeColor">@color/colorButtonGray</item>
+        <item name="android:textColor">@color/colorButtonGray</item>
+    </style>
+
+    <style name="TutorialOkButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_height">@dimen/button_small_size</item>
+        <item name="android:layout_width">@dimen/button_tutorial_width</item>
+        <item name="android:text">@string/action_ok</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="strokeColor">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="cornerRadius">@dimen/button_tutorial_radius_button</item>
+    </style>
+
+    <style name="TutorialSkipTextView" parent="TextViewTheme">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/content_spacing_half</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/text_8</item>
+        <item name="android:text">@string/title_skip_tutorial</item>
+    </style>
+
+    <style name="ToolbarTransparent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="titleTextColor">@color/colorGray</item>
+        <item name="layout_scrollFlags">scroll|enterAlways|snap</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="contentInsetLeft">@dimen/grid_0</item>
+        <item name="contentInsetStart">@dimen/grid_0</item>
+        <item name="contentInsetStartWithNavigation">@dimen/grid_0</item>
+    </style>
+
+    <style name="ToolbarSME">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="titleTextColor">@color/colorGray</item>
+        <item name="layout_scrollFlags">scroll|enterAlways|snap</item>
+    </style>
+
+    <style name="AppBarLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?toolbarColor</item>
+        <item name="popupTheme">?appBarTheme</item>
+        <item name="android:theme">?appBarTheme</item>
+    </style>
+
+    <style name="AppBarLayoutSME">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="elevation">@dimen/grid_1</item>
+    </style>
+
+    <style name="CardViewLight" parent="MatchWrapParent">
+        <item name="cardCornerRadius">@dimen/card_radius</item>
+    </style>
+
+    <style name="CardViewTransactionDetails" parent="MatchWrapParent">
+        <item name="android:layout_marginLeft">@dimen/content_spacing</item>
+        <item name="android:layout_marginRight">@dimen/content_spacing</item>
+        <item name="android:layout_marginTop">@dimen/content_margin_five_line</item>
+        <item name="android:layout_marginBottom">@dimen/content_margin_five_line</item>
+        <item name="cardCornerRadius">@dimen/card_radius</item>
+        <item name="cardElevation">@dimen/card_content_elevation</item>
+    </style>
+
+    <style name="CardViewItem" parent="MatchWrapParent">
+        <item name="android:layout_marginStart">@dimen/content_spacing</item>
+        <item name="android:layout_marginEnd">@dimen/content_spacing</item>
+        <item name="android:layout_marginTop">@dimen/content_margin_two_line</item>
+        <item name="android:layout_marginBottom">@dimen/content_margin_two_line</item>
+        <item name="cardCornerRadius">@dimen/card_radius_small</item>
+        <item name="cardElevation">@dimen/card_content_elevation</item>
+        <item name="contentPadding">@dimen/content_spacing</item>
+    </style>
+
+    <style name="CardViewEditText" parent="MatchWrapParent">
+        <item name="cardCornerRadius">@dimen/card_radius_edit_text</item>
+        <item name="cardElevation">@dimen/card_elevation_edit_text</item>
+    </style>
+
+    <style name="CircleBadgeOrange">
+        <item name="android:layout_width">@dimen/grid_1</item>
+        <item name="android:layout_height">@dimen/grid_1</item>
+        <item name="srcCompat">@drawable/circle_solid_orange</item>
+    </style>
+
+    <style name="CircleBadgeGray">
+        <item name="android:layout_width">@dimen/grid_1</item>
+        <item name="android:layout_height">@dimen/grid_1</item>
+        <item name="srcCompat">@drawable/circle_gray_badge</item>
+    </style>
+
+    <style name="ImageViewIconSmall">
+        <item name="android:layout_width">@dimen/image_view_icon_small_size</item>
+        <item name="android:layout_height">@dimen/image_view_icon_small_size</item>
+        <item name="android:padding">@dimen/image_view_icon_padding</item>
+    </style>
+
+    <style name="ImageViewIcon">
+        <item name="android:layout_width">@dimen/image_view_icon_size</item>
+        <item name="android:layout_height">@dimen/image_view_icon_size</item>
+        <item name="android:padding">@dimen/image_view_icon_padding</item>
+    </style>
+
+    <style name="ImageViewIconLarge">
+        <item name="android:layout_width">@dimen/image_view_icon_large_size</item>
+        <item name="android:layout_height">@dimen/image_view_icon_large_size</item>
+        <item name="android:padding">@dimen/image_view_icon_padding</item>
+    </style>
+
+    <style name="ImageViewIconXL">
+        <item name="android:layout_width">@dimen/image_view_icon_xl_size</item>
+        <item name="android:layout_height">@dimen/image_view_icon_xl_size</item>
+        <item name="android:padding">@dimen/image_view_icon_padding</item>
+    </style>
+
+    <style name="ImageViewCloseIcon" parent="ImageViewIcon">
+        <item name="android:layout_width">@dimen/image_view_icon_size</item>
+        <item name="android:layout_height">@dimen/image_view_icon_size</item>
+        <item name="srcCompat">@drawable/ic_close_form_gray</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:padding">@dimen/grid_1</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="EditTextSearchView">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/field_height_search</item>
+        <item name="android:background">@drawable/bg_edittext_search</item>
+        <item name="android:paddingLeft">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingRight">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingTop">@dimen/field_padding</item>
+        <item name="android:paddingBottom">@dimen/field_padding</item>
+        <item name="android:drawableStart">@drawable/ic_search_gray</item>
+        <item name="android:drawableLeft">@drawable/ic_search_gray</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+        <item name="android:drawablePadding">@dimen/image_view_icon_padding</item>
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:hint">@string/title_search</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <style name="TextInputLayoutForm" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@drawable/state_edit_text</item>
+        <item name="hintTextColor">@drawable/state_edit_text</item>
+        <item name="hintTextAppearance">@style/TextInputLayoutAppearance</item>
+        <item name="errorTextAppearance">@style/TextInputLayoutErrorAppearance</item>
+        <item name="android:theme">@style/TextInputEditTextAccent</item>
+        <item name="boxStrokeColor">@drawable/state_edit_text</item>
+        <item name="errorIconDrawable">@null</item>
+    </style>
+
+    <style name="TextInputLayoutUnderlineForm" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColorHint">@drawable/state_edit_text</item>
+        <item name="hintTextColor">@drawable/state_edit_text</item>
+        <item name="android:theme">@style/TextInputEditTextAccent</item>
+        <item name="hintTextAppearance">@style/TextInputLayoutAppearance</item>
+        <item name="errorTextAppearance">@style/TextInputLayoutErrorAppearance</item>
+        <item name="boxStrokeColor">@drawable/state_edit_text</item>
+        <item name="errorIconDrawable">@null</item>
+    </style>
+
+    <style name="TextInputEditTextForm" parent="MatchWrapParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingStart">@dimen/content_spacing</item>
+        <item name="android:paddingEnd">@dimen/content_spacing</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/field_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/field_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/field_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/field_radius</item>
+        <item name="android:digits">@string/digits_alpha_numeric_symbols</item>
+        <item name="android:maxLength">@integer/max_length_field_100</item>
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
+    <style name="TextInputEditTextForm.Full">
+        <item name="android:textColor">?colorText</item>
+        <item name="android:background">@color/colorTransparent</item>
+    </style>
+
+    <style name="TextInputLayoutForm.Password">
+        <item name="passwordToggleEnabled">true</item>
+        <item name="passwordToggleTint">@color/colorLightGray</item>
+        <item name="passwordToggleDrawable">@drawable/selector_eye_password</item>
+    </style>
+
+    <style name="TextInputLayoutUnderlineForm.Password">
+        <item name="passwordToggleEnabled">true</item>
+        <item name="passwordToggleTint">?colorText</item>
+        <item name="passwordToggleDrawable">@drawable/selector_eye_password</item>
+    </style>
+
+    <style name="TextInputLayoutForm.Disabled">
+        <item name="android:background">@drawable/bg_edit_text_disabled</item>
+    </style>
+
+    <style name="TextInputEditTextForm.AlphaNumeric">
+        <item name="android:digits">@string/digits_alpha_numeric_symbols</item>
+    </style>
+
+    <style name="TextInputEditTextForm.Selector">
+        <item name="android:drawableEnd">@drawable/ic_arrow_orange_right</item>
+        <item name="android:paddingEnd">@dimen/content_spacing</item>
+        <item name="android:drawableTint" tools:targetApi="m">?colorAccent</item>
+        <item name="android:focusable">false</item>
+        <item name="android:maxLength">@integer/max_length_field_100</item>
+        <item name="android:minHeight">@dimen/field_height</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:maxLines">@integer/max_line</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">textCapSentences|textMultiLine</item>
+    </style>
+
+    <style name="TextInputEditTextForm.DropDownOrange">
+        <item name="android:drawableEnd">@drawable/ic_arrow_light_orange_down</item>
+        <item name="android:drawableTint" tools:targetApi="m">?colorAccent</item>
+        <item name="android:focusable">false</item>
+        <item name="android:minHeight">@dimen/field_height</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:maxLines">@integer/max_line</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">textCapSentences|textMultiLine</item>
+    </style>
+
+    <style name="TextInputEditTextForm.DatePicker" parent="TextInputEditTextForm.DropDownOrange">
+        <item name="android:drawableEnd">@drawable/ic_fund_transfer_calender_orange</item>
+        <item name="android:drawableTint" tools:targetApi="m">?colorAccent</item>
+    </style>
+
+    <style name="TextInputEditTextForm.UploadFile" parent="TextInputEditTextForm.DropDownOrange">
+        <item name="android:drawableEnd">@drawable/ic_plus_orange</item>
+        <item name="android:drawableTint" tools:targetApi="m">?colorAccent</item>
+    </style>
+
+    <style name="TextInputEditTextForm.NotEditable">
+        <item name="android:focusable">false</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:inputType">textCapSentences|textMultiLine</item>
+    </style>
+
+    <style name="TextInputEditTextForm.AccountNumber">
+        <item name="android:inputType">number</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">@integer/max_length_account_number_ubp</item>
+        <item name="android:digits">@string/digits_account_number</item>
+    </style>
+
+    <style name="TextInputEditTextForm.GeneralAccountNumber">
+        <item name="android:inputType">number</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">@integer/max_length_account_number_other_banks</item>
+        <item name="android:digits">@string/digits_account_number</item>
+    </style>
+
+    <style name="SwiftAccountNumber" parent="TextInputEditTextForm">
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">@integer/max_length_account_number_swift_banks</item>
+        <item name="android:digits">@string/digits_alpha_numeric</item>
+    </style>
+
+    <style name="TextInputEditTextForm.Amount">
+        <item name="android:digits">@string/digits_amount</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:maxLength">13</item>
+    </style>
+
+    <style name="TextInputEditTextForm.Remarks">
+        <item name="android:maxLines">@integer/max_line</item>
+        <item name="android:maxLength">@integer/remarks_max_length_field</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textSize">@dimen/text_8</item>
+    </style>
+
+    <style name="TextInputLayoutErrorAppearance">
+        <item name="android:textSize">@dimen/text_8</item>
+    </style>
+
+    <style name="EditTextForm" parent="MatchWrapParent">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/field_height</item>
+        <item name="android:background">@drawable/bg_edittext_form</item>
+        <item name="android:paddingLeft">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingRight">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingTop">@dimen/field_padding</item>
+        <item name="android:paddingBottom">@dimen/field_padding</item>
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">@integer/max_length_field</item>
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
+    <style name="EditTextAlphaNumeric" parent="EditTextForm">
+        <item name="android:digits">@string/digits_alpha_numeric_symbols</item>
+    </style>
+
+    <style name="EditTextAmount" parent="TextInputEditTextForm">
+        <item name="android:digits">0123456789,.</item>
+        <item name="android:layout_height">@dimen/field_height</item>
+        <item name="android:paddingLeft">@dimen/field_content_spacing_small</item>
+        <item name="android:paddingRight">@dimen/field_content_spacing_small</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:maxLength">@integer/max_length_amount</item>
+    </style>
+
+    <style name="ImageViewForms" parent="MatchWrapParent">
+        <item name="android:layout_width">@dimen/grid_6</item>
+        <item name="android:layout_height">@dimen/match_constraint</item>
+        <item name="android:background">@drawable/bg_image_button_form</item>
+        <item name="android:padding">@dimen/image_view_field_padding</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <style name="ImageViewForm" parent="MatchWrapParent">
+        <item name="android:layout_width">@dimen/grid_6</item>
+        <item name="android:layout_height">@dimen/match_constraint</item>
+        <item name="android:padding">@dimen/grid_2</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <style name="ViewTutorial">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/match_constraint</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:padding">@dimen/field_padding</item>
+    </style>
+
+    <style name="ViewTutorial.Fab">
+        <item name="android:layout_width">@dimen/fab_size</item>
+        <item name="android:layout_height">@dimen/fab_size</item>
+    </style>
+
+    <style name="MiniProgressBar">
+        <item name="android:layout_height">@dimen/mini_progress_bar</item>
+        <item name="android:layout_width">@dimen/mini_progress_bar</item>
+    </style>
+
+    <style name="BottomSheetBackground" parent="MatchWrapParent">
+        <item name="android:background">?bottomSheetBackground</item>
+    </style>
+
+    <style name="ImageViewLogo" parent="WrapContent">
+        <item name="srcCompat">?appLogo</item>
+    </style>
+
+    <style name="ImageViewShareHeaderLogo" parent="WrapContent">
+        <item name="srcCompat">?appShareLogo</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="ImageViewBackground" parent="MatchConstraint">
+        <item name="srcCompat">?appBackground</item>
+    </style>
+
+    <style name="ImageViewTheme" parent="WrapContent">
+        <item name="tint">?colorImage</item>
+        <item name="android:padding">@dimen/image_view_icon_padding</item>
+    </style>
+
+    <style name="ImageViewToolbarIcon" parent="WrapContent">
+        <item name="tint">?iconToolbarColor</item>
+        <item name="android:layout_width">@dimen/image_view_icon_large_size</item>
+        <item name="android:layout_height">@dimen/image_view_icon_large_size</item>
+    </style>
+
+    <style name="ImageViewPasswordStrength" parent="WrapContent">
+        <item name="tint">?colorImage</item>
+        <item name="android:layout_width">@dimen/image_view_password_strength_size</item>
+        <item name="android:layout_height">@dimen/image_view_password_strength_size</item>
+    </style>
+
+    <style name="Positive.MaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="backgroundTint">?colorAccent</item>
+        <item name="cornerRadius">@dimen/button_radius</item>
+    </style>
+
+    <style name="Negative.MaterialButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="backgroundTint">@color/colorWhite</item>
+        <item name="cornerRadius">@dimen/button_radius</item>
+    </style>
+
+    <style name="HelpViewButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="android:background">@drawable/bg_gradient_orange</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="colorPrimary">?colorAccent</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="rippleColor">@color/colorRippleHover</item>
+    </style>
+
+    <style name="JumioConfirmationHint">
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:textColor">@color/colorInfo</item>
+    </style>
+
+</resources>

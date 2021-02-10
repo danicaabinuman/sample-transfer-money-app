@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutNotificationLog"
+    style="@style/MatchWrapParent"
+    android:background="@drawable/bg_rectangle_white">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewNotificationLogTitle"
+        style="@style/TextViewDarkLarge"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNotificationLogDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewNotificationLog"
+        app:layout_constraintTop_toTopOf="@+id/viewBorderTop"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewNotificationLogDesc"
+        style="@style/TextViewDarkInActive"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBorderBottom"
+        app:layout_constraintEnd_toStartOf="@+id/textViewNotificationLogCreatedDate"
+        app:layout_constraintStart_toEndOf="@+id/imageViewNotificationLog"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNotificationLogTitle"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewNotificationLogCreatedDate"
+        style="@style/TextViewDarkInActiveSmall"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBorderBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNotificationLogTitle"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <View
+        android:id="@+id/viewBorderTop"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewBorderBottom"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/viewReadStatus"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:background="@color/colorUnreadNotification"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewNotificationLog"
+        android:layout_width="@dimen/image_view_initial_org_size"
+        android:layout_height="@dimen/image_view_initial_org_size"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing_half"
+        android:layout_marginBottom="@dimen/content_spacing_half"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewNotificationLogDesc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewNotificationLogTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

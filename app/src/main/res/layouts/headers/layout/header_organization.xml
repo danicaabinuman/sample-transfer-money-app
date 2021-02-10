@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutHeaderOrg"
+    style="@style/MatchWrapParent"
+    android:background="@color/colorWhite"
+    android:paddingTop="@dimen/content_spacing"
+    android:paddingBottom="@dimen/content_spacing">
+
+    <include
+        android:id="@+id/viewBadgeInitial"
+        layout="@layout/widget_badge_initial"
+        android:layout_width="@dimen/image_view_initial_size"
+        android:layout_height="@dimen/image_view_initial_size"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_spacing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewOrganization"
+        style="@style/TextViewDarkSmall"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/field_content_spacing"
+        android:layout_marginRight="@dimen/field_content_spacing"
+        android:text="@string/title_organization"
+        android:textColor="@color/colorLightGray"
+        app:layout_constraintBottom_toTopOf="@+id/textViewCorporateName"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCollapse"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewBadgeInitial"
+        app:layout_constraintTop_toTopOf="@+id/viewBadgeInitial"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewCorporateName"
+        style="@style/TextViewDarkLarge"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/field_content_spacing"
+        android:layout_marginRight="@dimen/field_content_spacing"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBadgeInitial"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCollapse"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewBadgeInitial"
+        app:layout_constraintTop_toBottomOf="@+id/textViewOrganization"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewCollapse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_spacing"
+        android:padding="@dimen/image_view_icon_padding"
+        android:src="@drawable/ic_arrow_expand"
+        android:tag="close"
+        app:layout_constraintBottom_toBottomOf="@+id/viewBadgeInitial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutOrgDetails"
+        style="@style/MatchWrapParent"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBadgeInitial">
+
+        <View
+            android:id="@+id/view1"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewNameTitle"
+            style="@style/TextViewDarkSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginTop="@dimen/field_content_spacing"
+            android:layout_marginRight="@dimen/content_margin"
+            android:text="@string/title_name"
+            android:textColor="@color/colorLightGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewName"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginRight="@dimen/content_margin"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewNameTitle"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <View
+            android:id="@+id/view2"
+            style="@style/BorderHorizontal"
+            android:layout_marginTop="@dimen/field_content_spacing"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewRoleTitle"
+            style="@style/TextViewDarkSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginTop="@dimen/field_content_spacing"
+            android:layout_marginRight="@dimen/content_margin"
+            android:text="@string/title_role"
+            android:textColor="@color/colorLightGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewRole"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginRight="@dimen/content_margin"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRoleTitle" />
+
+        <View
+            android:id="@+id/view3"
+            style="@style/BorderHorizontal"
+            android:layout_marginTop="@dimen/field_content_spacing"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRole" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewEmailTitle"
+            style="@style/TextViewDarkSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginTop="@dimen/field_content_spacing"
+            android:layout_marginRight="@dimen/content_margin"
+            android:text="@string/title_email"
+            android:textColor="@color/colorLightGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewEmail"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginRight="@dimen/content_margin"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEmailTitle" />
+
+        <View
+            android:id="@+id/view4"
+            style="@style/BorderHorizontal"
+            android:layout_marginTop="@dimen/field_content_spacing"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

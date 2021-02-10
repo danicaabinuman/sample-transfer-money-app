@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/DefaultBackgroundMatchParent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+        <View
+            android:id="@+id/view1"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutFundTransfer"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/field_content_spacing_large"
+            android:paddingBottom="@dimen/field_content_spacing_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view1">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIconFundTransfer"
+                android:layout_width="@dimen/image_view_transaction_icon_size"
+                android:layout_height="@dimen/image_view_transaction_icon_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:padding="@dimen/content_margin_single_line"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewFundTransfer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewFundTransferTitle"
+                app:srcCompat="@drawable/ic_fund_transfer" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewFundTransferTitle"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/title_fund_transfer"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewFundTransfer"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconFundTransfer"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewFundTransfer"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/msg_fund_transfer"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewFundTransfer"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconFundTransfer"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFundTransferTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewFundTransfer"
+                style="@style/WrapContent"
+                android:layout_marginLeft="@dimen/field_content_spacing"
+                android:layout_marginRight="@dimen/field_content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewFundTransfer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewFundTransferTitle"
+                app:srcCompat="@drawable/ic_arrow_orange_right"
+                app:tint="?colorAccent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view2"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFundTransfer" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutBillsPayment"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/field_content_spacing_large"
+            android:paddingBottom="@dimen/field_content_spacing_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIconBillsPayment"
+                android:layout_width="@dimen/image_view_transaction_icon_size"
+                android:layout_height="@dimen/image_view_transaction_icon_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:padding="@dimen/content_margin_single_line"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewBillsPayment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewBillsPaymentTitle"
+                app:srcCompat="@drawable/ic_bills_payment" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBillsPaymentTitle"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/title_bills_payment"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewBillsPayment"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconBillsPayment"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBillsPayment"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/msg_bills_payment"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewBillsPayment"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconBillsPayment"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBillsPaymentTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewBillsPayment"
+                style="@style/WrapContent"
+                android:layout_marginLeft="@dimen/field_content_spacing"
+                android:layout_marginRight="@dimen/field_content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewBillsPayment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewBillsPaymentTitle"
+                app:srcCompat="@drawable/ic_arrow_orange_right"
+                app:tint="?colorAccent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view3"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutBillsPayment" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutCheckDeposit"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/field_content_spacing_large"
+            android:paddingBottom="@dimen/field_content_spacing_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIconCheckDeposit"
+                android:layout_width="@dimen/image_view_transaction_icon_size"
+                android:layout_height="@dimen/image_view_transaction_icon_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewCheckDeposit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewCheckDepositTitle"
+                app:srcCompat="@drawable/ic_check_deposit" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCheckDepositTitle"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/title_check_deposit"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewCheckDeposit"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconCheckDeposit"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCheckDeposit"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/msg_check_deposit"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewCheckDeposit"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconCheckDeposit"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCheckDepositTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewCheckDeposit"
+                style="@style/WrapContent"
+                android:layout_marginLeft="@dimen/field_content_spacing"
+                android:layout_marginRight="@dimen/field_content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewCheckDeposit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewCheckDepositTitle"
+                app:srcCompat="@drawable/ic_arrow_orange_right"
+                app:tint="?colorAccent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view4"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutCheckDeposit" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutBranchVisit"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/field_content_spacing_large"
+            android:paddingBottom="@dimen/field_content_spacing_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view4">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIconBranchVisit"
+                android:layout_width="@dimen/image_view_transaction_icon_size"
+                android:layout_height="@dimen/image_view_transaction_icon_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewBranchVisit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewBranchVisitTitle"
+                app:srcCompat="@drawable/ic_branch_visit" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBranchVisitTitle"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/title_branch_visit"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewBranchVisit"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconBranchVisit"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBranchVisit"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/msg_branch_visit"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewBranchVisit"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconBranchVisit"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBranchVisitTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewBranchVisit"
+                style="@style/WrapContent"
+                android:layout_marginLeft="@dimen/field_content_spacing"
+                android:layout_marginRight="@dimen/field_content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewBranchVisit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewBranchVisitTitle"
+                app:srcCompat="@drawable/ic_arrow_orange_right"
+                app:tint="?colorAccent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view5"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutBranchVisit" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutElectronicBilling"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/field_content_spacing_large"
+            android:paddingBottom="@dimen/field_content_spacing_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view5">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIconElectronicBilling"
+                android:layout_width="@dimen/image_view_transaction_icon_size"
+                android:layout_height="@dimen/image_view_transaction_icon_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewElectronicBilling"
+                app:layout_constraintStart_toStartOf="parent"
+                android:padding="@dimen/image_view_icon_padding"
+                app:layout_constraintTop_toTopOf="@+id/textViewElectronicBillingTitle"
+                app:srcCompat="@drawable/ic_electronic_billing" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewElectronicBillingTitle"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/title_electronic_billing"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewElectronicBilling"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconElectronicBilling"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewElectronicBilling"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/msg_electronic_billing"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewElectronicBilling"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconElectronicBilling"
+                app:layout_constraintTop_toBottomOf="@+id/textViewElectronicBillingTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewElectronicBilling"
+                style="@style/WrapContent"
+                android:layout_marginLeft="@dimen/field_content_spacing"
+                android:layout_marginRight="@dimen/field_content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewElectronicBilling"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewElectronicBillingTitle"
+                app:srcCompat="@drawable/ic_arrow_orange_right"
+                app:tint="?colorAccent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view6"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutElectronicBilling" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -1,0 +1,52 @@
+package com.unionbankph.corporate.app.common.platform.bus.event
+
+import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEventBus
+
+class ActionSyncEvent : BaseEventBus<String>() {
+
+    companion object {
+        const val ACTION_UPDATE_ORGANIZATION_TRANSFER = "update_organization_transfer"
+        const val ACTION_UPDATE_ORGANIZATION_PAYMENT = "update_organization_payment"
+        const val ACTION_UPDATE_APPROVAL_ONGOING_LIST = "update_approval_ongoing_list"
+        const val ACTION_UPDATE_APPROVAL_DONE_LIST = "update_approval_done_list"
+        const val ACTION_UPDATE_TRANSACTION_LIST = "update_transaction_list"
+        const val ACTION_UPDATE_CHECK_DEPOSIT_LIST = "update_check_deposit_list"
+        const val ACTION_UPDATE_BENEFICIARY_LIST = "update_beneficiary_list"
+        const val ACTION_UPDATE_BENEFICIARY_DETAIL = "update_beneficiary_detail"
+        const val ACTION_UPDATE_FREQUENT_BILLER_LIST = "update_frequent_biller_list"
+        const val ACTION_UPDATE_FREQUENT_BILLER_DETAIL = "update_frequent_biller_detail"
+        const val ACTION_DELETE_BENEFICIARY = "delete_beneficiary"
+        const val ACTION_DELETE_FREQUENT_BILLER = "delete_frequent_biller"
+        const val ACTION_UPDATE_SCHEDULED_TRANSFER_LIST = "update_scheduled_transfer"
+        const val ACTION_UPDATE_AUTH_MIGRATION = "update_auth_migration"
+        const val ACTION_UPDATE_AUTH_MIGRATION_MERGE = "update_auth_migration_merge"
+        const val ACTION_UPDATE_EMAIL_MIGRATION = "update_email_migration"
+        const val ACTION_UPDATE_VERIFY_RESULT_MIGRATION = "update_verify_result_migration"
+        const val ACTION_UPDATE_VERIFY_RESULT_ECRED_MIGRATION = "update_verify_result_ecred_migration"
+        const val ACTION_UPDATE_MANAGE_DEVICES = "update_manage_devices"
+        const val ACTION_REFRESH_MIGRATION_FORM_SCREEN = "refresh_migration_form_screen"
+        const val ACTION_UPDATE_OTP_SETTINGS = "update_otp_settings"
+        const val ACTION_UPDATE_RECEIVE_OTP = "update_receive_otp"
+        const val ACTION_UPDATE_NOTIFICATION_LOG_ITEM = "update_notification_log_item"
+        const val ACTION_NAVIGATE_ALERTS_TAB = "navigate_alerts_tab"
+        const val ACTION_NAVIGATE_NOTIFICATION_LOG_DETAIL = "navigate_notification_log_detail"
+        const val ACTION_LOAD_APPROVAL_ONGOING_LIST = "load_approval_ongoing_list"
+        const val ACTION_LOAD_APPROVAL_DONE_LIST = "load_approval_done_list"
+        const val ACTION_LOAD_NOTIFICATION_LOG_LIST = "load_notification_log_list"
+        const val ACTION_UPDATE_MARK_ALL_AS_READ_ICON = "update_mark_all_as_read_icon"
+        const val ACTION_UPDATE_RETAKE_PHOTO = "update_retake_photo"
+        const val ACTION_UPDATE_CHECK_DEPOSIT_PHOTO = "update_check_deposit_photo"
+        const val ACTION_CANCEL_MULTIPLE_SELECTION_APPROVAL = "cancel_multiple_selection_approval"
+        const val ACTION_UPDATE_BRANCH_TRANSACTION_LIST = "update_branch_transaction_list"
+        const val ACTION_UPDATE_BRANCH_VISIT_LIST = "update_branch_visit_list"
+        const val ACTION_APPLY_FILTER_FUND_TRANSFER = "apply_filter_fund_transfer"
+        const val ACTION_APPLY_FILTER_BILLS_PAYMENT = "apply_filter_bills_payment"
+        const val ACTION_APPLY_FILTER_CHECK_DEPOSIT = "apply_filter_check_deposit"
+        const val ACTION_CLEAR_FILTER = "clear_filter"
+        const val ACTION_RESET_LIST_UI = "reset_list_ui"
+        const val ACTION_AGREE_PRIVACY_POLICY = "agree_privacy_policy"
+        const val ACTION_SIGNATURE_USE_THIS = "signature_use_this"
+        const val ACTION_SIGNATURE_USE_THIS_SKIP = "signature_use_this_skip"
+        const val ACTION_PLOT_SIGNATORY_DETAILS = "plot_signatory_details"
+    }
+}

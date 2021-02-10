@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <ScrollView
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchWrapParent"
+            android:paddingBottom="@dimen/content_spacing_large">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.95"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_original_application"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:gravity="start"
+                android:text="@string/title_original_application"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/view_original_application"
+                layout="@layout/widget_edit_text_upload_file"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_original_application"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_certificate_of_dti"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:gravity="start"
+                android:text="@string/title_certificate_of_dti"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@+id/view_original_application" />
+
+            <include
+                android:id="@+id/view_certification_of_dti"
+                layout="@layout/widget_edit_text_upload_file"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_certificate_of_dti"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_mayors_permit"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:gravity="start"
+                android:text="@string/title_mayors_permit"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@+id/view_certification_of_dti" />
+
+            <include
+                android:id="@+id/view_mayors_permit"
+                layout="@layout/widget_edit_text_upload_file"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_mayors_permit"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

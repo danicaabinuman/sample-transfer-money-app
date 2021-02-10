@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayout"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewLogo"
+        style="@style/ImageViewLogo"
+        android:layout_marginLeft="@dimen/content_group_spacing"
+        android:layout_marginRight="@dimen/content_group_spacing"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextViewThemeLarge"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_margin"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_margin"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/text_view_spacing"
+        android:padding="@dimen/text_view_padding"
+        android:text="@string/title_migration_selection"
+        android:textSize="@dimen/text_24"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDesc"
+        style="@style/TextViewTheme"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_margin"
+        android:layout_marginRight="@dimen/content_margin"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/text_view_spacing"
+        android:padding="@dimen/text_view_padding"
+        android:text="@string/desc_migration_selection"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayoutEBanking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutEBanking"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing_large"
+        android:background="?attr/selectableItemBackground"
+        android:paddingTop="@dimen/content_spacing_small"
+        android:paddingBottom="@dimen/content_spacing_small"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayoutECrediting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDesc">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewEBankingTitle"
+            style="@style/TextViewThemeXL"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:gravity="start"
+            android:text="@string/title_corporate_e_banking"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCorporateEBankingDesc"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewEBanking"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewCorporateEBankingDesc"
+            style="@style/TextViewTheme"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:gravity="start"
+            android:text="@string/desc_e_banking"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewEBanking"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEBankingTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewEBanking"
+            android:layout_width="@dimen/image_view_card_selection_width"
+            android:layout_height="@dimen/image_view_card_selection_height"
+            android:layout_marginEnd="@dimen/content_spacing_large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_corporate_ebanking" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutECrediting"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing_small"
+        android:layout_marginBottom="@dimen/content_spacing_large"
+        android:background="?attr/selectableItemBackground"
+        android:paddingTop="@dimen/content_spacing_small"
+        android:paddingBottom="@dimen/content_spacing_small"
+        app:layout_constraintBottom_toTopOf="@+id/textViewMigration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutEBanking">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewECreditingTitle"
+            style="@style/TextViewThemeXL"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:gravity="start"
+            android:text="@string/title_e_crediting"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCorporateECreditingDesc"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewECrediting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewCorporateECreditingDesc"
+            style="@style/TextViewTheme"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:gravity="start"
+            android:text="@string/desc_e_crediting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewECrediting"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewECreditingTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewECrediting"
+            android:layout_width="@dimen/image_view_card_selection_width"
+            android:layout_height="@dimen/image_view_card_selection_height"
+            android:layout_marginEnd="@dimen/content_spacing_large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_ecrediting" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewMigration"
+        style="@style/TextViewTheme"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/text_view_spacing"
+        android:padding="@dimen/text_view_padding"
+        android:text="@string/desc_migration_back_to_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

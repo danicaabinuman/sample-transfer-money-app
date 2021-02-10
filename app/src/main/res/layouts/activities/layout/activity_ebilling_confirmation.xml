@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/sv_parent"
+        style="@style/DefaultBackgroundMatchConstraint"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchParent"
+            android:paddingTop="@dimen/content_spacing"
+            android:paddingBottom="@dimen/content_spacing">
+
+            <View
+                android:id="@+id/viewHeader"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:background="@drawable/bg_rectangle_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewHeader"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewHeader"
+                android:layout_width="@dimen/grid_5"
+                android:layout_height="@dimen/grid_5"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewHeader"
+                app:layout_constraintStart_toStartOf="@+id/viewHeader"
+                app:layout_constraintTop_toTopOf="@+id/textViewHeader"
+                app:srcCompat="@drawable/ic_fund_transfer_search_gray" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeader"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:layout_marginLeft="@dimen/content_spacing_half"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                android:layout_marginRight="@dimen/content_spacing_half"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:maxLines="2"
+                android:text="@string/msg_transaction_confirmation"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/viewHeader"
+                app:layout_constraintEnd_toEndOf="@+id/viewHeader"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewHeader"
+                app:layout_constraintTop_toTopOf="@+id/viewHeader" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_deposit_to_title"
+                style="@style/TextViewDarkForm"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:text="@string/title_deposit_to"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tv_deposit_to"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_deposit_to" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_deposit_to"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_group_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:maxLines="20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_deposit_to_title"
+                app:layout_constraintTop_toBottomOf="@+id/viewHeader"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/view_border_deposit_to"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_deposit_to" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_amount_title"
+                style="@style/TextViewDarkForm"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:text="@string/title_amount"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tv_amount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_amount" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_amount"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:maxLines="20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_amount_title"
+                app:layout_constraintTop_toBottomOf="@+id/view_border_deposit_to"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/view_border_amount"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_amount" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_channel_title"
+                style="@style/TextViewDarkForm"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:text="@string/title_channel"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tv_channel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_channel" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_channel"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:text="@string/title_electronic_billing"
+                android:maxLines="20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_channel_title"
+                app:layout_constraintTop_toBottomOf="@+id/view_border_amount"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/view_border_channel"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_channel" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_reminders_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:text="@string/title_desc_reminders"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_border_channel" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_reminders"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                android:maxLines="50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_reminders_title" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_edit"
+                style="@style/RoundedButtonGrayTransparent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/action_edit"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_generate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_reminders" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_generate"
+                style="@style/RoundedButtonOrangeSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/action_generate"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_edit"
+                app:layout_constraintTop_toBottomOf="@+id/tv_reminders" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

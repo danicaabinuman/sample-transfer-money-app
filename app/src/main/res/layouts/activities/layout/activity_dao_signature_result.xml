@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_layout"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.otaliastudios.zoom.ZoomImageView
+        android:id="@+id/iv_preview"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:transitionName="@string/image_animation_tag"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUseThis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar"
+        app:minZoom="1.0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonUseThis"
+        style="@style/RoundedButtonOrange"
+        android:layout_marginStart="@dimen/content_margin"
+        android:layout_marginEnd="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_spacing_half"
+        android:text="@string/action_use_this"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRetake"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonRetake"
+        style="@style/RoundedButtonLightOverlay"
+        android:layout_marginStart="@dimen/content_margin"
+        android:layout_marginEnd="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_group_spacing"
+        android:text="@string/action_retake"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

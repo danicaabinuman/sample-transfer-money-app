@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        style="@style/MatchWrapParent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchParent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewEmailTakenVerifyTitle"
+                style="@style/TextHeaderLight"
+                android:layout_marginLeft="@dimen/content_margin"
+                android:layout_marginTop="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_margin"
+                android:text="@string/title_email_address_taken_verify"
+                app:layout_constraintBottom_toTopOf="@+id/textViewEmailTakenVerifyDesc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewEmailTakenVerifyDesc"
+                style="@style/TextViewThemeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_margin"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_margin"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                app:layout_constraintBottom_toTopOf="@+id/textInputLayoutPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEmailTakenVerifyTitle"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutPassword"
+                style="@style/TextInputLayoutUnderlineForm.Password"
+                android:layout_marginLeft="@dimen/content_margin"
+                android:layout_marginTop="@dimen/button_content_spacing_large"
+                android:layout_marginRight="@dimen/content_margin"
+                android:hint="@string/hint_password"
+                app:layout_constraintBottom_toTopOf="@+id/buttonContinue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEmailTakenVerifyDesc"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    style="@style/TextInputEditTextForm"
+                    android:digits="@string/digits_with_restriction"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonContinue"
+                style="@style/RoundedButtonOrange"
+                android:layout_marginLeft="@dimen/button_content_margin"
+                android:layout_marginTop="@dimen/button_content_spacing_large"
+                android:layout_marginRight="@dimen/button_content_margin"
+                android:enabled="false"
+                android:alpha="0.5"
+                android:text="@string/action_continue"
+                android:textColor="@color/colorWhite50"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPassword"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonBack"
+                style="@style/RoundedButtonLightOverlay"
+                android:layout_marginLeft="@dimen/button_content_margin"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:layout_marginRight="@dimen/button_content_margin"
+                android:layout_marginBottom="@dimen/content_group_spacing"
+                android:text="@string/action_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonContinue"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

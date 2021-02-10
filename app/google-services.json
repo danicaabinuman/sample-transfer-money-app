@@ -1,0 +1,551 @@
+{
+  "project_info": {
+    "project_number": "629789313729",
+    "firebase_url": "https://autobahn-216703.firebaseio.com",
+    "project_id": "autobahn-216703",
+    "storage_bucket": "autobahn-216703.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:2b39f563d5507422",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:27c7007f407c9276",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:7bc574a65c2d7d4d",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:5be77f5d6a8eff50",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.preproduction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:711c88d6041afd28",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.qat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:7e18795f0b2b93c4b52240",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.qat2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:d87e7f83f20851d5b52240",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.qat3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:e31efa1aa6dd5bc4b52240",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.sme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:b145e31311bf2643b52240",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.sme.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:c6b998f08552d4e6b52240",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.sme.preproduction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:ba8297f66514910db52240",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.sme.qat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:811dbc9a8b4ea529b52240",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.sme.qat2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:9a179da5749265c5b52240",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.sme.qat3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:e161abd8c2c53075b52240",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.sme.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629789313729:android:8d2352c04bc207c7",
+        "android_client_info": {
+          "package_name": "com.unionbankph.corporate.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRi-m8QSAqNS7n-ppQdLUlckoc1DEhvn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629789313729-d62sg97up0avepus3rfvhlpt71euph30.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "629789313729-q6g2u32sp1ei3gqm06lkt1r35hupiqvm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.unionbankph.corporate.enterprise-qat3-sme"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

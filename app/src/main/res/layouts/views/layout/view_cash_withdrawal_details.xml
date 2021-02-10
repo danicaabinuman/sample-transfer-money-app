@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewHeaderCashWithdrawal"
+        style="@style/TextViewOrangeHeaderDetail"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing_large"
+        android:layout_marginLeft="@dimen/content_spacing_large"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:text="@string/title_transaction_details"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cardViewCashWithdrawal"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCashWithdrawal"
+        style="@style/CardViewLight"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_content_spacing"
+        app:contentPaddingBottom="@dimen/card_content_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeaderCashWithdrawal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_transaction_date_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/title_transaction_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_transaction_date"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_cash_transaction_date_title"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_transaction_date"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cash_transaction_date" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_branch_name_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/title_branch_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_transaction_date" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_branch_name"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_cash_branch_name_title"
+                app:layout_constraintTop_toTopOf="@+id/view_transaction_date" />
+
+            <View
+                android:id="@+id/view_cash_branch_name"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cash_branch_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_branch_address_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/title_branch_address"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_cash_branch_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_branch_address"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_cash_branch_address_title"
+                app:layout_constraintTop_toTopOf="@+id/view_cash_branch_name" />
+
+            <View
+                android:id="@+id/view_cash_branch_address"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cash_branch_address" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_amount_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/title_amount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_cash_branch_address" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_amount"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_cash_amount_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_cash_amount_title" />
+
+            <View
+                android:id="@+id/view_cash_amount"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cash_amount" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_service_fee_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/title_service_fee"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_cash_amount" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_discount_service_fee"
+                style="@style/TextViewDarkInActive"
+                android:layout_marginEnd="@dimen/content_spacing_small"
+                android:gravity="start"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_cash_service_fee"
+                app:layout_constraintEnd_toStartOf="@+id/tv_cash_service_fee"
+                app:layout_constraintTop_toTopOf="@+id/tv_cash_service_fee" />
+
+            <View
+                android:id="@+id/view_cash_discount_service_fee"
+                style="@style/BorderHorizontal"
+                android:background="@color/colorInActive"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_cash_discount_service_fee"
+                app:layout_constraintEnd_toEndOf="@+id/tv_cash_discount_service_fee"
+                app:layout_constraintStart_toStartOf="@+id/tv_cash_discount_service_fee"
+                app:layout_constraintTop_toTopOf="@+id/tv_cash_discount_service_fee" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_service_fee"
+                style="@style/TextViewServiceFee"
+                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/content_spacing"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_service_fee_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintTop_toTopOf="@+id/tv_service_fee_title" />
+
+            <View
+                android:id="@+id/view_cash_service_fee"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cash_service_fee" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_representative_name_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/title_representative_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_cash_service_fee" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_representative_name"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_cash_representative_name_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_cash_representative_name_title" />
+
+            <View
+                android:id="@+id/view_cash_representative_name"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cash_representative_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_channel_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/title_channel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_cash_representative_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_channel"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_cash_channel_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_cash_channel_title" />
+
+            <View
+                android:id="@+id/view_cash_channel"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cash_channel" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_reference_number_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/title_branch_reference_number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_cash_channel" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_cash_reference_number"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tv_cash_reference_number_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_cash_reference_number_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            style="@style/MatchParent">
+
+            <include
+                android:id="@+id/viewHeader"
+                layout="@layout/header_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <View
+                android:id="@+id/viewHierarchy"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/constraint_approval_hierarchy_min_size"
+                app:layout_constraintTop_toBottomOf="@+id/viewHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewState"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing_large"
+                android:layout_marginRight="@dimen/content_spacing_large"
+                android:gravity="center"
+                android:text="@string/msg_no_approval_hierarchy"
+                android:textColor="@color/colorUnSeenStatus"
+                app:layout_constraintBottom_toBottomOf="@+id/viewHierarchy"
+                app:layout_constraintEnd_toEndOf="@+id/viewHierarchy"
+                app:layout_constraintStart_toStartOf="@+id/viewHierarchy"
+                app:layout_constraintTop_toTopOf="@+id/viewHierarchy" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewDetails"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_content_spacing"
+                app:contentPaddingBottom="@dimen/card_content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewHierarchy">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewStatusTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_status"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewStatus"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewStatusTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewStatusTitle" />
+
+                    <View
+                        android:id="@+id/viewBorderStatus"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewStatus" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewRemarksTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_remarks"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewRemarks"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textViewRemarks" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewRemarks"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewRemarksTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderStatus" />
+
+                    <View
+                        android:id="@+id/viewBorderRemarks"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewRemarks" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCreatedByTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_created_by"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewCreatedBy"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textViewCreatedBy" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCreatedBy"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewCreatedByTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderRemarks" />
+
+                    <View
+                        android:id="@+id/viewBorderCreatedBy"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedBy" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCreatedDateTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_created_date"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewCreatedDate"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textViewCreatedDate" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCreatedDate"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewCreatedDateTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderCreatedBy" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeaderDepositTo"
+                style="@style/TextViewOrangeHeaderDetail"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_large"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/title_deposit_to"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewDetails" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewDepositTo"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderDepositTo">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAccountTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_account_number"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAccount"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:layout_marginBottom="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewAccountTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewAccountTitle" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeaderBranchVisitDetails"
+                style="@style/TextViewOrangeHeaderDetail"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_large"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/title_deposit_details"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewDepositTo" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewBranchVisitDetails"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/card_content_spacing"
+                android:paddingBottom="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderBranchVisitDetails">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewTransactionDateTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_transaction_date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewTransactionDate"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewTransactionDateTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewTransactionDateTitle" />
+
+                    <View
+                        android:id="@+id/viewBorderTransactionDate"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTransactionDate" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBranchNameTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_branch_name"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewBranchName"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textViewBranchName" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBranchName"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewBranchNameTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderTransactionDate" />
+
+                    <View
+                        android:id="@+id/viewBorderBranchName"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewBranchName" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBranchAddressTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_branch_address"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewBranchAddress"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textViewBranchAddress" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBranchAddress"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewBranchAddressTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderBranchName" />
+
+                    <View
+                        android:id="@+id/viewBorderBranchAddress"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewBranchAddress" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewTotalDepositAmountTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginStart="@dimen/content_spacing"
+                        android:text="@string/title_total_deposit_amount"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textViewTotalDepositAmount" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewTotalDepositAmount"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewTotalDepositAmountTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderBranchAddress" />
+
+                    <View
+                        android:id="@+id/viewBorderTotalDepositAmount"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewTotalDepositAmount" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewServiceFeeTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_service_fee"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderTotalDepositAmount" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewServiceDiscountFee"
+                        style="@style/TextViewDarkInActive"
+                        android:layout_marginEnd="@dimen/content_spacing_small"
+                        android:gravity="start"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewServiceFee"
+                        app:layout_constraintEnd_toStartOf="@+id/textViewServiceFee"
+                        app:layout_constraintTop_toTopOf="@+id/textViewServiceFee" />
+
+                    <View
+                        android:id="@+id/viewBorderServiceDiscountFee"
+                        style="@style/BorderHorizontal"
+                        android:background="@color/colorInActive"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewServiceDiscountFee"
+                        app:layout_constraintEnd_toEndOf="@+id/textViewServiceDiscountFee"
+                        app:layout_constraintStart_toStartOf="@+id/textViewServiceDiscountFee"
+                        app:layout_constraintTop_toTopOf="@+id/textViewServiceDiscountFee" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewServiceFee"
+                        style="@style/TextViewServiceFee"
+                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewServiceFeeTitle"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintTop_toTopOf="@+id/textViewServiceFeeTitle" />
+
+                    <View
+                        android:id="@+id/viewBorderServiceFee"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewServiceFee" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewChannelTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_channel"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewChannel"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textViewChannel" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewChannel"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewChannelTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderServiceFee" />
+
+                    <View
+                        android:id="@+id/viewBorderChannel"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewChannel" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReferenceNumberTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:text="@string/title_reference_number"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewReferenceNumber"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textViewReferenceNumber" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReferenceNumber"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_margin="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textViewReferenceNumberTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderChannel" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeaderBranchTransactionDetails"
+                style="@style/TextViewOrangeHeaderDetail"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_large"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/title_branch_transaction"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewBranchVisitDetails" />
+
+            <include
+                android:id="@+id/cardViewAll"
+                layout="@layout/widget_view_all_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewHeaderBranchTransactionDetails"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewHeaderBranchTransactionDetails" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewBranchTransaction"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderBranchTransactionDetails">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutBranchTransaction"
+                    style="@style/MatchWrapParent"
+                    android:orientation="vertical" />
+
+            </androidx.cardview.widget.CardView>
+
+            <include
+                android:id="@+id/viewShareButton"
+                layout="@layout/widget_button_share_outline"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewBranchTransaction" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonViewLogs"
+                style="@style/RoundedButtonGrayTransparent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/action_view_logs"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewShareButton" />
+
+            <Space
+                android:id="@+id/spaceBottom"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonViewLogs" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/viewLoadingState"
+        style="@style/WrapContent"
+        layout="@layout/widget_loading_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/DefaultBackgroundMatchParent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/content_spacing"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/viewHeaderTransaction"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/widget_header_transaction_summary"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutHeaderStatus"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_spacing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="@dimen/content_spacing_half"
+        android:background="@drawable/bg_rectangle_yellow"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/viewHeaderTransaction"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewHeader"
+            android:layout_width="@dimen/grid_6"
+            android:layout_height="@dimen/grid_6"
+            android:layout_marginEnd="@dimen/content_spacing_half"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_fund_transfer_clock_yellow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeader"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:maxLines="10"
+                android:text="@string/msg_transaction_confirmation"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewMsg"
+                style="@style/TextViewDark"
+                android:maxLines="10"
+                android:text="@string/msg_fund_transfer_sent_summary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareBankOfCheckTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/title_issuing_bank"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareBankOfCheck"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareBankOfCheck" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareBankOfCheck"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_group_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        android:maxLines="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareBankOfCheckTitle"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutHeaderStatus"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <View
+        android:id="@+id/viewBorderBankOfCheck"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareBankOfCheck" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareCheckAccountNumberTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/hint_check_account_number"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareCheckAccountNumber"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareCheckAccountNumber" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareCheckAccountNumber"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        android:maxLines="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareCheckAccountNumberTitle"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorderBankOfCheck"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <View
+        android:id="@+id/viewBorderCheckAccountNumber"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareCheckAccountNumberTitle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareCheckNumberTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/hint_check_number"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareCheckNumber"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareCheckNumber" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareCheckNumber"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        android:maxLines="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareCheckNumberTitle"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckAccountNumber"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <View
+        android:id="@+id/viewBorderCheckNumber"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareCheckNumber" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareDateOnCheckTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/hint_date_front_of_check"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareDateOnCheck"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareDateOnCheck" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareDateOnCheck"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        android:maxLines="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareDateOnCheckTitle"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckNumber"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <View
+        android:id="@+id/viewBorderDateOnCheck"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareDateOnCheck" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareAmountTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/title_amount"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareAmount"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareAmount" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareAmount"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareAmountTitle"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorderDateOnCheck"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <View
+        android:id="@+id/viewBorderAmount"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareAmount" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareServiceFeeTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:text="@string/title_service_fee"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textViewShareAmountTitle"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textViewShareAmountTitle"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorderAmount" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareServiceFee"
+        style="@style/TextViewServiceFee"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:gravity="start"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewShareServiceFeeTitle"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareServiceFeeTitle"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareServiceFeeTitle"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareServiceDiscountFee"
+        style="@style/TextViewDarkInActive"
+        android:layout_marginStart="@dimen/content_spacing_small"
+        android:gravity="start"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewShareServiceFee"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareServiceFee"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareServiceFee" />
+
+    <View
+        android:id="@+id/viewBorderShareServiceDiscountFee"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorInActive"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewShareServiceDiscountFee"
+        app:layout_constraintEnd_toEndOf="@+id/textViewShareServiceDiscountFee"
+        app:layout_constraintStart_toStartOf="@+id/textViewShareServiceDiscountFee"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareServiceDiscountFee" />
+
+    <View
+        android:id="@+id/viewBorderShareServiceFee"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareServiceFee" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareDepositToTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/title_deposit_to"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareDepositTo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareDepositTo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareDepositTo"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        android:maxLines="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareDepositToTitle"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorderShareServiceFee"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <View
+        android:id="@+id/viewBorderShareDepositTo"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareDepositTo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareRemarksTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/title_remarks"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareRemarks"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareRemarks" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareRemarks"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        android:maxLines="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareRemarksTitle"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorderShareDepositTo"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <View
+        android:id="@+id/viewBorderShareRemarks"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareRemarks" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareReferenceNumberTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/title_reference_number"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareReferenceNumber"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareReferenceNumber" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareReferenceNumber"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        android:maxLines="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareReferenceNumberTitle"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorderShareRemarks"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <View
+        android:id="@+id/viewBorderShareReferenceNumber"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareReferenceNumber" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareCreatedByTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/title_created_by"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareCreatedBy"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareCreatedBy" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareCreatedBy"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareCreatedByTitle"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorderShareReferenceNumber"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareCreatedOnTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/title_created_on"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareCreatedOn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareCreatedOn" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareCreatedOn"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareCreatedOnTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareCreatedBy"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareDateDownloadedTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:text="@string/title_date_downloaded"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShareDateDownloaded"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewShareDateDownloaded" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShareDateDownloaded"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewShareDateDownloadedTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShareCreatedOn"
+        app:layout_constraintWidth_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

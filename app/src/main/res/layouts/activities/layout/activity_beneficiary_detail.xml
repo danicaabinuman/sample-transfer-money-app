@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <ScrollView
+        android:id="@+id/scrollViewBeneficiaryDetail"
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            style="@style/MatchParent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeaderAllowedSourceAccounts"
+                style="@style/TextViewOrangeHeaderDetail"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_large"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/title_allowed_source_accounts"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeaderBeneficiaryDetails"
+                style="@style/TextViewOrangeHeaderDetail"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_large"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/title_beneficiary_details"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewAllowedSourceAccounts" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeaderBankDetails"
+                style="@style/TextViewOrangeHeaderDetail"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_large"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/title_bank_details"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewBeneficiary" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeaderContactDetails"
+                style="@style/TextViewOrangeHeaderDetail"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_large"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/title_beneficiary_contact_details"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewSwiftBankDetails" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewAllowedSourceAccounts"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderAllowedSourceAccounts">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutAllowedSourceAccounts"
+                    style="@style/MatchWrapParent"
+                    android:orientation="vertical" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewBeneficiary"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                app:contentPaddingBottom="@dimen/card_content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderBeneficiaryDetails">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <View
+                        android:id="@+id/viewBorderBeneficiaryName"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewBeneficiaryName" />
+
+                    <View
+                        android:id="@+id/viewBorderBeneficiaryCode"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewBeneficiaryCode" />
+
+                    <View
+                        android:id="@+id/viewBorderBeneficiaryAccountNumber"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewBeneficiaryAccountNumber" />
+
+                    <View
+                        android:id="@+id/viewBorderBeneficiaryAddress"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewBeneficiaryAddress" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBeneficiaryNameTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_beneficiary_name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBeneficiaryName"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewBeneficiaryNameTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewBeneficiaryNameTitle" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBeneficiaryCodeTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_beneficiary_code"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderBeneficiaryName" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBeneficiaryCode"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewBeneficiaryCodeTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewBeneficiaryCodeTitle" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBeneficiaryAccountNumberTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_account_number"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderBeneficiaryCode" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBeneficiaryAccountNumber"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:drawablePadding="@dimen/content_spacing_half"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewBeneficiaryAccountNumberTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewBeneficiaryAccountNumberTitle" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBeneficiaryAddressTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_beneficiary_address"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderBeneficiaryAccountNumber" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBeneficiaryAddress"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewBeneficiaryAddressTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewBeneficiaryAddressTitle" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewChannelTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_channel"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderBeneficiaryAddress" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewChannel"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewChannelTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewChannelTitle" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewReceivingBankDetails"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:visibility="gone"
+                app:contentPaddingBottom="@dimen/card_content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderBankDetails">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReceivingBankTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_receiving_bank"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewReceivingBank"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewReceivingBankTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewReceivingBankTitle" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewSwiftBankDetails"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:visibility="gone"
+                app:contentPaddingBottom="@dimen/card_content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderBankDetails">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <View
+                        android:id="@+id/viewBorderSwiftCode"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewSwiftCode" />
+
+                    <View
+                        android:id="@+id/viewBorderSwiftReceivingBank"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewSwiftReceivingBank" />
+
+                    <View
+                        android:id="@+id/viewBorderSwiftReceivingAddressBank"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewSwiftReceivingAddressBank" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSwiftCodeTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_swift_code"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSwiftCode"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewSwiftCodeTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewSwiftCodeTitle" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSwiftReceivingBankTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_receiving_bank"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderSwiftCode" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSwiftReceivingBank"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewSwiftReceivingBankTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewSwiftReceivingBankTitle" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSwiftReceivingBankAddressTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_receiving_bank_address"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderSwiftReceivingBank" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSwiftReceivingAddressBank"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewSwiftReceivingBankAddressTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewSwiftReceivingBankAddressTitle" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSwiftCountryTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_country"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderSwiftReceivingAddressBank" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewSwiftCountry"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewSwiftCountryTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewSwiftCountryTitle" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewContactDetails"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                app:contentPaddingBottom="@dimen/card_content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderContactDetails">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewEmailAddressTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_email_address"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewEmailAddress"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewEmailAddressTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewEmailAddressTitle" />
+
+                    <View
+                        android:id="@+id/viewBorderMobileNumber"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewEmailAddress" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewMobileNumberTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_mobile_number"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderMobileNumber"
+                        app:layout_constraintWidth_percent="0.3" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewFlag"
+                        android:layout_width="@dimen/image_view_icon_size"
+                        android:layout_height="@dimen/image_view_icon_size"
+                        android:layout_marginStart="@dimen/content_spacing_small"
+                        android:layout_marginEnd="@dimen/content_spacing"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewMobileNumber"
+                        app:layout_constraintEnd_toStartOf="@+id/textViewMobileNumber"
+                        app:layout_constraintTop_toTopOf="@+id/textViewMobileNumber"
+                        app:srcCompat="@drawable/ic_flag_ph" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewMobileNumber"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textViewMobileNumberTitle" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonViewEditLog"
+                style="@style/RoundedButtonGrayTransparent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/action_view_edit_log"
+                android:textSize="@dimen/text_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewContactDetails" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEditDetails"
+                style="@style/RoundedButtonOrangeSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/action_edit_details"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonViewEditLog" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDelete"
+                style="@style/RoundedButtonRedTransparent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/action_delete"
+                android:textColor="@color/colorTextReject"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/buttonEditDetails"
+                app:layout_constraintTop_toBottomOf="@+id/buttonViewEditLog" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/viewLoadingState"
+        style="@style/WrapContent"
+        layout="@layout/widget_loading_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

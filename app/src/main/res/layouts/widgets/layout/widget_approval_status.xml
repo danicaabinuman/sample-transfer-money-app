@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent"
+    android:paddingTop="@dimen/content_spacing_half"
+    android:paddingBottom="@dimen/content_spacing_half">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewYouAreHere"
+        style="@style/CircleBadgeOrange"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewUnSeen"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/circle_status_you_are_here" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewYouAreHere"
+        style="@style/TextViewDark"
+        android:gravity="center_vertical"
+        android:text="@string/title_you_are_here"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewYouAreHere"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@+id/imageViewYouAreHere"
+        app:layout_constraintStart_toStartOf="@+id/textViewUnSeen"
+        app:layout_constraintTop_toTopOf="@+id/imageViewYouAreHere" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewUnSeen"
+        style="@style/CircleBadgeOrange"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        app:layout_constraintEnd_toStartOf="@+id/textViewUnSeen"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewYouAreHere"
+        app:srcCompat="@drawable/circle_status_unseen" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewUnSeen"
+        style="@style/TextViewDark"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/content_item_spacing"
+        android:layout_marginLeft="@dimen/content_item_spacing"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="@string/title_unseen"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewUnSeen"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewPending"
+        app:layout_constraintStart_toEndOf="@+id/imageViewUnSeen"
+        app:layout_constraintTop_toTopOf="@+id/imageViewUnSeen" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewPending"
+        style="@style/CircleBadgeOrange"
+        android:layout_marginTop="@dimen/content_spacing"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPending"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/textViewUnSeen"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewYouAreHere"
+        app:srcCompat="@drawable/circle_status_pending" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewPending"
+        style="@style/TextViewDark"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/content_item_spacing"
+        android:layout_marginLeft="@dimen/content_item_spacing"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="@string/title_pending"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPending"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewApproved"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPending"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPending" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewApproved"
+        style="@style/CircleBadgeOrange"
+        android:layout_marginTop="@dimen/content_spacing"
+        app:layout_constraintEnd_toStartOf="@+id/textViewApproved"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/textViewPending"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewYouAreHere"
+        app:srcCompat="@drawable/circle_status_approved" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewApproved"
+        style="@style/TextViewDark"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/content_item_spacing"
+        android:layout_marginLeft="@dimen/content_item_spacing"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="@string/title_approved"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewApproved"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewRejected"
+        app:layout_constraintStart_toEndOf="@+id/imageViewApproved"
+        app:layout_constraintTop_toTopOf="@+id/imageViewApproved" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewRejected"
+        style="@style/CircleBadgeOrange"
+        android:layout_marginTop="@dimen/content_spacing"
+        app:layout_constraintEnd_toStartOf="@+id/textViewRejected"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/textViewApproved"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewYouAreHere"
+        app:srcCompat="@drawable/circle_status_rejected" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewRejected"
+        style="@style/TextViewDark"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/content_item_spacing"
+        android:layout_marginLeft="@dimen/content_item_spacing"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:text="@string/title_rejected"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewRejected"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewRejected"
+        app:layout_constraintTop_toTopOf="@+id/imageViewRejected" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

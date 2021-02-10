@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewItem"
+    style="@style/CardViewTransactionDetails">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutItemManageFrequentBiller"
+        style="@style/MatchWrapParent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content_spacing">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewIcon"
+            android:layout_width="@dimen/image_view_transaction_icon_size"
+            android:layout_height="@dimen/image_view_transaction_icon_size"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewCreatedBy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewApprovalRemarks"
+            app:srcCompat="@drawable/ic_frequent_biller" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutFrequentBillerFields"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBiller" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewCreatedBy"
+            style="@style/TextViewDarkSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginLeft="@dimen/content_spacing"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/colorLightGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewIcon"
+            app:layout_constraintTop_toBottomOf="@+id/textViewApprovalRemarks" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBillerTitle"
+            style="@style/TextViewDarkSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:text="@string/title_biller"
+            android:textColor="@color/colorLightGray"
+            app:layout_constraintEnd_toStartOf="@+id/textViewBiller"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreatedBy"
+            app:layout_constraintWidth_default="percent"
+            app:layout_constraintWidth_percent="0.4" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBiller"
+            style="@style/TextViewDarkSingleLine"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing_half"
+            android:layout_marginLeft="@dimen/content_spacing_half"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewBillerTitle"
+            app:layout_constraintTop_toTopOf="@+id/textViewBillerTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewApprovalRemarks"
+            style="@style/TextViewDarkSingleLine"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginLeft="@dimen/content_spacing"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Transfer to BDO"
+            android:textSize="@dimen/text_14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textViewCreatedBy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewDevice"
+    style="@style/CardViewLight"
+    app:contentPadding="@dimen/content_spacing">
+
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewDevice"
+            android:layout_width="@dimen/image_view_device_width_size"
+            android:layout_height="@dimen/image_view_device_height_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_device_android" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDevice"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing"
+            app:layout_constraintBottom_toTopOf="@+id/textViewDeviceUpdate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewDevice"
+            app:layout_constraintTop_toTopOf="@+id/imageViewDevice"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDeviceUpdate"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            android:ellipsize="end"
+            android:textColor="@color/colorLightGray"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDevice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageViewDevice"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDevice"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

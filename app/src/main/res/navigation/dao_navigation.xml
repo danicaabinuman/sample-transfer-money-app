@@ -1,0 +1,929 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainNavigation"
+    app:startDestination="@id/dao_welcome_enter_fragment">
+
+    <fragment
+        android:id="@+id/dao_default_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.home_default.DaoDefaultFragment"
+        android:label="dao_default_fragment"
+        tools:layout="@layout/fragment_dao_default">
+
+        <action
+            android:id="@+id/action_personal_information_step_one"
+            app:destination="@id/dao_personal_information_step_one_fragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_welcome_fragment_enter"
+            app:destination="@id/dao_welcome_enter_fragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_checking_account_type_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.checking_account.DaoCheckingAccountTypeFragment"
+        android:label="dao_checking_account_type_fragment"
+        tools:layout="@layout/fragment_dao_checking_account_type">
+
+        <action
+            android:id="@+id/action_welcome_fragment_enter"
+            app:destination="@id/dao_welcome_enter_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_welcome_fragment"
+            app:destination="@id/dao_welcome_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_privacy_policy_activity"
+            app:destination="@id/privacy_policy_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_right"
+            app:popExitAnim="@anim/anim_exit_to_left"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="page"
+                app:argType="string" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_reminders_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.reminders.DaoRemindersFragment"
+        android:label="dao_reminders_fragment"
+        tools:layout="@layout/fragment_dao_reminders">
+
+        <action
+            android:id="@+id/action_company_information_step_one"
+            app:destination="@id/dao_company_information_step_one_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_welcome_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.welcome.DaoWelcomeFragment"
+        android:label="dao_welcome_fragment"
+        tools:layout="@layout/fragment_dao_welcome">
+
+        <action
+            android:id="@+id/action_type_of_business"
+            app:destination="@id/dao_type_of_business_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_country_activity"
+            app:destination="@id/country_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_welcome_enter_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterFragment"
+        android:label="dao_welcome_enter_fragment"
+        tools:layout="@layout/fragment_dao_welcome_enter">
+
+        <action
+            android:id="@+id/action_personal_information_step_one"
+            app:destination="@id/dao_personal_information_step_one_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_personal_information_step_one_no_animation"
+            app:destination="@id/dao_personal_information_step_one_fragment" />
+
+        <action
+            android:id="@+id/action_privacy_policy_activity"
+            app:destination="@id/privacy_policy_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_right"
+            app:popExitAnim="@anim/anim_exit_to_left"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="page"
+                app:argType="string" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_dao_result_fragment"
+            app:destination="@id/dao_result_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@+id/mainNavigation"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="referenceNumber"
+                app:argType="string" />
+
+            <argument
+                android:name="type"
+                app:argType="string" />
+
+            <argument
+                android:name="organizationName"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranch"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranchEmail"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_type_of_business_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.type_of_business.DaoTypeOfBusinessFragment"
+        android:label="dao_type_of_business_fragment"
+        tools:layout="@layout/fragment_dao_type_of_business">
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_reminders"
+            app:destination="@id/dao_reminders_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_company_information_step_one_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.company_info_1.DaoCompanyInformationStepOneFragment"
+        android:label="dao_company_information_step_one_fragment"
+        tools:layout="@layout/fragment_dao_company_information_step_1">
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_country_activity"
+            app:destination="@id/country_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_company_information_step_two"
+            app:destination="@id/dao_company_information_step_two_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_company_information_step_two_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.company_info_2.DaoCompanyInformationStepTwoFragment"
+        android:label="dao_company_information_step_two_fragment"
+        tools:layout="@layout/fragment_dao_company_information_step_2">
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_preferred_branch"
+            app:destination="@id/dao_preferred_branch_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_preferred_branch_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.preferred_branch.DaoPreferredBranchFragment"
+        android:label="dao_preferred_branch_fragment"
+        tools:layout="@layout/fragment_dao_preferred_branch">
+
+        <action
+            android:id="@+id/action_business_registration_papers"
+            app:destination="@id/dao_business_registration_papers_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_branch_activity"
+            app:destination="@id/branch_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_business_registration_papers_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.business_registration_papers.DaoBusinessRegistrationPapersFragment"
+        android:label="dao_business_registration_papers_fragment"
+        tools:layout="@layout/fragment_business_registration_papers">
+
+        <action
+            android:id="@+id/action_personal_information_step_one"
+            app:destination="@id/dao_personal_information_step_one_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_online_banking_products_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.online_banking_products.DaoOnlineBankingProductsFragment"
+        android:label="dao_online_banking_products_fragment"
+        tools:layout="@layout/fragment_dao_online_banking_products" />
+
+    <fragment
+        android:id="@+id/dao_personal_information_step_one_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.personal_info_1.DaoPersonalInformationStepOneFragment"
+        android:label="dao_personal_information_step_one_fragment"
+        tools:layout="@layout/fragment_dao_personal_information_step_1">
+
+        <action
+            android:id="@+id/action_personal_information_step_two"
+            app:destination="@id/dao_personal_information_step_two_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_country_activity"
+            app:destination="@id/country_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+            <argument
+                android:name="hasSearch"
+                android:defaultValue="false"
+                app:argType="boolean" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_dao_result_fragment"
+            app:destination="@id/dao_result_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@+id/mainNavigation"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="referenceNumber"
+                app:argType="string" />
+
+            <argument
+                android:name="type"
+                app:argType="string" />
+
+            <argument
+                android:name="organizationName"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranch"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranchEmail"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_personal_information_step_two_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.personal_info_2.DaoPersonalInformationStepTwoFragment"
+        android:label="dao_personal_information_step_two_fragment"
+        tools:layout="@layout/fragment_dao_personal_information_step_2">
+
+        <action
+            android:id="@+id/action_personal_information_step_three"
+            app:destination="@id/dao_personal_information_step_three_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+            <argument
+                android:name="hasSearch"
+                android:defaultValue="false"
+                app:argType="boolean" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_dao_result_fragment"
+            app:destination="@id/dao_result_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@+id/mainNavigation"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="referenceNumber"
+                app:argType="string" />
+
+            <argument
+                android:name="type"
+                app:argType="string" />
+
+            <argument
+                android:name="organizationName"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranch"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranchEmail"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_personal_information_step_three_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.personal_info_3.DaoPersonalInformationStepThreeFragment"
+        android:label="dao_personal_information_step_three_fragment"
+        tools:layout="@layout/fragment_dao_personal_information_step_3">
+
+        <action
+            android:id="@+id/action_personal_information_step_four"
+            app:destination="@id/dao_personal_information_step_four_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+            <argument
+                android:name="hasSearch"
+                android:defaultValue="false"
+                app:argType="boolean" />
+
+            <argument
+                android:name="param"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_dao_result_fragment"
+            app:destination="@id/dao_result_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@+id/mainNavigation"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="referenceNumber"
+                app:argType="string" />
+
+            <argument
+                android:name="type"
+                app:argType="string" />
+
+            <argument
+                android:name="organizationName"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranch"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranchEmail"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_personal_information_step_four_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.personal_info_4.DaoPersonalInformationStepFourFragment"
+        android:label="dao_personal_information_step_four_fragment"
+        tools:layout="@layout/fragment_dao_personal_information_step_4">
+
+        <action
+            android:id="@+id/action_jumio_verification_fragment"
+            app:destination="@id/dao_jumio_verification_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+            <argument
+                android:name="hasSearch"
+                android:defaultValue="false"
+                app:argType="boolean" />
+
+            <argument
+                android:name="isPaginated"
+                app:argType="boolean" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_dao_result_fragment"
+            app:destination="@id/dao_result_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@+id/mainNavigation"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="referenceNumber"
+                app:argType="string" />
+
+            <argument
+                android:name="type"
+                app:argType="string" />
+
+            <argument
+                android:name="organizationName"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranch"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranchEmail"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_jumio_verification_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.jumio_verification.DaoJumioVerificationFragment"
+        android:label="dao_jumio_verification_fragment"
+        tools:layout="@layout/fragment_dao_jumio_verification">
+
+        <action
+            android:id="@+id/action_dao_signature_fragment"
+            app:destination="@id/dao_signature_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+
+        <action
+            android:id="@+id/action_dao_result_fragment"
+            app:destination="@id/dao_result_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@+id/mainNavigation"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="referenceNumber"
+                app:argType="string" />
+
+            <argument
+                android:name="type"
+                app:argType="string" />
+
+            <argument
+                android:name="organizationName"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranch"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranchEmail"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_signature_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.signature.DaoSignatureFragment"
+        android:label="dao_signature_fragment"
+        tools:layout="@layout/fragment_dao_signature">
+
+        <action
+            android:id="@+id/action_dao_confirmation_fragment"
+            app:destination="@id/dao_confirmation_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@+id/mainNavigation"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_signature_preview_activity"
+            app:destination="@id/dao_signature_preview_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="path"
+                app:argType="string" />
+
+            <argument
+                android:name="daoForm"
+                app:argType="string" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_dao_result_fragment"
+            app:destination="@id/dao_result_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@+id/mainNavigation"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="referenceNumber"
+                app:argType="string" />
+
+            <argument
+                android:name="type"
+                app:argType="string" />
+
+            <argument
+                android:name="organizationName"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranch"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranchEmail"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_confirmation_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.confirmation.DaoConfirmationFragment"
+        android:label="dao_confirmation_fragment"
+        tools:layout="@layout/fragment_dao_confirmation">
+
+        <action
+            android:id="@+id/action_personal_information_step_one"
+            app:destination="@id/dao_personal_information_step_one_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="isEdit"
+                app:argType="boolean" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_personal_information_step_two"
+            app:destination="@id/dao_personal_information_step_two_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="isEdit"
+                app:argType="boolean" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_personal_information_step_three"
+            app:destination="@id/dao_personal_information_step_three_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="isEdit"
+                app:argType="boolean" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_personal_information_step_four"
+            app:destination="@id/dao_personal_information_step_four_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="isEdit"
+                app:argType="boolean" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_jumio_verification_fragment"
+            app:destination="@id/dao_jumio_verification_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="isEdit"
+                app:argType="boolean" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_dao_signature_fragment"
+            app:destination="@id/dao_signature_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="isEdit"
+                app:argType="boolean" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_dao_result_fragment"
+            app:destination="@id/dao_result_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@+id/mainNavigation"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="referenceNumber"
+                app:argType="string" />
+
+            <argument
+                android:name="type"
+                app:argType="string" />
+
+            <argument
+                android:name="organizationName"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranch"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="preferredBranchEmail"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/dao_result_fragment"
+        android:name="com.unionbankph.corporate.dao.presentation.result.DaoResultFragment"
+        android:label="dao_result_fragment"
+        tools:layout="@layout/fragment_dao_result" />
+
+    <activity
+        android:id="@+id/privacy_policy_activity"
+        android:name="com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity"
+        android:label="privacy_policy_activity"
+        tools:layout="@layout/activity_privacy_policy" />
+
+    <activity
+        android:id="@+id/dao_signature_preview_activity"
+        android:name="com.unionbankph.corporate.dao.presentation.signature_preview.DaoSignaturePreviewActivity"
+        android:label="dao_signature_preview_activity"
+        tools:layout="@layout/activity_dao_signature_result" />
+
+    <activity
+        android:id="@+id/selector_activity"
+        android:name="com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorActivity"
+        android:label="selector_activity"
+        tools:layout="@layout/activity_selector" />
+
+    <activity
+        android:id="@+id/country_activity"
+        android:name="com.unionbankph.corporate.settings.presentation.country.CountryActivity"
+        android:label="country_activity"
+        tools:layout="@layout/activity_countries" />
+
+    <activity
+        android:id="@+id/branch_activity"
+        android:name="com.unionbankph.corporate.branch.presentation.branch.BranchActivity"
+        android:label="branch_activity"
+        tools:layout="@layout/activity_branch" />
+
+</navigation>

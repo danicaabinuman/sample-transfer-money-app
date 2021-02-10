@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:background="@color/colorContentBackground">
+
+    <ScrollView
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchWrapParent"
+            android:paddingBottom="@dimen/content_group_spacing">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.95"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_before_we_proceed"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                style="@style/MatchWrapParent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_reminder_1"
+                    style="@style/ImageViewIconLarge"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_reminder_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_reminder_1"
+                    app:srcCompat="@drawable/ic_outline_check_orange"
+                    app:tint="?colorAccent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_reminder_1"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/desc_dao_reminder_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_reminder_1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_reminder_1_sub_1"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    app:layout_constraintEnd_toStartOf="@id/tv_reminder_1_sub_2"
+                    app:layout_constraintStart_toEndOf="@+id/iv_reminder_1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_reminder_1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_reminder_1_sub_2"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_reminder_1_sub_1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_reminder_1" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_reminder_2"
+                    style="@style/ImageViewIconLarge"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_reminder_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_reminder_2"
+                    app:srcCompat="@drawable/ic_outline_check_orange"
+                    app:tint="?colorAccent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_reminder_2"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/desc_dao_reminder_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_reminder_2"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_reminder_1_sub_2" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_reminder_3"
+                    style="@style/ImageViewIconLarge"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_reminder_3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_reminder_3"
+                    app:srcCompat="@drawable/ic_outline_check_orange"
+                    app:tint="?colorAccent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_reminder_3"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/desc_dao_reminder_3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_reminder_3"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_reminder_2" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_reminder_3_sub"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    android:lineSpacingExtra="@dimen/text_view_spacing"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_reminder_3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_reminder_3" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_reminder_4"
+                    style="@style/ImageViewIconLarge"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_reminder_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_reminder_4"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_reminder_4"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/desc_dao_reminder_4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_reminder_4"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_reminder_3_sub" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_reminder_5"
+                    style="@style/ImageViewIconLarge"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_reminder_5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_reminder_5"
+                    app:srcCompat="@drawable/ic_outline_check_orange" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_reminder_5"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/desc_dao_reminder_5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/iv_reminder_5"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_reminder_4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

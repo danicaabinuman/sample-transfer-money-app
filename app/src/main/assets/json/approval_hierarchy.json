@@ -1,0 +1,1234 @@
+{
+  "id": "a7730489-83f9-42c0-b5a5-6a45bf5d5d26",
+  "channel": "UBP_TO_UBP",
+  "status": "IN_PROGRESS",
+  "approval_hierarchy": {
+    "id": 129527,
+    "name": "Sample Hierarchy",
+    "root": {
+      "id": 129528,
+      "type": "GROUP",
+      "group": {
+        "id": 129521,
+        "group_name": "Group 111",
+        "organization_users": [
+          {
+            "id": 129495,
+            "corporate_user": {
+              "id": "69b476f7-ee60-44db-9ea4-766f845f2c5d",
+              "salutation": null,
+              "email_address": null,
+              "first_name": null,
+              "last_name": null,
+              "country_code": null,
+              "mobile_number": null,
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        ],
+        "schema_id": null
+      },
+      "operator": null,
+      "next_step": {
+        "id": 129530,
+        "type": "OPERATOR",
+        "group": null,
+        "operator": {
+          "id": 129532,
+          "threshold": 3,
+          "children": [
+            {
+              "id": 129533,
+              "type": "GROUP",
+              "group": {
+                "id": 129524,
+                "group_name": "Group 111",
+                "organization_users": [
+                  {
+                    "id": 129068,
+                    "corporate_user": {
+                      "id": "6850887e-c77b-400b-8c33-d66b438f63c6",
+                      "salutation": null,
+                      "email_address": null,
+                      "first_name": null,
+                      "last_name": null,
+                      "country_code": null,
+                      "mobile_number": null,
+                      "activation_id": null,
+                      "pending_email_address": null
+                    }
+                  }
+                ],
+                "schema_id": null
+              },
+              "operator": null,
+              "next_step": null,
+              "number_of_approvers": 1,
+              "node_status": "NOTIFIED"
+            },
+            {
+              "id": 129534,
+              "type": "GROUP",
+              "group": {
+                "id": 129523,
+                "group_name": "Group 111",
+                "organization_users": [
+                  {
+                    "id": 129069,
+                    "corporate_user": {
+                      "id": "9a91cf93-2bee-435a-94d9-cc0f662097b9",
+                      "salutation": null,
+                      "email_address": null,
+                      "first_name": null,
+                      "last_name": null,
+                      "country_code": null,
+                      "mobile_number": null,
+                      "activation_id": null,
+                      "pending_email_address": null
+                    }
+                  }
+                ],
+                "schema_id": null
+              },
+              "operator": null,
+              "next_step": null,
+              "number_of_approvers": 1,
+              "node_status": "NOTIFIED"
+            },
+            {
+              "id": 129535,
+              "type": "GROUP",
+              "group": {
+                "id": 129524,
+                "group_name": "Group 111",
+                "organization_users": [
+                  {
+                    "id": 129069,
+                    "corporate_user": {
+                      "id": "9a91cf93-2bee-435a-94d9-cc0f662097b9",
+                      "salutation": null,
+                      "email_address": null,
+                      "first_name": null,
+                      "last_name": null,
+                      "country_code": null,
+                      "mobile_number": null,
+                      "activation_id": null,
+                      "pending_email_address": null
+                    }
+                  }
+                ],
+                "schema_id": null
+              },
+              "operator": null,
+              "next_step": null,
+              "number_of_approvers": 1,
+              "node_status": "NOTIFIED"
+            }
+          ]
+        },
+        "next_step": null,
+        "number_of_approvers": null,
+        "node_status": "NOTIFIED"
+      },
+      "number_of_approvers": 1,
+      "node_status": "PENDING_NEXT_STEP"
+    },
+    "schema_id": null
+  },
+  "batch_id": 129557,
+  "approval_process_organization_users": [
+    {
+      "id": "6df3f003-4f36-4994-85e3-0d00be2f8e83",
+      "status": "NOTIFIED",
+      "organization_user": {
+        "id": 129067,
+        "corporate_user": {
+          "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+          "salutation": null,
+          "email_address": "ajcangeles@unionbankph.com",
+          "first_name": "Jellorie",
+          "last_name": "Angeles",
+          "country_code": {
+            "id": 175,
+            "name": "Philippines",
+            "code": "PH",
+            "status": 1,
+            "preferred": 1,
+            "calling_code": "63"
+          },
+          "mobile_number": "9192522948",
+          "activation_id": null,
+          "pending_email_address": null
+        }
+      }
+    },
+    {
+      "id": "a14b6e0f-7a06-4a0c-b8a5-d399f1617f66",
+      "status": "NOTIFIED",
+      "organization_user": {
+        "id": 129510,
+        "corporate_user": {
+          "id": "8c4017d8-a39a-48b2-b653-b8d99a8beedd",
+          "salutation": null,
+          "email_address": "amddans@unionbankph.com",
+          "first_name": "Miguel",
+          "last_name": "Dans",
+          "country_code": {
+            "id": 175,
+            "name": "Philippines",
+            "code": "PH",
+            "status": 1,
+            "preferred": 1,
+            "calling_code": "63"
+          },
+          "mobile_number": "9178396447",
+          "activation_id": null,
+          "pending_email_address": null
+        }
+      }
+    },
+    {
+      "id": "abd364fa-965d-4221-a99a-81125fe73126",
+      "status": "NOTIFIED",
+      "organization_user": {
+        "id": 129496,
+        "corporate_user": {
+          "id": "c5e13f88-c986-42d4-bafd-843a4d82a00b",
+          "salutation": null,
+          "email_address": "richardglen.domingo@whitecloak.com",
+          "first_name": "Richard Glen",
+          "last_name": "Domingo",
+          "country_code": {
+            "id": 175,
+            "name": "Philippines",
+            "code": "PH",
+            "status": 1,
+            "preferred": 1,
+            "calling_code": "63"
+          },
+          "mobile_number": "9178610743",
+          "activation_id": null,
+          "pending_email_address": null
+        }
+      }
+    },
+    {
+      "id": "b4692c20-dba0-45cb-81b1-0cdb503163fe",
+      "status": "UNTOUCHED",
+      "organization_user": {
+        "id": 129068,
+        "corporate_user": {
+          "id": "6850887e-c77b-400b-8c33-d66b438f63c6",
+          "salutation": null,
+          "email_address": "glenn.dizon@whitecloak.com",
+          "first_name": "Glenn",
+          "last_name": "Dizon",
+          "country_code": {
+            "id": 175,
+            "name": "Philippines",
+            "code": "PH",
+            "status": 1,
+            "preferred": 1,
+            "calling_code": "63"
+          },
+          "mobile_number": "9753201252",
+          "activation_id": null,
+          "pending_email_address": null
+        }
+      }
+    },
+    {
+      "id": "f036cfff-35d6-4607-b209-7b6e521604e7",
+      "status": "UNTOUCHED",
+      "organization_user": {
+        "id": 129069,
+        "corporate_user": {
+          "id": "9a91cf93-2bee-435a-94d9-cc0f662097b9",
+          "salutation": null,
+          "email_address": "prince.lansang@whitecloak.com",
+          "first_name": "Prince John",
+          "last_name": "Lansang",
+          "country_code": {
+            "id": 175,
+            "name": "Philippines",
+            "code": "PH",
+            "status": 1,
+            "preferred": 1,
+            "calling_code": "63"
+          },
+          "mobile_number": "9988264608",
+          "activation_id": null,
+          "pending_email_address": null
+        }
+      }
+    },
+    {
+      "id": "4c930704-c2ad-45c6-8470-74dc6ce591a1",
+      "status": "APPROVED",
+      "organization_user": {
+        "id": 129495,
+        "corporate_user": {
+          "id": "69b476f7-ee60-44db-9ea4-766f845f2c5d",
+          "salutation": null,
+          "email_address": "jvbudol@unionbankph.com",
+          "first_name": "Joshua",
+          "last_name": "Budol",
+          "country_code": {
+            "id": 175,
+            "name": "Philippines",
+            "code": "PH",
+            "status": 1,
+            "preferred": 1,
+            "calling_code": "63"
+          },
+          "mobile_number": "9178920528",
+          "activation_id": null,
+          "pending_email_address": null
+        }
+      }
+    }
+  ],
+  "approval_process_groups": [
+    {
+      "id": "b7a8b355-8760-4c92-9bb9-0172884526cf",
+      "status": "UNTOUCHED",
+      "approval_group": {
+        "id": 129524,
+        "group_name": "Group 4",
+        "organization_users": [
+          {
+            "id": 129068,
+            "corporate_user": {
+              "id": "6850887e-c77b-400b-8c33-d66b438f63c6",
+              "salutation": null,
+              "email_address": "glenn.dizon@whitecloak.com",
+              "first_name": "Glenn",
+              "last_name": "Dizon",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9753201252",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        ],
+        "schema_id": null
+      },
+      "approval_process_organization_users": [
+        {
+          "id": "b4692c20-dba0-45cb-81b1-0cdb503163fe",
+          "status": "UNTOUCHED",
+          "organization_user": {
+            "id": 129068,
+            "corporate_user": {
+              "id": "6850887e-c77b-400b-8c33-d66b438f63c6",
+              "salutation": null,
+              "email_address": "glenn.dizon@whitecloak.com",
+              "first_name": "Glenn",
+              "last_name": "Dizon",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9753201252",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "d9f7d954-0b93-47d1-b9ce-6a5d693d560f",
+      "status": "UNTOUCHED",
+      "approval_group": {
+        "id": 129525,
+        "group_name": "Group 5",
+        "organization_users": [
+          {
+            "id": 129067,
+            "corporate_user": {
+              "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+              "salutation": null,
+              "email_address": "ajcangeles@unionbankph.com",
+              "first_name": "Jellorie",
+              "last_name": "Angeles",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9192522948",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        ],
+        "schema_id": null
+      },
+      "approval_process_organization_users": [
+        {
+          "id": "6df3f003-4f36-4994-85e3-0d00be2f8e83",
+          "status": "NOTIFIED",
+          "organization_user": {
+            "id": 129067,
+            "corporate_user": {
+              "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+              "salutation": null,
+              "email_address": "ajcangeles@unionbankph.com",
+              "first_name": "Jellorie",
+              "last_name": "Angeles",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9192522948",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "d1366ed2-18e9-4f6a-a43e-c1670a5c3352",
+      "status": "NOTIFIED",
+      "approval_group": {
+        "id": 129522,
+        "group_name": "Group 2",
+        "organization_users": [
+          {
+            "id": 129510,
+            "corporate_user": {
+              "id": "8c4017d8-a39a-48b2-b653-b8d99a8beedd",
+              "salutation": null,
+              "email_address": "amddans@unionbankph.com",
+              "first_name": "Miguel",
+              "last_name": "Dans",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9178396447",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          },
+          {
+            "id": 129496,
+            "corporate_user": {
+              "id": "c5e13f88-c986-42d4-bafd-843a4d82a00b",
+              "salutation": null,
+              "email_address": "richardglen.domingo@whitecloak.com",
+              "first_name": "Richard Glen",
+              "last_name": "Domingo",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9178610743",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          },
+          {
+            "id": 129067,
+            "corporate_user": {
+              "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+              "salutation": null,
+              "email_address": "ajcangeles@unionbankph.com",
+              "first_name": "Jellorie",
+              "last_name": "Angeles",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9192522948",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        ],
+        "schema_id": null
+      },
+      "approval_process_organization_users": [
+        {
+          "id": "6df3f003-4f36-4994-85e3-0d00be2f8e83",
+          "status": "NOTIFIED",
+          "organization_user": {
+            "id": 129067,
+            "corporate_user": {
+              "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+              "salutation": null,
+              "email_address": "ajcangeles@unionbankph.com",
+              "first_name": "Jellorie",
+              "last_name": "Angeles",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9192522948",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        },
+        {
+          "id": "a14b6e0f-7a06-4a0c-b8a5-d399f1617f66",
+          "status": "NOTIFIED",
+          "organization_user": {
+            "id": 129510,
+            "corporate_user": {
+              "id": "8c4017d8-a39a-48b2-b653-b8d99a8beedd",
+              "salutation": null,
+              "email_address": "amddans@unionbankph.com",
+              "first_name": "Miguel",
+              "last_name": "Dans",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9178396447",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        },
+        {
+          "id": "abd364fa-965d-4221-a99a-81125fe73126",
+          "status": "NOTIFIED",
+          "organization_user": {
+            "id": 129496,
+            "corporate_user": {
+              "id": "c5e13f88-c986-42d4-bafd-843a4d82a00b",
+              "salutation": null,
+              "email_address": "richardglen.domingo@whitecloak.com",
+              "first_name": "Richard Glen",
+              "last_name": "Domingo",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9178610743",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "c99cf461-3c2a-4c99-8693-653eb95dc3eb",
+      "status": "UNTOUCHED",
+      "approval_group": {
+        "id": 129523,
+        "group_name": "Group 3",
+        "organization_users": [
+          {
+            "id": 129069,
+            "corporate_user": {
+              "id": "9a91cf93-2bee-435a-94d9-cc0f662097b9",
+              "salutation": null,
+              "email_address": "prince.lansang@whitecloak.com",
+              "first_name": "Prince John",
+              "last_name": "Lansang",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9988264608",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        ],
+        "schema_id": null
+      },
+      "approval_process_organization_users": [
+        {
+          "id": "f036cfff-35d6-4607-b209-7b6e521604e7",
+          "status": "UNTOUCHED",
+          "organization_user": {
+            "id": 129069,
+            "corporate_user": {
+              "id": "9a91cf93-2bee-435a-94d9-cc0f662097b9",
+              "salutation": null,
+              "email_address": "prince.lansang@whitecloak.com",
+              "first_name": "Prince John",
+              "last_name": "Lansang",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9988264608",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "6ed32f90-788d-43d1-bc79-5b17b1815617",
+      "status": "NOTIFIED",
+      "approval_group": {
+        "id": 129521,
+        "group_name": "Group 1",
+        "organization_users": [
+          {
+            "id": 129495,
+            "corporate_user": {
+              "id": "69b476f7-ee60-44db-9ea4-766f845f2c5d",
+              "salutation": null,
+              "email_address": "jvbudol@unionbankph.com",
+              "first_name": "Joshua",
+              "last_name": "Budol",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9178920528",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        ],
+        "schema_id": null
+      },
+      "approval_process_organization_users": [
+        {
+          "id": "4c930704-c2ad-45c6-8470-74dc6ce591a1",
+          "status": "APPROVED",
+          "organization_user": {
+            "id": 129495,
+            "corporate_user": {
+              "id": "69b476f7-ee60-44db-9ea4-766f845f2c5d",
+              "salutation": null,
+              "email_address": "jvbudol@unionbankph.com",
+              "first_name": "Joshua",
+              "last_name": "Budol",
+              "country_code": {
+                "id": 175,
+                "name": "Philippines",
+                "code": "PH",
+                "status": 1,
+                "preferred": 1,
+                "calling_code": "63"
+              },
+              "mobile_number": "9178920528",
+              "activation_id": null,
+              "pending_email_address": null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "approval_process_nodes": [
+    {
+      "id": "4ccbb1c9-e38e-4f84-b094-0e38b6658509",
+      "status": "UNTOUCHED",
+      "approval_hierarchy_node": {
+        "id": 129533,
+        "type": "GROUP",
+        "group": {
+          "id": 129524,
+          "group_name": "Group 4",
+          "organization_users": [
+            {
+              "id": 129068,
+              "corporate_user": {
+                "id": "6850887e-c77b-400b-8c33-d66b438f63c6",
+                "salutation": null,
+                "email_address": null,
+                "first_name": null,
+                "last_name": null,
+                "country_code": null,
+                "mobile_number": null,
+                "activation_id": null,
+                "pending_email_address": null
+              }
+            }
+          ],
+          "schema_id": null
+        },
+        "operator": null,
+        "next_step": null,
+        "number_of_approvers": 1,
+        "node_status": null
+      }
+    },
+    {
+      "id": "87c10ae8-d1aa-4579-a8d6-0e4907ab4e39",
+      "status": "UNTOUCHED",
+      "approval_hierarchy_node": {
+        "id": 129530,
+        "type": "OPERATOR",
+        "group": null,
+        "operator": {
+          "id": 129532,
+          "threshold": 2,
+          "children": [
+            {
+              "id": 129534,
+              "type": "GROUP",
+              "group": {
+                "id": 129523,
+                "group_name": "Group 3",
+                "organization_users": [
+                  {
+                    "id": 129069,
+                    "corporate_user": {
+                      "id": "9a91cf93-2bee-435a-94d9-cc0f662097b9",
+                      "salutation": null,
+                      "email_address": null,
+                      "first_name": null,
+                      "last_name": null,
+                      "country_code": null,
+                      "mobile_number": null,
+                      "activation_id": null,
+                      "pending_email_address": null
+                    }
+                  }
+                ],
+                "schema_id": null
+              },
+              "operator": null,
+              "next_step": null,
+              "number_of_approvers": 1,
+              "node_status": null
+            },
+            {
+              "id": 129533,
+              "type": "GROUP",
+              "group": {
+                "id": 129524,
+                "group_name": "Group 4",
+                "organization_users": [
+                  {
+                    "id": 129068,
+                    "corporate_user": {
+                      "id": "6850887e-c77b-400b-8c33-d66b438f63c6",
+                      "salutation": null,
+                      "email_address": null,
+                      "first_name": null,
+                      "last_name": null,
+                      "country_code": null,
+                      "mobile_number": null,
+                      "activation_id": null,
+                      "pending_email_address": null
+                    }
+                  }
+                ],
+                "schema_id": null
+              },
+              "operator": null,
+              "next_step": null,
+              "number_of_approvers": 1,
+              "node_status": null
+            }
+          ]
+        },
+        "next_step": {
+          "id": 129531,
+          "type": "GROUP",
+          "group": {
+            "id": 129525,
+            "group_name": "Group 5",
+            "organization_users": [
+              {
+                "id": 129067,
+                "corporate_user": {
+                  "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+                  "salutation": null,
+                  "email_address": null,
+                  "first_name": null,
+                  "last_name": null,
+                  "country_code": null,
+                  "mobile_number": null,
+                  "activation_id": null,
+                  "pending_email_address": null
+                }
+              }
+            ],
+            "schema_id": null
+          },
+          "operator": null,
+          "next_step": null,
+          "number_of_approvers": 1,
+          "node_status": null
+        },
+        "number_of_approvers": null,
+        "node_status": null
+      }
+    },
+    {
+      "id": "623a2fee-806a-4d1f-8434-95bd7f8cbc8c",
+      "status": "UNTOUCHED",
+      "approval_hierarchy_node": {
+        "id": 129534,
+        "type": "GROUP",
+        "group": {
+          "id": 129523,
+          "group_name": "Group 3",
+          "organization_users": [
+            {
+              "id": 129069,
+              "corporate_user": {
+                "id": "9a91cf93-2bee-435a-94d9-cc0f662097b9",
+                "salutation": null,
+                "email_address": null,
+                "first_name": null,
+                "last_name": null,
+                "country_code": null,
+                "mobile_number": null,
+                "activation_id": null,
+                "pending_email_address": null
+              }
+            }
+          ],
+          "schema_id": null
+        },
+        "operator": null,
+        "next_step": null,
+        "number_of_approvers": 1,
+        "node_status": null
+      }
+    },
+    {
+      "id": "f18529c4-ecdb-49fc-80b7-477c06945835",
+      "status": "UNTOUCHED",
+      "approval_hierarchy_node": {
+        "id": 129531,
+        "type": "GROUP",
+        "group": {
+          "id": 129525,
+          "group_name": "Group 5",
+          "organization_users": [
+            {
+              "id": 129067,
+              "corporate_user": {
+                "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+                "salutation": null,
+                "email_address": null,
+                "first_name": null,
+                "last_name": null,
+                "country_code": null,
+                "mobile_number": null,
+                "activation_id": null,
+                "pending_email_address": null
+              }
+            }
+          ],
+          "schema_id": null
+        },
+        "operator": null,
+        "next_step": null,
+        "number_of_approvers": 1,
+        "node_status": null
+      }
+    },
+    {
+      "id": "ad905f27-949c-4320-99f1-11828fe522b0",
+      "status": "NOTIFIED",
+      "approval_hierarchy_node": {
+        "id": 129529,
+        "type": "GROUP",
+        "group": {
+          "id": 129522,
+          "group_name": "Group 2",
+          "organization_users": [
+            {
+              "id": 129067,
+              "corporate_user": {
+                "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+                "salutation": null,
+                "email_address": null,
+                "first_name": null,
+                "last_name": null,
+                "country_code": null,
+                "mobile_number": null,
+                "activation_id": null,
+                "pending_email_address": null
+              }
+            },
+            {
+              "id": 129496,
+              "corporate_user": {
+                "id": "c5e13f88-c986-42d4-bafd-843a4d82a00b",
+                "salutation": null,
+                "email_address": null,
+                "first_name": null,
+                "last_name": null,
+                "country_code": null,
+                "mobile_number": null,
+                "activation_id": null,
+                "pending_email_address": null
+              }
+            },
+            {
+              "id": 129510,
+              "corporate_user": {
+                "id": "8c4017d8-a39a-48b2-b653-b8d99a8beedd",
+                "salutation": null,
+                "email_address": null,
+                "first_name": null,
+                "last_name": null,
+                "country_code": null,
+                "mobile_number": null,
+                "activation_id": null,
+                "pending_email_address": null
+              }
+            }
+          ],
+          "schema_id": null
+        },
+        "operator": null,
+        "next_step": {
+          "id": 129530,
+          "type": "OPERATOR",
+          "group": null,
+          "operator": {
+            "id": 129532,
+            "threshold": 2,
+            "children": [
+              {
+                "id": 129533,
+                "type": "GROUP",
+                "group": {
+                  "id": 129524,
+                  "group_name": "Group 4",
+                  "organization_users": [
+                    {
+                      "id": 129068,
+                      "corporate_user": {
+                        "id": "6850887e-c77b-400b-8c33-d66b438f63c6",
+                        "salutation": null,
+                        "email_address": null,
+                        "first_name": null,
+                        "last_name": null,
+                        "country_code": null,
+                        "mobile_number": null,
+                        "activation_id": null,
+                        "pending_email_address": null
+                      }
+                    }
+                  ],
+                  "schema_id": null
+                },
+                "operator": null,
+                "next_step": null,
+                "number_of_approvers": 1,
+                "node_status": null
+              },
+              {
+                "id": 129534,
+                "type": "GROUP",
+                "group": {
+                  "id": 129523,
+                  "group_name": "Group 3",
+                  "organization_users": [
+                    {
+                      "id": 129069,
+                      "corporate_user": {
+                        "id": "9a91cf93-2bee-435a-94d9-cc0f662097b9",
+                        "salutation": null,
+                        "email_address": null,
+                        "first_name": null,
+                        "last_name": null,
+                        "country_code": null,
+                        "mobile_number": null,
+                        "activation_id": null,
+                        "pending_email_address": null
+                      }
+                    }
+                  ],
+                  "schema_id": null
+                },
+                "operator": null,
+                "next_step": null,
+                "number_of_approvers": 1,
+                "node_status": null
+              }
+            ]
+          },
+          "next_step": {
+            "id": 129531,
+            "type": "GROUP",
+            "group": {
+              "id": 129525,
+              "group_name": "Group 5",
+              "organization_users": [
+                {
+                  "id": 129067,
+                  "corporate_user": {
+                    "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+                    "salutation": null,
+                    "email_address": null,
+                    "first_name": null,
+                    "last_name": null,
+                    "country_code": null,
+                    "mobile_number": null,
+                    "activation_id": null,
+                    "pending_email_address": null
+                  }
+                }
+              ],
+              "schema_id": null
+            },
+            "operator": null,
+            "next_step": null,
+            "number_of_approvers": 1,
+            "node_status": null
+          },
+          "number_of_approvers": null,
+          "node_status": null
+        },
+        "number_of_approvers": 2,
+        "node_status": null
+      }
+    },
+    {
+      "id": "83171e0b-41ee-4b54-bc1c-625d6b812a11",
+      "status": "PENDING_NEXT_STEP",
+      "approval_hierarchy_node": {
+        "id": 129528,
+        "type": "GROUP",
+        "group": {
+          "id": 129521,
+          "group_name": "Group 1",
+          "organization_users": [
+            {
+              "id": 129495,
+              "corporate_user": {
+                "id": "69b476f7-ee60-44db-9ea4-766f845f2c5d",
+                "salutation": null,
+                "email_address": null,
+                "first_name": null,
+                "last_name": null,
+                "country_code": null,
+                "mobile_number": null,
+                "activation_id": null,
+                "pending_email_address": null
+              }
+            }
+          ],
+          "schema_id": null
+        },
+        "operator": null,
+        "next_step": {
+          "id": 129529,
+          "type": "GROUP",
+          "group": {
+            "id": 129522,
+            "group_name": "Group 2",
+            "organization_users": [
+              {
+                "id": 129067,
+                "corporate_user": {
+                  "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+                  "salutation": null,
+                  "email_address": null,
+                  "first_name": null,
+                  "last_name": null,
+                  "country_code": null,
+                  "mobile_number": null,
+                  "activation_id": null,
+                  "pending_email_address": null
+                }
+              },
+              {
+                "id": 129496,
+                "corporate_user": {
+                  "id": "c5e13f88-c986-42d4-bafd-843a4d82a00b",
+                  "salutation": null,
+                  "email_address": null,
+                  "first_name": null,
+                  "last_name": null,
+                  "country_code": null,
+                  "mobile_number": null,
+                  "activation_id": null,
+                  "pending_email_address": null
+                }
+              },
+              {
+                "id": 129510,
+                "corporate_user": {
+                  "id": "8c4017d8-a39a-48b2-b653-b8d99a8beedd",
+                  "salutation": null,
+                  "email_address": null,
+                  "first_name": null,
+                  "last_name": null,
+                  "country_code": null,
+                  "mobile_number": null,
+                  "activation_id": null,
+                  "pending_email_address": null
+                }
+              }
+            ],
+            "schema_id": null
+          },
+          "operator": null,
+          "next_step": {
+            "id": 129530,
+            "type": "OPERATOR",
+            "group": null,
+            "operator": {
+              "id": 129532,
+              "threshold": 2,
+              "children": [
+                {
+                  "id": 129533,
+                  "type": "GROUP",
+                  "group": {
+                    "id": 129524,
+                    "group_name": "Group 4",
+                    "organization_users": [
+                      {
+                        "id": 129068,
+                        "corporate_user": {
+                          "id": "6850887e-c77b-400b-8c33-d66b438f63c6",
+                          "salutation": null,
+                          "email_address": null,
+                          "first_name": null,
+                          "last_name": null,
+                          "country_code": null,
+                          "mobile_number": null,
+                          "activation_id": null,
+                          "pending_email_address": null
+                        }
+                      }
+                    ],
+                    "schema_id": null
+                  },
+                  "operator": null,
+                  "next_step": null,
+                  "number_of_approvers": 1,
+                  "node_status": null
+                },
+                {
+                  "id": 129534,
+                  "type": "GROUP",
+                  "group": {
+                    "id": 129523,
+                    "group_name": "Group 3",
+                    "organization_users": [
+                      {
+                        "id": 129069,
+                        "corporate_user": {
+                          "id": "9a91cf93-2bee-435a-94d9-cc0f662097b9",
+                          "salutation": null,
+                          "email_address": null,
+                          "first_name": null,
+                          "last_name": null,
+                          "country_code": null,
+                          "mobile_number": null,
+                          "activation_id": null,
+                          "pending_email_address": null
+                        }
+                      }
+                    ],
+                    "schema_id": null
+                  },
+                  "operator": null,
+                  "next_step": null,
+                  "number_of_approvers": 1,
+                  "node_status": null
+                }
+              ]
+            },
+            "next_step": {
+              "id": 129531,
+              "type": "GROUP",
+              "group": {
+                "id": 129525,
+                "group_name": "Group 5",
+                "organization_users": [
+                  {
+                    "id": 129067,
+                    "corporate_user": {
+                      "id": "2ef64a6d-ed8b-49e6-be9d-4ad60587ac54",
+                      "salutation": null,
+                      "email_address": null,
+                      "first_name": null,
+                      "last_name": null,
+                      "country_code": null,
+                      "mobile_number": null,
+                      "activation_id": null,
+                      "pending_email_address": null
+                    }
+                  }
+                ],
+                "schema_id": null
+              },
+              "operator": null,
+              "next_step": null,
+              "number_of_approvers": 1,
+              "node_status": null
+            },
+            "number_of_approvers": null,
+            "node_status": null
+          },
+          "number_of_approvers": 2,
+          "node_status": null
+        },
+        "number_of_approvers": 1,
+        "node_status": null
+      }
+    }
+  ]
+}

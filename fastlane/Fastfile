@@ -1,0 +1,145 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+
+  before_all do
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+    ENV["SLACK_API_TOKEN"] = "VqSlKnsp4BzmXEqR861feqLW"
+  end
+
+    desc "Test"
+    lane :test do |options|
+        flavor = options[:flavor]
+        buildType = options[:buildType]
+        gradle(
+            task: "test",
+            build_type: buildType,
+            flavor: flavor
+        )
+    end
+
+    desc "Build"
+    lane :build do |options|
+        flavor = options[:flavor]
+        buildType = options[:buildType]
+        gradle(
+            task: "clean assemble",
+            build_type: buildType,
+            flavor: flavor
+        )
+    end
+
+    desc "Deploy"
+    lane :deploy do |options|
+        flavor = options[:flavor]
+        buildType = options[:buildType]
+        test(buildType: buildType, flavor: flavor)
+        build(buildType: buildType, flavor: flavor)
+        upload(buildType: buildType, flavor: flavor)
+    end
+
+    desc "Upload"
+    lane :upload do |options|
+        flavor = options[:flavor]
+        buildType = options[:buildType]
+        releaseNotes = "./RELEASE_NOTES.md"
+        if flavor == "dev"
+            groups = "dev-team"
+            appId = "1:629789313729:android:7bc574a65c2d7d4d"
+        elsif flavor == "qat"
+            groups = "qa-team"
+            appId = "1:629789313729:android:711c88d6041afd28"
+        elsif flavor == "qat2"
+            groups = "qat-2-team"
+            appId = "1:629789313729:android:7e18795f0b2b93c4b52240"
+        elsif flavor == "qat3"
+            groups = "qat-3-team"
+            appId = "1:629789313729:android:d87e7f83f20851d5b52240"
+        elsif flavor == "smedev"
+            groups = "dev-team"
+            appId = "1:629789313729:android:b145e31311bf2643b52240"
+        elsif flavor == "smeqat"
+            groups = "qa-team"
+            appId = "1:629789313729:android:ba8297f66514910db52240"
+        elsif flavor == "smeqat2"
+            groups = "qat-2-team"
+            appId = "1:629789313729:android:811dbc9a8b4ea529b52240"
+        elsif flavor == "smeqat3"
+            groups = "qat-3-team"
+            appId = "1:629789313729:android:9a179da5749265c5b52240"
+        elsif flavor == "smestaging"
+            groups = "staging-team"
+            appId = "1:629789313729:android:e161abd8c2c53075b52240"
+        elsif flavor == "staging"
+            groups = "staging-team"
+            appId = "1:629789313729:android:8d2352c04bc207c7"
+        elsif flavor == "preproduction"
+            groups = "preprod-team"
+            appId = "1:629789313729:android:5be77f5d6a8eff50"
+        elsif flavor == "smepreproduction"
+            groups = "preprod-team"
+            appId = "1:629789313729:android:c6b998f08552d4e6b52240"
+        elsif flavor == "production"
+            groups = "prod-team"
+            appId = "1:629789313729:android:2b39f563d5507422"
+        elsif flavor == "demo"
+            groups = "demo-team"
+            appId = "1:629789313729:android:27c7007f407c9276"
+        else
+            groups = "dev-team"
+            appId = "1:629789313729:android:7bc574a65c2d7d4d"
+        end
+
+        apk_path = "./app/build/outputs/apk/#{flavor}/#{buildType}/app-#{flavor}-#{buildType}.apk"
+
+        firebase_app_distribution(
+            apk_path: apk_path,
+            app: appId,
+            groups: groups,
+            release_notes_file: releaseNotes,
+            firebase_cli_path: "/usr/local/bin/firebase"
+        )
+
+        #    slack(
+        #        message: "UnionBank: The Portal successfully deployed! Check your email to update your app.",
+        #        channel: "#scrumteam2",
+        #        default_payloads: [:git_branch, :git_author, :git_commit, :git_commit_hash, :git_author, :result],
+        #        payload: {  # Optional, lets you specify any number of your own Slack attachments.
+        #            "Environment" => flavor,
+        #            "Build Date" => Time.new.to_s,
+        #            "Built by" => "Crashlytics Fastlane",
+        #            "Platform" => "Android"
+        #        }
+        #    )
+
+    end
+
+#  after_all do |lane|
+#    slack(
+#         message: "Successfully deployed :rocket:"
+#    )
+#  end
+#
+#  error do |lane, exception|
+#    slack(
+#         message: exception.message,
+#         success: false
+#    )
+#  end
+
+end

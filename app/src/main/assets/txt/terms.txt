@@ -1,0 +1,157 @@
+These BUSINESS BANKING TERMS AND CONDITIONS supplements the CASH MANAGEMENT SERVICE AGREEMENT between UnionBank of the Philippines ("UnionBank" or "Bank") and the Client, identified by the Company Name ("Client") in the Enrollment Form.  For this Addendum to be valid, the Client must also agree to and sign the Cash Management Service Agreement. For specific banking services, the Client must also agree to and sign the relevant Cash Management Service Addendum. By signing below, the Client acknowledges through its Authorized Signatory/ies that it has read and understood the Business Banking Terms and Conditions of the Bank. The Client unconditionally agrees to be bound by these Terms and Conditions and all amendments, revisions, and additions which the Bank may effect from time to time.
+<br><br>
+<b>1. PRODUCT DESCRIPTION</b>
+<br>
+Business Banking is an electronic banking facility ("System") that allows the Client to avail of cash management and other banking services with the Bank enumerated below on a per enrollment basis. The System has two platforms: Online Website (“Website”) and Mobile Application (“Mobile”).
+<br><br>
+<b>2. ENROLLMENT FORM</b>
+<br>
+<b>A. ACCOUNTS</b>
+<br>
+The Client shall be required to select and enroll its UnionBank account/s for services related to or involving said UnionBank accounts, such as Account Inquiry and fund transfer or Bills Payment services.  The types of UnionBank Accounts of the Client that are eligible for enrolment in the System include Peso Savings and/or Peso Current Accounts, Foreign Currency Savings Accounts, Businessline Accounts, and other accounts as may be allowed by the Bank.
+<br><br>
+<b>B. USER ENROLLMENT DETAILS</b>
+<br>
+Each authorized user designated by the Client ("User") in the Enrollment Form shall be given log-in access to the System using their designated electronic mail (Email) address, password which the User shall nominate, and their mobile number for both platforms (i.e. Website and Mobile). The Client guarantees and warrants that the mobile numbers shall not be accessible to any person other than the User, and passwords shall be kept in strict confidentiality and not be disclosed, given, or made available to any person other than the User. The Approval Policy of the Client, the details of which are reflected in the Approval Hierarchy Form/s required by the Bank, and the designation of the Users as defined by the Client in the Business Banking Enrollment Form shall be deemed to be binding to the Client. The Bank is entitled to act on the instructions, and the Client shall be liable for said instructions, received via the System which the Bank may reasonably believe to have been fully authorized by, conclusive and binding upon the Client by the use of the Client's User ID and Password. The Bank shall not be liable for acting in accordance with or based on the requests and / or instructions coursed through the System. The Client agrees that any unauthorized use of its Email, Password, and Mobile Number involving its enrolled account(s) by any person shall be the Client's sole responsibility and liability.
+<br><br>
+<b>C. APPROVAL POLICY</b>
+<br>
+The Approval Policy shall contain the Approval Hierarchy, Approval Rules or the transactional limits of each Approval Group, and the corresponding Cash Management Service, such as Fund Transfers and Bills Payment, to which said Approval Rules apply.
+<br><br>
+For the Mobile Check Deposit feature, the Client understands that it shall automatically fall under the “No approval required” approval policy regardless of the Approval Hierarchy indicated.
+<br><br>
+<b>D. INFORMATION UPDATE AND REMOVAL FROM THE SYSTEM</b>
+<br>
+Any addition/deletion/modification to the enrollment details and any change to the Client’s Approval Policy, including request of Client to dis-enroll itself from the System, shall be communicated by the Client in writing using the required form/s of the Bank. Unless signed by the Client's authorized signatories using the required forms, any change, or request to be removed from the System shall not be honored by the Bank. The updated information/removal from the System shall take effect two (2) to three (3) banking days from the Bank’s receipt of the forms.
+<br><br>
+To disable the Mobile Check Deposit feature, the Client must submit a signed The Portal Enrollment Form with “Others: Disable” indicated in the Request Type field, and “Disable Mobile Check Deposit” indicated in the “Change Details and Other Instructions” field.
+<br><br>
+<b>E. OTHER INSTRUCTIONS</b>
+<br>
+The Client may request for access rights outside the standard Access Rights in the System or customized access rights and other instructions, which request should be made in writing. The Bank reserves the right to implement such other instructions.
+<br><br>
+<b>3. SYSTEM FEATURES</b>
+<br>
+<b>A. BUSINESS BANKING SERVICES</b>
+<br>
+The following transactions are currently available under the System. The Bank reserves the right to introduce and/or implement additional transactions from time to time.
+<br><br>
+a. Account Inquiry – for viewing of the balances, history, and other details of the Client's enrolled UnionBank accounts.
+<br><br>
+b. Fund Transfer Transactions
+<br>
+The Client may transfer funds from its designated Source Account/s to other UnionBank Accounts, to UnionBank-enrolled billers, and/or accounts in other selected local or international banks. The Client must designate in the Enrollment Form its Source Account/s which refer to the Client’s UnionBank Account/s from which the funds shall be debited. The System will effect such online fund transfers and bills payments, provided that there are cleared and withdrawable funds sufficient to cover said transactions. The Source Account shall be automatically debited by the System for every fund transfer or bills payment on the transaction date indicated by the Client. For payment to billers, if the payment is made on a Saturday, Sunday or holiday, the Client's account shall be debited for the payment amount on the same day and the institution advised of such payment on the next banking day.  For interbank fund transfers, the Bank reserves the right to add and/or remove member banks and to make use of any correspondent, sub-agent or other agency from time to time. The crediting of funds to beneficiary accounts is subject to the beneficiary bank's process.
+<br><br>
+File Upload
+<br>
+For services that require File Uploads, the Client must comply with the File Upload requirements of the Bank. The Bank shall not be liable for errors or delays due to the indication of incorrect or inexistent account details, or non-compliance with the Bank’s File Upload requirements.  Crediting of transfers to the beneficiary account/s of other local and foreign banks, shall be subject to the turn-around time of the receiving bank.
+<br>
+In case of erroneous details in the fund transfer file, UnionBank shall bear no liability for the Bank can only confirm up to the point of successfully sending the file to the receiving bank.  However, once details on the erroneous transactions were received by UnionBank from the receiving bank, UnionBank shall inform the Client immediately and credit back the corresponding amount to the Client's Source Account.
+<br>
+Should there be any case where the Client wishes to effect amendments on the erroneous fund transfer file/s, a corresponding fee as dictated by the current commercial pricing for transfers per amendment shall apply.
+<br><br>
+<b>B. ACCESS RIGHTS</b>
+<br>
+Access Rights define the extent of the authority of the User to the Business Banking Services of the System.  A User can have more than one Access Right.
+<br><br>
+a. View Transactions – Users shall have access to Account Inquiry.
+<br>
+b. Create Transactions – Users shall have access to initiate transactions in a specified Service.
+<br>
+c. Approve Transactions – Users shall have access to approve or reject transactions based on the Approval Policy of the Client.
+<br><br>
+<b>C. MOBILE CHECK DEPOSIT</b>
+<br>
+Mobile Check Deposit is an additional feature of the System which allows the Client to send check deposit instructions via the submission of eligible check images and details captured through the Mobile Application.
+<br><br>
+This feature shall be automatically activated for all Clients’ enrolled in Business Banking. To disable this feature, please refer to Section 2.D of this Addendum.
+<br><br>
+Eligible checks for the Mobile Check Deposit feature are those which are in the current format design, peso-denominated, current dated, payable to the order of the deposit account name, presented for deposit and/or clearing for the first time, contains no erasures or alterations, has all fields duly accomplished, are signed by the drawer, and which conform to all Philippine Clearing House Corporation (PCHC) standards, rules and regulations. The eligibility of the quality of check images submitted by the Client shall be determined by the Bank, the PCHC, and the appropriate regulatory bodies. The Client understands and agrees that the Bank and/or the PCHC may reject the clearing of eligible checks deposited through the Mobile Check Deposit, and the Bank shall not be liable for any loss, liability, claim, damage and expense the Client may sustain by such rejection. Reasons for the Bank and/or PCHC’s rejection of checks submitted include but are not limited to unreadable details in check images captured, check image quality is not compatible with PCHC standards, or non-compliance with any of the eligibility criteria enumerated in this section,
+<br><br>
+The Bank, at its sole discretion and without prior notice, may set a maximum check amount allowed for deposit and/or limit the number of allowed check deposit transactions via the Mobile Check Deposit. The Bank shall not be liable for any loss, liability, claim, damage and expense the Client may sustain by the Bank’s exercise of such discretion.
+<br><br>
+The Client shall safekeep for a period of not less than one hundred eighty days (180 days) all checks that have been deposited via the Mobile Check Deposit. The Client shall submit the actual checks to the Bank and/or the to the appropriate regulating authority whenever required by either or both of them. The Bank shall not be held liable for any loss or damage incurred by reason of or in connection with the Client’s failure to safekeep these checks.
+<br><br>
+In addition, the Client warrants and represents that:
+<br>
+i. The Client shall not deposit or endorse to a third party the original check, and no person shall receive a presentment or return of, or otherwise be charged for the original check or electronic representation of the original check that would cause that person to make payment for an item that has already been paid.
+<br>
+ii. There are no other duplicate images of the original check.
+<br>
+iii. The Client shall not redeposit or re-present any original eligible check which has been returned or dishonored for whatever reason.
+<br><br>
+The Client agrees to indemnify and hold the Bank free and harmless against any loss, liability, claim, damage and expense whatsoever arising from the Client’s failure to comply with his obligations or warranties under this Section on Mobile Check Deposit; such indemnity shall extend to any damages caused to any other bank or financial institution by the Client’s breach, as well as to any penalties to be fined according to the rules and regulations of PCHC. Such costs to be incurred by the Bank shall be debited by the Bank as fees or charges from the Client’s account number indicated in The Portal Enrollment Form.
+<br><br>
+<b>4. FEES AND OTHER CHARGES</b>
+<br>
+The Client agrees to pay the charges and fees that are imposed or imposable by the Bank when it avails of services and/or products under Business Banking, which fees and charges are available at the dashboard in the System.
+<br><br>
+The Bank is authorized to deduct the applicable charges directly from the Client's specified deposit account in the amount, unless otherwise agreed upon by the parties, equivalent to the sum of all fees and charges as thus far incurred at the time of debiting.  Any withholding tax deducted by the Client from the payment due to the Bank shall be evidenced by a Certificate of Tax Withheld (BIR Form No. 2307) submitted by the Client to the Bank. Failure of the Client to submit the required document shall entitle the Bank to deduct the full amount of fees and charges from the Client’s account and to refuse any request of the Client for the reimbursement of the withholding tax. The Bank will not be liable for any damages that the Client may incur, including those by reason of insufficiency of the Client’s deposit account resulting from the Bank’s deduction of aforementioned charges.
+<br><br>
+The Bank reserves the right to change the said charges or fees, and other terms and conditions for the use of the System. The Client has the obligation to update itself of the changes in said fees and charges which shall be made available at the dashboard in the System. Unless disagreement to such changes are communicated by the Client in writing using the required form/s of the Bank, the continued use by the Client of the System shall be deemed as acceptance of said changes.
+<br><br>
+<b>5. OTHER RESPONSIBILITIES OF THE CLIENT</b>
+<br>
+A. The Client shall immediately notify the Bank's UnionBank Business Support by telephone/email and confirm said notice via a letter within twenty-four (24) hours from the first notice, in case of the following:
+<br>
+a. The Client becomes aware that an ID or password has been disclosed to an unauthorized person, or a person ceases to be an authorized User. As against the Bank, the Client shall be solely liable for any claims, losses, or damages that may arise from the use of the System by persons not authorized by the Client, if the Bank had not been duly notified in accordance with this provision.
+<br>
+b. The Client does not agree with the information provided by Business Banking, or if any information reflected in the Enrollment Form has changed or is no longer accurate. This includes, but is not limited to change or removal of Users and change in Approval Policy. The Client shall immediately advise the Bank of any disagreement within 24 hours from the receipt of such information by immediately informing the Bank's authorized personnel or officers. Otherwise, the Bank shall have the right to assume that such information relayed to the Client is correct and in order.
+<br><br>
+B. The Client shall take all necessary and adequate security and precautionary measures to ensure at all times that the information/services herein provided by the Bank shall be furnished and disclosed only to the Client's duly authorized Users. In the event that the information falls in the hands of unauthorized persons for any reason whatsoever, including but not limited to wiretapping of communication lines or erroneous connection by telecommunication switches, or errors in transmitted information due to faulty lines, any and all forms of technology relating to electronic surveillance or fraud, the Client unconditionally and irrevocably agrees and undertakes to keep the Bank free and harmless at all times from any and all liability, costs, damages, losses and causes of action arising from or in any way connected with, due to such unauthorized disclosure, including, but not limited to, the effect of the provisions of Republic Act 1405 (Law of Secrecy of Bank Deposits), as amended, provisions of the General Banking Act and pertinent laws prohibiting disclosure of information concerning the Client's transactions or deposits with banks, any and all pertinent laws or regulations related thereto or the subject matter herein.
+<br><br>
+For these purposes, this Terms and Conditions shall constitute the Client's written permission and consent to disclose such data and Information pursuant to this Terms and Conditions for purposes of RA 1405 (Law on Secrecy of Bank Deposits), pertinent provisions of RA 7653 (the Bangko Sentral Act), RA 6426 (the Foreign Currency Deposit Act) and rules and regulations of the Bangko Sentral ng Pilipinas and other related laws and decrees.
+<br><br>
+C. The Client understands that the System is accessed through the internet, or via an application, both of which the Bank has no control over. It is the Client's duty to ensure that any computer, mobile phone, or other electronic device used to access the System is free from and adequately protected against acquiring viruses and other destructive components. The Client is solely responsible for the performance and security of any internet browser, mobile device, and operating system used in connection with the System, including the prompt adoption by the Client of all security patches and other security measures issued or recommended from time to time by the suppliers of such internet browsers, mobile devices, and operating systems.
+<br><br>
+D. Unless otherwise permitted by the Bank in writing, the Client shall use the System provided by the Bank exclusively for access to the Services and not for any other purposes. The Bank shall retain full ownership of the Bank Systems. The Client shall not sell, copy, or make available the System or any modification thereof to any third party. The Client shall provide the entire computer and telecommunications hardware, accessories and peripherals necessary to put the System into operation and the maintenance and repair of the same shall be the sole responsibility of the Client. The Bank shall not be liable for any loss of or damage to the computer and telecommunications hardware, accessories and peripherals, and for any and all losses and damages arising from the malfunction thereof.
+<br><br>
+<b>6. LIMITATION OF LIABILITY</b>
+<br>
+A. The Bank shall not be liable for any loss, damage, injury, or claims of whatever nature that the Client may suffer in connection with the implementation of this Agreement, due to any fortuitous event, force majeure, typhoons, floods, public disturbances and calamities, or any act or circumstance brought against it beyond the control of the Bank, or for which the Bank is not responsible for, or not otherwise attributable to the fault or negligence of the Bank, such as but not limited prolonged power outages, breakdown in computers and communication facilities, and similar cases (i) inaccurate, incomplete or delayed information received by the Client due to disruption or failure of any communication facilities used for the System; and (ii) any indirect, incidental, or consequential loss, loss of profit or damage suffered by the Client by reason of its use or failure to use the System.
+<br><br>
+B. The Bank will in no case be involved with any claim or dispute between the Client and its customers or beneficiaries or billers, as the case may be. The Client holds the Bank free and harmless from any and all liability, cost or damage, which may arise in connection with any claim or dispute between the Client and its customers, in connection with the implementation of this Agreement or use of the System.
+<br><br>
+C. For fund transfers, the Bank shall not be liable for the completeness or timeliness of the transfer or payment. The Bank shall not be liable for any omission or delay of the transfer due to circumstances beyond the reasonable control of the Bank, including errors, non-transmission or delays occurring on the part of any of the relevant clearing house, correspondent banks, the Bank’s sub-agent, and cable or wireless company.
+<br><br>
+D. For interbank fund transfers, the Bank shall not be liable for any delay or errors in the crediting of funds that are caused by the beneficiary bank.
+<br><br>
+E. Should the Bank become involved in any litigation or any matter arising from or related to the System, or with any of arising from or related to the System, or with any of the rights, powers and remedies hereunder, due to the Client's fault or negligence, all fees and expenses incurred by the Bank in such litigation, including a reasonable amount for attorney's fees which amount is hereby agreed to be at the rate of 10% of the sum sought to be recovered, which shall, in no case, less than P10,000.00 shall be paid by the Client.
+<br><br>
+F. For all transactional services under the System, the Bank shall not be liable for incomplete deposits to or transfers to or from the Client's account/s in the following instances:
+<br>
+a. If the transfer involves un-enrolled, dormant, inactive, invalid and closed account/s;
+<br>
+b. If the System was not working properly and the Client knew about the breakdown when it started the transfer, or should already have known of such breakdown;
+<br>
+c. If circumstances beyond the Bank's control prevent the transfer, despite reasonable precautions taken by the Bank; and
+<br>
+d. Such other instances as indicated in this Agreement.
+<br><br>
+G. The provision of the Services through the System, including the use of the Mobile Check Deposit feature, have qualification requirements and the Bank reserves the right to change the qualifications at any time, which changes will be communicated to the Client in advance. The Bank also reserves the right to inform the Clients in advanced for a period it deems adequate regarding any change, suspend, or discontinue the availability of the Services in the System, in whole or in part, including the use of the Mobile Check Deposit feature.
+<br><br>
+<b>7. REMOVAL OF CLIENT FROM SYSTEM</b>
+<br>
+Should the Client opt to remove itself from the System, the Client must do so in writing, using the Bank’s prescribed form/s. All obligations of the Client incurred prior to the effectivity of the dis-enrolment shall remain valid and binding on the Client.
+<br><br>
+The Bank, in its sole discretion, shall determine whether the Client is eligible for the Business Banking Services being availed of. The Bank reserves the right to inform the Client in advanced for a period it deems adequate regarding the suspension or termination of the Client’s use of the System may suspend or terminate the use of the System. If the Client violates the terms of the System and/or the Services, then this/these actions may be used as basis to terminate the Client’s account relationship with the Bank.
+<br><br>
+<b>8. DATA PRIVACY</b>
+<br>
+A. The Bank warrants and agrees that it shall ensure the protection of the data privacy rights of the Client Data Subjects, or individuals whose personal, sensitive personal, or privileged information is controlled by or processed by the Client on its own or through its representatives, in the implementation of this Agreement. Pursuant thereto, both Parties agree to comply with the Data Privacy Act of 2012 and all applicable and relevant laws, their respective implementing rules and regulations and data privacy protection rules and policies being implemented or to be implemented by the National Privacy Commission. In line therewith, each Party warrants and represents that it has in place and is implementing all the organizational, physical and technical security measures for the protection of Personal Information and/or Sensitive Personal Information required under the Data Privacy Act, and any additional or specific measures required by the data privacy protection rules and policies being implemented or to be implemented.
+<br>
+B. The Bank shall take all the steps necessary to ensure that any person acting under its authority and who has access to Personal Information and/or Sensitive Personal Information of the Client Data Subjects processed, does not process them except upon the Client's instructions, or in accordance with applicable law. Notwithstanding anything to the contrary, the Bank shall be the Personal Information Processor as defined under the Data Privacy Act of 2012.
+<br>
+C. Each Party shall defend, indemnify, and hold the other Party, its affiliates, and their respective officers, directors, stockholders, employees, and agents harmless from and against any and all claims, suits, causes of action, liability, loss, costs, and damages, including attorney’s fees and costs of litigation, in connection with or as a result of any third party claim arising from the personal data breach of any Party directly attributable from acts or omissions resulting in the violation of the Data Privacy Act.
+<br>
+D. Each Party shall at all times be responsible for ensuring that the Personal Information and/or Sensitive Personal Information, in whatever form, is stored securely and hereby agrees to implement security measures to maintain the confidentiality, integrity, and availability of the Personal Information and/or Sensitive Personal Information; and protect it from accidental or unlawful destruction, alteration and unauthorized disclosure, unlawful processing or use, fraudulent misuse, or loss or destruction while in the Party’s custody.
+<br>
+E. In case of any judicial order, governmental action, or legal obligation requiring any Party to disclose Personal Information and/or Sensitive Personal Information of Data Subject, the Party shall immediately inform the other. Each Party shall support and cooperate in the intervention of the Party in addressing the judicial order, governmental action, or legal obligation, or minimizing the scope of the disclosure.
+<br><br>
+<b>9. OTHER TERMS</b>
+<br>
+A. All terms and conditions governing the Bank's Current/Savings Accounts, Fund Transfers, and other Bank products available in the System shall still be enforced in all cases not specifically provided herein or otherwise by written agreement between the Bank and the Client and these accounts shall be governed by and subject to the rules and regulations as imposed or will be imposed by the Bangko Sentral ng Pilipinas relative to the establishment and operation of deposit account and other banking transactions.
+<br>
+B. The failure of the parties to insist upon a strict performance of any of the terms, conditions and covenants hereof shall not be deemed a relinquishment or waiver of any right or remedy a party may have, nor shall it be construed as a waiver of any subsequent breach or default of the terms, conditions and covenants herein contained, which shall be in full force and effect. No waiver by either party shall be deemed to have been made unless expressed in writing and signed by a duly authorized representative thereof.
+<br>
+C. In the event any one or more of the provisions contained in this Terms and Conditions shall be declared invalid, illegal or unenforceable, in any respect of the law, the validity, legality and the enforceability of the other provisions hereof or thereof shall not be affected thereby.

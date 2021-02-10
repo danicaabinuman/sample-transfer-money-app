@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:id="@+id/constraintLayoutParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        style="@style/DefaultBackgroundMatchConstraint"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            style="@style/MatchParent"
+            android:padding="@dimen/content_group_spacing">
+
+            <include
+                android:id="@+id/viewChannelHeader"
+                layout="@layout/widget_channel_header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAllowedSourceAccounts"
+                style="@style/TextViewHeaderFormOrange"
+                android:text="@string/title_allowed_source_accounts"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewChannelHeader" />
+
+            <include
+                android:id="@+id/viewAllowedSourceAccounts"
+                layout="@layout/widget_edit_text_allowed_source_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_edit_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAllowedSourceAccounts" />
+
+            <View
+                android:id="@+id/viewTutorialAllowedSourceAccounts"
+                style="@style/ViewTutorial"
+                app:layout_constraintBottom_toBottomOf="@+id/viewAllowedSourceAccounts"
+                app:layout_constraintEnd_toEndOf="@+id/viewAllowedSourceAccounts"
+                app:layout_constraintStart_toStartOf="@+id/viewAllowedSourceAccounts"
+                app:layout_constraintTop_toTopOf="@+id/textViewAllowedSourceAccounts" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBillerAliasTitle"
+                style="@style/TextViewHeaderFormOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_biller_alias"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewAllowedSourceAccounts" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutBillerAlias"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_edit_text"
+                android:hint="@string/hint_biller_alias"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBillerAliasTitle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextBillerAlias"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/viewTutorialBillerAlias"
+                style="@style/ViewTutorial"
+                app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutBillerAlias"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayoutBillerAlias"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayoutBillerAlias"
+                app:layout_constraintTop_toTopOf="@+id/textViewBillerAliasTitle" />
+
+            <include
+                android:id="@+id/viewBiller"
+                layout="@layout/widget_edit_text_biller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutBillerAlias" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/viewLoadingState"
+        style="@style/MatchConstraint"
+        layout="@layout/widget_loading_state"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

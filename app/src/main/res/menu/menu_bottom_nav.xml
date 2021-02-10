@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_accounts"
+        android:checked="true"
+        android:icon="@drawable/ic_accounts"
+        android:title="@string/title_tab_accounts"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/menu_send_request"
+        android:icon="@drawable/ic_send_request"
+        android:title="@string/title_tab_transact"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/menu_approvals"
+        android:icon="@drawable/ic_approval"
+        android:title="@string/title_tab_approvals"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/menu_notifications"
+        android:icon="@drawable/ic_notification"
+        android:title="@string/title_tab_notifications"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/title_tab_settings"
+        app:showAsAction="ifRoom|withText" />
+
+</menu>

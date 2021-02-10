@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutEndDate"
+        style="@style/TextInputLayoutForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing_edit_text"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditTextEndDate"
+            style="@style/TextInputEditTextForm.NotEditable" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/viewBorderProposedEndDate"
+        style="@style/BorderVertical"
+        android:layout_height="@dimen/border_height_form"
+        android:layout_marginTop="@dimen/border_margin_top_form"
+        android:background="@color/colorGrey"
+        app:layout_constraintStart_toStartOf="@+id/imageViewProposedEndDate"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayoutEndDate" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewProposedEndDate"
+        style="@style/ImageViewForm"
+        android:layout_marginTop="@dimen/border_margin_top_form"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutEndDate"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayoutEndDate"
+        app:srcCompat="@drawable/ic_fund_transfer_calender_orange"
+        app:tint="?colorAccent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

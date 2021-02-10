@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutItemRecent"
+    style="@style/MatchWrapParent">
+
+    <View
+        android:id="@+id/viewBorderItem1"
+        style="@style/BorderHorizontal"
+        android:layout_width="@dimen/border_half"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:layout_marginLeft="@dimen/content_group_spacing"
+        android:background="@color/colorUnSeenStatus"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewPresence"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewPresence"
+        style="@style/CircleBadgeGray"
+        android:layout_width="@dimen/badge_circle_activity_log_size"
+        android:layout_height="@dimen/badge_circle_activity_log_size"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewActivity"
+        app:layout_constraintEnd_toEndOf="@+id/viewBorderItem1"
+        app:layout_constraintStart_toStartOf="@+id/viewBorderItem1"
+        app:layout_constraintTop_toTopOf="@+id/cardViewActivity" />
+
+    <View
+        android:id="@+id/viewBorderItem2"
+        style="@style/BorderHorizontal"
+        android:layout_width="@dimen/border_half"
+        android:layout_height="@dimen/match_constraint"
+        android:background="@color/colorUnSeenStatus"
+        app:layout_constraintBottom_toBottomOf="@+id/spaceActivity"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPresence"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPresence"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPresence" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewActivity"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/card_margin"
+        app:contentPadding="@dimen/card_content_spacing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPresence"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchWrapParent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTime"
+                style="@style/TextViewDarkSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:gravity="start"
+                android:text="June 29, 2018, 07:00 PM"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRemarks"
+                style="@style/TextViewDark"
+                android:ellipsize="end"
+                android:text="Bills Payment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNoteTitle"
+                style="@style/TextViewDarkSmall"
+                android:ellipsize="end"
+                android:visibility="gone"
+                android:textColor="@color/colorSuccess"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:text="@string/title_reference_number_"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRemarks" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNote"
+                style="@style/TextViewDark"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:textColor="@color/colorSuccess"
+                android:visibility="visible"
+                android:text="Bills Payment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNoteTitle" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Space
+        android:id="@+id/spaceActivity"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/card_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewActivity" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

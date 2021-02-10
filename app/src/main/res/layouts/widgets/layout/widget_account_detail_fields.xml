@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent"
+    android:paddingTop="@dimen/content_spacing"
+    android:paddingBottom="@dimen/content_spacing">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountNameTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:text="@string/title_account_name"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAccountNameDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewAccountNameDetail" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountNameDetail"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:gravity="end"
+        android:text="San Miguel Corporation of the Philippines"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewAccountNameTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view1"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@drawable/bg_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAccountNameDetail" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountNumberTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:text="@string/title_account_number"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAccountNumberDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewAccountNumberDetail" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountNumberDetail"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:gravity="end"
+        android:text="3645 1826 4635 1876"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewAccountNumberTitle"
+        app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+    <View
+        android:id="@+id/view2"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@drawable/bg_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAccountNumberDetail" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountTypeTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:text="@string/title_account_type"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAccountType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewAccountType" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountType"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:gravity="end"
+        android:text="Corporate Savings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewAccountTypeTitle"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <View
+        android:id="@+id/view3"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@drawable/bg_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAccountType" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountStatusTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:text="@string/title_account_status"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAccountStatus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewAccountStatus" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountStatus"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:gravity="end"
+        android:text="Active"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewAccountStatusTitle"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+    <View
+        android:id="@+id/view4"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@drawable/bg_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAccountStatus" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAvailableBalanceDetailTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:text="@string/title_available_balance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAvailableBalanceDetail"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:gravity="end"
+        android:text="PHP 999,999,999,999"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewAvailableBalanceDetailTitle"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <View
+        android:id="@+id/view5"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@drawable/bg_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAvailableBalanceDetail" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewCurrentBalanceTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:text="@string/title_current_balance"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewCurrentBalance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewCurrentBalance" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewCurrentBalance"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:gravity="end"
+        android:text="PHP 999,999,999,999"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewCurrentBalanceTitle"
+        app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+    <View
+        android:id="@+id/view6"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@drawable/bg_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCurrentBalance" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewFundsClearingTitle"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:text="@string/title_funds_in_clearing"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewFundsClearing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewFundsClearing" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewFundsClearing"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing"
+        android:gravity="end"
+        android:text="PHP 999,999,999,999"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewFundsClearingTitle"
+        app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutContent"
+            style="@style/MatchConstraint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/radioButtonImmediately"
+                    style="@style/TextViewDark"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="@string/title_immediately" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonScheduled"
+                    style="@style/TextViewDark"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:text="@string/title_scheduled" />
+
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNoteMsg"
+                style="@style/TextViewDark"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                android:layout_width="@dimen/match_constraint"
+                android:paddingLeft="@dimen/content_group_spacing"
+                android:paddingRight="@dimen/content_group_spacing"
+                android:text="@string/msg_note"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutScheduled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/content_group_spacing"
+                android:paddingRight="@dimen/content_group_spacing"
+                android:paddingBottom="@dimen/content_group_spacing"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNoteMsg">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewFrequency"
+                    style="@style/TextViewOrange"
+                    android:text="@string/title_frequency"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewStartDate"
+                    style="@style/TextViewOrange"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/title_transaction_date"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutFrequency" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewEndDate"
+                    style="@style/TextViewOrange"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/title_ends"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewStartDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewTip"
+                    style="@style/TextViewOrange"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/title_tip"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutEnds" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewTipMsg"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:text="@string/msg_tip"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textViewTip"
+                    app:layout_constraintTop_toTopOf="@+id/textViewTip" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutFrequency"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_spacing_edit_text"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewFrequency">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextFrequency"
+                        style="@style/TextInputEditTextForm.DropDownOrange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutEnds"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_spacing_edit_text"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewEndDate">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/textInputEditTextEnds"
+                        style="@style/TextInputEditTextForm.DropDownOrange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <include
+                    android:id="@+id/viewStartDate"
+                    layout="@layout/widget_edit_text_start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewStartDate" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/viewLoadingState"
+            style="@style/MatchConstraint"
+            layout="@layout/widget_loading_state"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

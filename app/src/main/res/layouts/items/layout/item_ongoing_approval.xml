@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <Space
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_view_item_organization_transfers_batch"
+        android:layout_alignBottom="@+id/cardViewContent"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing" />
+
+    <include
+        android:id="@+id/cardViewBatch"
+        layout="@layout/view_card_batch_layer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/space"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginTop="7dp"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_margin_single_line"
+        android:visibility="gone" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewContent"
+        style="@style/CardViewTransactionDetails">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutApprovalContent"
+            style="@style/MatchWrapParent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/content_spacing">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIcon"
+                android:layout_width="@dimen/image_view_transaction_icon_size"
+                android:layout_height="@dimen/image_view_transaction_icon_size"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewCreatedBy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewRemarks"
+                app:srcCompat="@drawable/ic_fund_transfer" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRemarks"
+                style="@style/TextViewDarkSingleLine"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:textSize="@dimen/text_14"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/textViewCreatedBy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIcon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCreatedBy"
+                style="@style/TextViewDarkSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintBottom_toTopOf="@+id/textViewTransferToTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIcon"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRemarks" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTransferToTitle"
+                style="@style/TextViewDarkSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_transfer_to"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/textViewTransferTo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCreatedBy"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTransferTo"
+                style="@style/TextViewDarkSingleLine"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewTransferToTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewTransferToTitle"
+                app:layout_constraintTop_toTopOf="@+id/textViewTransferToTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTotalTransactionTitle"
+                style="@style/TextViewDarkSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:text="@string/title_total_transaction_amount"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/textViewTotalTransaction"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTransferTo"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTotalTransaction"
+                style="@style/TextViewDarkSingleLine"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewTotalTransactionTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewTotalTransactionTitle"
+                app:layout_constraintTop_toTopOf="@+id/textViewTotalTransactionTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewProposedDateTitle"
+                style="@style/TextViewDarkSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:text="@string/title_transaction_date"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/textViewProposedDate"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTotalTransaction"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewProposedDate"
+                style="@style/TextViewDarkSingleLine"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:gravity="top|start"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewProposedDateTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewProposedDateTitle"
+                app:layout_constraintTop_toTopOf="@+id/textViewProposedDateTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewChannelTitle"
+                style="@style/TextViewDarkSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:text="@string/title_channel"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/textViewChannel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewProposedDate"
+                app:layout_constraintWidth_default="percent"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewChannel"
+                style="@style/TextViewDarkSingleLine"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewChannelTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewChannelTitle"
+                app:layout_constraintTop_toTopOf="@+id/textViewChannelTitle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonApprove"
+                style="@style/RoundedButtonOrangeSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/button_small_padding"
+                android:layout_marginBottom="@dimen/grid_1_half"
+                android:text="@string/action_approve_default"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonReject"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewChannel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonReject"
+                style="@style/RoundedButtonRedTransparent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_marginStart="@dimen/button_small_padding"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/grid_1_half"
+                android:text="@string/action_reject"
+                android:textColor="@color/colorTextReject"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/buttonApprove"
+                app:layout_constraintTop_toBottomOf="@+id/textViewChannel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

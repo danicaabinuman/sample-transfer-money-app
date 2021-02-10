@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_parent"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            style="@style/MatchConstraint"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                style="@style/MatchParent"
+                android:padding="@dimen/content_group_spacing">
+
+                <include
+                    android:id="@+id/viewChannelHeader"
+                    layout="@layout/widget_channel_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view_tutorial_deposit_to"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="@dimen/match_constraint"
+                    app:layout_constraintBottom_toBottomOf="@+id/til_deposit_to"
+                    app:layout_constraintEnd_toEndOf="@+id/til_deposit_to"
+                    app:layout_constraintStart_toStartOf="@+id/til_deposit_to"
+                    app:layout_constraintTop_toTopOf="@+id/tv_deposit_to" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_deposit_to"
+                    style="@style/TextViewOrange"
+                    android:layout_marginTop="@dimen/content_spacing_form_header"
+                    android:text="@string/title_deposit_to"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewChannelHeader" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_deposit_to"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_spacing_edit_text"
+                    android:hint="@string/hint_transfer_from"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_deposit_to">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_deposit_to"
+                        style="@style/TextInputEditTextForm.Selector"
+                        android:textStyle="bold" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:id="@+id/view_tutorial_amount"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="@dimen/match_constraint"
+                    app:layout_constraintBottom_toBottomOf="@+id/til_amount"
+                    app:layout_constraintEnd_toEndOf="@+id/til_amount"
+                    app:layout_constraintStart_toStartOf="@+id/til_amount"
+                    app:layout_constraintTop_toTopOf="@+id/tv_amount" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_amount"
+                    style="@style/TextViewHeaderFormOrange"
+                    android:layout_marginTop="@dimen/content_spacing_form_header"
+                    android:text="@string/title_amount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/til_deposit_to" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_amount"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginTop="@dimen/content_spacing_edit_text"
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_amount">
+
+                    <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
+                        android:id="@+id/et_amount"
+                        style="@style/EditTextAmount"
+                        android:layout_width="match_parent"
+                        android:paddingStart="@dimen/content_spacing"
+                        android:paddingEnd="@dimen/content_spacing"
+                        app:currencySymbol="@string/title_php"
+                        app:useCurrencySymbolAsHint="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

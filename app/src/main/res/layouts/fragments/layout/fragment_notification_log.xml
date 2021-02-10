@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    style="@style/DefaultBackgroundMatchParent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayoutNotificationLog"
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/recyclerViewNotificationLog"
+            style="@style/MatchParent"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            tools:listitem="@layout/item_notification_log" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewState"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_spacing_large"
+        android:layout_marginRight="@dimen/content_spacing_large"
+        android:gravity="center"
+        android:text="@string/msg_no_notification"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/recyclerViewTutorialNotificationLog"
+        style="@style/MatchConstraint"
+        android:background="@drawable/bg_content_background"
+        android:overScrollMode="never"
+        android:paddingTop="@dimen/content_spacing_half"
+        android:paddingBottom="@dimen/content_spacing"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/viewLoadingState"
+        style="@style/MatchConstraint"
+        layout="@layout/widget_loading_state"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

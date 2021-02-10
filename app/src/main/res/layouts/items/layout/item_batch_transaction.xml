@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutItemTitle"
+    style="@style/MatchWrapParent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_rectangle_white">
+
+    <View
+        android:id="@+id/viewBorderTop"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewStatus"
+        style="@style/ImageViewIcon"
+        android:layout_marginStart="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountName"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing_half"
+        android:layout_marginEnd="@dimen/content_spacing"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAccountNumber"
+        app:layout_constraintEnd_toStartOf="@+id/textViewAmount"
+        app:layout_constraintStart_toEndOf="@+id/imageViewStatus"
+        app:layout_constraintTop_toTopOf="@+id/imageViewStatus"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountNumber"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing_half"
+        android:layout_marginEnd="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewStatus"
+        app:layout_constraintEnd_toStartOf="@+id/textViewAmount"
+        app:layout_constraintStart_toEndOf="@+id/imageViewStatus"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAccountName"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAmount"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:gravity="end"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewStatus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewStatus"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <View
+        android:id="@+id/viewBorderBottom"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAccountNumber" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

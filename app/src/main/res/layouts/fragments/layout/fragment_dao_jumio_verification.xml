@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_layout"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content"
+            style="@style/MatchWrapParent"
+            android:paddingBottom="@dimen/content_spacing_large">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.95"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_header_info"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:gravity="start"
+                android:text="@string/title_jumio_verification_header_info"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_drivers_license"
+                style="@style/CardViewLight"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing_half"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:contentPadding="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_header_info">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_ic_drivers_license"
+                        style="@style/ImageViewIcon"
+                        android:padding="@dimen/grid_0"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_drivers_license"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_drivers_license"
+                        app:srcCompat="@drawable/ic_drivers_license" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_drivers_license"
+                        style="@style/TextViewDarkLarge"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginStart="@dimen/content_spacing"
+                        android:text="@string/title_drivers_license"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_drivers_license"
+                        app:layout_constraintStart_toEndOf="@id/iv_ic_drivers_license"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_drivers_license"
+                        style="@style/WrapContent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_drivers_license"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_drivers_license"
+                        app:srcCompat="@drawable/ic_arrow_orange_right"
+                        app:tint="?colorAccent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_passport"
+                style="@style/CardViewLight"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing_half"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:contentPadding="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/cv_drivers_license">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_ic_passport"
+                        style="@style/ImageViewIcon"
+                        android:padding="@dimen/grid_0"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_passport"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_passport"
+                        app:srcCompat="@drawable/ic_passport" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_passport"
+                        style="@style/TextViewDarkLarge"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginStart="@dimen/content_spacing"
+                        android:text="@string/title_passport"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_passport"
+                        app:layout_constraintStart_toEndOf="@id/iv_ic_passport"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_passport"
+                        style="@style/WrapContent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_passport"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_passport"
+                        app:srcCompat="@drawable/ic_arrow_orange_right"
+                        app:tint="?colorAccent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_sss_id"
+                style="@style/CardViewLight"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing_half"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:contentPadding="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/cv_passport">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_ic_sss_id"
+                        style="@style/ImageViewIcon"
+                        android:padding="@dimen/grid_0"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_sss_id"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_sss_id"
+                        app:srcCompat="@drawable/ic_sss_id" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_sss_id"
+                        style="@style/TextViewDarkLarge"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginStart="@dimen/content_spacing"
+                        android:text="@string/title_sss_id"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_sss_id"
+                        app:layout_constraintStart_toEndOf="@id/iv_ic_sss_id"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_sss_id"
+                        style="@style/WrapContent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_sss_id"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_sss_id"
+                        app:srcCompat="@drawable/ic_arrow_orange_right"
+                        app:tint="?colorAccent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_prc_id"
+                style="@style/CardViewLight"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing_half"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:contentPadding="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/cv_sss_id">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_ic_prc_id"
+                        style="@style/ImageViewIcon"
+                        android:padding="@dimen/grid_0"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_prc_id"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_prc_id"
+                        app:srcCompat="@drawable/ic_prc_id" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_prc_id"
+                        style="@style/TextViewDarkLarge"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginStart="@dimen/content_spacing"
+                        android:text="@string/title_prc_id"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_prc_id"
+                        app:layout_constraintStart_toEndOf="@id/iv_ic_prc_id"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_prc_id"
+                        style="@style/WrapContent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_prc_id"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_prc_id"
+                        app:srcCompat="@drawable/ic_arrow_orange_right"
+                        app:tint="?colorAccent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_postal_id"
+                style="@style/CardViewLight"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing_half"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:contentPadding="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/cv_prc_id">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_ic_postal_id"
+                        style="@style/ImageViewIcon"
+                        android:padding="@dimen/grid_0"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_postal_id"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_postal_id"
+                        app:srcCompat="@drawable/ic_postal_id" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_postal_id"
+                        style="@style/TextViewDarkLarge"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginStart="@dimen/content_spacing"
+                        android:text="@string/title_postal_id"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_postal_id"
+                        app:layout_constraintStart_toEndOf="@id/iv_ic_postal_id"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_postal_id"
+                        style="@style/WrapContent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_postal_id"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_postal_id"
+                        app:srcCompat="@drawable/ic_arrow_orange_right"
+                        app:tint="?colorAccent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_umid"
+                style="@style/CardViewLight"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="@dimen/content_spacing_half"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:contentPadding="@dimen/content_spacing"
+                app:layout_constraintBottom_toTopOf="@id/tv_jumio_desc"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/cv_postal_id">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_ic_umid"
+                        style="@style/ImageViewIcon"
+                        android:padding="@dimen/grid_0"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_umid"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_umid"
+                        app:srcCompat="@drawable/ic_umid" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_umid"
+                        style="@style/TextViewDarkLarge"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginStart="@dimen/content_spacing"
+                        android:text="@string/title_umid_id"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/iv_umid"
+                        app:layout_constraintStart_toEndOf="@id/iv_ic_umid"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_umid"
+                        style="@style/WrapContent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_umid"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_umid"
+                        app:srcCompat="@drawable/ic_arrow_orange_right"
+                        app:tint="?colorAccent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_jumio_desc"
+                style="@style/TextViewDarkLarge"
+                android:visibility="gone"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginBottom="@dimen/content_spacing_half"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:text="@string/desc_valid_id"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintTop_toBottomOf="@id/cv_umid" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewChannel"
+        android:layout_width="@dimen/image_view_channel_size"
+        android:layout_height="@dimen/image_view_channel_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_bills_payment" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewChannel"
+        style="@style/TextViewHeaderFormOrange"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:text="@string/title_bills_payment"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewChannel"
+        app:layout_constraintEnd_toStartOf="@+id/textViewServiceDiscountFee"
+        app:layout_constraintStart_toEndOf="@+id/imageViewChannel"
+        app:layout_constraintTop_toTopOf="@+id/imageViewChannel" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewServiceDiscountFee"
+        style="@style/TextViewDarkInActive"
+        android:layout_marginEnd="@dimen/content_spacing_small"
+        android:gravity="start"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewServiceFee"
+        app:layout_constraintEnd_toStartOf="@+id/textViewServiceFee"
+        app:layout_constraintTop_toTopOf="@+id/textViewServiceFee" />
+
+    <View
+        android:id="@+id/viewBorderServiceDiscountFee"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorInActive"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewServiceDiscountFee"
+        app:layout_constraintEnd_toEndOf="@+id/textViewServiceDiscountFee"
+        app:layout_constraintStart_toStartOf="@+id/textViewServiceDiscountFee"
+        app:layout_constraintTop_toTopOf="@+id/textViewServiceDiscountFee" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewServiceFeeTitle"
+        style="@style/TextViewHeaderFormOrange"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:text="@string/title_service_fee"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewServiceFee"
+        style="@style/TextViewServiceFee"
+        android:layout_marginTop="@dimen/content_spacing_small"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewServiceFeeTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

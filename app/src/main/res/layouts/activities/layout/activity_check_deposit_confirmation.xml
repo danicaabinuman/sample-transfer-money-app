@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        style="@style/DefaultBackgroundMatchConstraint"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchParent"
+            android:paddingTop="@dimen/content_spacing"
+            android:paddingBottom="@dimen/content_spacing">
+
+            <View
+                android:id="@+id/viewHeader"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:background="@drawable/bg_rectangle_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewHeader"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewHeader"
+                android:layout_width="@dimen/grid_5"
+                android:layout_height="@dimen/grid_5"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:layout_marginLeft="@dimen/content_spacing_half"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewHeader"
+                app:layout_constraintStart_toStartOf="@+id/viewHeader"
+                app:layout_constraintTop_toTopOf="@+id/textViewHeader"
+                app:srcCompat="@drawable/ic_fund_transfer_search_gray" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeader"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:layout_marginLeft="@dimen/content_spacing_half"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                android:layout_marginRight="@dimen/content_spacing_half"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:maxLines="2"
+                android:text="@string/msg_transaction_confirmation"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/viewHeader"
+                app:layout_constraintEnd_toEndOf="@+id/viewHeader"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewHeader"
+                app:layout_constraintTop_toTopOf="@+id/viewHeader" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBankOfCheckTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:text="@string/title_issuing_bank"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textViewBankOfCheck"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewBankOfCheck" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBankOfCheck"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_group_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:maxLines="20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewBankOfCheckTitle"
+                app:layout_constraintTop_toBottomOf="@+id/viewHeader"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/viewBorderBankOfCheck"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBankOfCheck" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCheckAccountNumberTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:text="@string/hint_check_account_number"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textViewCheckAccountNumber"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewCheckAccountNumber" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCheckAccountNumber"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:maxLines="20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewCheckAccountNumberTitle"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderBankOfCheck"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/viewBorderCheckAccountNumber"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCheckAccountNumberTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCheckNumberTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:text="@string/hint_check_number"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textViewCheckNumber"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewCheckNumber" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCheckNumber"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:maxLines="20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewCheckNumberTitle"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckAccountNumber"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/viewBorderCheckNumber"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCheckNumber" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDateOnCheckTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:text="@string/hint_date_front_of_check"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textViewDateOnCheck"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewDateOnCheck" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDateOnCheck"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:maxLines="20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewDateOnCheckTitle"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderCheckNumber"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/viewBorderDateOnCheck"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDateOnCheck" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAmountTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:text="@string/title_amount"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textViewAmount"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewAmount" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAmount"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:gravity="start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewAmountTitle"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderDateOnCheck"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/viewBorderAmount"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAmount" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewServiceFeeTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_service_fee"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/textViewAmountTitle"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/textViewAmountTitle"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderAmount" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewServiceFee"
+                style="@style/TextViewServiceFee"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:gravity="start"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewServiceFeeTitle"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewServiceFeeTitle"
+                app:layout_constraintTop_toTopOf="@+id/textViewServiceFeeTitle"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewServiceDiscountFee"
+                style="@style/TextViewDarkInActive"
+                android:layout_marginStart="@dimen/content_spacing_small"
+                android:gravity="start"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewServiceFee"
+                app:layout_constraintStart_toEndOf="@+id/textViewServiceFee"
+                app:layout_constraintTop_toTopOf="@+id/textViewServiceFee" />
+
+            <View
+                android:id="@+id/viewBorderServiceDiscountFee"
+                style="@style/BorderHorizontal"
+                android:background="@color/colorInActive"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewServiceDiscountFee"
+                app:layout_constraintEnd_toEndOf="@+id/textViewServiceDiscountFee"
+                app:layout_constraintStart_toStartOf="@+id/textViewServiceDiscountFee"
+                app:layout_constraintTop_toTopOf="@+id/textViewServiceDiscountFee" />
+
+            <View
+                android:id="@+id/viewBorderServiceFee"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewServiceFee" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDepositToTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:text="@string/title_deposit_to"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textViewDepositTo"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewDepositTo" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDepositTo"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:maxLines="20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewDepositToTitle"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderServiceFee"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/viewBorderDepositTo"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDepositTo" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRemarksTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:text="@string/title_remarks"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textViewRemarks"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewRemarks" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRemarks"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:gravity="start"
+                android:maxLines="20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textViewRemarksTitle"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderDepositTo"
+                app:layout_constraintWidth_percent="0.5" />
+
+            <View
+                android:id="@+id/viewBorderRemarks"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRemarks" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewFrontOfCheckTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_front_of_check"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderRemarks" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewFrontOfCheck"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_view_max_height_preview"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:transitionName="@string/image_animation_tag"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFrontOfCheckTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <include
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                layout="@layout/widget_preview_overlay"
+                app:layout_constraintTop_toTopOf="@+id/imageViewFrontOfCheck"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewFrontOfCheck"
+                app:layout_constraintStart_toStartOf="@+id/imageViewFrontOfCheck"
+                app:layout_constraintEnd_toEndOf="@+id/imageViewFrontOfCheck" />
+
+            <View
+                android:id="@+id/viewBorderFrontOfCheck"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewFrontOfCheck" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBackOfCheckTitle"
+                style="@style/TextViewDarkForm"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_back_of_check"
+                android:textColor="?colorAccent"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderFrontOfCheck" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewBackOfCheck"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/image_view_max_height_preview"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:transitionName="@string/image_animation_tag"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBackOfCheckTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <include
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                layout="@layout/widget_preview_overlay"
+                app:layout_constraintTop_toTopOf="@+id/imageViewBackOfCheck"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewBackOfCheck"
+                app:layout_constraintStart_toStartOf="@+id/imageViewBackOfCheck"
+                app:layout_constraintEnd_toEndOf="@+id/imageViewBackOfCheck" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEdit"
+                style="@style/RoundedButtonGrayTransparent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_marginStart="@dimen/content_group_spacing"
+                android:layout_marginLeft="@dimen/content_group_spacing"
+                android:layout_marginTop="@dimen/content_spacing_large"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                android:layout_marginRight="@dimen/content_spacing_half"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/action_edit"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonSubmit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewBackOfCheck" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSubmit"
+                style="@style/RoundedButtonOrangeSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:layout_marginLeft="@dimen/content_spacing_half"
+                android:layout_marginTop="@dimen/content_spacing_large"
+                android:layout_marginEnd="@dimen/content_group_spacing"
+                android:layout_marginRight="@dimen/content_group_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/action_submit"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/buttonEdit"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewBackOfCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

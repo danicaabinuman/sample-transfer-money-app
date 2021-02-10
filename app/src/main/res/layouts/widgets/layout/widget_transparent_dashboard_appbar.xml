@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appBarLayout"
+    style="@style/AppBarLayout">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolbarTransparent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/content_spacing_small"
+            android:paddingBottom="@dimen/content_spacing_small"
+            android:layout_gravity="start">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCorporationName"
+                style="@style/TextViewThemeSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_item_spacing"
+                android:gravity="bottom"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toTopOf="@+id/textViewTitle"
+                app:layout_constraintEnd_toStartOf="@+id/btnRequestPayment"
+                app:layout_constraintStart_toEndOf="@+id/viewBadge"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTitle"
+                style="@style/TextViewThemeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_item_spacing"
+                android:gravity="top"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@+id/btnRequestPayment"
+                app:layout_constraintStart_toEndOf="@+id/viewBadge"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCorporationName"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/btnRequestPayment"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/image_view_initial_org_size"
+                android:textSize="@dimen/text_12"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                android:text="Request Payment"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/content_item_spacing"
+                android:background="@drawable/bg_card_view_gradient_orange"
+                app:layout_constraintStart_toEndOf="@+id/textViewCorporationName"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"
+                app:layout_constraintTop_toTopOf="@+id/imageViewHelp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewHelp"
+                />
+
+            <include
+                android:id="@+id/viewBadge"
+                layout="@layout/widget_badge_initial"
+                android:layout_width="@dimen/image_view_initial_org_size"
+                android:layout_height="@dimen/image_view_initial_org_size"
+                android:layout_margin="@dimen/content_spacing"
+                android:background="?selectableItemBackgroundBorderless"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/viewBadgeCount"
+                layout="@layout/widget_badge_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/viewBadge"
+                app:layout_constraintStart_toEndOf="@+id/viewBadge"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewHelp"
+                style="@style/ImageViewToolbarIcon"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleType="center"
+                android:visibility="visible"
+                app:tint="?colorImage"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewMarkAllAsRead"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge"
+                app:srcCompat="@drawable/ic_question_mark_white" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewMarkAllAsRead"
+                style="@style/ImageViewIcon"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleType="center"
+                android:visibility="gone"
+                app:tint="?colorImage"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@+id/textViewEditApprovals"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge"
+                app:srcCompat="@drawable/ic_check_outline_white" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewEditApprovals"
+                style="@style/TextViewThemeLarge"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="@dimen/text_view_padding"
+                android:text="@string/action_edit"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewLogout"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewLogout"
+                style="@style/ImageViewIcon"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleType="center"
+                android:visibility="gone"
+                app:tint="?colorImage"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge"
+                app:srcCompat="@drawable/ic_logout_white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+</com.google.android.material.appbar.AppBarLayout>

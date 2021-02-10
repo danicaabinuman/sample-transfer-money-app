@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayoutManageScheduledTransfers"
+        style="@style/MatchWrapParent"
+        android:background="?toolbarColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="?colorAccent"
+        app:tabMaxWidth="@dimen/grid_0"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/TabLayoutTextAppearance"
+        app:tabRippleColor="@color/colorRippleHover"
+        app:tabSelectedTextColor="?colorAccent"
+        app:tabTextColor="@color/colorLightGray" />
+
+    <View
+        android:id="@+id/shadow_toolbar"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/border_medium"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayoutManageScheduledTransfers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_shadow"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shadow_toolbar">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPagerManageScheduledTransfers"
+            style="@style/MatchConstraint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

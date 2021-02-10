@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:id="@+id/constraint_layout"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        android:layout_height="@dimen/match_constraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <ScrollView
+            style="@style/MatchConstraint"
+            app:layout_constraintBottom_toTopOf="@id/btn_apply_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                style="@style/MatchWrapParent"
+                android:paddingBottom="@dimen/content_spacing_large">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/match_constraint"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintGuide_percent="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/match_constraint"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintGuide_percent="0.95"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_check_number"
+                    style="@style/TextViewOrange"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/title_check_number"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_check_number"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    android:hint="@string/hint_enter_check_number"
+                    app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_check_number">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_check_number"
+                        style="@style/TextInputEditTextForm"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_amount"
+                    style="@style/TextViewHeaderFormOrange"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/title_amount"
+                    app:layout_constraintStart_toStartOf="@id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/til_check_number" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_amount"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_amount">
+
+                    <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
+                        android:id="@+id/et_amount"
+                        style="@style/EditTextAmount"
+                        android:layout_width="match_parent"
+                        android:paddingStart="@dimen/content_spacing"
+                        android:paddingEnd="@dimen/content_spacing"
+                        app:currencySymbol="@string/title_php"
+                        app:useCurrencySymbolAsHint="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_check_date"
+                    style="@style/TextViewOrange"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/title_date_front_of_check"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/til_amount" />
+
+                <include
+                    android:id="@+id/view_start_check_date"
+                    layout="@layout/widget_edit_text_start_date"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/content_spacing_small"
+                    app:layout_constraintEnd_toStartOf="@+id/view_border_check_date"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_check_date" />
+
+                <View
+                    android:id="@+id/view_border_check_date"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_start_check_date"
+                    app:layout_constraintEnd_toStartOf="@+id/view_end_check_date"
+                    app:layout_constraintStart_toEndOf="@+id/view_start_check_date"
+                    app:layout_constraintTop_toTopOf="@+id/view_start_check_date"
+                    app:layout_constraintWidth_percent="0.04" />
+
+                <include
+                    android:id="@+id/view_end_check_date"
+                    layout="@layout/widget_edit_text_start_date"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/content_spacing_small"
+                    app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                    app:layout_constraintStart_toEndOf="@+id/view_border_check_date"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_check_date" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_deposit_account"
+                    style="@style/TextViewOrange"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/title_deposit_account"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/view_start_check_date" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_deposit_account"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    android:hint="@string/hint_deposit_account"
+                    app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_deposit_account">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_deposit_account"
+                        style="@style/TextInputEditTextForm.DropDownOrange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_status"
+                    style="@style/TextViewOrange"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/title_status"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/til_deposit_account" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_status"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    android:hint="@string/hint_status"
+                    app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_status">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_status"
+                        style="@style/TextInputEditTextForm.DropDownOrange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_date_created"
+                    style="@style/TextViewOrange"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:text="@string/title_date_created"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@id/til_status" />
+
+                <include
+                    android:id="@+id/view_start_date_created"
+                    layout="@layout/widget_edit_text_start_date"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/content_spacing_small"
+                    app:layout_constraintEnd_toStartOf="@+id/view_border_date_created"
+                    app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_date_created" />
+
+                <View
+                    android:id="@+id/view_border_date_created"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_start_date_created"
+                    app:layout_constraintEnd_toStartOf="@+id/view_end_date_created"
+                    app:layout_constraintStart_toEndOf="@+id/view_start_date_created"
+                    app:layout_constraintTop_toTopOf="@+id/view_start_date_created"
+                    app:layout_constraintWidth_percent="0.04" />
+
+                <include
+                    android:id="@+id/view_end_date_created"
+                    layout="@layout/widget_edit_text_start_date"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/content_spacing_small"
+                    app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+                    app:layout_constraintStart_toEndOf="@+id/view_border_date_created"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_date_created" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraint"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraint"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.95"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_apply_filter"
+            style="@style/RoundedButtonOrangeSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_marginBottom="@dimen/content_item_spacing"
+            android:text="@string/action_apply_filter"
+            app:layout_constraintBottom_toTopOf="@+id/btn_clear_filter"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_clear_filter"
+            style="@style/RoundedButtonGrayTransparent"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_marginBottom="@dimen/content_group_spacing"
+            android:text="@string/action_clear_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/gl_end"
+            app:layout_constraintStart_toStartOf="@id/gl_start" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

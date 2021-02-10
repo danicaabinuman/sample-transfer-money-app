@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl"
+    style="@style/MatchWrapParent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_personal_information_1"
+        style="@style/TextViewLightOrangeLarge"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing_half"
+        android:gravity="start"
+        android:text="@string/title_personal_information"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btn_personal_information_1"
+        app:layout_constraintEnd_toStartOf="@id/btn_personal_information_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_personal_information_1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btn_personal_information_1"
+        style="@style/TextViewOrangeLarge"
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="@dimen/content_spacing_half"
+        android:background="?attr/selectableItemBackground"
+        android:padding="@dimen/text_view_padding"
+        android:text="@string/action_edit"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_personal_information_1"
+        style="@style/CardViewLight"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_margin="@dimen/content_spacing_half"
+        app:contentPaddingBottom="@dimen/content_spacing"
+        app:contentPaddingTop="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_personal_information_1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_salutation_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:text="@string/title_salutation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_salutation"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                android:maxLines="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_salutation_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_salutation_title" />
+
+            <View
+                android:id="@+id/border_salutation"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_salutation" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_first_name_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_first_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/border_salutation"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_first_name"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                android:maxLines="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_first_name_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_first_name_title" />
+
+            <View
+                android:id="@+id/border_first_name"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_first_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_middle_name_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_middle_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/border_first_name"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_middle_name"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                android:maxLines="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_middle_name_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_middle_name_title" />
+
+            <View
+                android:id="@+id/border_middle_name"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_middle_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_last_name_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_last_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/border_middle_name"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_last_name"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                android:maxLines="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_last_name_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_last_name_title" />
+
+            <View
+                android:id="@+id/border_last_name"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_last_name" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_email_address_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_email_address"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/border_last_name"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_email_address"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                android:maxLines="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_email_address_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_email_address_title" />
+
+            <View
+                android:id="@+id/border_email_address"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_email_address" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_mobile_number_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_mobile_number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/border_email_address"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_mobile_number"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                android:maxLines="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_mobile_number_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_mobile_number_title" />
+
+            <View
+                android:id="@+id/border_mobile_number"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_mobile_number" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_gender_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_gender"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/border_mobile_number"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_gender"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                android:maxLines="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_gender_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_gender_title" />
+
+            <View
+                android:id="@+id/border_gender"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@drawable/bg_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_gender" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_civil_status_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:text="@string/title_civil_status"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/border_gender"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_civil_status"
+                style="@style/TextViewDarkForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:gravity="end"
+                android:maxLines="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_civil_status_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_civil_status_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

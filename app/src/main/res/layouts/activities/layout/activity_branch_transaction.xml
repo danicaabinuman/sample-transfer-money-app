@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolBar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolBar">
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/recyclerViewBranchTransaction"
+            style="@style/RecyclerViewLight"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDelete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <include
+            android:id="@+id/viewLoadingState"
+            style="@style/MatchConstraint"
+            layout="@layout/widget_loading_state"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewBranchTransaction"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewState"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_spacing_large"
+            android:layout_marginRight="@dimen/content_spacing_large"
+            android:gravity="center"
+            android:text="@string/title_no_active_accounts"
+            android:textSize="@dimen/text_14"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerViewBranchTransaction"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSelectAll"
+            style="@style/RoundedButtonOrangeSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/content_spacing_small"
+            android:layout_marginBottom="@dimen/content_spacing"
+            android:text="@string/action_select_all"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewBranchTransaction" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonDelete"
+            style="@style/RoundedButtonRedTransparent"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_marginStart="@dimen/content_spacing_small"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:layout_marginBottom="@dimen/content_spacing"
+            android:text="@string/params_delete"
+            android:textColor="@color/colorTextReject"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buttonSelectAll"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewBranchTransaction" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

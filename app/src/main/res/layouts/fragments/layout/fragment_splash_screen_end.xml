@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView"
+        style="@style/ImageViewLogo"
+        android:layout_marginLeft="@dimen/content_group_spacing"
+        android:layout_marginRight="@dimen/content_group_spacing"
+        android:padding="@dimen/content_spacing_half"
+        android:scaleType="center"
+        app:layout_constraintBottom_toTopOf="@+id/textViewHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewHeader"
+        style="@style/TextHeaderLight"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:layout_marginTop="@dimen/content_margin_main_splash_top"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:gravity="center"
+        android:text="@string/title_welcome"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDesc"
+        style="@style/TextViewTheme"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/text_view_spacing"
+        android:maxLines="10"
+        android:text="@string/desc_splash_screen_end"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeader" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonLogin"
+        style="@style/RoundedButtonOrange"
+        android:layout_marginLeft="@dimen/content_margin"
+        android:layout_marginTop="@dimen/content_group_spacing"
+        android:layout_marginRight="@dimen/content_margin"
+        android:text="@string/title_login"
+        app:layout_constraintBottom_toTopOf="@+id/textViewContactInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDesc"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewContactInfo"
+        style="@style/TextViewTheme"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:gravity="center"
+        android:text="@string/desc_contact_info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

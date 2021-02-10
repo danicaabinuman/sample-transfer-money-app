@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraint"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraint"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.95"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewCreatedDate"
+            style="@style/TextViewOrange"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:text="@string/title_created_date"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/viewStartDate"
+            layout="@layout/widget_edit_text_start_date"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/content_spacing_small"
+            app:layout_constraintEnd_toStartOf="@+id/viewBorderCreatedDate"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreatedDate" />
+
+        <View
+            android:id="@+id/viewBorderCreatedDate"
+            style="@style/BorderHorizontal"
+            app:layout_constraintWidth_percent="0.04"
+            android:background="@color/colorGreyLight"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            app:layout_constraintStart_toEndOf="@+id/viewStartDate"
+            app:layout_constraintEnd_toStartOf="@+id/viewEndDate"
+            app:layout_constraintTop_toTopOf="@+id/viewStartDate"
+            app:layout_constraintBottom_toBottomOf="@+id/viewStartDate"/>
+
+        <include
+            android:id="@+id/viewEndDate"
+            layout="@layout/widget_edit_text_start_date"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/content_spacing_small"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toEndOf="@+id/viewBorderCreatedDate"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreatedDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewChannel"
+            style="@style/TextViewOrange"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:text="@string/title_channel"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/viewStartDate" />
+
+        <include
+            android:id="@+id/viewChannel"
+            layout="@layout/widget_edit_text_selector"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewChannel" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBillerName"
+            style="@style/TextViewOrange"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:text="@string/title_biller_name"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/viewChannel" />
+
+        <include
+            android:id="@+id/viewBillerName"
+            layout="@layout/widget_edit_text_selector"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBillerName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewStatus"
+            style="@style/TextViewOrange"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:text="@string/title_status"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/viewBillerName" />
+
+        <include
+            android:id="@+id/viewStatus"
+            layout="@layout/widget_edit_text_selector"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewStatus" />
+
+        <include
+            android:id="@+id/viewPrimaryButton"
+            layout="@layout/widget_button_orange_small"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/content_item_spacing"
+            app:layout_constraintBottom_toTopOf="@+id/viewSecondaryButton"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart" />
+
+        <include
+            android:id="@+id/viewSecondaryButton"
+            layout="@layout/widget_button_outline_small"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/content_group_spacing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

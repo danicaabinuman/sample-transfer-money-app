@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    style="@style/DefaultBackgroundMatchParent"
+    android:clickable="true"
+    android:focusable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutHeaderTitle"
+            style="@style/MatchWrapParent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewSwitch"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:gravity="center_vertical"
+                app:layout_constraintBottom_toTopOf="@+id/viewBorderHeader"
+                app:layout_constraintEnd_toStartOf="@+id/switchCompat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchCompat"
+                style="@style/WrapContent"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewSwitch"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewSwitch" />
+
+            <View
+                android:id="@+id/viewBorderHeader"
+                style="@style/BorderHorizontal"
+                android:background="@color/colorGreyLight"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutTitle"
+            style="@style/MatchWrapParent"
+            android:layout_height="@dimen/list_header_size"
+            android:background="@color/colorContentBackground"
+            android:paddingLeft="@dimen/content_spacing"
+            android:paddingRight="@dimen/content_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutHeaderTitle">
+
+            <View
+                android:id="@+id/viewBorderHeader2"
+                style="@style/BorderHorizontal"
+                android:background="@color/colorGreyLight"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTitle"
+                style="@style/TextViewDarkLarge"
+                android:gravity="center_vertical"
+                android:text="@string/title_send_me_notification_detail"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutPush"
+            style="@style/MatchWrapParent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTitle">
+
+            <View
+                android:id="@+id/viewBorderPush"
+                style="@style/BorderHorizontal"
+                android:background="@color/colorGreyLight"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewPush"
+                android:layout_width="@dimen/image_view_icon_size"
+                android:layout_height="@dimen/image_view_icon_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewPush"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewPush"
+                app:srcCompat="@drawable/ic_notification_push" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewPush"
+                style="@style/TextViewDarkForm"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:gravity="center_vertical"
+                android:text="@string/title_push"
+                app:layout_constraintEnd_toStartOf="@+id/switchCompatPush"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPush"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderPush" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchCompatPush"
+                style="@style/WrapContent"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewPush"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewPush" />
+
+            <View
+                android:id="@+id/viewBorderPush2"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPush" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutSMS"
+            style="@style/MatchWrapParent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutPush">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewSMS"
+                android:layout_width="@dimen/image_view_icon_size"
+                android:layout_height="@dimen/image_view_icon_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewSMS"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewSMS"
+                app:srcCompat="@drawable/ic_notification_sms" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewSMS"
+                style="@style/TextViewDarkForm"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:gravity="center_vertical"
+                android:text="@string/title_sms"
+                app:layout_constraintEnd_toStartOf="@+id/switchCompatSMS"
+                app:layout_constraintStart_toEndOf="@+id/imageViewSMS"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchCompatSMS"
+                style="@style/WrapContent"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewSMS"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewSMS" />
+
+            <View
+                android:id="@+id/viewBorderSMS"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSMS" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutEmail"
+            style="@style/MatchWrapParent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutSMS">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewEmail"
+                android:layout_width="@dimen/image_view_icon_size"
+                android:layout_height="@dimen/image_view_icon_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewEmail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewEmail"
+                app:srcCompat="@drawable/ic_notification_email" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewEmail"
+                style="@style/TextViewDarkForm"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:gravity="center_vertical"
+                android:text="@string/title_email"
+                app:layout_constraintEnd_toStartOf="@+id/switchCompatEmail"
+                app:layout_constraintStart_toEndOf="@+id/imageViewEmail"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchCompatEmail"
+                style="@style/WrapContent"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewEmail"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewEmail" />
+
+            <View
+                android:id="@+id/viewBorderEmail"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:background="@color/colorGreyLight"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEmail" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/viewLoadingState"
+        style="@style/WrapContent"
+        layout="@layout/widget_loading_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

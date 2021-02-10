@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_layout"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content"
+            style="@style/MatchWrapParent"
+            android:paddingBottom="@dimen/content_spacing_large">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.95"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_header_info"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:gravity="start"
+                android:text="@string/title_personal_info_1_header_info"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_salutation"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_salutation"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintWidth_percent="0.3"
+                app:layout_constraintTop_toBottomOf="@id/tv_header_info">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_salutation"
+                    style="@style/TextInputEditTextForm.DropDownOrange"
+                    android:drawablePadding="@dimen/content_spacing_half" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_first_name"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_first_name"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toEndOf="@id/til_salutation"
+                app:layout_constraintTop_toBottomOf="@id/tv_header_info">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_first_name"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_middle_name"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                android:hint="@string/hint_middle_name"
+                app:layout_constraintEnd_toStartOf="@id/til_last_name"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_first_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_middle_name"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_last_name"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_last_name"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toEndOf="@id/til_middle_name"
+                app:layout_constraintTop_toBottomOf="@id/til_first_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_last_name"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_email_address"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_email_address_normal"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_last_name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_email_address"
+                    style="@style/TextInputEditTextForm"
+                    android:digits="@string/digits_with_restriction"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <include
+                android:id="@+id/view_country_code"
+                layout="@layout/widget_country_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/content_spacing_small"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="@id/til_business_mobile_number" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_business_mobile_number"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_mobile_number"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toEndOf="@id/view_country_code"
+                app:layout_constraintTop_toBottomOf="@id/til_email_address">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_business_mobile_number"
+                    style="@style/TextInputEditTextForm"
+                    android:digits="@string/digits_only"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_gender"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_gender"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_business_mobile_number">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_gender"
+                    style="@style/TextInputEditTextForm.DropDownOrange" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_civil_status"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_civil_status"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_gender">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_civil_status"
+                    style="@style/TextInputEditTextForm.DropDownOrange" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

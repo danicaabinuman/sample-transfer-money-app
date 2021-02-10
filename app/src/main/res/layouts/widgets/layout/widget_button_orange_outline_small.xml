@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button"
+        style="@style/RoundedButtonOrangeTransparent"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/button_small_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewShare"
+        android:layout_width="@dimen/image_view_icon_mini_size"
+        android:layout_height="@dimen/image_view_icon_mini_size"
+        android:layout_marginEnd="@dimen/content_spacing_small"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/textViewShare"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:srcCompat="@drawable/ic_file_red"
+        app:tint="?colorAccent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewShare"
+        style="@style/TextViewTheme"
+        android:clickable="false"
+        android:text="@string/action_view_cwt"
+        android:textAllCaps="true"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/imageViewShare"
+        app:layout_constraintTop_toTopOf="@+id/button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

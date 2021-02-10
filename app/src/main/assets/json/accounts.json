@@ -1,0 +1,41 @@
+[
+  {
+    "id": 64331,
+    "status": {
+      "type": "A",
+      "description": "Active",
+      "color": "GREEN"
+    },
+    "card": {
+      "type": "SBA",
+      "description": "Corporate Savings Account",
+      "color": "BLACK"
+    },
+    "currency": "PHP",
+    "headers": [
+      {
+        "name": "AVLBAL",
+        "display": "Available Balance",
+        "value": "PHP 9,999,999.99"
+      },
+      {
+        "name": "CURBAL",
+        "display": "Current Balance",
+        "value": "PHP 9,999,999.99"
+      },
+      {
+        "name": "FNDCLR",
+        "display": "Funds in Clearing",
+        "value": "PHP 9,999,999.99"
+      }
+    ],
+    "name": "ABC Company",
+    "account_number": "364518264635",
+    "product_code": null,
+    "product_code_desc": "Corporate Savings Account",
+    "product_type": null,
+    "isLoading": false,
+    "isError": false,
+    "isViewableBalance": true
+  }
+]

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutItem"
+    style="@style/MatchWrapParent"
+    android:layout_height="@dimen/list_item_size">
+
+    <View
+        android:id="@+id/viewBorderTop"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewFlag"
+        android:layout_width="@dimen/image_view_icon_size"
+        android:layout_height="@dimen/image_view_icon_size"
+        android:layout_marginStart="@dimen/content_spacing_large"
+        android:layout_marginLeft="@dimen/content_spacing_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_flag_ph" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewCallingCode"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:text="+63"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlag"
+        app:layout_constraintEnd_toStartOf="@+id/textViewName"
+        app:layout_constraintStart_toEndOf="@+id/imageViewFlag"
+        app:layout_constraintTop_toTopOf="@+id/imageViewFlag"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewName"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginLeft="@dimen/content_spacing_small"
+        android:text="Philippines"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFlag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewCallingCode"
+        app:layout_constraintTop_toTopOf="@+id/imageViewFlag" />
+
+    <View
+        android:id="@+id/viewBorderBottom"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

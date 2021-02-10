@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutDashboard"
+    style="@style/MatchParent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchParent">
+
+        <include
+            android:id="@+id/viewToolbar"
+            layout="@layout/widget_transparent_dashboard_appbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
+            android:id="@+id/viewPagerBTR"
+            style="@style/MatchConstraint"
+            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationBTR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewToolbar" />
+
+        <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+            android:id="@+id/bottomNavigationBTR"
+            style="@style/MatchConstraint"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:paddingTop="@dimen/content_spacing_small"
+            android:paddingBottom="@dimen/content_spacing_half"
+            app:itemBackground="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPagerBTR" />
+
+        <include
+            android:id="@+id/viewApprovalsNavigation"
+            android:visibility="gone"
+            layout="@layout/widget_approvals_navigation"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            app:layout_constraintTop_toTopOf="@+id/bottomNavigationBTR"
+            app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationBTR"
+            app:layout_constraintStart_toStartOf="@+id/bottomNavigationBTR"
+            app:layout_constraintEnd_toEndOf="@+id/bottomNavigationBTR" />
+
+        <View
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintStart_toStartOf="@+id/viewApprovalsNavigation"
+            app:layout_constraintEnd_toEndOf="@+id/viewApprovalsNavigation"
+            app:layout_constraintTop_toTopOf="@+id/viewApprovalsNavigation"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

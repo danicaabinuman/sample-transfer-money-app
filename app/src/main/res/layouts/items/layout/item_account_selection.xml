@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_account"
+    style="@style/MatchWrapParent"
+    app:cardCornerRadius="@dimen/card_radius">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            style="@style/MatchConstraint"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/cl_content"
+            app:layout_constraintEnd_toEndOf="@+id/cl_content"
+            app:layout_constraintStart_toStartOf="@+id/cl_content"
+            app:layout_constraintTop_toTopOf="@+id/cl_content"
+            app:srcCompat="@drawable/bg_row" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content"
+            style="@style/MatchWrapParent"
+            android:padding="@dimen/content_spacing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCorporateName"
+                style="@style/TextViewTheme"
+                android:layout_width="@dimen/match_constraint"
+                android:text="@string/title_account_name"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewAvailableBalanceTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAccountNumber"
+                style="@style/TextViewTheme"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/shimmerLayoutAmount"
+                app:layout_constraintEnd_toStartOf="@+id/shimmerLayoutAmount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCorporateName" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAvailableBalanceTitle"
+                style="@style/TextViewThemeSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginBottom="@dimen/content_spacing_small"
+                android:gravity="end"
+                android:text="@string/title_available_balance"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toTopOf="@+id/shimmerLayoutAmount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewCorporateName"
+                app:layout_constraintWidth_percent="0.3" />
+
+            <io.supercharge.shimmerlayout.ShimmerLayout
+                android:id="@+id/shimmerLayoutAmount"
+                style="@style/WrapContent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewAccountNumber"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCorporateName"
+                app:shimmer_animation_duration="1000"
+                app:shimmer_color="@color/colorGrey"
+                app:shimmer_mask_width="1">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAvailableBalance"
+                        style="@style/TextViewThemeLarge"
+                        android:layout_width="@dimen/match_constraint"
+                        android:gravity="end"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/viewShimmer"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_height="@dimen/match_constraint"
+                        android:alpha="0.3"
+                        android:background="@color/colorGrey"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewAvailableBalance"
+                        app:layout_constraintEnd_toEndOf="@+id/textViewAvailableBalance"
+                        app:layout_constraintStart_toStartOf="@+id/textViewAvailableBalance"
+                        app:layout_constraintTop_toTopOf="@+id/textViewAvailableBalance" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </io.supercharge.shimmerlayout.ShimmerLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/viewError"
+            layout="@layout/item_error"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

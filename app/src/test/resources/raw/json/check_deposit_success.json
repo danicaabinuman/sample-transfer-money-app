@@ -1,0 +1,29 @@
+{
+  "id": "0001",
+  "issuer": "UnionBank of the Philippines",
+  "source_account": "000770008690",
+  "reference_number": "",
+  "source_account_name": "AAA Corporation",
+  "check_number": "123457891",
+  "check_date": "2019-03-28 20:25:00.435",
+  "check_amount": {
+    "currency": "PHP",
+    "value": 250000.00
+  },
+  "currency": "",
+  "service_fee": null,
+  "custom_service_fee": null,
+  "target_account_name": "AAA Corporation",
+  "target_account": "000770008690",
+  "source_account_type": "",
+  "front_path": "",
+  "back_path": "",
+  "created_date": "2019-03-28 20:25:00.435",
+  "created_by": "Andrew Davis",
+  "qr_content": "",
+  "contextual_status": {
+    "type": "FOR_CLEARING",
+    "description": "Pending Verification",
+    "contextual_class": "SUCCESS"
+  }
+}

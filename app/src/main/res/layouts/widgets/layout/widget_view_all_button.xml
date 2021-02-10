@@ -1,0 +1,25 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewAll"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/grid_2"
+    app:cardElevation="@dimen/card_content_elevation"
+    app:contentPaddingBottom="@dimen/grid_1_half"
+    app:contentPaddingLeft="@dimen/content_spacing_half"
+    app:contentPaddingRight="@dimen/content_spacing_half"
+    app:contentPaddingTop="@dimen/grid_1_half">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAll"
+        style="@style/TextViewDarkSmall"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/field_content_spacing"
+        android:paddingTop="@dimen/grid_1_half"
+        android:paddingRight="@dimen/field_content_spacing"
+        android:paddingBottom="@dimen/grid_1_half"
+        android:text="@string/title_view_all"
+        android:textAllCaps="true" />
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutGenerateTOTP"
+        style="@style/MatchParent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewLogo"
+            style="@style/ImageViewLogo"
+            android:layout_marginLeft="@dimen/content_group_spacing"
+            android:layout_marginRight="@dimen/content_group_spacing"
+            android:padding="@dimen/grid_1"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toTopOf="@+id/textViewGenerateOTPDesc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewGenerateOTPDesc"
+            style="@style/TextViewThemeLarge"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginRight="@dimen/content_margin"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/text_view_spacing"
+            android:text="@string/msg_generate_totp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewOTPCode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewOTPCode"
+            style="@style/TextHeaderLight"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginTop="@dimen/content_spacing_xl"
+            android:layout_marginRight="@dimen/content_margin"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/text_view_spacing"
+            android:lineSpacingMultiplier="@integer/max_length_field_100"
+            android:text="6 4 7 8 2 8"
+            android:textSize="@dimen/text_44"
+            app:layout_constraintBottom_toTopOf="@+id/circularProgressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewGenerateOTPDesc"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+            android:id="@+id/circularProgressBar"
+            android:layout_width="@dimen/circular_progress_bar_size"
+            android:layout_height="@dimen/circular_progress_bar_size"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/content_spacing_xl"
+            app:enableProgressAnimation="false"
+            app:fillBackground="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewOTPCode"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:progressBackgroundColor="@color/colorTransparent"
+            app:progressCap="round"
+            app:progressColor="?colorHighlight"
+            app:progressStrokeWidth="@dimen/circular_progress_bar_line_size"
+            app:textColor="?colorHighlight"
+            app:textSize="@dimen/text_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutFailedGenerateTOTP"
+        style="@style/MatchParent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewWarningIcon"
+            android:layout_width="@dimen/image_view_success"
+            android:layout_height="@dimen/image_view_success"
+            android:layout_marginBottom="@dimen/content_spacing"
+            app:layout_constraintBottom_toTopOf="@+id/textViewFailedGenerateTOTPTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:srcCompat="@drawable/ic_outline_warning_white" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewFailedGenerateTOTPTitle"
+            style="@style/TextHeaderLight"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginTop="@dimen/content_group_spacing"
+            android:layout_marginRight="@dimen/content_margin"
+            android:gravity="center"
+            android:text="@string/title_unable_generate_totp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewFailedGenerateTOTPDesc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewWarningIcon"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewFailedGenerateTOTPDesc"
+            style="@style/TextViewThemeLarge"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_margin"
+            android:layout_marginTop="@dimen/content_group_spacing"
+            android:layout_marginRight="@dimen/content_margin"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/text_view_spacing"
+            android:text="@string/desc_unable_generate_totp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDeviceSettings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFailedGenerateTOTPTitle"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonDeviceSettings"
+            style="@style/RoundedButtonOrange"
+            android:layout_marginLeft="@dimen/button_content_margin"
+            android:layout_marginTop="@dimen/button_content_spacing"
+            android:layout_marginRight="@dimen/button_content_margin"
+            android:text="@string/action_go_to_device_settings"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintBottom_toTopOf="@+id/buttonReceiveViaSms"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFailedGenerateTOTPDesc"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonReceiveViaSms"
+            style="@style/RoundedButtonLightOverlay"
+            android:layout_marginLeft="@dimen/button_content_margin"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginRight="@dimen/button_content_margin"
+            android:layout_marginBottom="@dimen/content_group_spacing"
+            android:text="@string/action_receive_via_sms"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonDeviceSettings"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

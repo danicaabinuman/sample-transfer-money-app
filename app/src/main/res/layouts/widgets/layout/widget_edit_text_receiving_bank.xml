@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutReceivingBank"
+        style="@style/TextInputLayoutForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_select_receiving_bank"
+        app:boxBackgroundColor="@color/colorDisableTextInputEditText"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditTextReceivingBank"
+            style="@style/TextInputEditTextForm.Selector"
+            android:enabled="false" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutBeneficiary"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing_edit_text"
+        android:background="@drawable/bg_border_rectangle"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingTop="@dimen/content_spacing"
+        android:paddingBottom="@dimen/content_spacing"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutReceivingBank">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBeneficiaryCodeTitle"
+            style="@style/TextViewDarkInActiveSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginEnd="@dimen/text_view_spacing_large"
+            android:layout_marginRight="@dimen/text_view_spacing_large"
+            android:gravity="start"
+            android:text="@string/title_beneficiary_code_"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBeneficiaryCode"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing_half"
+            android:layout_marginRight="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewBeneficiaryClose"
+            app:layout_constraintStart_toEndOf="@+id/textViewBeneficiaryCodeTitle"
+            app:layout_constraintTop_toTopOf="@+id/textViewBeneficiaryCodeTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBeneficiaryNameTitle"
+            style="@style/TextViewDarkInActiveSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginTop="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:text="@string/title_beneficiary_name_"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBeneficiaryCode"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBeneficiaryName"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing_half"
+            android:layout_marginRight="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewBeneficiaryClose"
+            app:layout_constraintStart_toEndOf="@+id/textViewBeneficiaryNameTitle"
+            app:layout_constraintTop_toTopOf="@+id/textViewBeneficiaryNameTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBeneficiaryBankAccountTitle"
+            style="@style/TextViewDarkInActiveSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginTop="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:text="@string/title_beneficiary_account_number_"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBeneficiaryName"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBeneficiaryBankAccount"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing_half"
+            android:layout_marginRight="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:maxLines="5"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewBeneficiaryClose"
+            app:layout_constraintStart_toEndOf="@+id/textViewBeneficiaryBankAccountTitle"
+            app:layout_constraintTop_toTopOf="@+id/textViewBeneficiaryBankAccountTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBeneficiaryAddressTitle"
+            style="@style/TextViewDarkInActiveSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginTop="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:text="@string/title_beneficiary_address_"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBeneficiaryBankAccount"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewBeneficiaryAddress"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing_half"
+            android:layout_marginRight="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:maxLines="5"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewBeneficiaryClose"
+            app:layout_constraintStart_toEndOf="@+id/textViewBeneficiaryAddressTitle"
+            app:layout_constraintTop_toTopOf="@+id/textViewBeneficiaryAddressTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewReceivingBankTitle"
+            style="@style/TextViewDarkInActiveSmall"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginTop="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:text="@string/title_receiving_bank_"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBeneficiaryAddress"
+            app:layout_constraintWidth_percent="0.3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewReceivingBank"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing_half"
+            android:layout_marginRight="@dimen/content_spacing_half"
+            android:gravity="start"
+            android:maxLines="5"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewBeneficiaryClose"
+            app:layout_constraintStart_toEndOf="@+id/textViewReceivingBankTitle"
+            app:layout_constraintTop_toTopOf="@+id/textViewReceivingBankTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewBeneficiaryClose"
+            style="@style/ImageViewCloseIcon"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:layout_marginRight="@dimen/content_spacing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

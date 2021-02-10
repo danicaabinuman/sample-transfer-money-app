@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="array_dashboard_header">
+        <item>@string/title_dashboard_header_accounts</item>
+        <item>@string/title_dashboard_header_transact</item>
+        <item>@string/title_dashboard_header_approvals</item>
+        <item>@string/title_dashboard_header_notifications</item>
+        <item>@string/title_dashboard_header_settings</item>
+    </string-array>
+
+    <string-array name="array_bottom_navigation_color">
+        <item>@color/colorWhite</item>
+        <item>@color/colorWhite</item>
+        <item>@color/colorWhite</item>
+        <item>@color/colorWhite</item>
+        <item>@color/colorWhite</item>
+    </string-array>
+
+    <string-array name="array_frequency">
+        <item>@string/title_one_time</item>
+        <item>@string/title_weekly</item>
+        <item>@string/title_monthly</item>
+        <item>@string/title_every_2_weeks</item>
+        <item>@string/title_annually</item>
+        <item>@string/title_semi_annually</item>
+    </string-array>
+
+    <string-array name="array_end_of_frequency">
+        <item>@string/title_never</item>
+        <item>@string/title_select_end_date</item>
+    </string-array>
+
+    <string-array name="array_headers_accounts">
+        <item>@string/title_account_name</item>
+        <item>@string/title_balance</item>
+    </string-array>
+
+    <string-array name="array_headers_ongoing_approvals">
+        <item>@string/title_remarks</item>
+        <item>@string/title_beneficiary</item>
+        <item>@string/title_amount</item>
+        <item>@string/title_transaction_date</item>
+        <item>@string/title_channel</item>
+    </string-array>
+
+    <string-array name="array_headers_done_approvals">
+        <item>@string/title_remarks</item>
+        <item>@string/title_beneficiary</item>
+        <item>@string/title_amount</item>
+        <item>@string/title_transaction_date</item>
+        <item>@string/title_channel</item>
+        <item>@string/title_status</item>
+    </string-array>
+
+    <string-array name="array_headers_organization_transfers">
+        <item>@string/title_remarks</item>
+        <item>@string/title_transfer_to</item>
+        <item>@string/title_amount</item>
+        <item>@string/title_transaction_date</item>
+        <item>@string/title_channel</item>
+        <item>@string/title_status</item>
+    </string-array>
+
+    <string-array name="array_headers_organization_payments">
+        <item>@string/title_remarks</item>
+        <item>@string/title_payment_to</item>
+        <item>@string/title_amount</item>
+        <item>@string/title_transaction_date</item>
+        <item>@string/title_channel</item>
+        <item>@string/title_status</item>
+    </string-array>
+
+    <string-array name="array_headers_manage_beneficiary">
+        <item>@string/title_beneficiary_name</item>
+        <item>@string/title_channel</item>
+        <item>@string/title_beneficiary_code</item>
+        <item>@string/title_receiving_bank</item>
+        <item>@string/title_account_number</item>
+    </string-array>
+
+    <string-array name="array_headers_manage_frequency">
+        <item>@string/title_biller_alias</item>
+        <item>@string/title_biller_name</item>
+        <item>@string/title_reference_1</item>
+        <item>@string/title_reference_2</item>
+        <item>@string/title_reference_3</item>
+        <item>@string/title_reference_4</item>
+    </string-array>
+
+    <string-array name="array_headers_manage_scheduled_transfer">
+        <item>@string/title_remarks</item>
+        <item>@string/title_transfer_to</item>
+        <item>@string/title_amount</item>
+        <item>@string/title_frequency</item>
+        <item>@string/title_channel</item>
+    </string-array>
+
+    <string-array name="array_headers_branch_visit">
+        <item>@string/title_remarks</item>
+        <item>@string/title_deposit_to</item>
+        <item>@string/title_amount</item>
+        <item>@string/title_transaction_date</item>
+        <item>@string/title_channel</item>
+        <item>@string/title_status</item>
+    </string-array>
+
+    <string-array name="array_salutation">
+        <item>@string/title_mr</item>
+        <item>@string/title_ms</item>
+        <item>@string/title_mrs</item>
+    </string-array>
+
+    <string-array name="array_type_of_business">
+        <item>Type of Business 1</item>
+        <item>Type of Business 2</item>
+        <item>Type of Business 3</item>
+    </string-array>
+
+    <string-array name="array_government_id_type">
+        <item>@string/title_tin</item>
+        <item>@string/title_sss</item>
+    </string-array>
+
+    <string-array name="array_barangay">
+        <item>Barangay 1</item>
+        <item>Barangay 2</item>
+        <item>Barangay 3</item>
+    </string-array>
+
+    <string-array name="array_type_of_office">
+        <item>@string/title_head_office</item>
+        <item>@string/title_regional_head_quarters</item>
+        <item>@string/title_branch</item>
+        <item>@string/title_other</item>
+    </string-array>
+
+    <string-array name="array_business_ownership">
+        <item>@string/title_filipino</item>
+    </string-array>
+
+    <string-array name="array_percent_ownership">
+        <item>10%</item>
+        <item>20%</item>
+        <item>30%</item>
+        <item>40%</item>
+        <item>50%</item>
+        <item>60%</item>
+        <item>70%</item>
+        <item>80%</item>
+        <item>90%</item>
+        <item>100%</item>
+    </string-array>
+
+    <string-array name="array_source_of_funds">
+        <item>@string/title_income</item>
+        <item>@string/title_investments</item>
+        <item>@string/title_remittance</item>
+        <item>@string/title_fees</item>
+        <item>@string/title_salary</item>
+        <item>@string/title_other</item>
+    </string-array>
+
+    <string-array name="array_estimated_amount">
+        <item>0</item>
+        <item>100000</item>
+        <item>250000</item>
+        <item>500000</item>
+        <item>750000</item>
+        <item>1000000</item>
+        <item>1500000</item>
+        <item>2000000</item>
+        <item>2500000</item>
+        <item>3000000</item>
+        <item>3500000</item>
+        <item>4000000</item>
+        <item>4500000</item>
+        <item>5000000</item>
+    </string-array>
+
+    <string-array name="array_purpose">
+        <item>@string/title_personal_savings</item>
+        <item>@string/title_investment</item>
+        <item>@string/title_purchases</item>
+        <item>@string/title_proceeds_of_sale</item>
+        <item>@string/title_business_income</item>
+    </string-array>
+
+    <string-array name="array_gender">
+        <item>@string/title_male</item>
+        <item>@string/title_female</item>
+    </string-array>
+
+    <string-array name="array_civil_status">
+        <item>@string/title_single</item>
+        <item>@string/title_married</item>
+        <item>@string/title_widowed</item>
+    </string-array>
+
+    <string-array name="array_nationality">
+        <item>@string/title_filipino</item>
+    </string-array>
+
+    <string-array name="array_record_type">
+        <item>@string/title_us_tin</item>
+        <item>@string/title_us_tel_no</item>
+        <item>@string/title_us_mailing_address</item>
+    </string-array>
+
+    <string-array name="array_country">
+        <item>@string/title_philippines</item>
+    </string-array>
+
+    <string-array name="array_occupation">
+        <item>@string/title_owner</item>
+        <item>@string/title_ceo</item>
+        <item>@string/title_president</item>
+    </string-array>
+
+    <string-array name="array_employee_status">
+        <item>@string/title_employed</item>
+        <item>@string/title_self_employed</item>
+        <item>@string/title_retired</item>
+        <item>@string/title_unemployed</item>
+        <item>@string/title_student</item>
+    </string-array>
+
+</resources>

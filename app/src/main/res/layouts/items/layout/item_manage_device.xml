@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutItem"
+    style="@style/MatchWrapParent"
+    android:background="@drawable/bg_rectangle_white">
+
+    <View
+        android:id="@+id/viewBorderTop"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewDevice"
+        android:layout_width="@dimen/image_view_device_width_size"
+        android:layout_height="@dimen/image_view_device_height_size"
+        android:layout_margin="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_device_android" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDevice"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDeviceUpdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewEnter"
+        app:layout_constraintStart_toEndOf="@+id/imageViewDevice"
+        app:layout_constraintTop_toTopOf="@+id/imageViewDevice"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDeviceUpdate"
+        style="@style/TextViewDarkInActive"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing_small"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:ellipsize="end"
+        android:textColor="@color/colorLightGray"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewDevice"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewEnter"
+        app:layout_constraintStart_toEndOf="@+id/imageViewDevice"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDevice"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewEnter"
+        style="@style/WrapContent"
+        android:layout_marginEnd="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewDeviceUpdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewDevice"
+        app:srcCompat="@drawable/ic_arrow_orange_right"
+        app:tint="?colorAccent" />
+
+    <View
+        android:id="@+id/viewBorderBottom"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

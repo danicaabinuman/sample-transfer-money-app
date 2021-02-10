@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutProposedTransactionDate"
+        style="@style/TextInputLayoutForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing_edit_text"
+        app:boxBackgroundColor="@color/colorDisableTextInputEditText"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditTextProposedTransactionDate"
+            style="@style/TextInputEditTextForm.NotEditable"
+            android:enabled="false"
+            android:text="@string/title_immediately" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/viewBorderProposedTransactionDate"
+        style="@style/BorderVertical"
+        android:layout_height="@dimen/border_height_form"
+        android:layout_marginTop="@dimen/border_margin_top_form"
+        android:background="@color/colorGrey"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/imageViewProposedTransactionDate"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayoutProposedTransactionDate" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewProposedTransactionDate"
+        style="@style/ImageViewForm"
+        android:layout_marginTop="@dimen/border_margin_top_form"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutProposedTransactionDate"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayoutProposedTransactionDate"
+        app:srcCompat="@drawable/ic_fund_transfer_calender_orange"
+        app:tint="?colorAccent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutProposedTransactionDate"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing_half"
+        android:background="@drawable/bg_border_rectangle"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutProposedTransactionDate">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewStartDateTitle"
+            style="@style/TextViewOrange"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:gravity="start"
+            android:text="@string/title_start_date_"
+            android:textColor="@color/colorInfo"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayoutProposedTransactionDate"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayoutProposedTransactionDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewStartDate"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:gravity="start"
+            android:text="December"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewStartDateTitle"
+            app:layout_constraintTop_toTopOf="@+id/textViewStartDateTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewFrequencyTitle"
+            style="@style/TextViewOrange"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            android:gravity="start"
+            android:text="@string/title_frequency_"
+            android:textColor="@color/colorInfo"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayoutProposedTransactionDate"
+            app:layout_constraintTop_toBottomOf="@+id/textViewStartDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewFrequency"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:gravity="start"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textViewStartDate"
+            app:layout_constraintTop_toTopOf="@+id/textViewFrequencyTitle" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewEndDateTitle"
+            style="@style/TextViewOrange"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/text_view_spacing_large"
+            android:layout_marginLeft="@dimen/text_view_spacing_large"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            android:gravity="start"
+            android:text="@string/title_end_date_"
+            android:textColor="@color/colorInfo"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayoutProposedTransactionDate"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFrequency" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewEndDate"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:gravity="start"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textViewStartDate"
+            app:layout_constraintTop_toTopOf="@+id/textViewEndDateTitle" />
+
+        <View
+            android:id="@+id/viewBorderSelectedProposedTransactionDate"
+            style="@style/BorderVertical"
+            android:background="@color/colorGrey"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageViewSelectedProposedTransactionDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewSelectedProposedTransactionDate"
+            style="@style/ImageViewForm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/viewBorderSelectedProposedTransactionDate"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_fund_transfer_calender_orange"
+            app:tint="?colorAccent" />
+
+        <Space
+            android:id="@+id/space"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/content_spacing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEndDate" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

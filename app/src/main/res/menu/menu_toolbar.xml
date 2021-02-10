@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_crop"
+        android:orderInCategory="6"
+        android:title="@string/action_crop"
+        android:visible="false"
+        android:icon="@drawable/ic_crop_white"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_edit"
+        android:orderInCategory="5"
+        android:title="@string/action_edit"
+        android:visible="false"
+        app:actionLayout="@layout/menu_text_action"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_action_button"
+        android:orderInCategory="4"
+        android:title="@string/action_submit"
+        android:visible="false"
+        app:actionLayout="@layout/widget_action_button_form"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_filter"
+        android:orderInCategory="2"
+        android:title="@string/title_filter"
+        android:visible="false"
+        app:actionLayout="@layout/menu_layout_filter"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_help"
+        android:icon="@drawable/ic_question_mark_white"
+        android:orderInCategory="1"
+        android:title="@string/title_menu_help"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_flash"
+        android:icon="@drawable/ic_flash_on_white_24dp"
+        android:orderInCategory="1"
+        android:title="@string/title_menu_flash"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_check"
+        android:orderInCategory="3"
+        android:title="@string/action_select_all"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+</menu>

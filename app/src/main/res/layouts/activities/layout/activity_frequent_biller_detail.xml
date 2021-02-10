@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchParent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollViewFrequentBillerDetail"
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            style="@style/MatchParent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeaderAllowedSourceAccounts"
+                style="@style/TextViewOrangeHeaderDetail"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_large"
+                android:layout_marginLeft="@dimen/content_spacing_large"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/title_allowed_source_accounts"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewAllowedSourceAccounts"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderAllowedSourceAccounts">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutAllowedSourceAccounts"
+                    style="@style/MatchWrapParent"
+                    android:orientation="vertical" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeaderFrequentBillerDetails"
+                style="@style/TextViewOrangeHeaderDetail"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing_large"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/title_biller_details"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewAllowedSourceAccounts" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewFrequentBiller"
+                style="@style/CardViewLight"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                app:contentPaddingBottom="@dimen/card_content_spacing"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewHeaderFrequentBillerDetails">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchWrapParent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBillerAliasTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_biller_alias"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBillerAlias"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewBillerAliasTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewBillerAliasTitle" />
+
+                    <View
+                        android:id="@+id/viewBorderBillerAlias"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewBillerAlias" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCreatedByTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_created_by"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderBillerAlias"
+                        app:layout_constraintWidth_percent="0.3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCreatedBy"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewCreatedByTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewCreatedByTitle" />
+
+                    <View
+                        android:id="@+id/viewBorderCreatedBy"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedBy" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCreatedDateTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_created_date"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderCreatedBy"
+                        app:layout_constraintWidth_percent="0.3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewCreatedDate"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewCreatedDateTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewCreatedDateTitle" />
+
+                    <View
+                        android:id="@+id/viewBorderCreatedDate"
+                        style="@style/BorderHorizontal"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:background="@drawable/bg_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedDate" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBillerTitle"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:text="@string/title_biller"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewBorderCreatedDate"
+                        app:layout_constraintWidth_percent="0.3" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewBiller"
+                        style="@style/TextViewDarkForm"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_marginLeft="@dimen/content_spacing"
+                        android:layout_marginRight="@dimen/content_spacing"
+                        android:gravity="end"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textViewBillerTitle"
+                        app:layout_constraintTop_toTopOf="@+id/textViewBillerTitle" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutBillerFields"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textViewBiller" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonViewEditLog"
+                style="@style/RoundedButtonGrayTransparent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/action_view_edit_log"
+                android:textSize="@dimen/text_12"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewFrequentBiller" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonEditDetails"
+                style="@style/RoundedButtonOrangeSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/action_edit_details"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonViewEditLog" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonDelete"
+                style="@style/RoundedButtonRedTransparent"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_margin="@dimen/content_spacing"
+                android:text="@string/action_delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/buttonEditDetails"
+                app:layout_constraintTop_toBottomOf="@+id/buttonViewEditLog" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/viewLoadingState"
+        style="@style/WrapContent"
+        layout="@layout/widget_loading_state"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

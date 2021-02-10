@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutSourceAccount"
+    style="@style/MatchWrapParent"
+    android:background="@color/colorTransparent">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkBoxSourceAccount"
+        style="@style/WrapContent"
+        android:minWidth="@dimen/content_spacing"
+        android:layout_marginStart="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAccountName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewAccountName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountName"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewAccountNumber"
+        app:layout_constraintStart_toEndOf="@+id/checkBoxSourceAccount"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAccountNumber"
+        style="@style/TextViewDark"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewAccountName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

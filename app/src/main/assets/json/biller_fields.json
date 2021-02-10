@@ -1,0 +1,1518 @@
+[
+  {
+    "index": 2,
+    "name": "TIN",
+    "description": null,
+    "sample": null,
+    "min": 9,
+    "max": 9,
+    "type": "string",
+    "required": true,
+    "mask": null,
+    "options": [],
+    "parent_field_index": null
+  },
+  {
+    "index": 3,
+    "name": "Branch Code",
+    "description": null,
+    "sample": null,
+    "min": 3,
+    "max": 5,
+    "type": "numeric_padding",
+    "required": true,
+    "mask": null,
+    "options": [],
+    "parent_field_index": null
+  },
+  {
+    "index": 4,
+    "name": "Form Type",
+    "description": null,
+    "sample": null,
+    "min": null,
+    "max": null,
+    "type": "select",
+    "required": true,
+    "mask": null,
+    "options": [
+      {
+        "status": null,
+        "name": "0605",
+        "value": "0605",
+        "action": null,
+        "id": 1,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "0611A",
+        "value": "0611A",
+        "action": null,
+        "id": 2,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "0619E",
+        "value": "0619E",
+        "action": null,
+        "id": 3,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "0619F",
+        "value": "0619F",
+        "action": null,
+        "id": 4,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1600",
+        "value": "1600",
+        "action": null,
+        "id": 5,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1600WP",
+        "value": "1600WP",
+        "action": null,
+        "id": 6,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1601C",
+        "value": "1601C",
+        "action": null,
+        "id": 7,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1601E",
+        "value": "1601E",
+        "action": null,
+        "id": 8,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1601EQ",
+        "value": "1601EQ",
+        "action": null,
+        "id": 9,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1601F",
+        "value": "1601F",
+        "action": null,
+        "id": 10,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1601FQ",
+        "value": "1601FQ",
+        "action": null,
+        "id": 11,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1602",
+        "value": "1602",
+        "action": null,
+        "id": 12,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1602Q",
+        "value": "1602Q",
+        "action": null,
+        "id": 13,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1603",
+        "value": "1603",
+        "action": null,
+        "id": 14,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1603Q",
+        "value": "1603Q",
+        "action": null,
+        "id": 15,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1604CF",
+        "value": "1604CF",
+        "action": null,
+        "id": 17,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1604E",
+        "value": "1604E",
+        "action": null,
+        "id": 18,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1606",
+        "value": "1606",
+        "action": null,
+        "id": 16,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1620XC",
+        "value": "1620XC",
+        "action": null,
+        "id": 19,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1700",
+        "value": "1700",
+        "action": null,
+        "id": 20,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1701",
+        "value": "1701",
+        "action": null,
+        "id": 21,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1701Q",
+        "value": "1701Q",
+        "action": null,
+        "id": 22,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1702",
+        "value": "1702",
+        "action": null,
+        "id": 23,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1702EX",
+        "value": "1702EX",
+        "action": null,
+        "id": 24,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1702MX",
+        "value": "1702MX",
+        "action": null,
+        "id": 25,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1702Q",
+        "value": "1702Q",
+        "action": null,
+        "id": 26,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1702RT",
+        "value": "1702RT",
+        "action": null,
+        "id": 27,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1704",
+        "value": "1704",
+        "action": null,
+        "id": 28,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1706",
+        "value": "1706",
+        "action": null,
+        "id": 29,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1707",
+        "value": "1707",
+        "action": null,
+        "id": 30,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1707A",
+        "value": "1707A",
+        "action": null,
+        "id": 31,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1800",
+        "value": "1800",
+        "action": null,
+        "id": 32,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "1801",
+        "value": "1801",
+        "action": null,
+        "id": 33,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2000",
+        "value": "2000",
+        "action": null,
+        "id": 34,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2000OT",
+        "value": "2000OT",
+        "action": null,
+        "id": 35,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2200A",
+        "value": "2200A",
+        "action": null,
+        "id": 36,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2200AN",
+        "value": "2200AN",
+        "action": null,
+        "id": 37,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2200C",
+        "value": "2200C",
+        "action": null,
+        "id": 38,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2200M",
+        "value": "2200M",
+        "action": null,
+        "id": 39,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2200P",
+        "value": "2200P",
+        "action": null,
+        "id": 40,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2200S",
+        "value": "2200S",
+        "action": null,
+        "id": 41,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2200T",
+        "value": "2200T",
+        "action": null,
+        "id": 42,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2550M",
+        "value": "2550M",
+        "action": null,
+        "id": 43,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2550Q",
+        "value": "2550Q",
+        "action": null,
+        "id": 44,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2551M",
+        "value": "2551M",
+        "action": null,
+        "id": 45,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2551Q",
+        "value": "2551Q",
+        "action": null,
+        "id": 46,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2552",
+        "value": "2552",
+        "action": null,
+        "id": 47,
+        "parent_field_index": null,
+        "parent_id": null
+      },
+      {
+        "status": null,
+        "name": "2553",
+        "value": "2553",
+        "action": null,
+        "id": 48,
+        "parent_field_index": null,
+        "parent_id": null
+      }
+    ],
+    "parent_field_index": null
+  },
+  {
+    "index": 5,
+    "name": "Tax Type",
+    "description": null,
+    "sample": null,
+    "min": null,
+    "max": null,
+    "type": "select",
+    "required": true,
+    "mask": null,
+    "options": [
+      {
+        "status": null,
+        "name": "AP",
+        "value": "AP",
+        "action": null,
+        "id": 49,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "AP",
+        "value": "AP",
+        "action": null,
+        "id": 87,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "CG",
+        "value": "CG",
+        "action": null,
+        "id": 50,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "CG",
+        "value": "CG",
+        "action": null,
+        "id": 97,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "CG",
+        "value": "CG",
+        "action": null,
+        "id": 141,
+        "parent_field_index": 3,
+        "parent_id": 29
+      },
+      {
+        "status": null,
+        "name": "CS",
+        "value": "CS",
+        "action": null,
+        "id": 51,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "CS",
+        "value": "CS",
+        "action": null,
+        "id": 98,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "CS",
+        "value": "CS",
+        "action": null,
+        "id": 142,
+        "parent_field_index": 3,
+        "parent_id": 30
+      },
+      {
+        "status": null,
+        "name": "CS",
+        "value": "CS",
+        "action": null,
+        "id": 143,
+        "parent_field_index": 3,
+        "parent_id": 31
+      },
+      {
+        "status": null,
+        "name": "DN",
+        "value": "DN",
+        "action": null,
+        "id": 52,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "DN",
+        "value": "DN",
+        "action": null,
+        "id": 99,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "DN",
+        "value": "DN",
+        "action": null,
+        "id": 144,
+        "parent_field_index": 3,
+        "parent_id": 32
+      },
+      {
+        "status": null,
+        "name": "DO",
+        "value": "DO",
+        "action": null,
+        "id": 147,
+        "parent_field_index": 3,
+        "parent_id": 35
+      },
+      {
+        "status": null,
+        "name": "DS",
+        "value": "DS",
+        "action": null,
+        "id": 53,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "DS",
+        "value": "DS",
+        "action": null,
+        "id": 96,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "DS",
+        "value": "DS",
+        "action": null,
+        "id": 146,
+        "parent_field_index": 3,
+        "parent_id": 34
+      },
+      {
+        "status": null,
+        "name": "ES",
+        "value": "ES",
+        "action": null,
+        "id": 54,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "ES",
+        "value": "ES",
+        "action": null,
+        "id": 100,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "ES",
+        "value": "ES",
+        "action": null,
+        "id": 145,
+        "parent_field_index": 3,
+        "parent_id": 33
+      },
+      {
+        "status": null,
+        "name": "ET",
+        "value": "ET",
+        "action": null,
+        "id": 55,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "FC",
+        "value": "FC",
+        "action": null,
+        "id": 56,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "FP",
+        "value": "FP",
+        "action": null,
+        "id": 57,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "IE",
+        "value": "IE",
+        "action": null,
+        "id": 58,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "IE",
+        "value": "IE",
+        "action": null,
+        "id": 88,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "IE",
+        "value": "IE",
+        "action": null,
+        "id": 140,
+        "parent_field_index": 3,
+        "parent_id": 28
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 59,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 89,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 132,
+        "parent_field_index": 3,
+        "parent_id": 20
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 133,
+        "parent_field_index": 3,
+        "parent_id": 21
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 134,
+        "parent_field_index": 3,
+        "parent_id": 22
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 135,
+        "parent_field_index": 3,
+        "parent_id": 23
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 136,
+        "parent_field_index": 3,
+        "parent_id": 24
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 137,
+        "parent_field_index": 3,
+        "parent_id": 25
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 138,
+        "parent_field_index": 3,
+        "parent_id": 26
+      },
+      {
+        "status": null,
+        "name": "IT",
+        "value": "IT",
+        "action": null,
+        "id": 139,
+        "parent_field_index": 3,
+        "parent_id": 27
+      },
+      {
+        "status": null,
+        "name": "MC",
+        "value": "MC",
+        "action": null,
+        "id": 60,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "NT",
+        "value": "NT",
+        "action": null,
+        "id": 61,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "PM",
+        "value": "PM",
+        "action": null,
+        "id": 62,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "PM",
+        "value": "PM",
+        "action": null,
+        "id": 110,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "PM",
+        "value": "PM",
+        "action": null,
+        "id": 157,
+        "parent_field_index": 3,
+        "parent_id": 45
+      },
+      {
+        "status": null,
+        "name": "PT",
+        "value": "PT",
+        "action": null,
+        "id": 63,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "PT",
+        "value": "PT",
+        "action": null,
+        "id": 109,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "PT",
+        "value": "PT",
+        "action": null,
+        "id": 158,
+        "parent_field_index": 3,
+        "parent_id": 46
+      },
+      {
+        "status": null,
+        "name": "QP",
+        "value": "QP",
+        "action": null,
+        "id": 64,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "RF",
+        "value": "RF",
+        "action": null,
+        "id": 65,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "SL",
+        "value": "SL",
+        "action": null,
+        "id": 66,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "SL",
+        "value": "SL",
+        "action": null,
+        "id": 111,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "SL",
+        "value": "SL",
+        "action": null,
+        "id": 161,
+        "parent_field_index": 3,
+        "parent_id": 48
+      },
+      {
+        "status": null,
+        "name": "SO",
+        "value": "SO",
+        "action": null,
+        "id": 67,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "SO",
+        "value": "SO",
+        "action": null,
+        "id": 112,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "SO",
+        "value": "SO",
+        "action": null,
+        "id": 159,
+        "parent_field_index": 3,
+        "parent_id": 47
+      },
+      {
+        "status": null,
+        "name": "ST",
+        "value": "ST",
+        "action": null,
+        "id": 68,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "ST",
+        "value": "ST",
+        "action": null,
+        "id": 113,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "ST",
+        "value": "ST",
+        "action": null,
+        "id": 160,
+        "parent_field_index": 3,
+        "parent_id": 47
+      },
+      {
+        "status": null,
+        "name": "VT",
+        "value": "VT",
+        "action": null,
+        "id": 69,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "VT",
+        "value": "VT",
+        "action": null,
+        "id": 90,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "VT",
+        "value": "VT",
+        "action": null,
+        "id": 155,
+        "parent_field_index": 3,
+        "parent_id": 43
+      },
+      {
+        "status": null,
+        "name": "VT",
+        "value": "VT",
+        "action": null,
+        "id": 156,
+        "parent_field_index": 3,
+        "parent_id": 44
+      },
+      {
+        "status": null,
+        "name": "WB",
+        "value": "WB",
+        "action": null,
+        "id": 70,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "WB",
+        "value": "WB",
+        "action": null,
+        "id": 103,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "WB",
+        "value": "WB",
+        "action": null,
+        "id": 123,
+        "parent_field_index": 3,
+        "parent_id": 12
+      },
+      {
+        "status": null,
+        "name": "WB",
+        "value": "WB",
+        "action": null,
+        "id": 124,
+        "parent_field_index": 3,
+        "parent_id": 13
+      },
+      {
+        "status": null,
+        "name": "WB",
+        "value": "WB",
+        "action": null,
+        "id": 125,
+        "parent_field_index": 3,
+        "parent_id": 14
+      },
+      {
+        "status": null,
+        "name": "WC",
+        "value": "WC",
+        "action": null,
+        "id": 71,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "WC",
+        "value": "WC",
+        "action": null,
+        "id": 101,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "WC",
+        "value": "WC",
+        "action": null,
+        "id": 118,
+        "parent_field_index": 3,
+        "parent_id": 7
+      },
+      {
+        "status": null,
+        "name": "WC",
+        "value": "WC",
+        "action": null,
+        "id": 129,
+        "parent_field_index": 3,
+        "parent_id": 17
+      },
+      {
+        "status": null,
+        "name": "WE",
+        "value": "WE",
+        "action": null,
+        "id": 72,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "WE",
+        "value": "WE",
+        "action": null,
+        "id": 102,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "WE",
+        "value": "WE",
+        "action": null,
+        "id": 114,
+        "parent_field_index": 3,
+        "parent_id": 3
+      },
+      {
+        "status": null,
+        "name": "WE",
+        "value": "WE",
+        "action": null,
+        "id": 119,
+        "parent_field_index": 3,
+        "parent_id": 8
+      },
+      {
+        "status": null,
+        "name": "WE",
+        "value": "WE",
+        "action": null,
+        "id": 120,
+        "parent_field_index": 3,
+        "parent_id": 9
+      },
+      {
+        "status": null,
+        "name": "WE",
+        "value": "WE",
+        "action": null,
+        "id": 130,
+        "parent_field_index": 3,
+        "parent_id": 18
+      },
+      {
+        "status": null,
+        "name": "WF",
+        "value": "WF",
+        "action": null,
+        "id": 105,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "WF",
+        "value": "WF",
+        "action": null,
+        "id": 115,
+        "parent_field_index": 3,
+        "parent_id": 4
+      },
+      {
+        "status": null,
+        "name": "WF",
+        "value": "WF",
+        "action": null,
+        "id": 121,
+        "parent_field_index": 3,
+        "parent_id": 10
+      },
+      {
+        "status": null,
+        "name": "WF",
+        "value": "WF",
+        "action": null,
+        "id": 122,
+        "parent_field_index": 3,
+        "parent_id": 11
+      },
+      {
+        "status": null,
+        "name": "WG",
+        "value": "WG",
+        "action": null,
+        "id": 73,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "WG",
+        "value": "WG",
+        "action": null,
+        "id": 106,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "WG",
+        "value": "WG",
+        "action": null,
+        "id": 116,
+        "parent_field_index": 3,
+        "parent_id": 5
+      },
+      {
+        "status": null,
+        "name": "WO",
+        "value": "WO",
+        "action": null,
+        "id": 74,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "WO",
+        "value": "WO",
+        "action": null,
+        "id": 107,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "WO",
+        "value": "WO",
+        "action": null,
+        "id": 128,
+        "parent_field_index": 3,
+        "parent_id": 16
+      },
+      {
+        "status": null,
+        "name": "WR",
+        "value": "WR",
+        "action": null,
+        "id": 75,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "WR",
+        "value": "WR",
+        "action": null,
+        "id": 104,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "WR",
+        "value": "WR",
+        "action": null,
+        "id": 126,
+        "parent_field_index": 3,
+        "parent_id": 14
+      },
+      {
+        "status": null,
+        "name": "WR",
+        "value": "WR",
+        "action": null,
+        "id": 127,
+        "parent_field_index": 3,
+        "parent_id": 15
+      },
+      {
+        "status": null,
+        "name": "WW",
+        "value": "WW",
+        "action": null,
+        "id": 76,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "WW",
+        "value": "WW",
+        "action": null,
+        "id": 108,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "WW",
+        "value": "WW",
+        "action": null,
+        "id": 117,
+        "parent_field_index": 3,
+        "parent_id": 6
+      },
+      {
+        "status": null,
+        "name": "WX",
+        "value": "WX",
+        "action": null,
+        "id": 77,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "WX",
+        "value": "WX",
+        "action": null,
+        "id": 131,
+        "parent_field_index": 3,
+        "parent_id": 19
+      },
+      {
+        "status": null,
+        "name": "XA",
+        "value": "XA",
+        "action": null,
+        "id": 78,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "XA",
+        "value": "XA",
+        "action": null,
+        "id": 91,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "XA",
+        "value": "XA",
+        "action": null,
+        "id": 148,
+        "parent_field_index": 3,
+        "parent_id": 36
+      },
+      {
+        "status": null,
+        "name": "XB",
+        "value": "XB",
+        "action": null,
+        "id": 79,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "XB",
+        "value": "XB",
+        "action": null,
+        "id": 153,
+        "parent_field_index": 3,
+        "parent_id": 41
+      },
+      {
+        "status": null,
+        "name": "XC",
+        "value": "XC",
+        "action": null,
+        "id": 80,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "XC",
+        "value": "XC",
+        "action": null,
+        "id": 150,
+        "parent_field_index": 3,
+        "parent_id": 38
+      },
+      {
+        "status": null,
+        "name": "XF",
+        "value": "XF",
+        "action": null,
+        "id": 81,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "XG",
+        "value": "XG",
+        "action": null,
+        "id": 82,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "XG",
+        "value": "XG",
+        "action": null,
+        "id": 94,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "XG",
+        "value": "XG",
+        "action": null,
+        "id": 149,
+        "parent_field_index": 3,
+        "parent_id": 37
+      },
+      {
+        "status": null,
+        "name": "XM",
+        "value": "XM",
+        "action": null,
+        "id": 83,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "XM",
+        "value": "XM",
+        "action": null,
+        "id": 92,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "XM",
+        "value": "XM",
+        "action": null,
+        "id": 151,
+        "parent_field_index": 3,
+        "parent_id": 39
+      },
+      {
+        "status": null,
+        "name": "XP",
+        "value": "XP",
+        "action": null,
+        "id": 84,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "XP",
+        "value": "XP",
+        "action": null,
+        "id": 93,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "XP",
+        "value": "XP",
+        "action": null,
+        "id": 152,
+        "parent_field_index": 3,
+        "parent_id": 40
+      },
+      {
+        "status": null,
+        "name": "XT",
+        "value": "XT",
+        "action": null,
+        "id": 85,
+        "parent_field_index": 3,
+        "parent_id": 1
+      },
+      {
+        "status": null,
+        "name": "XT",
+        "value": "XT",
+        "action": null,
+        "id": 95,
+        "parent_field_index": 3,
+        "parent_id": 2
+      },
+      {
+        "status": null,
+        "name": "XT",
+        "value": "XT",
+        "action": null,
+        "id": 154,
+        "parent_field_index": 3,
+        "parent_id": 42
+      },
+      {
+        "status": null,
+        "name": "XV",
+        "value": "XV",
+        "action": null,
+        "id": 86,
+        "parent_field_index": 3,
+        "parent_id": 1
+      }
+    ],
+    "parent_field_index": 4
+  },
+  {
+    "index": 6,
+    "name": "Return Period",
+    "description": null,
+    "sample": null,
+    "min": null,
+    "max": null,
+    "type": "date",
+    "required": true,
+    "mask": null,
+    "options": [],
+    "parent_field_index": null
+  }
+]

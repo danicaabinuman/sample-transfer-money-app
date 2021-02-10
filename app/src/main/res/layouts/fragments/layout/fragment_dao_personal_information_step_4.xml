@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_layout"
+    style="@style/MatchParent">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content"
+            style="@style/MatchWrapParent"
+            android:paddingBottom="@dimen/content_spacing_large">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_start"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_end"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.95"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_financial_information"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:gravity="start"
+                android:text="@string/title_financial_information"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_occupation"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_occupation"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/tv_financial_information">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_occupation"
+                    style="@style/TextInputEditTextForm.DropDownOrange" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_occupation_others"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:hint="@string/hint_other_occupation"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_occupation">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_occupation_others"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_source_of_funds"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_source_of_funds"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_occupation_others">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_source_of_funds"
+                    style="@style/TextInputEditTextForm.DropDownOrange" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_source_of_funds_other"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:hint="@string/hint_other"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_source_of_funds">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_source_of_funds_other"
+                    style="@style/TextInputEditTextForm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_percent_ownership"
+                style="@style/TextInputLayoutForm"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:hint="@string/hint_percentage_of_ownership"
+                app:layout_constraintEnd_toEndOf="@id/gl_end"
+                app:layout_constraintStart_toStartOf="@id/gl_start"
+                app:layout_constraintTop_toBottomOf="@id/til_source_of_funds_other">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_percent_ownership"
+                    style="@style/TextInputEditTextForm"
+                    android:digits="@string/digits_amount"
+                    android:maxLength="7"
+                    android:inputType="numberDecimal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextViewDarkXL"
+                app:layout_constraintTop_toTopOf="@id/til_percent_ownership"
+                android:text="%"
+                android:gravity="center"
+                android:layout_height="@dimen/border_height_form"
+                android:textColor="?colorAccent"
+                android:layout_marginTop="@dimen/border_margin_top_form"
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:textSize="@dimen/text_20"
+                app:layout_constraintEnd_toEndOf="@id/til_percent_ownership"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

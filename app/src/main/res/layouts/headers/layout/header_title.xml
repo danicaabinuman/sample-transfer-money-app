@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutHeaderTitle"
+    style="@style/MatchWrapParent"
+    android:padding="@dimen/content_spacing">
+
+    <View
+        android:id="@+id/viewBorderHeader"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewPresence"
+        style="@style/CircleBadgeOrange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewTitle"
+        style="@style/TextViewDarkLarge"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:gravity="center_vertical"
+        android:text="@string/title_active_organization"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cardViewButton"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPresence"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/image_view_icon_padding"
+        android:background="?attr/selectableItemBackground"
+        android:visibility="gone"
+        app:cardCornerRadius="@dimen/card_content_spacing"
+        app:cardElevation="@dimen/card_content_elevation"
+        app:contentPaddingBottom="@dimen/image_view_icon_padding"
+        app:contentPaddingLeft="@dimen/text_view_padding"
+        app:contentPaddingRight="@dimen/text_view_padding"
+        app:contentPaddingTop="@dimen/image_view_icon_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewButton"
+            style="@style/TextViewDarkSmall"
+            android:layout_width="match_parent"
+            android:drawableEnd="@drawable/ic_file_download"
+            android:drawablePadding="@dimen/content_item_spacing"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:paddingLeft="@dimen/grid_3_half"
+            android:paddingTop="@dimen/image_view_icon_padding"
+            android:paddingRight="@dimen/grid_3_half"
+            android:paddingBottom="@dimen/image_view_icon_padding"
+            android:text="@string/title_view_all"
+            android:textAllCaps="true" />
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

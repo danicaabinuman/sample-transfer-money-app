@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewBadgeCount"
+        style="@style/TextViewThemeSmall"
+        android:background="@drawable/circle_red_badge"
+        android:paddingStart="@dimen/badge_padding_side"
+        android:paddingTop="@dimen/badge_padding_top"
+        android:paddingEnd="@dimen/badge_padding_side"
+        android:paddingBottom="@dimen/badge_padding_top"
+        android:text="12"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_8"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

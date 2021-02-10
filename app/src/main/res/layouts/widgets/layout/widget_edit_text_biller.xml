@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchWrapParent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewSelectBillerTitle"
+        style="@style/TextViewHeaderFormOrange"
+        android:text="@string/title_select_biller"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutSelectBiller"
+        style="@style/TextInputLayoutForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing_edit_text"
+        android:hint="@string/hint_select_biller"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectBillerTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditTextSelectBiller"
+            style="@style/TextInputEditTextForm.Selector" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/viewTutorialSelectBiller"
+        style="@style/ViewTutorial"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutSelectBiller"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutSelectBiller"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayoutSelectBiller"
+        app:layout_constraintTop_toTopOf="@+id/textViewSelectBillerTitle" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSelectBillerDetails"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSelectBiller" />
+
+    <View
+        android:id="@+id/viewTutorialBillerFields"
+        style="@style/ViewTutorial"
+        android:layout_marginTop="@dimen/content_spacing_edit_text"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutSelectBillerDetails"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayoutSelectBillerDetails"
+        app:layout_constraintStart_toStartOf="@+id/linearLayoutSelectBillerDetails"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutSelectBillerDetails" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

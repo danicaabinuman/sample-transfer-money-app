@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutParent"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        style="@style/DefaultBackgroundMatchConstraint"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            style="@style/MatchParent"
+            android:padding="@dimen/content_group_spacing">
+
+            <include
+                android:id="@+id/viewChannelHeader"
+                layout="@layout/widget_channel_header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewIssuingBank"
+                style="@style/TextViewOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_issuing_bank"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewChannelHeader" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutIssuingBank"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_edit_text"
+                android:hint="@string/hint_select_a_bank"
+                app:layout_constraintTop_toBottomOf="@+id/textViewIssuingBank">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextIssuingBank"
+                    style="@style/TextInputEditTextForm.Selector" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCheckDetails"
+                style="@style/TextViewHeaderFormOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_check_details"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutIssuingBank" />
+
+            <include
+                android:id="@+id/viewCheckAccountNumber"
+                layout="@layout/widget_edit_text_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCheckDetails" />
+
+            <include
+                android:id="@+id/viewCheckNumber"
+                layout="@layout/widget_edit_text_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewCheckAccountNumber" />
+
+            <include
+                android:id="@+id/viewDateOnCheck"
+                layout="@layout/widget_edit_text_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewCheckNumber" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewAmount"
+                style="@style/TextViewHeaderFormOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_amount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewDateOnCheck" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_amount"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAmount">
+
+                <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
+                    android:id="@+id/et_amount"
+                    style="@style/EditTextAmount"
+                    android:layout_width="match_parent"
+                    android:paddingStart="@dimen/content_spacing"
+                    android:paddingEnd="@dimen/content_spacing"
+                    app:currencySymbol="@string/title_php"
+                    app:useCurrencySymbolAsHint="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_deposit_to"
+                style="@style/TextViewHeaderFormOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_deposit_to"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_amount" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutDepositTo"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_edit_text"
+                android:hint="@string/hint_deposit_to"
+                app:layout_constraintTop_toBottomOf="@+id/tv_deposit_to">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextDepositTo"
+                    style="@style/TextInputEditTextForm.Selector" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_remarks"
+                style="@style/TextViewHeaderFormOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_remarks"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDepositTo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_remarks"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_edit_text"
+                android:hint="@string/hint_optional"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_remarks">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tie_remarks"
+                    style="@style/TextInputEditTextForm.Remarks"
+                    android:imeOptions="actionNext" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

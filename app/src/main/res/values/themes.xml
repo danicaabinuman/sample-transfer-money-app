@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="md_color_title">@color/colorPrimary</item>
+        <item name="md_color_content">@color/colorInfo</item>
+        <item name="md_color_button_text">@color/colorPrimary</item>
+        <item name="md_corner_radius">@dimen/dialog_radius</item>
+    </style>
+
+    <style name="AppThemePortal" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccentPortal</item>
+        <item name="colorAccentApp">@color/colorAccentPortal</item>
+        <item name="startColor">@color/colorAccentLight</item>
+        <item name="startDisabledColor">@color/colorStartDisabled</item>
+        <item name="endColor">@color/colorAccentDark</item>
+        <item name="endDisabledColor">@color/colorEndDisabled</item>
+        <item name="disabledBGColor">@color/colorDisabledBGButton</item>
+        <item name="colorHighlight">@color/colorWhite</item>
+        <item name="colorText">@color/colorWhite</item>
+        <item name="colorImage">@color/colorWhite</item>
+        <item name="toolbarColor">@color/colorTransparent</item>
+        <item name="appLogo">@drawable/ic_unionbank</item>
+        <item name="appShareLogo">@drawable/bg_header_transaction_summary</item>
+        <item name="appBackground">@drawable/bg_corporate</item>
+        <item name="bottomSheetBackground">@drawable/bg_dark_confirmation_bottom_sheet</item>
+        <item name="iconToolbarColor">@color/colorWhite</item>
+        <item name="android:windowBackground">@drawable/bg_overlay</item>
+        <item name="appBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+    </style>
+
+    <style name="AppThemeSME" parent="AppTheme">
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorAccent">@color/colorAccentSME</item>
+        <item name="colorAccentApp">@color/colorAccentSME</item>
+        <item name="startColor">@color/colorSMEAccentLight</item>
+        <item name="startDisabledColor">@color/colorSMEStartDisabled</item>
+        <item name="endColor">@color/colorSMEAccentDark</item>
+        <item name="endDisabledColor">@color/colorSMEEndDisabled</item>
+        <item name="disabledBGColor">@color/colorSMEDisabledBGButton</item>
+        <item name="colorHighlight">@color/colorLightAccent</item>
+        <item name="colorText">@color/colorInfo</item>
+        <item name="colorImage">@color/colorInfo</item>
+        <item name="toolbarColor">@color/colorWhite</item>
+        <item name="appLogo">@drawable/logo_sme</item>
+        <item name="appShareLogo">@drawable/bg_corporate_sme</item>
+        <item name="appBackground">@drawable/bg_corporate_sme</item>
+        <item name="bottomSheetBackground">@color/colorLightBottomSheetBackground</item>
+        <item name="iconToolbarColor">@color/colorInfo</item>
+        <item name="android:windowBackground">@drawable/bg_content_background</item>
+        <item name="appBarTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+    </style>
+
+    <style name="CustomJumioAppTheme" parent="AppThemeSME">
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorDarkGray</item>
+        <item name="colorAccent">?colorAccentApp</item>
+
+        <item name="android:textColorPrimary">@color/colorInfo</item>
+        <!-- color of the menu overflow icon (three vertical dots) -->
+        <item name="android:textColorSecondary">@color/colorInfo</item>
+        <item name="android:windowBackground">@drawable/bg_content_background</item>
+        <item name="android:textColorPrimaryInverse">@color/colorInfo</item>
+        <item name="android:textColorSecondaryInverse">@color/colorInfo</item>
+        <item name="editTextColor">@color/colorInfo</item>
+        <item name="android:editTextColor">@color/colorInfo</item>
+        <item name="colorControlNormal">@color/colorInfo</item>
+        <item name="colorButtonNormal">?colorAccent</item>
+        <item name="colorControlActivated">@color/colorInfo</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <item name="jumio_toolbarStyle">@style/ThemeOverlay.AppCompat.Light</item>
+
+        <item name="netverify_fastfillLoadingBackground">?colorAccent</item>
+        <item name="netverify_fastfillLoadingProgress">?colorAccent</item>
+
+        <item name="netverify_scanOptionsLoadingBackground">@color/colorContentBackground</item>
+        <item name="netverify_scanOptionsLoadingProgress">?colorAccent</item>
+        <item name="netverify_scanOptionsItemHeaderBackground">?colorAccent</item>
+        <item name="netverify_scanOptionsItemForeground">@color/colorInfo</item>
+        <item name="netverify_scanOptionsItemBackground">@color/colorWhite</item>
+
+        <item name="netverify_confirmationBackground">@color/colorContentBackground</item>
+        <item name="netverify_confirmationPositiveStyle">@style/Positive.MaterialButton</item>
+        <item name="netverify_confirmationNegativeStyle">@style/Negative.MaterialButton</item>
+        <item name="netverify_confirmationIcon">?colorAccent</item>
+        <item name="netverify_confirmationHintStyle">@style/JumioConfirmationHint</item>
+
+        <item name="jumio_dialogPositiveButtonTextColor">@color/colorInfo</item>
+        <item name="jumio_dialogNegativeButtonTextColor">@color/colorInfo</item>
+
+        <item name="netverify_scanOverlayTemplateValid">?colorAccent</item>
+        <item name="netverify_scanOverlayTemplateInvalid">@color/jumio_grey200</item>
+        <item name="netverify_scanOverlayDetectedLine">?colorAccent</item>
+        <item name="netverify_scanOverlayDetectedLineStroke">@color/colorWhite</item>
+        <item name="netverify_scanOverlay">@color/colorWhite50</item>
+        <item name="netverify_scanOverlayFill">@color/colorWhite50</item>
+        <item name="netverify_scanBackground">@color/colorWhite50</item>
+
+        <item name="face_helpButtonTheme">@style/HelpViewButton</item>
+        <item name="face_scanOverlayFeedbackBackground">?colorAccent</item>
+        <item name="face_scanOverlayProgress">?colorAccent</item>
+        <item name="face_helpBackground">@color/colorContentBackground</item>
+        <item name="face_scanOverlayFeedbackText">@color/colorWhite</item>
+        <item name="face_helpTitle">?colorAccent</item>
+        <item name="face_helpProgressString">@color/colorWhite</item>
+        <item name="face_helpImage">@color/colorInfo</item>
+        <item name="face_helpSeperator">@color/colorInfo</item>
+        <item name="face_helpInstructions">@color/colorInfo</item>
+        <item name="face_helpFallback">@color/colorInfo</item>
+        <item name="face_helpFallbackText">@color/colorInfo</item>
+        <item name="face_scanOverlayBackground">@color/colorWhite50</item>
+        <item name="face_scanOverlayOval">@color/colorWhite</item>
+
+
+        <item name="netverify_submissionErrorStatusBar">@color/colorDarkGray</item>
+        <item name="netverify_submissionErrorBackground">@color/colorContentBackground</item>
+        <item name="netverify_submissionErrorTitle">@color/jumio_grey900</item>
+        <item name="netverify_submissionErrorDescription">@color/colorInfo</item>
+        <item name="netverify_submissionErrorSeperator">@color/colorInfo</item>
+        <item name="netverify_submissionErrorImage">@color/colorInfo</item>
+        <item name="netverify_submissionErrorButtonBackground">?colorAccent</item>
+        <item name="netverify_submissionErrorButtonText">@color/colorWhite</item>
+
+        <item name="netverify_submissionProgressSuccessBackground">@color/colorContentBackground
+        </item>
+        <item name="netverify_submissionProgressSuccessTitle">?colorAccent</item>
+        <item name="netverify_submissionProgressSuccessDescription">@color/colorInfo</item>
+        <item name="netverify_submissionProgressSuccessSeperator">?colorAccent</item>
+        <item name="netverify_submissionProgressSuccessImage">?colorAccent</item>
+
+        <item name="netverify_helpBackground">@color/jumio_black_alpha85</item>
+        <item name="netverify_helpProgressString">@color/jumio_white_alpha65</item>
+        <item name="netverify_helpImage">@color/jumio_white</item>
+        <item name="netverify_helpImageBorder">@color/jumio_black</item>
+        <item name="netverify_helpTitle">@color/jumio_white</item>
+        <item name="netverify_helpSeperator">@color/jumio_white_alpha15</item>
+        <item name="netverify_helpInstructions">@color/jumio_white</item>
+        <item name="netverify_helpFallback">@color/jumio_white</item>
+        <item name="netverify_helpFallbackText">@color/jumio_black</item>
+
+        <item name="netverify_countryListCountryName">@color/jumio_grey900</item>
+        <item name="netverify_countryListSeperator">@color/jumio_grey300</item>
+
+        <item name="netverify_nfc_dialog_theme">@style/Netverify.NFC.Dialog</item>
+    </style>
+
+    <style name="AppThemePortal.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppThemePortal.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">?colorAccentApp</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="SMECustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorAccent">?colorAccentApp</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="SlideUpAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_dialog_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/anim_dialog_slide_down</item>
+    </style>
+
+    <style name="FadeInFadeOutAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_fade_out</item>
+    </style>
+
+    <style name="BaseDialogTheme" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="colorAccent">?colorAccentApp</item>
+    </style>
+
+</resources>

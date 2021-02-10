@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolBar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolBar">
+
+        <include
+            android:id="@+id/view_search_layout"
+            layout="@layout/widget_search_layout"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_selector"
+            style="@style/MatchConstraint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_search_layout">
+
+            <com.airbnb.epoxy.EpoxyRecyclerView
+                android:id="@+id/rv_selector"
+                style="@style/RecyclerViewLight"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:overScrollMode="ifContentScrolls"
+                tools:listitem="@layout/item_selector" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <include
+            android:id="@+id/viewLoadingState"
+            style="@style/MatchConstraint"
+            layout="@layout/widget_loading_state"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_search_layout" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewState"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_spacing_large"
+            android:layout_marginRight="@dimen/content_spacing_large"
+            android:gravity="center"
+            android:text="@string/title_no_result_found"
+            android:textSize="@dimen/text_14"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_search_layout" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSelect"
+            style="@style/RoundedButtonOrangeSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:layout_marginBottom="@dimen/content_spacing"
+            android:paddingStart="@dimen/button_content_margin"
+            android:paddingEnd="@dimen/button_content_margin"
+            android:text="@string/action_select_all"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

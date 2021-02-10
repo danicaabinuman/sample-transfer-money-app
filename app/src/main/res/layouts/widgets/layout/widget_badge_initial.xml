@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewInitial"
+        style="@style/MatchConstraint"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/circle_gradient_orange" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewInitial"
+        style="@style/TextViewThemeLarge"
+        android:text="SM"
+        android:textSize="@dimen/text_badge_initial"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewInitial"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewInitial"
+        app:layout_constraintStart_toStartOf="@+id/imageViewInitial"
+        app:layout_constraintTop_toTopOf="@+id/imageViewInitial" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

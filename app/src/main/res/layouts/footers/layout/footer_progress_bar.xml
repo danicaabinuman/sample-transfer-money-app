@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchWrapParent"
+    android:gravity="center"
+    android:id="@+id/linearLayoutProgressBar"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/content_spacing_large"
+    android:paddingTop="@dimen/content_spacing_half"
+    android:paddingEnd="@dimen/content_spacing_large"
+    android:paddingBottom="@dimen/content_spacing_half">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/WrapContent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewProgressBar"
+        style="@style/TextViewDark"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:text="@string/title_loading"
+        android:visibility="gone" />
+
+</LinearLayout>

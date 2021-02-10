@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/colorTableBodyBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/viewBackgroundRow"
+        style="@style/MatchConstraint"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayoutRow"
+        app:layout_constraintStart_toStartOf="@+id/linearLayoutRow"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutRow"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRow"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRowAccountName"
+                style="@style/TextViewDarkTableRow"
+                android:layout_width="match_parent"
+                android:padding="0dp"
+                android:paddingStart="@dimen/table_row_padding"
+                android:text="@string/title_account_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@+id/textViewRowAccountNumber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRowAccountNumber"
+                style="@style/TextViewDarkTableRow"
+                android:layout_width="match_parent"
+                android:padding="0dp"
+                android:paddingStart="@dimen/table_row_padding"
+                android:text="@string/title_account_number"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRowAccountName"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/WrapContent"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+
+            <io.supercharge.shimmerlayout.ShimmerLayout
+                android:id="@+id/shimmerLayoutRowAmount"
+                style="@style/WrapContent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_animation_duration="1000"
+                app:shimmer_color="@color/colorGrey"
+                app:shimmer_mask_width="1">
+
+                <androidx.constraintlayout.widget.ConstraintLayout style="@style/WrapContent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewRowAvailableBalance"
+                        style="@style/TextViewDarkTableRow"
+                        android:layout_width="wrap_content"
+                        android:padding="0dp"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_margin="@dimen/table_row_padding"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/viewRowShimmer"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_height="@dimen/match_constraint"
+                        android:alpha="0.3"
+                        android:background="@color/colorGrey"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewRowAvailableBalance"
+                        app:layout_constraintEnd_toEndOf="@+id/textViewRowAvailableBalance"
+                        app:layout_constraintStart_toStartOf="@+id/textViewRowAvailableBalance"
+                        app:layout_constraintTop_toTopOf="@+id/textViewRowAvailableBalance" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </io.supercharge.shimmerlayout.ShimmerLayout>
+
+            <include
+                android:id="@+id/viewRowError"
+                layout="@layout/item_row_error"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewBorderTop"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewBorderBottom"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

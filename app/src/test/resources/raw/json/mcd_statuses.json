@@ -1,0 +1,20 @@
+[
+  {
+    "type": "FOR_CLEARING",
+    "description": "Pending Verification",
+    "remarks": null,
+    "contextual_class": "INFO"
+  },
+  {
+    "type": "REJECTED",
+    "description": "Transaction Rejected",
+    "remarks": null,
+    "contextual_class": "DANGER"
+  },
+  {
+    "type": "POSTED",
+    "description": "For Clearing",
+    "remarks": null,
+    "contextual_class": "SUCCESS"
+  }
+]

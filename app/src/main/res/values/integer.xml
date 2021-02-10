@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="anim_duration_quick">100</integer>
+    <integer name="anim_duration_normal">300</integer>
+    <integer name="anim_duration_medium">500</integer>
+    <integer name="anim_duration_flip_card">300</integer>
+    <integer name="anim_duration_flip_card_half">150</integer>
+    <integer name="anim_duration_popup_badge">150</integer>
+
+    <integer name="max_length_account_number_other_banks">62</integer>
+    <integer name="max_length_account_number_swift_banks">50</integer>
+    <integer name="max_length_account_number_ubp">14</integer>
+    <integer name="max_length_account_number_ubp_without_mask">12</integer>
+    <integer name="max_length_reason_for_rejection">200</integer>
+    <integer name="max_length_check_number">10</integer>
+    <integer name="max_length_field">50</integer>
+    <integer name="max_length_sss">9</integer>
+    <integer name="max_length_tin">12</integer>
+    <integer name="max_length_mobile_number_ph">10</integer>
+    <integer name="max_length_mobile_number">30</integer>
+    <integer name="max_length_amount">18</integer>
+    <integer name="max_length_amount_without_limit">50</integer>
+    <integer name="remarks_max_length_field">30</integer>
+    <integer name="max_length_field_100">100</integer>
+    <integer name="max_length_field_remarks">30</integer>
+    <integer name="max_length_field_address">100</integer>
+    <integer name="max_item_frequent_biller_field">4</integer>
+    <integer name="max_zip_code_length">4</integer>
+    <integer name="max_line">10</integer>
+    <integer name="min_length_account_number">9</integer>
+
+    <integer name="min_camera_height">2316</integer>
+    <integer name="min_camera_width">2112</integer>
+
+    <integer name="snack_bar_max_line">3</integer>
+
+    <integer name="min_length_field">1</integer>
+
+    <integer name="no_max_length">0</integer>
+    <integer name="no_min_length">0</integer>
+
+    <integer name="resend_otp_code_period">1</integer>
+    <integer name="resend_otp_code_count">100</integer>
+
+    <integer name="time_interval_totp_code">30</integer>
+    <integer name="time_delay_fingerprint">100</integer>
+
+
+    <integer name="time_api_request">120</integer>
+    <integer name="time_delay_smooth_scroll">300</integer>
+
+    <integer name="time_delay_thread">50</integer>
+    <integer name="time_delay_share_media">250</integer>
+    <integer name="time_delay_load_transaction_detail">500</integer>
+    <integer name="time_enter_tutorial_immediate">250</integer>
+    <integer name="time_enter_tutorial">300</integer>
+    <integer name="time_enter_tutorial_sample_data">300</integer>
+    <integer name="time_loading_parse_delay">800</integer>
+
+
+    <integer name="time_edit_text_debounce_password">150</integer>
+    <integer name="time_edit_text_debounce">150</integer>
+    <integer name="time_edit_text_search_debounce">500</integer>
+    <integer name="time_button_debounce">300</integer>
+
+
+    <integer name="time_session_out_start">1</integer>
+    <integer name="time_session_out_dialog">120</integer>
+    <integer name="time_session_out_logout">300</integer>
+
+    <integer name="time_tooltip_show">3000</integer>
+</resources>

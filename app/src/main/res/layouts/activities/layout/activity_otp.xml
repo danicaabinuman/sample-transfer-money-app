@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLayout"
+    style="@style/MatchParent">
+
+    <ScrollView
+        style="@style/MatchWrapParent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchParent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSubmit"
+                style="@style/RoundedButtonOrange"
+                android:layout_marginStart="@dimen/content_margin"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_margin"
+                android:enabled="false"
+                android:alpha="0.5"
+                android:text="@string/action_submit"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/textViewDidNotReceived"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewPinCode"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnResend"
+                style="@style/RoundedButtonLightOverlay"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/content_margin"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_margin"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:alpha="0.3"
+                android:enabled="false"
+                android:paddingStart="@dimen/content_spacing_xl"
+                android:paddingEnd="@dimen/content_spacing_xl"
+                android:text="@string/action_resend_code"
+                android:textColor="@color/colorBlack75"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvResend"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvHeader"
+                style="@style/TextHeaderLight"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_margin"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_margin"
+                android:gravity="center"
+                android:text="@string/title_verify_account"
+                app:layout_constraintBottom_toTopOf="@+id/tvVerifyAccountDesc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDidNotReceived"
+                style="@style/TextViewThemeLarge"
+                android:layout_marginTop="@dimen/content_spacing_xl"
+                android:text="@string/desc_did_not_receive_code"
+                app:layout_constraintBottom_toTopOf="@+id/tvResend"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewPinCode"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvResend"
+                style="@style/TextViewThemeLarge"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:text="@string/desc_resend_code_seconds_default"
+                app:layout_constraintBottom_toTopOf="@+id/btnResend"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDidNotReceived"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvVerifyAccountDesc"
+                style="@style/TextViewThemeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_margin"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_margin"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                android:text="@string/desc_verify_account_sms"
+                app:layout_constraintBottom_toTopOf="@+id/viewPinCode"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHeader"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <include
+                android:id="@+id/viewPinCode"
+                layout="@layout/widget_pin_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_large"
+                app:layout_constraintBottom_toTopOf="@+id/textViewDidNotReceived"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVerifyAccountDesc"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/editTextHidden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_spacing_small"
+        android:backgroundTint="@color/colorTransparent"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:digits="@string/digits_only"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:longClickable="false"
+        android:maxLength="6"
+        android:textColor="@color/colorTransparent"
+        android:theme="@style/EditTextTransparentAccent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

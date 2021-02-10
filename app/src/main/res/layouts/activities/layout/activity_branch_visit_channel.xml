@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutCashDeposit"
+            style="@style/MatchWrapParent"
+            android:background="@drawable/bg_rectangle_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/viewBorderTop"
+                style="@style/BorderHorizontal"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewCashDeposit"
+                style="@style/ImageViewIconLarge"
+                android:layout_width="@dimen/image_view_initial_size"
+                android:layout_height="@dimen/image_view_channel_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_branch_visit_cash_deposit"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewCashDepositDesc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewCashDeposit" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCashDeposit"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:text="@string/title_cash_or_check_deposit"
+                app:layout_constraintBottom_toTopOf="@+id/textViewCashDepositDesc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewCashDeposit"
+                app:layout_constraintTop_toBottomOf="@+id/viewBorderTop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCashDepositDesc"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                android:text="@string/msg_cash_deposit"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/viewBorderCashDeposit"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewCashDeposit"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCashDeposit"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <View
+                android:id="@+id/viewBorderCashDeposit"
+                style="@style/BorderHorizontal"
+                android:background="@color/colorGreyLight"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutCashWithdraw"
+            style="@style/MatchWrapParent"
+            android:background="@drawable/bg_rectangle_white"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutCashDeposit">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewCashWithdraw"
+                style="@style/ImageViewIconLarge"
+                android:layout_width="@dimen/image_view_initial_size"
+                android:layout_height="@dimen/image_view_channel_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_branch_visit_cash_withdrawal"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewCashWithdrawDesc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewCashWithdraw" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCashWithdraw"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:text="@string/title_cash_withdrawal"
+                app:layout_constraintBottom_toTopOf="@+id/textViewCashWithdrawDesc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewCashWithdraw"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCashWithdrawDesc"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing_half"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                android:text="@string/msg_cash_withdrawal"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/viewBorderCashWithdraw"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewCashWithdraw"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCashWithdraw"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <View
+                android:id="@+id/viewBorderCashWithdraw"
+                style="@style/BorderHorizontal"
+                android:background="@color/colorGreyLight"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

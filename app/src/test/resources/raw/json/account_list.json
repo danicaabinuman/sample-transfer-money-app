@@ -1,0 +1,110 @@
+[
+  {
+    "id": 2170745,
+    "status": {
+      "type": "A",
+      "description": "Active",
+      "color": "GREEN"
+    },
+    "card": {
+      "type": "CAA",
+      "description": "RETAIL REGULAR CHECKING",
+      "color": "BLACK"
+    },
+    "currency": "PHP",
+    "headers": [
+      {
+        "name": "AVLBAL",
+        "display": "Available Balance",
+        "value": null
+      },
+      {
+        "name": "CURBAL",
+        "display": "Current Balance",
+        "value": null
+      },
+      {
+        "name": "FNDCLR",
+        "display": "Funds in Clearing",
+        "value": null
+      }
+    ],
+    "name": "ABC SAMPLE ORGANIZATION",
+    "account_number": "000590080120",
+    "product_code": "CA001",
+    "product_code_desc": "RETAIL REGULAR CHECKING",
+    "product_type": "CAA"
+  },
+  {
+    "id": 12086035,
+    "status": {
+      "type": "I",
+      "description": "Inactive",
+      "color": "GRAY"
+    },
+    "card": {
+      "type": "CAA",
+      "description": "RETAIL REGULAR CHECKING",
+      "color": "BLACK"
+    },
+    "currency": "PHP",
+    "headers": [
+      {
+        "name": "AVLBAL",
+        "display": "Available Balance",
+        "value": null
+      },
+      {
+        "name": "CURBAL",
+        "display": "Current Balance",
+        "value": null
+      },
+      {
+        "name": "FNDCLR",
+        "display": "Funds in Clearing",
+        "value": null
+      }
+    ],
+    "name": "ABOITIZ JEBSEN COMPANY INC",
+    "account_number": "000560025944",
+    "product_code": "CA055",
+    "product_code_desc": "RETAIL REGULAR CHECKING",
+    "product_type": "CAA"
+  },
+  {
+    "id": 2170848,
+    "status": {
+      "type": "A",
+      "description": "Active",
+      "color": "GREEN"
+    },
+    "card": {
+      "type": "SBA",
+      "description": "FCDU SAVINGS",
+      "color": "BLACK"
+    },
+    "currency": "USD",
+    "headers": [
+      {
+        "name": "AVLBAL",
+        "display": "Available Balance",
+        "value": null
+      },
+      {
+        "name": "CURBAL",
+        "display": "Current Balance",
+        "value": null
+      },
+      {
+        "name": "FNDCLR",
+        "display": "Funds in Clearing",
+        "value": null
+      }
+    ],
+    "name": "MIGUEL M FERMIN",
+    "account_number": "130590015426",
+    "product_code": "SB120",
+    "product_code_desc": "FCDU SAVINGS",
+    "product_type": "SBA"
+  }
+]

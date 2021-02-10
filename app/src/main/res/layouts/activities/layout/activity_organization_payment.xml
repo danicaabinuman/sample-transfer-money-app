@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <include
+            android:id="@+id/viewSearchLayout"
+            layout="@layout/widget_search_layout"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayoutOrganizationPayment"
+            style="@style/MatchConstraint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout">
+
+            <com.airbnb.epoxy.EpoxyRecyclerView
+                android:id="@+id/recyclerViewOrganizationPayment"
+                style="@style/RecyclerViewLight"
+                android:paddingBottom="@dimen/content_spacing"
+                tools:listitem="@layout/item_done_approval" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewState"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_spacing_large"
+            android:layout_marginRight="@dimen/content_spacing_large"
+            android:gravity="center"
+            android:text="@string/msg_no_organization_payment"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout" />
+
+        <include
+            android:id="@+id/viewLoadingState"
+            style="@style/WrapContent"
+            layout="@layout/widget_loading_state"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout" />
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/recyclerViewTutorial"
+            style="@style/RecyclerViewLight.Tutorial"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            android:paddingBottom="@dimen/content_spacing"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout"
+            tools:listitem="@layout/item_done_approval" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayoutTable"
+            style="@style/MatchConstraint"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout">
+
+            <include
+                android:id="@+id/viewTable"
+                layout="@layout/widget_table_view" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/fabBillsPayment"
+            style="@style/MatchConstraint"
+            android:padding="@dimen/fab_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu_animationDelayPerItem="50"
+            app:menu_backgroundColor="@color/colorBlack70"
+            app:menu_buttonSpacing="0dp"
+            app:menu_colorNormal="?colorAccent"
+            app:menu_colorPressed="?colorAccent"
+            app:menu_colorRipple="@color/colorBlack30"
+            app:menu_fab_label="@string/title_make_payment"
+            app:menu_fab_size="normal"
+            app:menu_icon="@drawable/ic_plus_white"
+            app:menu_labels_colorNormal="@color/colorContentBackground"
+            app:menu_labels_colorPressed="@color/colorContentBackground"
+            app:menu_labels_colorRipple="@color/colorBlack30"
+            app:menu_labels_cornerRadius="@dimen/fab_label_radius"
+            app:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+            app:menu_labels_maxLines="1"
+            app:menu_labels_padding="@dimen/text_view_padding"
+            app:menu_labels_position="left"
+            app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+            app:menu_labels_showShadow="true"
+            app:menu_labels_textColor="@color/colorInfo"
+            app:menu_labels_textSize="@dimen/text_12"
+            app:menu_openDirection="up"
+            app:menu_shadowColor="@color/colorBlack50"
+            app:menu_showShadow="true">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fabMenuManageFrequentBillers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_user_group_white"
+                app:fab_colorNormal="?colorAccent"
+                app:fab_colorPressed="?colorAccent"
+                app:fab_colorRipple="@color/colorBlack30"
+                app:fab_label="@string/title_manage_frequent_billers"
+                app:fab_size="normal"
+                app:menu_labels_colorNormal="@color/colorContentBackground"
+                app:menu_labels_colorPressed="@color/colorContentBackground"
+                app:menu_labels_colorRipple="@color/colorBlack30"
+                app:menu_labels_cornerRadius="@dimen/fab_label_radius"
+                app:menu_labels_padding="@dimen/text_view_padding"
+                app:menu_showShadow="true" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

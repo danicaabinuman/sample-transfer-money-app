@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAmountError"
+        style="@style/TextViewOrangeSmall"
+        android:layout_marginStart="@dimen/text_view_spacing_large"
+        android:gravity="center"
+        android:textColor="@color/colorErrorColor"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutMobileNumber" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutMobileNumber"
+        style="@style/MatchWrapParent"
+        android:background="@drawable/bg_edittext_form"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutCountryCode"
+            style="@style/WrapContent"
+            android:paddingStart="@dimen/content_spacing_half"
+            android:paddingEnd="@dimen/content_spacing_half"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewFlag"
+                android:layout_width="@dimen/image_view_icon_size"
+                android:layout_height="@dimen/image_view_icon_size"
+                android:layout_marginStart="@dimen/content_spacing_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_flag_ph" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewCallingCode"
+                style="@style/TextViewDark"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_small"
+                android:clickable="false"
+                android:text="@string/value_code_ph"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewFlag"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewDrop"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFlag"
+                app:layout_constraintTop_toTopOf="@+id/imageViewFlag" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewDrop"
+                android:layout_width="@dimen/image_view_icon_size"
+                android:layout_height="@dimen/image_view_icon_size"
+                android:layout_marginStart="@dimen/content_spacing_small"
+                android:clickable="false"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewFlag"
+                app:layout_constraintStart_toEndOf="@+id/textViewCallingCode"
+                app:layout_constraintTop_toTopOf="@+id/imageViewFlag"
+                app:srcCompat="@drawable/ic_arrow_orange_down"
+                app:tint="?colorAccent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editTextMobileNumber"
+            style="@style/EditTextForm"
+            android:layout_width="@dimen/match_constraint"
+            android:background="@color/colorTransparent"
+            android:hint="@string/title_mobile_number"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:paddingStart="@dimen/content_spacing_small"
+            android:textColorHint="@color/colorHint"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayoutCountryCode"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

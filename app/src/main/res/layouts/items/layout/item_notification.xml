@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutItemNotification"
+    style="@style/MatchWrapParent"
+    android:background="@drawable/bg_rectangle_white">
+
+    <View
+        android:id="@+id/viewBorder1"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewNotificationTitle"
+        style="@style/TextViewDark"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNotification"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewNotification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorder1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewNotification"
+        style="@style/TextViewDarkSmall"
+        android:layout_width="0dp"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:text="@string/desc_notifications"
+        android:textColor="@color/colorLightGray"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewNotification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNotificationTitle" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewNotification"
+        style="@style/WrapContent"
+        android:layout_marginLeft="@dimen/field_content_spacing"
+        android:layout_marginRight="@dimen/field_content_spacing"
+        app:srcCompat="@drawable/ic_arrow_orange_right"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewNotification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewNotificationTitle"
+        app:tint="?colorAccent" />
+
+    <View
+        android:id="@+id/viewBorder2"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNotification" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

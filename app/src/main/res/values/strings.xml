@@ -1,0 +1,1872 @@
+<resources>
+    <string name="default_notification_channel_id">1</string>
+    <string name="digits_account_number">1 0123456789</string>
+    <string name="digits_numeric_space">1 0123456789</string>
+    <string name="digits_only">0123456789</string>
+    <string name="digits_amount">0123456789,.</string>
+    <string name="digits_alpha_numeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
+    <string name="digits_alpha_numeric_symbols">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
+    <string name="digits_alpha_numeric_symbols_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
+    <string name="digits_with_restriction">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
+    <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
+
+    <!--FingerPrint-->
+    <string name="use_password">Use password</string>
+    <string name="password">Password</string>
+    <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="fingerprint_hint">Touch sensor</string>
+    <string name="password_description">Enter your store password to continue</string>
+    <string name="purchase">Purchase</string>
+    <string name="purchase_not_invalidated">Purchase not invalidated</string>
+    <string name="purchase_button_not_invalidated_description">
+        You can proceed to purchase with this button \n even if a new fingerprint is enrolled
+    </string>
+    <string name="fingerprint_attempt">Too many attempts. Try again later or you may use password.</string>
+    <string name="fingerprint_not_recognized">Fingerprint not recognized. Try again</string>
+    <string name="fingerprint_success">Fingerprint recognized</string>
+    <string name="item_title">White Mesh Pluto Backpack</string>
+    <string name="item_price">$62.68</string>
+    <string name="item_description">Mesh backpack in white. Black textile trim throughout.</string>
+    <string name="purchase_done">Purchase successful</string>
+    <string name="new_fingerprint_enrolled_description">
+        A new fingerprint was added to this device, so your password is required.
+    </string>
+    <string name="use_fingerprint_in_future">Use fingerprint in the future</string>
+    <string name="use_fingerprint_to_authenticate_title">Use fingerprint to authenticate</string>
+    <string name="use_fingerprint_to_authenticate_key">use_fingerprint_to_authenticate_key</string>
+    <string name="description_bugdroid_icon">Android bugdroid image</string>
+    <string name="description_fingerprint_icon">Fingerprint icon</string>
+    <string name="register_fingerprint">
+        Go to \'Settings -> Security -> Fingerprint\' and register at least one fingerprint
+    </string>
+    <string name="setup_lock_screen">
+        Secure lock screen hasn\'t set been up.\n
+        Go to \'Settings -> Security -> Fingerprint\' to set up a fingerprint
+    </string>
+    <string name="title_scan_your_signature">Scan your Signature</string>
+    <string name="msg_scan_your_signature">Place signature within the frame. Tap on the button when you\'re ready to take the photo. Please ensure that the signature is against a white background and that the image taken is not blurry.</string>
+    <string name="title_frame_one">On-The-Go</string>
+    <string name="title_frame_two">Safety First!</string>
+    <string name="title_frame_three">All-In-One</string>
+    <string name="title_password">Password</string>
+    <string name="title_enable_otp">Enable/Disable OTP</string>
+    <string name="title_receive_otp">How you receive OTP</string>
+    <string name="title_generate_otp">Generate OTP</string>
+    <string name="title_otp">One-Time Password (OTP)</string>
+    <string name="title_security">Security</string>
+    <string name="title_manage_devices">Manage Devices</string>
+    <string name="title_notification">Notification</string>
+    <string name="title_no_notification">No Notification</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_login">Login</string>
+    <string name="title_logout">Logout</string>
+    <string name="title_accept">I Agree</string>
+    <string name="title_link_sent">Link Sent</string>
+    <string name="title_account_details">Account Details</string>
+    <string name="title_create_beneficiary">Create Beneficiary</string>
+    <string name="title_edit_beneficiary">Edit Beneficiary</string>
+    <string name="title_skip_tutorials">Skip Tutorials</string>
+    <string name="title_transfer_details">Transfer Details</string>
+    <string name="title_creditable_withholding_tax">Creditable Withholding Tax</string>
+    <string name="title_additional_information">Additional Information</string>
+    <string name="title_residential_address">Residential Address</string>
+    <string name="title_payment_details">Payment Details</string>
+    <string name="title_transaction_details">Transaction Details</string>
+    <string name="title_transaction_history">Transaction History</string>
+    <string name="title_forgot_password">Forgot Password</string>
+    <string name="title_lets_get_started">Let\'s Get Started!</string>
+    <string name="title_login_with_fingerprint">Login with Fingerprint</string>
+    <string name="title_fingerprint_not_detected">Fingerprint Not Detected</string>
+    <string name="title_new_fingerprint_detected">New Fingerprint Detected</string>
+    <string name="title_session_time_out">Your session is about to expire</string>
+    <string name="title_bills_payment_validation">You have made a similar\npayment in the last 24 hours</string>
+    <string name="title_dialog_trust_device">Do you want to trust this device?</string>
+    <string name="title_login_with_password">Login with Password</string>
+    <string name="title_unionbank_account_transfer">UnionBank Account Transfer</string>
+    <string name="title_to_own_account_transfer">To Own Account Transfer</string>
+    <string name="title_frequent_biller_added">Frequent Biller Added</string>
+    <string name="title_frequent_biller">Frequent Biller</string>
+    <string name="title_frequent_biller_deleted">Frequent Biller Deleted</string>
+    <string name="title_frequent_biller_edited">Frequent Biller Edited</string>
+    <string name="title_beneficiary_created">Beneficiary Created</string>
+    <string name="title_beneficiary_updated">Beneficiary Updated</string>
+    <string name="title_beneficiary_deleted">Beneficiary Deleted</string>
+    <string name="title_you_ve_got_mail">You\'ve got mail</string>
+    <string name="title_transaction_deleted">Scheduled\nTransaction Cancelled</string>
+    <string name="title_no_currency_account_enrolled">No %1$s Account Enrolled</string>
+    <string name="title_password_recovery">Password Recovery</string>
+    <string name="title_nominate_email">Nominate Email</string>
+    <string name="title_verify_email_address">Verify your Email Address</string>
+    <string name="title_email_address_taken">Email Address Taken</string>
+    <string name="title_migration_successful">Migration Successful!</string>
+    <string name="title_account_already_migrated">Account Already Migrated</string>
+    <string name="title_migration_link_expired">Migration Link Expired</string>
+    <string name="title_successfully_changed_mobile_number">Successfully Changed Mobile Number</string>
+    <string name="title_unable_generate_totp">Unable to Generate a Verification Code</string>
+    <string name="title_email_address_taken_verify">Verify it\'s you</string>
+    <string name="title_email_address_taken_success">Success!</string>
+    <string name="title_share_transaction_details">Share Transaction Details</string>
+    <string name="title_enable_fingerprint">
+        Enable Fingerprint\n
+        Authentication
+    </string>
+    <string name="title_new_user_detected">New User Detected</string>
+    <string name="title_front_of_check">Front of Check</string>
+    <string name="title_back_of_check">Back of Check</string>
+    <string name="title_update_password">Update Password</string>
+    <string name="title_enter_password">Enter Password</string>
+    <string name="title_update_email_address">Update Email Address</string>
+    <string name="title_change_mobile_number">Change Mobile Number</string>
+    <string name="title_enter_mobile_number">Enter Mobile Number</string>
+    <string name="title_nominate_password">Nominate Password</string>
+    <string name="title_account_activation_successful">Account Activation Successful!</string>
+    <string name="title_bills_payment_sent">Your payment has been successfully sent for approval.</string>
+    <string name="title_bills_payment_success">Your payment was successful!</string>
+    <string name="title_bills_payment_error">There was an error in processing your payment.</string>
+    <string name="title_bills_payment_scheduled">Your payment is scheduled for processing.</string>
+    <string name="title_verify_account">Verify Account</string>
+    <string name="title_code_resent">Code Resent!</string>
+    <string name="title_password_changed">Password Changed!</string>
+    <string name="title_tab_accounts">ACCOUNTS</string>
+    <string name="title_tab_transact">TRANSACT</string>
+    <string name="title_tab_approvals">APPROVALS</string>
+    <string name="title_tab_settings">SETTINGS</string>
+    <string name="title_tab_user">PROFILE</string>
+    <string name="title_tab_notifications">ALERTS</string>
+    <string name="title_active">ACTIVE</string>
+    <string name="title_inactive">INACTIVE</string>
+    <string name="title_menu_help">Help</string>
+    <string name="title_menu_flash">Flash</string>
+    <string name="title_sign_out">Sign Out</string>
+    <string name="title_save_changes">Save Changes</string>
+    <string name="title_transaction_unavailable">Transaction Unavailable</string>
+    <string name="title_approve_transaction">Approve Transaction</string>
+    <string name="title_push_switch_account">You are about to switch to another organization</string>
+    <string name="title_reject_transaction">Reject Transaction</string>
+    <string name="title_delete_scheduled_transaction">Cancel Scheduled Transaction</string>
+    <string name="title_cancel_transaction">Cancel Transaction</string>
+    <string name="title_leave_page">Leave Page</string>
+    <string name="title_exit_dao">Exit Digital Account Opening</string>
+    <string name="title_go_back">Go Back</string>
+    <string name="title_delete_deposit_transaction">Delete Transaction</string>
+    <string name="title_delete_deposit_transactions">Delete Transactions</string>
+    <string name="title_no_deposit_transaction">No Deposit Transaction</string>
+    <string name="title_different_time_zone">Different Time Zone</string>
+    <string name="title_delete_beneficiary">Delete Beneficiary</string>
+    <string name="title_delete_frequent_biller">Delete Frequent Biller</string>
+    <string name="title_dashboard_header_accounts">Accounts</string>
+    <string name="title_dashboard_header_transact">Transact</string>
+    <string name="title_dashboard_header_approvals">Approvals</string>
+    <string name="title_dashboard_header_settings">Settings</string>
+    <string name="title_dashboard_header_user">Profile</string>
+    <string name="title_dashboard_header_notifications">Alerts</string>
+    <string name="title_biller_not_allowed">Biller Not Allowed</string>
+    <string name="title_check_received">Check Received!</string>
+    <string name="title_beneficiary_address_">Beneficiary Address:</string>
+    <string name="title_beneficiary_name_">Beneficiary Name:</string>
+    <string name="title_beneficiary_code_">Beneficiary Code:</string>
+    <string name="title_beneficiary_account_number_">Account Number:</string>
+    <string name="title_reject">reject</string>
+    <string name="title_cancel">cancel</string>
+
+    <string name="title_success">Success</string>
+
+    <string name="title_push">Push</string>
+    <string name="title_sms">SMS</string>
+    <string name="title_email">Email</string>
+
+    <string name="title_card_view">Card View</string>
+    <string name="title_list_view">List View</string>
+    <string name="title_verification_still_processing">Verification still processing</string>
+    <string name="title_retake_your_id">Retake your ID</string>
+    <string name="title_expired_id">Expired ID</string>
+    <string name="title_swift_code_">Swift Code:</string>
+    <string name="title_receiving_bank_">Receiving Bank:</string>
+    <string name="title_bank_address_">Bank Address:</string>
+    <string name="title_bank_country_">Country:</string>
+    <string name="title_birthplace">Birthplace</string>
+    <string name="title_email_address">Email Address</string>
+    <string name="title_trusted_device">Trusted Device</string>
+    <string name="title_transaction_name">Transaction Name</string>
+    <string name="title_transactions">Transactions</string>
+    <string name="title_account_number">Account Number</string>
+    <string name="title_account">Account</string>
+    <string name="title_beneficiary_bank_account_number">Beneficiary Bank\nAccount Number</string>
+    <string name="title_beneficiary_address">Beneficiary Address</string>
+    <string name="title_corporate_savings_account">Corporate Savings Account</string>
+    <string name="title_outstanding_balance">Outstanding Balance</string>
+    <string name="title_current_balance">Current Balance</string>
+    <string name="title_country">Country</string>
+    <string name="title_present_address">Present Address</string>
+    <string name="title_permanent_address">Permanent Address</string>
+    <string name="title_beneficiary_code">Beneficiary Code</string>
+    <string name="title_beneficiary_name">Beneficiary Name</string>
+    <string name="title_didn_t_receive_an_email">Didn\'t receive an email?</string>
+    <string name="title_reference_1">Reference 1</string>
+    <string name="title_reference_2">Reference 2</string>
+    <string name="title_reference_3">Reference 3</string>
+    <string name="title_reference_4">Reference 4</string>
+    <string name="title_recent_transactions">Recent Transactions</string>
+    <string name="title_view_all">View All</string>
+    <string name="title_receive_notifications">Receive Notifications</string>
+    <string name="title_active_organization">Active Organization</string>
+    <string name="title_send_me_notification">Send me a notification when:</string>
+    <string name="title_send_me_notification_detail">How you receive the notification:</string>
+    <string name="title_send_funds_ubp">Send funds to UnionBank Accounts</string>
+    <string name="title_send_funds_other_banks">Send funds to Other Banks</string>
+    <string name="title_you_are_here">You are here</string>
+    <string name="title_sort_by">Sort by</string>
+    <string name="title_all">All</string>
+    <string name="title_debited">Debited</string>
+    <string name="title_expired">Expired</string>
+    <string name="title_for_release">For Release</string>
+    <string name="title_pending_approval">Pending Approval</string>
+    <string name="title_processing">Processing</string>
+    <string name="title_reversed">Reversed</string>
+    <string name="title_schedule_cancelled">Schedule Cancelled</string>
+    <string name="title_transaction_failed">Transaction Failed</string>
+    <string name="title_transaction_partially_released">Transaction Partially Released</string>
+    <string name="title_transaction_partially_successful">Transaction Partially Successful</string>
+    <string name="title_transaction_released">Transaction Released</string>
+    <string name="title_transaction_successful">Transaction Successful</string>
+    <string name="title_fully_approved">Fully Approved</string>
+    <string name="title_approved">Approved</string>
+    <string name="title_rejected">Rejected</string>
+    <string name="title_pending">Pending</string>
+    <string name="title_unseen">Unseen</string>
+    <string name="title_switch_organization">Switch Organization</string>
+    <string name="title_account_type">Account Type</string>
+    <string name="title_created_by">Created By</string>
+    <string name="title_created_on">Created on</string>
+    <string name="title_date_downloaded">Date Downloaded</string>
+    <string name="title_product_code_desc">Product Code Description</string>
+    <string name="title_account_status">Account Status</string>
+    <string name="title_created_date">Created Date</string>
+    <string name="title_status">Status</string>
+    <string name="title_next_date_of_transfer">Next Date of Transfer</string>
+    <string name="title_introduction">Introduction</string>
+    <string name="title_balance">Balance</string>
+    <string name="title_available_balance">Available Balance</string>
+    <string name="title_available_credit">Available Credit</string>
+    <string name="title_funds_in_clearing">Funds in Clearing</string>
+    <string name="title_description">Description</string>
+    <string name="title_amount">Amount</string>
+    <string name="title_around_php_0">Around PHP 0.00</string>
+    <string name="title_5m">5M</string>
+    <string name="title_0"> 0</string>
+    <string name="title_service_fee">Service Fee</string>
+    <string name="title_php">PHP</string>
+    <string name="title_usd">USD</string>
+    <string name="title_php_0_00">PHP 0.00</string>
+    <string name="title_remarks">Remarks</string>
+    <string name="title_desc_reminders">Please be reminded of the following:</string>
+    <string name="title_deposit_to">Deposit to</string>
+    <string name="title_withdraw_to">Withdraw to</string>
+    <string name="title_total_deposits">Total Deposits</string>
+    <string name="title_total_deposit_amount">Total Deposit Amount</string>
+    <string name="title_bir_reference_number">BIR Reference Number</string>
+    <string name="title_purpose">Purpose</string>
+    <string name="title_currency">Currency</string>
+    <string name="title_or_releasing_branch">OR Releasing Branch</string>
+    <string name="title_start_date_">Start Date:</string>
+    <string name="title_end_date_">Ends:</string>
+    <string name="title_frequency_">Frequency:</string>
+    <string name="title_start_date">Start Date</string>
+    <string name="title_end_date">End Date</string>
+    <string name="title_ends">Ends</string>
+    <string name="title_frequency">Frequency</string>
+    <string name="title_end_of_frequency">End of Frequency</string>
+    <string name="title_branch">Branch</string>
+    <string name="title_branch_name">Branch Name</string>
+    <string name="title_branch_address">Branch Address</string>
+    <string name="title_representative_name">Representative Name</string>
+    <string name="title_ending_balance">Ending Balance</string>
+    <string name="title_branch_reference_number">Branch Reference Number</string>
+    <string name="title_reference_number">Reference Number</string>
+    <string name="title_reference_number_">Reference Number:</string>
+    <string name="title_swift_code">SWIFT Code</string>
+    <string name="title_bank_address">Bank Address</string>
+    <string name="title_receiving_bank">Receiving Bank</string>
+    <string name="title_receiving_bank_name">Receiving Bank Name</string>
+    <string name="title_receiving_bank_address">Receiving Bank Address</string>
+    <string name="title_transaction_date">Transaction Date</string>
+    <string name="title_type_of_deposit">Type of Deposit</string>
+    <string name="title_check_type">Check Type</string>
+    <string name="title_date_front_of_check">Date in Front of Check</string>
+    <string name="title_date_created">Date Created</string>
+    <string name="title_cwt_amount">CWT Amount</string>
+    <string name="title_printing_type">Printing Type</string>
+    <string name="title_number_of_transactions">Number of Transactions</string>
+    <string name="title_number_of_transfers">Number of Transfers</string>
+    <string name="title_number_of_deposits">Number of Deposits</string>
+    <string name="title_number_of_withdrawals">Number of Withdrawals</string>
+    <string name="title_file_name">File Name</string>
+    <string name="title_tap_to_retry">Tap to Retry</string>
+    <string name="title_preview">Preview</string>
+    <string name="title_account_name">Account Name</string>
+    <string name="title_organization">Organization</string>
+    <string name="title_mobile_number">Mobile Number</string>
+    <string name="title_business_mobile_number">Business Mobile Number</string>
+    <string name="title_name">Name</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_alerts">Alerts</string>
+    <string name="title_fund_transfer">Fund Transfer</string>
+    <string name="title_tutorial_ebilling">SCANNING THE QR CODE</string>
+    <string name="title_manage_beneficiary">Manage Beneficiaries</string>
+    <string name="title_beneficiary">Beneficiary</string>
+    <string name="title_beneficiaries">Beneficiaries</string>
+    <string name="title_organization_transfers">Organization Transfers</string>
+    <string name="title_organization_payments">Organization Payments</string>
+    <string name="title_bills_payment">Bills Payment</string>
+    <string name="title_remittance_details">Remittance Details</string>
+    <string name="title_government_payment">Government Payments</string>
+    <string name="title_payment">Payment</string>
+    <string name="title_proposed_transfer_date">Transfer Date</string>
+    <string name="title_proposed_payment_date">Payment Date</string>
+    <string name="title_transfer_confirmation">Transfer Confirmation</string>
+    <string name="title_payment_confirmation">Payment Confirmation</string>
+    <string name="title_transfer_summary">Transfer Summary</string>
+    <string name="title_payment_summary">Payment Summary</string>
+    <string name="title_eon_pay_account">EON Pay Account</string>
+    <string name="title_eon_bank">EON Bank</string>
+    <string name="title_instapay">instaPay</string>
+    <string name="title_swift">SWIFT</string>
+    <string name="title_swift_account_number">SWIFT account number</string>
+    <string name="title_tooltip_amount">Amount</string>
+    <string name="title_pddts">PDDTS</string>
+    <string name="title_pesonet">PESONet</string>
+    <string name="title_unionbank_account">UnionBank Account</string>
+    <string name="title_prepaid_account">Prepaid Account</string>
+    <string name="title_other_banks">Other Banks</string>
+    <string name="title_another_unionbank_account">Another UnionBank Account</string>
+    <string name="title_make_transfer">Make a Transfer</string>
+    <string name="title_cash_or_check_deposit">Cash or Check Deposit</string>
+    <string name="title_unknown">Unknown</string>
+    <string name="title_cash_deposit">Cash Deposit</string>
+    <string name="title_cash_deposits">Cash Deposits</string>
+    <string name="title_cash_deposit_details">Cash Deposit Details</string>
+    <string name="title_off_us_check_deposit">Other Bank Check Deposit</string>
+    <string name="title_off_us_check_deposits">Other Bank Check Deposits</string>
+    <string name="title_on_us_check_deposit">UnionBank Check Deposit</string>
+    <string name="title_on_us_check_deposits">UnionBank Check Deposits</string>
+    <string name="title_check_deposit_on_us">UnionBank Check Deposit</string>
+    <string name="title_check_deposit_off_us">Other Bank Check Deposit</string>
+    <string name="title_add_a_transaction">Add a Transaction</string>
+    <string name="title_cash_withdrawal">Cash Withdrawal</string>
+    <string name="title_withdrawal_from">Withdrawal From</string>
+    <string name="title_cash_withdrawal_details">Cash Withdrawal Details</string>
+    <string name="title_deposit">Deposit</string>
+    <string name="title_make_payment">Make a Payment</string>
+    <string name="title_scheduled_transfers">Scheduled Transfers</string>
+    <string name="title_manage_scheduled_transfers">Manage Scheduled Transfers</string>
+    <string name="title_manage_scheduled_payments">Manage Scheduled Payments</string>
+    <string name="title_manage_beneficiaries">Manage Beneficiaries</string>
+    <string name="title_manage_frequent_billers">Manage Frequent Billers</string>
+    <string name="title_view_all_organization_transfers">View All Organization Transfers</string>
+    <string name="title_view_all_organization_payments">View All Organization Payments</string>
+    <string name="title_contact_us">Contact Us</string>
+    <string name="title_privacy_policy">Privacy Policy</string>
+    <string name="title_terms_and_conditions">Terms &amp; Conditions</string>
+    <string name="title_reset_tutorial">Reset Tutorial</string>
+    <string name="title_reset_demo">Reset Demo</string>
+    <string name="title_tutorial">Tutorial</string>
+    <string name="title_demo">Demo</string>
+    <string name="title_biometrics">Fingerprint</string>
+    <string name="title_login_authentication">Login Authentication</string>
+    <string name="title_transaction_authentication">Transaction Authentication</string>
+    <string name="title_address">Address</string>
+    <string name="title_hotline">Hotline</string>
+    <string name="title_role">Role</string>
+    <string name="title_notification_1001">I successfully create a transaction</string>
+    <string name="title_notification_1002">A transaction I created changes status</string>
+    <string name="title_notification_1003">There is a transaction pending my approval</string>
+    <string name="title_notification_1004">A transaction I approved changes status</string>
+    <string name="title_notification_1005">Any changes are made to my organization.</string>
+    <string name="title_no_fingerprint">No Stored Fingerprint</string>
+    <string name="title_source_account">Source Account</string>
+    <string name="title_source_name">Source Account Name</string>
+    <string name="title_source_number">Source Account Number</string>
+    <string name="title_channel">Channel</string>
+    <string name="title_deposit_account">Deposit Account</string>
+    <string name="title_bank_code">Bank Code</string>
+    <string name="title_bank_name">Bank Name</string>
+    <string name="title_transfer_to">Transfer to</string>
+    <string name="title_payment_from">Payment From</string>
+    <string name="title_payee_details">Payee Details</string>
+    <string name="title_payee">Payee</string>
+    <string name="title_payee_name">Payee Name</string>
+    <string name="title_number_of_checks">Number of Checks</string>
+    <string name="title_payee_tin">Payee TIN</string>
+    <string name="title_payee_zip_code">Payee ZIP Code</string>
+    <string name="title_payee_address">Payee Address</string>
+    <string name="title_payment_channel">Payment Channel</string>
+    <string name="title_biller">Biller</string>
+    <string name="title_error">Error</string>
+    <string name="title_customer_name">Customer Name</string>
+    <string name="title_payment_to">Payment to</string>
+    <string name="title_allowed_source_accounts">Allowed Source Accounts</string>
+    <string name="title_bank_details">Bank Details</string>
+    <string name="title_deposit_details">Deposit Details</string>
+    <string name="title_beneficiary_details">Beneficiary Details</string>
+    <string name="title_frequent_biller_details">Frequent Biller Details</string>
+    <string name="title_biller_details">Biller Details</string>
+    <string name="title_transfer_status">Status</string>
+    <string name="title_select_biller">Select Biller</string>
+    <string name="title_total_service_fee">Total Service Fee</string>
+    <string name="title_biller_alias">Biller Alias</string>
+    <string name="title_biller_name">Biller Name</string>
+    <string name="title_total_transaction_amount">Total Transaction Amount</string>
+    <string name="title_total_payment">Total Payment</string>
+    <string name="title_total_amount">Total Amount</string>
+    <string name="title_no_active_accounts">No active accounts</string>
+    <string name="title_no_result_found">No result found</string>
+    <string name="title_no_creditable_withholding_tax">No creditable withholding tax</string>
+    <string name="title_no_additional_information">No additional information</string>
+    <string name="title_no_swift_banks">No swift banks</string>
+    <string name="title_no_receiving_banks">No receiving banks</string>
+    <string name="title_no_branches">No branches</string>
+    <string name="title_no_batch_transfers">No batch transfers</string>
+    <string name="title_no_transaction_found">No transaction found</string>
+    <string name="title_no_source_accounts">No source accounts.</string>
+    <string name="title_loading">Loading…</string>
+    <string name="title_dao_loading">Processing Submission of Application</string>
+    <string name="dao_title_mismatch_info">ID Details Mismatch</string>
+    <string name="title_no_active_scheduled_transfer">You have no active scheduled transfers.</string>
+    <string name="title_no_inactive_scheduled_transfer">You have no inactive scheduled transfers.</string>
+    <string name="title_no_transaction_history">No Transaction History</string>
+    <string name="title_no_recent_activity_logs">No recent activity logs</string>
+    <string name="title_no_feature_permission">You do not have permission to use this feature.</string>
+    <string name="title_no_biller">No billers.</string>
+    <string name="title_no_banks">No banks.</string>
+    <string name="title_no_country">No country.</string>
+    <string name="title_no_countries">No countries.</string>
+    <string name="title_no_frequent_billers">You currently have no frequent billers.</string>
+    <string name="title_no_frequent_biller">You currently have no frequent billers for your organization.</string>
+    <string name="title_no_beneficiary">No Beneficiary</string>
+    <string name="title_no_approval_hierarchy">NO APPROVAL REQUIRED</string>
+    <string name="title_skip_tutorial">Skip Tutorial</string>
+    <string name="title_and">AND</string>
+    <string name="title_or">OR</string>
+    <string name="title_accounts_selection">Select the account you want to transfer funds from</string>
+    <string name="title_accounts_selection_pay_bills">Select the account you want to pay bills from</string>
+    <string name="title_scheduled">Scheduled</string>
+    <string name="title_note">Note: </string>
+    <string name="title_tip">Tip: </string>
+    <string name="title_pay_bills">Pay Bills</string>
+    <string name="title_one_time">One-time</string>
+    <string name="title_every_2_weeks">Every 2 weeks</string>
+    <string name="title_weekly">Weekly</string>
+    <string name="title_monthly">Monthly</string>
+    <string name="title_annually">Annually</string>
+    <string name="title_semi_annually">Semi-Annually</string>
+    <string name="title_never">Never</string>
+    <string name="title_select_end_date">Select End Date</string>
+    <string name="title_ubp_channel">UnionBank Account</string>
+    <string name="title_generate_qr">Generate QR</string>
+    <string name="title_learn_more">Learn More</string>
+    <string name="title_display">Display</string>
+    <string name="title_welcome_back">Welcome back</string>
+    <string name="title_welcome">Welcome</string>
+    <string name="title_important">Important</string>
+    <string name="title_reminders">Reminders</string>
+    <string name="title_untrusted_devices">Untrusted Devices</string>
+    <string name="title_trusted_devices">Trusted Devices</string>
+    <string name="title_browser_access">Browser Access</string>
+    <string name="title_login_history">Login History</string>
+    <string name="title_filters">Filters</string>
+    <string name="title_filter_by">Filter By</string>
+    <string name="title_filter">Filter</string>
+    <string name="title_reason">Reason</string>
+    <string name="title_reason_">Reason:</string>
+    <string name="title_activity_log">Activity Log</string>
+    <string name="title_edit_log">Edit Log</string>
+    <string name="title_approval_hierarchy">Approval Hierarchy</string>
+    <string name="title_assigned_users">Assigned users</string>
+    <string name="title_required_approvals">Required Approvals:</string>
+    <string name="title_immediately">Immediately</string>
+    <string name="title_cash">Cash</string>
+    <string name="title_check">Check</string>
+    <string name="title_unionbank">UnionBank</string>
+    <string name="title_other_bank">Other Bank</string>
+    <string name="title_fund_transfer_sent">Your transaction has been sent for approval.</string>
+    <string name="title_fund_transfer_for_processing">Your transaction has been sent for processing.</string>
+    <string name="title_fund_transfer_processing">Your transaction is being processed.</string>
+    <string name="title_fund_transfer_success">Your transaction was successful!</string>
+    <string name="title_fund_transfer_partially_released">Your transaction was partially released.</string>
+    <string name="title_fund_transfer_partially_successful">Your transaction was partially successful.</string>
+    <string name="title_fund_transfer_for_release">Your transaction is for release.</string>
+    <string name="title_fund_transfer_error">There was an error in processing your transaction.</string>
+    <string name="title_fund_transfer_cancelled_error">Your transaction has been cancelled.</string>
+    <string name="title_fund_transfer_cancelled_by_error">Your transaction has been cancelled by %1$s.</string>
+    <string name="title_fund_transfer_batch_processed">Your batch payment is being processed</string>
+    <string name="title_fund_transfer_scheduled">Your transaction is scheduled for processing.</string>
+    <string name="title_fund_transfer_released">Your transaction has been released to the beneficiary bank.</string>
+    <string name="title_fund_transfer_debited">Your transaction has been debited.</string>
+    <string name="title_fund_transfer_rejected">Your transaction was rejected by %1$s.</string>
+    <string name="title_fund_transfer_expired">Your transaction has expired.</string>
+    <string name="title_check_deposit_for_clearing">Your check is now under review.</string>
+    <string name="title_check_deposit_approved">Your check was validated successfully!</string>
+    <string name="title_check_deposit_failed">Your check has failed during validation.</string>
+    <string name="title_branch_visit_success">Your branch transaction has been set.</string>
+    <string name="title_view_all_transfers">View All Transfers</string>
+    <string name="title_no_approvals">No approvals</string>
+    <string name="title_search">Search</string>
+    <string name="title_transfer_from">Transfer from</string>
+    <string name="title_check_details">Check Details</string>
+    <string name="title_issuing_bank">Issuing Bank</string>
+    <string name="title_branch_transaction">Branch Transaction</string>
+    <string name="title_select_beneficiary">Select a Beneficiary</string>
+    <string name="title_select_branch">Select a Branch</string>
+    <string name="title_safety_first">Safety First!</string>
+    <string name="title_approve_transactions">Approve transactions\non-the-go</string>
+    <string name="title_transfers">Real time transfers\nto other banks</string>
+    <string name="title_bills_payment_splash">Largest list of billers</string>
+    <string name="title_organization_splash">Manage multiple\norganizations</string>
+    <string name="title_create_frequent_biller">Create Frequent Biller</string>
+    <string name="title_edit_frequent_biller">Edit Frequent Biller</string>
+    <string name="title_learn_more_row_one">What can I do in the mobile app?</string>
+    <string name="title_learn_more_row_two_sme">How do I enroll my business to SME Business Banking App?</string>
+    <string name="title_learn_more_row_two">How do I enroll my business to The Portal App?</string>
+    <string name="title_learn_more_row_three">What are the Terms and Conditions?</string>
+    <string name="title_learn_more_row_four">Who can I contact for questions?</string>
+    <string name="title_mobile_country_code">Mobile Country Code</string>
+    <string name="title_beneficiary_contact_details">Beneficiary Contact Details</string>
+    <string name="title_beneficiary_email_address">Beneficiary Email Address</string>
+    <string name="title_migration_login">Coming from the old ebanking website?</string>
+    <string name="title_migration_selection">Migrate to The Portal</string>
+    <string name="title_migration_selection_sme">Migrate to SME Business Banking</string>
+    <string name="title_corporate_e_banking">Corporate eBanking</string>
+    <string name="title_e_crediting">eCrediting</string>
+    <string name="title_verification_link_expired">Verification Link Expired</string>
+    <string name="title_mark_all_as_read">Mark All as Read</string>
+    <string name="title_check_deposit">Check Deposit</string>
+    <string name="title_check_deposit_summary">Check Deposit Summary</string>
+    <string name="title_new_branch_transaction">New Branch Transaction</string>
+    <string name="title_branch_visit">Branch Visit</string>
+    <string name="title_electronic_billing">Electronic Billing</string>
+    <string name="title_checks_in_clearing">Checks in Clearing</string>
+    <string name="title_checks_deposit_details">Checks Deposit Details</string>
+    <string name="title_check_deposit_confirmation">Check Deposit Confirmation</string>
+    <string name="title_get_to_know_your_check">Get to know your check</string>
+    <string name="title_check_account_number_tip">Here\'s where you can find the account on the check</string>
+    <string name="title_check_number_tip">Here\'s where you can find the check number on the check</string>
+    <string name="title_check_number">Check Number</string>
+    <string name="title_date_of_birth">Date of Birth</string>
+    <string name="title_check_account_number">Check Account Number</string>
+    <string name="title_check_account_name">Check Account Name</string>
+    <string name="title_open_a_business_account">Open a Business Account</string>
+    <string name="title_make_online_payments">Make Online Payments</string>
+    <string name="title_manage_accounts_online">Manage Accounts Online</string>
+    <string name="title_digital_account_opening">Digital Account Opening</string>
+    <string name="title_documentary_requirement">Documentary Requirement</string>
+    <string name="title_sole_proprietorship">Sole Proprietorship</string>
+    <string name="title_partnership">Partnership</string>
+    <string name="title_corporation">Corporation</string>
+    <string name="title_cooperative">Cooperative</string>
+    <string name="title_non_government">Non-Government Organization (NGO)</string>
+    <string name="title_type_of_business">Type of Business</string>
+    <string name="title_type_of_industry">Type of Industry</string>
+    <string name="title_type_of_office">Type of Office</string>
+    <string name="title_others_specify">Others (Please Specify)</string>
+    <string name="title_purchases">Purchases</string>
+    <string name="title_other">Other</string>
+    <string name="title_others">Others</string>
+    <string name="title_employer_business_name">Employer / Business Name</string>
+    <string name="title_business_name">Business Name</string>
+    <string name="title_business_industry">Business Industry</string>
+    <string name="title_business_address">Business Address</string>
+    <string name="title_business_ownership">Business Ownership</string>
+    <string name="title_birthdate">Birthdate</string>
+    <string name="title_gender">Gender</string>
+    <string name="title_province">Province</string>
+    <string name="title_civil_status">Civil Status</string>
+    <string name="title_city">City</string>
+    <string name="title_barangay">Barangay</string>
+    <string name="title_bldg_street_name">Bldg. / Street Name</string>
+    <string name="title_unit_house_no">Unit / House No.</string>
+    <string name="title_nationality">Nationality</string>
+    <string name="title_trade_name">Trade Name</string>
+    <string name="title_government_id">Government ID</string>
+    <string name="title_company_information">Company Information</string>
+    <string name="title_personal_information">Personal Information</string>
+    <string name="title_confirm_your_details">Confirm your Details</string>
+    <string name="title_no_permission_to_transact">No Permission to Transact</string>
+    <string name="title_acceptance_required">Acceptance Required</string>
+    <string name="title_check_deposit_unavailable">Check Deposit Unavailable</string>
+    <string name="title_e_billing_unavailable">Electronic Billing Unavailable</string>
+    <string name="title_confirmation">Confirmation</string>
+    <string name="title_id_verification">ID Verification</string>
+    <string name="title_upload_document">Upload Document</string>
+    <string name="title_scan_signature">Scan Signature</string>
+    <string name="title_signature_specimen">Signature Specimen</string>
+    <string name="title_business_registration_papers">Business Registration Papers</string>
+    <string name="title_place_of_incorporation">Place of Incorporation</string>
+    <string name="title_date_of_incorporation">Date of Incorporation</string>
+    <string name="title_source_of_funds">Source of Funds</string>
+    <string name="title_estimated_amount">Estimated Amount of Monthly Transaction</string>
+    <string name="title_preferred_branch">Select the branch where you would like to pickup your checkbook.</string>
+    <string name="title_preferred_branch_of_pickup">Preferred Branch of Pickup</string>
+    <string name="title_preferred_date">When would you like to schedule your branch pickup?</string>
+    <string name="title_hi_there">Hi there!</string>
+    <string name="title_original_application">Original Application for Trade Name</string>
+    <string name="title_certificate_of_dti">Certificate of DTI Registration</string>
+    <string name="title_mayors_permit">Mayor’s Permit</string>
+    <string name="title_max_file_size">Attached file must not exceed 5MB in file size.</string>
+    <string name="title_checking_account_type">Checking Account Type</string>
+    <string name="title_business_starter">Business Starter</string>
+    <string name="title_business_check">Business Check</string>
+    <string name="title_before_we_proceed">Before we proceed…</string>
+    <string name="title_dao_enter_reference_number_header">Please enter your reference number here.</string>
+    <string name="title_personal_info_1_header_info">Enter your contact information</string>
+    <string name="title_personal_info_3_header_info">Enter your Home Address</string>
+    <string name="title_jumio_verification_header_info">Select the type of document you want to scan. Philippines has been set as issuing country of your documents.</string>
+    <string name="title_salutation">Salutation</string>
+    <string name="title_first_name">First Name</string>
+    <string name="title_middle_name">Middle Name</string>
+    <string name="title_last_name">Last Name</string>
+    <string name="title_personal_savings">Personal Savings</string>
+    <string name="title_investment">Investment</string>
+    <string name="title_proceeds_of_sale">Proceeds of Sale (Property / Rent)</string>
+    <string name="title_allowance">Allowance</string>
+    <string name="title_business_income">Business Income</string>
+    <string name="title_head_office">Head Office</string>
+    <string name="title_regional_head_quarters">Regional Head Quarters</string>
+    <string name="title_income_from_business">Income from Business</string>
+    <string name="title_employment_salary">Employment / Salary</string>
+    <string name="title_savings_investments">Savings / Investments</string>
+    <string name="title_income">Income</string>
+    <string name="title_investments">Investments</string>
+    <string name="title_remittance">Remittance</string>
+    <string name="title_pension">Pension</string>
+    <string name="title_inheritance">Inheritance</string>
+    <string name="title_fees">Fees</string>
+    <string name="title_salary">Salary</string>
+    <string name="title_business">Business</string>
+    <string name="title_commission_and_fees">Commissions/Fees</string>
+    <string name="title_filipino">Filipino</string>
+    <string name="title_foreign">Foreign</string>
+    <string name="title_american">American</string>
+    <string name="title_chinese">Chinese</string>
+    <string name="title_japanese">Japanese</string>
+    <string name="title_other_citizenship">Other citizenship</string>
+    <string name="title_dual_citizen">Dual Citizen</string>
+    <string name="title_philippines">Philippines</string>
+    <string name="title_tin">TIN</string>
+    <string name="title_sss">SSS</string>
+    <string name="title_mr">Mr.</string>
+    <string name="title_ms">Ms.</string>
+    <string name="title_mrs">Mrs.</string>
+    <string name="title_dr">Dr.</string>
+    <string name="title_prof">Prof.</string>
+    <string name="title_percent_of_ownership">Percent of Ownership</string>
+    <string name="title_citizenship">Citizenship</string>
+    <string name="title_mothers_maiden_name">Mother`s Maiden Name</string>
+    <string name="title_us_citizenship">US Citizenship</string>
+    <string name="title_us_record_type">US Record Type</string>
+    <string name="title_record_type">Record Type</string>
+    <string name="title_male">Male</string>
+    <string name="title_female">Female</string>
+    <string name="title_single">Single</string>
+    <string name="title_married">Married</string>
+    <string name="title_separated">Separated</string>
+    <string name="title_widowed">Widowed</string>
+    <string name="title_default">Default</string>
+    <string name="title_us_tin">US TIN</string>
+    <string name="title_us_tel_no">US TEL NO</string>
+    <string name="title_us_mailing_address">US MAILING ADDRESS</string>
+    <string name="title_home_address">Home Address</string>
+    <string name="title_financial_information">Financial Information</string>
+    <string name="title_employee_status">Employee Status</string>
+    <string name="title_occupation">Occupation</string>
+    <string name="title_other_occupation">Do you have other occupation?</string>
+    <string name="title_online_banking_products">Online Banking Products</string>
+    <string name="title_electronic_fund_transfer">Electronic Fund Transfer</string>
+    <string name="title_government_payments">Government Payments</string>
+    <string name="title_owner">Owner</string>
+    <string name="title_ceo">CEO</string>
+    <string name="title_president">President</string>
+    <string name="title_artist">Artist</string>
+    <string name="title_sr_executive">SR. EXECUTIVE</string>
+    <string name="title_jr_executive">JR. EXECUTIVE</string>
+    <string name="title_accountant">ACCOUNTANT</string>
+    <string name="title_account_executive">ACCOUNT EXECUTIVE</string>
+    <string name="title_stockholder">STOCKHOLDER</string>
+    <string name="title_office_personnel">OFFICE PERSONNEL</string>
+    <string name="title_financial_analysts">FINANCIAL ANALYSTS</string>
+    <string name="title_consultant">CONSULTANT</string>
+    <string name="title_dental_surgeon">DENTAL SURGEON</string>
+    <string name="title_doctor">DOCTOR</string>
+    <string name="title_dentist">DENTIST</string>
+    <string name="title_corporate_board_chairman">CORPORATE BOARD CHAIRMAN</string>
+    <string name="title_corporate_director">CORPORATE DIRECTOR</string>
+    <string name="title_assistant_manager">Assistant Manager</string>
+    <string name="title_assistant_vice_president">Assistant Vice President</string>
+    <string name="title_businessman">Businessman</string>
+    <string name="title_chef">Chef</string>
+    <string name="title_chief_executive_officer">Chief Executive Officer</string>
+    <string name="title_engineer">Engineer</string>
+    <string name="title_first_vice_president">First Vice President</string>
+    <string name="title_government_servant">Government Servant</string>
+    <string name="title_junior_officer">Junior Officer</string>
+    <string name="title_lawyer">Lawyer</string>
+    <string name="title_manager">Manager</string>
+    <string name="title_nurse">Nurse</string>
+    <string name="title_pensioner">Pensioner</string>
+    <string name="title_pilot">Pilot</string>
+    <string name="title_professional_services">Professional Services</string>
+    <string name="title_programmer">Programmer</string>
+    <string name="title_senior_manager">Senior Manager</string>
+    <string name="title_supervisor">Supervisor</string>
+    <string name="title_teacher">Teacher</string>
+    <string name="title_vice_president">Vice President</string>
+    <string name="title_athlete">Athlete</string>
+    <string name="title_flight_attendant">Flight Attendant</string>
+    <string name="title_employed">Employed</string>
+    <string name="title_self_employed">Self-Employed</string>
+    <string name="title_retired">Retired</string>
+    <string name="title_unemployed">Unemployed</string>
+    <string name="title_student">Student</string>
+    <string name="title_place_of_birth">Place of Birth</string>
+    <string name="title_drivers_license">Driver\'s License</string>
+    <string name="title_passport">Passport</string>
+    <string name="title_sss_id">SSS ID</string>
+    <string name="title_prc_id">PRC ID</string>
+    <string name="title_postal_id">Postal ID</string>
+    <string name="title_posted_date">Posted Date</string>
+    <string name="title_umid_id">UMID ID</string>
+    <string name="title_tooltip_jumio">How to take the correct photo</string>
+    <string name="title_congratulations">Congratulations!</string>
+    <string name="title_verification_completed">Verification Completed</string>
+    <string name="title_dao_result_skip">Thank you for applying for a UnionBank Account</string>
+
+    <string name="device_android">Android</string>
+    <string name="device_tablet">Tablet</string>
+
+    <string name="param_desc_nominate_verify_account">
+        <![CDATA[
+        A verification link has been sent to
+        <br>
+        <b>%1$s</b>
+        <br>
+        <br>
+        Click on the link to complete your
+        <br>
+        migration to The Portal.
+        ]]>
+    </string>
+
+
+    <string name="desc_beneficiary_contact_details">To notify the beneficiary, please enter their email or mobile number.</string>
+    <string name="desc_verify_account_totp">Generate a verification code on one of\nyour trusted devices and enter it here.</string>
+    <string name="desc_verify_account_sms">
+        <![CDATA[A verification code was just sent to <br>
+        your mobile number ending in <b>%1$s</b>]]>
+    </string>
+    <string name="desc_fingerprint">
+        Do you want to enable Fingerprint\nauthentication to access UnionBank\nBusiness Banking?\n\nAll fingerprints stored on this device\ncan be used to access your account.\nWe do not recommend this if you are\nsharing this device.
+    </string>
+    <string name="desc_new_user_detected">This device was used previously by another user. All saved settings have been cleared for security purposes.</string>
+    <string name="desc_nominate_password">Nominate a new password for your account.</string>
+    <string name="desc_did_not_receive_code">Did not receive code?</string>
+    <string name="desc_cannot_generate_code">Cannot generate the code?</string>
+    <string name="desc_security">Manage security preferences</string>
+    <string name="desc_notification">Manage notifications</string>
+    <string name="desc_security_receive_sms">Receive a 6-digit code via SMS. You\nwill receive a call if you do not receive\nthe SMS.</string>
+    <string name="desc_display_card_view">Dashboards will be displayed in user-friendly cards.</string>
+    <string name="desc_display_list_view">Dashboards will be displayed in lists which show more information in one screen.</string>
+    <string name="desc_security_receive_trusted_device">Generate a 6-digit code from one of\nyour trusted devices. Trusted devices\nare not required to authenticate.</string>
+    <string name="desc_login_authentication">
+        The system will require authentication\nwhen logging in to the UnionBank\nBusiness Banking.
+    </string>
+    <string name="desc_transaction_authentication">
+        The system will require authentication\nwhen transacting in the UnionBank\nBusiness Banking.
+    </string>
+    <string name="desc_beneficiary_created">you can quickly select this beneficiary when creating transfers.</string>
+    <string name="desc_frequent_biller_added">You can use this to easily fill up your Bills Payment form so you dont have to manually type in information every transaction!</string>
+    <string name="desc_resend_code_seconds"><![CDATA[Resend code in: <b>%1$s</b>]]></string>
+    <string name="desc_resend_code_seconds_default">Resend code in: <b>100 seconds</b></string>
+    <string name="desc_update_security">Update your security preferences</string>
+    <string name="desc_security_receive_otp">Select your preferred way of getting your One-Time Password</string>
+    <string name="desc_settings_display">Select your preferred way of viewing your dashboards</string>
+    <string name="desc_notifications">Push, SMS, Email</string>
+    <string name="desc_notification_1001">Send me a notification when I\nsuccessfully create a transaction</string>
+    <string name="desc_notification_1002">Send me a notification when a\ntransaction I created changes status</string>
+    <string name="desc_notification_1003">Send me a notification when there\nis a transaction pending my approval</string>
+    <string name="desc_notification_1004">Send me a notification when a\ntransaction I approved changes status</string>
+    <string name="desc_notification_1005">Send me a notification when any\nchanges are made to my organization.</string>
+    <string name="desc_terms_condition_agree">By clicking \'Next\' you agree to both the UnionBank\nPrivacy Policy and Terms &amp; Conditions.</string>
+    <string name="desc_safety_first">UnionBank uses the latest technology to keep all your transactions secure. You can manage your settings to find the perfect balance between security and convenience.</string>
+    <string name="desc_approve_transactions">Approve or reject business transactions\nanytime, anywhere.</string>
+    <string name="desc_transfers">Enjoy real-time and hassle-free fund transfers to both local and international banks.</string>
+    <string name="desc_bills_payment">Facilitate all your business payments with the most extensive list of government and utility billers. And many more!</string>
+    <string name="desc_organization">Enroll all your companies and subsidiaries. Easily switch between them without needing to logout.</string>
+    <string name="desc_contact_info">UnionBank Business Support\nbusiness@unionbankph.com\n(02) 8\–667–2668</string>
+    <string name="desc_learn_more_row_two">Please contact UnionBank Business Support (business@unionbankph.com or (02) 8\–667–2668) to get your business started with UnionBank.</string>
+    <string name="desc_learn_more_row_three">You can view the Privacy Policy and the Terms and Conditions here.</string>
+    <string name="desc_learn_more_row_one">You can view the key features of the app here.</string>
+    <string name="desc_splash_screen_end">Your business will need an enrolled UnionBank Account to use Business Banking. If you don`t have one, please contact UnionBank Corporate Customer Care and we’ll get you started.</string>
+    <string name="desc_learn_more_row_four">You can reach UnionBank Business Support through business@unionbankph.com or (02) 8\–667–2668.</string>
+    <string name="desc_learn_more">View the FAQs and Terms &amp; Conditions</string>
+    <string name="desc_display">Choose how to view your accounts list</string>
+    <string name="desc_migration_login">Coming from the old ebanking website?\nYou can migrate your user credentials here.</string>
+    <string name="desc_migration_back_to_login">Already a Business Banking user?\nYou can login here.</string>
+    <string name="desc_migration_form_e_banking">Welcome to The Portal.\nEnter your old Corporate eBanking credentials to begin the migration process.</string>
+    <string name="desc_migration_form_e_banking_sme">Welcome to SME Business Banking.\nEnter your old Corporate eBanking credentials to begin the migration process.</string>
+    <string name="desc_migration_form_e_crediting">Welcome to The Portal.\nEnter your old OneHub credentials to begin.</string>
+    <string name="desc_migration_form_e_crediting_sme">Welcome to SME Business Banking.\nEnter your old OneHub credentials to begin.</string>
+    <string name="desc_migration_selection">Where are you coming from?</string>
+    <string name="desc_e_banking">I am coming from the old ebanking website.</string>
+    <string name="desc_e_crediting">I am coming from the ecrediting hub.</string>
+    <string name="desc_migration_welcome">Thank you for moving over to The Portal.\n\nBefore we continue, we need to update a few of your login credentials.</string>
+    <string name="desc_migration_welcome_e_crediting">The Portal uses your email address as your user ID. Remember that this email must be unique and cannot be shared with other users.\n\nIf you already have a The Portal account, enter your existing email address to merge this user into your account.</string>
+    <string name="desc_nominate_different_email">Otherwise, nominate a different email address.</string>
+    <string name="desc_dialog_trust_device">Trusted devices are not required to\ngo through OTP verification when\nlogging in or transacting.\n\nTrusted devices can also generate\nOTP for other devices.</string>
+    <string name="desc_dialog_forget_device">Forgetting this device will log you out\nand remove your UnionBank Business\nBanking profile from this device.\n\nYou will also stop receiving push\nnotifications on this device.</string>
+    <string name="desc_dialog_read_mcd_terms">We have updated our terms and conditions. Click \"Continue\" to see what\'s new!</string>
+    <string name="desc_unable_generate_totp">We are unable to generate a verification from this device. Kindly set your device\'s Date &amp; Time settings to Automatic.</string>
+    <string name="desc_successfully_trusted_device">You can manage your devices by going to your Settings > Security > Manage Devices.</string>
+    <string name="desc_scan_me">SCAN ME!\nView this transaction\non your mobile app!</string>
+    <string name="desc_service_permission">Service permission required for this feature.</string>
+    <string name="desc_mark_all_as_read">Are you sure you want to mark all alerts as read?</string>
+    <string name="desc_check_deposit_important_sub">Before we proceed, here are some reminders when depositing a check:</string>
+    <string name="desc_check_deposit_important_1">
+        <![CDATA[
+         Remote Check Deposit is currently limited to <b>UnionBank checks only</b>.
+        ]]>
+    </string>
+    <string name="desc_check_deposit_important_2">
+        <![CDATA[
+         Successfully deposited checks will be cleared within 2 hours.
+        ]]>
+    </string>
+    <string name="desc_check_deposit_important_3">
+        <![CDATA[
+        If you need to deposit other bank’s checks, you may visit any one of our branches.
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_1">
+        <![CDATA[
+        Checks must be paid to the order of <b>your company\'s name</b>
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_2">
+        <![CDATA[
+        The check amount should be <b>below PHP 500,000.00</b>
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_3">
+        <![CDATA[
+        The date on the check <b>must not be older than 6 months</b>.
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_5">
+        <![CDATA[
+        Make sure to <b>write</b> the following details at the <b>back</b> of the check:
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_5_sub">
+        <![CDATA[
+        <font size="%1$s" color="%2$s"><b>\u2022</b></font> Write \"UnionBank of the Philippines\".<br>
+        <font size="%1$s" color="%2$s"><b>\u2022</b></font> Write the Date of Deposit.<br>
+        <font size="%1$s" color="%2$s"><b>\u2022</b></font> Write your company\'s UnionBank Account Number.<br>
+        <font size="%1$s" color="%2$s"><b>\u2022</b></font> Your Signature.<br>
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_6">
+        <![CDATA[
+        There should be <b>no erasures, alterations nor deficiencies on the front and back side of the check</b>
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_7">
+        <![CDATA[
+        Make sure to <b>get a clear, well-lit photo</b> that captures the entire check, front and back
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_8">
+        <![CDATA[
+        After your deposit is cleared, please keep your physical check for <b>6 months</b>.
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_9">
+        <![CDATA[
+        For other bank\'s checks, transactions <b>before the clearing cut-off time will be cleared the following banking day</b>. Transactions after the clearing cut-off time or during weekends and holidays will be cleared within two banking days.
+        ]]>
+    </string>
+    <string name="desc_check_deposit_reminders_10">Ensure that the check details being captured are aligned to this instruction</string>
+    <string name="desc_check_deposit_splash_1">Seamlessly deposit checks to your account. All you need is your check and your phone\'s camera.</string>
+    <string name="desc_check_deposit_splash_2">Before you get started, here are a few tips to help you.</string>
+    <string name="desc_check_deposit_splash_3">This is where you will find the account number and the check number. You will need these values to complete the check deposit.</string>
+    <string name="desc_check_deposit_splash_4">1. Write \"Unionbank of the Philippines\".\n2. Write the Date of Deposit.\n3. Write your Unionbank Account Number.\n4. Your Signature.​</string>
+    <string name="desc_dao_welcome_sub_text">Open a UnionBank account in as fast as two days! Just go through the online wizard and fill-out your company details.</string>
+    <string name="desc_dao_welcome_enter_sub_text">Please enter your Digital Account Opening Reference Number of the Registered Contact Person.</string>
+    <string name="desc_dao_welcome_existing_application">Click here if you want to edit an existing application</string>
+    <string name="desc_dao_welcome_full_list">See the full list of requirements here.</string>
+    <string name="desc_dao_reminder_1">Prepare a valid ID for scanning and verification.</string>
+    <string name="desc_dao_reminder_1_sub_1">
+        <![CDATA[
+        <font color="#F66009" size="20"><b>\u2022</b></font> Passport<br>
+        <font color="#F66009" size="20"><b>\u2022</b></font> Driver’s License<br>
+        <font color="#F66009" size="20"><b>\u2022</b></font> SSS ID
+        ]]>
+    </string>
+    <string name="desc_dao_reminder_1_sub_2">
+        <![CDATA[
+        <font color="#F66009" size="20"><b>\u2022</b></font> PRC ID<br>
+        <font color="#F66009" size="20"><b>\u2022</b></font> Postal ID<br>
+        <font color="#F66009" size="20"><b>\u2022</b></font> UMID
+        ]]>
+    </string>
+    <string name="desc_dao_reminder_2">Ensure that the details you will provide matches the details written on your ID.</string>
+    <string name="desc_dao_reminder_3">Prepare the following business registration documents for scanning and verification.</string>
+    <string name="desc_dao_reminder_3_sub">
+        <![CDATA[
+        <font color="#F66009" size="20"><b>\u2022</b></font> Application for Trade Name<br>
+        <font color="#F66009" size="20"><b>\u2022</b></font> Certified True Copy of the Certificate of Registration of Trade Name with DTI.<br>
+        <font color="#F66009" size="20"><b>\u2022</b></font> Mayor’s Permit
+        ]]>
+    </string>
+    <string name="desc_dao_reminder_4">We will be validating your identity through a selfie. We advise you to have sufficient lighting during this step.</string>
+    <string name="desc_dao_reminder_5">It is recommended that you finish the application once started however, you may exit any time and continue later.</string>
+    <string name="desc_unionbank_info">
+        <![CDATA[
+        For other Business Types not indicated, please reach out<br>
+        to Union Corporate Customer Care (Union3C) at<br>
+        union3c@unionbankph.com
+        ]]>
+    </string>
+    <string name="desc_business_starter">UnionBank checking account that comes with a free initial checkbook.</string>
+    <string name="desc_business_check">UnionBank checking account that comes with a business check software and free initial checkbook.</string>
+    <string name="desc_checking_type_note">By clicking next, you agree to fund the account within 30 days from account opening. Failure to do so will result in account closure.</string>
+    <string name="desc_business_owner">Are you the owner of this business?</string>
+    <string name="desc_us_citizenship">I certify that I am not a US Citizen.</string>
+    <string name="desc_permanent_address">Permanent address is the same as Present address</string>
+    <string name="desc_other_occupation">Yes, I have other occupation.</string>
+    <string name="desc_online_banking_products">Your account comes with these services for free. Please select which ones you would like to avail</string>
+    <string name="desc_dao_electronic_fund_transfer">Send funds to other UnionBank accounts or to other banks locally or Internationally. Please note there will be a fee for every transaction.</string>
+    <string name="desc_dao_bills_payment">Make payments to government agencies, utilities, and various other billers.</string>
+    <string name="desc_dao_business_check">An offline check printing application that allows you to print checks on your own.</string>
+    <string name="desc_dao_government_payments">Pay your taxes online with BIR ePayments on The Portal.</string>
+    <string name="desc_dao_branch_transaction">Make your branch experience hassle-free. Schedule your cash and check deposits in advance.</string>
+    <string name="desc_dao_confirmation_agreement">I agree to the UnionBank Account Opening Terms &amp; Conditions.</string>
+    <string name="desc_confirm_your_details">Please review the information before submitting your application form.</string>
+    <string name="desc_dao_agreement_tnc">I agree to the Business Banking Terms &amp; Conditions</string>
+    <string name="desc_dao_agreement_privacy">I agree to the UnionBank Privacy Policy</string>
+    <string name="desc_contact_us">
+        <![CDATA[
+        For questions or concerns, please contact UnionBank Corporate Customer Care at %1$s
+        ]]>
+    </string>
+    <string name="unionbank_email">union3c@unionbankph.com</string>
+    <string name="desc_dao_loading">Please wait while we verify your information this may take awhile.</string>
+    <string name="dao_desc_mismatch_info">Oops! Seems like the details on your ID do not match your application. Kindly review your application details and try again.</string>
+    <string name="dao_desc_expired_id">Your captured ID is expired. Please select a different ID that is up-to-date.</string>
+    <string name="dao_desc_retake_id">We can\'t seem to read your ID. Please ensure good lightning, use your original ID, and place it in front of a dark background.</string>
+    <string name="dao_desc_verification_processing">Seems like we need more time validating your information. Would you like to try again?</string>
+    <string name="desc_valid_id">A valid Photo ID has been uploaded.</string>
+    <string name="desc_scheduled_payment_not_available">
+        <![CDATA[
+        <b>%1$s</b> Scheduled payment is not available for this biller.
+        ]]>
+    </string>
+
+
+    <string name="action_use_password">Use Password</string>
+    <string name="action_view_all_transactions">View All Transactions</string>
+    <string name="action_ok">OK</string>
+    <string name="action_clear_selection">Clear Selection</string>
+    <string name="action_install">Install</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_deposit_check">Deposit Check</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_session_logout">Don\'t log me out</string>
+    <string name="action_setting">Setting</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_done">Done</string>
+    <string name="action_close">Close</string>
+    <string name="action_relink">Relink</string>
+    <string name="action_go_to_login">Go to Login</string>
+    <string name="action_back">BACK</string>
+    <string name="action_back_to_homescreen">Back to Homescreen</string>
+    <string name="action_submit">Submit</string>
+    <string name="action_generate">Generate</string>
+    <string name="action_trust">Trust</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_untrust">Untrust</string>
+    <string name="action_approve_default">Approve</string>
+    <string name="action_edit_details">Edit Details</string>
+    <string name="action_save">Save</string>
+    <string name="action_start">Start</string>
+    <string name="action_next">Next</string>
+    <string name="action_apply_filter">Apply Filter</string>
+    <string name="action_clear_filter">Clear Filter</string>
+    <string name="action_merge">Merge</string>
+    <string name="action_trust_device">Trust Device</string>
+    <string name="action_untrust_device">Untrust Device</string>
+    <string name="action_forget_device">Forget Device</string>
+    <string name="action_forget">Forget</string>
+    <string name="action_nominate_different_email">Nominate Different Email</string>
+    <string name="action_generate_otp">Generate OTP</string>
+    <string name="action_merge_another_account">Merge Another Account</string>
+    <string name="action_migrate_another_account">Migrate Another Account</string>
+    <string name="action_back_to_login">Back to Login</string>
+    <string name="action_login">Log in</string>
+    <string name="action_go_to_device_settings">Go to device settings</string>
+    <string name="action_receive_via_sms">Receive via SMS</string>
+    <string name="action_link">Link</string>
+    <string name="action_not_now">Not now</string>
+    <string name="action_approve">Approve (%1$s)</string>
+    <string name="action_select_all">Select All</string>
+    <string name="action_deselect_all">Deselect All</string>
+    <string name="action_skip">Skip</string>
+    <string name="action_crop">Crop</string>
+    <string name="action_reject">Reject</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_delete_transaction">Cancel Transaction</string>
+    <string name="action_resend_code">Resend Code</string>
+    <string name="action_resend_verification_email">Resend Verification Email</string>
+    <string name="action_use_this">Use This</string>
+    <string name="action_retake">Retake</string>
+    <string name="action_receive_via_otp">Receive OTP via SMS</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
+    <string name="action_view_logs">View Activity Log</string>
+    <string name="action_view_edit_log">View Edit Log</string>
+    <string name="action_view_organization_transactions">View Organization Transactions</string>
+    <string name="action_view_organization_payments">View Organization Payments</string>
+    <string name="action_view_organization_transfers">View Organization Transfers</string>
+    <string name="action_view_transaction">View Transaction</string>
+    <string name="action_add_a_transaction">Add a transaction</string>
+    <string name="action_add">Add</string>
+    <string name="action_view_checks_in_clearing">View Checks in Clearing</string>
+    <string name="action_view_branch_transaction">View Branch Transaction</string>
+    <string name="action_make_another_transfer">Make Another Transfer</string>
+    <string name="action_make_another_qr_code">Make Another QR Code</string>
+    <string name="action_make_another_payment">Make Another Payment</string>
+    <string name="action_make_another_deposit">Make Another Deposit</string>
+    <string name="action_make_another_branch_transaction">Make Another Branch Transaction</string>
+    <string name="action_export">Export</string>
+    <string name="action_here">here.</string>
+    <string name="action_share">Share</string>
+    <string name="action_view_cwt">View CWT</string>
+    <string name="action_view_additional_information">View Additional Information</string>
+    <string name="action_manage_devices">Manage Devices</string>
+    <string name="action_sign_up"><![CDATA[Don’t have an account? <b>Open a Business Account</b>]]></string>
+    <string name="action_take_photo">Take Photo</string>
+    <string name="action_open_file_manager">Open File Manager</string>
+    <string name="action_edit_an_existing_application">Edit an existing application</string>
+    <string name="action_open_a_business_account">Open a Business Account</string>
+    <string name="action_got_it">Got it</string>
+    <string name="action_go_back">Go Back</string>
+    <string name="action_retake_id">Retake ID</string>
+    <string name="action_try_again">Try Again</string>
+    <string name="action_okay">Okay</string>
+
+
+    <string name="error_message">Error message from resources</string>
+    <string name="error_this_field">This field is required.</string>
+    <string name="error_input_valid_amount">Please enter a valid amount.</string>
+    <string name="error_input_valid_mobile_number">Please enter a valid mobile number.</string>
+    <string name="error_specific_field">%1$s is required.</string>
+    <string name="error_invalid_email_address">Invalid Email Address.</string>
+    <string name="error_account_number_length">UnionBank account number must have a minimum of %1$s digits.</string>
+    <string name="error_invalid_mobile_number">Invalid Mobile Number</string>
+    <string name="error_validation_min">Minimum value is %1$s.</string>
+    <string name="error_validation_max">Maximum value is %1$s.</string>
+    <string name="error_validation_custom_min_length">%1$s must have at least %2$s digits.</string>
+    <string name="error_compare_password">Password doesn\'t match.</string>
+    <string name="error_corporate_not_found">Corporate user not found.</string>
+    <string name="error_incorrect_credential">Please enter a valid user id or password.</string>
+    <string name="error_internal_server">Internal Server Error.</string>
+    <string name="error_invalid_token">Invalid Access Token.</string>
+    <string name="error_something_went_wrong">Something went wrong.</string>
+    <string name="error_tap_to_retry">Tap to retry</string>
+    <string name="error_file_not_supported">File not supported.</string>
+    <string name="error_request_time_out">Request time out. Please try again.</string>
+    <string name="error_session_expired">Session Expired! Please login again.</string>
+    <string name="error_check_deposit_maximum_amount">Amount must be below PHP 500,000.00.</string>
+    <string name="error_zero_amount_not_allowed">Amount is not valid.</string>
+    <string name="error_no_aplha">No Alphabet</string>
+    <string name="error_no_number">No Number</string>
+    <string name="error_no_symbol">No Symbol</string>
+    <string name="error_title_under_maintenance">We\'ll be right back</string>
+    <string name="error_msg_under_maintenance">We are currently undergoing system maintenance. Please check back in a bit.</string>
+    <string name="dao_error_mismatch_response">ID details do not match.</string>
+    <string name="error_multiple_posting">This transaction has already been processed. Please return to the transaction dashboard to view the final status of the transaction.</string>
+
+
+
+    <string name="msg_check_deposit_camera_tips_1">Place the check against a dark background</string>
+    <string name="msg_check_deposit_camera_tips_2">Move camera on top of the check</string>
+    <string name="msg_check_deposit_camera_tips_3">Ensure that the check details being captured are aligned to this instruction</string>
+    <string name="msg_demo_alert">This function is disabled for this demo.</string>
+    <string name="msg_no_permission">No Permission for this item.</string>
+    <string name="msg_loading_please_wait">Loading… Please wait.</string>
+    <string name="msg_link_to_email">A reset password link has been sent to you via email. You can follow that link and enter a new password.</string>
+    <string name="msg_password_changed">You have successfully changed your password!</string>
+    <string name="msg_mobile_number_changed">You have successfully updated your mobile number.</string>
+    <string name="msg_nominate_password">You have successfully activate your password.</string>
+    <string name="msg_no_internet_connection">No Internet Connection.</string>
+    <string name="msg_force_logout">Logout user.</string>
+    <string name="msg_resent_otp">A new verification code has been sent to your registered mobile number.</string>
+    <string name="msg_sign_out">Are you sure you want to sign out?</string>
+    <string name="msg_transaction_unavailable">Your transaction is currently being processed. Check back in a few minutes.</string>
+    <string name="msg_push_switch_account">Any changes made will be lost. Do you want to continue?</string>
+    <string name="msg_reset_tutorial">Are you sure you want to reset all tutorials to view them again?</string>
+    <string name="msg_reset_demo">Are you sure you want to reset demo?</string>
+    <string name="msg_playstore_update">An update has just been downloaded.</string>
+    <string name="msg_fingerprint_signon">Are you sure you want to enable/disable Fingerprint signon?</string>
+    <string name="msg_reject">Are you sure you want to reject the selected transaction?</string>
+    <string name="msg_delete_scheduled_transfer">Are you sure you want to cancel %1$s?</string>
+    <string name="msg_delete_deposit_transactions">Are you sure you want to delete %1$s transactions?</string>
+    <string name="msg_no_deposit_branch_transaction">You currently have no deposit transactions. Kindly add a transaction before proceeding next.</string>
+    <string name="msg_delete_deposit_transaction">Are you sure you want to delete transaction?</string>
+    <string name="msg_successfully_delete_scheduled_transfer">
+        <![CDATA[
+        You have successfully cancelled<br>
+        <b>%1$s.</b>
+        ]]>
+    </string>
+    <string name="msg_multiple_deletion_scheduled_transfer">Are you sure you want to delete the selected transactions?</string>
+    <string name="msg_cancel_fund_transfer_transaction">You are about to leave the Fund Transfer Form. Any unsaved changes will be lost. Would you like to proceed?</string>
+    <string name="msg_exit_dao">You are about to leave the account opening form. Any unsaved changes will be lost. Would you like to proceed?</string>
+    <string name="msg_go_back">Are you sure you want to go back? Your entries in this page will be lost.</string>
+    <string name="msg_cancel_bills_payment_transaction">You are about to leave the Bills Payment Form. Any unsaved changes will be lost. Would you like to proceed?</string>
+    <string name="msg_no_fingerprint">There was no Fingerprint data found stored in the system.</string>
+    <string name="msg_success_approval">Transaction successfully approved.</string>
+    <string name="msg_rejected_approval">Transaction successfully rejected.</string>
+    <string name="msg_transaction_successfully_cancelled">Transaction successfully cancelled.</string>
+    <string name="msg_incorrect_pincode">Incorrect pincode.</string>
+    <string name="msg_update_mobile_number">Update your Mobile Number</string>
+    <string name="msg_or_you_can">or you can</string>
+    <string name="msg_fingerprint">Authentication is needed to use this app.</string>
+    <string name="msg_playstore_update_success">Successfully updated the app.</string>
+    <string name="msg_playstore_update_failed">Failed to update the app.</string>
+    <string name="msg_leave_page">
+        <![CDATA[
+        Are you sure you want to leave?<br>Any unsaved changes will be lost.
+        ]]>
+    </string>
+    <string name="msg_different_time_zone">We detected that this phone is using a different time zone. Please take note that this app follows the Philippine Standard Time (GMT+8:00)</string>
+    <string name="msg_frame_main">
+        The first and only corporate \n
+        mobile banking app in the Philippines!
+    </string>
+
+    <string name="msg_frame_one">
+        Have a task that needs your attention \n
+        but you’re out of the office or on the road? \n
+        \n
+        No worries! \n
+        \n
+        You can view and work on all \n
+        of your pending AND finished tasks!
+    </string>
+
+    <string name="msg_frame_two">
+        Never fear! \n
+        \n
+        UnionBank uses the most up-to-date \n
+        technology (multi-factor authentication) \n
+        to make sure that all of your \n
+        transactions are secured!
+    </string>
+
+    <string name="msg_frame_three">
+        We mean it! \n
+        \n
+        View all of your organization’s transactions, \n
+        or already completed. It’s like having \n
+        your work station in your pocket!
+    </string>
+    <string name="msg_no_approval_hierarchy">This transaction was not required to go through an approval hierarchy.</string>
+    <string name="msg_update_your_password">Update your password</string>
+    <string name="msg_otp">Manage when and how the system\nsends OTP.</string>
+    <string name="msg_manage_devices">View and manage the devices linked to\nthis account.</string>
+    <string name="msg_enable_otp">Manage when the system requires OTP\nauthentication.</string>
+    <string name="msg_receive_otp">
+        <![CDATA[
+        Receive your OTP via <b>%1$s</b>
+        ]]>
+    </string>
+    <string name="msg_generate_otp">Generate a 6-digits verification code for\nauthenticating on other devices.</string>
+    <string name="msg_tap_to_reset_tutorial">Tap here to reset tutorials</string>
+    <string name="msg_tap_to_reset_demo">Tap here to reset demo</string>
+    <string name="msg_fund_transfer">View and create transfers here.</string>
+    <string name="msg_bills_payment">Pay your bills here.</string>
+    <string name="msg_check_deposit">Deposit checks to your account.</string>
+    <string name="msg_branch_visit">Schedule your branch visits here.</string>
+    <string name="msg_electronic_billing">Request for transfers into your account.</string>
+    <string name="msg_biometric">All fingerprint data stored on this device can be used to access your account</string>
+    <string name="msg_update_your_details">Update your details</string>
+    <string name="msg_no_beneficiary">You currently have no beneficiaries.</string>
+    <string name="msg_no_notification">You currently have no notifications.</string>
+    <string name="msg_no_deposit_transaction">You currently have no deposit transactions.</string>
+    <string name="msg_no_organization_transfer">You currently have no fund transfers in your organization.</string>
+    <string name="msg_no_organization_payment">You currently have no bills payments in your organization.</string>
+    <string name="msg_no_checks_in_clearing">You currently have no checks in clearing.</string>
+    <string name="msg_no_branch_visit">You currently have no transactions found in your organization.</string>
+    <string name="msg_hotline">(02) 8\–667–2668</string>
+    <string name="msg_email">union3c@unionbankph.com</string>
+    <string name="msg_password_should_be_8_30_characters">Password should be 8–30 characters</string>
+    <string name="msg_password_should_have_an_alphabetical_character">Password should have a letter</string>
+    <string name="msg_password_should_have_a_number">Password should have a number</string>
+    <string name="msg_password_should_have_a_symbol">Password should have a symbol</string>
+    <string name="msg_fingerprint_sensor">Place your finger on your device\'s \nfingerprint sensor to continue</string>
+    <string name="msg_fingerprint_not_recognized">Fingerprint not recognized, try again!</string>
+    <string name="msg_fingerprint_not_detected">Your previously saved fingerprint is no longer detected on this device. Login with your password to continue.</string>
+    <string name="msg_new_fingerprint_detected">A new fingerprint was detected. Login with your password to link this new fingerprint.</string>
+    <string name="msg_no_organization_found">No organizations found</string>
+    <string name="msg_no_recent_transaction_found">No recent transactions found</string>
+    <string name="msg_tutorial_fund_transfer_sample">Tap here to view more details about the transaction.</string>
+    <string name="msg_tutorial_bills_payment_sample">Tap here to view all payments created by your organization.</string>
+    <string name="msg_tutorial_account_sample">You can view your account details and recent transactions here.</string>
+    <string name="msg_tutorial_account">The Accounts Dashboard allows you to view all your account balances and keep track of all transaction histories.</string>
+    <string name="msg_tutorial_account_detail">This displays all your account\'s details.</string>
+    <string name="msg_tutorial_account_detail_view_all">Tap here to view all previous transactions.</string>
+    <string name="msg_tutorial_badge">Tap here to view all your organizations and switch between them.</string>
+    <string name="msg_tutorial_approval_tab">Switch between transactions:\n1) Pending for your approval\n2) Previously approved/rejected.</string>
+    <string name="msg_tutorial_fund_transfer_create">Tap here to:\n1) Add beneficiaries\n2) Manage transfers\n3) Schedule a transfer</string>
+    <string name="msg_tutorial_bills_payment_create">Tap here to:\n1) Add frequent billers\n2) Make a payment</string>
+    <string name="msg_tutorial_fund_transfer_filter">Tap here to view transfers based on their current status.</string>
+    <string name="msg_tutorial_bills_payment_filter">Tap here to view payments based on their current status.</string>
+    <string name="msg_tutorial_send_request">Tap here to view and create transactions.</string>
+    <string name="msg_tutorial_approval">View transaction pending for your approval here.</string>
+    <string name="msg_tutorial_approval_click">Tap to view approval and transaction details.</string>
+    <string name="msg_tutorial_approval_longclick">Hold to select multiple transactions for approval.</string>
+    <string name="msg_tutorial_approval_hierarchy">You can view the approval hierarchy for the transaction here.</string>
+    <string name="msg_tutorial_approval_hierarchy_root">Tap on the boxes to display members of the approval group.</string>
+    <string name="msg_tutorial_settings_sample">Change your login details.</string>
+    <string name="msg_tutorial_user_sample">View your current role and change your active organization.</string>
+    <string name="msg_tutorial_channel_ubp">You can transfer funds to another UnionBank Account.</string>
+    <string name="msg_tutorial_channel_other_banks">Or you can transfer to other banks using instaPay, PESONet, PDDTS, or SWIFT.</string>
+    <string name="msg_tutorial_ubp_form_transfer_from">Tap to select a source account for the transaction. You\'ll need to select one before filling-out other fields.</string>
+    <string name="msg_tutorial_pesonet_form_transfer_to">Type in the details of your beneficiary here.</string>
+    <string name="msg_tutorial_ubp_form_transfer_to">Enter the account number or choose from your own list of pre-enrolled beneficiaries.</string>
+    <string name="msg_tutorial_ebilling_deposit_to">Indicate one of your accounts to be deposited to.</string>
+    <string name="msg_tutorial_ebilling_amount">You can leave the amount blank and let the payor input the amount upon scanning of the QR code.</string>
+    <string name="msg_tutorial_bills_payment_form_payment_to">Select from the list of billers. Additional fields will show up depending on the biller requirements.</string>
+    <string name="msg_tutorial_bills_payment_form_biller_fields">Type in additional details for the payment here.</string>
+    <string name="msg_tutorial_ubp_form_amount">Enter the amount to be paid here.</string>
+    <string name="msg_tutorial_ft_form_transaction_date">You can also schedule your fund transfers immediately or ahead of time. You can also set the frequency (weekly, monthly, etc.) for repeating transfers</string>
+    <string name="msg_tutorial_bp_form_transaction_date">You can also schedule your bills payment immediately or ahead of time. You can also set the frequency (weekly, monthly, etc.) for repeating payments</string>
+    <string name="msg_tutorial_ubp_confirmation_edit">You can still make changes by tapping here.</string>
+    <string name="msg_tutorial_ubp_confirmation_submit">Once you have entered and reviewed all details, you can tap here to proceed to the confirmation page.</string>
+    <string name="msg_tutorial_ubp_summary_view_organization">Tap here to go back to the list of transfers.</string>
+    <string name="msg_tutorial_ubp_form_next">Tap here when you\'re done to proceed to the confirmation page.</string>
+    <string name="msg_tutorial_bills_payment_summary_view_organization">Tap here to go back to the list of payments.</string>
+    <string name="msg_tutorial_ubp_summary_make_another">Or tap here to create another one.</string>
+    <string name="msg_tutorial_pesonet_form_purpose">Tap here to select from a list of purposes.</string>
+    <string name="msg_tutorial_pesonet_form_account_number">Type in the account number or choose from your own list of pre-enrolled beneficiaries. </string>
+    <string name="msg_tutorial_pesonet_form_receiving_bank">Tap here to select from a list of banks.</string>
+    <string name="msg_tutorial_pesonet_form_beneficiary_address">Type the beneficiary address here.</string>
+    <string name="msg_tutorial_ft_form_remarks">Remarks are optional but you can enter any specifics. (ex: Payment to Supplier)</string>
+    <string name="msg_tutorial_bp_form_remarks">Remarks are optional but you can enter any specifics. (ex: Water Bill for March)</string>
+    <string name="msg_tutorial_user">If you manage multiple organizations, you can tap here to switch from one to the other, without having to logout!</string>
+    <string name="msg_tutorial_help">Revisit the tutorials by tapping the help button up here.</string>
+    <string name="msg_tutorial_welcome_sme">We\'re excited to show you our brand new business banking mobile app. Get ready to experience banking on-the-go with SME Business Banking.</string>
+    <string name="msg_tutorial_welcome">We\'re excited to show you our brand new corporate mobile app. Get ready to experience banking on-the-go with The Portal.</string>
+    <string name="msg_tutorial_logout">Don\'t forget to logout when you\'re done.</string>
+    <string name="msg_tutorial_mark_all_as_read">You can tap here to mark all as read.</string>
+    <string name="msg_tutorial_transact">This page allows you to make payments or create fund transfers.</string>
+    <string name="msg_tutorial_approvals">The Approval Dashboard allows you to view all pending funds transfers and payments requiring your approval.</string>
+    <string name="msg_tutorial_settings">Here you can view and edit your profile, turn on or off your notification and security settings, and update your login details.</string>
+    <string name="msg_tutorial_alerts">The alerts dashboard allows you to view all transaction notifications and system announcements. Tap on one to view more details.</string>
+    <string name="msg_tutorial_profile">Here you can view and edit your profile, turn on or off your notification and security settings, and update your login details.</string>
+    <string name="msg_tutorial_fund_transfer">The fund transfer dashboard allows you to make transfers to other UnionBank accounts and to other banks anywhere in the world.</string>
+    <string name="msg_tutorial_ebilling">The generated QR code can be scanned by any UnionBank mobile app or any other instapay QR code-compatible applications.</string>
+    <string name="msg_tutorial_bills_payment">The bills payment dashboard allows you to make payments to government, water, electricity, telco, and other billers.</string>
+    <string name="msg_tutorial_transact_fund_transfer">Here you can make transfers to other UnionBank accounts or to other banks anywhere in the world.</string>
+    <string name="msg_tutorial_transact_bills_payment">While here you can make payments to government and utility billers.</string>
+    <string name="msg_tutorial_transact_check_deposit">Here you can capture check images and deposit them without going to a branch.</string>
+    <string name="msg_tutorial_transact_electronic_billing">Generate a QR code that can be used to send transfers into your account.</string>
+    <string name="msg_tutorial_setting_biometric">Tap here to enable or disable fingerprint authentication.</string>
+    <string name="msg_tutorial_setting_tutorial">Tap here to reset and view all tutorial again.</string>
+    <string name="msg_tutorial_setting_notification">Customize which notifications you want to receive here.</string>
+    <string name="msg_tutorial_setting_profile">You can update your mobile number and email address here.</string>
+    <string name="msg_tutorial_setting_learn_more">Tap here for the customer support hotline and other frequently asked questions.</string>
+    <string name="msg_tutorial_setting_security">Turn your One Time Password (OTP) on or off here.</string>
+    <string name="msg_tutorial_setting_otp">Turn your One Time Password (OTP) on or off here.</string>
+    <string name="msg_tutorial_setting_fingerprint">Turn your Fingerprint on here so you won\'t have to type your password every time you login.</string>
+    <string name="msg_tutorial_beneficiary_item">All beneficiaries you\'ve enrolled will show up here. Tap here to see more details about each beneficiary.</string>
+    <string name="msg_tutorial_beneficiary_landing">Make fund transfers hassle-free by enrolling your beneficiaries and suppliers here so you don\'t have to re-enter their details every time you make a transaction!</string>
+    <string name="msg_tutorial_beneficiary_fab">Tap here to enroll a new beneficiary.</string>
+    <string name="msg_tutorial_beneficiary_filter">Type details here to search for a beneficiary.</string>
+    <string name="msg_tutorial_beneficiary_form_allowed_source_accounts">Select which source accounts can be used every time you transfer to this beneficiary.</string>
+    <string name="msg_tutorial_beneficiary_form_beneficiary_code">The beneficiary code is a short code you designate for each beneficiary. Each one must be unique.</string>
+    <string name="msg_tutorial_beneficiary_form_beneficiary_name">Input the beneficiary\'s full name here.</string>
+    <string name="msg_tutorial_beneficiary_form_beneficiary_account_number">Input the beneficiary\'s account number of the beneficiary here.</string>
+    <string name="msg_tutorial_beneficiary_form_beneficiary_address">Beneficiary address is required for SWIFT payments. </string>
+    <string name="msg_tutorial_beneficiary_form_beneficiary_bank_details">Tap here to select from a list of banks.</string>
+    <string name="msg_tutorial_beneficiary_form_beneficiary_button">Don\'t forget to tap save when you\'re done.</string>
+    <string name="msg_tutorial_frequent_biller_allowed_source_accounts">Tap here to select a source account for the transaction. You\'ll need to select a source account before you can fillout other fields.</string>
+    <string name="msg_tutorial_frequent_biller_alias">Biller Alias is a short code you designate for each biller. Each one must be unique.</string>
+    <string name="msg_tutorial_frequent_biller_select_biller">Tap here to select from a list of billers.</string>
+    <string name="msg_tutorial_frequent_biller_fields">Each biller requires different information. Don\'t forget to fill everything out.</string>
+    <string name="msg_tutorial_frequent_biller_button">Hit save when you\'re done.</string>
+    <string name="msg_tutorial_frequent_biller_filter">Type details here to search for a frequent biller.</string>
+    <string name="msg_tutorial_scheduled_landing">All scheduled and repeating payments you\'ve created will show up here.</string>
+    <string name="msg_tutorial_scheduled_click_sample">Tap to see more details about the transaction.</string>
+    <string name="msg_tutorial_scheduled_long_click_sample">Hold to select multiple transactions you want to delete.</string>
+    <string name="msg_tutorial_frequent_biller_landing">Make bills payment hassle free by enrolling frequent billers here so you don\'t have to re-enter their details everytime you make a transaction!</string>
+    <string name="msg_tutorial_frequent_biller_fab">Tap here to enroll a frequent biller.</string>
+    <string name="msg_tutorial_frequent_biller_item">All billers you\'ve enrolled will show up here. Tap to see more details about each biller.</string>
+    <string name="msg_skip_tutorials">Are you sure you want to skip the tutorial? You can turn this back on again in the settings.</string>
+    <string name="msg_permissions">Go to settings and enable permissions</string>
+    <string name="msg_tip">You can repeat a transaction by choosing a frequency (ex: Weekly, Monthly, etc) so you do not have to keep making a transaction every time.</string>
+    <string name="msg_tip_3"><![CDATA[Transaction will be posted %1$s until %2$s.]]></string>
+    <string name="msg_transaction_confirmation">Please review your transaction details below before clicking submit.</string>
+    <string name="msg_fund_transfer_sent_summary">
+        <![CDATA[
+        Your transaction falls under <b>%1$s</b> approval hierarchy and will only be posted after it has been fully approved.
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_partially_released_summary">
+        <![CDATA[
+        Some of your transactions were released to the beneficiary bank. Please view the details to see the status breakdown of individual transactions. <b>%1$s</b> serves as your UnionBank reference number.
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_partially_successful_summary">
+        <![CDATA[
+        Some of your transactions were successfully credited to the beneficiary. Please view the details to see the status breakdown of individual transactions. <b>%1$s</b> serves as your UnionBank reference number.
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_success_ubp_summary">
+        <![CDATA[
+        <b>%1$s</b> serves as your reference number. This is a unique value for a given day, which you can use to identify your UnionBank transfers.
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_success_summary">
+        <![CDATA[
+        Your transaction has been successfully credited to the beneficiary. <b>%1$s</b> serves as your UnionBank reference number.
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_error_summary">
+        <![CDATA[
+        The reason for the error is <b>%1$s</b>. Please contact your immediate supervisor or your systems manager.
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_failed_error">
+        <![CDATA[
+        The reason your transfer failed is <b>%1$s</b>
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_cancelled_error">
+        <![CDATA[
+        Your transaction will no longer be posted.
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_cancelled_by_error">
+        <![CDATA[
+        <b>Reason:</b> "%1$s"
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_rejected_error">
+        <![CDATA[
+        <b>Reason</b>: "%1$s".
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_expired_error">
+        <![CDATA[
+        Your transaction was not fully approved prior to the transaction date and will no longer be posted.
+        ]]>
+    </string>
+    <string name="msg_check_deposit_for_clearing">
+        <![CDATA[
+        Please note that checks submitted after the clearing cut-off time or during weekends and holidays will be reviewed the next banking day.
+        ]]>
+    </string>
+    <string name="msg_check_deposit_approved">
+        <![CDATA[
+        Your check has been sent for clearing. Go to your statement of account to view the status of your check deposit.
+        ]]>
+    </string>
+    <string name="msg_check_deposit_failed">
+        <![CDATA[
+        We could not proceed with your deposit of Check Number %1$s due to reason: <b>\"%2$s\"</b>. Please ensure that the check details entered match the physical check submitted.
+        ]]>
+    </string>
+    <string name="msg_fund_transfer_for_release">Your transaction is ready for release. You will see receive another notifications once the transaction is completed.</string>
+    <string name="msg_fund_transfer_default_status">Your transaction status could not be identified at the moment. Please check your transaction list later.</string>
+    <string name="msg_fund_transfer_instapay_bancnet_error">rejection from the beneficiary bank. Please double check your transaction details and try again. If you issue persists, please contact the beneficiary bank.</string>
+    <string name="msg_fund_transfer_bancnet_error">Bancnet system error. Please try again in a few minutes. If the issue persists, please contact Union3C.</string>
+    <string name="msg_fund_transfer_scheduled_summary">You will receive a reference number once your transfer has been successfully posted.</string>
+    <string name="msg_fund_transfer_for_processing_summary">You may check back later or you may call the beneficiary bank for the final status of the transfer.</string>
+    <string name="msg_fund_transfer_processing_summary">We have received your transaction details. You may check back later or you may call the beneficiary bank for the final status of the transaction.</string>
+    <string name="msg_fund_transfer_released_summary">Please check with the beneficiary bank for the final status of the transactions.</string>
+    <string name="msg_fund_transfer_debited_summary">You will be updated of the final status in a few minutes.</string>
+    <string name="msg_password_recovery">Enter your registered email address to \n receive a request to reset your password.</string>
+    <string name="msg_generate_totp">Here is your verification code generated by The Portal. You may use this code to log into another device.</string>
+    <string name="msg_generate_totp_sme">Here is your verification code generated by SME Business Banking. You may use this code to log into another device.</string>
+    <string name="msg_nominate_email">The Portal uses your email address as your user ID. Remember that this email must be unique and cannot be shared with other users.</string>
+    <string name="msg_nominate_email_2">If you already have a The Portal account, enter your existing email address to merge this user into your account.</string>
+    <string name="msg_update_password">Please enter your new password here.</string>
+    <string name="msg_migration_successful">You have successfully migrated your account. You may now proceed to login.</string>
+    <string name="msg_migration_already_migrated">This email address has already been migrated. You may now proceed to login.</string>
+    <string name="msg_migration_link_expired">Migration links expire after 48 hours. You can reprocess your migration by clicking below.</string>
+    <string name="msg_nominate_mobile_number">This mobile number will be linked to your account and will be required to log in.</string>
+    <string name="msg_enter_password_mobile_number">Enter your password to change your mobile number.</string>
+    <string name="msg_enter_password_email_address">Enter your password to change your email address.</string>
+    <string name="msg_change_mobile_number">Update your mobile number in the field below.</string>
+    <string name="msg_change_email_address">
+        We are sending a confirmation link to\n
+        this email. Please make sure that this\n
+        is your correct email.
+    </string>
+    <string name="msg_bills_payment_success_summary">
+        <![CDATA[
+        Your transaction was successfully posted to the indicated biller. <b>%1$s</b> serves as your UnionBank reference number.
+        ]]>
+    </string>
+    <string name="msg_bills_payment_error_summary"><![CDATA[The reason for the error is <b>%1$s</b>. Please contact your immediate supervisor or your systems manager.]]></string>
+    <string name="msg_bills_payment_confirmation">Please review your payment details below before clicking submit.</string>
+    <string name="msg_bills_payment_sent_summary"><![CDATA[Your transaction amount falls under <b>%1$s</b> approval hierarchy and is subject to the hierarchy\'s respective approval process.]]></string>
+    <string name="msg_bills_payment_scheduled_summary">You will receive a reference number once your payment has been successfully posted.</string>
+    <string name="msg_error_404">Error</string>
+    <string name="msg_error_missing_fields">There are missing required fields.</string>
+    <string name="msg_finger_print_not_available">Fingerprint not available</string>
+    <string name="msg_cash_deposit">• Book an appointment at a branch to deposit.\n• Free of charge</string>
+    <string name="msg_cash_withdrawal">• Book an appointment at a branch to withdraw.\n• Free of charge.</string>
+    <string name="msg_no_members_group">There are currently no members of this group</string>
+    <string name="msg_location">
+        <![CDATA[
+        UnionBank Plaza, Meralco Ave., cor. Onyx & Sapphire Roads Ortigas Center, Philippines
+        ]]>
+    </string>
+    <string name="msg_note">
+        <![CDATA[
+        <b>%1$s</b>  Your transaction will be posted immediately after it has been %2$s.
+        ]]>
+    </string>
+    <string name="msg_verification_link_expired">It seems that your link has already expired. Login using your existing credentials to nominate a new email address.</string>
+    <string name="msg_biller_not_allowed">
+        <![CDATA[
+        This biller cannot be enrolled as a frequent biller because the payment reference number changes each time.
+        <br>
+        <br>
+        You can still pay this biller by going to Bills Payment and selecting from the list of billers.
+        ]]>
+    </string>
+    <string name="msg_no_login_history">No login history.</string>
+    <string name="msg_check_received">We\'ll get back to you within two (2) hours on the status of this deposit.</string>
+    <string name="msg_branch_visit_success_summary">
+        <![CDATA[
+        Thank you! You successfully booked your transactions at <b>%1$s</b> Branch. Your reference number is %2$s!
+        ]]>
+    </string>
+    <string name="msg_tooltip_swift_account_number">If you are sending to a Middle Eastern or\nEuropean beneficiary bank, please input the IBAN.</string>
+    <string name="msg_tooltip_amount">You can leave the amount blank and let the payor input the amount upon scanning of the QR code.</string>
+    <string name="msg_tooltip_beneficiary_code">The beneficiary code is used when creating transactions via an upload file. You can use any alphanumeric code (i.e., employee ID, vendor code, etc.) or you can just leave it blank.</string>
+    <string name="msg_tooltip_dao_welcome">Please prepare the necessary SEC or DTI business registration documents. </string>
+    <string name="msg_tooltip_sole_propriotorship">The business is owned by one (1) person wherein the business identity is not separate and distinct from its owner.</string>
+    <string name="msg_tooltip_partnership">An organization formed by two (2) or more partners, recognized by law wherein its identity is separate and distinct from those of its partners.</string>
+    <string name="msg_tooltip_corporation">An organization formed by at least five (5), but not more than 15 people, and managed by a Board of Directors. Its identity is separate and dsitinct from those of its partners.</string>
+    <string name="msg_tooltip_cooperative">An organization formed by at least fifteen (15) members with a common bond of interest. Its identity is separate and distinct from those of its partners.</string>
+    <string name="msg_tooltip_non_government">A non-profit, voluntary citizen`s group funded either by membership dues, private donations, sale of goods and servicces, or grants.</string>
+    <string name="msg_tooltip_jumio">
+        <![CDATA[
+        <b>\u2022</b> Use your original ID (Not a photocopy or scanned version).<br>
+        <b>\u2022</b> ID details should be the same with your profile.<br>
+        <b>\u2022</b> Wait for 4 corners to light up when taking photo.<br>
+        <b>\u2022</b> Place behind dark background.
+        ]]>
+    </string>
+    <string name="msg_confirm_your_details">Please make sure to tick Terms &amp; Conditions.</string>
+    <string name="msg_no_permission_to_transact">You do not have the necessary permission to create transactions.</string>
+    <string name="msg_acceptance_required">Please read and agree to the Privacy Policy and UnionBank Business Banking Terms &amp; Conditions before proceeding.</string>
+    <string name="msg_check_deposit_unavailable">Check Deposit is currently unavailable at the moment. Please check back again later.</string>
+    <string name="msg_e_billing_unavailable">Sorry Electronic Billing is currently unavailable at the moment. Please check back again later.</string>
+
+
+    <string name="hint_account_number_format">[0000] [0000] [0000]</string>
+    <string name="hint_other_bank_account_number_format">[0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [00]</string>
+    <string name="hint_default_account_number_format">0023 1230 1245</string>
+    <string name="hint_0_00">0.00</string>
+    <string name="hint_optional">Optional</string>
+    <string name="hint_select_status">Select Status</string>
+    <string name="hint_select_channel">Select Channel</string>
+    <string name="hint_select_biller_name">Select Biller Name</string>
+    <string name="hint_deposit_to">UnionBank Accounts</string>
+    <string name="hint_deposit_account">Select an Account</string>
+    <string name="hint_check_account_number">Check Account Number</string>
+    <string name="hint_transaction_date">Transaction Date</string>
+    <string name="hint_check_account_name">Check Account Name</string>
+    <string name="hint_check_number">Check Number</string>
+    <string name="hint_enter_check_number">Enter your Check Number</string>
+    <string name="hint_date_front_of_check">Date in Front of Check</string>
+    <string name="hint_reason_for_rejection">Why do you want to reject this transaction?</string>
+    <string name="hint_reason_for_cancellation">Why do you want to cancel this transaction?</string>
+    <string name="hint_transfer_from">UnionBank Source Account</string>
+    <string name="hint_branch">Branch</string>
+    <string name="hint_select_a_bank">Select a Bank</string>
+    <string name="hint_select_a_date">Select a Date</string>
+    <string name="hint_allowed_source_accounts">Allowed Source Accounts</string>
+    <string name="hint_select_biller">Biller</string>
+    <string name="hint_biller_alias">Biller Alias</string>
+    <string name="hint_payment_channel">Select Payment Channel</string>
+    <string name="hint_payment_to">Biller</string>
+    <string name="hint_select_purpose">Purpose</string>
+    <string name="hint_leave_purpose">Leave a Purpose</string>
+    <string name="hint_select_receiving_bank">Receiving Bank</string>
+    <string name="hint_transfer_to">UnionBank Account Number</string>
+    <string name="hint_beneficiary_name">Beneficiary Name</string>
+    <string name="hint_beneficiary_code">Beneficiary Code</string>
+    <string name="hint_beneficiary_bank">Beneficiary Bank</string>
+    <string name="hint_frequent_biller">Frequent Biller</string>
+    <string name="hint_beneficiary_account_number">Beneficiary Account Number</string>
+    <string name="hint_swift_receiving_bank">SWIFT Receiving Bank</string>
+    <string name="hint_pesonet_receiving_bank">Receiving Bank</string>
+    <string name="hint_email_address_normal">Email Address</string>
+    <string name="hint_email_address">E M A I L \  A D D R E S S</string>
+    <string name="hint_password">P A S S W O R D</string>
+    <string name="hint_new_password">N E W \  P A S S W O R D</string>
+    <string name="hint_corp_id">C O R P \  I D</string>
+    <string name="hint_user_id">U S E R \  I D</string>
+    <string name="hint_confirm_password">C O N F I R M \  P A S S W O R D</string>
+    <string name="hint_old_password">O L D \  P A S S W O R D</string>
+    <string name="hint_reference_number">User Reference No.</string>
+    <string name="hint_other_type_of_business">Other Type of Business</string>
+    <string name="hint_select_a_business_industry">Select a Business Industry</string>
+    <string name="hint_select_type_of_office">Select Type of Office</string>
+    <string name="hint_select_business_ownership">Business Ownership</string>
+    <string name="hint_mobile_number">Mobile Number</string>
+    <string name="hint_business_name">Business Name</string>
+    <string name="hint_business_industry">Business Industry</string>
+    <string name="hint_business_address">Business Address</string>
+    <string name="hint_trade_name">Trade Name</string>
+    <string name="hint_government_id_number">Government ID Number</string>
+    <string name="hint_business_tin">Business TIN</string>
+    <string name="hint_personal_tin">Personal TIN</string>
+    <string name="hint_business_sss">Business SSS</string>
+    <string name="hint_city">City</string>
+    <string name="hint_unit_house_no">Unit / House No.</string>
+    <string name="hint_street">Street</string>
+    <string name="hint_bldg_street_name">Bldg. / Street Name</string>
+    <string name="hint_village_brgy">Village / Brgy.</string>
+    <string name="hint_barangay">Barangay</string>
+    <string name="hint_province">Province</string>
+    <string name="hint_select_a_province">Select a Province</string>
+    <string name="hint_select_a_city">Select a City</string>
+    <string name="hint_zip_code">Zip Code</string>
+    <string name="hint_country">Country</string>
+    <string name="hint_select_source_of_funds">Source of Funds</string>
+    <string name="hint_source_of_funds">Source of Funds</string>
+    <string name="hint_other_source_of_funds">Other Source of Funds</string>
+    <string name="hint_type_of_office">Type of Office</string>
+    <string name="hint_select_amount">Amount</string>
+    <string name="hint_select_a_branch">Branch</string>
+    <string name="hint_upload_a_file">Upload a file</string>
+    <string name="hint_date_of_incorporation">Date of Incorporation</string>
+    <string name="hint_salutation">Salutation</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_middle_name">Middle Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_preferred_branch">Preferred Branch</string>
+    <string name="hint_birthdate">Birthdate</string>
+    <string name="hint_birthplace">Birthplace</string>
+    <string name="hint_place_of_birth">Place of Birth</string>
+    <string name="hint_date_of_birth">Date of Birth</string>
+    <string name="hint_gender">Gender</string>
+    <string name="hint_civil_status">Civil Status</string>
+    <string name="hint_nationality">Nationality</string>
+    <string name="hint_mothers_maiden_name">Mother`s Maiden Name</string>
+    <string name="hint_citizenship">Citizenship</string>
+    <string name="hint_percentage_of_ownership">Percentage (%) of Ownership</string>
+    <string name="hint_us_record_type">US Record Type</string>
+    <string name="hint_us_record">US Record</string>
+    <string name="hint_record_type_other">Other</string>
+    <string name="hint_home_address">Home Address</string>
+    <string name="hint_employee_status">Employee Status</string>
+    <string name="hint_other_employee_status">Other Employee Status</string>
+    <string name="hint_other_occupation">Other Occupation</string>
+    <string name="hint_other">Other</string>
+    <string name="hint_others">Others</string>
+    <string name="hint_occupation">Occupation</string>
+    <string name="hint_status">Select a Status</string>
+
+    <string name="value_service_fee_free">Free</string>
+    <string name="value_service_fee_pesonet">+ PHP 25.00</string>
+    <string name="value_service_fee_pddts">+ USD 2.00</string>
+    <string name="value_service_fee_instapay">+ PHP 30.00</string>
+    <string name="value_service_fee_swift">+ USB 15.00</string>
+    <string name="value_service">+ %1$s</string>
+    <string name="value_receiving_bank_ubp">UnionBank of the Philippines</string>
+    <string name="value_empty_account_number">0000 0000 0000</string>
+    <string name="value_default_zero_balance">000000000000.00</string>
+    <string name="value_code_ph">+63</string>
+
+    <string name="params_delete">Delete (%1$s)</string>
+    <string name="params_cancel">Cancel (%1$s)</string>
+    <string name="param_msg_no_permission">No permission to %1$s</string>
+    <string name="params_select_accounts">Select (%1$s) Accounts</string>
+    <string name="params_select_channels">Select (%1$s) Channels</string>
+    <string name="params_select_statuses">Select (%1$s) Statuses</string>
+    <string name="params_create_beneficiary">Create %1$s Beneficiary</string>
+    <string name="params_edit_beneficiary">Edit %1$s Beneficiary</string>
+    <string name="params_edit_frequent_biller">Edit %1$s Frequent Biller</string>
+    <string name="params_pesonet_transfer_to">PESONet Transfer to %1$s</string>
+    <string name="params_instapay_transfer_to">instaPay Transfer to %1$s</string>
+    <string name="params_pddts_transfer_to">PDDTS Transfer to %1$s</string>
+    <string name="params_swift_transfer_to">SWIFT Transfer to %1$s</string>
+    <string name="params_payment_to">Payment to %1$s</string>
+    <string name="params_check_to">Payment to %1$s</string>
+    <string name="params_cash_withdrawal_from">Cash Withdrawal from %1$s</string>
+    <string name="params_check_deposit_to">Check Deposit to %1$s</string>
+    <string name="params_deposit_by">Deposit by %1$s</string>
+    <string name="params_withdraw_by">Withdraw by %1$s</string>
+    <string name="params_created_by">Created by %1$s on %2$s</string>
+    <string name="params_no_permission_channel">No permission for %1$s channel.</string>
+    <string name="params_desc_beneficiary_deleted"><![CDATA[You have successfully deleted <br> <b>%1$s</b>.]]></string>
+    <string name="params_desc_beneficiary_edited"><![CDATA[You have successfully edited <br> <b>%1$s</b>.]]></string>
+    <string name="params_desc_frequent_biller_deleted">You have successfully deleted\n%1$s</string>
+    <string name="params_desc_frequent_biller_edited">You have successfully edited\n%1$s</string>
+    <string name="params_desc_channel">• %1$s</string>
+    <string name="params_bullet_desc">
+        <![CDATA[
+        <li>%1$s</li>
+        ]]>
+    </string>
+    <string name="params_delete_frequent_biller">Are you sure you want to delete\n %1$s?</string>
+    <string name="params_delete_beneficiary"><![CDATA[Are you sure you want to delete <br> <b>%1$s</b>?]]></string>
+    <string name="params_desc_save_changes"><![CDATA[You are about to save changes to <br> <b>%1$s</b>?]]></string>
+    <string name="params_title_no_approval_hierarchy_dialog">No Approval Hierarchy</string>
+    <string name="params_title_no_transaction_allowed">No Transaction Allowed for %1$s</string>
+    <string name="params_no_transaction_allowed">You are not permitted by the organization to use %1$s. Please select a different channel.</string>
+    <string name="params_no_approval_hierarchy">Your organization\'s approval hierarchy is not set up for %1$s transactions.</string>
+    <string name="params_no_currency_account_enrolled">%1$s requires %2$s accounts to proceed. None of your enrolled accounts meet this criteria.</string>
+    <string name="params_no_currency_account_enrolled_more_than_one">%1$s requires atleast %2$s accounts to proceed. None of your enrolled accounts meet this criteria.</string>
+    <string name="params_desc_activity_log_action">Created by %1$s</string>
+    <string name="params_reference_number">Reference Number: %1$s</string>
+    <string name="param_msg_nominate_password">
+        <![CDATA[
+        Nominate a new password for your account:\n<b>%1$s</b>
+        ]]>
+        </string>
+    <string name="params_session_time_out">
+        <![CDATA[Due to inactivity, the system will automatically log you out in <b>%1$s</b>.]]></string>
+    <string name="params_rejected_by">Rejected by\n%1$s</string>
+    <string name="params_cancelled_by">Cancelled by\n%1$s</string>
+    <string name="params_select_allowed_source_accounts">
+        <![CDATA[
+        You have selected %1$s Source Accounts for this %2$s.
+        ]]>
+        </string>
+    <string name="params_allowed_source_accounts">
+        <![CDATA[
+            There are %1$s Allowed Source Accounts for this %2$s.
+        ]]>
+    </string>
+    <string name="params_account_detail">
+        <![CDATA[
+        %1$s
+        <br>
+        %2$s
+        <br>
+        <font color="#757575">
+        %3$s
+        </font>
+        ]]>
+    </string>
+    <string name="params_four_format">
+        <![CDATA[
+        %1$s
+        <br>
+        %2$s
+        <br>
+        %3$s
+        <br>
+        <font color="#757575">
+        %4$s
+        </font>
+        ]]>
+    </string>
+    <string name="params_two_format">
+        <![CDATA[
+        %1$s
+        <br>
+        %2$s
+        ]]>
+    </string>
+    <string name="params_three_format">
+        <![CDATA[
+        %1$s
+        <br>
+        %2$s
+        <br>
+        %3$s
+        ]]>
+    </string>
+    <string name="params_swift_detail">
+        <![CDATA[
+        %1$s
+        <br>
+        %2$s
+        <br>
+        %3$s
+        <br>
+        <font color="#757575">
+        %4$s
+        </font>
+        <br>
+        <br>
+        %5$s
+        <br>
+        %6$s
+        <br>
+        <font color="#757575">
+        %7$s
+        </font>
+        ]]>
+    </string>
+    <string name="format_change_color">
+        <![CDATA[
+        <font color="#757575">%1$s</font>
+        ]]>
+    </string>
+    <string name="param_steps">STEP %1$s of %2$s</string>
+    <string name="param_desc_email_address_taken">
+        <![CDATA[
+        Your nominated email address<br>
+        <b>%1$s</b><br>
+        is already taken.<br>
+        <br>
+        <b>Are you the owner of this email?</b><br>
+        You can merge your old Corporate eBanking<br>
+        access to the same email address.<br>
+        This will allow you to manage your<br>
+        companies with a single login.<br>
+        <br>
+        <b>Old Corporate eBanking Access</b><br>
+        Corp ID: <b>%2$s</b><br>
+        User ID: <b>%3$s</b><br>
+        ]]>
+    </string>
+    <string name="param_desc_ecred_email_address_taken">
+        <![CDATA[
+        Your nominated email address<br>
+        <b>%1$s</b><br>
+        is already taken.<br>
+        <br>
+        <b>Are you the owner of this email?</b><br>
+        You can merge your OneHub access<br>
+        to the same email address.<br>
+        This will allow you to manage your<br>
+        companies with a single login.<br>
+        <br>
+        <b>Old OneHub Access</b><br>
+        User ID: <b>%2$s</b><br>
+        ]]>
+    </string>
+    <string name="param_desc_email_address_taken_verify">
+        <![CDATA[
+        Sign in to your The Portal account to continue.<br>
+        <br>
+        Nominated Email Address<br>
+        <b>%1$s</b>
+        ]]>
+    </string>
+    <string name="param_desc_email_address_taken_success">
+        <![CDATA[
+        You have successfully merged your old<br>
+        Corporate eBanking account.<br>
+        <br>
+        <b>Old Corporate eBanking Account</b><br>
+        Corp ID: <b>%1$s</b><br>
+        User ID: <b>%2$s</b><br>
+        <br>
+        The Portal Account<br>
+        <b>%3$s</b><br>
+        ]]>
+    </string>
+    <string name="param_desc_ecred_email_address_taken_success">
+        <![CDATA[
+        You have successfully merged your<br>
+        Corporate eCrediting account.<br>
+        <br>
+        <b>Old OneHub Access:</b><br>
+        User ID: <b>%1$s</b><br>
+        <br>
+        The Portal Account<br>
+        <b>%2$s</b><br>
+        ]]>
+    </string>
+    <string name="param_totp_code">%1$s %2$s %3$s %4$s %5$s %6$s</string>
+    <string name="param_desc_approve_selected_transaction"><![CDATA[You are about to <font color="#33CC99">approve</font>:<br><b>%1$s transactions</b>?]]></string>
+    <string name="param_desc_transfer_approve_transaction"><![CDATA[You are about to <font color="#33CC99">approve</font>:<br><b>Transfer to %1$s</b>?]]></string>
+    <string name="param_desc_payment_approve_transaction"><![CDATA[You are about to <font color="#33CC99">approve</font>:<br><b>Payment to %1$s</b>?]]></string>
+    <string name="param_desc_check_approve_transaction"><![CDATA[You are about to <font color="#33CC99">approve</font>:<br><b>Check to %1$s</b>?]]></string>
+    <string name="param_desc_cash_withdrawal_approve_transaction"><![CDATA[You are about to <font color="#33CC99">approve</font>:<br><b>Cash Withdrawal from %1$s</b>?]]></string>
+    <string name="param_desc_approve_batch_transaction"><![CDATA[You are about to <font color="#33CC99">approve</font>:<br><b>%1$s</b>?]]></string>
+    <string name="param_desc_transfer_reject_transaction"><![CDATA[You are about to <font color="#FF6666">%1$s<</font>:<br><b>Transfer to %2$s</b>?]]></string>
+    <string name="param_desc_payment_reject_transaction"><![CDATA[You are about to <font color="#FF6666">%1$s<</font>:<br><b>Payment to %2$s</b>?]]></string>
+    <string name="param_desc_check_reject_transaction"><![CDATA[You are about to <font color="#FF6666">%1$s<</font>:<br><b>Check to %2$s</b>?]]></string>
+    <string name="param_desc_cash_withdrawal_reject_transaction"><![CDATA[You are about to <font color="#FF6666">%1$s<</font>:<br><b>Cash Withdrawal from %2$s</b>?]]></string>
+    <string name="param_desc_reject_batch_transaction"><![CDATA[You are about to <font color="#FF6666"><b>%1$s</font>:<br><b>%2$s</b>?]]></string>
+    <string name="param_desc_reject_selected_transaction"><![CDATA[You are about to <font color="#FF6666">reject</font>:<br><b>%1$s transactions</b>?]]></string>
+    <string name="param_title_trust_device_name">Trust %1$s?</string>
+    <string name="param_title_successfully_trusted_device_name">Successfully Trusted %1$s</string>
+    <string name="param_title_untrust_device_name">Untrust %1$s?</string>
+    <string name="param_title_forget_device_name">Forget %1$s?</string>
+    <string name="param_desc_scheduled_transactions_batch"><![CDATA[<br><b>%1$s scheduled transactions</b>]]></string>
+    <string name="param_desc_scheduled_transactions_single"><![CDATA[<br><b>Transfer to %1$s</b>]]></string>
+    <string name="param_gmt_8_value">%1$s (GMT+8:00)</string>
+    <string name="param_action_approve">Approve (%1$s)</string>
+    <string name="param_action_reject">Reject (%1$s)</string>
+    <string name="param_deposit_transaction"><![CDATA[You have %1$s deposit transaction.]]></string>
+    <string name="param_deposit_transactions"><![CDATA[You have %1$s deposit transactions.]]></string>
+    <string name="param_color"><![CDATA[<font color="%1$s">%2$s</font>]]></string>
+    <string name="param_dao_part">Part %1$s of %2$s</string>
+    <string name="param_dao_result_desc">
+        <![CDATA[
+        You have successfully completed the verification process.<br>
+        <br>
+        Your reference number is<br>
+        <b>%1$s</b><br>
+        <br>
+        Your organization’s checking account will be opened as soon as all signatories complete the digital verification.
+        ]]>
+    </string>
+    <string name="param_dao_result_skip_desc">
+        <![CDATA[
+        Organization Name: <b>%1$s</b><br>
+        Reference Number: <b>%2$s</b><br>
+        <br>
+        A UnionBank officer will reach out to you soon as we need to validate some details regarding your application.<br>
+        <br>
+        If you have any concerns, please get in touch with your preferred branch.<br>
+        <br>
+        Preferred Branch: %3$s<br>
+        Email: %4$s<br>
+        ]]>
+    </string>
+    <string name="param_dao_result_completed">
+        <![CDATA[
+        Organization Name: <b>%1$s</b><br>
+        Reference Number: <b>%2$s</b><br>
+        <br>
+        You have already completed the digital verification. You may check the status of your application with your contact person.
+        ]]>
+    </string>
+    <string name="param_transaction_status">
+        <![CDATA[
+        <b>%1$s</b>
+        <br>
+        %2$s
+        ]]>
+    </string>
+
+
+    <string name="image_animation_tag">imageTransition</string>
+
+    <string name="netverify_scanview_title">Scan ID</string>
+    <string name="netverify_scanview_title_check">Submit ID</string>
+    <string name="netverify_scanview_title_face">Selfie</string>
+    <string name="netverify_helpview_small_description">Place you document within the frame until all edges are aligned and is captured automatically</string>
+    <string name="netverify_helpview_small_description_card">Place you document within the frame until all edges are aligned and is captured automatically</string>
+    <string name="netverify_scanview_readable">Submit</string>
+    <string name="netverify_scanview_liveness_description">Position your face in the frame to proceed.</string>
+    <string name="netverify_use_back_side_of_card">Back</string>
+    <string name="netverify_use_front_side_of_card">Front</string>
+</resources>

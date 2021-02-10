@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.unionbankph.corporate">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission
+        android:name="android.permission.CAMERA"
+        android:required="false" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
+
+    <application
+        android:name="com.unionbankph.corporate.app.App"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:logo="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="${appTheme}"
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="stateAlwaysHidden"
+        tools:replace="android:allowBackup"
+        tools:targetApi="m">
+
+        <!--Activities-->
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.login.LoginActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--Prod-->
+                <data
+                    android:host="@string/host_name"
+                    android:path="/mobile"
+                    android:scheme="https" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.splash.SplashFrameActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.password_recovery.PasswordRecoveryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/host_name"
+                    android:path="/password-reset"
+                    android:scheme="https" />
+
+                <data
+                    android:host="@string/host_name"
+                    android:path="/activate-account"
+                    android:scheme="https" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.otp.OTPActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.app.dashboard.DashboardActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.unionbankph.corporate.account.presentation.account_detail.AccountDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.account.presentation.account_history_detail.AccountTransactionHistoryDetailsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.account.presentation.account_history.AccountTransactionHistoryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.password.PasswordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.mobile.ChangeMobileNumberActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.email.UpdateEmailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.approval.presentation.approval_detail.ApprovalDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.approval.presentation.approval_activity_log.ActivityLogActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.fingerprint.BiometricActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.pesonet.PesoNetFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer.ProposedTransferDateActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.account.presentation.account_selection.AccountSelectionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPConfirmationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.pesonet.PesoNetConfirmationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPSummaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.pesonet.PesoNetSummaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.bank.BankActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.pddts.PDDTSFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.pddts.PDDTSConfirmationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.pddts.PDDTSSummaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.selector.SelectorActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftConfirmationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftSummaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.bills_payment.presentation.biller.BillerMainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.bills_payment.presentation.bills_payment_form.BillsPaymentFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.bills_payment.presentation.bills_payment_confirmation.BillsPaymentConfirmationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.bills_payment.presentation.bills_payment_summary.BillsPaymentSummaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.approval.presentation.approval_batch_list.BatchTransferActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.approval.presentation.approval_batch_detail.BatchDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.instapay.InstaPayFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.instapay.InstaPayConfirmationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.instapay.InstaPaySummaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.beneficiary_list.ManageBeneficiaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.beneficiary_form.ManageBeneficiaryFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.account.presentation.source_account.SourceAccountActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.beneficiary_detail.ManageBeneficiaryDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.fund_transfer.presentation.scheduled.ManageScheduledTransferActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.bills_payment.presentation.frequent_biller_list.ManageFrequentBillerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.bills_payment.presentation.frequent_biller_form.ManageFrequentBillerFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.bills_payment.presentation.frequent_biller_detail.ManageFrequentBillerDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.country.CountryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.migration.migration_form.MigrationFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.migration.MigrationMainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.migration.migration_selection.MigrationSelectionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/host_name"
+                    android:path="/migration"
+                    android:scheme="https" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.unionbankph.corporate.auth.presentation.login.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.migration.migration_merge.MigrationMergeActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.general.presentation.link.DeepLinkLandingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:taskAffinity="">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/host_name"
+                    android:pathPrefix="/view-transaction"
+                    android:scheme="https" />
+
+                <data
+                    android:host="@string/host_name"
+                    android:path="/accountopening"
+                    android:scheme="https" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.migration.nominate_migration_success.NominateMigrationSuccessActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/host_name"
+                    android:path="/migration/activate-account"
+                    android:scheme="https" />
+                <data
+                    android:host="@string/host_name"
+                    android:path="/migration/ecrediting/migrate-account"
+                    android:scheme="https" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.totp.TOTPActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.general.presentation.result.ResultLandingWithoutAuthActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/host_name"
+                    android:path="/confirm-change-email"
+                    android:scheme="https" />
+
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionbankph.corporate.approval.presentation.approval_cwt.BatchCWTActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.approval.presentation.approval_cwt_detail.BatchCWTDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraActivity"
+            android:configChanges="screenLayout|keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:hardwareAccelerated="true"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.form.CheckDepositFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.detail.CheckDepositDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.log.CheckDepositActivityLogActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.list.BranchVisitActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.branch.BranchActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.channel.BranchVisitChannelActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.form.BranchVisitFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.transaction.BranchVisitTransactionFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.transactionlist.BranchTransactionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.confirmation.BranchVisitConfirmationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.summary.BranchVisitSummaryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.detail.BranchVisitDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.branch.presentation.transactiondetail.BranchTransactionDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.dao.presentation.DaoActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.unionbankph.corporate.dao.presentation.signature_preview.DaoSignaturePreviewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.mcd.presentation.filter.CheckDepositFilterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.ebilling.presentation.confirmation.EBillingConfirmationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.ebilling.presentation.generate.EBillingGenerateActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name="com.jumio.nv.NetverifyActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomJumioAppTheme" />
+
+        <!--Others-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_ub_notification" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorTransparent" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+        <!--Broadcast and Services-->
+
+        <receiver android:name=".app.receiver.ForceLogoutReceiver" />
+
+        <receiver android:name=".app.receiver.NotificationActionReceiver" />
+
+        <service
+            android:name=".app.service.SessionTimeOutJobService"
+            android:enabled="true"
+            android:exported="false"
+            android:label="SessionTimeOutJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:stopWithTask="true" />
+
+        <service
+            android:name="com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService"
+            android:exported="false"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+
+        </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

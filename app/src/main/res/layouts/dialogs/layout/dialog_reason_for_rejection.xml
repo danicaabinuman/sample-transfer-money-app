@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutReasonForRejection"
+        style="@style/TextInputLayoutForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing_small"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_spacing_small"
+        app:boxBackgroundColor="@color/colorWhite"
+        app:counterEnabled="true"
+        app:counterMaxLength="@integer/max_length_reason_for_rejection"
+        app:counterTextAppearance="@style/CounterOverFlowTheme"
+        app:counterTextColor="?colorText"
+        app:errorEnabled="true"
+        app:hintEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditTextReasonForRejection"
+            style="@style/TextInputEditTextForm"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:lines="6"
+            android:maxLength="@integer/max_length_reason_for_rejection"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
+            android:textColor="@color/colorInfo" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

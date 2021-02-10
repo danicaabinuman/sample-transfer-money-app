@@ -1,0 +1,278 @@
+package com.unionbankph.corporate.auth.presentation.policy
+
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.jakewharton.rxbinding2.view.RxView
+import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.formatString
+import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
+import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
+import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
+import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
+import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
+import com.unionbankph.corporate.auth.presentation.login.LoginActivity
+import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.dao.presentation.DaoActivity
+import io.reactivex.rxkotlin.addTo
+import kotlinx.android.synthetic.main.activity_privacy_policy.*
+import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import java.util.concurrent.TimeUnit
+
+class PrivacyPolicyActivity :
+    BaseActivity<PrivacyPolicyViewModel>(R.layout.activity_privacy_policy) {
+
+    private var adapter: ViewPagerAdapter? = null
+
+    override fun afterLayout(savedInstanceState: Bundle?) {
+        super.afterLayout(savedInstanceState)
+        initToolbar(toolbar, viewToolbar)
+        if (isSME) {
+            removeElevation(viewToolbar)
+            shadow_toolbar.isVisible = true
+        }
+        setToolbarTitle(tvToolbar, getString(R.string.title_terms_and_conditions))
+        if (intent.getStringExtra(EXTRA_REQUEST_PAGE) != PAGE_LEARN_MORE)
+            setDrawableBackButton(R.drawable.ic_close_white_24dp)
+    }
+
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        initViewModel()
+    }
+
+    override fun onViewsBound() {
+        super.onViewsBound()
+        init()
+        initBinding()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onBackPressed() {
+        when (intent.getStringExtra(EXTRA_REQUEST_PAGE)) {
+            PAGE_LOGIN -> {
+                viewModel.clearLoginCredential()
+            }
+            else -> {
+                super.onBackPressed()
+            }
+        }
+    }
+
+    override fun onInitializeListener() {
+        super.onInitializeListener()
+        initClickListener()
+        initCheckListener()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (intent.getStringExtra(EXTRA_REQUEST_PAGE) == PAGE_MCD_TERMS) {
+            invokePrivacyPolicyAgreed()
+        }
+    }
+
+    private fun initViewModel() {
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory)[PrivacyPolicyViewModel::class.java]
+        viewModel.uiState.observe(this, EventObserver {
+            when (it) {
+                is UiState.Loading -> {
+                    showProgressAlertDialog(this::class.java.simpleName)
+                }
+                is UiState.Complete -> {
+                    dismissProgressAlertDialog()
+                }
+                is UiState.Success -> {
+                    when (intent.getStringExtra(EXTRA_REQUEST_PAGE)) {
+                        PAGE_LOGIN -> {
+                            navigateDashboardScreen()
+                        }
+                        PAGE_MCD_TERMS -> {
+                            onBackPressed()
+                        }
+                    }
+                }
+                is UiState.Exit -> {
+                    navigateLoginScreen()
+                }
+                is UiState.Error -> {
+                    showMaterialDialogError(message = it.throwable.message)
+                }
+            }
+        })
+    }
+
+    private fun invokePrivacyPolicyAgreed() {
+        eventBus.actionSyncEvent.emmit(
+            BaseEvent(ActionSyncEvent.ACTION_AGREE_PRIVACY_POLICY)
+        )
+    }
+
+    private fun init() {
+        setupViewPager()
+        if (intent.getStringExtra(EXTRA_REQUEST_PAGE) == PAGE_LEARN_MORE) {
+            buttonAccept.visibility = View.GONE
+            val viewPagerParams = viewPager.layoutParams as ViewGroup.MarginLayoutParams
+            viewPagerParams.setMargins(
+                viewPagerParams.leftMargin,
+                viewPagerParams.topMargin,
+                viewPagerParams.rightMargin,
+                0
+            )
+            cb_tnc.visibility(false)
+            cb_privacy.visibility(false)
+        }
+    }
+
+    private fun initBinding() {
+//        Observables.combineLatest(
+//            viewModel.isCheckedPrivacyAgreement,
+//            viewModel.isCheckedTNCAgreement
+//        ) { isCheckedPrivacyAgreement, isCheckedTNCAgreement ->
+//            isCheckedPrivacyAgreement && isCheckedTNCAgreement
+//        }
+//            .subscribe {
+//                buttonAccept.enableButton(it)
+//            }.addTo(disposables)
+    }
+
+    private fun navigateDashboardScreen() {
+        val bundle = Bundle()
+        bundle.putString(
+            AutobahnFirebaseMessagingService.EXTRA_DATA, intent.getStringExtra(
+                AutobahnFirebaseMessagingService.EXTRA_DATA
+            )
+        )
+        navigator.navigateClearStacks(
+            this,
+            DashboardActivity::class.java,
+            bundle,
+            true,
+            Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
+    private fun initClickListener() {
+        RxView.clicks(buttonAccept)
+            .throttleFirst(
+                resources.getInteger(R.integer.time_button_debounce).toLong(),
+                TimeUnit.MILLISECONDS
+            )
+            .subscribe {
+                if (viewModel.isCheckedPrivacyAgreement.value == false ||
+                    viewModel.isCheckedTNCAgreement.value == false
+                ) {
+                    showBottomSheetError()
+                } else {
+                    when {
+                        intent.getStringExtra(EXTRA_REQUEST_PAGE) == PAGE_DAO -> {
+                            navigateDaoScreen()
+                        }
+                        intent.getStringExtra(EXTRA_REQUEST_PAGE) == PAGE_MCD_TERMS -> {
+                            viewModel.agreeMCDTerms()
+                        }
+                        intent.getStringExtra(EXTRA_REQUEST_PAGE) == PAGE_LOGIN -> {
+                            viewModel.privacyPolicy()
+                        }
+                    }
+                }
+            }.addTo(disposables)
+    }
+
+    private fun initCheckListener() {
+        cb_tnc.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.isCheckedTNCAgreement.onNext(isChecked)
+        }
+        cb_privacy.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.isCheckedPrivacyAgreement.onNext(isChecked)
+        }
+    }
+
+    private fun setupViewPager() {
+        adapter = ViewPagerAdapter(
+            supportFragmentManager
+        )
+        adapter?.addFragment(
+            PrivacyPolicyFragment.newInstance(),
+            getString(R.string.title_privacy_policy)
+        )
+        adapter?.addFragment(
+            TermsAndConditionsFragment.newInstance(),
+            getString(R.string.title_terms_and_conditions)
+        )
+        viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 0
+        tabLayoutPrivacyPolicy.setupWithViewPager(viewPager, false)
+    }
+
+    private fun navigateLoginScreen() {
+        navigator.navigateClearUpStack(
+            this,
+            LoginActivity::class.java,
+            null,
+            isClear = true,
+            isAnimated = true
+        )
+    }
+
+    private fun navigateDaoScreen() {
+        navigator.navigateClearStacks(
+            this,
+            DaoActivity::class.java,
+            Bundle().apply {
+                putBoolean(DaoActivity.EXTRA_PRIVACY_POLICY, true)
+            },
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
+    private fun showBottomSheetError() {
+        val confirmationBottomSheet = ConfirmationBottomSheet.newInstance(
+            R.drawable.ic_warning_white,
+            formatString(R.string.title_acceptance_required),
+            formatString(R.string.msg_acceptance_required),
+            actionNegative = formatString(R.string.action_close)
+        )
+        confirmationBottomSheet.setOnConfirmationPageCallBack(object : OnConfirmationPageCallBack {
+            override fun onClickNegativeButtonDialog(data: String?, tag: String?) {
+                confirmationBottomSheet.dismiss()
+            }
+        })
+        confirmationBottomSheet.show(
+            supportFragmentManager,
+            this::class.java.simpleName
+        )
+    }
+
+    companion object {
+
+        const val EXTRA_REQUEST_PAGE = "page"
+        const val EXTRA_EMAIL = "email"
+
+        const val PAGE_LEARN_MORE = "learn_more"
+        const val PAGE_LOGIN = "login"
+        const val PAGE_DAO = "dao"
+        const val PAGE_MCD_TERMS = "mcd_terms"
+    }
+}

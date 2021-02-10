@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent"
+    android:background="@drawable/bg_dialog_node_white">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewGroupName"
+        style="@style/TextViewDarkXL"
+        android:layout_margin="@dimen/content_spacing"
+        android:text="Group Name"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewStatus"
+        android:layout_width="@dimen/image_view_icon_size"
+        android:layout_height="@dimen/image_view_icon_size"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:background="?selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewRequiredApprovals"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewGroupName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewRequiredApprovals"
+        style="@style/TextViewDark"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:text="@string/title_required_approvals"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGroupName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewRequiredApprovalsValue"
+        style="@style/TextViewDark"
+        android:layout_marginStart="@dimen/content_spacing_half"
+        android:layout_marginLeft="@dimen/content_spacing_half"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewRequiredApprovals"
+        app:layout_constraintStart_toEndOf="@+id/textViewRequiredApprovals"
+        app:layout_constraintTop_toTopOf="@+id/textViewRequiredApprovals" />
+
+    <View
+        android:id="@+id/viewBorder"
+        style="@style/BorderHorizontal"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:background="@color/colorWhite50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRequiredApprovals" />
+
+    <ScrollView
+        android:id="@+id/scrollViewUsers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@+id/viewBorder">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutOrgUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/content_spacing"
+            android:paddingBottom="@dimen/content_spacing" />
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/viewGroupStatus"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollViewUsers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

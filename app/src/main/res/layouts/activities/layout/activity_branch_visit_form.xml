@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutParent"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        style="@style/DefaultBackgroundMatchConstraint"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            style="@style/MatchParent"
+            android:padding="@dimen/content_group_spacing">
+
+            <include
+                android:id="@+id/viewChannelHeader"
+                layout="@layout/widget_channel_header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTransactionDate"
+                style="@style/TextViewOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_transaction_date"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewChannelHeader" />
+
+            <include
+                android:id="@+id/viewTransactionDate"
+                layout="@layout/widget_edit_text_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTransactionDate" />
+
+            <View
+                android:id="@+id/viewTutorialTransferFrom"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                app:layout_constraintBottom_toBottomOf="@+id/viewTransactionDate"
+                app:layout_constraintEnd_toEndOf="@+id/viewTransactionDate"
+                app:layout_constraintStart_toStartOf="@+id/viewTransactionDate"
+                app:layout_constraintTop_toTopOf="@+id/textViewTransactionDate" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBranch"
+                style="@style/TextViewOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_branch"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewTransactionDate" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutBranch"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_edit_text"
+                android:hint="@string/hint_branch"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBranch">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextBranch"
+                    style="@style/TextInputEditTextForm.Selector" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewDepositTo"
+                style="@style/TextViewHeaderFormOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_deposit_to"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutBranch" />
+
+            <include
+                android:id="@+id/viewDepositToForm"
+                layout="@layout/widget_edit_text_number_transfer_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDepositTo" />
+
+            <View
+                android:id="@+id/viewTutorialDepositTo"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                app:layout_constraintBottom_toBottomOf="@+id/viewDepositToForm"
+                app:layout_constraintEnd_toEndOf="@+id/viewDepositToForm"
+                app:layout_constraintStart_toStartOf="@+id/viewDepositToForm"
+                app:layout_constraintTop_toTopOf="@+id/textViewDepositTo" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRemarks"
+                style="@style/TextViewHeaderFormOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_remarks"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewTutorialDepositTo" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutRemarks"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_spacing_edit_text"
+                android:hint="@string/hint_optional"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRemarks">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputEditTextRemarks"
+                    style="@style/TextInputEditTextForm.Remarks"
+                    android:imeOptions="actionNext" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/viewTutorialRemarks"
+                style="@style/ViewTutorial"
+                app:layout_constraintBottom_toBottomOf="@+id/textInputLayoutRemarks"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayoutRemarks"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayoutRemarks"
+                app:layout_constraintTop_toTopOf="@+id/textViewRemarks" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBranchTransactionTitle"
+                style="@style/TextViewHeaderFormOrange"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/title_branch_transaction"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewTutorialRemarks" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBranchTransactionState"
+                style="@style/TextViewDark"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:text="@string/msg_no_deposit_transaction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBranchTransactionTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewBranchTransaction"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginTop="@dimen/content_spacing_form_header"
+                android:background="@drawable/bg_border_rectangle"
+                android:padding="@dimen/content_spacing"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBranchTransactionTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewClose"
+                style="@style/ImageViewCloseIcon"
+                android:layout_margin="@dimen/content_spacing_small"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/textViewBranchTransaction"
+                app:layout_constraintTop_toTopOf="@+id/textViewBranchTransaction" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonAddTransaction"
+                style="@style/RoundedButtonOrangeSmall"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/button_small_size"
+                android:layout_marginTop="@dimen/content_spacing"
+                android:layout_marginBottom="@dimen/content_spacing"
+                android:text="@string/action_add_a_transaction"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBranchTransaction" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

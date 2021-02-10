@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_org_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        style="@style/DefaultBackgroundMatchConstraint"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutShare"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingBottom="@dimen/content_spacing"
+                style="@style/MatchWrapParent">
+
+                <include
+                    android:id="@+id/viewHeaderTransaction"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="parent"
+                    layout="@layout/widget_header_transaction_summary"/>
+
+                <View
+                    android:id="@+id/viewHeader"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    android:background="@drawable/bg_rectangle_yellow"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    app:layout_constraintBottom_toBottomOf="@+id/space"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewHeaderTransaction" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageViewHeader"
+                    android:layout_width="@dimen/grid_6"
+                    android:layout_height="@dimen/grid_6"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginLeft="@dimen/content_spacing_half"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewMsg"
+                    app:layout_constraintStart_toStartOf="@+id/viewHeader"
+                    app:layout_constraintTop_toTopOf="@+id/textViewHeader"
+                    app:srcCompat="@drawable/ic_fund_transfer_clock_yellow" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewHeader"
+                    style="@style/TextViewDarkLarge"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginLeft="@dimen/content_spacing_half"
+                    android:layout_marginTop="@dimen/content_spacing_half"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    android:layout_marginRight="@dimen/content_spacing_half"
+                    android:maxLines="10"
+                    android:text="@string/msg_transaction_confirmation"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/viewHeader"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageViewHeader"
+                    app:layout_constraintTop_toTopOf="@+id/viewHeader" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewMsg"
+                    style="@style/TextViewDark"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginLeft="@dimen/content_spacing_half"
+                    android:layout_marginEnd="@dimen/content_spacing_half"
+                    android:layout_marginRight="@dimen/content_spacing_half"
+                    android:maxLines="10"
+                    android:text="@string/msg_fund_transfer_sent_summary"
+                    android:textSize="@dimen/text_12"
+                    app:layout_constraintEnd_toEndOf="@+id/viewHeader"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageViewHeader"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewHeader" />
+
+                <Space
+                    android:id="@+id/space"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="@dimen/content_spacing_half"
+                    android:layout_marginStart="@dimen/content_spacing_half"
+                    android:layout_marginLeft="@dimen/content_spacing_half"
+                    app:layout_constraintBottom_toBottomOf="@+id/viewHeader"
+                    app:layout_constraintEnd_toEndOf="@+id/viewHeader"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/imageViewHeader"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewMsg" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewTransferFromTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:text="@string/title_transfer_from"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewTransferFrom"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewTransferFrom" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewTransferFrom"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    android:maxLines="20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewTransferFromTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/viewHeader"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/view1"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTransferFrom" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewTransferToTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:text="@string/title_transfer_to"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewTransferTo"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewTransferTo" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewTransferTo"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    android:maxLines="20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewTransferToTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/view1"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/view2"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTransferTo" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAmountTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:text="@string/title_amount"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewAmount"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewAmount" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAmount"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewAmountTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/view2"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/view3"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewAmount" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewServiceFeeTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:text="@string/title_service_fee"
+                    android:textColor="?colorAccent"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:textStyle="bold"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/textViewAmountTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/textViewAmountTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewServiceFee"
+                    style="@style/TextViewServiceFee"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewServiceFeeTitle"
+                    app:layout_constraintTop_toTopOf="@+id/textViewServiceFeeTitle"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewServiceFeeTitle"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/view10"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewServiceFee" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewProposedTransferDateTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:maxLines="2"
+                    android:text="@string/title_transaction_date"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewProposedTransferDate"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewProposedTransferDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewProposedTransferDate"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewProposedTransferDateTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/view10"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/view4"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewProposedTransferDateTitle" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewStartDateTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:text="@string/title_start_date"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewStartDate"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewStartDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewStartDate"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewStartDateTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/view4"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/view5"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewStartDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewFrequencyTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:text="@string/title_frequency"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewFrequency"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view5"
+                    app:layout_constraintTop_toTopOf="@+id/textViewFrequency" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewFrequency"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewFrequencyTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/view5"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/view6"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewFrequency" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewEndDateTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:text="@string/title_ends"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewEndDate"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewEndDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewEndDate"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewEndDateTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/view6"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/view7"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewEndDate" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewChannelTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:text="@string/title_channel"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewChannel"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewChannel" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewChannel"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewChannelTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/view7"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/view8"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewChannel" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewRemarksTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:text="@string/title_remarks"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewRemarks"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewRemarks" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewRemarks"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewRemarksTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/view8"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <View
+                    android:id="@+id/viewBorderCreatedBy"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:background="@color/colorGreyLight"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewRemarks" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewCreatedByTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:text="@string/title_created_by"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewCreatedBy"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewCreatedBy" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewCreatedBy"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewCreatedByTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/viewBorderCreatedBy"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewCreatedOnTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:text="@string/title_created_on"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewCreatedOn"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewCreatedOn" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewCreatedOn"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewCreatedOnTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCreatedBy"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewDateDownloadedTitle"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_group_spacing"
+                    android:text="@string/title_date_downloaded"
+                    android:textColor="?colorAccent"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewDateDownloaded"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewDateDownloaded" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewDateDownloaded"
+                    style="@style/TextViewDarkForm"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_group_spacing"
+                    android:gravity="start"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textViewDateDownloadedTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCreatedOn"
+                    app:layout_constraintWidth_percent="0.5" />
+
+                <include
+                    android:id="@+id/viewShareButton"
+                    layout="@layout/widget_button_share_outline"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:layout_marginTop="@dimen/content_spacing_large"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:layout_marginBottom="@dimen/content_spacing_large"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewDateDownloaded"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonMakeAnotherTransfer"
+                    style="@style/RoundedButtonGrayTransparent"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:layout_marginTop="@dimen/content_spacing_half"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:layout_marginBottom="@dimen/content_spacing_large"
+                    android:text="@string/action_make_another_transfer"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewShareButton" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonViewOrganizationTransactions"
+                    style="@style/RoundedButtonOrangeSmall"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="@dimen/button_small_size"
+                    android:layout_marginLeft="@dimen/content_group_spacing"
+                    android:layout_marginTop="@dimen/content_spacing_half"
+                    android:layout_marginRight="@dimen/content_group_spacing"
+                    android:layout_marginBottom="@dimen/content_spacing"
+                    android:text="@string/action_view_organization_transfers"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonMakeAnotherTransfer" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
