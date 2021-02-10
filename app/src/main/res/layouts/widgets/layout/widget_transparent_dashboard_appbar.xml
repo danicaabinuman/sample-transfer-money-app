@@ -50,7 +50,6 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/image_view_initial_org_size"
                 android:textSize="@dimen/text_12"
-                android:textAllCaps="true"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
                 android:text="Request Payment"
