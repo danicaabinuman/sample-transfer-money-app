@@ -365,7 +365,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:padding="@dimen/image_view_icon_padding"
                 app:layout_constraintTop_toTopOf="@+id/textViewRequestForPaymentTitle"
-                app:srcCompat="@drawable/ic_electronic_billing" />
+                app:srcCompat="@drawable/ic_request_payment" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewRequestForPaymentTitle"
