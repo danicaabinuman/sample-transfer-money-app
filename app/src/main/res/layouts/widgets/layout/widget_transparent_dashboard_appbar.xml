@@ -49,18 +49,18 @@
                 android:id="@+id/btnRequestPayment"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/image_view_initial_org_size"
-                android:textSize="@dimen/text_12"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold"
-                android:text="Request Payment"
-                android:gravity="center"
                 android:layout_marginEnd="@dimen/content_item_spacing"
                 android:background="@drawable/bg_card_view_gradient_orange"
-                app:layout_constraintStart_toEndOf="@+id/textViewCorporationName"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"
-                app:layout_constraintTop_toTopOf="@+id/imageViewHelp"
+                android:gravity="center"
+                android:text="Request Payment"
+                android:textAllCaps="true"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_12"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewHelp"
-                />
+                app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"
+                app:layout_constraintStart_toEndOf="@+id/textViewCorporationName"
+                app:layout_constraintTop_toTopOf="@+id/imageViewHelp" />
 
             <include
                 android:id="@+id/viewBadge"

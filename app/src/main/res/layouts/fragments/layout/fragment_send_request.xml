@@ -345,6 +345,80 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayoutElectronicBilling" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutRequestForPayment"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/field_content_spacing_large"
+            android:paddingBottom="@dimen/field_content_spacing_large"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view6">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewIconRequestForPayment"
+                android:layout_width="@dimen/image_view_transaction_icon_size"
+                android:layout_height="@dimen/image_view_transaction_icon_size"
+                android:layout_marginStart="@dimen/content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewRequestForPayment"
+                app:layout_constraintStart_toStartOf="parent"
+                android:padding="@dimen/image_view_icon_padding"
+                app:layout_constraintTop_toTopOf="@+id/textViewRequestForPaymentTitle"
+                app:srcCompat="@drawable/ic_request_payment" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRequestForPaymentTitle"
+                style="@style/TextViewDarkLarge"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/request_for_payment"
+
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconRequestForPayment"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewNewFeature"
+                style="@style/TextViewDarkLarge"
+                android:layout_height="15dp"
+                android:layout_width="30dp"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:gravity="center"
+                android:text="NEW"
+                android:textSize="@dimen/text_8"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/bg_cardview_orange"
+                app:layout_constraintStart_toEndOf="@+id/textViewRequestForPaymentTitle"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewRequestForPayment"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/generate_payment_links_for_your_customers"
+                android:textColor="@color/colorLightGray"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewRequestForPayment"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIconRequestForPayment"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRequestForPaymentTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewRequestForPayment"
+                style="@style/WrapContent"
+                android:layout_marginLeft="@dimen/field_content_spacing"
+                android:layout_marginRight="@dimen/field_content_spacing"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewRequestForPayment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewRequestForPaymentTitle"
+                app:srcCompat="@drawable/ic_arrow_orange_right"
+                app:tint="?colorAccent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
