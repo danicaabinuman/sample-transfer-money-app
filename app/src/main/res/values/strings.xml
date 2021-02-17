@@ -1869,4 +1869,6 @@
     <string name="netverify_scanview_liveness_description">Position your face in the frame to proceed.</string>
     <string name="netverify_use_back_side_of_card">Back</string>
     <string name="netverify_use_front_side_of_card">Front</string>
+    <string name="request_for_payment">Request for Payment</string>
+    <string name="generate_payment_links_for_your_customers">Generate Payment Links for your customers</string>
 </resources>
