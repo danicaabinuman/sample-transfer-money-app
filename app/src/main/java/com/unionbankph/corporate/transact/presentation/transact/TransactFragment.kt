@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.transact.presentation.transact
 
+import android.content.Intent
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -30,6 +31,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
+import com.unionbankph.corporate.request_payment_link.presentation.form.RequestPaymentActivity
 import com.unionbankph.corporate.settings.data.constant.PermissionNameEnum
 import com.unionbankph.corporate.settings.domain.constant.FeaturesEnum
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
@@ -39,7 +41,7 @@ import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
 class TransactFragment :
-    BaseFragment<SettingsViewModel>(R.layout.fragment_send_request), OnTutorialListener {
+    BaseFragment<SettingsViewModel>(R.layout.fragment_send_request), OnTutorialListener{
 
     override fun onResume() {
         super.onResume()
@@ -218,6 +220,18 @@ class TransactFragment :
                 isClear = false,
                 isAnimated = true,
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+            )
+        }
+
+        //TODO
+        constraintLayoutRequestForPayment.setOnClickListener {
+            navigator.navigate(
+                    (activity as DashboardActivity),
+                    RequestPaymentActivity::class.java,
+                    null,
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
             )
         }
     }
