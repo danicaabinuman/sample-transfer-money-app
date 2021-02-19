@@ -12,15 +12,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="20dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SAMPLE TEXT \nSAMPLE TEXT"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_4"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing quisque malesuada adipiscing urna id." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
             android:textSize="@dimen/text_16"
             android:textStyle="bold"
             android:text="Total Amount *"/>
@@ -29,8 +30,9 @@
             android:id="@+id/til_amount"
             style="@style/TextInputLayoutForm"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1_half"
             app:hintEnabled="false">
+
 
             <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
                 android:id="@+id/et_amount"
@@ -56,7 +58,7 @@
         <com.google.android.material.textfield.TextInputLayout
             style="@style/TextInputLayoutForm"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1_half"
             android:hint="eg. 10 peppermint candles">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -70,13 +72,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1000"
+            android:text="0\/1000"
             android:layout_gravity="right"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_4"
+            android:layout_marginTop="@dimen/grid_3"
             android:textSize="@dimen/text_16"
             android:textStyle="bold"
             android:text="Notes (Optional)"/>
@@ -84,10 +86,11 @@
         <com.google.android.material.textfield.TextInputLayout
             style="@style/TextInputLayoutForm"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1_half"
             android:hint="eg. For Marga">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_notes"
                 style="@style/TextInputEditTextForm"
                 android:inputType="text"
                 android:paddingBottom="40dp"/>
@@ -106,10 +109,11 @@
             android:id="@+id/til_status"
             style="@style/TextInputLayoutForm"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1_half"
             android:hint="6 hours">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dropdownPaymentLinkExpory"
                 style="@style/TextInputEditTextForm.DropDownOrange" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -131,6 +135,7 @@
             android:clickable="false"/>
 
         <TextView
+            android:id="@+id/btnRequestPaymentCancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/grid_1_half"

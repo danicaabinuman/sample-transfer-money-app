@@ -255,7 +255,7 @@
     <string name="title_5m">5M</string>
     <string name="title_0"> 0</string>
     <string name="title_service_fee">Service Fee</string>
-    <string name="title_php">PHP</string>
+    <string name="title_php"><b>PHP</b></string>
     <string name="title_usd">USD</string>
     <string name="title_php_0_00">PHP 0.00</string>
     <string name="title_remarks">Remarks</string>

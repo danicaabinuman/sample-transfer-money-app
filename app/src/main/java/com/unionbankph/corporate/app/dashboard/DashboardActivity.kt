@@ -44,6 +44,7 @@ import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEn
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
+import com.unionbankph.corporate.request_payment_link.presentation.RequestPaymentActivity
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
@@ -250,6 +251,28 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     )
                 }
             }
+        }
+
+        btnRequestPayment.setOnClickListener{
+            navigator.navigate(
+                    this,
+                    RequestPaymentActivity::class.java,
+                    null,
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+            )
+        }
+
+        btnRequestPayment.setOnClickListener{
+            navigator.navigate(
+                    this,
+                    RequestPaymentActivity::class.java,
+                    null,
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+            )
         }
 
         RxView.clicks(viewBadge)
