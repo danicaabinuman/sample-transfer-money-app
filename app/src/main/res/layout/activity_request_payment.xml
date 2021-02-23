@@ -39,6 +39,7 @@
                 style="@style/EditTextAmount"
                 android:layout_width="match_parent"
                 android:paddingStart="@dimen/content_spacing"
+                android:inputType="numberDecimal"
                 android:paddingEnd="@dimen/content_spacing"
                 app:currencySymbol="@string/title_php"
                 app:useCurrencySymbolAsHint="true" />
@@ -118,7 +119,8 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
+        <Button
+            android:id="@+id/btnRequestPaymentGenerate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/grid_7"
@@ -126,8 +128,9 @@
             android:layout_marginEnd="40dp"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
-            android:background="@drawable/bg_card_view_gradient_orange"
+            style="@style/RoundedButtonOrange"
             android:text="Generate"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="@dimen/text_16"
             android:textAlignment="center"
