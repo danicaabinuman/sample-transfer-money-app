@@ -52,7 +52,7 @@
                 android:layout_marginEnd="@dimen/content_item_spacing"
                 android:background="@drawable/bg_card_view_gradient_orange"
                 android:gravity="center"
-                android:text="Request Payment"
+                android:text="@string/dashboard_appbar_request_payment"
                 android:textAllCaps="true"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_12"

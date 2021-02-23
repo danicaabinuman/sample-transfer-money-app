@@ -1871,4 +1871,5 @@
     <string name="netverify_use_front_side_of_card">Front</string>
     <string name="request_for_payment">Request for Payment</string>
     <string name="generate_payment_links_for_your_customers">Generate Payment Links for your customers</string>
+    <string name="dashboard_appbar_request_payment">Request Payment</string>
 </resources>

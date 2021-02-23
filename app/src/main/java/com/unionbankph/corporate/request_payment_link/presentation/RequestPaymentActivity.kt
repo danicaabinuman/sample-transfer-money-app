@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.text.trimmedLength
 import androidx.core.widget.addTextChangedListener
 import com.unionbankph.corporate.R
@@ -26,57 +27,9 @@ class RequestPaymentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_request_payment)
 
         initListener()
-        et_amount.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                validateForm()
+        buttonDisable()
 
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s.toString().trim().trimmedLength()==0) {
-                    et_amount.isEnabled
-                }
-            }
-        })
-
-        et_paymentFor.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                validateForm()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
-
-        et_notes.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                validateForm()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
-
-        dropdownPaymentLinkExpory.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                validateForm()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
+        requiredFields()
     }
 
     private fun validateForm(){
@@ -85,20 +38,28 @@ class RequestPaymentActivity : AppCompatActivity() {
         var notesString = et_notes.text.toString()
         var paymentLinkExpiry = dropdownPaymentLinkExpory.text.toString()
 
+        if (
+                amountString.length > 0 &&
+                (paymentForString.length in 1..1000) &&
+                (notesString.length > 0)
 
+        ){
+            buttonEnable()
+        } else {
+            buttonDisable()
+        }
     }
-//    override fun onViewsBound() {
-//        super.onViewsBound()
-//        textCounter()
-//        initBinding()
-//    }
 
+    private fun buttonDisable(){
+        btnRequestPaymentGenerate?.isEnabled = false
+        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorGrey))
+    }
 
-    private fun initBinding(){
-//        et_amount.asDriver()
-//                .subscribe {
-//                    viewModel.requestPaymentAmount.value?.checkAmount = et_amount.getNumericValue().toString()
-//                }.addTo(disposables)
+    private fun buttonEnable(){
+        btnRequestPaymentGenerate?.isEnabled = true
+        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorButtonOrange))
     }
 
     private fun initListener(){
@@ -108,7 +69,41 @@ class RequestPaymentActivity : AppCompatActivity() {
         }
     }
 
-    private fun textCounter(){
+    private fun requiredFields(){
+        et_amount.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
 
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateForm()
+            }
+        })
+
+        et_paymentFor.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateForm()
+            }
+        })
+
+        et_notes.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateForm()
+            }
+        })
     }
 }
