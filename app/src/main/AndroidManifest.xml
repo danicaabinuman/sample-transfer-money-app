@@ -543,6 +543,11 @@
             android:launchMode="standard" />
 
         <activity
+            android:name=".request_payment_link.presentation.PaymentLinkActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
             android:name=".link_details.presentation.LinkDetails"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
