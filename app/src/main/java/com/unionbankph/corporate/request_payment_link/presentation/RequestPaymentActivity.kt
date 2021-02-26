@@ -14,6 +14,7 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.asDriver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.link_details.presentation.LinkDetails
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_check_deposit_form.*
 import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
@@ -60,6 +61,10 @@ class RequestPaymentActivity : AppCompatActivity() {
         btnRequestPaymentGenerate?.isEnabled = true
         btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
         btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorButtonOrange))
+        btnRequestPaymentGenerate.setOnClickListener{
+            val intent = Intent(this, LinkDetails::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun initListener(){
