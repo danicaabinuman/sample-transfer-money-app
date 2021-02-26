@@ -541,6 +541,12 @@
             android:name=".request_payment_link.presentation.RequestPaymentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
+
+        <activity
+            android:name=".link_details.presentation.LinkDetails"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
         <!--Others-->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
