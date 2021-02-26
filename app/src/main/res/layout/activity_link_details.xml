@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/grid_3"
-        android:text="SAMPLE TEXT \nSAMPLE TEXT"/>
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing quisque malesuada adipiscing urna id."/>
 
     <LinearLayout
         android:layout_width="match_parent"
