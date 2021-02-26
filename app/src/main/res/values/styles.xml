@@ -584,6 +584,13 @@
         <item name="android:textSize">@dimen/text_12</item>
     </style>
 
+    <style name="Spinner" parent="MatchWrapParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack</item>
+
+    </style>
+
     <style name="TextInputEditTextForm.Full">
         <item name="android:textColor">?colorText</item>
         <item name="android:background">@color/colorTransparent</item>
@@ -633,6 +640,17 @@
         <item name="android:maxLines">@integer/max_line</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:inputType">textCapSentences|textMultiLine</item>
+    </style>
+
+    <style name="Spinner.DropDownOrange">
+        <item name="android:drawableEnd">@drawable/ic_arrow_light_orange_down</item>
+        <item name="android:drawableTint" tools:targetApi="m">#fff</item>
+        <item name="android:focusable">false</item>
+        <item name="android:minHeight">@dimen/field_height</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:maxLines">@integer/max_line</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
 

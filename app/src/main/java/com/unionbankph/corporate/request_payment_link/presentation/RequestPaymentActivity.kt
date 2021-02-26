@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.EditText
+import android.view.Gravity
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.text.trimmedLength
@@ -21,7 +23,10 @@ import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
-class RequestPaymentActivity : AppCompatActivity() {
+class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+
+    var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
+    val NEW_SPINNER_ID = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +42,6 @@ class RequestPaymentActivity : AppCompatActivity() {
         var amountString = et_amount.text.toString()
         var paymentForString = et_paymentFor.text.toString()
         var notesString = et_notes.text.toString()
-        var paymentLinkExpiry = dropdownPaymentLinkExpory.text.toString()
 
         if (
                 amountString.length > 0 &&
@@ -110,5 +114,47 @@ class RequestPaymentActivity : AppCompatActivity() {
                 validateForm()
             }
         })
+    }
+
+    private fun paymentLinkExpiry(){
+        var aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, time)
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        with(dropdownPaymentLinkExport){
+            adapter = aa
+            setSelection(1, false)
+            onItemSelectedListener = this@RequestPaymentActivity
+            prompt = "SAMPLE PROMPT MESSAGE"
+            gravity = Gravity.CENTER
+        }
+
+        val spinner = Spinner(this)
+        spinner.id = NEW_SPINNER_ID
+
+        val ll = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+
+        ll.setMargins(10, 100, 10, 10)
+        linearlayout.addView(spinner)
+
+        aa = ArrayAdapter(this, R.layout.spinner, time)
+        aa.setDropDownViewResource(R.layout.spinner)
+
+        with(spinner)
+        {
+            adapter = aa
+            setSelection(1, false)
+            onItemSelectedListener = this@RequestPaymentActivity
+            layoutParams = ll
+            prompt = "12 hours"
+            setPopupBackgroundResource(R.color.material_grey_600)
+        }
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        buttonEnable()
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        buttonDisable()
     }
 }
