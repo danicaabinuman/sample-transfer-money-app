@@ -44,7 +44,7 @@
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_active"
                 android:textColor="#FFFFFF"
-                android:text="All"/>
+                android:text="@string/form_filter_all"/>
 
             <View
                 android:layout_width="0dp"
@@ -58,7 +58,7 @@
                 android:layout_weight="1"
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_inactive"
-                android:text="Unpaid"/>
+                android:text="@string/form_filter_unpaid"/>
 
             <View
                 android:layout_width="0dp"
@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_inactive"
-                android:text="Paid"/>
+                android:text="@string/form_filter_paid"/>
 
             <View
                 android:layout_width="0dp"
@@ -86,7 +86,7 @@
                 android:layout_weight="1"
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_inactive"
-                android:text="Expired"/>
+                android:text="@string/form_filter_expired"/>
 
             <View
                 android:layout_width="0dp"
@@ -100,7 +100,7 @@
                 android:layout_weight="1"
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_inactive"
-                android:text="Refunded"/>
+                android:text="@string/form_filter_refunded"/>
         </LinearLayout>
 
         <LinearLayout
@@ -135,14 +135,14 @@
                         android:layout_weight="1"
                         android:textSize="10sp"
                         android:textStyle="bold"
-                        android:text="Reference No."
+                        android:text="@string/form_reference_no"
                         android:layout_gravity="bottom"/>
 
                     <TextView
                         android:layout_width="45dp"
                         android:layout_height="16dp"
                         android:textSize="10sp"
-                        android:text="UNPAID"
+                        android:text="@string/form_text_unpaid"
                         android:gravity="center"
                         android:textColor="#FF9800"
                         android:layout_gravity="center_vertical"
