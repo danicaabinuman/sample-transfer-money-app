@@ -111,12 +111,11 @@
             android:id="@+id/til_status"
             style="@style/TextInputLayoutForm"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/grid_1_half"
-            android:hint="6 hours">
+            android:hint="12 hours">
 
             <Spinner
                 android:id="@+id/dropdownPaymentLinkExport"
-                style="@style/TextInputEditTextForm.DropDownOrange" />
+                style="@style/Spinner.DropDownOrange" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

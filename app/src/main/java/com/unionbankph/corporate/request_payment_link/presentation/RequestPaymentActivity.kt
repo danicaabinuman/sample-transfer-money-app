@@ -36,6 +36,8 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         buttonDisable()
 
         requiredFields()
+        paymentLinkExpiry()
+
     }
 
     private fun validateForm(){
