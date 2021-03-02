@@ -27,10 +27,15 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
+    var linkExpiry : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_payment)
+
+        btnRequestPaymentGenerate.setOnClickListener{
+            navigateToLinkDetails()
+        }
 
         initListener()
         buttonDisable()
@@ -67,10 +72,6 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         btnRequestPaymentGenerate?.isEnabled = true
         btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
         btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorButtonOrange))
-        btnRequestPaymentGenerate.setOnClickListener{
-            val intent = Intent(this, LinkDetails::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun initListener(){
@@ -153,10 +154,21 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        linkExpiry = parent?.getItemAtPosition(position).toString()
         buttonEnable()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         buttonDisable()
     }
+
+    private fun navigateToLinkDetails(){
+        val intent = Intent(this, LinkDetails::class.java)
+        intent.putExtra("amount", et_amount.text.toString())
+        intent.putExtra("payment for", et_paymentFor.text.toString())
+        intent.putExtra("notes", et_notes.text.toString())
+        intent.putExtra("selected expiry", linkExpiry)
+        startActivity(intent)
+    }
+
 }

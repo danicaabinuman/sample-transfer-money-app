@@ -436,7 +436,7 @@
     <style name="AppBarLayout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">?toolbarColor</item>
+        <item name="android:background">@color/colorGray</item>
         <item name="popupTheme">?appBarTheme</item>
         <item name="android:theme">?appBarTheme</item>
     </style>
