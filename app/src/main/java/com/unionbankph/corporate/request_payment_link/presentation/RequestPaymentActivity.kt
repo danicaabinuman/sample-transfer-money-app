@@ -27,10 +27,14 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
-
+    var linkExpiry : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_payment)
+
+        btnRequestPaymentGenerate.setOnClickListener{
+            navigateToLinkDetails()
+        }
 
         initListener()
         buttonDisable()
@@ -180,5 +184,5 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         }
     }
 
->>>>>>> Stashed changes
+
 }
