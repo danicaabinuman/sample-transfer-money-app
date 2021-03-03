@@ -1876,7 +1876,7 @@
     <string name="form_total_amount_required">Total Amount *</string>
     <string name="form_payment_for_required">Payment for *</string>
     <string name="form_hint_eg_10_peppermint_candles">eg. 10 peppermint candles</string>
-    <string name="form_text_counter_1000">0/1000</string>
+    <string name="form_text_counter_1000">/1000</string>
     <string name="form_notes_optional">Notes (Optional)</string>
     <string name="form_hint_eg_for_marga">eg. For Marga</string>
     <string name="form_payment_link_expiry">Payment Link Expiry</string>

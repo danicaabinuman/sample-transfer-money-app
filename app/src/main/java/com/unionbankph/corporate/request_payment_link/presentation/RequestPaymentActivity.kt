@@ -37,7 +37,7 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
         requiredFields()
         paymentLinkExpiry()
-
+        back()
     }
 
     private fun validateForm(){
@@ -48,7 +48,7 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         if (
                 amountString.length > 0 &&
                 (paymentForString.length in 1..1000) &&
-                (notesString.length > 0)
+                (notesString.length >= 0)
 
         ){
             buttonEnable()
@@ -95,9 +95,14 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
         et_paymentFor.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
 
             override fun afterTextChanged(s: Editable?) {
+                val length : Int = et_paymentFor.length()
+                val counter : String = length.toString()
+                tv_text_counter.text = counter
+                tv_text_counter.setHorizontallyScrolling(true)
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -113,7 +118,6 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                validateForm()
             }
         })
     }
@@ -159,4 +163,22 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
     override fun onNothingSelected(parent: AdapterView<*>?) {
         buttonDisable()
     }
+
+    private fun navigateToLinkDetails(){
+        val intent = Intent(this, LinkDetails::class.java)
+        intent.putExtra("amount", et_amount.text.toString())
+        intent.putExtra("payment for", et_paymentFor.text.toString())
+        intent.putExtra("notes", et_notes.text.toString())
+        intent.putExtra("selected expiry", linkExpiry)
+        startActivity(intent)
+    }
+
+    private fun back() {
+
+        ivBackButton.setOnClickListener {
+            finish()
+        }
+    }
+
+>>>>>>> Stashed changes
 }
