@@ -68,6 +68,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_link_details_date_and_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/grid_1"
@@ -82,6 +83,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_link_details_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/grid_1"
@@ -96,6 +98,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_link_details_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/grid_1"
@@ -110,6 +113,7 @@
             />
 
         <TextView
+            android:id="@+id/tv_link_details_notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/grid_1"
@@ -118,11 +122,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1"
             android:text="@string/form_link_expiry"
             android:textStyle="bold"
             />
 
         <TextView
+            android:id="@+id/tv_link_details_expiry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/grid_1"
@@ -152,6 +158,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvPaymentLink" />
 
             <ImageButton
+                android:id="@+id/imgBtnShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
