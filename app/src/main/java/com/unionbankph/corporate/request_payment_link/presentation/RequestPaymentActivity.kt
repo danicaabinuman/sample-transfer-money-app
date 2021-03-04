@@ -27,7 +27,7 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
-    var linkExpiry : String? = null
+    var linkExpiry = "12 hours"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_payment)
@@ -50,7 +50,7 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         var notesString = et_notes.text.toString()
 
         if (
-                amountString.length > 0 &&
+                amountString.length > 4 &&
                 (paymentForString.length in 1..1000) &&
                 (notesString.length >= 0)
 
@@ -71,10 +71,6 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         btnRequestPaymentGenerate?.isEnabled = true
         btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
         btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorButtonOrange))
-        btnRequestPaymentGenerate.setOnClickListener{
-            val intent = Intent(this, LinkDetails::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun initListener(){
@@ -137,35 +133,14 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
             prompt = "SAMPLE PROMPT MESSAGE"
             gravity = Gravity.CENTER
         }
-
-        val spinner = Spinner(this)
-        spinner.id = NEW_SPINNER_ID
-
-        val ll = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-
-        ll.setMargins(10, 100, 10, 10)
-        linearlayout.addView(spinner)
-
-        aa = ArrayAdapter(this, R.layout.spinner, time)
-        aa.setDropDownViewResource(R.layout.spinner)
-
-        with(spinner)
-        {
-            adapter = aa
-            setSelection(1, false)
-            onItemSelectedListener = this@RequestPaymentActivity
-            layoutParams = ll
-            prompt = "12 hours"
-            setPopupBackgroundResource(R.color.material_grey_600)
-        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        buttonEnable()
+        linkExpiry = parent?.getItemAtPosition(position).toString()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        buttonDisable()
+
     }
 
     private fun navigateToLinkDetails(){
