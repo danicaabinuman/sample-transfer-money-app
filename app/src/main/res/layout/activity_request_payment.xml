@@ -24,170 +24,194 @@
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="20dp"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="Generate Payment Link"
             android:textSize="18sp"
-            android:layout_gravity="center_vertical"/>
+            android:gravity="center"/>
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="20dp">
-
-        <TextView
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sample_text" />
+            android:orientation="vertical"
+            android:layout_margin="20dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_2"
-            android:textSize="@dimen/text_16"
-            android:textStyle="bold"
-            android:text="@string/form_total_amount_required"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_amount"
-            style="@style/TextInputLayoutForm"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/grid_1_half"
-            app:hintEnabled="false">
-
-
-            <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
-                android:id="@+id/et_amount"
-                style="@style/EditTextAmount"
+            <TextView
                 android:layout_width="match_parent"
-                android:paddingStart="@dimen/content_spacing"
-                android:inputType="numberDecimal"
-                android:paddingEnd="@dimen/content_spacing"
-                app:currencySymbol="@string/title_php"
-                app:useCurrencySymbolAsHint="true" />
+                android:layout_height="wrap_content"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing quisque malesuada adipiscing urna id." />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold"
+                android:text="Total Amount *"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_amount"
+                style="@style/TextInputLayoutForm"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/grid_1_half"
+                app:hintEnabled="false">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_4"
-            android:textSize="@dimen/text_16"
-            android:textStyle="bold"
-            android:text="@string/form_payment_for_required"
-            />
+                <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
+                    android:id="@+id/et_amount"
+                    style="@style/EditTextAmount"
+                    android:layout_width="match_parent"
+                    android:paddingStart="@dimen/content_spacing"
+                    android:inputType="numberDecimal"
+                    android:paddingEnd="@dimen/content_spacing"
+                    app:currencySymbol="@string/title_php"
+                    app:useCurrencySymbolAsHint="true" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayoutForm"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/grid_1_half"
-            android:hint="@string/form_hint_eg_10_peppermint_candles">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_paymentFor"
-                style="@style/TextInputEditTextFormCounter"
-                android:paddingBottom="40dp"
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_4"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold"
+                android:text="Payment for *"
                 />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutForm"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/grid_1_half"
+                android:hint="eg. 10 peppermint candles">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="right">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_paymentFor"
+                    style="@style/TextInputEditTextFormCounter"
+                    android:paddingBottom="40dp"
+                    android:inputType="text" />
 
-            <TextView
-                android:id="@+id/tv_text_counter"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""/>
+                android:orientation="horizontal"
+                android:layout_gravity="right">
+
+                <TextView
+                    android:id="@+id/tv_text_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/1000"
+                    android:layout_gravity="right"/>
+            </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/form_text_counter_1000"
-                android:layout_gravity="right"/>
+                android:layout_marginTop="@dimen/grid_3"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold"
+                android:text="Notes (Optional)"/>
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutForm"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/grid_1_half"
+                android:hint="eg. For Marga">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_notes"
+                    style="@style/TextInputEditTextForm"
+                    android:inputType="text"
+                    android:paddingBottom="40dp"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_4"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold"
+                android:text="Payment Link Expiry"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_status"
+                style="@style/Spinner.DropDownOrange"
+                android:layout_width="match_parent"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Spinner
+                        android:id="@+id/dropdownPaymentLinkExport"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/a_spinner_outline"
+                        android:spinnerMode="dropdown"
+                        android:dropDownSelector="#000" />
+
+                    <ImageView
+                        android:layout_width="@dimen/grid_5"
+                        android:layout_height="0dp"
+                        android:background="@drawable/ic_arrow_black_down"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignBottom="@+id/dropdownPaymentLinkExport"
+                        android:layout_alignTop="@+id/dropdownPaymentLinkExport"
+                        android:layout_marginEnd="@dimen/grid_2"/>
+                </RelativeLayout>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/btnRequestPaymentGenerate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_7"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                style="@style/RoundedButtonOrange"
+                android:text="Generate"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="@dimen/text_16"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:clickable="false"/>
+
+            <TextView
+                android:id="@+id/btnRequestPaymentCancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_1_half"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="Cancel"
+                android:textSize="@dimen/text_16"
+                android:textAlignment="center"
+                android:textStyle="bold"/>
         </LinearLayout>
+    </ScrollView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_3"
-            android:textSize="@dimen/text_16"
-            android:textStyle="bold"
-            android:text="@string/form_notes_optional"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/TextInputLayoutForm"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/grid_1_half"
-            android:hint="@string/form_hint_eg_for_marga">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_notes"
-                style="@style/TextInputEditTextForm"
-                android:inputType="text"
-                android:paddingBottom="40dp"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_4"
-            android:textSize="@dimen/text_16"
-            android:textStyle="bold"
-            android:text="@string/form_payment_link_expiry"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_status"
-            style="@style/TextInputLayoutForm"
-            android:layout_width="match_parent"
-            android:hint="@string/form_hint_12_hours">
-
-            <Spinner
-                android:id="@+id/dropdownPaymentLinkExport"
-                style="@style/Spinner.DropDownOrange" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/btnRequestPaymentGenerate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_7"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            style="@style/RoundedButtonOrange"
-            android:text="@string/form_btn_generate"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="@dimen/text_16"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:clickable="false"/>
-
-        <TextView
-            android:id="@+id/btnRequestPaymentCancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_1_half"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:text="@string/form_btn_cancel"
-            android:textSize="@dimen/text_16"
-            android:textAlignment="center"
-            android:textStyle="bold"/>
-    </LinearLayout>
 
 </LinearLayout>

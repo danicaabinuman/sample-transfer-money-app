@@ -1897,4 +1897,13 @@
     <string name="form_filter_paid">Paid</string>
     <string name="form_filter_expired">Expired</string>
     <string name="form_filter_refunded">Refunded</string>
+    <string name="title_generate_links">Payment Links</string>
+    <string name="title_corporation_name">SME Organization</string>
+    <string name="payment_link_tab_all">All</string>
+    <string name="payment_link_tab_unpaid">Unpaid</string>
+    <string name="payment_link_tab_paid">Paid</string>
+    <string name="payment_link_tab_expired">Expired</string>
+    <string name="payment_link_tab_refunded">Refuded</string>
+    <string name="payment_link_reference_no">Reference No.</string>
+    <string name="payment_link_status_unpaid">UNPAID</string>
 </resources>

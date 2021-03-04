@@ -189,7 +189,7 @@ class TransactFragment :
                 null,
                 isClear = false,
                 isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
         constraintLayoutBillsPayment.setOnClickListener {
@@ -199,7 +199,17 @@ class TransactFragment :
                 null,
                 isClear = false,
                 isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+            )
+        }
+        constraintLayoutCheckDeposit.setOnClickListener {
+            navigator.navigate(
+                (activity as DashboardActivity),
+                CheckDepositActivity::class.java,
+                null,
+                isClear = false,
+                isAnimated = true,
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
         constraintLayoutBranchVisit.setOnClickListener {
@@ -209,7 +219,7 @@ class TransactFragment :
                 null,
                 isClear = false,
                 isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
         constraintLayoutElectronicBilling.setOnClickListener {
@@ -219,18 +229,18 @@ class TransactFragment :
                 null,
                 isClear = false,
                 isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
 
         constraintLayoutRequestForPayment.setOnClickListener {
             navigator.navigate(
-                    (activity as DashboardActivity),
-                    PaymentLinkActivity::class.java,
-                    null,
-                    isClear = false,
-                    isAnimated = true,
-                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+                (activity as DashboardActivity),
+                PaymentLinkActivity::class.java,
+                null,
+                isClear = false,
+                isAnimated = false,
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
     }

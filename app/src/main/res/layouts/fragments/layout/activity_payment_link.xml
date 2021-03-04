@@ -16,7 +16,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/text_20"
         android:layout_marginRight="@dimen/text_20"
@@ -44,7 +44,7 @@
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_active"
                 android:textColor="#FFFFFF"
-                android:text="@string/form_filter_all"/>
+                android:text="@string/payment_link_tab_all"/>
 
             <View
                 android:layout_width="0dp"
@@ -58,7 +58,7 @@
                 android:layout_weight="1"
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_inactive"
-                android:text="@string/form_filter_unpaid"/>
+                android:text="@string/payment_link_tab_unpaid"/>
 
             <View
                 android:layout_width="0dp"
@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_inactive"
-                android:text="@string/form_filter_paid"/>
+                android:text="@string/payment_link_tab_paid"/>
 
             <View
                 android:layout_width="0dp"
@@ -86,7 +86,7 @@
                 android:layout_weight="1"
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_inactive"
-                android:text="@string/form_filter_expired"/>
+                android:text="@string/payment_link_tab_expired"/>
 
             <View
                 android:layout_width="0dp"
@@ -100,7 +100,7 @@
                 android:layout_weight="1"
                 android:textSize="10sp"
                 android:background="@drawable/bg_card_view_payment_link_inactive"
-                android:text="@string/form_filter_refunded"/>
+                android:text="@string/payment_link_tab_refunded"/>
         </LinearLayout>
 
         <LinearLayout
@@ -121,7 +121,7 @@
                 android:gravity="bottom"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-
+                android:paddingBottom="10dp"
                 >
 
                 <LinearLayout
@@ -134,15 +134,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:text="@string/form_reference_no"
+                        android:text="@string/payment_link_reference_no"
                         android:layout_gravity="bottom"/>
 
                     <TextView
                         android:layout_width="45dp"
                         android:layout_height="16dp"
                         android:textSize="10sp"
-                        android:text="@string/form_text_unpaid"
+                        android:text="@string/payment_link_status_unpaid"
                         android:gravity="center"
                         android:textColor="#FF9800"
                         android:layout_gravity="center_vertical"
@@ -159,13 +158,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="ABCD-12345-09876"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="Jan 15, 2021, 6:00 PM"/>
 
                 </LinearLayout>
@@ -224,14 +223,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="Description"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="10 Peppermint Candles"/>
 
                 </LinearLayout>
@@ -259,7 +258,7 @@
                 android:gravity="bottom"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-
+                android:paddingBottom="10dp"
                 >
 
                 <LinearLayout
@@ -272,19 +271,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:text="Reference No."
+                        android:text="@string/payment_link_reference_no"
                         android:layout_gravity="bottom"/>
 
                     <TextView
                         android:layout_width="45dp"
-                        android:layout_height="16dp"
-                        android:textSize="10sp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/bg_paid"
+                        android:gravity="center"
                         android:text="PAID"
-                        android:gravity="center"
                         android:textColor="#5CA500"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/bg_paid"/>
+                        android:textSize="10sp" />
 
                 </LinearLayout>
 
@@ -297,13 +295,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="ABCD-12345-09876"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="Jan 15, 2021, 6:00 PM"/>
 
                 </LinearLayout>
@@ -362,14 +360,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="Description"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="10 Peppermint Candles"/>
 
                 </LinearLayout>
@@ -397,7 +395,7 @@
                 android:gravity="bottom"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-
+                android:paddingBottom="10dp"
                 >
 
                 <LinearLayout
@@ -410,19 +408,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:text="Reference No."
+                        android:text="@string/payment_link_reference_no"
                         android:layout_gravity="bottom"/>
 
                     <TextView
                         android:layout_width="45dp"
-                        android:layout_height="16dp"
-                        android:textSize="10sp"
-                        android:text="EXPIRED"
-                        android:gravity="center"
-                        android:textColor="#E83C18"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/bg_expired"/>
+                        android:background="@drawable/bg_expired"
+                        android:gravity="center"
+                        android:text="EXPIRED"
+                        android:textColor="#E83C18"
+                        android:textSize="10sp" />
 
                 </LinearLayout>
 
@@ -435,13 +432,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="ABCD-12345-09876"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="Jan 15, 2021, 6:00 PM"/>
 
                 </LinearLayout>
@@ -500,14 +497,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="Description"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         android:text="10 Peppermint Candles"/>
 
                 </LinearLayout>
@@ -516,9 +513,12 @@
             </LinearLayout>
 
         </LinearLayout>
+
+
+
 
     </LinearLayout>
-    
+
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/MatchParent">
 

@@ -7,7 +7,6 @@ import android.os.SystemClock
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -18,7 +17,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification
-import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import com.mtramin.rxfingerprint.RxFingerprint
 import com.takusemba.spotlight.Spotlight
@@ -64,10 +62,10 @@ import kotlin.collections.set
  * Created by Herald Santos
  */
 class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_dashboard),
-                          AHBottomNavigation.OnTabSelectedListener,
-                          OnTutorialListener,
-                          OnConfirmationPageCallBack,
-                          FingerprintBottomSheet.OnFingerPrintListener {
+    AHBottomNavigation.OnTabSelectedListener,
+    OnTutorialListener,
+    OnConfirmationPageCallBack,
+    FingerprintBottomSheet.OnFingerPrintListener {
 
     private val headerDashboard by lazyFast {
         resources.getStringArray(R.array.array_dashboard_header).toMutableList()
@@ -223,10 +221,6 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             .subscribe {
                 showLogoutBottomSheet()
             }.addTo(disposables)
-        btnRequestPayment.setOnClickListener{
-            Toast.makeText(this,"Request Payment Clicked",Toast.LENGTH_SHORT).show()
-
-        }
         imageViewHelp.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
@@ -261,23 +255,12 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
 
         btnRequestPayment.setOnClickListener{
             navigator.navigate(
-                    this,
-                    RequestPaymentActivity::class.java,
-                    null,
-                    isClear = false,
-                    isAnimated = true,
-                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
-            )
-        }
-
-        btnRequestPayment.setOnClickListener{
-            navigator.navigate(
-                    this,
-                    RequestPaymentActivity::class.java,
-                    null,
-                    isClear = false,
-                    isAnimated = true,
-                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+                this,
+                RequestPaymentActivity::class.java,
+                null,
+                isClear = false,
+                isAnimated = true,
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
 

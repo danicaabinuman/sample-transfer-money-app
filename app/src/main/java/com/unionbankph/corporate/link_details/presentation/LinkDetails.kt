@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.common.extension.showToast
 import kotlinx.android.synthetic.main.activity_link_details.*
 import java.text.SimpleDateFormat
 
@@ -21,6 +22,10 @@ class LinkDetails : AppCompatActivity() {
         dateFormat()
         copyLink()
         shareLink()
+
+        ivBackButton.setOnClickListener{
+            finish()
+        }
     }
 
     private fun copyLink(){
@@ -28,8 +33,12 @@ class LinkDetails : AppCompatActivity() {
             val copiedUrl = sampleLink.text
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
-            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+
+//            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+
             clipboard.setPrimaryClip(clip)
+
+            showToast("Copied to clipboard")
         }
     }
 
