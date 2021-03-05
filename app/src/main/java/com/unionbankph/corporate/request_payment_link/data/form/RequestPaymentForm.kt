@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.request_payment_link.domain.form
+package com.unionbankph.corporate.request_payment_link.data.form
 
 import android.os.Parcelable
 import com.unionbankph.corporate.account.data.model.Account

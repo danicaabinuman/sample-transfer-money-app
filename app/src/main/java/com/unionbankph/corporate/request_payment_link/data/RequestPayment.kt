@@ -4,6 +4,15 @@ import kotlinx.serialization.SerialName
 
 class RequestPayment {
 
-    @SerialName("check_amount")
-    var checkAmount: String? = null
+    @SerialName("datetime")
+    var datetime: String? = null
+
+    @SerialName("status")
+    var status: Int? = null
+
+    @SerialName("message")
+    var message: String? = null
+
+    @SerialName("path")
+    var path: String? = null
 }
