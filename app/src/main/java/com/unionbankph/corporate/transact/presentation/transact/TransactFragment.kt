@@ -30,8 +30,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
-import com.unionbankph.corporate.request_payment_link.presentation.PaymentLinkActivity
-import com.unionbankph.corporate.request_payment_link.presentation.RequestPaymentActivity
+import com.unionbankph.corporate.request_payment_link.presentation.payment_link.PaymentLinkActivity
 import com.unionbankph.corporate.settings.data.constant.PermissionNameEnum
 import com.unionbankph.corporate.settings.domain.constant.FeaturesEnum
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel

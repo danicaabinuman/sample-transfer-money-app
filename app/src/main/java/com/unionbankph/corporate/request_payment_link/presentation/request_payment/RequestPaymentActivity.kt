@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.request_payment_link.presentation
+package com.unionbankph.corporate.request_payment_link.presentation.request_payment
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,15 +9,9 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.text.trimmedLength
-import androidx.core.widget.addTextChangedListener
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.extension.asDriver
-import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.link_details.presentation.LinkDetails
-import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_check_deposit_form.*
 import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_request_payment.*
@@ -33,7 +27,7 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         setContentView(R.layout.activity_request_payment)
 
         btnRequestPaymentGenerate.setOnClickListener{
-            navigateToLinkDetails()
+            generatePaymentLink()
         }
 
         initListener()
@@ -41,9 +35,19 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
 
         requiredFields()
         paymentLinkExpiry()
-        back()
+        finishRequestPayment()
     }
 
+//    private fun initViewModel(){
+//        viewModel = ViewModelProviders.of(this)
+//    }
+
+    private fun generatePaymentLink(){
+
+
+        //After success call this
+        navigateToLinkDetails()
+    }
     private fun validateForm(){
         var amountString = et_amount.text.toString()
         var paymentForString = et_paymentFor.text.toString()
@@ -152,7 +156,7 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         startActivity(intent)
     }
 
-    private fun back() {
+    private fun finishRequestPayment() {
 
         ivBackButton.setOnClickListener {
             finish()
