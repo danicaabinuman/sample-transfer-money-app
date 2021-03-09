@@ -538,12 +538,12 @@
             android:theme="@style/CustomJumioAppTheme" />
 
         <activity
-            android:name=".request_payment_link.presentation.RequestPaymentActivity"
+            android:name=".request_payment_link.presentation.request_payment.RequestPaymentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
         <activity
-            android:name=".request_payment_link.presentation.PaymentLinkActivity"
+            android:name=".request_payment_link.presentation.payment_link.PaymentLinkActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
@@ -551,6 +551,12 @@
             android:name=".link_details.presentation.LinkDetails"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
+
+        <activity
+            android:name=".request_payment_link.presentation.onboarding.RequestPaymentOnboardingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
 
         <!--Others-->
         <meta-data

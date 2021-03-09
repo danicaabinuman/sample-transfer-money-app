@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.request_payment_link.presentation
+package com.unionbankph.corporate.request_payment_link.presentation.payment_link
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,23 +8,17 @@ import androidx.core.content.ContextCompat
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.account.presentation.account_list.AccountFragment
 import com.unionbankph.corporate.app.common.extension.*
-import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
-import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
-import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
-import com.unionbankph.corporate.approval.presentation.ApprovalFragment
-import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
+import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestPaymentActivity
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
-import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.widget_badge_initial.*
 import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 
 class PaymentLinkActivity : AppCompatActivity(),
-    AHBottomNavigation.OnTabSelectedListener{
+        AHBottomNavigation.OnTabSelectedListener {
 
     private var bottomNavigationItems: HashMap<String, Int> = hashMapOf()
     private var isBackButtonFragmentSettings: Boolean = false
@@ -37,7 +31,7 @@ class PaymentLinkActivity : AppCompatActivity(),
         setContentView(R.layout.activity_payment_link)
 
         textViewTitle.setText(R.string.title_generate_links)
-        textViewTitle.setTextColor(ContextCompat.getColor  (this, R.color.colorWhite))
+        textViewTitle.setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
 
         textViewCorporationName.setText(R.string.title_corporation_name)
         btnRequestPayment()
@@ -46,7 +40,7 @@ class PaymentLinkActivity : AppCompatActivity(),
 //        enableTabs(isEnable = true)
     }
 
-    private fun btnRequestPayment () {
+    private fun btnRequestPayment() {
 
         btnRequestPayment.setOnClickListener {
 
@@ -63,26 +57,26 @@ class PaymentLinkActivity : AppCompatActivity(),
 //        bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] = 3
 //        bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS] = 4
         val item1 =
-            AHBottomNavigationItem(getString(R.string.title_tab_accounts), R.drawable.ic_accounts)
+                AHBottomNavigationItem(getString(R.string.title_tab_accounts), R.drawable.ic_accounts)
         val item2 = AHBottomNavigationItem(
-            getString(R.string.title_tab_transact), R.drawable.ic_send_request
+                getString(R.string.title_tab_transact), R.drawable.ic_send_request
         )
         val item3 =
-            AHBottomNavigationItem(getString(R.string.title_tab_approvals), R.drawable.ic_approval)
+                AHBottomNavigationItem(getString(R.string.title_tab_approvals), R.drawable.ic_approval)
         val item4 = AHBottomNavigationItem(
-            getString(R.string.title_tab_notifications),
-            R.drawable.ic_notification
+                getString(R.string.title_tab_notifications),
+                R.drawable.ic_notification
         )
         val item5 =
-            AHBottomNavigationItem(getString(R.string.title_tab_settings), R.drawable.ic_settings)
+                AHBottomNavigationItem(getString(R.string.title_tab_settings), R.drawable.ic_settings)
         bottomNavigationBTR?.defaultBackgroundColor =
-            ContextCompat.getColor(this, R.color.colorWhite)
+                ContextCompat.getColor(this, R.color.colorWhite)
         bottomNavigationBTR?.accentColor = getColorFromAttr(R.attr.colorAccent)
         bottomNavigationBTR?.inactiveColor = ContextCompat.getColor(this, R.color.colorTextTab)
         bottomNavigationBTR?.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
         bottomNavigationBTR?.setTitleTextSize(
-            resources.getDimension(R.dimen.navigation_bottom_text_size_active),
-            resources.getDimension(R.dimen.navigation_bottom_text_size_normal)
+                resources.getDimension(R.dimen.navigation_bottom_text_size_active),
+                resources.getDimension(R.dimen.navigation_bottom_text_size_normal)
         )
         bottomNavigationBTR?.addItem(item1)
         bottomNavigationBTR?.addItem(item2)
@@ -91,16 +85,16 @@ class PaymentLinkActivity : AppCompatActivity(),
         bottomNavigationBTR?.addItem(item5)
         bottomNavigationBTR?.currentItem = 1
         bottomNavigationBTR.setNotificationMarginLeft(
-            resources.getDimension(R.dimen.bottom_notification_margin).toInt(),
-            resources.getDimension(R.dimen.bottom_notification_margin).toInt()
+                resources.getDimension(R.dimen.bottom_notification_margin).toInt(),
+                resources.getDimension(R.dimen.bottom_notification_margin).toInt()
         )
         bottomNavigationBTR?.setOnTabSelectedListener(this)
         bottomNavigationBTR.post {
             if (bottomNavigationBTR.getViewAtPosition(0) != null &&
-                bottomNavigationBTR.getViewAtPosition(1) != null &&
-                bottomNavigationBTR.getViewAtPosition(2) != null &&
-                bottomNavigationBTR.getViewAtPosition(3) != null &&
-                bottomNavigationBTR.getViewAtPosition(4) != null
+                    bottomNavigationBTR.getViewAtPosition(1) != null &&
+                    bottomNavigationBTR.getViewAtPosition(2) != null &&
+                    bottomNavigationBTR.getViewAtPosition(3) != null &&
+                    bottomNavigationBTR.getViewAtPosition(4) != null
             ) {
                 bottomNavigationBTR.getViewAtPosition(0).id = R.id.tabAccounts
                 bottomNavigationBTR.getViewAtPosition(1).id = R.id.tabTransact
@@ -136,23 +130,23 @@ class PaymentLinkActivity : AppCompatActivity(),
 //                textViewTitle.text = stackTitle
 //            } else {
             if (viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS] &&
-                textViewInitial.visibility != View.VISIBLE
+                    textViewInitial.visibility != View.VISIBLE
             ) {
                 isBackButtonFragmentSettings = true
             } else if (
-                viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] &&
-                textViewInitial.visibility != View.VISIBLE
+                    viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] &&
+                    textViewInitial.visibility != View.VISIBLE
             ) {
                 isBackButtonFragmentAlerts = true
             }
             imageViewMarkAllAsRead.visibility(
-                position == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
+                    position == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
             )
             imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
 
-            if (viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS]){
-                viewPagerBTR.setOnClickListener{
-                    val intent = Intent (this, SettingsFragment::class.java)
+            if (viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS]) {
+                viewPagerBTR.setOnClickListener {
+                    val intent = Intent(this, SettingsFragment::class.java)
                     startActivity(intent)
                 }
             }

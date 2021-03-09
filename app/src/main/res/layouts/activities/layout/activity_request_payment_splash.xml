@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayout"
+    style="@style/MatchParent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBaseLogo"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBackground"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/image_view_main_on_boarding_height"
+        android:paddingTop="@dimen/content_spacing"
+        android:paddingBottom="@dimen/content_spacing"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBaseLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineBaseLogo"
+        app:srcCompat="@drawable/bg_splash_circle_orange" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        style="@style/MatchConstraint"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@+id/indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/indicator"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/grid_8"
+        app:ci_drawable="@drawable/circle_gradient_orange"
+        app:ci_drawable_unselected="@drawable/circle_gray_ci"
+        app:ci_height="@dimen/ci_size"
+        app:ci_margin="@dimen/ci_margin"
+        app:ci_width="@dimen/ci_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+
+    <TextView
+        android:id="@+id/textViewSkip"
+        style="@style/TextViewThemeLarge"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/text_view_padding"
+        android:text="@string/action_skip"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBack"
+        style="@style/ImageViewToolbarIcon"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/image_view_icon_padding"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewSkip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewSkip"
+        app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
