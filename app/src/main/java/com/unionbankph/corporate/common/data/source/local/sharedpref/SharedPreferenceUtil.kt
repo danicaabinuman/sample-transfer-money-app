@@ -11,6 +11,8 @@ constructor(private val rxSharedPreferences: RxSharedPreferences) {
 
     private val launchSharedPref = "isLaunched"
 
+    private val requestPaymentLaunchSharedPref = "isRequestPaymentLaunched"
+
     private val trustedDevicePref = "trustedDevice"
 
     private val isReadMCDTerms = "isReadMCDTerms"
@@ -108,6 +110,8 @@ constructor(private val rxSharedPreferences: RxSharedPreferences) {
     fun isLoggedIn() = rxSharedPreferences.getBoolean(authSharedPref, false)
 
     fun isLaunched() = rxSharedPreferences.getBoolean(launchSharedPref, false)
+
+    fun isRequestPaymentLaunched() = rxSharedPreferences.getBoolean(requestPaymentLaunchSharedPref, false)
 
     fun isTrustedDevice() = rxSharedPreferences.getBoolean(trustedDevicePref, false)
 
