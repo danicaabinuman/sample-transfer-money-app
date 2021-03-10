@@ -159,8 +159,15 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
     private fun finishRequestPayment() {
 
         ivBackButton.setOnClickListener {
-            finish()
+            val intent = Intent (this, DashboardActivity::class.java)
+            startActivity(intent)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent (this, DashboardActivity::class.java)
+        startActivity(intent)
     }
 
 
