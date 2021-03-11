@@ -165,7 +165,6 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         val intent = Intent (this, DashboardActivity::class.java)
         startActivity(intent)
     }
