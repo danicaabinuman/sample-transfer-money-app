@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.request_payment_link.data.form
+package com.unionbankph.corporate.link_details.data.form
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -8,13 +8,13 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class RequestPaymentForm(
+data class LinkDetailsForm(
         @SerialName("amount")
-        var totalAmount: Double? = null,
+        var totalAmount: Double = 0.0,
         @SerialName("description")
-        var description: String? = null,
+        var description: String,
         @SerialName("note")
         var notes: String? = null,
         @SerialName("expiry")
-        var paymentLinkExpiry: String? = null
+        var paymentLinkExpiry: Int = 12
 ) : Parcelable

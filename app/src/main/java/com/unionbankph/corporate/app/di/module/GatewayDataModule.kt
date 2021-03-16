@@ -35,6 +35,9 @@ import com.unionbankph.corporate.fund_transfer.data.gateway.FundTransferGateway
 import com.unionbankph.corporate.fund_transfer.data.gateway.impl.FundTransferGatewayImpl
 import com.unionbankph.corporate.fund_transfer.data.source.local.FundTransferCache
 import com.unionbankph.corporate.fund_transfer.data.source.remote.FundTransferRemote
+import com.unionbankph.corporate.link_details.data.LinkDetailsDataGateway
+import com.unionbankph.corporate.link_details.data.source.remote.LinkDetailsRemote
+import com.unionbankph.corporate.link_details.presentation.LinkDetailsGateway
 import com.unionbankph.corporate.mcd.data.gateway.CheckDepositGateway
 import com.unionbankph.corporate.mcd.data.gateway.impl.CheckDepositGatewayImpl
 import com.unionbankph.corporate.mcd.data.source.local.CheckDepositCache
@@ -209,4 +212,15 @@ class GatewayDataModule {
         daoRemote,
         daoCache
     )
+
+    @Provides
+    @PerApplication
+    fun linkDetailsGateway(
+        responseProvider: ResponseProvider,
+        linkDetailsRemote: LinkDetailsRemote
+    ): LinkDetailsGateway =
+        LinkDetailsDataGateway(
+            responseProvider,
+            linkDetailsRemote
+        )
 }

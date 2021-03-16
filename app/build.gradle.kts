@@ -1,6 +1,7 @@
 import com.android.build.gradle.internal.dsl.ProductFlavor
 import java.io.FileInputStream
 import java.util.*
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val keystorePropertiesFile = rootProject.file("keystore.properties")
 val clientPropertiesFile = rootProject.file("client.properties")
@@ -323,3 +324,8 @@ fun setupProductFlavors(
         buildGradle.properties["clientApiVersion"].toString()
     )
 }
+
+//val compileKotlin: KotlinCompile by tasks
+//compileKotlin.kotlinOptions {
+//    languageVersion = "1.4"
+//}
