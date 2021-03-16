@@ -19,6 +19,8 @@ import com.unionbankph.corporate.dao.data.source.remote.DaoRemote
 import com.unionbankph.corporate.dao.data.source.remote.impl.DaoRemoteImpl
 import com.unionbankph.corporate.fund_transfer.data.source.remote.FundTransferRemote
 import com.unionbankph.corporate.fund_transfer.data.source.remote.impl.FundTransferRemoteImpl
+import com.unionbankph.corporate.link_details.data.source.remote.LinkDetailsRemote
+import com.unionbankph.corporate.link_details.data.source.remote.impl.LinkDetailsRemoteImpl
 import com.unionbankph.corporate.notification.data.source.remote.NotificationRemote
 import com.unionbankph.corporate.notification.data.source.remote.impl.NotificationRemoteImpl
 import com.unionbankph.corporate.settings.data.source.remote.SettingsRemote
@@ -82,4 +84,8 @@ class RemoteDataModule {
     @Provides
     @PerApplication
     fun daoRemote(retrofit: Retrofit): DaoRemote = DaoRemoteImpl(retrofit)
+
+    @Provides
+    @PerApplication
+    fun linkDetailsRemote(retrofit: Retrofit): LinkDetailsRemote = LinkDetailsRemoteImpl(retrofit)
 }
