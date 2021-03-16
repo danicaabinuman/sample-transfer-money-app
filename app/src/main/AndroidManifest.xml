@@ -548,7 +548,7 @@
             android:launchMode="standard" />
 
         <activity
-            android:name=".link_details.presentation.LinkDetails"
+            android:name=".link_details.presentation.LinkDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 

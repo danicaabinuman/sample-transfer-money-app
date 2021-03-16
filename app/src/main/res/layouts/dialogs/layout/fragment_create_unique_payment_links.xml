@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBaseLogo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/image_view_on_boarding_height"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/guidelineBaseLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineBaseLogo"
+        app:srcCompat="@drawable/bg_create_unique_payment_links"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewHeader"
+        style="@style/TextViewTheme"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:gravity="center"
+        android:textSize="@dimen/text_18"
+        android:textColor="#FF8200"
+        android:textStyle="bold"
+        android:text="@string/title_create_unique_payment_links"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDesc"
+        style="@style/TextViewThemeLarge"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/content_group_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_group_spacing"
+        android:layout_marginBottom="@dimen/content_spacing_xl"
+        android:gravity="center"
+        android:textSize="@dimen/text_14"
+        android:textColor="#6D6D6D"
+        android:lineSpacingExtra="@dimen/text_view_spacing"
+        android:maxLines="10"
+        app:layout_constraintTop_toBottomOf="@id/textViewHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/desc_create_unique_payment_links"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

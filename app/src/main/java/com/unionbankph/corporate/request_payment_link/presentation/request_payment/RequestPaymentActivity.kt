@@ -9,13 +9,9 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
-import com.unionbankph.corporate.app.di.ViewModelFactory
-import com.unionbankph.corporate.link_details.presentation.LinkDetails
-import com.unionbankph.corporate.request_payment_link.data.form.RequestPaymentForm
+import com.unionbankph.corporate.link_details.presentation.LinkDetailsActivity
 import kotlinx.android.synthetic.main.activity_check_deposit_form.*
 import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_request_payment.*
@@ -148,7 +144,7 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
     }
 
     private fun navigateToLinkDetails(){
-        val intent = Intent(this, LinkDetails::class.java)
+        val intent = Intent(this, LinkDetailsActivity::class.java)
         intent.putExtra("amount", et_amount.text.toString())
         intent.putExtra("payment for", et_paymentFor.text.toString())
         intent.putExtra("notes", et_notes.text.toString())
