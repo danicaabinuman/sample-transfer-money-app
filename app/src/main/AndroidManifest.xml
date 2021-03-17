@@ -557,6 +557,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name=".settings.presentation.splash.request_payment_fragments.RequestPaymentSplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
 
         <!--Others-->
         <meta-data

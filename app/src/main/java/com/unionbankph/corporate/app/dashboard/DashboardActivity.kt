@@ -48,6 +48,7 @@ import com.unionbankph.corporate.request_payment_link.presentation.onboarding.Re
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
+import com.unionbankph.corporate.settings.presentation.splash.request_payment_fragments.RequestPaymentSplashActivity
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -256,7 +257,8 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         btnRequestPayment.setOnClickListener{
             navigator.navigate(
                 this,
-                RequestPaymentOnboardingActivity::class.java,
+//                RequestPaymentOnboardingActivity::class.java,
+                RequestPaymentSplashActivity::class.java,
                 null,
                 isClear = false,
                 isAnimated = true,

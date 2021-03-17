@@ -1902,4 +1902,32 @@
     <string name="hint_payment_link_t_c">I have read the fees and charges and agree to the terms and conditions of the Request for Payment</string>
     <string name="btn_text_set_up_business_link">SET-UP BUSINESS LINK</string>
     <string name="btn_cancel">CANCEL</string>
+
+    <string name="dashboard_appbar_request_payment">Request Payment</string>
+    <string name="sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing quisque malesuada adipiscing urna id.</string>
+    <string name="form_total_amount_required">Total Amount *</string>
+    <string name="form_payment_for_required">Payment for *</string>
+    <string name="form_hint_eg_10_peppermint_candles">eg. 10 peppermint candles</string>
+    <string name="form_text_counter_1000">/1000</string>
+    <string name="form_notes_optional">Notes (Optional)</string>
+    <string name="form_hint_eg_for_marga">eg. For Marga</string>
+    <string name="form_payment_link_expiry">Payment Link Expiry</string>
+    <string name="form_hint_12_hours">12 hours</string>
+    <string name="form_btn_generate">Generate</string>
+    <string name="form_btn_cancel">Cancel</string>
+    <string name="form_reference_no">Reference No.</string>
+    <string name="form_text_unpaid">UNPAID</string>
+    <string name="form_date_time">Date / Time</string>
+    <string name="form_amount">Amount</string>
+    <string name="form_description">Description</string>
+    <string name="form_remarks">Remarks</string>
+    <string name="form_link_expiry">Link Expiry</string>
+    <string name="form_payment_link">Payment Link</string>
+    <string name="form_btn_archive">Archive</string>
+    <string name="form_filter_all">All</string>
+    <string name="form_filter_unpaid">Unpaid</string>
+    <string name="form_filter_paid">Paid</string>
+    <string name="form_filter_expired">Expired</string>
+    <string name="form_filter_refunded">Refunded</string>
+    <string name="request_for_payment">Payment Links</string>
 </resources>

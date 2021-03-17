@@ -23,7 +23,7 @@ class LinkDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_link_details)
 
-        initViewModel()
+//        initViewModel()
 
         generatedLinkResults()
         dateFormat()
@@ -34,7 +34,7 @@ class LinkDetailsActivity : AppCompatActivity() {
             finish()
         }
 
-        displayLinkDetails()
+//        displayLinkDetails()
     }
 
     private fun initViewModel(){
