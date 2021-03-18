@@ -1888,18 +1888,18 @@
     <string name="payment_link_status_unpaid">UNPAID</string>
     <string name="title_set_up_payment_link">Set-up Payment Link</string>
     <string name="desc_set_up_your_business_link">Before we start, let\'s set-up your business link.</string>
-    <string name="title_unique_store_handle">Unique Store Handle</string>
+    <string name="title_unique_store_handle">Unique Business Name</string>
     <string name="desc_personalize_your_store_handle">Personalize your payment link by nominating your unique handle for your payment links.</string>
-    <string name="hint_storehandle">storehandle</string>
+    <string name="hint_storehandle">abcandleco</string>
     <string name="title_website_or_social_media_pages">Website or Social Media Pages</string>
     <string name="desc_website_pages">For multiple URLs, separate them with a comma \",\"</string>
-    <string name="hint_website">www.storename.com</string>
+    <string name="hint_website">facebook.com/abcandleco</string>
     <string name="title_products_or_services_offered">Products or Services Offered</string>
     <string name="desc_products_services_offered">What products or services are you offering and what kind of customers are you targeting?</string>
     <string name="hint_product">product 1, product 2, product 3</string>
     <string name="title_nominate_settlement_account">Nominate Settlement Account</string>
     <string name="hint_tap_to_select_account">TAP TO SELECT ACCOUNT</string>
-    <string name="hint_payment_link_t_c">I have read the fees and charges and agree to the terms and conditions of the Request for Payment</string>
+    <string name="hint_payment_link_t_c">I have read the Fees and Charges and agree to the Terms and Conditions of the Request for Payment</string>
     <string name="btn_text_set_up_business_link">SET-UP BUSINESS LINK</string>
     <string name="btn_cancel">CANCEL</string>
 
