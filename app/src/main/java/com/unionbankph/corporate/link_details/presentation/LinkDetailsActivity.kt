@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_link_details.*
 import kotlinx.android.synthetic.main.footer_error.*
 import java.text.SimpleDateFormat
 
-class LinkDetails : AppCompatActivity() {
+class LinkDetailsActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LinkDetailsViewModel
 
@@ -23,7 +23,7 @@ class LinkDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_link_details)
 
-        initViewModel()
+//        initViewModel()
 
         generatedLinkResults()
         dateFormat()
@@ -34,7 +34,7 @@ class LinkDetails : AppCompatActivity() {
             finish()
         }
 
-        displayLinkDetails()
+//        displayLinkDetails()
     }
 
     private fun initViewModel(){

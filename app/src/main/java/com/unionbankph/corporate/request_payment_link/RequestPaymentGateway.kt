@@ -4,6 +4,6 @@ import com.unionbankph.corporate.request_payment_link.data.form.RequestPaymentFo
 import com.unionbankph.corporate.request_payment_link.data.model.RequestPaymentLinkResponse
 import io.reactivex.Single
 
-interface PaymentLinkGateway {
+interface RequestPaymentGateway {
     fun requestPayment(requestPaymentForm: RequestPaymentForm) : Single<RequestPaymentLinkResponse>
 }

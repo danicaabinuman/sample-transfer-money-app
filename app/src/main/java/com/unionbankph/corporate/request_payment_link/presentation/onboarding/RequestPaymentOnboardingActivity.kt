@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.data.source.local.sharedpref.SharedPreferenceUtil
 import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestPaymentActivity
 import kotlinx.android.synthetic.main.activity_request_payment_splash.imageViewBack
@@ -20,26 +21,40 @@ class RequestPaymentOnboardingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_payment_splash)
 
-
+        sharedPreferences()
+        skipFeatureTips()
 
     }
 
     override fun onResume() {
         super.onResume()
 
+    }
+
+    private fun sharedPreferences(){
         val sharedPreferences : SharedPreferences = getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE)
         if (sharedPreferences.getBoolean(prevs, false)){
             val editor : SharedPreferences.Editor = sharedPreferences.edit()
-            editor.putBoolean(prevs, Boolean.equals(true))
+            editor.putBoolean(prevs, true)
             editor.apply()
         } else {
-            skipFeatureTips()
+            moveToNextActivity()
         }
     }
+
     private fun skipFeatureTips(){
         textViewSkip.setOnClickListener{
-            val intent = Intent(this, RequestPaymentActivity::class.java)
-            startActivity(intent)
+            moveToNextActivity()
         }
+    }
+
+    private fun moveToNextActivity(){
+        val intent = Intent(this, RequestPaymentActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, DashboardActivity::class.java)
+        startActivity(intent)
     }
 }
