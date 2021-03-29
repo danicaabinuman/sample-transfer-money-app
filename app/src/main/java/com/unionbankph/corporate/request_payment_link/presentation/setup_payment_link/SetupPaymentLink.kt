@@ -20,5 +20,10 @@ class SetupPaymentLink : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        btnCancel.setOnClickListener{
+            finish()
+        }
+
     }
 }
