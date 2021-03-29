@@ -28,7 +28,7 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
 
         val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         if (sharedPref.getBoolean(PREF_NAME, false)){
-            val intent = Intent(this, RequestPaymentActivity::class.java)
+            val intent = Intent(this, SetupPaymentLink::class.java)
             startActivity(intent)
             finish()
         } else {

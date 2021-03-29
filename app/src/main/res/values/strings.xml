@@ -166,6 +166,8 @@
     <string name="title_beneficiary_name_">Beneficiary Name:</string>
     <string name="title_beneficiary_code_">Beneficiary Code:</string>
     <string name="title_beneficiary_account_number_">Account Number:</string>
+    <string name="title_generate_links">Payment Links</string>
+    <string name="title_corporation_name">SME Organization</string>
     <string name="title_reject">reject</string>
     <string name="title_cancel">cancel</string>
 
@@ -518,8 +520,11 @@
     <string name="title_select_beneficiary">Select a Beneficiary</string>
     <string name="title_select_branch">Select a Branch</string>
     <string name="title_safety_first">Safety First!</string>
+    <string name="title_create_unique_payment_links">Create unique payment links</string>
     <string name="title_approve_transactions">Approve transactions\non-the-go</string>
     <string name="title_transfers">Real time transfers\nto other banks</string>
+    <string name="title_everything_in_one_place">See everything in one place</string>
+    <string name="title_payment_channels">Get access to many payment channels</string>
     <string name="title_bills_payment_splash">Largest list of billers</string>
     <string name="title_organization_splash">Manage multiple\norganizations</string>
     <string name="title_create_frequent_biller">Create Frequent Biller</string>
@@ -796,8 +801,11 @@
     <string name="desc_notification_1005">Send me a notification when any\nchanges are made to my organization.</string>
     <string name="desc_terms_condition_agree">By clicking \'Next\' you agree to both the UnionBank\nPrivacy Policy and Terms &amp; Conditions.</string>
     <string name="desc_safety_first">UnionBank uses the latest technology to keep all your transactions secure. You can manage your settings to find the perfect balance between security and convenience.</string>
+    <string name="desc_create_unique_payment_links">Easily collect payments by sending payment links to your buyers.</string>
     <string name="desc_approve_transactions">Approve or reject business transactions\nanytime, anywhere.</string>
     <string name="desc_transfers">Enjoy real-time and hassle-free fund transfers to both local and international banks.</string>
+    <string name="desc_everything_in_one_place">We\'ll notify you of the status of your buyer\'s payments so you can focus on running the business</string>
+    <string name="desc_payment_channels">Give you buyers multiple ways of paying you with just a single payment link</string>
     <string name="desc_bills_payment">Facilitate all your business payments with the most extensive list of government and utility billers. And many more!</string>
     <string name="desc_organization">Enroll all your companies and subsidiaries. Easily switch between them without needing to logout.</string>
     <string name="desc_contact_info">UnionBank Business Support\nbusiness@unionbankph.com\n(02) 8\–667–2668</string>
@@ -1869,8 +1877,32 @@
     <string name="netverify_scanview_liveness_description">Position your face in the frame to proceed.</string>
     <string name="netverify_use_back_side_of_card">Back</string>
     <string name="netverify_use_front_side_of_card">Front</string>
-    <string name="request_for_payment">Payment Links</string>
+    <string name="generate_payment_link">Generate Links</string>
     <string name="generate_payment_links_for_your_customers">Generate Payment Links for your customers</string>
+    <string name="payment_link_tab_all">All</string>
+    <string name="payment_link_tab_unpaid">Unpaid</string>
+    <string name="payment_link_tab_paid">Paid</string>
+    <string name="payment_link_tab_expired">Expired</string>
+    <string name="payment_link_tab_refunded">Refunded</string>
+    <string name="payment_link_reference_no">Reference No.</string>
+    <string name="payment_link_status_unpaid">UNPAID</string>
+    <string name="title_set_up_payment_link">Set-up Payment Link</string>
+    <string name="desc_set_up_your_business_link">Before we start, let\'s set-up your business link.</string>
+    <string name="title_unique_store_handle">Unique Business Name</string>
+    <string name="desc_personalize_your_store_handle">Personalize your payment link by nominating your unique handle for your payment links.</string>
+    <string name="hint_storehandle">abcandleco</string>
+    <string name="title_website_or_social_media_pages">Website or Social Media Pages</string>
+    <string name="desc_website_pages">For multiple URLs, separate them with a comma \",\"</string>
+    <string name="hint_website">facebook.com/abcandleco</string>
+    <string name="title_products_or_services_offered">Products or Services Offered</string>
+    <string name="desc_products_services_offered">What products or services are you offering and what kind of customers are you targeting?</string>
+    <string name="hint_product">product 1, product 2, product 3</string>
+    <string name="title_nominate_settlement_account">Nominate Settlement Account</string>
+    <string name="hint_tap_to_select_account">TAP TO SELECT ACCOUNT</string>
+    <string name="hint_payment_link_t_c">I have read the Fees and Charges and agree to the Terms and Conditions of the Request for Payment</string>
+    <string name="btn_text_set_up_business_link">SET-UP BUSINESS LINK</string>
+    <string name="btn_cancel">CANCEL</string>
+
     <string name="dashboard_appbar_request_payment">Request Payment</string>
     <string name="sample_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing quisque malesuada adipiscing urna id.</string>
     <string name="form_total_amount_required">Total Amount *</string>
@@ -1897,31 +1929,5 @@
     <string name="form_filter_paid">Paid</string>
     <string name="form_filter_expired">Expired</string>
     <string name="form_filter_refunded">Refunded</string>
-    <string name="title_generate_links">Payment Links</string>
-    <string name="title_corporation_name">SME Organization</string>
-    <string name="payment_link_tab_all">All</string>
-    <string name="payment_link_tab_unpaid">Unpaid</string>
-    <string name="payment_link_tab_paid">Paid</string>
-    <string name="payment_link_tab_expired">Expired</string>
-    <string name="payment_link_tab_refunded">Refuded</string>
-    <string name="payment_link_reference_no">Reference No.</string>
-    <string name="payment_link_status_unpaid">UNPAID</string>
-
-    <string name="title_set_up_payment_link">Set-up Payment Link</string>
-    <string name="desc_set_up_your_business_link">Before we start, let\'s set-up your business link.</string>
-    <string name="title_unique_store_handle">Unique Store Handle</string>
-    <string name="desc_personalize_your_store_handle">Personalize your payment link by nominating your unique handle for your payment links.</string>
-    <string name="hint_storehandle">storehandle</string>
-    <string name="title_website_or_social_media_pages">Website or Social Media Pages</string>
-    <string name="desc_website_pages">For multiple URLs, separate them with a comma \",\"</string>
-    <string name="hint_website">www.storename.com</string>
-    <string name="title_products_or_services_offered">Products or Services Offered</string>
-    <string name="desc_products_services_offered">What products or services are you offering and what kind of customers are you targeting?</string>
-    <string name="hint_product">product 1, product 2, product 3</string>
-    <string name="title_nominate_settlement_account">Nominate Settlement Account</string>
-    <string name="hint_tap_to_select_account">TAP TO SELECT ACCOUNT</string>
-    <string name="hint_payment_link_t_c">I have read the fees and charges and agree to the terms and conditions of the Request for Payment</string>
-    <string name="btn_text_set_up_business_link">SET-UP BUSINESS LINK</string>
-    <string name="btn_cancel">CANCEL</string>
-
+    <string name="request_for_payment">Payment Links</string>
 </resources>

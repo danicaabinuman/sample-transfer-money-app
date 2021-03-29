@@ -18,11 +18,7 @@ import kotlinx.android.synthetic.main.activity_account_transaction_history_detai
 import kotlinx.android.synthetic.main.activity_link_details.*
 import java.text.SimpleDateFormat
 
-<<<<<<< Updated upstream:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetails.kt
-class LinkDetails : AppCompatActivity() {
-=======
 class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity_link_details) {
->>>>>>> Stashed changes:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetailsActivity.kt
 
 
     override fun afterLayout(savedInstanceState: Bundle?) {
@@ -32,9 +28,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 //        setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
-<<<<<<< Updated upstream:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetails.kt
-        initViewModel()
-=======
     override fun onViewModelBound() {
 
         super.onViewModelBound()
@@ -57,7 +50,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             }
         })
     }
->>>>>>> Stashed changes:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetailsActivity.kt
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -72,9 +64,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             finish()
         }
 
-<<<<<<< Updated upstream:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetails.kt
-        displayLinkDetails()
-=======
         imgBtnShare.setOnClickListener{
             shareLink()
         }
@@ -83,7 +72,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             copyLink()
         }
 
->>>>>>> Stashed changes:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetailsActivity.kt
     }
 
     private fun setupInputs() {

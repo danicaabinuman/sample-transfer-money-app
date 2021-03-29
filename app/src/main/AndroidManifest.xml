@@ -104,7 +104,10 @@
             android:name="com.unionbankph.corporate.app.dashboard.DashboardActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
+
         <activity
             android:name="com.unionbankph.corporate.account.presentation.account_detail.AccountDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
@@ -548,7 +551,7 @@
             android:launchMode="standard" />
 
         <activity
-            android:name=".link_details.presentation.LinkDetails"
+            android:name=".link_details.presentation.LinkDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
@@ -557,6 +560,15 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name=".settings.presentation.splash.request_payment_fragments.RequestPaymentSplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".request_payment_link.presentation.setup_payment_link.SetupPaymentLink"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
 
         <!--Others-->
         <meta-data
