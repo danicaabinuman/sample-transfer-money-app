@@ -11,5 +11,18 @@ class SetupPaymentLink : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup_payment_links)
+<<<<<<< Updated upstream
+=======
+
+        btnSetupBusinessLink.setOnClickListener{
+            val intent = Intent(this, RequestPaymentActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        btnCancel.setOnClickListener{
+            finish()
+        }
+>>>>>>> Stashed changes
     }
 }

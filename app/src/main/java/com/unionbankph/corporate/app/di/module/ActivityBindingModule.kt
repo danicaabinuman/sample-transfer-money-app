@@ -75,6 +75,7 @@ import com.unionbankph.corporate.general.presentation.link.DeepLinkLandingActivi
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingWithoutAuthActivity
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterActivity
+import com.unionbankph.corporate.link_details.presentation.LinkDetailsActivity
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraActivity
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationActivity
 import com.unionbankph.corporate.mcd.presentation.detail.CheckDepositDetailActivity
@@ -483,5 +484,9 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun eBillingGenerateActivity(): EBillingGenerateActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun linkDetailsActivity(): LinkDetailsActivity
 
 }

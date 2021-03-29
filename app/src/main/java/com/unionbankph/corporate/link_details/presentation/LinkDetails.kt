@@ -5,79 +5,118 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.showToast
-import com.unionbankph.corporate.link_details.data.form.LinkDetailsForm
+import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.link_details.data.LinkDetailsResponse
+import kotlinx.android.synthetic.main.activity_account_transaction_history_details.*
 import kotlinx.android.synthetic.main.activity_link_details.*
-import kotlinx.android.synthetic.main.footer_error.*
 import java.text.SimpleDateFormat
 
+<<<<<<< Updated upstream:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetails.kt
 class LinkDetails : AppCompatActivity() {
+=======
+class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity_link_details) {
+>>>>>>> Stashed changes:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetailsActivity.kt
 
-    private lateinit var viewModel: LinkDetailsViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_link_details)
+    override fun afterLayout(savedInstanceState: Bundle?) {
+        super.afterLayout(savedInstanceState)
+//        initToolbar(toolbar, viewToolbar)
+//        setToolbarTitle(tvToolbar, getString(R.string.title_transaction_details))
+//        setDrawableBackButton(R.drawable.ic_close_white_24dp)
+    }
 
+<<<<<<< Updated upstream:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetails.kt
         initViewModel()
+=======
+    override fun onViewModelBound() {
 
-        generatedLinkResults()
-        dateFormat()
-        copyLink()
-        shareLink()
+        super.onViewModelBound()
+        viewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        )[LinkDetailsViewModel::class.java]
+        viewModel.uiState.observe(this, EventObserver {
+            when (it) {
+                is UiState.Loading -> {
+                    viewLoadingState.isVisible = true
+                    scroll_view.isVisible = false
+                }
+                is UiState.Complete -> {
+                    viewLoadingState.isVisible = false
+                }
+                is UiState.Error -> {
+                    handleOnError(it.throwable)
+                }
+            }
+        })
+    }
+>>>>>>> Stashed changes:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetailsActivity.kt
+
+    override fun onViewsBound() {
+        super.onViewsBound()
+        initViews()
+        setupInputs()
+        setupOutputs()
+    }
+
+    private fun initViews(){
 
         ivBackButton.setOnClickListener{
             finish()
         }
 
+<<<<<<< Updated upstream:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetails.kt
         displayLinkDetails()
-    }
-
-    private fun initViewModel(){
-        viewModel = ViewModelProvider(this).get(LinkDetailsViewModel::class.java)
-    }
-
-    private fun displayLinkDetails(){
-
-        val amount = tv_link_details_amount.text.toString().toDouble()
-        val desc = tv_link_details_description.text.toString()
-        val note = tv_link_details_notes.text.toString()
-        var expiry = 12
-        val expiryText = tv_link_details_expiry.text.toString()
-
-        if(expiryText.equals("6 hours",true)){
-            expiry = 6
-        }else if (expiryText.equals("12 hours", true)){
-            expiry = 12
-        }else if (expiryText.equals("1 day", true)){
-            expiry = 24
-        }else if (expiryText.equals("2 days", true)){
-            expiry = 48
-        }else if (expiryText.equals("3 days", true)){
-            expiry = 72
-        }else if (expiryText.equals("7 days", true)){
-            expiry = 168
+=======
+        imgBtnShare.setOnClickListener{
+            shareLink()
         }
 
+        ibURLcopy.setOnClickListener{
+            copyLink()
+        }
 
+>>>>>>> Stashed changes:app/src/main/java/com/unionbankph/corporate/link_details/presentation/LinkDetailsActivity.kt
+    }
 
-        viewModel.generateLinkDetails(
-                LinkDetailsForm(
-                    amount,
-                    desc,
-                    note,
-                    expiry
-                )
+    private fun setupInputs() {
+        viewModel.initBundleData(
+            intent.getStringExtra(LinkDetailsActivity.EXTRA_AMOUNT).toString(),
+            intent.getStringExtra(LinkDetailsActivity.EXTRA_PAYMENT_FOR).toString(),
+            intent.getStringExtra(LinkDetailsActivity.EXTRA_NOTES),
+            intent.getStringExtra(LinkDetailsActivity.EXTRA_SELECTED_EXPIRY).toString()
         )
     }
 
+    private fun setupOutputs() {
+        viewModel.linkDetailsResponse.observe(this, Observer {
+            setupViews(it)
+        })
+    }
+
+    private fun setupViews(linkDetailsResponse: LinkDetailsResponse) {
+
+        linkDetailsRefNo.text = linkDetailsResponse.referenceId.toString()
+        linkDetailsCreatedDate.text = linkDetailsResponse.createdDate
+        linkDetailsAmount.text = linkDetailsResponse.amount.toString()
+        linkDetailsDescription.text = linkDetailsResponse.description
+        linkDetailsNotes.text = linkDetailsResponse.note
+        tv_link_details_expiry.text = linkDetailsResponse.expireDate
+        linkDetailsPaymentLink.text = linkDetailsResponse.link
+
+    }
+
+
     private fun copyLink(){
         ibURLcopy.setOnClickListener{
-            val copiedUrl = sampleLink.text
+            val copiedUrl = linkDetailsPaymentLink.text
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
 
@@ -93,7 +132,7 @@ class LinkDetails : AppCompatActivity() {
         imgBtnShare.setOnClickListener {
             val intent = Intent()
             intent.action= Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, sampleLink.text.toString())
+            intent.putExtra(Intent.EXTRA_TEXT, linkDetailsPaymentLink.text.toString())
             intent.type="text/plain"
             startActivity(Intent.createChooser(intent,"Share To:"))
         }
@@ -108,7 +147,7 @@ class LinkDetails : AppCompatActivity() {
         sdf = SimpleDateFormat("MMM dd, yyyy / h:mm a")
 
         dateString = sdf.format(date)
-        tv_link_details_date_and_time.setText(dateString)
+        linkDetailsCreatedDate.setText(dateString)
     }
 
     private fun generatedLinkResults(){
@@ -118,9 +157,20 @@ class LinkDetails : AppCompatActivity() {
         val notes: String = intent.getStringExtra("notes").toString()
         val linkExpiry: String = intent.getStringExtra("selected expiry").toString()
 
-        tv_link_details_amount.setText(amount)
-        tv_link_details_description.setText(paymentFor)
-        tv_link_details_notes.setText(notes)
+        linkDetailsAmount.setText(amount)
+        linkDetailsDescription.setText(paymentFor)
+        linkDetailsNotes.setText(notes)
         tv_link_details_expiry.setText(linkExpiry)
     }
+
+
+
+    companion object {
+        const val EXTRA_AMOUNT = "amount"
+        const val EXTRA_PAYMENT_FOR = "pament for"
+        const val EXTRA_NOTES = "notes"
+        const val EXTRA_SELECTED_EXPIRY = "selected expiry"
+    }
 }
+
+
