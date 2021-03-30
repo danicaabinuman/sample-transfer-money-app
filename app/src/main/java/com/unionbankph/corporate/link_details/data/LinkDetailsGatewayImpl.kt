@@ -24,10 +24,15 @@ class LinkDetailsGatewayImpl
     override fun getPaymentLink(linkDetailsRes: LinkDetailsForm): Single<LinkDetailsResponse> {
 
         val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgId = "Test Org 6247 2"
+        var orgId = "6460b955-1a2e-4662-9bc3-b762"
+        var orgName = "Test Org 6247 2"
         if(role?.organizationId != null){
             orgId = role.organizationId!!
         }
+        if(role?.organizationName != null){
+            orgName = role.organizationName!!
+        }
+        linkDetailsRes.organizationName = orgName
         return settingsCache.getAccessToken()
             .flatMap {
                 linkDetailsRemote.generateLink(

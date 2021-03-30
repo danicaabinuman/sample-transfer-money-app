@@ -59,11 +59,13 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         val paymentFor = intent.getStringExtra(LinkDetailsActivity.EXTRA_PAYMENT_FOR).toString()
         val notes = intent.getStringExtra(LinkDetailsActivity.EXTRA_NOTES).toString()
         val selectedExpiry = intent.getStringExtra(LinkDetailsActivity.EXTRA_SELECTED_EXPIRY).toString()
+        val mobileNumber = intent.getStringExtra(LinkDetailsActivity.EXTRA_MOBILE_NUMBER).toString()
         viewModel.initBundleData(
             amount,
             paymentFor,
             notes,
-            selectedExpiry
+            selectedExpiry,
+            mobileNumber
         )
     }
 
@@ -142,6 +144,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         const val EXTRA_PAYMENT_FOR = "pament for"
         const val EXTRA_NOTES = "notes"
         const val EXTRA_SELECTED_EXPIRY = "selected expiry"
+        const val EXTRA_MOBILE_NUMBER = "mobile_number"
     }
 
 }
