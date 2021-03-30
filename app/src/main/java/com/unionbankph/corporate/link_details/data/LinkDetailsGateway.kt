@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.link_details.presentation
+package com.unionbankph.corporate.link_details.data
 
 import com.unionbankph.corporate.link_details.data.LinkDetailsResponse
 import com.unionbankph.corporate.link_details.data.form.LinkDetailsForm

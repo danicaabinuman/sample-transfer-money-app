@@ -13,6 +13,10 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         initViews()
     }
 
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+    }
+
     private fun initViews(){
 
         btnSetupBusinessLink.setOnClickListener{

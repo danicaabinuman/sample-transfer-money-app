@@ -21,36 +21,13 @@ import java.text.SimpleDateFormat
 class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity_link_details) {
 
 
-    override fun afterLayout(savedInstanceState: Bundle?) {
-        super.afterLayout(savedInstanceState)
-//        initToolbar(toolbar, viewToolbar)
-//        setToolbarTitle(tvToolbar, getString(R.string.title_transaction_details))
-//        setDrawableBackButton(R.drawable.ic_close_white_24dp)
-
-
-    }
 
     override fun onViewModelBound() {
-
         super.onViewModelBound()
         viewModel = ViewModelProviders.of(
             this,
             viewModelFactory
         )[LinkDetailsViewModel::class.java]
-//        viewModel.uiState.observe(this, EventObserver {
-//            when (it) {
-//                is UiState.Loading -> {
-//                    viewLoadingState.isVisible = true
-//                    scroll_view.isVisible = false
-//                }
-//                is UiState.Complete -> {
-//                    viewLoadingState.isVisible = false
-//                }
-//                is UiState.Error -> {
-//                    handleOnError(it.throwable)
-//                }
-//            }
-//        })
     }
 
     override fun onViewsBound() {
@@ -166,6 +143,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         const val EXTRA_NOTES = "notes"
         const val EXTRA_SELECTED_EXPIRY = "selected expiry"
     }
+
 }
 
 

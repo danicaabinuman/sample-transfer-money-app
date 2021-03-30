@@ -34,8 +34,7 @@ class LinkDetailsViewModel
 ) : BaseViewModel(){
 
 
-    private val _linkDetailsResponse =
-        MutableLiveData<LinkDetailsResponse>()
+    private val _linkDetailsResponse = MutableLiveData<LinkDetailsResponse>()
 
     val linkDetailsResponse: LiveData<LinkDetailsResponse>
         get() =

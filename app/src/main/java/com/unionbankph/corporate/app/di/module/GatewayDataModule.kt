@@ -22,6 +22,7 @@ import com.unionbankph.corporate.branch.data.gateway.impl.BranchVisitGatewayImpl
 import com.unionbankph.corporate.branch.data.source.local.BranchVisitCache
 import com.unionbankph.corporate.branch.data.source.local.CorporateUserCache
 import com.unionbankph.corporate.branch.data.source.remote.BranchVisitRemote
+import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
 import com.unionbankph.corporate.corporate.data.gateway.CorporateGatewayImpl
 import com.unionbankph.corporate.corporate.data.source.local.CorporateCache
@@ -37,7 +38,7 @@ import com.unionbankph.corporate.fund_transfer.data.source.local.FundTransferCac
 import com.unionbankph.corporate.fund_transfer.data.source.remote.FundTransferRemote
 import com.unionbankph.corporate.link_details.data.LinkDetailsGatewayImpl
 import com.unionbankph.corporate.link_details.data.source.remote.LinkDetailsRemote
-import com.unionbankph.corporate.link_details.presentation.LinkDetailsGateway
+import com.unionbankph.corporate.link_details.data.LinkDetailsGateway
 import com.unionbankph.corporate.mcd.data.gateway.CheckDepositGateway
 import com.unionbankph.corporate.mcd.data.gateway.impl.CheckDepositGatewayImpl
 import com.unionbankph.corporate.mcd.data.source.local.CheckDepositCache
@@ -218,11 +219,13 @@ class GatewayDataModule {
     fun linkDetailsGateway(
         responseProvider: ResponseProvider,
         linkDetailsRemote: LinkDetailsRemote,
-        settingsCache: SettingsCache
+        settingsCache: SettingsCache,
+        cacheManager: CacheManager
     ): LinkDetailsGateway =
         LinkDetailsGatewayImpl(
             responseProvider,
             linkDetailsRemote,
-            settingsCache
+            settingsCache,
+            cacheManager
         )
 }

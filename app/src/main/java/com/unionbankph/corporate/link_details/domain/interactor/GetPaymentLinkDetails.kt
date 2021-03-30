@@ -1,13 +1,11 @@
 package com.unionbankph.corporate.link_details.domain.interactor
 
-import com.unionbankph.corporate.account.data.model.AccountTransactionHistoryDetails
-import com.unionbankph.corporate.account.domain.form.GetAccountTransactionHistoryDetailsForm
 import com.unionbankph.corporate.common.domain.executor.PostExecutionThread
 import com.unionbankph.corporate.common.domain.executor.ThreadExecutor
 import com.unionbankph.corporate.common.domain.interactor.SingleUseCase
 import com.unionbankph.corporate.link_details.data.LinkDetailsResponse
 import com.unionbankph.corporate.link_details.data.form.LinkDetailsForm
-import com.unionbankph.corporate.link_details.presentation.LinkDetailsGateway
+import com.unionbankph.corporate.link_details.data.LinkDetailsGateway
 import io.reactivex.Single
 import javax.inject.Inject
 
