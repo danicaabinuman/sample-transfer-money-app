@@ -570,6 +570,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name=".request_payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
         <!--Others-->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
