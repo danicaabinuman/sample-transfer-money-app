@@ -10,26 +10,26 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.link_details.presentation.LinkDetailsActivity
+import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import kotlinx.android.synthetic.main.activity_check_deposit_form.*
 import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
-class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+class RequestPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
 
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
     var linkExpiry = "12 hours"
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_request_payment_splash_frame_screen)
 
-        btnRequestPaymentGenerate.setOnClickListener{
-            generatePaymentLink()
-        }
+    override fun onViewsBound() {
+        super.onViewsBound()
+        initViews()
 
-        initListener()
+
         buttonDisable()
 
         requiredFields()
@@ -37,12 +37,17 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         finishRequestPayment()
     }
 
-    private fun generatePaymentLink(){
+    private fun initViews(){
+        btnRequestPaymentGenerate.setOnClickListener{
+            navigateToLinkDetails()
+        }
 
-
-        //After success call this
-        navigateToLinkDetails()
+        btnRequestPaymentCancel.setOnClickListener {
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+        }
     }
+
     private fun validateForm(){
         var amountString = et_amount.text.toString()
         var paymentForString = et_paymentFor.text.toString()
@@ -72,12 +77,6 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
         btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorButtonOrange))
     }
 
-    private fun initListener(){
-        btnRequestPaymentCancel.setOnClickListener {
-            val intent = Intent(this, DashboardActivity::class.java)
-            startActivity(intent)
-        }
-    }
 
     private fun requiredFields(){
         et_amount.addTextChangedListener(object : TextWatcher {
@@ -143,11 +142,15 @@ class RequestPaymentActivity : AppCompatActivity(), AdapterView.OnItemSelectedLi
     }
 
     private fun navigateToLinkDetails(){
+        val amount = et_amount.text.toString()
+        val paymentFor = et_paymentFor.text.toString()
+        val notes = et_notes.text.toString()
+
         val intent = Intent(this, LinkDetailsActivity::class.java)
-        intent.putExtra("amount", et_amount.text.toString())
-        intent.putExtra("payment for", et_paymentFor.text.toString())
-        intent.putExtra("notes", et_notes.text.toString())
-        intent.putExtra("selected expiry", linkExpiry)
+        intent.putExtra(LinkDetailsActivity.EXTRA_AMOUNT, amount)
+        intent.putExtra(LinkDetailsActivity.EXTRA_PAYMENT_FOR, paymentFor)
+        intent.putExtra(LinkDetailsActivity.EXTRA_NOTES, notes)
+        intent.putExtra(LinkDetailsActivity.EXTRA_SELECTED_EXPIRY, linkExpiry)
         startActivity(intent)
     }
 

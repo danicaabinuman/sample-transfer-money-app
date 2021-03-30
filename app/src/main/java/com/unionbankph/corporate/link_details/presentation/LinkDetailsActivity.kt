@@ -26,6 +26,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 //        initToolbar(toolbar, viewToolbar)
 //        setToolbarTitle(tvToolbar, getString(R.string.title_transaction_details))
 //        setDrawableBackButton(R.drawable.ic_close_white_24dp)
+
+
     }
 
     override fun onViewModelBound() {
@@ -35,20 +37,20 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             this,
             viewModelFactory
         )[LinkDetailsViewModel::class.java]
-        viewModel.uiState.observe(this, EventObserver {
-            when (it) {
-                is UiState.Loading -> {
-                    viewLoadingState.isVisible = true
-                    scroll_view.isVisible = false
-                }
-                is UiState.Complete -> {
-                    viewLoadingState.isVisible = false
-                }
-                is UiState.Error -> {
-                    handleOnError(it.throwable)
-                }
-            }
-        })
+//        viewModel.uiState.observe(this, EventObserver {
+//            when (it) {
+//                is UiState.Loading -> {
+//                    viewLoadingState.isVisible = true
+//                    scroll_view.isVisible = false
+//                }
+//                is UiState.Complete -> {
+//                    viewLoadingState.isVisible = false
+//                }
+//                is UiState.Error -> {
+//                    handleOnError(it.throwable)
+//                }
+//            }
+//        })
     }
 
     override fun onViewsBound() {
@@ -75,11 +77,16 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     }
 
     private fun setupInputs() {
+
+        val amount = intent.getStringExtra(LinkDetailsActivity.EXTRA_AMOUNT).toString()
+        val paymentFor = intent.getStringExtra(LinkDetailsActivity.EXTRA_PAYMENT_FOR).toString()
+        val notes = intent.getStringExtra(LinkDetailsActivity.EXTRA_NOTES).toString()
+        val selectedExpiry = intent.getStringExtra(LinkDetailsActivity.EXTRA_SELECTED_EXPIRY).toString()
         viewModel.initBundleData(
-            intent.getStringExtra(LinkDetailsActivity.EXTRA_AMOUNT).toString(),
-            intent.getStringExtra(LinkDetailsActivity.EXTRA_PAYMENT_FOR).toString(),
-            intent.getStringExtra(LinkDetailsActivity.EXTRA_NOTES),
-            intent.getStringExtra(LinkDetailsActivity.EXTRA_SELECTED_EXPIRY).toString()
+            amount,
+            paymentFor,
+            notes,
+            selectedExpiry
         )
     }
 
@@ -93,9 +100,9 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
         linkDetailsRefNo.text = linkDetailsResponse.referenceId.toString()
         linkDetailsCreatedDate.text = linkDetailsResponse.createdDate
-        linkDetailsAmount.text = linkDetailsResponse.amount.toString()
-        linkDetailsDescription.text = linkDetailsResponse.description
-        linkDetailsNotes.text = linkDetailsResponse.note
+        linkDetailsAmount.text = linkDetailsResponse.amount
+        linkDetailsDescription.text = linkDetailsResponse.paymentFor
+        linkDetailsNotes.text = linkDetailsResponse.description
         tv_link_details_expiry.text = linkDetailsResponse.expireDate
         linkDetailsPaymentLink.text = linkDetailsResponse.link
 

@@ -1,7 +1,6 @@
 package com.unionbankph.corporate.link_details.data.source.remote.impl
 
 import com.unionbankph.corporate.BuildConfig
-import com.unionbankph.corporate.dao.domain.interactor.GenerateDaoAccessToken
 import com.unionbankph.corporate.link_details.data.LinkDetailsResponse
 import com.unionbankph.corporate.link_details.data.form.LinkDetailsForm
 import com.unionbankph.corporate.link_details.data.source.remote.LinkDetailsRemote
@@ -19,10 +18,13 @@ class LinkDetailsRemoteImpl
             retrofit.create(LinkDetailsApiClient::class.java)
 
     override fun generateLink(
-//        accessToken: String,
+        accessToken: String,
         linkDetails: LinkDetailsForm
     ) : Single<Response<LinkDetailsResponse>>{
-        return linkDetailsApiClient.generatePaymentLink(BuildConfig.CLIENT_API_VERSION,
+        return linkDetailsApiClient.generatePaymentLink(accessToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION,
             linkDetails
         )
     }

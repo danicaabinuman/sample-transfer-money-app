@@ -7,5 +7,5 @@ import com.unionbankph.corporate.request_payment_link.data.model.RequestPaymentL
 import io.reactivex.Single
 
 interface LinkDetailsGateway {
-    fun linkGateway(linkDetailsRes: LinkDetailsForm) : Single<LinkDetailsResponse>
+    fun getPaymentLink(linkDetailsRes: LinkDetailsForm) : Single<LinkDetailsResponse>
 }

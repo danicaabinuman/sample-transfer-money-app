@@ -287,6 +287,7 @@ clientSecretPreProduction = "vqYd6wc4WbQQhLMmxcVTx9YZHK2ezWsUgkXbCDEycx92usx7VD9
 clientSecretProduction = "vqYd6wc4WbQQhLMmxcVTx9YZHK2ezWsUgkXbCDEycx92usx7VD9aKwXfxCAv"
 
 clientApiVersion= "v3"
+msmeClientApiVersion= "v1"
 ```
 
 version.properties:

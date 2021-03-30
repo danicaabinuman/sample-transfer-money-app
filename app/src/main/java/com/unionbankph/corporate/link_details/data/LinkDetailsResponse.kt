@@ -5,39 +5,37 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LinkDetailsResponse(
-    @SerialName("id")
-    var id: String? = null,
 
-    @SerialName("referenceId")
-    var referenceId: Int? = null,
+    @SerialName("payment_link")
+    var link: String? = null,
+
+    @SerialName("ref_no")
+    var referenceId: String? = null,
 
     @SerialName("amount")
-    var amount: Double? = null,
+    var amount: String = "0",
 
     @SerialName("description")
     var description: String? = null,
 
-    @SerialName("note")
-    var note: String? = null,
-
-    @SerialName("expireDate")
-    var expireDate: String? = null,
-
     @SerialName("status")
     var status: String? = null,
 
-    @SerialName("link")
-    var link: String? = null,
+    @SerialName("payment_for")
+    var paymentFor: String? = null,
 
-    @SerialName("createdBy")
-    var createdBy: String? = null,
+    @SerialName("expiry")
+    var expireDate: String? = null,
 
-    @SerialName("createdDate")
-    var createdDate: String? = null,
+    @SerialName("mobile_number")
+    var mobileNumber: String? = null,
 
-    @SerialName("modifiedBy")
-    var modifiedBy: String? = null,
+    @SerialName("created_date")
+    var createdDate: String? = null
 
-    @SerialName("modifiedDate")
-    var modifiedDate: String? = null
+
+
+
+
+
 )

@@ -66,10 +66,12 @@ class LinkDetailsViewModel
 
         generateLinkDetails(
             LinkDetailsForm(
-                amount.toDouble(),
+                amount.replace("PHP","").replace(",","").trim().toDouble(),
                 paymentFor,
                 notes,
-                expiry
+                expiry,
+                "09176770225",
+                "Test Org 6247 2"
             )
         )
 
@@ -96,39 +98,5 @@ class LinkDetailsViewModel
         ).addTo(disposables)
     }
 
-//    fun onClickedViewTransaction() {
-//        _navigateViewTransaction.value =
-//            Event(JsonHelper.toJson(accountTransactionHistoryDetails.value?.portalTransaction))
-//    }
-
-//    fun generateLinkDetails(linkDetailsForm: LinkDetailsForm){
-//        linkDetailsGateway.linkGateway(linkDetailsForm)
-//            .subscribeOn(schedulerProvider.io())
-//            .observeOn(schedulerProvider.ui())
-//            .doOnSubscribe { _linkDetailsState.value = ShowLinkDetailsLoading }
-//            .doFinally { _linkDetailsState.value = ShowLinkDetailsDismissLoading }
-//            .subscribe(
-//                {
-//                    it?.let {
-//                        if (it.referenceId != null) {
-//                            _linkDetailsState.value = ShowLinkDetailsDismissLoading
-//                            if (it.link != null) {
-//                                _linkDetailsState.value = ShowLinkDetailsSuccess(it)
-//                            } else {
-//                                _linkDetailsState.value = ShowLinkDetailsError(Throwable("Link Unavailable"))
-//                            }
-//                        } else {
-//                            _linkDetailsState.value = ShowLinkDetailsError(Throwable("Reference Id unavailable"))
-//                        }
-//                    }
-//
-//                }, {
-//                    Timber.e(it, "Link details error")
-//                    _linkDetailsState.value = ShowLinkDetailsError(it)
-//                })
-//            .addTo(disposables)
-//
-//
-//    }
 
 }

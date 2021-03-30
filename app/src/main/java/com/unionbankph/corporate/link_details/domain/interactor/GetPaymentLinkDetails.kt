@@ -25,12 +25,14 @@ constructor(
     override fun buildUseCaseObservable(
         params: LinkDetailsForm?
     ): Single<LinkDetailsResponse> {
-        return linkDetailsGateway.linkGateway(
+        return linkDetailsGateway.getPaymentLink(
             LinkDetailsForm(
                 params!!.totalAmount,
                 params.description,
                 params.notes,
-                params.paymentLinkExpiry
+                params.paymentLinkExpiry,
+                params.mobileNumber,
+                params.organizationName
             )
         )
     }

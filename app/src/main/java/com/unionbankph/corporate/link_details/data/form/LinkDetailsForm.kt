@@ -15,5 +15,9 @@ data class LinkDetailsForm(
         @SerialName("note")
         var notes: String? = null,
         @SerialName("expiry")
-        var paymentLinkExpiry: Int = 12
+        var paymentLinkExpiry: Int = 12,
+        @SerialName("mobileNumber")
+        var mobileNumber: String?,
+        @SerialName("organizationName")
+        var organizationName: String?
 )

@@ -9,8 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestPaymentActivity
-import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.SetupPaymentLink
+import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import kotlinx.android.synthetic.main.activity_request_payment_splash_frame_screen.*
 
 class RequestPaymentSplashActivity : AppCompatActivity() {
@@ -28,7 +27,7 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
 
         val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         if (sharedPref.getBoolean(PREF_NAME, false)){
-            val intent = Intent(this, SetupPaymentLink::class.java)
+            val intent = Intent(this, SetupPaymentLinkActivity::class.java)
             startActivity(intent)
             finish()
         } else {
@@ -96,14 +95,14 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
 
     private fun getStarted(){
         btnGetStarted.setOnClickListener{
-            val intent = Intent(this, SetupPaymentLink::class.java)
+            val intent = Intent(this, SetupPaymentLinkActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun skipToRequestPayment(){
         skipBtn.setOnClickListener{
-            val intent = Intent(this, SetupPaymentLink::class.java)
+            val intent = Intent(this, SetupPaymentLinkActivity::class.java)
             startActivity(intent)
         }
     }
