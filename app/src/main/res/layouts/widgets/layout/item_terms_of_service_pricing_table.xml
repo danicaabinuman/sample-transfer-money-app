@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_table_pricing_right_bottom"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="10dp"
+                android:text="Payment Method"
+                android:textColor="#4A4A4A"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/for_table_pricing_left_bottom"
+                android:paddingLeft="10dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="10dp"
+                android:text="Fee per Transaction"
+                android:textColor="#4A4A4A"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_table_pricing_right_top_bottom"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="UnionBank"
+                android:textColor="#4A4A4A"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/for_table_pricing_left_top_bottom"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="FREE"
+                android:textColor="#4A4A4A"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_table_pricing_right_top_bottom"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Instapay"
+                android:textColor="#4A4A4A"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_table_pricing_left_top_bottom"
+                android:paddingLeft="10dp"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="PHP 15.00"
+                android:textColor="#4A4A4A"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_table_pricing_right_top"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+                android:text="PayGate"
+                android:textColor="#4A4A4A"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_table_pricing_left_top"
+                android:paddingLeft="10dp"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="15dp"
+                android:text="PHP 15.00"
+                android:textColor="#4A4A4A"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

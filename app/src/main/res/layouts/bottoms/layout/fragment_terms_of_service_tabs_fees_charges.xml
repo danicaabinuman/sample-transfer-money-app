@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="20dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvFCDetails"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="UnionBank will collect the following fees for every transaction done through our generated payment links.  See pricing table below:"
+        android:textColor="#4A4A4A"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPricingTable"
+        app:layout_constraintTop_toBottomOf="@id/tvFCDetails"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Pricing Table"
+        android:textColor="#4A4A4A"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
+
+    <include
+        layout="@layout/item_terms_of_service_pricing_table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tablePricing"
+        app:layout_constraintTop_toBottomOf="@id/tvPricingTable"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvFCDetails2"
+        app:layout_constraintTop_toBottomOf="@id/tablePricing"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Settlement for the payments made using these channels will be credited to your nominated settlement account two (2) days after receipt of payment. "
+        android:textColor="#4A4A4A"
+        android:textSize="12sp"
+        android:layout_marginTop="20dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
