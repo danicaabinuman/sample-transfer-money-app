@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Feature Unavailable"
+            android:text="@string/title_feature_unavailable"
             android:textSize="18sp"
             android:textColor="#FF8200"
             android:layout_marginTop="25dp"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Sorry, this feature is not yet available for your access level. Try again later. "
+            android:text="@string/detail_sorry_this_feature_is_not_yet_available_for_your_access_level_try_again_later"
             android:textSize="14sp"
             android:textColor="#4B4948"
             android:layout_marginTop="5dp"
@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="BACK TO DASHBOARD"
+            android:text="@string/btn_back_to_dashboard"
             android:textSize="11sp"
             android:layout_marginTop="25dp"
             android:textColor="#FFFFFF"
