@@ -4,7 +4,7 @@ import android.content.Intent
 import android.text.Html
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestPaymentActivity
+import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
 
@@ -19,7 +19,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         initTermsAndCondition()
 
         btnSetupBusinessLink.setOnClickListener{
-            val intent = Intent(this, RequestPaymentActivity::class.java)
+            val intent = Intent(this, RequestForPaymentActivity::class.java)
             startActivity(intent)
             finish()
         }
