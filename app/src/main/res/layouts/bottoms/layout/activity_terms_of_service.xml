@@ -15,15 +15,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@drawable/bg_title_bar"
             android:orientation="horizontal"
-            android:paddingTop="30dp">
+            android:paddingTop="30dp"
+            android:paddingBottom="15dp"
+            >
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                app:srcCompat="@drawable/arrow_back" />
+                android:layout_width="18dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="25dp"
+                app:srcCompat="@drawable/ic_back_orange"/>
 
             <TextView
                 android:layout_width="wrap_content"

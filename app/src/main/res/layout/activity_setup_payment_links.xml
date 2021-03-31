@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/LLHeader"
-        android:background="@drawable/square_white"
+        android:background="@drawable/bg_title_bar"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,14 +17,27 @@
         android:paddingTop="45dp"
         android:paddingStart="25dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_set_up_payment_link"
             android:layout_marginBottom="4dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#4B4948"/>
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="18dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_back_orange"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:text="@string/title_set_up_payment_link"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#4B4948"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,7 +95,7 @@
                     android:hint="@string/hint_storehandle">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_notes"
+                        android:id="@+id/et_business_name"
                         style="@style/TextInputEditTextForm"
                         android:layout_height="48dp"
                         android:inputType="text" />
@@ -123,6 +136,7 @@
                     android:hint="@string/hint_website">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_business_websites"
                         style="@style/TextInputEditTextForm"
                         android:layout_height="48dp"
                         android:inputType="text" />
@@ -162,6 +176,7 @@
                     android:hint="@string/hint_product">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_business_products_offered"
                         style="@style/TextInputEditTextForm"
                         android:layout_height="48dp"
                         android:inputType="text" />
@@ -212,11 +227,12 @@
                 android:orientation="horizontal">
 
                 <CheckBox
+                    android:id="@+id/cb_fnc_tnc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/cb_fnc_tnc"
+                    android:id="@+id/tv_link_fnc_tnc"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textSize="12sp"
