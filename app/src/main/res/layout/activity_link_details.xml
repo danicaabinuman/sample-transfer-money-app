@@ -70,9 +70,9 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/linkDetailsRefNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=""
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -101,11 +101,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_link_details_date_and_time"
+                    android:id="@+id/linkDetailsCreatedDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="" />
+                    android:layout_marginTop="@dimen/grid_1"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -115,11 +114,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_link_details_amount"
+                    android:id="@+id/linkDetailsAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="" />
+                    android:layout_marginTop="@dimen/grid_1"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -129,11 +127,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_link_details_description"
+                    android:id="@+id/linkDetailsDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="" />
+                    android:layout_marginTop="@dimen/grid_1"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -143,11 +140,10 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_link_details_notes"
+                    android:id="@+id/linkDetailsNotes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="" />
+                    android:layout_marginTop="@dimen/grid_1"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -160,8 +156,7 @@
                     android:id="@+id/tv_link_details_expiry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="" />
+                    android:layout_marginTop="@dimen/grid_1" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -178,11 +173,10 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/sampleLink"
+                        android:id="@+id/linkDetailsPaymentLink"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
-                        android:text="https://ub.sme/shopname/refno"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvPaymentLink" />
 

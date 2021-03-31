@@ -7,5 +7,5 @@ import retrofit2.Response
 
 interface LinkDetailsRemote {
 
-    fun generateLink(linkDetails: LinkDetailsForm) : Single<Response<LinkDetailsResponse>>
+    fun generateLink(accessToken: String, organizationId: String, linkDetails: LinkDetailsForm) : Single<Response<LinkDetailsResponse>>
 }

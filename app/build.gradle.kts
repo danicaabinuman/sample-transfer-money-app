@@ -323,6 +323,24 @@ fun setupProductFlavors(
         "CLIENT_API_VERSION",
         buildGradle.properties["clientApiVersion"].toString()
     )
+
+    productFlavor.buildConfigField(
+        "String",
+        "MSME_CLIENT_API_VERSION",
+        buildGradle.properties["msmeClientApiVersion"].toString()
+    )
+
+    productFlavor.buildConfigField(
+        "String",
+        "MSME_CLIENT_ID",
+        buildGradle.properties["msmeClientId${env.getDisplayName()}"].toString()
+    )
+
+    productFlavor.buildConfigField(
+        "String",
+        "MSME_CLIENT_SECRET",
+        buildGradle.properties["msmeClientSecret${env.getDisplayName()}"].toString()
+    )
 }
 
 //val compileKotlin: KotlinCompile by tasks

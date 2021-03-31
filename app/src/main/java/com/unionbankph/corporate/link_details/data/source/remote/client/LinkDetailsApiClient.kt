@@ -1,10 +1,7 @@
 package com.unionbankph.corporate.link_details.data.source.remote.client
 
-import com.unionbankph.corporate.bills_payment.data.model.BillsPaymentVerify
 import com.unionbankph.corporate.link_details.data.LinkDetailsResponse
 import com.unionbankph.corporate.link_details.data.form.LinkDetailsForm
-import com.unionbankph.corporate.request_payment_link.data.form.RequestPaymentForm
-import com.unionbankph.corporate.request_payment_link.data.model.RequestPaymentLinkResponse
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.Body
@@ -14,13 +11,19 @@ import retrofit2.http.Path
 
 interface LinkDetailsApiClient {
 
-    @POST("api/{api_version}/organizations/13b8b6af-7d34-487c-ad26-333b3fff3671/payment-links")
+    @POST("msme/api/{api_version}/organizations/{organization_id}/payment-links")
     fun generatePaymentLink(
-//            @Header("Authorization")
-//            accessToken: String,
-            @Path("api_version")
-            apiVersion: String,
-            @Body
-            linkDetailsForm: LinkDetailsForm
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Path("organization_id")
+        organizationId: String,
+        @Body
+        linkDetailsForm: LinkDetailsForm
     ): Single<Response<LinkDetailsResponse>>
 }

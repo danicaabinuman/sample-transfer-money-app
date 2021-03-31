@@ -6,7 +6,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
-@Parcelize
 @Serializable
 data class LinkDetailsForm(
         @SerialName("amount")
@@ -16,5 +15,9 @@ data class LinkDetailsForm(
         @SerialName("note")
         var notes: String? = null,
         @SerialName("expiry")
-        var paymentLinkExpiry: Int = 12
-) : Parcelable
+        var paymentLinkExpiry: Int = 12,
+        @SerialName("mobileNumber")
+        var mobileNumber: String?,
+        @SerialName("organizationName")
+        var organizationName: String?
+)

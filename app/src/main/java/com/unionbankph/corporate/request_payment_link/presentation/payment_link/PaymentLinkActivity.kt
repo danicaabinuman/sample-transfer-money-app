@@ -11,7 +11,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
-import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestPaymentActivity
+import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.widget_badge_initial.*
@@ -44,7 +44,7 @@ class PaymentLinkActivity : AppCompatActivity(),
 
         btnRequestPayment.setOnClickListener {
 
-            val intent = Intent(this, RequestPaymentActivity::class.java)
+            val intent = Intent(this, RequestForPaymentActivity::class.java)
             startActivity(intent)
 
         }

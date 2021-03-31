@@ -75,6 +75,7 @@ import com.unionbankph.corporate.general.presentation.link.DeepLinkLandingActivi
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingWithoutAuthActivity
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterActivity
+import com.unionbankph.corporate.link_details.presentation.LinkDetailsActivity
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraActivity
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationActivity
 import com.unionbankph.corporate.mcd.presentation.detail.CheckDepositDetailActivity
@@ -85,6 +86,8 @@ import com.unionbankph.corporate.mcd.presentation.log.CheckDepositActivityLogAct
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingActivity
 import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewActivity
 import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryActivity
+import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestForPaymentActivity
+import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.settings.presentation.country.CountryActivity
 import com.unionbankph.corporate.settings.presentation.email.UpdateEmailActivity
 import com.unionbankph.corporate.settings.presentation.fingerprint.BiometricActivity
@@ -483,5 +486,17 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun eBillingGenerateActivity(): EBillingGenerateActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun linkDetailsActivity(): LinkDetailsActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun requestPaymentActivity(): RequestForPaymentActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun setupPaymentLinkActivity(): SetupPaymentLinkActivity
 
 }

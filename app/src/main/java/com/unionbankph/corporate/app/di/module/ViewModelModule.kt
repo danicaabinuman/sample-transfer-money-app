@@ -85,6 +85,7 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
+import com.unionbankph.corporate.link_details.presentation.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationViewModel
 import com.unionbankph.corporate.mcd.presentation.detail.CheckDepositDetailViewModel
@@ -96,6 +97,8 @@ import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoard
 import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewViewModel
 import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryViewModel
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogViewModel
+import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestForPaymentViewModel
+import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.country.CountryViewModel
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayViewModel
@@ -646,4 +649,25 @@ abstract class ViewModelModule {
     @ViewModelKey(EBillingGenerateViewModel::class)
     abstract fun eBillingGenerateViewModel(viewModel: EBillingGenerateViewModel): ViewModel
 
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LinkDetailsViewModel::class)
+    abstract fun linkDetailsViewModel(
+        viewModel: LinkDetailsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RequestForPaymentViewModel::class)
+    abstract fun requestPaymentViewModel(
+        viewModel: RequestForPaymentViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SetupPaymentLinkViewModel::class)
+    abstract fun setupPaymentLinkViewModel(
+        viewModel: SetupPaymentLinkViewModel
+    ): ViewModel
 }

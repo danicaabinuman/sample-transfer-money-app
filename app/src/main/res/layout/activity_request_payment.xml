@@ -49,16 +49,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing quisque malesuada adipiscing urna id." />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/grid_2"
                 android:textSize="@dimen/text_16"
                 android:textStyle="bold"
                 android:text="@string/head_total_amount"/>
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_amount"
                 style="@style/TextInputLayoutForm"
@@ -128,7 +122,6 @@
                 android:textSize="@dimen/text_16"
                 android:textStyle="bold"
                 android:text="@string/head_notes"/>
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutForm"
                 android:layout_width="match_parent"
@@ -171,7 +164,7 @@
                     <ImageView
                         android:layout_width="@dimen/grid_5"
                         android:layout_height="0dp"
-                        android:background="@drawable/ic_arrow_black_down"
+                        android:src="@drawable/ic_arrow_black_down"
                         android:layout_alignParentEnd="true"
                         android:layout_alignBottom="@+id/dropdownPaymentLinkExport"
                         android:layout_alignTop="@+id/dropdownPaymentLinkExport"
