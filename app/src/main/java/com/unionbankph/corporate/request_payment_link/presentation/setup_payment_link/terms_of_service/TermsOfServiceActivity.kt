@@ -6,18 +6,15 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import kotlinx.android.synthetic.main.activity_terms_of_service.*
 
-class TermsOfServiceActivity : AppCompatActivity() {
+class TermsOfServiceActivity : BaseActivity<TermsOfServiceViewModel>(R.layout.activity_terms_of_service) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_terms_of_service)
-
-//        setViewPager()
+    override fun onViewsBound() {
+        super.onViewsBound()
         setUpTabs()
-
     }
 
     private fun setUpTabs(){

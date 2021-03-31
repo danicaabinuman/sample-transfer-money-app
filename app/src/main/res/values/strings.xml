@@ -1942,8 +1942,11 @@
     <string name="country_code_63">+63</string>
     <string name="hint_e_g_9123456789">e.g. 9123456789</string>
     <string name="btn_generate_unique_link">GENERATE UNIQUE LINK</string>
-    <string name="btn_cancel">CANCEL</string>
     <string name="title_feature_unavailable">Feature Unavailable</string>
     <string name="detail_sorry_this_feature_is_not_yet_available_for_your_access_level_try_again_later">Sorry, this feature is not yet available for your access level. Try again later.</string>
     <string name="btn_back_to_dashboard">BACK TO DASHBOARD</string>
+
+    <string name="terms_conditions_payment_links">Customer Declaration\n\nI/We hereby certify that the information given by me/us is true, complete and correct. I/We authorize UnionBank of the Philippines or its authorized representative/s to verify, investigate or confirm any or all of the information provided by me/us from whatever sources it may consider appropriate. I/We understand and accept that my failure to provide true, complete and correct information to UnionBank of the Philippines or its authorized representative/s regarding my/our financial knowledge and experience may result in UnionBank of the Philippines’ inability to accurately determine the appropriateness of a product and/or service for me/us given the limited information available. I/We understand that falsifying or providing any false or inaccurate information or documents is sufficient ground for legal action and/or the rejection of my application. I/We understand that should my application be denied, UnionBank of the Philippines or its authorized representative/s has no obligation to provide me/us with the reason for such rejection. \n\nI/We hereby certify that the information given by me/us is true, complete and correct. I/We authorize UnionBank of the Philippines or its authorized representative/s to verify, investigate or confirm any or all of the information provided by me/us from whatever sources it may consider</string>
+    <string name="agree_and_continue">AGREE AND CONTINUE</string>
+
 </resources>
