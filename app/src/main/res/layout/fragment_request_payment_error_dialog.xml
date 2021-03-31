@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/bg_error_dialogue_white"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_feature_unavailable"
+            android:textSize="18sp"
+            android:textColor="#FF8200"
+            android:layout_marginTop="25dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/detail_sorry_this_feature_is_not_yet_available_for_your_access_level_try_again_later"
+            android:textSize="14sp"
+            android:textColor="#4B4948"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/btn_back_to_dashboard"
+            android:textSize="11sp"
+            android:layout_marginTop="25dp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:background="@drawable/btn_back_to_dashboard"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
