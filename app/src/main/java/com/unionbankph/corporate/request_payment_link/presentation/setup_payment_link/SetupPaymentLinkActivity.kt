@@ -15,11 +15,15 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         initViews()
     }
 
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+    }
+
     private fun initViews(){
         initTermsAndCondition()
 
         btnSetupBusinessLink.setOnClickListener{
-            val intent = Intent(this, RequestPaymentActivity::class.java)
+            val intent = Intent(this, RequestForPaymentActivity::class.java)
             startActivity(intent)
             finish()
         }

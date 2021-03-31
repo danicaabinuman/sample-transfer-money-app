@@ -541,7 +541,7 @@
             android:theme="@style/CustomJumioAppTheme" />
 
         <activity
-            android:name=".request_payment_link.presentation.request_payment.RequestPaymentActivity"
+            android:name=".request_payment_link.presentation.request_payment.RequestForPaymentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 

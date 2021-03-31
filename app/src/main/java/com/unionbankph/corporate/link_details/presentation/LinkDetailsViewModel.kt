@@ -34,8 +34,7 @@ class LinkDetailsViewModel
 ) : BaseViewModel(){
 
 
-    private val _linkDetailsResponse =
-        MutableLiveData<LinkDetailsResponse>()
+    private val _linkDetailsResponse = MutableLiveData<LinkDetailsResponse>()
 
     val linkDetailsResponse: LiveData<LinkDetailsResponse>
         get() =
@@ -46,7 +45,7 @@ class LinkDetailsViewModel
     val navigateViewTransaction: LiveData<Event<String>> get() = _navigateViewTransaction
 
 
-    fun initBundleData(amount: String, paymentFor: String, notes: String?, selectedExpiry: String) {
+    fun initBundleData(amount: String, paymentFor: String, notes: String?, selectedExpiry: String, mobileNumber: String) {
 
         var expiry = 12
 
@@ -64,14 +63,19 @@ class LinkDetailsViewModel
             expiry = 168
         }
 
+        var finalMobileNumber = mobileNumber
+        if(!mobileNumber.first().equals('0',true)){
+            finalMobileNumber = "0$mobileNumber"
+        }
+
         generateLinkDetails(
             LinkDetailsForm(
                 amount.replace("PHP","").replace(",","").trim().toDouble(),
                 paymentFor,
                 notes,
                 expiry,
-                "09176770225",
-                "Test Org 6247 2"
+                finalMobileNumber,
+                null
             )
         )
 

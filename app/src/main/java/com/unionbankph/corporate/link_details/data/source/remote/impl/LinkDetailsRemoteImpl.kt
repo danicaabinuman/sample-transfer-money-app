@@ -19,12 +19,14 @@ class LinkDetailsRemoteImpl
 
     override fun generateLink(
         accessToken: String,
+        organizationId: String,
         linkDetails: LinkDetailsForm
     ) : Single<Response<LinkDetailsResponse>>{
         return linkDetailsApiClient.generatePaymentLink(accessToken,
             BuildConfig.MSME_CLIENT_ID,
             BuildConfig.MSME_CLIENT_SECRET,
             BuildConfig.MSME_CLIENT_API_VERSION,
+            organizationId,
             linkDetails
         )
     }

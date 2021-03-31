@@ -1,13 +1,11 @@
 package com.unionbankph.corporate.request_payment_link.presentation.request_payment
 
 import android.content.Intent
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -19,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
-class RequestPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
+class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
 
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
@@ -49,15 +47,14 @@ class RequestPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.
     }
 
     private fun validateForm(){
-        var amountString = et_amount.text.toString()
-        var paymentForString = et_paymentFor.text.toString()
-        var notesString = et_notes.text.toString()
+        val amountString = et_amount.text.toString()
+        val paymentForString = et_paymentFor.text.toString()
+        val mobileNumber = textInputEditTextMobileNumber.text.toString()
 
         if (
-                amountString.length > 4 &&
-                (paymentForString.length in 1..1000) &&
-                (notesString.length >= 0)
-
+            (amountString.length) > 4 &&
+            (paymentForString.length in 1..1000) &&
+            (mobileNumber.length > 4)
         ){
             buttonEnable()
         } else {
@@ -108,16 +105,20 @@ class RequestPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.
             }
         })
 
-        et_notes.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+        textInputEditTextMobileNumber.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-            override fun afterTextChanged(s: Editable?) {
-            }
+                }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    validateForm()
+                }
+            })
+
     }
 
     private fun paymentLinkExpiry(){
@@ -127,7 +128,7 @@ class RequestPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.
         with(dropdownPaymentLinkExport){
             adapter = aa
             setSelection(1, false)
-            onItemSelectedListener = this@RequestPaymentActivity
+            onItemSelectedListener = this@RequestForPaymentActivity
             prompt = "SAMPLE PROMPT MESSAGE"
             gravity = Gravity.CENTER
         }
@@ -145,12 +146,14 @@ class RequestPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.
         val amount = et_amount.text.toString()
         val paymentFor = et_paymentFor.text.toString()
         val notes = et_notes.text.toString()
+        val mobileNumebr = textInputEditTextMobileNumber.text.toString()
 
         val intent = Intent(this, LinkDetailsActivity::class.java)
         intent.putExtra(LinkDetailsActivity.EXTRA_AMOUNT, amount)
         intent.putExtra(LinkDetailsActivity.EXTRA_PAYMENT_FOR, paymentFor)
         intent.putExtra(LinkDetailsActivity.EXTRA_NOTES, notes)
         intent.putExtra(LinkDetailsActivity.EXTRA_SELECTED_EXPIRY, linkExpiry)
+        intent.putExtra(LinkDetailsActivity.EXTRA_MOBILE_NUMBER, mobileNumebr)
         startActivity(intent)
     }
 
