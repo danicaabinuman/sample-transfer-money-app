@@ -15,6 +15,14 @@ import retrofit2.http.*
 interface AccountApiClient {
 
     @GET("api/{api_version}/corporate-user-profile/accounts")
+    fun getAccounts(
+        @Header("Authorization")
+        accessToken: String,
+        @Path("api_version")
+        apiVersion: String
+    ): Single<Response<MutableList<Account>>>
+
+    @GET("api/{api_version}/corporate-user-profile/accounts")
     fun getAccountsPermission(
         @Header("Authorization")
         accessToken: String,

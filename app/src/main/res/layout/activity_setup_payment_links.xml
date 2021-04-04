@@ -143,7 +143,7 @@
                         android:id="@+id/et_business_websites"
                         style="@style/TextInputEditTextForm2"
                         android:layout_height="48dp"
-                        android:inputType="text" />
+                        android:inputType="textUri" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -210,6 +210,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/btnNominate"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginBottom="15dp"

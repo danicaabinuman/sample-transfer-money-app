@@ -28,6 +28,13 @@ constructor(
     private val accountApiClient: AccountApiClient =
         retrofit.create(AccountApiClient::class.java)
 
+    override fun getAccounts(accessToken: String): Single<Response<MutableList<Account>>> {
+        return accountApiClient.getAccounts(
+            accessToken,
+            ApiVersionEnum.V3.value
+        )
+    }
+
     override fun getAccountsPermission(
         accessToken: String,
         channelId: String?,

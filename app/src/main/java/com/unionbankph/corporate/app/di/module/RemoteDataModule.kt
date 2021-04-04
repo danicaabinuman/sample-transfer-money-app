@@ -23,6 +23,8 @@ import com.unionbankph.corporate.link_details.data.source.remote.LinkDetailsRemo
 import com.unionbankph.corporate.link_details.data.source.remote.impl.LinkDetailsRemoteImpl
 import com.unionbankph.corporate.notification.data.source.remote.NotificationRemote
 import com.unionbankph.corporate.notification.data.source.remote.impl.NotificationRemoteImpl
+import com.unionbankph.corporate.request_payment_link.data.CreateMerchantRemote
+import com.unionbankph.corporate.request_payment_link.data.CreateMerchantRemoteImpl
 import com.unionbankph.corporate.settings.data.source.remote.SettingsRemote
 import com.unionbankph.corporate.settings.data.source.remote.impl.SettingsRemoteImpl
 import dagger.Module
@@ -88,4 +90,8 @@ class RemoteDataModule {
     @Provides
     @PerApplication
     fun linkDetailsRemote(retrofit: Retrofit): LinkDetailsRemote = LinkDetailsRemoteImpl(retrofit)
+
+    @Provides
+    @PerApplication
+    fun createMerchantRemote(retrofit: Retrofit): CreateMerchantRemote = CreateMerchantRemoteImpl(retrofit)
 }

@@ -6,18 +6,31 @@ import android.content.SharedPreferences
 import android.text.Editable
 import android.text.Html
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.link_details.presentation.LinkDetailsViewModel
 import com.unionbankph.corporate.request_payment_link.data.form.CreateMerchantForm
 import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
+import timber.log.Timber
 
 class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_setup_payment_links) {
+
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        viewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        )[SetupPaymentLinkViewModel::class.java]
+    }
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -30,10 +43,25 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         setupOutputs()
     }
 
+
     private fun initViews() {
 
+        val businessName = et_business_name.text.toString()
+        val businessWebsite = et_business_websites.text.toString()
+        val businessProductsOffered = et_business_products_offered.text.toString()
+
         btnSetupBusinessLink.setOnClickListener {
-            validateForm()
+            viewModel.createMerchant(
+                CreateMerchantForm(
+                    "",
+                    businessName,
+                    businessName,
+                    "1096822",
+                    "Unnecessary",
+                    businessWebsite,
+                    businessProductsOffered
+                )
+            )
         }
 
         btnSetupBusinessLink.setOnLongClickListener{
@@ -45,6 +73,10 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
         btnCancel.setOnClickListener {
             finish()
+        }
+
+        btnNominate.setOnClickListener {
+            viewModel.getAccounts()
         }
 
     }
@@ -126,11 +158,24 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
                 Toast.makeText(this@SetupPaymentLinkActivity, "Error", Toast.LENGTH_SHORT).show()
             }
         })
+
+        viewModel.accounts.observe(this, Observer {
+            it?.let {
+                openNominateAccounts(it)
+            }
+        })
+    }
+
+    private fun openNominateAccounts(accounts: MutableList<Account>){
+        if(accounts.size>0){
+            Timber.d("Size of accounts = ${accounts.size}")
+        }else{
+            Toast.makeText(this@SetupPaymentLinkActivity, "No Accounts", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun validateForm(){
         val businessName = et_business_name.text.toString()
-        val businessWebsite = et_business_websites.text.toString()
         val businessProductsOffered = et_business_products_offered.text.toString()
 
         if (
@@ -142,17 +187,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             buttonDisable()
         }
 
-        viewModel.createMerchant(
-            CreateMerchantForm(
-                "",
-                businessName,
-                businessName,
-                "1096822",
-                "Unnecessary",
-                businessWebsite,
-                businessProductsOffered
-            )
-        )
+
 
 
     }
