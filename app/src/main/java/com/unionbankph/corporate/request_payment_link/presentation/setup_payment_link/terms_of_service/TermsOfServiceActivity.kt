@@ -1,13 +1,9 @@
 package com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.terms_of_service
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import kotlinx.android.synthetic.main.activity_terms_of_service.*
 
 class TermsOfServiceActivity : BaseActivity<TermsOfServiceViewModel>(R.layout.activity_terms_of_service) {
@@ -52,8 +48,7 @@ class TermsOfServiceActivity : BaseActivity<TermsOfServiceViewModel>(R.layout.ac
         })
 
         btnAgreeAndContinue.setOnClickListener{
-            val intent = Intent (this, SetupPaymentLinkActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
     }

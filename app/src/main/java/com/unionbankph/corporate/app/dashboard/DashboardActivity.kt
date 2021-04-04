@@ -256,7 +256,6 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         btnRequestPayment.setOnClickListener{
             navigator.navigate(
                 this,
-//                RequestPaymentOnboardingActivity::class.java,
                 RequestPaymentSplashActivity::class.java,
                 null,
                 isClear = false,

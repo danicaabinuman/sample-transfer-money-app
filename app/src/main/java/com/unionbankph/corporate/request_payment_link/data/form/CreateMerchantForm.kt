@@ -17,6 +17,8 @@ data class CreateMerchantForm(
         var uniqueStoreHandle: String,
         @SerialName("accountNo")
         var accountNo: String,
+        @SerialName("accountName")
+        var accountName: String,
         @SerialName("website")
         var website: String,
         @SerialName("productsAndServices")

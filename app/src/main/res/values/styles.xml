@@ -606,6 +606,24 @@
         <item name="android:textSize">@dimen/text_12</item>
     </style>
 
+    <style name="TextInputEditTextForm2" parent="MatchWrapParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingStart">@dimen/content_spacing</item>
+        <item name="android:paddingEnd">@dimen/content_spacing</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/field_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/field_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/field_radius</item>
+        <item name="boxCornerRadiusTopStart">@dimen/field_radius</item>
+        <item name="android:digits">@string/digits_alpha_numeric_symbols</item>
+        <item name="android:maxLength">@integer/max_length_field_100</item>
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
     <style name="TextInputEditTextFormCounter" parent="MatchWrapParent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

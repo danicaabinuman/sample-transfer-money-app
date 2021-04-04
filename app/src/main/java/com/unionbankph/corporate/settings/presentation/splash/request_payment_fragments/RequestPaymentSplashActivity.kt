@@ -14,9 +14,6 @@ import kotlinx.android.synthetic.main.activity_request_payment_splash_frame_scre
 
 class RequestPaymentSplashActivity : AppCompatActivity() {
 
-    private var PRIVATE_MODE = 0
-    private val PREF_NAME = "request_payment_link"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_payment_splash_frame_screen)
@@ -25,16 +22,15 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
         setViewPager()
         getStarted()
 
-        val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        if (sharedPref.getBoolean(PREF_NAME, false)){
+        val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_ONBOARDED, Context.MODE_PRIVATE)
+        if (sharedPref.getBoolean(SHAREDPREF_IS_ONBOARDED, false)){
             val intent = Intent(this, SetupPaymentLinkActivity::class.java)
             startActivity(intent)
             finish()
         } else {
-//            setContentView(R.layout.activity_request_payment_splash_frame_screen)
             setViewPager()
             val editor = sharedPref.edit()
-            editor.putBoolean(PREF_NAME, true)
+            editor.putBoolean(SHAREDPREF_IS_ONBOARDED, true)
             editor.apply()
         }
 
@@ -51,18 +47,6 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-//        val viewPager: ViewPager2 = findViewById(R.id.viewPager2)
-//
-//        val fragments: ArrayList<Fragment> = arrayListOf(
-//            CreateUniquePaymentLinks(),
-//            AccessPaymentChannels(),
-//            EverythingInOnePlace()
-//        )
-//
-//        val adapter = ViewPagerAdapter(fragments, this )
-//        viewPager.adapter = adapter
     }
 
     private fun setViewPager(){
@@ -97,6 +81,7 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
         btnGetStarted.setOnClickListener{
             val intent = Intent(this, SetupPaymentLinkActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -104,7 +89,12 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
         skipBtn.setOnClickListener{
             val intent = Intent(this, SetupPaymentLinkActivity::class.java)
             startActivity(intent)
+            finish()
         }
+    }
+
+    companion object {
+        const val SHAREDPREF_IS_ONBOARDED = "sharedpref_is_onboarded"
     }
 
 }

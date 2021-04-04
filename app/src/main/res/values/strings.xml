@@ -1889,7 +1889,7 @@
     <string name="title_set_up_payment_link">Set-up Payment Link</string>
     <string name="desc_set_up_your_business_link">Before we start, let\'s set-up your business link.</string>
     <string name="title_unique_store_handle">Unique Business Name</string>
-    <string name="desc_personalize_your_store_handle">Personalize your payment link by nominating your unique handle for your payment links.</string>
+    <string name="desc_personalize_your_store_handle">Personalize your payment link by nominating a unique handle for your business.</string>
     <string name="hint_storehandle">abcandleco</string>
     <string name="title_website_or_social_media_pages">Website or Social Media Pages</string>
     <string name="desc_website_pages">For multiple URLs, separate them with a comma \",\"</string>
