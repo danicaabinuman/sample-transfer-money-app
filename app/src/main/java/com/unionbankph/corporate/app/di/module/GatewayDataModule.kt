@@ -46,6 +46,9 @@ import com.unionbankph.corporate.mcd.data.source.remote.CheckDepositRemote
 import com.unionbankph.corporate.notification.data.gateway.NotificationGateway
 import com.unionbankph.corporate.notification.data.gateway.impl.NotificationGatewayImpl
 import com.unionbankph.corporate.notification.data.source.remote.NotificationRemote
+import com.unionbankph.corporate.request_payment_link.data.CreateMerchantRemote
+import com.unionbankph.corporate.request_payment_link.domain.CreateMerchantGateway
+import com.unionbankph.corporate.request_payment_link.domain.CreateMerchantGatewayImpl
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import com.unionbankph.corporate.settings.data.gateway.impl.SettingsGatewayImpl
 import com.unionbankph.corporate.settings.data.source.local.SettingsCache
@@ -225,6 +228,21 @@ class GatewayDataModule {
         LinkDetailsGatewayImpl(
             responseProvider,
             linkDetailsRemote,
+            settingsCache,
+            cacheManager
+        )
+
+    @Provides
+    @PerApplication
+    fun createMerchantGateway(
+        responseProvider: ResponseProvider,
+        createMerchantRemote: CreateMerchantRemote,
+        settingsCache: SettingsCache,
+        cacheManager: CacheManager
+    ): CreateMerchantGateway =
+        CreateMerchantGatewayImpl(
+            responseProvider,
+            createMerchantRemote,
             settingsCache,
             cacheManager
         )

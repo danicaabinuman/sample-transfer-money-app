@@ -554,12 +554,7 @@
             android:name=".link_details.presentation.LinkDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
-
-        <activity
-            android:name=".request_payment_link.presentation.onboarding.RequestPaymentOnboardingActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
-
+        
         <activity
             android:name=".settings.presentation.splash.request_payment_fragments.RequestPaymentSplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
