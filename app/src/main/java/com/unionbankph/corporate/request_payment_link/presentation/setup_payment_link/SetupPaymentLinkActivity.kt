@@ -51,6 +51,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         tv_link_fnc_tnc.setOnClickListener {
             val intent = Intent(this, TermsOfServiceActivity::class.java)
             startActivity(intent)
+            cb_fnc_tnc.isChecked = true
         }
 //        cb_fnc_tnc.movementMethod = LinkMovementMethod.getInstance()
     }
