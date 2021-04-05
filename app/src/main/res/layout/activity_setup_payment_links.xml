@@ -24,13 +24,15 @@
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="18dp"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_back_orange"/>
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_height="wrap_content"
                 android:text="@string/title_set_up_payment_link"
                 android:textSize="18sp"
@@ -39,13 +41,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="#6D6D6D"
-            android:layout_marginBottom="14dp"
-            android:text="@string/desc_set_up_your_business_link"/>
 
     </LinearLayout>
 
@@ -62,6 +57,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="19dp"
+                android:layout_marginStart="25dp"
+                android:textColor="#6D6D6D"
+                android:text="@string/desc_set_up_your_business_link"/>
 
             <LinearLayout
                 android:id="@+id/LLUniqueStoreHandle"
@@ -137,9 +141,9 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_business_websites"
-                        style="@style/TextInputEditTextForm"
+                        style="@style/TextInputEditTextForm2"
                         android:layout_height="48dp"
-                        android:inputType="text" />
+                        android:inputType="textUri" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,6 +189,12 @@
 
             </LinearLayout>
 
+
+
+
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -205,7 +215,13 @@
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
+                <include
+                    android:id="@+id/include1"
+                    android:visibility="gone"
+                    layout="@layout/item_nominate_account"/>
+
                 <TextView
+                    android:id="@+id/btnNominate"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginBottom="15dp"
@@ -228,14 +244,19 @@
 
                 <CheckBox
                     android:id="@+id/cb_fnc_tnc"
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/tv_link_fnc_tnc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical|left"
+                    android:layout_weight="1"
+                    android:layout_height="60dp"
                     android:textSize="12sp"
+                    android:text="I have read the Fees and Charges and agree to the Terms and Conditions of the Request for Payment"
                     />
             </LinearLayout>
 

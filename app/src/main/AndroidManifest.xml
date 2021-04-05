@@ -40,8 +40,8 @@
         android:windowSoftInputMode="stateAlwaysHidden"
         tools:replace="android:allowBackup"
         tools:targetApi="m">
-
-        <!--Activities-->
+        <activity android:name=".request_payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity"></activity>
+        <!-- Activities -->
         <activity
             android:name="com.unionbankph.corporate.auth.presentation.login.LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
@@ -415,191 +415,167 @@
                     android:host="@string/host_name"
                     android:path="/confirm-change-email"
                     android:scheme="https" />
-
             </intent-filter>
         </activity>
         <activity
-            android:name="com.unionbankph.corporate.approval.presentation.approval_cwt.BatchCWTActivity"
+            android:name=".approval.presentation.approval_cwt.BatchCWTActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.approval.presentation.approval_cwt_detail.BatchCWTDetailActivity"
+            android:name=".approval.presentation.approval_cwt_detail.BatchCWTDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraActivity"
+            android:name=".mcd.presentation.camera.CheckDepositCameraActivity"
             android:configChanges="screenLayout|keyboardHidden|orientation|screenSize|locale|fontScale"
             android:hardwareAccelerated="true"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewActivity"
+            android:name=".mcd.presentation.preview.CheckDepositPreviewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingActivity"
+            android:name=".mcd.presentation.onboarding.CheckDepositOnBoardingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.form.CheckDepositFormActivity"
+            android:name=".mcd.presentation.form.CheckDepositFormActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationActivity"
+            android:name=".mcd.presentation.confirmation.CheckDepositConfirmationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryActivity"
+            android:name=".mcd.presentation.summary.CheckDepositSummaryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity"
+            android:name=".mcd.presentation.list.CheckDepositActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.detail.CheckDepositDetailActivity"
+            android:name=".mcd.presentation.detail.CheckDepositDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.log.CheckDepositActivityLogActivity"
+            android:name=".mcd.presentation.log.CheckDepositActivityLogActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.list.BranchVisitActivity"
+            android:name=".branch.presentation.list.BranchVisitActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.branch.BranchActivity"
+            android:name=".branch.presentation.branch.BranchActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.channel.BranchVisitChannelActivity"
+            android:name=".branch.presentation.channel.BranchVisitChannelActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.form.BranchVisitFormActivity"
+            android:name=".branch.presentation.form.BranchVisitFormActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.transaction.BranchVisitTransactionFormActivity"
+            android:name=".branch.presentation.transaction.BranchVisitTransactionFormActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.transactionlist.BranchTransactionActivity"
+            android:name=".branch.presentation.transactionlist.BranchTransactionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.confirmation.BranchVisitConfirmationActivity"
+            android:name=".branch.presentation.confirmation.BranchVisitConfirmationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.summary.BranchVisitSummaryActivity"
+            android:name=".branch.presentation.summary.BranchVisitSummaryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.detail.BranchVisitDetailActivity"
+            android:name=".branch.presentation.detail.BranchVisitDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.branch.presentation.transactiondetail.BranchTransactionDetailActivity"
+            android:name=".branch.presentation.transactiondetail.BranchTransactionDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorActivity"
+            android:name=".settings.presentation.single_selector.SingleSelectorActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.dao.presentation.DaoActivity"
+            android:name=".dao.presentation.DaoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.unionbankph.corporate.dao.presentation.signature_preview.DaoSignaturePreviewActivity"
+            android:name=".dao.presentation.signature_preview.DaoSignaturePreviewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.mcd.presentation.filter.CheckDepositFilterActivity"
+            android:name=".mcd.presentation.filter.CheckDepositFilterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity"
+            android:name=".ebilling.presentation.form.EBillingFormActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.ebilling.presentation.confirmation.EBillingConfirmationActivity"
+            android:name=".ebilling.presentation.confirmation.EBillingConfirmationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name="com.unionbankph.corporate.ebilling.presentation.generate.EBillingGenerateActivity"
+            android:name=".ebilling.presentation.generate.EBillingGenerateActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
-
         <activity
             android:name="com.jumio.nv.NetverifyActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:theme="@style/CustomJumioAppTheme" />
-
         <activity
             android:name=".request_payment_link.presentation.request_payment.RequestForPaymentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
-
         <activity
             android:name=".request_payment_link.presentation.payment_link.PaymentLinkActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
-
         <activity
             android:name=".link_details.presentation.LinkDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
-
-        <activity
-            android:name=".request_payment_link.presentation.onboarding.RequestPaymentOnboardingActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
-
         <activity
             android:name=".settings.presentation.splash.request_payment_fragments.RequestPaymentSplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
-
         <activity
             android:name=".request_payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard">
-
-        </activity>
-
+            android:launchMode="standard"></activity>
         <activity
             android:name=".request_payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
-
-        <activity android:name=".request_payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity"
+        <activity
+            android:name=".request_payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
-        <!--Others-->
+            android:windowSoftInputMode="adjustPan"></activity> <!-- Others -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_ub_notification" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorTransparent" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />
-
-        <!--Broadcast and Services-->
-
+            android:value="@string/default_notification_channel_id" /> <!-- Broadcast and Services -->
         <receiver android:name=".app.receiver.ForceLogoutReceiver" />
-
         <receiver android:name=".app.receiver.NotificationActionReceiver" />
 
         <service
@@ -609,16 +585,14 @@
             android:label="SessionTimeOutJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:stopWithTask="true" />
-
         <service
-            android:name="com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService"
+            android:name=".app.service.fcm.AutobahnFirebaseMessagingService"
             android:exported="false"
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
-
         </service>
 
         <provider
@@ -630,7 +604,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

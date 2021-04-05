@@ -27,6 +27,16 @@ constructor(
     private val settingsGateway: SettingsGateway
 ) : AccountGateway {
 
+    override fun getAccounts(): Single<MutableList<Account>> {
+        return settingsGateway.getAccessToken()
+            .flatMap {
+                accountRemote.getAccounts(
+                    it
+                )
+            }
+            .flatMap { responseProvider.executeResponseSingle(it) }
+    }
+
     override fun getAccountsPermission(
         channelId: String?,
         permissionId: String?,

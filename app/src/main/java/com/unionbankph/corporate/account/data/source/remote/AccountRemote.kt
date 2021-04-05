@@ -15,6 +15,10 @@ import retrofit2.Response
  */
 interface AccountRemote {
 
+    fun getAccounts(
+        accessToken: String
+    ): Single<Response<MutableList<Account>>>
+
     fun getAccountsPermission(
         accessToken: String,
         channelId: String?,
