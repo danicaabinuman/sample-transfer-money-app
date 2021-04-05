@@ -40,11 +40,27 @@
                 android:text="Nominate Settlement Account"/>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
+                <include
+                    android:id="@+id/include1"
+                    layout="@layout/item_nominate_account"/>
+                <include
+                    android:id="@+id/include2"
+                    layout="@layout/item_nominate_account"/>
+                <include
+                    android:id="@+id/include3"
+                    layout="@layout/item_nominate_account"/>
+
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 

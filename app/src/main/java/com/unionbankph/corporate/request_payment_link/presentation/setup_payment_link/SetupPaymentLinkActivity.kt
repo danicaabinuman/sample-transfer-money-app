@@ -3,10 +3,13 @@ package com.unionbankph.corporate.request_payment_link.presentation.setup_paymen
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.Html
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -18,6 +21,7 @@ import com.unionbankph.corporate.link_details.presentation.LinkDetailsViewModel
 import com.unionbankph.corporate.request_payment_link.data.form.CreateMerchantForm
 import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestForPaymentActivity
+import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
 import timber.log.Timber
@@ -41,6 +45,13 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         buttonDisable()
         requiredFields()
         setupOutputs()
+
+        include1.visibility = View.GONE
+        include1.findViewById<TextView>(R.id.textViewCorporateName).text = "UPASS CA001 TEST ACCOUNT"
+        include1.findViewById<TextView>(R.id.textViewAccountNumber).text = "0005 9008 0118"
+        include1.findViewById<TextView>(R.id.textViewAccountName).text = "RETAIL REGULAR CHECKING"
+        include1.findViewById<TextView>(R.id.textViewAccountNumber).text = "PHP 338,989,378.27"
+        btnNominate.visibility = View.VISIBLE
     }
 
 
@@ -51,18 +62,21 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         val businessProductsOffered = et_business_products_offered.text.toString()
 
         btnSetupBusinessLink.setOnClickListener {
-            viewModel.createMerchant(
-                CreateMerchantForm(
-                    "",
-                    businessName,
-                    businessName,
-                    "1096822",
-                    "Unnecessary",
-                    businessWebsite,
-                    businessProductsOffered
-                )
-            )
+            val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
+            startActivity(intent)
+            finish()
+//                CreateMerchantForm(
+//                    "",
+//                    businessName,
+//                    businessName,
+//                    "1096822",
+//                    "Unnecessary",
+//                    businessWebsite,
+//                    businessProductsOffered
+//                )
+//            )
         }
+//            viewModel.createMerchant(
 
         btnSetupBusinessLink.setOnLongClickListener{
             val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_DONE_SETUP, Context.MODE_PRIVATE)
@@ -169,6 +183,25 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     private fun openNominateAccounts(accounts: MutableList<Account>){
         if(accounts.size>0){
             Timber.d("Size of accounts = ${accounts.size}")
+
+            val intent = Intent(this, NominateSettlementActivity::class.java)
+            startActivity(intent)
+
+            val timer = object: CountDownTimer(3000, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+
+                }
+
+                override fun onFinish() {
+                    runOnUiThread(Runnable {
+                        include1.visibility = View.VISIBLE
+                        btnNominate.visibility = View.GONE
+                    })
+                }
+            }
+            timer.start()
+
+
         }else{
             Toast.makeText(this@SetupPaymentLinkActivity, "No Accounts", Toast.LENGTH_SHORT).show()
         }

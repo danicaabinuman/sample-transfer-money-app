@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -30,6 +31,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         initViews()
         setupInputs()
         setupOutputs()
+        flLoading.visibility = View.VISIBLE
     }
 
     private fun initViews(){
@@ -66,6 +68,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
     private fun setupOutputs() {
         viewModel.linkDetailsResponse.observe(this, Observer {
+            flLoading.visibility = View.INVISIBLE
             setupViews(it)
         })
     }

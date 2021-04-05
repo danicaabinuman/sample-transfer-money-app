@@ -189,6 +189,12 @@
 
             </LinearLayout>
 
+
+
+
+
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -208,6 +214,11 @@
                     android:text="@string/title_nominate_settlement_account"
                     android:textSize="12sp"
                     android:textStyle="bold" />
+
+                <include
+                    android:id="@+id/include1"
+                    android:visibility="gone"
+                    layout="@layout/item_nominate_account"/>
 
                 <TextView
                     android:id="@+id/btnNominate"
