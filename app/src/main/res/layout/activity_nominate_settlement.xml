@@ -58,7 +58,7 @@
                     android:paddingEnd="@dimen/content_spacing"
                     android:paddingBottom="@dimen/content_spacing"
                     app:itemSpacing="@dimen/content_item_spacing"
-                    tools:listitem="@layout/item_account" />
+                    tools:listitem="@layout/item_nominate_account" />
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </ScrollView>
