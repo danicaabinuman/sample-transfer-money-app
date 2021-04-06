@@ -15,17 +15,16 @@
 
         <ImageView
             android:id="@+id/ivBackButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_back_orange" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:gravity="center"
             android:text="Link Details"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -47,11 +46,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/grid_3"
-                    android:text="@string/sample_text" />
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_margin="@dimen/grid_3"-->
+                <!--                    android:text="@string/sample_text" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -59,18 +58,23 @@
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginEnd="@dimen/grid_1"
                     android:orientation="vertical"
-                    android:padding="@dimen/grid_3">
+                    android:padding="@dimen/grid_1">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_gradient_lightgray"
+                        android:paddingBottom="12dp">
 
                         <TextView
                             android:id="@+id/textView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_2"
+                            android:layout_marginStart="@dimen/grid_1"
                             android:text="@string/form_reference_no"
-                            android:textStyle="bold"
+                            android:textSize="@dimen/text_10"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,56 +82,86 @@
                             android:id="@+id/linkDetailsRefNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_1_half"
+                            android:layout_marginStart="@dimen/grid_1"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
                         <TextView
+                            android:id="@+id/linkDetailsCreatedDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_1_half"
+                            android:layout_marginEnd="@dimen/grid_1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/linkDetailsRefNo" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <TextView
+                            android:id="@+id/tv_amount_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/form_amount"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvCurrency"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_1"
+                            android:text="PHP"
+                            android:textSize="10sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_amount_title" />
+
+                        <TextView
+                            android:id="@+id/linkDetailsAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_1"
+                            android:layout_marginStart="@dimen/grid_1"
+                            android:layout_weight="4"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toEndOf="@id/tvCurrency"
+                            app:layout_constraintTop_toBottomOf="@id/tv_amount_title" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_1"
                             android:layout_marginEnd="@dimen/grid_1"
                             android:background="@drawable/bg_status_card_unpaid"
-                            android:paddingStart="@dimen/grid_2"
                             android:paddingTop="@dimen/grid_1"
-                            android:paddingEnd="@dimen/grid_2"
                             android:paddingBottom="@dimen/grid_1"
+                            android:paddingStart="@dimen/grid_2"
+                            android:paddingEnd="@dimen/grid_2"
                             android:text="@string/form_text_unpaid"
                             android:textColor="#FF9800"
-                            android:textSize="@dimen/text_8"
+                            android:textSize="@dimen/text_12"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_1"
-                        android:text="@string/form_date_time"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/linkDetailsCreatedDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_1"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_2"
-                        android:text="@string/form_amount"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/linkDetailsAmount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_1"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_2"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"
                         android:text="@string/form_description"
                         android:textStyle="bold" />
 
@@ -135,12 +169,16 @@
                         android:id="@+id/linkDetailsDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_1"/>
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_2"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"
                         android:text="@string/form_remarks"
                         android:textStyle="bold" />
 
@@ -148,12 +186,16 @@
                         android:id="@+id/linkDetailsNotes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_1"/>
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"
                         android:text="@string/form_link_expiry"
                         android:textStyle="bold" />
 
@@ -161,12 +203,16 @@
                         android:id="@+id/tv_link_details_expiry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_1" />
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_2">
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1">
 
                         <TextView
                             android:id="@+id/tvPaymentLink"
@@ -179,11 +225,15 @@
 
                         <TextView
                             android:id="@+id/linkDetailsPaymentLink"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/grid_1"
+                            android:layout_marginBottom="@dimen/grid_1"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvPaymentLink" />
+                            app:layout_constraintTop_toBottomOf="@+id/tvPaymentLink"
+                            app:layout_constraintEnd_toStartOf="@id/imgBtnShare"/>
 
                         <ImageButton
                             android:id="@+id/imgBtnShare"
@@ -200,7 +250,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:layout_marginEnd="@dimen/grid_2"
+                            android:layout_marginStart="@dimen/grid_1"
+                            android:layout_marginEnd="@dimen/grid_1"
                             android:background="@drawable/ic_content_copy_orange"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/tvPaymentLink" />
@@ -209,34 +260,78 @@
 
                 </LinearLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/grid_1"
+                    android:paddingBottom="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:background="#fef0db">
+
+                    <ImageView
+                        android:id="@+id/ivCybersureIcon"
+                        android:layout_width="@dimen/grid_4"
+                        android:layout_height="@dimen/grid_4"
+                        android:layout_marginStart="@dimen/grid_2"
+                        android:src="@drawable/ic_cybersure"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:text="@string/cybersure_content"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/ivCybersureIcon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/grid_7"
                     android:layout_marginTop="@dimen/grid_2"
-                    android:layout_marginRight="@dimen/grid_7"
-                    android:layout_marginBottom="@dimen/grid_10"
+                    android:layout_marginLeft="@dimen/grid_4"
+                    android:layout_marginRight="@dimen/grid_4"
                     android:background="@drawable/bg_card_view_gradient_orange"
+                    android:paddingTop="@dimen/grid_2"
+                    android:paddingBottom="@dimen/grid_2"
+                    android:text="@string/form_btn_generate_another_link"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginBottom="@dimen/grid_2"
+                    android:layout_marginLeft="@dimen/grid_4"
+                    android:layout_marginRight="@dimen/grid_4"
                     android:paddingTop="@dimen/grid_2"
                     android:paddingBottom="@dimen/grid_2"
                     android:text="@string/form_btn_archive"
                     android:textAlignment="center"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:textStyle="bold" />
+
             </LinearLayout>
         </ScrollView>
 
         <FrameLayout
             android:id="@+id/flLoading"
-            android:visibility="invisible"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="#88000000"
-            android:layout_height="match_parent">
+            android:visibility="invisible">
+
             <ProgressBar
-                android:layout_gravity="center"
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                android:layout_gravity="center" />
         </FrameLayout>
     </FrameLayout>
 

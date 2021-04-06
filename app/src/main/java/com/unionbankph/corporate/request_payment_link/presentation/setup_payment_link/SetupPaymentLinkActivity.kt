@@ -23,6 +23,7 @@ import com.unionbankph.corporate.request_payment_link.presentation.setup_payment
 import com.unionbankph.corporate.request_payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
+import com.unionbankph.corporate.settings.presentation.splash.request_payment_fragments.RequestPaymentSplashActivity
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
 import timber.log.Timber
 
@@ -78,11 +79,14 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         }
 //            viewModel.createMerchant(
 
-        btnSetupBusinessLink.setOnLongClickListener{
-            val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_DONE_SETUP, Context.MODE_PRIVATE)
-            val editor = sharedPref.edit()
-            editor.putBoolean(SHAREDPREF_IS_DONE_SETUP, true)
-            editor.commit()
+        btnSetupBusinessLink.setOnClickListener{
+//            val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_DONE_SETUP, Context.MODE_PRIVATE)
+//            val editor = sharedPref.edit()
+//            editor.putBoolean(SHAREDPREF_IS_DONE_SETUP, true)
+//            editor.commit()
+            val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         btnCancel.setOnClickListener {
@@ -115,6 +119,10 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             val intent = Intent(this, RequestForPaymentActivity::class.java)
             startActivity(intent)
             finish()
+        } else {
+            val editor = sharedPref.edit()
+            editor.putBoolean(SHAREDPREF_IS_DONE_SETUP, true)
+            editor.apply()
         }
     }
 
