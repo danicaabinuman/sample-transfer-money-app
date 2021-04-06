@@ -218,7 +218,7 @@
                 <include
                     android:id="@+id/include1"
                     android:visibility="gone"
-                    layout="@layout/item_nominate_account"/>
+                    layout="@layout/to_delete_item_nominate_account"/>
 
                 <TextView
                     android:id="@+id/btnNominate"
