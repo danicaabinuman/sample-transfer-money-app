@@ -1952,6 +1952,9 @@
     <string name="fees_charges_text_1">UnionBank will collect the following fees for every transaction done through our generated payment links. See pricing table below:</string>
     <string name="title_pricing_table">Pricing Table</string>
     <string name="fees_charges_text_2">Settlement for the payments made using these channels will be credited to your nominated settlement account two (2) days after receipt of payment.</string>
+    <string name="request_payment">Request Payment</string>
+    <string name="text_icon_new">NEW</string>
+    <string name="create_payment_links_for_your_customers">Create Payment Links for your customers</string>
 
     <string name="cybersure_content"><b>Cybersure</b> | <b>Share Payment Links</b>\n
         1. Share this link to your intended recipient only. \n

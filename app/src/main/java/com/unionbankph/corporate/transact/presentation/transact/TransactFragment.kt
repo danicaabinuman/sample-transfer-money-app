@@ -36,8 +36,10 @@ import com.unionbankph.corporate.settings.domain.constant.FeaturesEnum
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsHasPermission
+import com.unionbankph.corporate.settings.presentation.splash.request_payment_fragments.RequestPaymentSplashActivity
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_send_request.*
+import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 
 class TransactFragment :
     BaseFragment<SettingsViewModel>(R.layout.fragment_send_request), OnTutorialListener {
@@ -240,6 +242,17 @@ class TransactFragment :
                 isClear = false,
                 isAnimated = false,
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+            )
+        }
+
+        constraintLayoutRequestPayment.setOnClickListener{
+            navigator.navigate(
+                    (activity as DashboardActivity),
+                    RequestPaymentSplashActivity::class.java,
+                    null,
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
     }
