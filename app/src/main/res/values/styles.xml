@@ -61,6 +61,16 @@
         <item name="android:textColor">?colorText</item>
     </style>
 
+    <style name="TextViewThemeAccountTitle" parent="WrapContent">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?colorText</item>
+    </style>
+
+    <style name="TextViewThemeAccountName" parent="WrapContent">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?colorText</item>
+    </style>
+
     <style name="TextViewTheme" parent="WrapContent">
         <item name="android:textSize">@dimen/text_12</item>
         <item name="android:textColor">?colorText</item>

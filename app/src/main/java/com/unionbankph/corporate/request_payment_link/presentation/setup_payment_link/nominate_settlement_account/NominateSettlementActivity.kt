@@ -3,96 +3,62 @@ package com.unionbankph.corporate.request_payment_link.presentation.setup_paymen
 import android.accounts.Account
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
+import com.takusemba.spotlight.Spotlight
 import com.unionbankph.corporate.R
-import kotlinx.android.synthetic.main.activity_nominate_settlement.*
+import com.unionbankph.corporate.account.presentation.account_detail.AccountDetailActivity
+import com.unionbankph.corporate.account.presentation.account_list.*
+import com.unionbankph.corporate.account.presentation.account_list.ShowAccountDetailError
+import com.unionbankph.corporate.account.presentation.account_list.ShowAccountDismissLoading
+import com.unionbankph.corporate.account.presentation.account_list.ShowAccountDismissLoadingAccountDetail
+import com.unionbankph.corporate.account.presentation.account_list.ShowAccountError
+import com.unionbankph.corporate.account.presentation.account_list.ShowAccountLoading
+import com.unionbankph.corporate.account.presentation.account_list.ShowAccountLoadingAccountDetail
+import com.unionbankph.corporate.account.presentation.account_list.ShowAccountsDetailError
+import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.getAccentColor
+import com.unionbankph.corporate.app.common.extension.lazyFast
+import com.unionbankph.corporate.app.common.extension.nullable
+import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.platform.bus.event.AccountSyncEvent
+import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
+import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
+import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScrollListener
+import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.common.data.model.PermissionCollection
+import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
+import com.unionbankph.corporate.common.presentation.constant.GravityEnum
+import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEnum
+import com.unionbankph.corporate.common.presentation.constant.TutorialScreenEnum
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
+import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
+import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.rxkotlin.addTo
+import kotlinx.android.synthetic.main.fragment_accounts.*
+import kotlinx.android.synthetic.main.widget_search_layout.*
+import java.util.concurrent.TimeUnit
 
-class NominateSettlementActivity : AppCompatActivity() {
-
-    private lateinit var linearLayoutManager: LinearLayoutManager
-
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nominate_settlement)
-
-        linearLayoutManager = LinearLayoutManager(this)
-//        rvNominateAccounts.layoutManager = linearLayoutManager
-
-        include1.findViewById<TextView>(R.id.textViewCorporateName).text = "UPASS CA001 TEST ACCOUNT"
-        include1.findViewById<TextView>(R.id.textViewAccountNumber).text = "0005 9008 0118"
-        include1.findViewById<TextView>(R.id.textViewAccountName).text = "RETAIL REGULAR CHECKING"
-        include1.findViewById<TextView>(R.id.textViewAccountNumber).text = "PHP 338,989,378.27"
-
-        include2.findViewById<TextView>(R.id.textViewCorporateName).text = "ABC SAMPLE ORGANIZATION"
-        include2.findViewById<TextView>(R.id.textViewAccountNumber).text = "0005 9008 0120"
-        include2.findViewById<TextView>(R.id.textViewAccountName).text = "RETAIL REGULAR CHECKING"
-        include2.findViewById<TextView>(R.id.textViewAccountNumber).text = "PHP 21,142,216.21"
-
-        include3.findViewById<TextView>(R.id.textViewCorporateName).text = "UPASS TEST ACCOUNT 5"
-        include3.findViewById<TextView>(R.id.textViewAccountNumber).text = "1021 1002 4433"
-        include3.findViewById<TextView>(R.id.textViewAccountName).text = "RETAIL REG.SAVINGS ACCT"
-        include3.findViewById<TextView>(R.id.textViewAccountNumber).text = "PHP 1,415,166.80"
-
-        include1.setOnClickListener{finish()}
-        include2.setOnClickListener{finish()}
-        include3.setOnClickListener{finish()}
-
+class NominateSettlementActivity :
+        BaseActivity<NominateSettlementViewModel>(R.layout.activity_nominate_settlement),
+        AccountAdapterCallback
+{
+    override fun onViewsBound() {
+        super.onViewsBound()
     }
-
-
-    companion object {
-        const val EXTRA_ACCOUNTS = "extra_accounts"
-    }
-
-    class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.AccountHolder>()  {
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): RecyclerAdapter.AccountHolder {
-            TODO("Not yet implemented")
-        }
-
-        override fun onBindViewHolder(holder: RecyclerAdapter.AccountHolder, position: Int) {
-            TODO("Not implemented")
-        }
-
-        override fun getItemCount(): Int {
-            TODO("Not yet implemented")
-        }
-
-
-        //1
-        class AccountHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
-            //2
-            private var view: View = v
-            private var account: Account? = null
-
-            //3
-            init {
-                v.setOnClickListener(this)
-            }
-
-            //4
-            override fun onClick(v: View) {
-                Log.d("RecyclerView", "CLICK!")
-            }
-
-            companion object {
-                //5
-                private val PHOTO_KEY = "PHOTO"
-            }
-        }
-
-    }
-
-
 }

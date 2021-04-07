@@ -43,23 +43,24 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayoutBtr"
+                style="@style/MatchConstraint"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout">
 
-                <include
-                    android:id="@+id/include1"
-                    layout="@layout/item_nominate_account"/>
-                <include
-                    android:id="@+id/include2"
-                    layout="@layout/item_nominate_account"/>
-                <include
-                    android:id="@+id/include3"
-                    layout="@layout/item_nominate_account"/>
+                <com.airbnb.epoxy.EpoxyRecyclerView
+                    android:id="@+id/recyclerViewBtr"
+                    style="@style/RecyclerViewLight"
+                    android:paddingStart="@dimen/content_spacing"
+                    android:paddingEnd="@dimen/content_spacing"
+                    android:paddingBottom="@dimen/content_spacing"
+                    app:itemSpacing="@dimen/content_item_spacing"
+                    tools:listitem="@layout/item_nominate_account" />
 
-            </LinearLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </ScrollView>
     </LinearLayout>
 
