@@ -1923,7 +1923,8 @@
     <string name="form_remarks">Remarks</string>
     <string name="form_link_expiry">Link Expiry</string>
     <string name="form_payment_link">Payment Link</string>
-    <string name="form_btn_archive">Archive</string>
+    <string name="form_btn_generate_another_link">GENERATE ANOTHER LINK</string>
+    <string name="form_btn_archive">ARCHIVE</string>
     <string name="form_filter_all">All</string>
     <string name="form_filter_unpaid">Unpaid</string>
     <string name="form_filter_paid">Paid</string>
@@ -1952,4 +1953,8 @@
     <string name="title_pricing_table">Pricing Table</string>
     <string name="fees_charges_text_2">Settlement for the payments made using these channels will be credited to your nominated settlement account two (2) days after receipt of payment.</string>
 
+    <string name="cybersure_content"><b>Cybersure</b> | <b>Share Payment Links</b>\n
+        1. Share this link to your intended recipient only. \n
+        2. Should you wish to edit the details of this page, click the archive and create another link. \n
+        3. This link can be archieved as long as it has not yet been paid.</string>
 </resources>
