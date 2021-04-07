@@ -12,6 +12,7 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.showToast
 import com.unionbankph.corporate.link_details.data.LinkDetailsResponse
 import kotlinx.android.synthetic.main.activity_link_details.*
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity_link_details) {
@@ -82,9 +83,13 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         val createdDate = formatter.format(parser.parse(linkDetailsResponse.createdDate))
         val expiryDate = formatter.format(parser.parse(linkDetailsResponse.expireDate))
 
+        val amountParse = DecimalFormat("####.##")
+        val amountFormat = DecimalFormat("#,###.##")
+        val finalAmount = amountFormat.format(amountParse.parse(linkDetailsResponse.amount))
+
         linkDetailsRefNo.text = linkDetailsResponse.referenceId.toString()
         linkDetailsCreatedDate.text = createdDate
-        linkDetailsAmount.text = linkDetailsResponse.amount
+        linkDetailsAmount.text = finalAmount
         linkDetailsDescription.text = linkDetailsResponse.paymentFor
         linkDetailsNotes.text = linkDetailsResponse.description
         tv_link_details_expiry.text = expiryDate
