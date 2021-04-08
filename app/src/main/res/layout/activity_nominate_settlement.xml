@@ -43,24 +43,53 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefreshLayoutBtr"
-                style="@style/MatchConstraint"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout">
 
-                <com.airbnb.epoxy.EpoxyRecyclerView
-                    android:id="@+id/recyclerViewBtr"
-                    style="@style/RecyclerViewLight"
-                    android:paddingStart="@dimen/content_spacing"
-                    android:paddingEnd="@dimen/content_spacing"
-                    android:paddingBottom="@dimen/content_spacing"
-                    app:itemSpacing="@dimen/content_item_spacing"
-                    tools:listitem="@layout/item_nominate_account" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
 
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                <include layout="@layout/item_bank_accounts"
+                    app:layout_constraintTop_toBottomOf="@id/buttonClose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"/>
+
+                <include layout="@layout/item_bank_accounts"
+                    app:layout_constraintTop_toBottomOf="@id/buttonClose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"/>
+
+                <include layout="@layout/item_bank_accounts"
+                    app:layout_constraintTop_toBottomOf="@id/buttonClose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"/>
+
+            </LinearLayout>
+
+
+<!--            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--                android:id="@+id/swipeRefreshLayoutBtr"-->
+<!--                style="@style/MatchConstraint"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/viewSearchLayout">-->
+
+<!--                <com.airbnb.epoxy.EpoxyRecyclerView-->
+<!--                    android:id="@+id/recyclerViewBtr"-->
+<!--                    style="@style/RecyclerViewLight"-->
+<!--                    android:paddingStart="@dimen/content_spacing"-->
+<!--                    android:paddingEnd="@dimen/content_spacing"-->
+<!--                    android:paddingBottom="@dimen/content_spacing"-->
+<!--                    app:itemSpacing="@dimen/content_item_spacing"-->
+<!--                    tools:listitem="@layout/item_nominate_account" />-->
+
+<!--            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
         </ScrollView>
     </LinearLayout>
 
