@@ -3,6 +3,7 @@ package com.unionbankph.corporate.request_payment_link.presentation.setup_paymen
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.Html
@@ -16,7 +17,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
+import com.unionbankph.corporate.account.presentation.account_history.AccountTransactionHistoryActivity
+import com.unionbankph.corporate.account.presentation.account_history_detail.AccountTransactionHistoryDetailsActivity
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.link_details.presentation.LinkDetailsViewModel
 import com.unionbankph.corporate.request_payment_link.data.form.CreateMerchantForm
 import com.unionbankph.corporate.request_payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
@@ -63,30 +68,18 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         val businessProductsOffered = et_business_products_offered.text.toString()
 
         btnSetupBusinessLink.setOnClickListener {
-            val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
-            startActivity(intent)
-            finish()
-//                CreateMerchantForm(
-//                    "",
-//                    businessName,
-//                    businessName,
-//                    "1096822",
-//                    "Unnecessary",
-//                    businessWebsite,
-//                    businessProductsOffered
-//                )
-//            )
-        }
-//            viewModel.createMerchant(
 
-        btnSetupBusinessLink.setOnClickListener{
-//            val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_DONE_SETUP, Context.MODE_PRIVATE)
-//            val editor = sharedPref.edit()
-//            editor.putBoolean(SHAREDPREF_IS_DONE_SETUP, true)
-//            editor.commit()
-            val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
-            startActivity(intent)
-            finish()
+            viewModel.createMerchant(
+                    CreateMerchantForm(
+                            "",
+                            businessName,
+                            businessName,
+                            "1096822",
+                            "Unnecessary",
+                            businessWebsite,
+                            businessProductsOffered
+                    )
+            )
         }
 
         btnCancel.setOnClickListener {
@@ -192,23 +185,19 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         if(accounts.size>0){
             Timber.d("Size of accounts = ${accounts.size}")
 
-            val intent = Intent(this, NominateSettlementActivity::class.java)
-            startActivity(intent)
-
-            val timer = object: CountDownTimer(3000, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-
-                }
-
-                override fun onFinish() {
-                    runOnUiThread(Runnable {
-                        include1.visibility = View.VISIBLE
-                        btnNominate.visibility = View.GONE
-                    })
-                }
-            }
-            timer.start()
-
+            val bundle = Bundle()
+            bundle.putString(
+                    NominateSettlementActivity.EXTRA_SETTLEMENT_ACCOUNTS,
+                    JsonHelper.toJson(accounts)
+            )
+            navigator.navigate(
+                    this,
+                    NominateSettlementActivity::class.java,
+                    bundle,
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+            )
 
         }else{
             Toast.makeText(this@SetupPaymentLinkActivity, "No Accounts", Toast.LENGTH_SHORT).show()
