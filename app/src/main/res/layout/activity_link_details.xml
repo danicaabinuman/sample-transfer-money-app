@@ -104,6 +104,7 @@
                         android:layout_marginTop="@dimen/grid_2"
                         android:layout_marginStart="@dimen/grid_1"
                         android:layout_marginEnd="@dimen/grid_1"
+                        android:paddingBottom="@dimen/grid_1"
                         android:orientation="horizontal"
                         android:weightSum="4">
 
@@ -133,7 +134,7 @@
                             android:layout_marginTop="@dimen/grid_1"
                             android:layout_marginStart="@dimen/grid_1"
                             android:layout_weight="4"
-                            android:textSize="16sp"
+                            android:textSize="20sp"
                             app:layout_constraintStart_toEndOf="@id/tvCurrency"
                             app:layout_constraintTop_toBottomOf="@id/tv_amount_title" />
 
@@ -279,6 +280,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/tvCybersure"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/grid_1"
@@ -287,6 +289,70 @@
                         app:layout_constraintStart_toEndOf="@id/ivCybersureIcon"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/cybersure_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:text="1."
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/ivCybersureIcon"
+                        app:layout_constraintTop_toBottomOf="@id/tvCybersure"/>
+
+                    <TextView
+                        android:id="@+id/cybersure_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:text="2."
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/ivCybersureIcon"
+                        app:layout_constraintTop_toBottomOf="@id/cybersure_1"/>
+
+                    <TextView
+                        android:id="@+id/cybersure_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:text="3."
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/ivCybersureIcon"
+                        app:layout_constraintTop_toBottomOf="@id/cybersure_2_content"/>
+
+                    <TextView
+                        android:id="@+id/cybersure_1_content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:text="@string/cybersure_1"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/cybersure_1"
+                        app:layout_constraintTop_toBottomOf="@id/tvCybersure"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/cybersure_2_content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:text="@string/cybersure_2"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/cybersure_2"
+                        app:layout_constraintTop_toBottomOf="@id/cybersure_1_content"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/cybersure_3_content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:text="@string/cybersure_3"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@id/cybersure_3"
+                        app:layout_constraintTop_toBottomOf="@id/cybersure_2_content"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
