@@ -40,7 +40,7 @@
         android:windowSoftInputMode="stateAlwaysHidden"
         tools:replace="android:allowBackup"
         tools:targetApi="m">
-        <activity android:name=".request_payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity"></activity>
+        <activity android:name=".payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity"></activity>
         <!-- Activities -->
         <activity
             android:name="com.unionbankph.corporate.auth.presentation.login.LoginActivity"
@@ -538,15 +538,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/CustomJumioAppTheme" />
         <activity
-            android:name=".request_payment_link.presentation.request_payment.RequestForPaymentActivity"
+            android:name=".payment_link.presentation.request_payment.RequestForPaymentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name=".request_payment_link.presentation.payment_link.PaymentLinkActivity"
+            android:name=".payment_link.presentation.payment_link.PaymentLinkActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name=".link_details.presentation.LinkDetailsActivity"
+            android:name=".payment_link.presentation.payment_link_details.LinkDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
@@ -554,15 +554,15 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name=".request_payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity"
+            android:name=".payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"></activity>
         <activity
-            android:name=".request_payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity"
+            android:name=".payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
         <activity
-            android:name=".request_payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity"
+            android:name=".payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"
             android:windowSoftInputMode="adjustPan"></activity> <!-- Others -->
