@@ -11,9 +11,12 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_dashboard.bottomNavigationBTR
+import kotlinx.android.synthetic.main.activity_payment_link.*
 import kotlinx.android.synthetic.main.widget_badge_initial.*
 import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 
@@ -38,6 +41,16 @@ class PaymentLinkActivity : AppCompatActivity(),
         initBottomNavigation()
 //        initViewPager()
 //        enableTabs(isEnable = true)
+
+
+        item1.setOnClickListener{showPaymentLinkDetails()}
+        item2.setOnClickListener{showPaymentLinkDetails()}
+        item3.setOnClickListener{showPaymentLinkDetails()}
+    }
+
+    private fun showPaymentLinkDetails(){
+        val intent = Intent(this@PaymentLinkActivity, BillingDetailsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun btnRequestPayment() {

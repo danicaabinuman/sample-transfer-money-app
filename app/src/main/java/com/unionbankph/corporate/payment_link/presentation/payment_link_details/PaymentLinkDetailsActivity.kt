@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.showToast
-import com.unionbankph.corporate.payment_link.domain.model.response.LinkDetailsResponse
+import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import kotlinx.android.synthetic.main.activity_link_details.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -74,7 +74,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         })
     }
 
-    private fun setupViews(linkDetailsResponse: LinkDetailsResponse) {
+    private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
 
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")

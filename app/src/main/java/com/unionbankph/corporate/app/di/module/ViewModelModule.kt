@@ -97,6 +97,8 @@ import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoard
 import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewViewModel
 import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryViewModel
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogViewModel
+import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsViewModel
+import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
@@ -685,6 +687,20 @@ abstract class ViewModelModule {
     @ViewModelKey(NominateSettlementViewModel::class)
     abstract fun nominateSettlementViewModel(
             viewModel: NominateSettlementViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BillingDetailsViewModel::class)
+    abstract fun billingDetailsViewModel(
+        viewModel: BillingDetailsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ActivityLogsViewModel::class)
+    abstract fun activityLogsViewModel(
+        viewModel: ActivityLogsViewModel
     ): ViewModel
 
 }

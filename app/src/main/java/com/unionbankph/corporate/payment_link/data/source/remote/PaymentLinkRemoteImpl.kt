@@ -11,7 +11,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class PaymentLinkDetailsRemoteImpl
+class PaymentLinkRemoteImpl
 @Inject constructor(
         retrofit: Retrofit
 ) : PaymentLinkRemote {

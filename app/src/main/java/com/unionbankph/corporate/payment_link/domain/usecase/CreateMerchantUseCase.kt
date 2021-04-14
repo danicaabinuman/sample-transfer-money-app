@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.payment_link.domain.model.usecase
+package com.unionbankph.corporate.payment_link.domain.usecase
 
 import com.unionbankph.corporate.common.domain.executor.PostExecutionThread
 import com.unionbankph.corporate.common.domain.executor.ThreadExecutor

@@ -565,7 +565,19 @@
             android:name=".payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"
-            android:windowSoftInputMode="adjustPan"></activity> <!-- Others -->
+            android:windowSoftInputMode="adjustPan"></activity>
+
+        <activity
+            android:name=".payment_link.presentation.billing_details.BillingDetailsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".payment_link.presentation.activity_logs.ActivityLogsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <!-- Others -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_ub_notification" />
