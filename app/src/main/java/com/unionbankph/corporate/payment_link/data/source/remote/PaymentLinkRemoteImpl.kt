@@ -14,7 +14,7 @@ import javax.inject.Inject
 class PaymentLinkDetailsRemoteImpl
 @Inject constructor(
         retrofit: Retrofit
-) : PaymentLinkDetailsRemote {
+) : PaymentLinkRemote {
     private val paymentLinkApiClient: PaymentLinkApiClient =
             retrofit.create(PaymentLinkApiClient::class.java)
 

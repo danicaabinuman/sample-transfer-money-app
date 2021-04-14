@@ -10,15 +10,15 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.response.CreateMerchantResponse
 import com.unionbankph.corporate.payment_link.domain.model.usecase.GetAccountsUseCase
-import com.unionbankph.corporate.payment_link.domain.model.usecase.PostMerchantDetailsUseCase
+import com.unionbankph.corporate.payment_link.domain.model.usecase.CreateMerchantUseCase
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
 
 class SetupPaymentLinkViewModel
 @Inject constructor(
-        private val postMerchantDetailsUseCase: PostMerchantDetailsUseCase,
-        private val getAccountsUseCase: GetAccountsUseCase
+    private val createMerchantUseCase: CreateMerchantUseCase,
+    private val getAccountsUseCase: GetAccountsUseCase
 ) : BaseViewModel() {
 
     private val _createMerchantResponse = MutableLiveData<CreateMerchantResponse>()
@@ -33,7 +33,7 @@ class SetupPaymentLinkViewModel
 
     fun createMerchant(form: CreateMerchantForm){
 
-        postMerchantDetailsUseCase.execute(
+        createMerchantUseCase.execute(
             getDisposableSingleObserver(
                 {
                     _createMerchantResponse.value = it

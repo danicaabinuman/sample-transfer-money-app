@@ -7,7 +7,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaym
 import io.reactivex.Single
 import retrofit2.Response
 
-interface PaymentLinkDetailsRemote {
+interface PaymentLinkRemote {
 
     fun generatePaymentLink(accessToken: String, organizationId: String, generatePaymentLinkForm: GeneratePaymentLinkForm) : Single<Response<GeneratePaymentLinkResponse>>
 

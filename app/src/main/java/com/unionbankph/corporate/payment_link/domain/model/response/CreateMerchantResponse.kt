@@ -1,6 +1,5 @@
 package com.unionbankph.corporate.payment_link.domain.model.response
 
-import com.unionbankph.corporate.bills_payment.data.model.Transaction
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
