@@ -31,5 +31,11 @@ data class CreateMerchantResponse(
         var webpage: String? = null,
 
         @SerialName("product")
-        var product: String? = null
+        var product: String? = null,
+
+        @SerialName("httpStatus")
+        var httpStatus: String? = null,
+
+        @SerialName("timestamp")
+        var timestamp: String? = null
 )
