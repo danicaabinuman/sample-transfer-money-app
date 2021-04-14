@@ -225,6 +225,15 @@
                 android:orientation="horizontal"
                 android:paddingTop="20dp">
 
+                <include
+                    android:id="@+id/viewBadge"
+                    layout="@layout/widget_badge_initial"
+                    android:layout_width="@dimen/image_view_initial_org_size"
+                    android:layout_height="@dimen/image_view_initial_org_size"
+                    android:layout_margin="@dimen/content_spacing"
+                    android:layout_gravity="center_vertical"
+                    android:background="?selectableItemBackgroundBorderless"/>
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
