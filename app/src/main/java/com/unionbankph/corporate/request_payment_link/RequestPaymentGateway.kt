@@ -1,7 +1,7 @@
 package com.unionbankph.corporate.request_payment_link
 
-import com.unionbankph.corporate.request_payment_link.data.form.RequestPaymentForm
-import com.unionbankph.corporate.request_payment_link.data.model.RequestPaymentLinkResponse
+import com.unionbankph.corporate.payment_link.domain.model.form.RequestPaymentForm
+import com.unionbankph.corporate.payment_link.domain.model.response.RequestPaymentLinkResponse
 import io.reactivex.Single
 
 interface RequestPaymentGateway {

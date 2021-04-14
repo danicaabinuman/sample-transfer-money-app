@@ -1,0 +1,35 @@
+package com.unionbankph.corporate.payment_link.domain.model.response
+
+import com.unionbankph.corporate.bills_payment.data.model.Transaction
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class CreateMerchantResponse(
+        @SerialName("message")
+        var message: String? = null,
+
+        @SerialName("organizationId")
+        var organizationId: String? = null,
+
+        @SerialName("merchantName")
+        val merchantName: String? = null,
+
+        @SerialName("slug")
+        var slug: String? = null,
+
+        @SerialName("accountNo")
+        var accountNo: String? = null,
+
+        @SerialName("accountName")
+        var accountName: String? = null,
+
+        @SerialName("status")
+        var status: String? = null,
+
+        @SerialName("webpage")
+        var webpage: String? = null,
+
+        @SerialName("product")
+        var product: String? = null
+)
