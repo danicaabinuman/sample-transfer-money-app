@@ -3,9 +3,8 @@ package com.unionbankph.corporate.payment_link.domain.model.gateway
 import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
+import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemote
 import com.unionbankph.corporate.payment_link.domain.model.form.LinkDetailsForm
-import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkDetailsRemote
-import com.unionbankph.corporate.payment_link.domain.model.gateway.LinkDetailsGateway
 import com.unionbankph.corporate.payment_link.domain.model.response.LinkDetailsResponse
 import com.unionbankph.corporate.settings.data.source.local.SettingsCache
 import io.reactivex.Single
@@ -13,10 +12,10 @@ import javax.inject.Inject
 
 class LinkDetailsGatewayImpl
 @Inject constructor(
-        private val responseProvider: ResponseProvider,
-        private val paymentLinkDetailsRemote: PaymentLinkDetailsRemote,
-        private val settingsCache: SettingsCache,
-        private val cacheManager: CacheManager
+    private val responseProvider: ResponseProvider,
+    private val paymentLinkRemote: PaymentLinkRemote,
+    private val settingsCache: SettingsCache,
+    private val cacheManager: CacheManager
 ) : LinkDetailsGateway {
 
     override fun getPaymentLink(linkDetailsRes: LinkDetailsForm): Single<LinkDetailsResponse> {
@@ -33,7 +32,7 @@ class LinkDetailsGatewayImpl
         linkDetailsRes.organizationName = orgName
         return settingsCache.getAccessToken()
             .flatMap {
-                paymentLinkDetailsRemote.generateLink(
+                paymentLinkRemote.generateLink(
                     it,
                     orgId,
                     linkDetailsRes
