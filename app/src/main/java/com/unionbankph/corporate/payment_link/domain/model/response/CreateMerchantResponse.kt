@@ -1,6 +1,5 @@
 package com.unionbankph.corporate.payment_link.domain.model.response
 
-import com.unionbankph.corporate.bills_payment.data.model.Transaction
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -31,5 +30,11 @@ data class CreateMerchantResponse(
         var webpage: String? = null,
 
         @SerialName("product")
-        var product: String? = null
+        var product: String? = null,
+
+        @SerialName("httpStatus")
+        var httpStatus: String? = null,
+
+        @SerialName("timestamp")
+        var timestamp: String? = null
 )

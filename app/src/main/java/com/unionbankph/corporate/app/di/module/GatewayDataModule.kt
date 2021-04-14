@@ -36,9 +36,6 @@ import com.unionbankph.corporate.fund_transfer.data.gateway.FundTransferGateway
 import com.unionbankph.corporate.fund_transfer.data.gateway.impl.FundTransferGatewayImpl
 import com.unionbankph.corporate.fund_transfer.data.source.local.FundTransferCache
 import com.unionbankph.corporate.fund_transfer.data.source.remote.FundTransferRemote
-import com.unionbankph.corporate.payment_link.domain.model.gateway.LinkDetailsGatewayImpl
-import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkDetailsRemote
-import com.unionbankph.corporate.payment_link.domain.model.gateway.LinkDetailsGateway
 import com.unionbankph.corporate.mcd.data.gateway.CheckDepositGateway
 import com.unionbankph.corporate.mcd.data.gateway.impl.CheckDepositGatewayImpl
 import com.unionbankph.corporate.mcd.data.source.local.CheckDepositCache
@@ -46,9 +43,9 @@ import com.unionbankph.corporate.mcd.data.source.remote.CheckDepositRemote
 import com.unionbankph.corporate.notification.data.gateway.NotificationGateway
 import com.unionbankph.corporate.notification.data.gateway.impl.NotificationGatewayImpl
 import com.unionbankph.corporate.notification.data.source.remote.NotificationRemote
-import com.unionbankph.corporate.payment_link.data.source.remote.CreateMerchantRemote
-import com.unionbankph.corporate.payment_link.domain.model.gateway.CreateMerchantGateway
-import com.unionbankph.corporate.payment_link.domain.model.gateway.CreateMerchantGatewayImpl
+import com.unionbankph.corporate.payment_link.data.gateway.PaymentLinkGateway
+import com.unionbankph.corporate.payment_link.data.gateway.PaymentLinkGatewayImpl
+import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemote
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import com.unionbankph.corporate.settings.data.gateway.impl.SettingsGatewayImpl
 import com.unionbankph.corporate.settings.data.source.local.SettingsCache
@@ -219,30 +216,14 @@ class GatewayDataModule {
 
     @Provides
     @PerApplication
-    fun linkDetailsGateway(
+    fun paymentLinkGateway(
             responseProvider: ResponseProvider,
-            paymentLinkDetailsRemote: PaymentLinkDetailsRemote,
+            paymentLinkRemote: PaymentLinkRemote,
             settingsCache: SettingsCache,
             cacheManager: CacheManager
-    ): LinkDetailsGateway =
-        LinkDetailsGatewayImpl(
+    ): PaymentLinkGateway = PaymentLinkGatewayImpl(
             responseProvider,
-            paymentLinkDetailsRemote,
-            settingsCache,
-            cacheManager
-        )
-
-    @Provides
-    @PerApplication
-    fun createMerchantGateway(
-            responseProvider: ResponseProvider,
-            createMerchantRemote: CreateMerchantRemote,
-            settingsCache: SettingsCache,
-            cacheManager: CacheManager
-    ): CreateMerchantGateway =
-        CreateMerchantGatewayImpl(
-            responseProvider,
-            createMerchantRemote,
+            paymentLinkRemote,
             settingsCache,
             cacheManager
         )

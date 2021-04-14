@@ -6,22 +6,22 @@ import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.extension.getDisposableSingleObserver
 import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.payment_link.domain.model.response.LinkDetailsResponse
-import com.unionbankph.corporate.payment_link.domain.model.form.LinkDetailsForm
-import com.unionbankph.corporate.payment_link.domain.model.usecase.GetPaymentLinkDetails
+import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
+import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
+import com.unionbankph.corporate.payment_link.domain.usecase.GeneratePaymentLinkUseCase
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
 
 class LinkDetailsViewModel
 @Inject constructor(
-    private val getPaymentLinkDetails: GetPaymentLinkDetails
+    private val generatePaymentLinkUseCase: GeneratePaymentLinkUseCase
 ) : BaseViewModel(){
 
 
-    private val _linkDetailsResponse = MutableLiveData<LinkDetailsResponse>()
+    private val _linkDetailsResponse = MutableLiveData<GeneratePaymentLinkResponse>()
 
-    val linkDetailsResponse: LiveData<LinkDetailsResponse>
+    val linkDetailsResponse: LiveData<GeneratePaymentLinkResponse>
         get() =
             _linkDetailsResponse
 
@@ -54,7 +54,7 @@ class LinkDetailsViewModel
         }
 
         generateLinkDetails(
-            LinkDetailsForm(
+            GeneratePaymentLinkForm(
                 amount.replace("PHP","").replace(",","").trim().toDouble(),
                 paymentFor,
                 notes,
@@ -66,9 +66,9 @@ class LinkDetailsViewModel
 
     }
 
-    private fun generateLinkDetails(linkDetailsForm: LinkDetailsForm){
+    private fun generateLinkDetails(linkDetailsForm: GeneratePaymentLinkForm){
 
-        getPaymentLinkDetails.execute(
+        generatePaymentLinkUseCase.execute(
             getDisposableSingleObserver(
                 {
                     _linkDetailsResponse.value = it

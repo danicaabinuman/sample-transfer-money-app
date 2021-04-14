@@ -19,12 +19,10 @@ import com.unionbankph.corporate.dao.data.source.remote.DaoRemote
 import com.unionbankph.corporate.dao.data.source.remote.impl.DaoRemoteImpl
 import com.unionbankph.corporate.fund_transfer.data.source.remote.FundTransferRemote
 import com.unionbankph.corporate.fund_transfer.data.source.remote.impl.FundTransferRemoteImpl
-import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkDetailsRemote
-import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkDetailsRemoteImpl
 import com.unionbankph.corporate.notification.data.source.remote.NotificationRemote
 import com.unionbankph.corporate.notification.data.source.remote.impl.NotificationRemoteImpl
-import com.unionbankph.corporate.payment_link.data.source.remote.CreateMerchantRemote
-import com.unionbankph.corporate.payment_link.data.source.remote.CreateMerchantRemoteImpl
+import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemote
+import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemoteImpl
 import com.unionbankph.corporate.settings.data.source.remote.SettingsRemote
 import com.unionbankph.corporate.settings.data.source.remote.impl.SettingsRemoteImpl
 import dagger.Module
@@ -89,9 +87,7 @@ class RemoteDataModule {
 
     @Provides
     @PerApplication
-    fun linkDetailsRemote(retrofit: Retrofit): PaymentLinkDetailsRemote = PaymentLinkDetailsRemoteImpl(retrofit)
+    fun paymentLinkRemote(retrofit: Retrofit): PaymentLinkRemote = PaymentLinkRemoteImpl(retrofit)
 
-    @Provides
-    @PerApplication
-    fun createMerchantRemote(retrofit: Retrofit): CreateMerchantRemote = CreateMerchantRemoteImpl(retrofit)
+
 }
