@@ -1,13 +1,11 @@
 package com.unionbankph.corporate.payment_link.domain.model.form
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class LinkDetailsForm(
+data class GeneratePaymentLinkForm(
         @SerialName("amount")
         var totalAmount: Double = 0.0,
         @SerialName("description")

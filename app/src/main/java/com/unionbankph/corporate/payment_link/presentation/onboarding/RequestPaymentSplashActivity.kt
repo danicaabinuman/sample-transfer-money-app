@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.settings.presentation.splash.request_payment_fragments
+package com.unionbankph.corporate.payment_link.presentation.onboarding
 
 import android.content.Context
 import android.content.Intent

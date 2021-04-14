@@ -36,7 +36,7 @@ import com.unionbankph.corporate.settings.domain.constant.FeaturesEnum
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsHasPermission
-import com.unionbankph.corporate.settings.presentation.splash.request_payment_fragments.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_send_request.*
 

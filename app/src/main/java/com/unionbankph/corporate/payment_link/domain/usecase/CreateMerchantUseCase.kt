@@ -1,20 +1,20 @@
-package com.unionbankph.corporate.payment_link.domain.model.usecase
+package com.unionbankph.corporate.payment_link.domain.usecase
 
 import com.unionbankph.corporate.common.domain.executor.PostExecutionThread
 import com.unionbankph.corporate.common.domain.executor.ThreadExecutor
 import com.unionbankph.corporate.common.domain.interactor.SingleUseCase
+import com.unionbankph.corporate.payment_link.data.gateway.PaymentLinkGateway
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.response.CreateMerchantResponse
-import com.unionbankph.corporate.payment_link.domain.model.gateway.CreateMerchantGateway
 import io.reactivex.Single
 import javax.inject.Inject
 
-class PostMerchantDetailsUseCase
+class CreateMerchantUseCase
 @Inject
 constructor(
     threadExecutor: ThreadExecutor,
     postExecutionThread: PostExecutionThread,
-    private val createMerchantGateway: CreateMerchantGateway
+    private val paymentLinkGateway: PaymentLinkGateway
 ) : SingleUseCase<CreateMerchantResponse, CreateMerchantForm>(
     threadExecutor,
     postExecutionThread
@@ -23,7 +23,7 @@ constructor(
     override fun buildUseCaseObservable(
         params: CreateMerchantForm?
     ): Single<CreateMerchantResponse> {
-        return createMerchantGateway.createMerchant(
+        return paymentLinkGateway.createMerchant(
             CreateMerchantForm(
                 params!!.organizationId,
                 params.merchantName,
