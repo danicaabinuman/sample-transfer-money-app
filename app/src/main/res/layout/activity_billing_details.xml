@@ -490,7 +490,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="LINK DETAILS"
+                    android:text="ACTIVITY LOG"
                     android:textColor="#4B4948"
                     android:textSize="10sp"
                     android:textStyle="bold" />
@@ -588,7 +588,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="GCash"
+                        android:text="Visa"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
 
@@ -612,14 +612,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="pay_sdjftef46790kjgd"
+                        android:text="pay_sdjftefhyfbklpiuy"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="01 Jan 2021 at 3:30 PM"
+                        android:text="02 Jan 2021 at 10:30 AM"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -650,7 +650,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FAILED"
+                        android:text="PAID"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -667,14 +667,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="pay_sdjftef46790kjgd"
+                        android:text="pay_sdbahdjkloiu890"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="01 Jan 2021 at 3:30 PM"
+                        android:text="01 Jan 2021 at 6:00 PM"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
                 </LinearLayout>
