@@ -16,7 +16,7 @@ import javax.inject.Inject
 class LinkDetailsViewModel
 @Inject constructor(
     private val generatePaymentLinkUseCase: GeneratePaymentLinkUseCase
-) : BaseViewModel(){
+) : BaseViewModel() {
 
 
     private val _linkDetailsResponse = MutableLiveData<GeneratePaymentLinkResponse>()
@@ -30,32 +30,38 @@ class LinkDetailsViewModel
     val navigateViewTransaction: LiveData<Event<String>> get() = _navigateViewTransaction
 
 
-    fun initBundleData(amount: String, paymentFor: String, notes: String?, selectedExpiry: String, mobileNumber: String) {
+    fun initBundleData(
+        amount: String,
+        paymentFor: String,
+        notes: String?,
+        selectedExpiry: String,
+        mobileNumber: String
+    ) {
 
         var expiry = 12
 
-        if(selectedExpiry.equals("6 hours",true)){
+        if (selectedExpiry.equals("6 hours", true)) {
             expiry = 6
-        }else if (selectedExpiry.equals("12 hours", true)){
+        } else if (selectedExpiry.equals("12 hours", true)) {
             expiry = 12
-        }else if (selectedExpiry.equals("1 day", true)){
+        } else if (selectedExpiry.equals("1 day", true)) {
             expiry = 24
-        }else if (selectedExpiry.equals("2 days", true)){
+        } else if (selectedExpiry.equals("2 days", true)) {
             expiry = 48
-        }else if (selectedExpiry.equals("3 days", true)){
+        } else if (selectedExpiry.equals("3 days", true)) {
             expiry = 72
-        }else if (selectedExpiry.equals("7 days", true)){
+        } else if (selectedExpiry.equals("7 days", true)) {
             expiry = 168
         }
 
         var finalMobileNumber = mobileNumber
-        if(!mobileNumber.first().equals('0',true)){
+        if (!mobileNumber.first().equals('0', true)) {
             finalMobileNumber = "0$mobileNumber"
         }
 
         generateLinkDetails(
             GeneratePaymentLinkForm(
-                amount.replace("PHP","").replace(",","").trim().toDouble(),
+                amount.replace("PHP", "").replace(",", "").trim().toDouble(),
                 paymentFor,
                 notes,
                 expiry,
@@ -66,7 +72,7 @@ class LinkDetailsViewModel
 
     }
 
-    private fun generateLinkDetails(linkDetailsForm: GeneratePaymentLinkForm){
+    private fun generateLinkDetails(linkDetailsForm: GeneratePaymentLinkForm) {
 
         generatePaymentLinkUseCase.execute(
             getDisposableSingleObserver(
