@@ -17,7 +17,9 @@ import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
-class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
+class RequestForPaymentActivity :
+    BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_request_payment),
+    AdapterView.OnItemSelectedListener {
 
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
@@ -35,8 +37,8 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
         finishRequestPayment()
     }
 
-    private fun initViews(){
-        btnRequestPaymentGenerate.setOnClickListener{
+    private fun initViews() {
+        btnRequestPaymentGenerate.setOnClickListener {
             navigateToLinkDetails()
         }
 
@@ -46,36 +48,56 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
         }
     }
 
-    private fun validateForm(){
+    private fun validateForm() {
         val amountString = et_amount.text.toString()
         val paymentForString = et_paymentFor.text.toString()
         val mobileNumber = textInputEditTextMobileNumber.text.toString()
 
         if (
             (amountString.length) > 4 &&
-            (paymentForString.length in 1..1000) &&
+            (paymentForString.length in 1..255) &&
             (mobileNumber.length > 4)
-        ){
+        ) {
             buttonEnable()
         } else {
             buttonDisable()
         }
     }
 
-    private fun buttonDisable(){
+    private fun buttonDisable() {
         btnRequestPaymentGenerate?.isEnabled = false
-        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorGrey))
+        btnRequestPaymentGenerate?.setTextColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.colorWhite
+            )
+        )
+        btnRequestPaymentGenerate?.setBackgroundColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.colorGrey
+            )
+        )
     }
 
-    private fun buttonEnable(){
+    private fun buttonEnable() {
         btnRequestPaymentGenerate?.isEnabled = true
-        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorButtonOrange))
+        btnRequestPaymentGenerate?.setTextColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.colorWhite
+            )
+        )
+        btnRequestPaymentGenerate?.setBackgroundColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.colorButtonOrange
+            )
+        )
     }
 
 
-    private fun requiredFields(){
+    private fun requiredFields() {
         et_amount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
@@ -94,8 +116,8 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val length : Int = et_paymentFor.length()
-                val counter : String = length.toString()
+                val length: Int = et_paymentFor.length()
+                val counter: String = length.toString()
                 tv_text_counter.text = counter
                 tv_text_counter.setHorizontallyScrolling(true)
             }
@@ -106,26 +128,26 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
         })
 
         textInputEditTextMobileNumber.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-                }
+            }
 
-                override fun afterTextChanged(s: Editable?) {
+            override fun afterTextChanged(s: Editable?) {
 
-                }
+            }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    validateForm()
-                }
-            })
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateForm()
+            }
+        })
 
     }
 
-    private fun paymentLinkExpiry(){
+    private fun paymentLinkExpiry() {
         var aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, time)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        with(dropdownPaymentLinkExport){
+        with(dropdownPaymentLinkExport) {
             adapter = aa
             setSelection(1, false)
             onItemSelectedListener = this@RequestForPaymentActivity
@@ -142,7 +164,7 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
 
     }
 
-    private fun navigateToLinkDetails(){
+    private fun navigateToLinkDetails() {
         val amount = et_amount.text.toString()
         val paymentFor = et_paymentFor.text.toString()
         val notes = et_notes.text.toString()
@@ -160,13 +182,13 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
     private fun finishRequestPayment() {
 
         ivBackButton.setOnClickListener {
-            val intent = Intent (this, DashboardActivity::class.java)
+            val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
     }
 
     override fun onBackPressed() {
-        val intent = Intent (this, DashboardActivity::class.java)
+        val intent = Intent(this, DashboardActivity::class.java)
         startActivity(intent)
     }
 
