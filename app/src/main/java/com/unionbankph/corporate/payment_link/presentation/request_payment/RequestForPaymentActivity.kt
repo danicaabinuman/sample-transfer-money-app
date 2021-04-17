@@ -17,9 +17,7 @@ import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
-class RequestForPaymentActivity :
-    BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_request_payment),
-    AdapterView.OnItemSelectedListener {
+class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
 
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
@@ -37,8 +35,8 @@ class RequestForPaymentActivity :
         finishRequestPayment()
     }
 
-    private fun initViews() {
-        btnRequestPaymentGenerate.setOnClickListener {
+    private fun initViews(){
+        btnRequestPaymentGenerate.setOnClickListener{
             navigateToLinkDetails()
         }
 
@@ -48,7 +46,7 @@ class RequestForPaymentActivity :
         }
     }
 
-    private fun validateForm() {
+    private fun validateForm(){
         val amountString = et_amount.text.toString()
         val paymentForString = et_paymentFor.text.toString()
         val mobileNumber = textInputEditTextMobileNumber.text.toString()
@@ -57,47 +55,27 @@ class RequestForPaymentActivity :
             (amountString.length) > 4 &&
             (paymentForString.length in 1..255) &&
             (mobileNumber.length > 4)
-        ) {
+        ){
             buttonEnable()
         } else {
             buttonDisable()
         }
     }
 
-    private fun buttonDisable() {
+    private fun buttonDisable(){
         btnRequestPaymentGenerate?.isEnabled = false
-        btnRequestPaymentGenerate?.setTextColor(
-            ContextCompat.getColor(
-                applicationContext,
-                R.color.colorWhite
-            )
-        )
-        btnRequestPaymentGenerate?.setBackgroundColor(
-            ContextCompat.getColor(
-                applicationContext,
-                R.color.colorGrey
-            )
-        )
+        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorGrey))
     }
 
-    private fun buttonEnable() {
+    private fun buttonEnable(){
         btnRequestPaymentGenerate?.isEnabled = true
-        btnRequestPaymentGenerate?.setTextColor(
-            ContextCompat.getColor(
-                applicationContext,
-                R.color.colorWhite
-            )
-        )
-        btnRequestPaymentGenerate?.setBackgroundColor(
-            ContextCompat.getColor(
-                applicationContext,
-                R.color.colorButtonOrange
-            )
-        )
+        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        btnRequestPaymentGenerate?.setBackgroundColor(ContextCompat.getColor(applicationContext, R.color.colorButtonOrange))
     }
 
 
-    private fun requiredFields() {
+    private fun requiredFields(){
         et_amount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
