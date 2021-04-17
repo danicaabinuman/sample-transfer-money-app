@@ -105,7 +105,7 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
             }
         })
 
-        textInputEditTextMobileNumber.addTextChangedListener(object :TextWatcher {
+        textInputEditTextMobileNumber.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
                 }
@@ -160,13 +160,13 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
     private fun finishRequestPayment() {
 
         ivBackButton.setOnClickListener {
-            val intent = Intent(this, DashboardActivity::class.java)
+            val intent = Intent (this, DashboardActivity::class.java)
             startActivity(intent)
         }
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this, DashboardActivity::class.java)
+        val intent = Intent (this, DashboardActivity::class.java)
         startActivity(intent)
     }
 
