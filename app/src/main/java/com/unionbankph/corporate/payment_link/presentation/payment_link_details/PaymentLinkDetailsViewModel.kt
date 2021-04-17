@@ -34,7 +34,7 @@ class LinkDetailsViewModel
 
         var expiry = 12
 
-        if(selectedExpiry.equals("6 hours", true)){
+        if(selectedExpiry.equals("6 hours",true)){
             expiry = 6
         }else if (selectedExpiry.equals("12 hours", true)){
             expiry = 12
@@ -49,7 +49,7 @@ class LinkDetailsViewModel
         }
 
         var finalMobileNumber = mobileNumber
-        if (!mobileNumber.first().equals('0', true)){
+        if (!mobileNumber.first().equals('0',true)){
             finalMobileNumber = "0$mobileNumber"
         }
 
