@@ -23,7 +23,7 @@ class PaymentLinkGatewayImpl
     override fun generatePaymentLink(generatePaymentLinkForm: GeneratePaymentLinkForm): Single<GeneratePaymentLinkResponse> {
 
         val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgId = "6460b955-1a2e-46162-9bc3-b762"
+        var orgId = "6460b955-1a2e-4662-9bc3-b762"
         var orgName = "Test Org 6247 2"
         if(role?.organizationId != null){
             orgId = role.organizationId!!
