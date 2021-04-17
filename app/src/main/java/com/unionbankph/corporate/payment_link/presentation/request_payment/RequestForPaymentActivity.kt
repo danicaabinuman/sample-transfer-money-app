@@ -142,7 +142,7 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
 
     }
 
-    private fun navigateToLinkDetails() {
+    private fun navigateToLinkDetails(){
         val amount = et_amount.text.toString()
         val paymentFor = et_paymentFor.text.toString()
         val notes = et_notes.text.toString()
