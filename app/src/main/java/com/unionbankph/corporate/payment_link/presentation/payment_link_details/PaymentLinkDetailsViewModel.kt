@@ -34,17 +34,17 @@ class LinkDetailsViewModel
 
         var expiry = 12
 
-        if (selectedExpiry.equals("6 hours", true)){
+        if(selectedExpiry.equals("6 hours", true)){
             expiry = 6
-        } else if (selectedExpiry.equals("12 hours", true)){
+        }else if (selectedExpiry.equals("12 hours", true)){
             expiry = 12
-        } else if (selectedExpiry.equals("1 day", true)){
+        }else if (selectedExpiry.equals("1 day", true)){
             expiry = 24
-        } else if (selectedExpiry.equals("2 days", true)){
+        }else if (selectedExpiry.equals("2 days", true)){
             expiry = 48
-        } else if (selectedExpiry.equals("3 days", true)){
+        }else if (selectedExpiry.equals("3 days", true)){
             expiry = 72
-        } else if (selectedExpiry.equals("7 days", true)){
+        }else if (selectedExpiry.equals("7 days", true)){
             expiry = 168
         }
 
