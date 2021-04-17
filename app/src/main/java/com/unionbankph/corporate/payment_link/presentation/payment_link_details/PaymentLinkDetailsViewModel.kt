@@ -49,7 +49,7 @@ class LinkDetailsViewModel
         }
 
         var finalMobileNumber = mobileNumber
-        if (!mobileNumber.first().equals('0',true)){
+        if(!mobileNumber.first().equals('0',true)){
             finalMobileNumber = "0$mobileNumber"
         }
 
