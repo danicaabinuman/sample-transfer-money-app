@@ -647,7 +647,7 @@
         <item name="boxCornerRadiusBottomStart">@dimen/field_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/field_radius</item>
         <item name="android:digits">@string/digits_alpha_numeric_symbols</item>
-        <item name="android:maxLength">1000</item>
+        <item name="android:maxLength">255</item>
         <item name="android:textSize">@dimen/text_12</item>
     </style>
 
