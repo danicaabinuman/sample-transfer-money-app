@@ -16,7 +16,7 @@ import javax.inject.Inject
 class LinkDetailsViewModel
 @Inject constructor(
     private val generatePaymentLinkUseCase: GeneratePaymentLinkUseCase
-) : BaseViewModel() {
+) : BaseViewModel(){
 
 
     private val _linkDetailsResponse = MutableLiveData<GeneratePaymentLinkResponse>()
@@ -30,13 +30,7 @@ class LinkDetailsViewModel
     val navigateViewTransaction: LiveData<Event<String>> get() = _navigateViewTransaction
 
 
-    fun initBundleData(
-        amount: String,
-        paymentFor: String,
-        notes: String?,
-        selectedExpiry: String,
-        mobileNumber: String
-    ) {
+    fun initBundleData(amount: String, paymentFor: String, notes: String?, selectedExpiry: String, mobileNumber: String) {
 
         var expiry = 12
 
