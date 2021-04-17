@@ -94,8 +94,8 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val length: Int = et_paymentFor.length()
-                val counter: String = length.toString()
+                val length : Int = et_paymentFor.length()
+                val counter : String = length.toString()
                 tv_text_counter.text = counter
                 tv_text_counter.setHorizontallyScrolling(true)
             }
@@ -105,27 +105,27 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
             }
         })
 
-        textInputEditTextMobileNumber.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        textInputEditTextMobileNumber.addTextChangedListener(object :TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-            }
+                }
 
-            override fun afterTextChanged(s: Editable?) {
+                override fun afterTextChanged(s: Editable?) {
 
-            }
+                }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                validateForm()
-            }
-        })
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    validateForm()
+                }
+            })
 
     }
 
-    private fun paymentLinkExpiry() {
+    private fun paymentLinkExpiry(){
         var aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, time)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        with(dropdownPaymentLinkExport) {
+        with(dropdownPaymentLinkExport){
             adapter = aa
             setSelection(1, false)
             onItemSelectedListener = this@RequestForPaymentActivity
