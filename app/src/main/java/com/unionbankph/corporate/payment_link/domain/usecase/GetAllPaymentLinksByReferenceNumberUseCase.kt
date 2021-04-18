@@ -4,28 +4,30 @@ import com.unionbankph.corporate.common.domain.executor.PostExecutionThread
 import com.unionbankph.corporate.common.domain.executor.ThreadExecutor
 import com.unionbankph.corporate.common.domain.interactor.SingleUseCase
 import com.unionbankph.corporate.payment_link.data.gateway.PaymentLinkGateway
+import com.unionbankph.corporate.payment_link.domain.model.form.GetPaymentLinkListByReferenceNumberForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GetPaymentLinkListPaginatedForm
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkListPaginatedResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetAllPaymentLinksUseCase
+class GetAllPaymentLinksByReferenceNumberUseCase
 @Inject
 constructor(
     threadExecutor: ThreadExecutor,
     postExecutionThread: PostExecutionThread,
     private val paymentLinkGateway: PaymentLinkGateway
-) : SingleUseCase<GetPaymentLinkListPaginatedResponse, GetPaymentLinkListPaginatedForm>(
+) : SingleUseCase<GetPaymentLinkListPaginatedResponse, GetPaymentLinkListByReferenceNumberForm>(
     threadExecutor,
     postExecutionThread
 ) {
 
     override fun buildUseCaseObservable(
-            getPaymentLinkListPaginatedForm: GetPaymentLinkListPaginatedForm?
+            getPaymentLinkListByReferenceNumberForm: GetPaymentLinkListByReferenceNumberForm?
     ): Single<GetPaymentLinkListPaginatedResponse> {
-        return paymentLinkGateway.getPaymentLinkListPaginated(
-                getPaymentLinkListPaginatedForm!!.page.toString(),
-                getPaymentLinkListPaginatedForm.itemsPerPage.toString()
+        return paymentLinkGateway.getPaymentLinkListByReferenceNumber(
+                getPaymentLinkListByReferenceNumberForm!!.page.toString(),
+                getPaymentLinkListByReferenceNumberForm.itemsPerPage.toString(),
+                getPaymentLinkListByReferenceNumberForm.referenceNumber!!
         )
     }
 
