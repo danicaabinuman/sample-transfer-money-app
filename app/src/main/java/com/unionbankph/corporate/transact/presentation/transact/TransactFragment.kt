@@ -59,7 +59,7 @@ class TransactFragment :
             constraintLayoutBranchVisit.visibility(false)
             view5.visibility(false)
             constraintLayoutElectronicBilling.visibility(false)
-            view6.visibility(false)
+            view7.visibility(false)
         }
         viewModel.hasFundTransferTransactionsPermission(
             TransactScreenEnum.FUND_TRANSFER.name
@@ -233,21 +233,10 @@ class TransactFragment :
             )
         }
 
-        constraintLayoutRequestForPayment.setOnClickListener {
-            navigator.navigate(
-                (activity as DashboardActivity),
-                PaymentLinkActivity::class.java,
-                null,
-                isClear = false,
-                isAnimated = false,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
-            )
-        }
-
         constraintLayoutRequestPayment.setOnClickListener{
             navigator.navigate(
                     (activity as DashboardActivity),
-                    RequestPaymentSplashActivity::class.java,
+                    PaymentLinkActivity::class.java,
                     null,
                     isClear = false,
                     isAnimated = true,
