@@ -78,7 +78,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
-        val formatter = SimpleDateFormat("MM dd, yyyy hh:mm:aa  ")
+        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa  ")
 
         val createdDate = formatter.format(parser.parse(linkDetailsResponse.createdDate))
         val expiryDate = formatter.format(parser.parse(linkDetailsResponse.expireDate))
