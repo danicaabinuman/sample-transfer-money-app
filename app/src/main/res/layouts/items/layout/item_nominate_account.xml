@@ -4,6 +4,7 @@
     android:id="@+id/card_view_account"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/grid_1"
     app:cardCornerRadius="@dimen/card_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,7 +66,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewAccountNumber"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:shimmer_animation_duration="1000"
-                app:shimmer_color="@color/colorGrey"
+                app:shimmer_auto_start="true"
+                app:shimmer_color="@color/colorOrangeAccountSelectionItem"
                 app:shimmer_mask_width="1">
 
                 <androidx.constraintlayout.widget.ConstraintLayout style="@style/WrapContent">
@@ -77,8 +79,8 @@
                         android:gravity="end"
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"
-                        android:text="PHP 0.00"
-                        android:visibility="visible"
+                        android:text="PHP 999,000,000.00"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

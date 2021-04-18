@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,11 +19,13 @@ import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
+import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
 import timber.log.Timber
 
@@ -46,30 +49,34 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         requiredFields()
         setupOutputs()
 
-        include1.visibility = View.GONE
+        llSettlementAccount.visibility = View.GONE
         include1.findViewById<TextView>(R.id.textViewCorporateName).text = "UPASS CA001 TEST ACCOUNT"
         include1.findViewById<TextView>(R.id.textViewAccountNumber).text = "0005 9008 0118"
         include1.findViewById<TextView>(R.id.textViewAccountName).text = "RETAIL REGULAR CHECKING"
         include1.findViewById<TextView>(R.id.textViewAccountNumber).text = "PHP 338,989,378.27"
-        btnNominate.visibility = View.VISIBLE
+        llNominateSettlementAccount.visibility = View.VISIBLE
     }
 
 
     private fun initViews() {
 
-        val businessName = et_business_name.text.toString()
-        val businessWebsite = et_business_websites.text.toString()
-        val businessProductsOffered = et_business_products_offered.text.toString()
 
+        include1.setOnClickListener {
+            openNominateAccounts()
+        }
         btnSetupBusinessLink.setOnClickListener {
+
+            val businessName = et_business_name.text.toString()
+            val businessWebsite = et_business_websites.text.toString()
+            val businessProductsOffered = et_business_products_offered.text.toString()
 
             viewModel.createMerchant(
                     CreateMerchantForm(
                             "",
                             businessName,
                             businessName,
-                            "1096822",
-                            "Unnecessary",
+                            include1.findViewById<TextView>(R.id.textViewAccountNumber).text.toString(),
+                            include1.findViewById<TextView>(R.id.textViewCorporateName).text.toString(),
                             businessWebsite,
                             businessProductsOffered
                     )
@@ -81,7 +88,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         }
 
         btnNominate.setOnClickListener {
-            viewModel.getAccounts()
+            openNominateAccounts()
         }
 
     }
@@ -106,10 +113,6 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             val intent = Intent(this, RequestForPaymentActivity::class.java)
             startActivity(intent)
             finish()
-        } else {
-            val editor = sharedPref.edit()
-            editor.putBoolean(SHAREDPREF_IS_DONE_SETUP, true)
-            editor.apply()
         }
     }
 
@@ -160,6 +163,12 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     private fun setupOutputs() {
         viewModel.createMerchantResponse.observe(this, Observer {
             if(it.message.equals("Success",true)){
+
+                val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_DONE_SETUP, Context.MODE_PRIVATE)
+                val editor = sharedPref.edit()
+                editor.putBoolean(SHAREDPREF_IS_DONE_SETUP, true)
+                editor.apply()
+
                 val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -168,34 +177,20 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             }
         })
 
-        viewModel.accounts.observe(this, Observer {
-            it?.let {
-                openNominateAccounts(it)
+        viewModel.uiState.observe(this, Observer {
+            it.getContentIfNotHandled().let { event ->
+                when (event) {
+                    is UiState.Error -> {
+                        handleOnError(event.throwable)
+                    }
+                }
             }
         })
     }
 
-    private fun openNominateAccounts(accounts: MutableList<Account>){
-        if(accounts.size>0){
-            Timber.d("Size of accounts = ${accounts.size}")
-
-            val bundle = Bundle()
-            bundle.putString(
-                    NominateSettlementActivity.EXTRA_SETTLEMENT_ACCOUNTS,
-                    JsonHelper.toJson(accounts)
-            )
-            navigator.navigate(
-                    this,
-                    NominateSettlementActivity::class.java,
-                    bundle,
-                    isClear = false,
-                    isAnimated = true,
-                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
-            )
-
-        }else{
-            Toast.makeText(this@SetupPaymentLinkActivity, "No Accounts", Toast.LENGTH_SHORT).show()
-        }
+    private fun openNominateAccounts(){
+        val intent = Intent(this@SetupPaymentLinkActivity, NominateSettlementActivity::class.java)
+        startActivityForResult(intent,REQUEST_CODE)
     }
 
     private fun validateForm(){
@@ -204,19 +199,52 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
         if (
             businessName.isNotEmpty() &&
-            businessProductsOffered.isNotEmpty()
+            businessProductsOffered.isNotEmpty() &&
+            llSettlementAccount.visibility == View.VISIBLE
         ){
             buttonEnable()
         } else {
             buttonDisable()
         }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == REQUEST_CODE){
+            if (resultCode == RESULT_OK) {
+                val accountData = JsonHelper.fromJson<Account>(data?.getStringExtra(NominateSettlementActivity.RESULT_DATA))
+                llSettlementAccount.visibility = View.VISIBLE
+                val tvCorporateName: AppCompatTextView = include1.findViewById(R.id.textViewCorporateName)
+                val tvAccountName: AppCompatTextView = include1.findViewById(R.id.textViewAccountName)
+                val tvAccountNumber: AppCompatTextView = include1.findViewById(R.id.textViewAccountNumber)
+                val tvAvailableBalance: AppCompatTextView = include1.findViewById(R.id.textViewAvailableBalance)
+                val slAmount: ShimmerLayout = include1.findViewById(R.id.shimmerLayoutAmount)
+                val viewShimmer: View = include1.findViewById(R.id.viewShimmer)
 
+                tvCorporateName.text = accountData.name
+                tvAccountNumber.text = accountData.accountNumber
+                tvAccountName.text = accountData.productCodeDesc
 
-
+                accountData.headers.forEach{ header ->
+                    header.name?.let { headerName ->
+                        if(headerName.equals("CURBAL",true)){
+                            header.value?.let{ headerValue ->
+                                slAmount.stopShimmerAnimation()
+                                viewShimmer.visibility = View.GONE
+                                tvAvailableBalance.visibility = View.VISIBLE
+                                tvAvailableBalance.text = headerValue
+                            }
+                        }
+                    }
+                }
+                llNominateSettlementAccount.visibility = View.GONE
+                validateForm()
+            }
+        }
     }
 
     companion object {
         const val SHAREDPREF_IS_DONE_SETUP = "sharedpref_is_done_setup"
+        const val REQUEST_CODE = 1216
     }
 }

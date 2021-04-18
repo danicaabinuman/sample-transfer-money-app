@@ -196,6 +196,7 @@
 
 
             <LinearLayout
+                android:id="@+id/llNominateSettlementAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -215,11 +216,6 @@
                     android:textSize="12sp"
                     android:textStyle="bold" />
 
-                <include
-                    android:id="@+id/include1"
-                    android:visibility="gone"
-                    layout="@layout/to_delete_item_nominate_account"/>
-
                 <TextView
                     android:id="@+id/btnNominate"
                     android:layout_width="match_parent"
@@ -231,6 +227,33 @@
                     android:textColor="#E5E5E5"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/llSettlementAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="25dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Settlement Account"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <include
+                    android:id="@+id/include1"
+                    android:visibility="visible"
+                    layout="@layout/to_delete_item_nominate_account"/>
+
 
             </LinearLayout>
 

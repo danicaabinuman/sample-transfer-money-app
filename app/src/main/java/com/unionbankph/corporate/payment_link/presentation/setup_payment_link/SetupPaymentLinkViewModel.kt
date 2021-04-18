@@ -17,18 +17,14 @@ import javax.inject.Inject
 
 class SetupPaymentLinkViewModel
 @Inject constructor(
-    private val createMerchantUseCase: CreateMerchantUseCase,
-    private val getAccountsUseCase: GetAccountsUseCase
+    private val createMerchantUseCase: CreateMerchantUseCase
 ) : BaseViewModel() {
 
     private val _createMerchantResponse = MutableLiveData<CreateMerchantResponse>()
-    private val _accounts = MutableLiveData<MutableList<Account>>()
 
     val createMerchantResponse: LiveData<CreateMerchantResponse>
         get() =
             _createMerchantResponse
-
-    val accounts: LiveData<MutableList<Account>> = _accounts
 
 
     fun createMerchant(form: CreateMerchantForm){
@@ -49,26 +45,6 @@ class SetupPaymentLinkViewModel
                 _uiState.value = Event(UiState.Complete)
             },
             params = form
-        ).addTo(disposables)
-    }
-
-    fun getAccounts() {
-        getAccountsUseCase.execute(
-            getDisposableSingleObserver(
-                {
-                    _accounts.value = it
-                }, {
-                    Timber.e(it, "getAccounts")
-                    _uiState.value = Event(UiState.Error(it))
-                }
-            ),
-            doOnSubscribeEvent = {
-                _uiState.value = Event(UiState.Loading)
-            },
-            doFinallyEvent = {
-                _uiState.value = Event(UiState.Complete)
-            },
-            params = null
         ).addTo(disposables)
     }
 
