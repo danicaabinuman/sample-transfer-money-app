@@ -1,27 +1,38 @@
 package com.unionbankph.corporate.payment_link.presentation.payment_link
 
 import android.content.Intent
-import android.os.Bundle
+import android.content.SharedPreferences
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.payment_link.domain.model.PaymentLinkModel
+import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkListPaginatedResponse
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountsAdapter
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_dashboard.bottomNavigationBTR
+import kotlinx.android.synthetic.main.activity_nominate_settlement.*
 import kotlinx.android.synthetic.main.activity_payment_link.*
+import kotlinx.android.synthetic.main.activity_setup_payment_links.*
 import kotlinx.android.synthetic.main.widget_badge_initial.*
 import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 
-class PaymentLinkActivity : AppCompatActivity(),
-        AHBottomNavigation.OnTabSelectedListener {
+class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity_payment_link),AHBottomNavigation.OnTabSelectedListener {
 
     private var bottomNavigationItems: HashMap<String, Int> = hashMapOf()
     private var isBackButtonFragmentSettings: Boolean = false
@@ -29,26 +40,59 @@ class PaymentLinkActivity : AppCompatActivity(),
     private var hasNotificationLogs: Boolean = false
     private var adapter: ViewPagerAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_payment_link)
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        viewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        )[PaymentLinkViewModel::class.java]
+    }
 
+    override fun onViewsBound() {
+        super.onViewsBound()
+        initViews()
+        setupInputs()
+        setupOutputs()
+    }
+
+    private fun initViews(){
         textViewTitle.setText(R.string.title_generate_links)
         textViewTitle.setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
 
         textViewCorporationName.setText(R.string.title_corporation_name)
         btnRequestPayment()
         initBottomNavigation()
-//        initViewPager()
-//        enableTabs(isEnable = true)
-
-
-        item1.setOnClickListener{showPaymentLinkDetails()}
-        item2.setOnClickListener{showPaymentLinkDetails()}
-        item3.setOnClickListener{showPaymentLinkDetails()}
     }
 
-    private fun showPaymentLinkDetails(){
+    private fun setupInputs(){
+        viewModel.getAllPaymentLinks()
+    }
+    private fun setupOutputs(){
+        viewModel.paymentLinkListPaginatedResponse.observe(this, Observer {
+            updateRecyclerView(it.data)
+        })
+
+        viewModel.uiState.observe(this, Observer {
+            it.getContentIfNotHandled().let { event ->
+                when (event) {
+                    is UiState.Error -> {
+                        handleOnError(event.throwable)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun updateRecyclerView(data: List<PaymentLinkModel>?) {
+        val paymentLinksAdapter = PaymentLinkAdapter(data as MutableList<PaymentLinkModel>)
+        rvPaymentLinkList.adapter = paymentLinksAdapter
+        paymentLinksAdapter.onItemClick = {
+            it.referenceNo?.let { it1 -> showPaymentLinkDetails(it1) }
+        }
+    }
+
+
+    private fun showPaymentLinkDetails(referenceId: String){
         val intent = Intent(this@PaymentLinkActivity, BillingDetailsActivity::class.java)
         startActivity(intent)
     }
@@ -56,19 +100,13 @@ class PaymentLinkActivity : AppCompatActivity(),
     private fun btnRequestPayment() {
 
         btnRequestPayment.setOnClickListener {
-
             val intent = Intent(this, RequestForPaymentActivity::class.java)
             startActivity(intent)
-
         }
     }
 
     private fun initBottomNavigation() {
-//        bottomNavigationItems[DashboardActivity.FRAGMENT_ACCOUNTS] = 0
-//        bottomNavigationItems[DashboardActivity.FRAGMENT_TRANSACT] = 1
-//        bottomNavigationItems[DashboardActivity.FRAGMENT_APPROVALS] = 2
-//        bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] = 3
-//        bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS] = 4
+
         val item1 =
                 AHBottomNavigationItem(getString(R.string.title_tab_accounts), R.drawable.ic_accounts)
         val item2 = AHBottomNavigationItem(
@@ -120,28 +158,6 @@ class PaymentLinkActivity : AppCompatActivity(),
 
     override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
         if (!wasSelected) {
-//            viewModel.getOrganizationNotification(role?.organizationId.notNullable())
-//            if ((isBackButtonFragmentSettings &&
-//                        position == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS]) ||
-//                (isBackButtonFragmentAlerts &&
-//                        position == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS])
-//            ) {
-//                viewBadgeCount.visibility(false)
-//                imageViewLogout.visibility(false)
-//                imageViewMarkAllAsRead.visibility(false)
-//                imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
-//                if (isSME) imageViewInitial.setColor(R.color.colorInfo)
-//                textViewInitial.visibility = View.GONE
-//                viewBadge.setOnClickListener {
-//                    if (viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS]) {
-//                        popStackFragmentSettings()
-//                    } else if (
-//                        viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS]) {
-//                        popStackFragmentNotifications()
-//                    }
-//                }
-//                textViewTitle.text = stackTitle
-//            } else {
             if (viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS] &&
                     textViewInitial.visibility != View.VISIBLE
             ) {
@@ -163,85 +179,8 @@ class PaymentLinkActivity : AppCompatActivity(),
                     startActivity(intent)
                 }
             }
-//                if (isSME) imageViewInitial.clearTheme()
-//                textViewInitial.visibility = View.VISIBLE
-//                setOrganizationBadge(organizationBadgeCount)
-//                viewBadge.setOnClickListener { navigateOrganizationScreen() }
-//                textViewTitle.text = headerDashboard[position]
-//            }
-//            if (isSME) {
-//                if (position == bottomNavigationItems[DashboardActivity.FRAGMENT_APPROVALS]) {
-//                    removeElevation(viewToolbar)
-//                } else {
-//                    addElevation(viewToolbar)
-//                }
-//            }
-//            textViewEditApprovals.visibility(
-//                position == bottomNavigationItems[DashboardActivity.FRAGMENT_APPROVALS] &&
-//                        allowMultipleSelectionApprovals
-//            )
-//            imageViewHelp.visibility(
-//                position == bottomNavigationItems[DashboardActivity.FRAGMENT_ACCOUNTS] ||
-//                        position == bottomNavigationItems[DashboardActivity.FRAGMENT_TRANSACT] ||
-//                        position == bottomNavigationItems[DashboardActivity.FRAGMENT_APPROVALS] ||
-//                        (position == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] &&
-//                                stackFlagNotification) ||
-//                        (position == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS] &&
-//                                stackFlagSettings)
-//            )
-//            if (position == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS]) {
-//                val settingsFragment =
-//                    adapter?.getItem(bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS]!!)!!
-//                if (settingsFragment.isAdded) {
-//                    val count = settingsFragment.childFragmentManager.backStackEntryCount
-//                    imageViewLogout.visibility(count == 1)
-//                }
-//            } else {
-//                imageViewLogout.visibility(false)
-//            }
-//            initForceTutorialTabs(position)
         }
-//        else {
-//            eventBus.settingsSyncEvent.emmit(
-//                BaseEvent(SettingsSyncEvent.ACTION_SCROLL_TO_TOP)
-//            )
-//        }
         viewPagerBTR.currentItem = position
         return true
     }
-//
-//    private fun enableTabs(isEnable: Boolean) {
-//        if (bottomNavigationBTR.getViewAtPosition(0) != null &&
-//            bottomNavigationBTR.getViewAtPosition(1) != null &&
-//            bottomNavigationBTR.getViewAtPosition(2) != null &&
-//            bottomNavigationBTR.getViewAtPosition(3) != null &&
-//            bottomNavigationBTR.getViewAtPosition(4) != null
-//        ) {
-//            bottomNavigationBTR.getViewAtPosition(0).isEnabled = isEnable
-//            bottomNavigationBTR.getViewAtPosition(0).isClickable = isEnable
-//            bottomNavigationBTR.getViewAtPosition(1).isEnabled = isEnable
-//            bottomNavigationBTR.getViewAtPosition(1).isClickable = isEnable
-//            bottomNavigationBTR.getViewAtPosition(2).isEnabled = isEnable
-//            bottomNavigationBTR.getViewAtPosition(2).isClickable = isEnable
-//            bottomNavigationBTR.getViewAtPosition(3).isEnabled = isEnable
-//            bottomNavigationBTR.getViewAtPosition(3).isClickable = isEnable
-//            bottomNavigationBTR.getViewAtPosition(4).isEnabled = isEnable
-//            bottomNavigationBTR.getViewAtPosition(4).isClickable = isEnable
-//        }
-//    }
-//
-//    private fun initViewPager() {
-//        adapter = ViewPagerAdapter(
-//            supportFragmentManager
-//        )
-//        adapter?.addFragment(AccountFragment(), DashboardActivity.FRAGMENT_ACCOUNTS)
-//        adapter?.addFragment(TransactFragment(), DashboardActivity.FRAGMENT_TRANSACT)
-//        adapter?.addFragment(ApprovalFragment(), DashboardActivity.FRAGMENT_APPROVALS)
-//        adapter?.addFragment(NotificationLogTabFragment(), DashboardActivity.FRAGMENT_NOTIFICATIONS)
-//        adapter?.addFragment(SettingsFragment(), DashboardActivity.FRAGMENT_SETTINGS)
-//        // viewPagerBTR.setPageTransformer(false, FadePageTransformer())
-//        viewPagerBTR.setPagingEnabled(false)
-//        viewPagerBTR.offscreenPageLimit = 4
-//        viewPagerBTR.adapter = adapter
-//    }
 }
