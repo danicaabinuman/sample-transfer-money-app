@@ -4,12 +4,17 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.view.View
+import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.extension.showToast
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import kotlinx.android.synthetic.main.activity_link_details.*
 import java.text.DecimalFormat
@@ -18,6 +23,7 @@ import java.text.SimpleDateFormat
 class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity_link_details) {
 
 
+    var mCurrentLinkDetails: GeneratePaymentLinkResponse? = null
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -49,6 +55,18 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             copyLink()
         }
 
+        btnGenerateAnotherLink.setOnClickListener{
+            finish()
+        }
+
+        btnArchive.setOnClickListener{
+            flLoading.visibility = View.VISIBLE
+            mCurrentLinkDetails?.let {
+                viewModel.getPaymentLinkDetailsThenArchive(it.referenceId!!)
+            }
+
+        }
+
     }
 
     private fun setupInputs() {
@@ -70,8 +88,43 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun setupOutputs() {
         viewModel.linkDetailsResponse.observe(this, Observer {
             flLoading.visibility = View.INVISIBLE
+            mCurrentLinkDetails = it
             setupViews(it)
         })
+
+
+
+        viewModel.archivePaymentLinkResponse.observe(this, Observer {
+            flLoading.visibility = View.INVISIBLE
+            Toast.makeText(this,"Archive successful", Toast.LENGTH_SHORT).show();
+            updateArchivedView()
+
+        })
+
+        viewModel.uiState.observe(this, Observer {
+            it.getContentIfNotHandled().let { event ->
+                when (event) {
+                    is UiState.Error -> {
+                        flLoading.visibility = View.INVISIBLE
+                        handleOnError(event.throwable)
+                    }
+                }
+            }
+        })
+    }
+
+
+    private fun updateArchivedView(){
+        tvStatus.text = "ARCHIVED"
+        tvStatus.setTextColor(Color.parseColor("#4A4A4A"))
+        tvStatus.background = getDrawable(R.drawable.bg_status_card_archived)
+        clCyberSure.visibility = View.GONE
+        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        btnArchive.text = "MARK AS UNPAID"
+        imgBtnShare.isEnabled = false
+        ibURLcopy.isEnabled = false
+        btnArchive.isEnabled = false
+
     }
 
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
@@ -81,18 +134,21 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa  ")
 
         val createdDate = formatter.format(parser.parse(linkDetailsResponse.createdDate))
+        linkDetailsCreatedDate.text = createdDate
+
         val expiryDate = formatter.format(parser.parse(linkDetailsResponse.expireDate))
+        tv_link_details_expiry.text = expiryDate
 
         val amountParse = DecimalFormat("####.##")
         val amountFormat = DecimalFormat("#,###.##")
         val finalAmount = amountFormat.format(amountParse.parse(linkDetailsResponse.amount))
 
         linkDetailsRefNo.text = linkDetailsResponse.referenceId.toString()
-        linkDetailsCreatedDate.text = createdDate
+
         linkDetailsAmount.text = finalAmount
         linkDetailsDescription.text = linkDetailsResponse.paymentFor
         linkDetailsNotes.text = linkDetailsResponse.description
-        tv_link_details_expiry.text = expiryDate
+
         linkDetailsPaymentLink.text = linkDetailsResponse.link
 
     }
@@ -104,11 +160,11 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
 
-//            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
 
             clipboard.setPrimaryClip(clip)
 
-            showToast("Copied to clipboard")
+//            showToast("Copied to clipboard")
         }
     }
 
@@ -120,31 +176,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             intent.type="text/plain"
             startActivity(Intent.createChooser(intent, "Share To:"))
         }
-    }
-
-    private fun dateFormat(){
-        var date : Long
-        val sdf : SimpleDateFormat
-        var dateString : String
-
-        date = System.currentTimeMillis()
-        sdf = SimpleDateFormat("MMM dd, yyyy / h:mm a")
-
-        dateString = sdf.format(date)
-        linkDetailsCreatedDate.setText(dateString)
-    }
-
-    private fun generatedLinkResults(){
-
-        val amount: String = intent.getStringExtra("amount").toString()
-        val paymentFor: String = intent.getStringExtra("payment for").toString()
-        val notes: String = intent.getStringExtra("notes").toString()
-        val linkExpiry: String = intent.getStringExtra("selected expiry").toString()
-
-        linkDetailsAmount.setText(amount)
-        linkDetailsDescription.setText(paymentFor)
-        linkDetailsNotes.setText(notes)
-        tv_link_details_expiry.setText(linkExpiry)
     }
 
 

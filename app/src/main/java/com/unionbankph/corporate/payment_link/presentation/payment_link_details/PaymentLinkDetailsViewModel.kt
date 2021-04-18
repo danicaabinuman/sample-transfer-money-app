@@ -8,14 +8,20 @@ import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
+import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkByReferenceIdResponse
+import com.unionbankph.corporate.payment_link.domain.model.response.PutPaymentLinkStatusResponse
+import com.unionbankph.corporate.payment_link.domain.usecase.ArchivePaymentLinkUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.GeneratePaymentLinkUseCase
+import com.unionbankph.corporate.payment_link.domain.usecase.GetPaymentLinkByReferenceIdUseCase
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
 
 class LinkDetailsViewModel
 @Inject constructor(
-    private val generatePaymentLinkUseCase: GeneratePaymentLinkUseCase
+    private val generatePaymentLinkUseCase: GeneratePaymentLinkUseCase,
+    private val archivePaymentLinkUseCase: ArchivePaymentLinkUseCase,
+    private val getPaymentLinkByReferenceIdUseCase: GetPaymentLinkByReferenceIdUseCase
 ) : BaseViewModel(){
 
 
@@ -24,6 +30,13 @@ class LinkDetailsViewModel
     val linkDetailsResponse: LiveData<GeneratePaymentLinkResponse>
         get() =
             _linkDetailsResponse
+
+
+    private val _archivePaymentLinkResponse = MutableLiveData<PutPaymentLinkStatusResponse>()
+
+    val archivePaymentLinkResponse: LiveData<PutPaymentLinkStatusResponse>
+        get() =
+            _archivePaymentLinkResponse
 
     private val _navigateViewTransaction = MutableLiveData<Event<String>>()
 
@@ -84,6 +97,48 @@ class LinkDetailsViewModel
                 _uiState.value = Event(UiState.Complete)
             },
             params = linkDetailsForm
+        ).addTo(disposables)
+    }
+
+
+
+    fun getPaymentLinkDetailsThenArchive(referenceId: String){
+        getPaymentLinkByReferenceIdUseCase.execute(
+                getDisposableSingleObserver(
+                        {
+                            archive(it.transactionId!!)
+                        }, {
+                    Timber.e(it, "getPaymentLinkDetails")
+                    _uiState.value = Event(UiState.Error(it))
+                }
+                ),
+                doOnSubscribeEvent = {
+                    _uiState.value = Event(UiState.Loading)
+                },
+                doFinallyEvent = {
+                    _uiState.value = Event(UiState.Complete)
+                },
+                params = referenceId
+        ).addTo(disposables)
+    }
+
+    private fun archive(transactionId: String){
+        archivePaymentLinkUseCase.execute(
+                getDisposableSingleObserver(
+                        {
+                            _archivePaymentLinkResponse.value = it
+                        }, {
+                    Timber.e(it, "putPaymentLinkStatus")
+                    _uiState.value = Event(UiState.Error(it))
+                }
+                ),
+                doOnSubscribeEvent = {
+                    _uiState.value = Event(UiState.Loading)
+                },
+                doFinallyEvent = {
+                    _uiState.value = Event(UiState.Complete)
+                },
+                params = transactionId
         ).addTo(disposables)
     }
 
