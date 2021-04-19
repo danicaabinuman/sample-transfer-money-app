@@ -40,14 +40,28 @@
 
                 <TextView
                     android:id="@+id/tvStatus"
-                    android:layout_width="45dp"
-                    android:layout_height="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textSize="10sp"
+                    android:padding="3dp"
                     android:text="@string/payment_link_status_unpaid"
                     android:gravity="center"
                     android:textColor="#FF9800"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_unpaid"/>
+
+                <TextView
+                    android:id="@+id/tvStatusArchived"
+                    android:layout_width="wrap_content"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:padding="3dp"
+                    android:text="ARCHIVED"
+                    android:gravity="center"
+                    android:textColor="#4A4A4A"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/bg_status_card_archived"/>
 
             </LinearLayout>
 

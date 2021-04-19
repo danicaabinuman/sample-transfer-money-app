@@ -1,9 +1,9 @@
 package com.unionbankph.corporate.payment_link.presentation.payment_link
 
 import android.content.Intent
-import android.content.SharedPreferences
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,14 +16,10 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPa
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.PaymentLinkModel
-import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkListPaginatedResponse
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountsAdapter
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
+import kotlinx.android.synthetic.main.activity_check_deposit_form.*
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.activity_dashboard.bottomNavigationBTR
 import kotlinx.android.synthetic.main.activity_nominate_settlement.*
@@ -59,16 +55,35 @@ class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity
         textViewTitle.setText(R.string.title_generate_links)
         textViewTitle.setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
 
+        editTextSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s != null) {
+                    if(s.length >= 15){
+                        flLoading.visibility = View.VISIBLE
+                        viewModel.doSearch(s.toString())
+                    }
+                }
+            }
+        })
+
         textViewCorporationName.setText(R.string.title_corporation_name)
         btnRequestPayment()
         initBottomNavigation()
     }
 
     private fun setupInputs(){
+        flLoading.visibility = View.VISIBLE
         viewModel.getAllPaymentLinks()
     }
     private fun setupOutputs(){
         viewModel.paymentLinkListPaginatedResponse.observe(this, Observer {
+            flLoading.visibility = View.GONE
             updateRecyclerView(it.data)
         })
 
@@ -76,6 +91,7 @@ class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity
             it.getContentIfNotHandled().let { event ->
                 when (event) {
                     is UiState.Error -> {
+                        flLoading.visibility = View.GONE
                         handleOnError(event.throwable)
                     }
                 }
