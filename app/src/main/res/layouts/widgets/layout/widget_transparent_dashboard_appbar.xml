@@ -48,9 +48,10 @@
             <TextView
                 android:id="@+id/btnRequestPayment"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/image_view_initial_org_size"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/content_item_spacing"
                 android:layout_marginEnd="@dimen/content_item_spacing"
-                android:background="@drawable/bg_card_view_gradient_orange"
+                android:background="@drawable/bg_request_payment_button"
                 android:gravity="center"
                 android:text="@string/dashboard_appbar_request_payment"
                 android:textAllCaps="true"
