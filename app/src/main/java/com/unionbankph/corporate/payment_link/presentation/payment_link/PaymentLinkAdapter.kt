@@ -1,20 +1,13 @@
 package com.unionbankph.corporate.payment_link.presentation.payment_link
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.account.data.model.Account;
 import com.unionbankph.corporate.payment_link.domain.model.PaymentLinkModel
-import io.supercharge.shimmerlayout.ShimmerLayout
-import kotlinx.android.synthetic.main.activity_link_details.*
 import java.text.SimpleDateFormat
-import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
 
 
 var mData = listOf<PaymentLinkModel>()
@@ -31,8 +24,10 @@ class PaymentLinkAdapter : RecyclerView.Adapter<PaymentLinkAdapter.PaymentLinkVi
 
 
 
-        val tvStatus: TextView = view.findViewById(R.id.tvStatus)
+        val tvStatusUnpaid: TextView = view.findViewById(R.id.tvStatusUnpaid)
         val tvStatusArchived: TextView = view.findViewById(R.id.tvStatusArchived)
+        val tvStatusPaid: TextView = view.findViewById(R.id.tvStatusPaid)
+        val tvStatusExpired: TextView = view.findViewById(R.id.tvStatusExpired)
         val tvReferenceNumber: TextView = view.findViewById(R.id.tvReferenceNumber)
         val tvAmount: TextView = view.findViewById(R.id.tvAmount)
         val tvDescription: TextView = view.findViewById(R.id.tvDescription)
@@ -66,16 +61,29 @@ class PaymentLinkAdapter : RecyclerView.Adapter<PaymentLinkAdapter.PaymentLinkVi
         holder.tvAmount.text = item.amount
         holder.tvDescription.text = item.paymentFor
 
-        holder.tvStatus.text = item.status
+        holder.tvStatusUnpaid.text = item.status
         if(item.status.equals("ARCHIVED",true)){
 
             holder.tvStatusArchived.visibility = View.VISIBLE
-            holder.tvStatus.visibility = View.GONE
-        }else if(false){
+            holder.tvStatusUnpaid.visibility = View.GONE
+            holder.tvStatusExpired.visibility = View.GONE
+            holder.tvStatusPaid.visibility = View.GONE
 
+        }else if(item.status.equals("PAID", true)){
+            holder.tvStatusArchived.visibility = View.GONE
+            holder.tvStatusUnpaid.visibility = View.GONE
+            holder.tvStatusExpired.visibility = View.GONE
+            holder.tvStatusPaid.visibility = View.VISIBLE
+        }else if (item.status.equals("EXPIRED", true)){
+            holder.tvStatusArchived.visibility = View.GONE
+            holder.tvStatusUnpaid.visibility = View.GONE
+            holder.tvStatusExpired.visibility = View.VISIBLE
+            holder.tvStatusPaid.visibility = View.GONE
         }else{
             holder.tvStatusArchived.visibility = View.GONE
-            holder.tvStatus.visibility = View.VISIBLE
+            holder.tvStatusUnpaid.visibility = View.VISIBLE
+            holder.tvStatusExpired.visibility = View.GONE
+            holder.tvStatusPaid.visibility = View.GONE
         }
 
     }
@@ -84,4 +92,3 @@ class PaymentLinkAdapter : RecyclerView.Adapter<PaymentLinkAdapter.PaymentLinkVi
         return mData.size
     }
 }
-
