@@ -132,7 +132,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_notes"
-                    style="@style/TextInputEditTextForm"
+                    style="@style/TextInputEditTextForm4"
                     android:inputType="text"
                     android:paddingBottom="40dp"/>
 
