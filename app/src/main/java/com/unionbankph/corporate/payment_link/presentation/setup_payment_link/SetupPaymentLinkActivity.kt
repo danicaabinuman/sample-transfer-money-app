@@ -3,10 +3,9 @@ package com.unionbankph.corporate.payment_link.presentation.setup_payment_link
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Bundle
-import android.text.Editable
-import android.text.Html
-import android.text.TextWatcher
+import android.text.*
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -17,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
@@ -27,7 +25,6 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.no
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
-import timber.log.Timber
 
 class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_setup_payment_links) {
 
@@ -94,17 +91,30 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     }
 
     private fun initTermsAndCondition() {
-        tv_link_fnc_tnc.text = Html.fromHtml("I have read the " +
-                "<a href=''> Fees and Charges</a>" +
-                " and agree to the " +
-                "<a href=''>Terms and Conditions</a>" +
-                " of the Request for Payment")
-        tv_link_fnc_tnc.isClickable = true
-        tv_link_fnc_tnc.setOnClickListener {
-            val intent = Intent(this, TermsOfServiceActivity::class.java)
-            startActivity(intent)
-            cb_fnc_tnc.isChecked = true
+
+        val spannableString = SpannableString("I have read the Fees and Charges and agree to the Terms and Conditions of the Request for Payment.")
+
+        val clickableSpan1 = object : ClickableSpan(){
+            override fun onClick(widget: View) {
+                val intent = Intent(this@SetupPaymentLinkActivity, TermsOfServiceActivity::class.java)
+                startActivity(intent)
+            }
         }
+
+        val clickableSpan2 = object : ClickableSpan(){
+            override fun onClick(widget: View) {
+                val intent = Intent(this@SetupPaymentLinkActivity, TermsOfServiceActivity::class.java)
+                intent.putExtra("termsAndConditions", "TC")
+                startActivity(intent)
+            }
+
+        }
+
+        spannableString.setSpan(clickableSpan1, 16, 32, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(clickableSpan2, 50, 70, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+
+        tv_link_fnc_tnc.text = spannableString
+        tv_link_fnc_tnc.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun sharedPref() {
