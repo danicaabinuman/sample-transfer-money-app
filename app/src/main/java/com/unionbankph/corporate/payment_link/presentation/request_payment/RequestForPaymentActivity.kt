@@ -72,7 +72,6 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
         btnRequestPaymentGenerate?.isEnabled = true
         btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
         btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
-//        (ContextCompat.getColor(applicationContext, R.color.colorButtonOrange))
     }
 
 
