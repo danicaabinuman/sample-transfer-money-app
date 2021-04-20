@@ -54,7 +54,7 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
         if (
             (amountString.length) > 4 &&
             (paymentForString.length in 1..255) &&
-            (mobileNumber.length > 4)
+            (mobileNumber.length == 10)
         ){
             buttonEnable()
         } else {

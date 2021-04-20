@@ -132,7 +132,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_notes"
-                    style="@style/TextInputEditTextForm"
+                    style="@style/TextInputEditTextForm4"
                     android:inputType="text"
                     android:paddingBottom="40dp"/>
 
@@ -222,7 +222,8 @@
                         android:drawableTint="@color/colorButtonOrange"
                         android:drawableStart="@drawable/ic_arrow_orange_down"
                         android:layout_height="wrap_content"
-                        android:layout_width="match_parent" />
+                        android:layout_width="match_parent"
+                        android:digits="@string/digits_only"/>
                 </LinearLayout>
 
 
