@@ -16,6 +16,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
+import com.unionbankph.corporate.payment_link.presentation.payment_link.PaymentLinkActivity
 import kotlinx.android.synthetic.main.activity_link_details.*
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -44,6 +45,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun initViews(){
 
         ivBackButton.setOnClickListener{
+            val intent = Intent(this@LinkDetailsActivity, PaymentLinkActivity::class.java)
+            startActivity(intent)
             finish()
         }
 
