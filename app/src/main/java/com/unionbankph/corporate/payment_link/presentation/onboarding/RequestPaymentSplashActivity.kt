@@ -8,9 +8,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import kotlinx.android.synthetic.main.activity_request_payment_splash_frame_screen.*
+import kotlinx.android.synthetic.main.item_organization.*
 
 class RequestPaymentSplashActivity : AppCompatActivity() {
 
@@ -57,8 +60,13 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
             EverythingInOnePlace()
         )
 
+        val tabLayout = findViewById<TabLayout>(R.id.tlPageIndicator)
         val adapter = ViewPagerAdapter(fragments, this )
         viewPager2.adapter = adapter
+
+        TabLayoutMediator(tabLayout, viewPager2){
+            tab, position ->
+        }.attach()
 
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {

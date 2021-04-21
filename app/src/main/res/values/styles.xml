@@ -673,7 +673,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorInfo</item>
         <item name="android:inputType">textNoSuggestions</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:maxLines">69</item>
         <item name="android:singleLine">false</item>
         <item name="android:paddingStart">@dimen/content_spacing</item>
         <item name="android:paddingEnd">@dimen/content_spacing</item>
