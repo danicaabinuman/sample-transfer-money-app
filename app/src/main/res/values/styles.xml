@@ -655,7 +655,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorInfo</item>
-        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:inputType">textMultiLine|textNoSuggestions</item>
         <item name="android:maxLines">99</item>
         <item name="android:singleLine">false</item>
         <item name="android:paddingStart">@dimen/content_spacing</item>
@@ -669,10 +669,8 @@
     </style>
 
     <style name="TextInputEditTextForm4" parent="MatchWrapParent">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorInfo</item>
-        <item name="android:inputType">textNoSuggestions</item>
+        <item name="android:inputType">textMultiLine|textNoSuggestions</item>
         <item name="android:maxLines">99</item>
         <item name="android:singleLine">false</item>
         <item name="android:paddingStart">@dimen/content_spacing</item>
