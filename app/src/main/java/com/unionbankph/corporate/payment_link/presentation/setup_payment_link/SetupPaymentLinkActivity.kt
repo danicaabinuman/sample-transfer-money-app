@@ -207,14 +207,17 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         val businessName = et_business_name.text.toString()
         val businessProductsOffered = et_business_products_offered.text.toString()
 
-        if (
-            businessName.isNotEmpty() &&
-            businessProductsOffered.isNotEmpty() &&
-            llSettlementAccount.visibility == View.VISIBLE
-        ){
-            buttonEnable()
-        } else {
-            buttonDisable()
+        cb_fnc_tnc.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (
+                businessName.isNotEmpty() &&
+                businessProductsOffered.isNotEmpty() &&
+                llSettlementAccount.visibility == View.VISIBLE
+                && isChecked
+            ){
+                buttonEnable()
+            } else {
+                buttonDisable()
+            }
         }
     }
 
