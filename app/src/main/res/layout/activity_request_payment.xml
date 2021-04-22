@@ -218,6 +218,7 @@
                         android:drawableTint="@color/colorButtonOrange"
                         android:drawableStart="@drawable/ic_arrow_orange_down"
                         android:layout_height="wrap_content"
+                        android:maxLength="10"
                         android:layout_width="match_parent"
                         android:digits="@string/digits_only"/>
                 </LinearLayout>
