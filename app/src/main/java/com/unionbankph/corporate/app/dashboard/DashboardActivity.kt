@@ -592,6 +592,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                 viewBadgeCount.visibility(false)
                 imageViewLogout.visibility(false)
                 imageViewMarkAllAsRead.visibility(false)
+                btnRequestPayment.visibility(false)
                 imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
                 if (isSME) imageViewInitial.setColor(R.color.colorInfo)
                 textViewInitial.visibility = View.GONE
@@ -644,6 +645,10 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                                 stackFlagNotification) ||
                         (position == bottomNavigationItems[FRAGMENT_SETTINGS] &&
                                 stackFlagSettings)
+            )
+
+            btnRequestPayment.visibility(
+                position == bottomNavigationItems[FRAGMENT_ACCOUNTS]
             )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
