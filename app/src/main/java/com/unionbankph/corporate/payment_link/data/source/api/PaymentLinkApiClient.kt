@@ -113,5 +113,17 @@ interface PaymentLinkApiClient {
             putPaymentLinkStatusForm: PutPaymentLinkStatusForm
     ): Single<Response<PutPaymentLinkStatusResponse>>
 
-
+    @GET("msme/api/{api_version}/organization/{organization_id}/merchant")
+    fun validateMerchantByOrganization(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Path("organization_id")
+        organizationId: String
+    ): Single<Response<ValidateMerchantByOrganizationResponse>>
 }
