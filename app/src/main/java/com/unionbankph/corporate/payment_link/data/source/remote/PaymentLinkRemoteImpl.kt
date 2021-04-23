@@ -108,4 +108,17 @@ class PaymentLinkRemoteImpl
                 putPaymentLinkStatusForm
         )
     }
+
+    override fun validateMerchantByOrganization(
+        accessToken: String,
+        organizationId: String
+    ): Single<Response<ValidateMerchantByOrganizationResponse>> {
+        return paymentLinkApiClient.validateMerchantByOrganization(
+            accessToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            organizationId
+        )
+    }
 }
