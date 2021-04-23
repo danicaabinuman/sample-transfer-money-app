@@ -133,7 +133,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
 
 
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa  ")
 
         val createdDate = formatter.format(parser.parse(linkDetailsResponse.createdDate))

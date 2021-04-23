@@ -50,7 +50,7 @@ class PaymentLinkAdapter : RecyclerView.Adapter<PaymentLinkAdapter.PaymentLinkVi
     override fun onBindViewHolder(holder: PaymentLinkViewHolder, position: Int) {
         val item = mData[position]
 
-        val parser = SimpleDateFormat("yyyy-MM-ddTHH:mm:ss.SSS")
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa  ")
 
         val expiryDate = formatter.format(parser.parse(item.expireDate))
