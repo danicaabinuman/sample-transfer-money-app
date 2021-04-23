@@ -13,6 +13,7 @@ class TermsOfServiceActivity : BaseActivity<TermsOfServiceViewModel>(R.layout.ac
         super.onViewsBound()
         setUpTabs()
         focus()
+        backButton()
     }
 
     private fun setUpTabs(){
@@ -61,6 +62,12 @@ class TermsOfServiceActivity : BaseActivity<TermsOfServiceViewModel>(R.layout.ac
             viewPagerTermsOfService.setCurrentItem(1)
         }
 
+    }
+
+    private fun backButton(){
+        backButton.setOnClickListener(){
+            finish()
+        }
     }
 
 }
