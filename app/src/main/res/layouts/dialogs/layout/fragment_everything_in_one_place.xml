@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.4"
+        app:layout_constraintGuide_percent="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -17,12 +17,9 @@
         android:id="@+id/imageView"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/image_view_on_boarding_height"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@+id/guidelineBaseLogo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineBaseLogo"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBaseLogo"
         app:srcCompat="@drawable/bg_everything_in_one_place"/>
 
     <androidx.appcompat.widget.AppCompatTextView
