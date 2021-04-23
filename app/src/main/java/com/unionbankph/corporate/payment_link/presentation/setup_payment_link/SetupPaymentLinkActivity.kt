@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
@@ -45,6 +46,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         buttonDisable()
         requiredFields()
         setupOutputs()
+        backButton()
 
         llSettlementAccount.visibility = View.GONE
         include1.findViewById<TextView>(R.id.textViewCorporateName).text = "UPASS CA001 TEST ACCOUNT"
@@ -201,6 +203,15 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     private fun openNominateAccounts(){
         val intent = Intent(this@SetupPaymentLinkActivity, NominateSettlementActivity::class.java)
         startActivityForResult(intent,REQUEST_CODE)
+    }
+
+    private fun backButton(){
+
+        ivBackButton.setOnClickListener{
+            val intent = Intent (this, DashboardActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun validateForm(){
