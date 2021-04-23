@@ -135,4 +135,17 @@ class PaymentLinkGatewayImpl
                 }
                 .flatMap { responseProvider.executeResponseSingle(it) }
     }
+
+    override fun validateMerchantByOrganization(
+        organizationId: String
+    ): Single<ValidateMerchantByOrganizationResponse> {
+        return settingsCache.getAccessToken()
+            .flatMap {
+                paymentLinkRemote.validateMerchantByOrganization(
+                    it,
+                    organizationId
+                )
+            }
+            .flatMap { responseProvider.executeResponseSingle(it) }
+    }
 }
