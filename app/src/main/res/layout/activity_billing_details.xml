@@ -102,6 +102,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvGrossAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PHP 1,000,000.00"
@@ -127,6 +128,7 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tvFee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-29.00"
@@ -160,6 +162,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvNetAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PHP 971.00"
@@ -197,6 +200,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tvDateCreated"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
@@ -240,6 +244,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvPayorName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -249,6 +254,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvPayorEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -257,6 +263,7 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tvPayorContactNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -329,6 +336,7 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tvRefNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ABCD-12345-09876"
@@ -353,6 +361,7 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tvAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1,000"
@@ -377,6 +386,7 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tvDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10 Peppermint Candles"
@@ -401,6 +411,7 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tvRemarks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="For Marga"
@@ -433,6 +444,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvLinkExpiry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Jan 01, 2021, 6:00 PM"
@@ -456,6 +468,7 @@
                     android:paddingEnd="10dp">
 
                     <TextView
+                        android:id="@+id/tvLinkUrl"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"

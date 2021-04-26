@@ -16,6 +16,8 @@ import com.unionbankph.corporate.payment_link.presentation.payment_link_details.
 import kotlinx.android.synthetic.main.activity_billing_details.*
 import kotlinx.android.synthetic.main.activity_nominate_settlement.*
 import kotlinx.android.synthetic.main.activity_payment_link.*
+import kotlinx.android.synthetic.main.fragment_dao_checking_account_type.*
+import java.text.SimpleDateFormat
 
 class BillingDetailsActivity :
         BaseActivity<BillingDetailsViewModel>(R.layout.activity_billing_details)
@@ -71,7 +73,24 @@ class BillingDetailsActivity :
 
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse){
 
-        //Apollo and Emil work on here
+        tvGrossAmount.text = response.paymentDetails?.amount
+        tvFee.text = response.paymentDetails?.fee.toString()
+
+        tvPayorName.text = response.payorDetails?.fullName
+        tvPayorEmail.text = response.payorDetails?.emailAddress
+        tvPayorContactNumber.text = response.payorDetails?.mobileNumber
+
+        tvRefNumber.text = response.paymentDetails?.referenceNo
+        tvAmount.text = response.paymentDetails?.amount
+        tvDescription.text = response.paymentDetails?.paymentFor
+        tvRemarks.text = response.paymentDetails?.description
+        tvLinkExpiry.text = response.expiry
+        tvLinkUrl.text = response.paymentDetails?.paymentLink
+
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa  ")
+        val createdDate = formatter.format(parser.parse(response.createdDate))
+        tvDateCreated.text = createdDate
 
     }
     companion object{
