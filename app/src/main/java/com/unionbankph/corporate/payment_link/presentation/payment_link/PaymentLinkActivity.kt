@@ -1,9 +1,9 @@
 package com.unionbankph.corporate.payment_link.presentation.payment_link
 
 import android.content.Intent
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_payment_link.*
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
 import kotlinx.android.synthetic.main.widget_badge_initial.*
 import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
+
 
 class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity_payment_link),AHBottomNavigation.OnTabSelectedListener {
 
@@ -55,21 +56,13 @@ class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity
         textViewTitle.setText(R.string.title_generate_links)
         textViewTitle.setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
 
-        editTextSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
+        editTextSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                flLoading.visibility = View.VISIBLE
+                viewModel.doSearch(editTextSearch.text.toString())
+                return@OnEditorActionListener true
             }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s != null) {
-                    if(s.length >= 15){
-                        flLoading.visibility = View.VISIBLE
-                        viewModel.doSearch(s.toString())
-                    }
-                }
-            }
+            false
         })
 
         textViewCorporationName.setText(R.string.title_corporation_name)
@@ -108,8 +101,9 @@ class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity
     }
 
 
-    private fun showPaymentLinkDetails(referenceId: String){
+    private fun showPaymentLinkDetails(referenceNo: String){
         val intent = Intent(this@PaymentLinkActivity, BillingDetailsActivity::class.java)
+        intent.putExtra(BillingDetailsActivity.EXTRA_REFERENCE_NUMBER,referenceNo)
         startActivity(intent)
     }
 
@@ -124,26 +118,35 @@ class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity
     private fun initBottomNavigation() {
 
         val item1 =
-                AHBottomNavigationItem(getString(R.string.title_tab_accounts), R.drawable.ic_accounts)
+                AHBottomNavigationItem(
+                    getString(R.string.title_tab_accounts),
+                    R.drawable.ic_accounts
+                )
         val item2 = AHBottomNavigationItem(
-                getString(R.string.title_tab_transact), R.drawable.ic_send_request
+            getString(R.string.title_tab_transact), R.drawable.ic_send_request
         )
         val item3 =
-                AHBottomNavigationItem(getString(R.string.title_tab_approvals), R.drawable.ic_approval)
+                AHBottomNavigationItem(
+                    getString(R.string.title_tab_approvals),
+                    R.drawable.ic_approval
+                )
         val item4 = AHBottomNavigationItem(
-                getString(R.string.title_tab_notifications),
-                R.drawable.ic_notification
+            getString(R.string.title_tab_notifications),
+            R.drawable.ic_notification
         )
         val item5 =
-                AHBottomNavigationItem(getString(R.string.title_tab_settings), R.drawable.ic_settings)
+                AHBottomNavigationItem(
+                    getString(R.string.title_tab_settings),
+                    R.drawable.ic_settings
+                )
         bottomNavigationBTR?.defaultBackgroundColor =
                 ContextCompat.getColor(this, R.color.colorWhite)
         bottomNavigationBTR?.accentColor = getColorFromAttr(R.attr.colorAccent)
         bottomNavigationBTR?.inactiveColor = ContextCompat.getColor(this, R.color.colorTextTab)
         bottomNavigationBTR?.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
         bottomNavigationBTR?.setTitleTextSize(
-                resources.getDimension(R.dimen.navigation_bottom_text_size_active),
-                resources.getDimension(R.dimen.navigation_bottom_text_size_normal)
+            resources.getDimension(R.dimen.navigation_bottom_text_size_active),
+            resources.getDimension(R.dimen.navigation_bottom_text_size_normal)
         )
         bottomNavigationBTR?.addItem(item1)
         bottomNavigationBTR?.addItem(item2)
@@ -152,8 +155,8 @@ class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity
         bottomNavigationBTR?.addItem(item5)
         bottomNavigationBTR?.currentItem = 1
         bottomNavigationBTR.setNotificationMarginLeft(
-                resources.getDimension(R.dimen.bottom_notification_margin).toInt(),
-                resources.getDimension(R.dimen.bottom_notification_margin).toInt()
+            resources.getDimension(R.dimen.bottom_notification_margin).toInt(),
+            resources.getDimension(R.dimen.bottom_notification_margin).toInt()
         )
         bottomNavigationBTR?.setOnTabSelectedListener(this)
         bottomNavigationBTR.post {
@@ -185,7 +188,7 @@ class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity
                 isBackButtonFragmentAlerts = true
             }
             imageViewMarkAllAsRead.visibility(
-                    position == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
+                position == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
             )
             imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
 
