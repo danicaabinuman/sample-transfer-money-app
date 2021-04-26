@@ -45,6 +45,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         sharedPref()
         buttonDisable()
         requiredFields()
+        setupInputs()
         setupOutputs()
         backButton()
 
@@ -56,6 +57,9 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         llNominateSettlementAccount.visibility = View.VISIBLE
     }
 
+    private fun setupInputs(){
+        viewModel.validateMerchant()
+    }
 
     private fun initViews() {
 
@@ -186,6 +190,15 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
                 finish()
             }else{
                 Toast.makeText(this@SetupPaymentLinkActivity, "Error", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.validateMerchantResponse.observe(this, Observer {
+            if(it.merchantExists.equals("true",true)){
+
+                val intent = Intent(this, RequestForPaymentActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         })
 
