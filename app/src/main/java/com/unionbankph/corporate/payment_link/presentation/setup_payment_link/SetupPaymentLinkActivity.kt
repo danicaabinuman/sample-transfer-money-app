@@ -58,6 +58,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     }
 
     private fun setupInputs(){
+        setupPaymentLinkLoading.visibility = View.VISIBLE
         viewModel.validateMerchant()
     }
 
@@ -194,6 +195,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         })
 
         viewModel.validateMerchantResponse.observe(this, Observer {
+            setupPaymentLinkLoading.visibility = View.GONE
             if(it.merchantExists.equals("true",true)){
 
                 val intent = Intent(this, RequestForPaymentActivity::class.java)

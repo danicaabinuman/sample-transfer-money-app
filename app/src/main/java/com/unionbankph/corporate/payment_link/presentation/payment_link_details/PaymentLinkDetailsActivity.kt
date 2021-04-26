@@ -133,14 +133,20 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
 
 
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa  ")
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa")
 
-        val createdDate = formatter.format(parser.parse(linkDetailsResponse.createdDate))
-        linkDetailsCreatedDate.text = createdDate
+        var createdDateString = "UNAVAILABLE"
+        linkDetailsResponse.transactionData?.createdDate?.let {
+            createdDateString = formatter.format(parser.parse(it))
+        }
+        linkDetailsCreatedDate.text = createdDateString
 
-        val expiryDate = formatter.format(parser.parse(linkDetailsResponse.expireDate))
-        tv_link_details_expiry.text = expiryDate
+        var expiryDateString = "UNAVAILABLE"
+        linkDetailsResponse.expireDate?.let {
+            expiryDateString = formatter.format(parser.parse(it))
+        }
+        tv_link_details_expiry.text = expiryDateString
 
         val amountParse = DecimalFormat("####.##")
         val amountFormat = DecimalFormat("#,###.##")

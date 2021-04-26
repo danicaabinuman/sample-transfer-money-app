@@ -30,8 +30,8 @@ data class GeneratePaymentLinkResponse(
     @SerialName("mobile_number")
     var mobileNumber: String? = null,
 
-    @SerialName("created_date")
-    var createdDate: String? = null
+    @SerialName("transaction_data")
+    var transactionData: GeneratePaymentLinkTransactionData? = null
 
 
 

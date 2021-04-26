@@ -51,7 +51,7 @@ class PaymentLinkAdapter : RecyclerView.Adapter<PaymentLinkAdapter.PaymentLinkVi
         val item = mData[position]
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa  ")
+        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa")
 
         val expiryDate = formatter.format(parser.parse(item.expireDate))
         holder.tvDateTime.text = expiryDate
