@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.payment_link.domain.model.PaymentLinkModel
+import timber.log.Timber
 import java.text.SimpleDateFormat
 
 
@@ -53,8 +54,15 @@ class PaymentLinkAdapter : RecyclerView.Adapter<PaymentLinkAdapter.PaymentLinkVi
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa")
 
-        var expiryDate = formatter.format(parser.parse(item.expireDate))
-
+        var expiryDate = "UNAVAILABLE"
+        item.expireDate?.let {
+            expiryDate = it
+            try {
+                expiryDate = formatter.format(parser.parse(item.expireDate))
+            } catch (e: Exception){
+                Timber.e(e.toString()) // this never gets called either
+            }
+        }
         holder.tvDateTime.text = expiryDate
 
 
