@@ -84,10 +84,13 @@ class BillingDetailsActivity :
         tvPayorContactNumber.text = response.payorDetails?.mobileNumber
 
         tvRefNumber.text = response.paymentDetails?.referenceNo
+        tvReferenceNumberTitle.text = response.paymentDetails?.referenceNo
         tvAmount.text = response.paymentDetails?.amount
         tvDescription.text = response.paymentDetails?.paymentFor
         tvRemarks.text = response.paymentDetails?.description
         tvLinkUrl.text = response.paymentDetails?.paymentLink
+        tvFee.text = response.paymentDetails?.fee
+        var status = response.paymentDetails?.status
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
         val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa")
@@ -103,6 +106,30 @@ class BillingDetailsActivity :
             expiryDateString = formatter.format(parser.parse(it))
         }
         tvLinkExpiry.text = expiryDateString
+
+        if(status.equals("ARCHIVED",true)){
+
+            tvStatusArchived.visibility = View.VISIBLE
+            tvStatusUnpaid.visibility = View.GONE
+            tvStatusExpired.visibility = View.GONE
+            tvStatusPaid.visibility = View.GONE
+
+        }else if(status.equals("PAID", true)){
+            tvStatusArchived.visibility = View.GONE
+            tvStatusUnpaid.visibility = View.GONE
+            tvStatusExpired.visibility = View.GONE
+            tvStatusPaid.visibility = View.VISIBLE
+        }else if (status.equals("EXPIRED", true)){
+            tvStatusArchived.visibility = View.GONE
+            tvStatusUnpaid.visibility = View.GONE
+            tvStatusExpired.visibility = View.VISIBLE
+            tvStatusPaid.visibility = View.GONE
+        }else{
+            tvStatusArchived.visibility = View.GONE
+            tvStatusUnpaid.visibility = View.VISIBLE
+            tvStatusExpired.visibility = View.GONE
+            tvStatusPaid.visibility = View.GONE
+        }
 
     }
     companion object{
