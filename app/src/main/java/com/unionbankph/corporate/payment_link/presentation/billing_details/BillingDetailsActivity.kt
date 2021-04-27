@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.payment_link.presentation.billing_details
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_nominate_settlement.*
 import kotlinx.android.synthetic.main.activity_payment_link.*
 import kotlinx.android.synthetic.main.activity_payment_link.flLoading
 import kotlinx.android.synthetic.main.fragment_dao_checking_account_type.*
+import timber.log.Timber
 import java.text.SimpleDateFormat
 
 class BillingDetailsActivity :
@@ -105,13 +107,23 @@ class BillingDetailsActivity :
 
         var createdDateString = "UNAVAILABLE"
         response.createdDate?.let {
-            createdDateString = formatter.format(parser.parse(it))
+            createdDateString = it
+            try {
+                createdDateString = formatter.format(parser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString()) // this never gets called either
+            }
         }
         tvDateCreated.text = createdDateString
 
         var expiryDateString = "UNAVAILABLE"
         response.expiry?.let {
-            expiryDateString = formatter.format(parser.parse(it))
+            expiryDateString = it
+            try {
+                expiryDateString = formatter.format(parser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString()) // this never gets called either
+            }
         }
         tvLinkExpiry.text = expiryDateString
 

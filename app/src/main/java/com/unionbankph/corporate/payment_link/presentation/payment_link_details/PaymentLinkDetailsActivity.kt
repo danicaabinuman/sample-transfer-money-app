@@ -18,6 +18,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.payment_link.PaymentLinkActivity
 import kotlinx.android.synthetic.main.activity_link_details.*
+import timber.log.Timber
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
@@ -138,13 +139,24 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
         var createdDateString = "UNAVAILABLE"
         linkDetailsResponse.transactionData?.createdDate?.let {
-            createdDateString = formatter.format(parser.parse(it))
+            createdDateString = it
+            try {
+                createdDateString = formatter.format(parser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString()) // this never gets called either
+            }
         }
+
         linkDetailsCreatedDate.text = createdDateString
 
         var expiryDateString = "UNAVAILABLE"
         linkDetailsResponse.expireDate?.let {
-            expiryDateString = formatter.format(parser.parse(it))
+            expiryDateString = it
+            try {
+                expiryDateString = formatter.format(parser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString()) // this never gets called either
+            }
         }
         tv_link_details_expiry.text = expiryDateString
 
