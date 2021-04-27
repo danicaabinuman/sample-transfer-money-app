@@ -42,8 +42,15 @@ class BillingDetailsActivity :
             startActivity(intent)
         }
 
+        backButton()
         setupInputs()
         setupOutputs()
+    }
+
+    private fun backButton() {
+        btnBack.setOnClickListener(){
+            finish()
+        }
     }
 
     private fun setupInputs() {
@@ -78,6 +85,7 @@ class BillingDetailsActivity :
 
         tvGrossAmount.text = response.paymentDetails?.amount
         tvFee.text = response.paymentDetails?.fee.toString()
+        tvNetAmount.text = response.paymentDetails?.amount
 
         tvPayorName.text = response.payorDetails?.fullName
         tvPayorEmail.text = response.payorDetails?.emailAddress
