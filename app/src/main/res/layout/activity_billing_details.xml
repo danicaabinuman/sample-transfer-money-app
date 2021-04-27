@@ -114,7 +114,7 @@
                         android:id="@+id/tvGrossAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PHP 1,000,000.00"
+                        android:text="N/A"
                         android:textColor="#4B4948"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -140,7 +140,7 @@
                         android:id="@+id/tvFee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-29.00"
+                        android:text="N/A"
                         android:textColor="#757575"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -174,7 +174,7 @@
                         android:id="@+id/tvNetAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PHP 971.00"
+                        android:text="N/A"
                         android:textColor="#4B4948"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:paddingEnd="10dp"
-                    android:text="Jan 01, 2021, 6:00 PM"
+                    android:text="N/A"
                     android:textColor="#757575"
                     android:textSize="12sp" />
 
@@ -257,7 +257,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Colleen Faye M Puspus-Toledo"
+                        android:text="N/A"
                         android:textColor="#4B4948"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -267,7 +267,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="cfmpuspus@gmail.com"
+                        android:text="N/A"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
 
@@ -276,7 +276,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="0917 1126 112"
+                        android:text="N/A"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
 
@@ -318,14 +318,59 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tvStatusUnpaid"
                         android:layout_width="45dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/bg_paid"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:padding="3dp"
+                        android:text="@string/payment_link_status_unpaid"
                         android:gravity="center"
+                        android:textColor="#FF9800"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/bg_unpaid"/>
+
+                    <TextView
+                        android:id="@+id/tvStatusArchived"
+                        android:layout_width="wrap_content"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:padding="3dp"
+                        android:text="ARCHIVED"
+                        android:gravity="center"
+                        android:textColor="#4A4A4A"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/bg_status_card_archived"/>
+
+                    <TextView
+                        android:id="@+id/tvStatusPaid"
+                        android:layout_width="45dp"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:padding="3dp"
                         android:text="PAID"
+                        android:gravity="center"
+                        android:textStyle="bold"
                         android:textColor="#5CA500"
-                        android:textSize="10sp" />
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/bg_paid"/>
+
+                    <TextView
+                        android:id="@+id/tvStatusExpired"
+                        android:layout_width="45dp"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:padding="3dp"
+                        android:text="EXPIRED"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textColor="#E83C18"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/bg_expired"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -348,7 +393,7 @@
                         android:id="@+id/tvRefNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ABCD-12345-09876"
+                        android:text="N/A"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -373,7 +418,7 @@
                         android:id="@+id/tvAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1,000"
+                        android:text="N/A"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -398,7 +443,7 @@
                         android:id="@+id/tvDescription"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10 Peppermint Candles"
+                        android:text="N/A"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -423,7 +468,7 @@
                         android:id="@+id/tvRemarks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="For Marga"
+                        android:text="N/A"
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
                 </LinearLayout>

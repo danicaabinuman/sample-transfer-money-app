@@ -25,7 +25,7 @@ data class PaymentDetailsModel(
     var status: String? = null,
 
     @SerialName("fee")
-    var fee: Int? = null,
+    var fee: String? = null,
 
     @SerialName("settlementDate")
     var settlementDate: String? = null
