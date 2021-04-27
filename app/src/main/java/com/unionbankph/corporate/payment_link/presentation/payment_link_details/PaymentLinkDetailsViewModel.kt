@@ -73,7 +73,8 @@ class LinkDetailsViewModel
                 notes,
                 expiry,
                 finalMobileNumber,
-                null
+                null,
+                    null
             )
         )
 

@@ -9,8 +9,17 @@ data class GeneratePaymentLinkTransactionData(
     @SerialName("transactionId")
     var transactionId: String? = null,
 
+    @SerialName("dateTime")
+    var dateTime: String? = null,
+
+    @SerialName("transactionDate")
+    var transactionDate: String? = null,
+
     @SerialName("createdDate")
-    var createdDate: String? = null
+    var createdDate: String? = null,
+
+    @SerialName("modifiedDate")
+    var modifiedDate: String? = null
 
 
 

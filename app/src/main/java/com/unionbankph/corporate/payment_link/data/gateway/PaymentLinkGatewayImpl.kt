@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.payment_link.data.gateway
 
+import com.unionbankph.corporate.auth.data.model.CorporateUser
 import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
@@ -14,10 +15,10 @@ import javax.inject.Inject
 
 class PaymentLinkGatewayImpl
 @Inject constructor(
-    private val responseProvider: ResponseProvider,
-    private val paymentLinkRemote: PaymentLinkRemote,
-    private val settingsCache: SettingsCache,
-    private val cacheManager: CacheManager
+        private val responseProvider: ResponseProvider,
+        private val paymentLinkRemote: PaymentLinkRemote,
+        private val settingsCache: SettingsCache,
+        private val cacheManager: CacheManager
 ) : PaymentLinkGateway  {
 
     override fun generatePaymentLink(generatePaymentLinkForm: GeneratePaymentLinkForm): Single<GeneratePaymentLinkResponse> {
@@ -29,9 +30,14 @@ class PaymentLinkGatewayImpl
             orgId = role.organizationId!!
         }
         if(role?.organizationName != null){
-            orgName = role.organizationName!!
         }
         generatePaymentLinkForm.organizationName = orgName
+
+        var corporateUser = cacheManager.getObject(CacheManager.CORPORATE_USER) as? CorporateUser
+        if(corporateUser?.id != null){
+            generatePaymentLinkForm.corporateId = corporateUser.id
+        }
+
         return settingsCache.getAccessToken()
             .flatMap {
                 paymentLinkRemote.generatePaymentLink(

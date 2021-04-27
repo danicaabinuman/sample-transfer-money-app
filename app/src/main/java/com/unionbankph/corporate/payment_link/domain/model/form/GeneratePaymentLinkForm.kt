@@ -17,5 +17,7 @@ data class GeneratePaymentLinkForm(
         @SerialName("mobileNumber")
         var mobileNumber: String?,
         @SerialName("organizationName")
-        var organizationName: String?
+        var organizationName: String?,
+        @SerialName("corporateId")
+        var corporateId: String?
 )
