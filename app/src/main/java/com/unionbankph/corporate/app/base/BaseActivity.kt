@@ -722,7 +722,12 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
                 showInvalidTokenDialog(message = throwable.message)
             }
             else -> {
-                showMaterialDialogError(message = formatString(R.string.error_something_went_wrong))
+                var errorMessage = throwable?.message
+                if(errorMessage!=null){
+                    showMaterialDialogError(message = errorMessage)
+                }else{
+                    showMaterialDialogError(message = formatString(R.string.error_something_went_wrong))
+                }
             }
         }
         Timber.e(throwable, "handleOnError")
@@ -756,7 +761,12 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
                                 Timber.d("pushNotificationPayload: $pushNotificationPayload")
                             }
                         } catch (e: Exception) {
-                            showMaterialDialogError(message = formatString(R.string.error_something_went_wrong))
+                            var errorMessage = e?.message
+                            if(errorMessage!=null){
+                                showMaterialDialogError(message = errorMessage)
+                            }else{
+                                showMaterialDialogError(message = formatString(R.string.error_something_went_wrong))
+                            }
                         }
                     }
                 }

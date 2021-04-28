@@ -145,7 +145,12 @@ class ResultLandingPageActivity :
                             }
                         }
                     } catch (e: Exception) {
-                        showMaterialDialogError(message = formatString(R.string.error_something_went_wrong))
+                        var errorMessage = e?.message
+                        if(errorMessage!=null){
+                            showMaterialDialogError(message = errorMessage)
+                        }else{
+                            showMaterialDialogError(message = formatString(R.string.error_something_went_wrong))
+                        }
                     }
                 }
             }
