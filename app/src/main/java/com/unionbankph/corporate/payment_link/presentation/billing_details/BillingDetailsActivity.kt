@@ -40,8 +40,8 @@ class BillingDetailsActivity :
 
 
         btnViewMore.setOnClickListener{
-            val intent = Intent(this@BillingDetailsActivity, ActivityLogsActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this@BillingDetailsActivity, ActivityLogsActivity::class.java)
+//            startActivity(intent)
         }
 
         backButton()
