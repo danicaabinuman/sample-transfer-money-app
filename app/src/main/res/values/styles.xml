@@ -664,7 +664,8 @@
         <item name="boxCornerRadiusTopEnd">@dimen/field_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/field_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/field_radius</item>
-        <item name="android:maxLength">255</item>
+        <item name="android:digits">@string/digits_with_restriction</item>
+        <item name="android:maxLength">100</item>
         <item name="android:textSize">@dimen/text_12</item>
     </style>
 
@@ -679,7 +680,8 @@
         <item name="boxCornerRadiusTopEnd">@dimen/field_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/field_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/field_radius</item>
-        <item name="android:maxLength">255</item>
+        <item name="android:digits">@string/digits_with_restriction</item>
+        <item name="android:maxLength">100</item>
         <item name="android:textSize">@dimen/text_12</item>
     </style>
 

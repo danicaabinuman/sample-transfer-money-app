@@ -50,11 +50,12 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
         val amountString = et_amount.text.toString()
         val paymentForString = et_paymentFor.text.toString()
         val mobileNumber = textInputEditTextMobileNumber.text.toString()
+        mobileNumber.length == 10
 
         if (
             (amountString.length) > 4 &&
-            (paymentForString.length in 1..255) &&
-            (mobileNumber.length == 10)
+            (paymentForString.length in 1..255)
+//            && (mobileNumber.length == 10)
         ){
             if (amountString == "PHP 0"){buttonDisable()}
             else{
