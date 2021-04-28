@@ -176,30 +176,35 @@ class PaymentLinkActivity : BaseActivity<PaymentLinkViewModel>(R.layout.activity
     }
 
     override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
-        if (!wasSelected) {
-            if (viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS] &&
+        if(viewPagerBTR!=null){
+            if (!wasSelected) {
+                if (viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS] &&
                     textViewInitial.visibility != View.VISIBLE
-            ) {
-                isBackButtonFragmentSettings = true
-            } else if (
+                ) {
+                    isBackButtonFragmentSettings = true
+                } else if (
                     viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] &&
                     textViewInitial.visibility != View.VISIBLE
-            ) {
-                isBackButtonFragmentAlerts = true
-            }
-            imageViewMarkAllAsRead.visibility(
-                position == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
-            )
-            imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
+                ) {
+                    isBackButtonFragmentAlerts = true
+                }
+                imageViewMarkAllAsRead.visibility(
+                    position == bottomNavigationItems[DashboardActivity.FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
+                )
+                imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
 
-            if (viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS]) {
-                viewPagerBTR.setOnClickListener {
-                    val intent = Intent(this, SettingsFragment::class.java)
-                    startActivity(intent)
+                if (viewPagerBTR.currentItem == bottomNavigationItems[DashboardActivity.FRAGMENT_SETTINGS]) {
+                    viewPagerBTR.setOnClickListener {
+                        val intent = Intent(this, SettingsFragment::class.java)
+                        startActivity(intent)
+                    }
                 }
             }
+            viewPagerBTR.currentItem = position
+        }else{
+            finish()
         }
-        viewPagerBTR.currentItem = position
+
         return true
     }
 }
