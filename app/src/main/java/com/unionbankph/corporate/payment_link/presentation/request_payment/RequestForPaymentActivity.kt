@@ -53,8 +53,8 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
 
         if (
             (amountString.length) > 4 &&
-            (paymentForString.length in 1..255) &&
-            (mobileNumber.length == 10)
+            (paymentForString.length in 1..255)
+//            && (mobileNumber.length == 10)
         ){
             if (amountString == "PHP 0"){buttonDisable()}
             else{
