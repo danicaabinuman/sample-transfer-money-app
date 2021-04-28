@@ -11,6 +11,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
+import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import kotlinx.android.synthetic.main.activity_request_payment_splash_frame_screen.*
 import kotlinx.android.synthetic.main.item_organization.*
@@ -25,9 +27,16 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
         setViewPager()
         getStarted()
 
+        val merchantExists = intent.getBooleanExtra(EXTRA_MERCHANT_EXISTS,false)
+
         val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_ONBOARDED, Context.MODE_PRIVATE)
         if (sharedPref.getBoolean(SHAREDPREF_IS_ONBOARDED, false)){
-            val intent = Intent(this, SetupPaymentLinkActivity::class.java)
+            var intent : Intent? = null
+            if(merchantExists){
+                intent = Intent(this, RequestForPaymentActivity::class.java)
+            }else{
+                intent = Intent(this, SetupPaymentLinkActivity::class.java)
+            }
             startActivity(intent)
             finish()
         } else {
@@ -103,6 +112,7 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
 
     companion object {
         const val SHAREDPREF_IS_ONBOARDED = "sharedpref_is_onboarded"
+        const val EXTRA_MERCHANT_EXISTS = "extra_merchant_exists"
     }
 
 }

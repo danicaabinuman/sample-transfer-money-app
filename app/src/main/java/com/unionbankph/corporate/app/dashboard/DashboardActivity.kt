@@ -1,5 +1,8 @@
 package com.unionbankph.corporate.app.dashboard
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
@@ -48,6 +51,8 @@ import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -195,6 +200,10 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     emmitFingerPrintEventBus(false)
                     handleOnError(it.throwable)
                 }
+                is ShowPaymentLinkOnBoarding -> {
+                    navigatePaymentLinkOnBoarding(it.merchantExists)
+                }
+
                 is Error -> {
                     handleOnError(it.throwable)
                 }
@@ -254,14 +263,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         }
 
         btnRequestPayment.setOnClickListener{
-            navigator.navigate(
-                this,
-                RequestPaymentSplashActivity::class.java,
-                null,
-                isClear = false,
-                isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
-            )
+            viewModel.validateMerchant()
         }
 
         RxView.clicks(viewBadge)
@@ -1129,6 +1131,24 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             isClear = false,
             isAnimated = true,
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+        )
+    }
+
+    private fun navigatePaymentLinkOnBoarding(merchantExists: Boolean) {
+
+        val bundle = Bundle()
+        bundle.putBoolean(
+            RequestPaymentSplashActivity.EXTRA_MERCHANT_EXISTS,
+            merchantExists
+        )
+
+        navigator.navigate(
+            this,
+            RequestPaymentSplashActivity::class.java,
+            bundle,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
     }
 

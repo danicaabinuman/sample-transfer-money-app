@@ -45,22 +45,12 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         sharedPref()
         buttonDisable()
         requiredFields()
-        setupInputs()
         setupOutputs()
         backButton()
 
         llSettlementAccount.visibility = View.GONE
-        include1.findViewById<TextView>(R.id.textViewCorporateName).text = "UPASS CA001 TEST ACCOUNT"
-        include1.findViewById<TextView>(R.id.textViewAccountNumber).text = "0005 9008 0118"
-        include1.findViewById<TextView>(R.id.textViewAccountName).text = "RETAIL REGULAR CHECKING"
-        include1.findViewById<TextView>(R.id.textViewAccountNumber).text = "PHP 338,989,378.27"
-        llNominateSettlementAccount.visibility = View.VISIBLE
     }
 
-    private fun setupInputs(){
-        setupPaymentLinkLoading.visibility = View.VISIBLE
-        viewModel.validateMerchant()
-    }
 
     private fun initViews() {
 
@@ -69,6 +59,8 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             openNominateAccounts()
         }
         btnSetupBusinessLink.setOnClickListener {
+
+            setupPaymentLinkLoading.visibility = View.VISIBLE
 
             val businessName = et_business_name.text.toString()
             val businessWebsite = et_business_websites.text.toString()
@@ -179,6 +171,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
     private fun setupOutputs() {
         viewModel.createMerchantResponse.observe(this, Observer {
+            setupPaymentLinkLoading.visibility = View.GONE
             if(it.message.equals("Success",true)){
 
                 val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_DONE_SETUP, Context.MODE_PRIVATE)
@@ -193,17 +186,6 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
                 Toast.makeText(this@SetupPaymentLinkActivity, "Error", Toast.LENGTH_SHORT).show()
             }
         })
-
-        viewModel.validateMerchantResponse.observe(this, Observer {
-            setupPaymentLinkLoading.visibility = View.GONE
-            if(it.merchantExists.equals("true",true)){
-
-                val intent = Intent(this, RequestForPaymentActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        })
-
         viewModel.uiState.observe(this, Observer {
             it.getContentIfNotHandled().let { event ->
                 when (event) {

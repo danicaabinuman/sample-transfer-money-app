@@ -1,8 +1,12 @@
 package com.unionbankph.corporate.app.dashboard
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
+import com.unionbankph.corporate.app.common.extension.getDisposableSingleObserver
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.auth.data.model.Role
@@ -12,6 +16,10 @@ import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.corporate.data.model.CorporateUsers
 import com.unionbankph.corporate.corporate.domain.gateway.CorporateGateway
 import com.unionbankph.corporate.notification.data.gateway.NotificationGateway
+import com.unionbankph.corporate.payment_link.domain.model.response.ValidateMerchantByOrganizationResponse
+import com.unionbankph.corporate.payment_link.domain.usecase.ValidateMerchantUseCase
+import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import io.reactivex.Observable
@@ -25,7 +33,8 @@ class DashboardViewModel @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
     private val corporateGateway: CorporateGateway,
     private val settingsGateway: SettingsGateway,
-    private val notificationGateway: NotificationGateway
+    private val notificationGateway: NotificationGateway,
+    private val validateMerchantUseCase: ValidateMerchantUseCase
 ) : BaseViewModel() {
 
     private val _dashBoardState = MutableLiveData<DashboardState>()
@@ -363,6 +372,28 @@ class DashboardViewModel @Inject constructor(
                 })
             .addTo(disposables)
     }
+
+    fun validateMerchant(){
+
+        validateMerchantUseCase.execute(
+            getDisposableSingleObserver(
+                {
+                    val merchantExists = it.merchantExists.equals("true",false)
+                    _dashBoardState.value = ShowPaymentLinkOnBoarding(merchantExists)
+                }, {
+                    Timber.e(it, "validateMerchant")
+                    _dashBoardState.value = Error(it)
+                }
+            ),
+            doOnSubscribeEvent = {
+                _dashBoardState.value = ShowProgressLoading
+            },
+            doFinallyEvent = {
+                _dashBoardState.value = ShowDismissProgressLoading
+            }
+        ).addTo(disposables)
+
+    }
 }
 
 sealed class DashboardState
@@ -387,6 +418,8 @@ data class ShowNotificationOrganization(
 data class ShowNotificationLogBadgeCount(
     val badgeCount: BadgeCount
 ) : DashboardState()
+
+data class ShowPaymentLinkOnBoarding(val merchantExists: Boolean) : DashboardState()
 
 data class ShowBiometricSuccess(val token: String) : DashboardState()
 
