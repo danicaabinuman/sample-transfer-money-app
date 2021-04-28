@@ -50,6 +50,7 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
         val amountString = et_amount.text.toString()
         val paymentForString = et_paymentFor.text.toString()
         val mobileNumber = textInputEditTextMobileNumber.text.toString()
+        mobileNumber.length == 10
 
         if (
             (amountString.length) > 4 &&
