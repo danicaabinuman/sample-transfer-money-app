@@ -1961,5 +1961,6 @@
     <string name="cybersure_1">Share this link to your intended recipient only.</string>
     <string name="cybersure_2">Should you wish to edit the details of this page, click the archive and create another link.</string>
     <string name="cybersure_3">This link can be archieved as long as it has not yet been paid.</string>
+    <string name="title_date_created">Date Created</string>
 
 </resources>
