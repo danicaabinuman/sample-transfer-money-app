@@ -46,8 +46,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun initViews(){
 
         ivBackButton.setOnClickListener{
-            val intent = Intent(this@LinkDetailsActivity, PaymentLinkActivity::class.java)
-            startActivity(intent)
             finish()
         }
 
