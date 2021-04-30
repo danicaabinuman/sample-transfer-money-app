@@ -21,6 +21,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaym
 import com.unionbankph.corporate.payment_link.presentation.payment_link.PaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
+import kotlinx.android.synthetic.main.activity_archive_success.*
 import kotlinx.android.synthetic.main.activity_link_details.*
 import timber.log.Timber
 import java.text.DecimalFormat
@@ -81,6 +82,10 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             }
         }
 
+        btnOkay.setOnClickListener {
+            archiveSuccess.visibility = View.GONE
+        }
+
     }
 
     private fun setupInputs() {
@@ -110,7 +115,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
         viewModel.archivePaymentLinkResponse.observe(this, Observer {
             flLoading.visibility = View.INVISIBLE
-            Toast.makeText(this,"Archive successful", Toast.LENGTH_SHORT).show();
+            archiveSuccess.visibility = View.VISIBLE
             updateArchivedView()
 
         })
