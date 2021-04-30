@@ -117,7 +117,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
         viewModel.markAsUnpaidPaymentLinkResponse.observe(this, Observer {
             flLoading.visibility = View.INVISIBLE
-            Toast.makeText(this,"Archive successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Mark as unpaid successful", Toast.LENGTH_SHORT).show();
             updateUnpaidView()
 
         })
@@ -144,13 +144,20 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         btnArchive.text = "MARK AS UNPAID"
         imgBtnShare.isEnabled = false
         ibURLcopy.isEnabled = false
-        btnArchive.isEnabled = false
+        btnArchive.isEnabled = true
 
     }
 
     private fun updateUnpaidView(){
-        //TODO
-
+        tvStatus.text = "UNPAID"
+        tvStatus.setTextColor(Color.parseColor("#FF9800"))
+        tvStatus.background = getDrawable(R.drawable.bg_status_card_unpaid)
+        clCyberSure.visibility = View.VISIBLE
+        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        btnArchive.text = "ARCHIVE"
+        imgBtnShare.isEnabled = true
+        ibURLcopy.isEnabled = true
+        btnArchive.isEnabled = true
     }
 
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
