@@ -68,11 +68,17 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
         btnArchive.setOnClickListener{
-            flLoading.visibility = View.VISIBLE
-            mCurrentLinkDetails?.let {
-                viewModel.getPaymentLinkDetailsThenArchive(it.referenceId!!)
+            if(btnArchive.text.equals("ARCHIVE")){
+                flLoading.visibility = View.VISIBLE
+                mCurrentLinkDetails?.let {
+                    viewModel.getPaymentLinkDetailsThenArchive(it.referenceId!!)
+                }
+            }else{
+                flLoading.visibility = View.VISIBLE
+                mCurrentLinkDetails?.let {
+                    viewModel.getPaymentLinkDetailsThenMarkAsUnpaid(it.referenceId!!)
+                }
             }
-
         }
 
     }
@@ -109,6 +115,13 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
         })
 
+        viewModel.markAsUnpaidPaymentLinkResponse.observe(this, Observer {
+            flLoading.visibility = View.INVISIBLE
+            Toast.makeText(this,"Archive successful", Toast.LENGTH_SHORT).show();
+            updateUnpaidView()
+
+        })
+
         viewModel.uiState.observe(this, Observer {
             it.getContentIfNotHandled().let { event ->
                 when (event) {
@@ -132,6 +145,11 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         imgBtnShare.isEnabled = false
         ibURLcopy.isEnabled = false
         btnArchive.isEnabled = false
+
+    }
+
+    private fun updateUnpaidView(){
+        //TODO
 
     }
 

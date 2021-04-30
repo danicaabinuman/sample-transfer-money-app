@@ -13,6 +13,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.PutPaymentLi
 import com.unionbankph.corporate.payment_link.domain.usecase.ArchivePaymentLinkUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.GeneratePaymentLinkUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.GetPaymentLinkByReferenceIdUseCase
+import com.unionbankph.corporate.payment_link.domain.usecase.MarkAsUnpaidPaymentLinkUseCase
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,6 +22,7 @@ class LinkDetailsViewModel
 @Inject constructor(
     private val generatePaymentLinkUseCase: GeneratePaymentLinkUseCase,
     private val archivePaymentLinkUseCase: ArchivePaymentLinkUseCase,
+    private val markAsUnpaidPaymentLinkUseCase: MarkAsUnpaidPaymentLinkUseCase,
     private val getPaymentLinkByReferenceIdUseCase: GetPaymentLinkByReferenceIdUseCase
 ) : BaseViewModel(){
 
@@ -41,6 +43,13 @@ class LinkDetailsViewModel
     private val _navigateViewTransaction = MutableLiveData<Event<String>>()
 
     val navigateViewTransaction: LiveData<Event<String>> get() = _navigateViewTransaction
+
+
+    private val _markAsUnpaidPaymentLinkResponse = MutableLiveData<PutPaymentLinkStatusResponse>()
+
+    val markAsUnpaidPaymentLinkResponse: LiveData<PutPaymentLinkStatusResponse>
+        get() =
+            _markAsUnpaidPaymentLinkResponse
 
 
     fun initBundleData(amount: String, paymentFor: String, notes: String?, selectedExpiry: String, mobileNumber: String?) {
@@ -130,6 +139,26 @@ class LinkDetailsViewModel
         ).addTo(disposables)
     }
 
+    fun getPaymentLinkDetailsThenMarkAsUnpaid(referenceId: String){
+        getPaymentLinkByReferenceIdUseCase.execute(
+            getDisposableSingleObserver(
+                {
+                    markAsUnpaid(it.transactionId!!)
+                }, {
+                    Timber.e(it, "getPaymentLinkDetails")
+                    _uiState.value = Event(UiState.Error(it))
+                }
+            ),
+            doOnSubscribeEvent = {
+                _uiState.value = Event(UiState.Loading)
+            },
+            doFinallyEvent = {
+                _uiState.value = Event(UiState.Complete)
+            },
+            params = referenceId
+        ).addTo(disposables)
+    }
+
     private fun archive(transactionId: String){
         archivePaymentLinkUseCase.execute(
                 getDisposableSingleObserver(
@@ -147,6 +176,26 @@ class LinkDetailsViewModel
                     _uiState.value = Event(UiState.Complete)
                 },
                 params = transactionId
+        ).addTo(disposables)
+    }
+
+    private fun markAsUnpaid(transactionId: String){
+        markAsUnpaidPaymentLinkUseCase.execute(
+            getDisposableSingleObserver(
+                {
+                    _markAsUnpaidPaymentLinkResponse.value = it
+                }, {
+                    Timber.e(it, "putPaymentLinkStatus")
+                    _uiState.value = Event(UiState.Error(it))
+                }
+            ),
+            doOnSubscribeEvent = {
+                _uiState.value = Event(UiState.Loading)
+            },
+            doFinallyEvent = {
+                _uiState.value = Event(UiState.Complete)
+            },
+            params = transactionId
         ).addTo(disposables)
     }
 
