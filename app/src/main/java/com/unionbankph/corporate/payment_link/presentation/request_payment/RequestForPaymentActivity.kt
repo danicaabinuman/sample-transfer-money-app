@@ -38,6 +38,7 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
     private fun initViews(){
         btnRequestPaymentGenerate.setOnClickListener{
             navigateToLinkDetails()
+            finish()
         }
 
         btnRequestPaymentCancel.setOnClickListener {

@@ -84,18 +84,27 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/grid_1_half"
                             android:layout_marginStart="@dimen/grid_1"
-                            android:text="01516819810909
-"
-                            android:textSize="10sp"
+                            android:text="01516819810909"
+                            android:textSize="@dimen/text_10"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                        <TextView
+                            android:id="@+id/tvDateCreated"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_2"
+                            android:text="@string/title_date_created"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/linkDetailsCreatedDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/grid_1_half"
-                            android:textSize="10sp"
+                            android:textSize="@dimen/text_10"
                             android:text="Jan 1, 2021 00:00 AM"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintBottom_toBottomOf="@id/linkDetailsRefNo" />
