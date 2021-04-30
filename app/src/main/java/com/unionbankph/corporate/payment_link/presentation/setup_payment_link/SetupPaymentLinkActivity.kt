@@ -27,10 +27,12 @@ import com.unionbankph.corporate.payment_link.presentation.request_payment.Reque
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
+import kotlinx.android.synthetic.main.activity_no_available_accounts.*
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
 
 class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_setup_payment_links) {
 
+    private var accounts = mutableListOf<Account>()
     override fun onViewModelBound() {
         super.onViewModelBound()
         viewModel = ViewModelProviders.of(
@@ -96,6 +98,10 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             openNominateAccounts()
         }
 
+        btnBackToDashboard.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun initTermsAndCondition() {
@@ -104,6 +110,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
         val clickableSpan1 = object : ClickableSpan(){
             override fun onClick(widget: View) {
+                cb_fnc_tnc.isChecked = true
                 val intent = Intent(this@SetupPaymentLinkActivity, TermsOfServiceActivity::class.java)
                 startActivity(intent)
             }
@@ -111,6 +118,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
         val clickableSpan2 = object : ClickableSpan(){
             override fun onClick(widget: View) {
+                cb_fnc_tnc.isChecked = true
                 val intent = Intent(this@SetupPaymentLinkActivity, TermsOfServiceActivity::class.java)
                 intent.putExtra("termsAndConditions", "TC")
                 startActivity(intent)
@@ -203,6 +211,19 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         viewModel.soleAccount.observe(this, Observer {
             setupPaymentLinkLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it)
+            accounts = mutableListOf()
+            accounts.add(it)
+
+        })
+
+        viewModel.accounts.observe(this, Observer {
+            setupPaymentLinkLoading.visibility = View.GONE
+            accounts = it
+        })
+
+        viewModel.accountsBalances.observe(this, Observer {
+            setupPaymentLinkLoading.visibility = View.GONE
+            populateNominatedSettlementAccount(it.first())
         })
 
         viewModel.uiState.observe(this, Observer {
@@ -227,8 +248,19 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     }
 
     private fun openNominateAccounts(){
-        val intent = Intent(this@SetupPaymentLinkActivity, NominateSettlementActivity::class.java)
-        startActivityForResult(intent,REQUEST_CODE)
+        if(accounts.size>1){
+            val intent = Intent(this@SetupPaymentLinkActivity, NominateSettlementActivity::class.java)
+            val accountsJson = JsonHelper.toJson(accounts)
+            intent.putExtra(NominateSettlementActivity.EXTRA_ACCOUNTS_ARRAY, accountsJson)
+            startActivityForResult(intent,REQUEST_CODE)
+        }else if(accounts.size == 1){
+            if(include1.visibility == View.VISIBLE){
+                //DO NOTHING
+            }
+        }else {
+            noAvailableAccounts.visibility = View.VISIBLE
+        }
+
     }
 
     private fun backButton(){

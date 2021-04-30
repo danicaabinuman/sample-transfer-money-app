@@ -14,8 +14,8 @@ import io.reactivex.Single
  */
 interface AccountGateway {
 
-    fun getAccounts(
-    ): Single<MutableList<Account>>
+    fun getNominateSettlementAccounts(
+    ): Single<PagedDto<Account>>
 
     fun getAccountsPermission(
         channelId: String? = null,

@@ -10,12 +10,7 @@ import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsBalanceUseCase
-import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsBalanceUseCase_Factory
-import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsUseCase
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -28,11 +23,9 @@ class NominateSettlementViewModel @Inject constructor(
 
 
     fun initBundleData(accountsJson: String) {
-
-        //Convert JSON to MutableList<Account>
-        Timber.d(accountsJson)
-        //val data = convertHere
-        //getAccountBalances(data)
+        val data = JsonHelper.fromListJson<Account>(accountsJson)
+        _accountsBalances.value = data
+        getAccountBalances(data)
     }
 
     private fun getAccountBalances(accounts: MutableList<Account>) {

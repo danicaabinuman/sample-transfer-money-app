@@ -27,11 +27,17 @@ constructor(
     private val settingsGateway: SettingsGateway
 ) : AccountGateway {
 
-    override fun getAccounts(): Single<MutableList<Account>> {
+    override fun getNominateSettlementAccounts(): Single<PagedDto<Account>> {
         return settingsGateway.getAccessToken()
             .flatMap {
-                accountRemote.getAccounts(
-                    it
+                accountRemote.getAccountsPaginated(
+                    it,
+                    "3",
+                    "10",
+                    null,
+                    null,
+                    Pageable()
+
                 )
             }
             .flatMap { responseProvider.executeResponseSingle(it) }

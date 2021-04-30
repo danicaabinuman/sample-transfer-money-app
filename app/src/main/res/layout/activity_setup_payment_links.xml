@@ -237,7 +237,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/llSettlementAccount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -258,7 +258,7 @@
                     <include
                         android:id="@+id/include1"
                         android:visibility="visible"
-                        layout="@layout/to_delete_item_nominate_account"/>
+                        layout="@layout/item_nominate_account"/>
 
 
                 </LinearLayout>

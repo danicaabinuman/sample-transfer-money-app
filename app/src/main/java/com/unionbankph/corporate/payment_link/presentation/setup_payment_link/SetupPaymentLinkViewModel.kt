@@ -15,6 +15,7 @@ import com.unionbankph.corporate.payment_link.domain.usecase.CreateMerchantUseCa
 import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsBalanceUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsUseCase
 import io.reactivex.rxkotlin.addTo
+import kotlinx.coroutines.delay
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -68,11 +69,13 @@ class SetupPaymentLinkViewModel
         getAccountsUseCase.execute(
             getDisposableSingleObserver(
                 {
-                    if(it.size == 1){
-                        _soleAccount.value = it.first()
-                        getAccountBalances(it)
-                    }else if(it.size > 1){
-                        //PASS TO NOMINATE SETTLEMENT ACTIVITY
+                    if(it.results.size == 1){
+                        _soleAccount.value = it.results.first()
+                        val tempList = mutableListOf<Account>()
+                        tempList.add(it.results.first())
+                        getAccountBalances(tempList)
+                    }else if(it.results.size > 1){
+                        _accounts.value = it.results
                     }else{
                         _setupPaymentLinkState.value = ShowNoAvailableAccounts
                     }
