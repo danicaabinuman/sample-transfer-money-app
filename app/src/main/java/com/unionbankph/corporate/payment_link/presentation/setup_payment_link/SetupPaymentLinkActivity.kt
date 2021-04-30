@@ -167,6 +167,10 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             }
 
         })
+
+        cb_fnc_tnc.setOnCheckedChangeListener { _, _ ->
+            validateForm()
+        }
     }
 
     private fun setupOutputs() {
@@ -214,19 +218,19 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     private fun validateForm(){
         val businessName = et_business_name.text.toString()
         val businessProductsOffered = et_business_products_offered.text.toString()
+        val isChecked = cb_fnc_tnc.isChecked
 
-        cb_fnc_tnc.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (
-                businessName.isNotEmpty() &&
-                businessProductsOffered.isNotEmpty() &&
-                llSettlementAccount.visibility == View.VISIBLE
-                && isChecked
-            ){
-                buttonEnable()
-            } else {
-                buttonDisable()
-            }
+        if (
+            businessName.isNotEmpty() &&
+            businessProductsOffered.isNotEmpty() &&
+            llSettlementAccount.visibility == View.VISIBLE
+            && isChecked
+        ){
+            buttonEnable()
+        } else {
+            buttonDisable()
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

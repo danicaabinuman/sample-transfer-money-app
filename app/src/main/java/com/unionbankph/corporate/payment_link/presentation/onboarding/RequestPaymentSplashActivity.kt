@@ -19,28 +19,20 @@ import kotlinx.android.synthetic.main.item_organization.*
 
 class RequestPaymentSplashActivity : AppCompatActivity() {
 
+    private var merchantExists = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_request_payment_splash_frame_screen)
 
-        skipToRequestPayment()
         setViewPager()
-        getStarted()
 
-        val merchantExists = intent.getBooleanExtra(EXTRA_MERCHANT_EXISTS,false)
+        merchantExists = intent.getBooleanExtra(EXTRA_MERCHANT_EXISTS,false)
 
         val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_ONBOARDED, Context.MODE_PRIVATE)
         if (sharedPref.getBoolean(SHAREDPREF_IS_ONBOARDED, false)){
-            var intent : Intent? = null
-            if(merchantExists){
-                intent = Intent(this, RequestForPaymentActivity::class.java)
-            }else{
-                intent = Intent(this, SetupPaymentLinkActivity::class.java)
-            }
-            startActivity(intent)
-            finish()
+            continueToPaymentLink()
         } else {
-            setViewPager()
             val editor = sharedPref.edit()
             editor.putBoolean(SHAREDPREF_IS_ONBOARDED, true)
             editor.apply()
@@ -58,6 +50,13 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
                     btnGetStarted.visibility = View.VISIBLE
                 }
             }
+        }
+
+        btnGetStarted.setOnClickListener{
+            continueToPaymentLink()
+        }
+        skipBtn.setOnClickListener{
+            continueToPaymentLink()
         }
     }
 
@@ -94,20 +93,15 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
         })
     }
 
-    private fun getStarted(){
-        btnGetStarted.setOnClickListener{
-            val intent = Intent(this, SetupPaymentLinkActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
 
-    private fun skipToRequestPayment(){
-        skipBtn.setOnClickListener{
-            val intent = Intent(this, SetupPaymentLinkActivity::class.java)
-            startActivity(intent)
-            finish()
+    private fun continueToPaymentLink(){
+        val intent = if(merchantExists){
+            Intent(this, RequestForPaymentActivity::class.java)
+        }else{
+            Intent(this, SetupPaymentLinkActivity::class.java)
         }
+        startActivity(intent)
+        finish()
     }
 
     companion object {
