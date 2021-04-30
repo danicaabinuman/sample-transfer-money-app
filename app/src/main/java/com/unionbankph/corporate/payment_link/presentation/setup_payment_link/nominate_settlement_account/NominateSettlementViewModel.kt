@@ -20,35 +20,19 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class NominateSettlementViewModel @Inject constructor(
-        private val getAccountsUseCase: GetAccountsUseCase,
         private val getAccountsBalanceUseCase: GetAccountsBalanceUseCase
 ) : BaseViewModel()  {
-
-    private val _accounts = MutableLiveData<MutableList<Account>>()
-    val accounts: LiveData<MutableList<Account>> = _accounts
 
     private val _accountsBalances = MutableLiveData<MutableList<Account>>()
     val accountsBalances: LiveData<MutableList<Account>> = _accountsBalances
 
-    fun getAccounts() {
-        getAccountsUseCase.execute(
-                getDisposableSingleObserver(
-                        {
-                            _accounts.value = it
-                            getAccountBalances(it)
-                        }, {
-                    Timber.e(it, "getAccounts")
-                    _uiState.value = Event(UiState.Error(it))
-                }
-                ),
-                doOnSubscribeEvent = {
-                    _uiState.value = Event(UiState.Loading)
-                },
-                doFinallyEvent = {
-                    _uiState.value = Event(UiState.Complete)
-                },
-                params = null
-        ).addTo(disposables)
+
+    fun initBundleData(accountsJson: String) {
+
+        //Convert JSON to MutableList<Account>
+        Timber.d(accountsJson)
+        //val data = convertHere
+        //getAccountBalances(data)
     }
 
     private fun getAccountBalances(accounts: MutableList<Account>) {

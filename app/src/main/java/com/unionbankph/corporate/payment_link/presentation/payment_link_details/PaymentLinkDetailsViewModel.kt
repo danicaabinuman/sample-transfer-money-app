@@ -43,7 +43,7 @@ class LinkDetailsViewModel
     val navigateViewTransaction: LiveData<Event<String>> get() = _navigateViewTransaction
 
 
-    fun initBundleData(amount: String, paymentFor: String, notes: String?, selectedExpiry: String, mobileNumber: String) {
+    fun initBundleData(amount: String, paymentFor: String, notes: String?, selectedExpiry: String, mobileNumber: String?) {
 
         var expiry = 12
 
@@ -61,10 +61,17 @@ class LinkDetailsViewModel
             expiry = 168
         }
 
-        var finalMobileNumber = mobileNumber
-        if(!mobileNumber.first().equals('0',true)){
-            finalMobileNumber = "0$mobileNumber"
+        var finalMobileNumber : String? = null
+        mobileNumber?.let {
+            if(mobileNumber.isNotEmpty() && mobileNumber.length < 11){
+                if(!mobileNumber.first().equals('0',true)){
+                    finalMobileNumber = "0$mobileNumber"
+                }else{
+                    finalMobileNumber = mobileNumber
+                }
+            }
         }
+
 
         generateLinkDetails(
             GeneratePaymentLinkForm(

@@ -13,11 +13,14 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.payment_link.PaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import kotlinx.android.synthetic.main.activity_link_details.*
 import timber.log.Timber
 import java.text.DecimalFormat
@@ -61,7 +64,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
         btnGenerateAnotherLink.setOnClickListener{
-            finish()
+            generateNewPaymentLinkAsResult()
         }
 
         btnArchive.setOnClickListener{
@@ -200,9 +203,18 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
     }
 
+    private fun generateNewPaymentLinkAsResult() {
+        val data = Intent()
+        data.putExtra(RESULT_SHOULD_GENERATE_NEW_LINK, true);
+
+        setResult(RESULT_OK, data);
+        finish()
+    }
 
 
     companion object {
+        const val REQUEST_CODE = 1209
+        const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
         const val EXTRA_AMOUNT = "amount"
         const val EXTRA_PAYMENT_FOR = "pament for"
         const val EXTRA_NOTES = "notes"

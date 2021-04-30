@@ -13,10 +13,12 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.mtramin.rxfingerprint.RxFingerprint
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.app.dashboard.*
+import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
@@ -45,10 +47,17 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         sharedPref()
         buttonDisable()
         requiredFields()
+        setupInputs()
         setupOutputs()
         backButton()
 
         llSettlementAccount.visibility = View.GONE
+        noAvailableAccounts.visibility = View.GONE
+    }
+
+    private fun setupInputs(){
+        setupPaymentLinkLoading.visibility = View.VISIBLE
+        viewModel.getAccounts()
     }
 
 
@@ -190,12 +199,28 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
                 Toast.makeText(this@SetupPaymentLinkActivity, "Error", Toast.LENGTH_SHORT).show()
             }
         })
+
+        viewModel.soleAccount.observe(this, Observer {
+            setupPaymentLinkLoading.visibility = View.GONE
+            populateNominatedSettlementAccount(it)
+        })
+
         viewModel.uiState.observe(this, Observer {
+            setupPaymentLinkLoading.visibility = View.GONE
             it.getContentIfNotHandled().let { event ->
                 when (event) {
                     is UiState.Error -> {
                         handleOnError(event.throwable)
                     }
+                }
+            }
+        })
+
+        viewModel.setupPaymentLinkState.observe(this, Observer {
+            setupPaymentLinkLoading.visibility = View.GONE
+            when (it) {
+                is ShowNoAvailableAccounts -> {
+                    noAvailableAccounts.visibility = View.VISIBLE
                 }
             }
         })
@@ -238,34 +263,38 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         if(requestCode == REQUEST_CODE){
             if (resultCode == RESULT_OK) {
                 val accountData = JsonHelper.fromJson<Account>(data?.getStringExtra(NominateSettlementActivity.RESULT_DATA))
-                llSettlementAccount.visibility = View.VISIBLE
-                val tvCorporateName: AppCompatTextView = include1.findViewById(R.id.textViewCorporateName)
-                val tvAccountName: AppCompatTextView = include1.findViewById(R.id.textViewAccountName)
-                val tvAccountNumber: AppCompatTextView = include1.findViewById(R.id.textViewAccountNumber)
-                val tvAvailableBalance: AppCompatTextView = include1.findViewById(R.id.textViewAvailableBalance)
-                val slAmount: ShimmerLayout = include1.findViewById(R.id.shimmerLayoutAmount)
-                val viewShimmer: View = include1.findViewById(R.id.viewShimmer)
-
-                tvCorporateName.text = accountData.name
-                tvAccountNumber.text = accountData.accountNumber
-                tvAccountName.text = accountData.productCodeDesc
-
-                accountData.headers.forEach{ header ->
-                    header.name?.let { headerName ->
-                        if(headerName.equals("CURBAL",true)){
-                            header.value?.let{ headerValue ->
-                                slAmount.stopShimmerAnimation()
-                                viewShimmer.visibility = View.GONE
-                                tvAvailableBalance.visibility = View.VISIBLE
-                                tvAvailableBalance.text = headerValue
-                            }
-                        }
-                    }
-                }
-                llNominateSettlementAccount.visibility = View.GONE
+                populateNominatedSettlementAccount(accountData)
                 validateForm()
             }
         }
+    }
+
+    private fun populateNominatedSettlementAccount(accountData: Account){
+        llSettlementAccount.visibility = View.VISIBLE
+        val tvCorporateName: AppCompatTextView = include1.findViewById(R.id.textViewCorporateName)
+        val tvAccountName: AppCompatTextView = include1.findViewById(R.id.textViewAccountName)
+        val tvAccountNumber: AppCompatTextView = include1.findViewById(R.id.textViewAccountNumber)
+        val tvAvailableBalance: AppCompatTextView = include1.findViewById(R.id.textViewAvailableBalance)
+        val slAmount: ShimmerLayout = include1.findViewById(R.id.shimmerLayoutAmount)
+        val viewShimmer: View = include1.findViewById(R.id.viewShimmer)
+
+        tvCorporateName.text = accountData.name
+        tvAccountNumber.text = accountData.accountNumber
+        tvAccountName.text = accountData.productCodeDesc
+
+        accountData.headers.forEach{ header ->
+            header.name?.let { headerName ->
+                if(headerName.equals("CURBAL",true)){
+                    header.value?.let{ headerValue ->
+                        slAmount.stopShimmerAnimation()
+                        viewShimmer.visibility = View.GONE
+                        tvAvailableBalance.visibility = View.VISIBLE
+                        tvAvailableBalance.text = headerValue
+                    }
+                }
+            }
+        }
+        llNominateSettlementAccount.visibility = View.GONE
     }
 
     companion object {

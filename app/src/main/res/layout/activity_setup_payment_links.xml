@@ -340,4 +340,16 @@
             android:layout_height="30dp"
             android:layout_gravity="center" />
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/noAvailableAccounts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88000000"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true">
+
+        <include layout="@layout/activity_no_available_accounts"/>
+    </FrameLayout>
 </FrameLayout>

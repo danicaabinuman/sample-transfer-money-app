@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account
 
 import android.content.Intent
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -8,6 +9,8 @@ import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
+import kotlinx.android.synthetic.main.activity_billing_details.*
 import kotlinx.android.synthetic.main.activity_nominate_settlement.*
 
 class NominateSettlementActivity :
@@ -16,8 +19,8 @@ class NominateSettlementActivity :
 {
     override fun onViewsBound() {
         super.onViewsBound()
-        setupInputs()
 
+        setupInputs()
         btnClose.setOnClickListener{
             finish()
         }
@@ -31,21 +34,11 @@ class NominateSettlementActivity :
                 viewModelFactory
         )[NominateSettlementViewModel::class.java]
 
-        viewModel.accounts.observe(this, Observer {
-            it?.let {
-                updateRecyclerView(it)
-            }
-        })
-
         viewModel.accountsBalances.observe(this, Observer {
             it?.let {
                 updateRecyclerView(it)
             }
         })
-    }
-
-    private fun setupInputs() {
-        viewModel.getAccounts()
     }
 
     private fun updateRecyclerView(accounts: MutableList<Account>){
@@ -65,7 +58,17 @@ class NominateSettlementActivity :
         finish()
     }
 
+    private fun setupInputs() {
+
+        val accountsArrayJson = intent.getStringExtra(EXTRA_ACCOUNTS_ARRAY).toString()
+        viewModel.initBundleData(
+            accountsArrayJson
+        )
+
+    }
+
     companion object{
         const val RESULT_DATA = "RESULT_DATA"
+        const val EXTRA_ACCOUNTS_ARRAY = "EXTRA_ACCOUNTS_ARRAY"
     }
 }

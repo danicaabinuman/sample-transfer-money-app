@@ -8,10 +8,14 @@ import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import kotlinx.android.synthetic.main.activity_check_deposit_form.*
 import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_request_payment.*
@@ -37,8 +41,17 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
 
     private fun initViews(){
         btnRequestPaymentGenerate.setOnClickListener{
-            navigateToLinkDetails()
-            finish()
+
+            val mobileNumber = textInputEditTextMobileNumber.text.toString()
+            if(mobileNumber.isNotEmpty()){
+                if(mobileNumber.length<10){
+                    Toast.makeText(this@RequestForPaymentActivity, "Mobile Number length is invalid",Toast.LENGTH_SHORT).show()
+                }else{
+                    navigateToLinkDetails()
+                }
+            }else{
+                navigateToLinkDetails()
+            }
         }
 
         btnRequestPaymentCancel.setOnClickListener {
@@ -50,13 +63,10 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
     private fun validateForm(){
         val amountString = et_amount.text.toString()
         val paymentForString = et_paymentFor.text.toString()
-        val mobileNumber = textInputEditTextMobileNumber.text.toString()
-        mobileNumber.length == 10
 
         if (
             (amountString.length) > 4 &&
             (paymentForString.length in 1..255)
-//            && (mobileNumber.length == 10)
         ){
             if (amountString == "PHP 0"){buttonDisable()}
             else{
@@ -158,7 +168,7 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
         intent.putExtra(LinkDetailsActivity.EXTRA_NOTES, notes)
         intent.putExtra(LinkDetailsActivity.EXTRA_SELECTED_EXPIRY, linkExpiry)
         intent.putExtra(LinkDetailsActivity.EXTRA_MOBILE_NUMBER, mobileNumebr)
-        startActivity(intent)
+        startActivityForResult(intent, LinkDetailsActivity.REQUEST_CODE)
     }
 
     private fun finishRequestPayment() {
@@ -172,6 +182,26 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
     override fun onBackPressed() {
         val intent = Intent (this, DashboardActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun clearAllFields(){
+        et_amount.text?.clear()
+        et_paymentFor.text?.clear()
+        et_notes.text?.clear()
+        textInputEditTextMobileNumber.text?.clear()
+        et_amount.requestFocus()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == LinkDetailsActivity.REQUEST_CODE){
+            if (resultCode == RESULT_OK) {
+                val shouldGenerateNewPaymentLink = data?.getBooleanExtra(LinkDetailsActivity.RESULT_SHOULD_GENERATE_NEW_LINK,false)
+                if(shouldGenerateNewPaymentLink == true){
+                    clearAllFields()
+                }
+            }
+        }
     }
 
 
