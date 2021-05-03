@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.mtramin.rxfingerprint.RxFingerprint
+import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -27,8 +28,11 @@ import com.unionbankph.corporate.payment_link.presentation.request_payment.Reque
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
+import kotlinx.android.synthetic.main.activity_link_details.*
 import kotlinx.android.synthetic.main.activity_no_available_accounts.*
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
+import kotlinx.android.synthetic.main.activity_setup_payment_links.ivBackButton
+import kotlinx.android.synthetic.main.fragment_request_payment_error_dialog.*
 
 class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_setup_payment_links) {
 
@@ -46,7 +50,6 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         initViews()
         initTermsAndCondition()
 
-        sharedPref()
         buttonDisable()
         requiredFields()
         setupInputs()
@@ -59,7 +62,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
     private fun setupInputs(){
         setupPaymentLinkLoading.visibility = View.VISIBLE
-        viewModel.getAccounts()
+        viewModel.validateIfApprover()
     }
 
 
@@ -102,6 +105,20 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             finish()
         }
 
+        btnFeatureUnavailableBackToDashboard.setOnClickListener {
+            finish()
+        }
+
+        if( BuildConfig.DEBUG){
+            btnFeatureUnavailableBackToDashboard.setOnLongClickListener {
+                approverPermissionRequired.visibility = View.GONE
+                setupPaymentLinkLoading.visibility = View.VISIBLE
+                viewModel.getAccounts()
+                return@setOnLongClickListener true
+            }
+        }
+
+
     }
 
     private fun initTermsAndCondition() {
@@ -131,15 +148,6 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
         tv_link_fnc_tnc.text = spannableString
         tv_link_fnc_tnc.movementMethod = LinkMovementMethod.getInstance()
-    }
-
-    private fun sharedPref() {
-        val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_DONE_SETUP, Context.MODE_PRIVATE)
-        if (sharedPref.getBoolean(SHAREDPREF_IS_DONE_SETUP, false)) {
-            val intent = Intent(this, RequestForPaymentActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
 
     private fun buttonDisable(){
@@ -195,11 +203,6 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             setupPaymentLinkLoading.visibility = View.GONE
             if(it.message.equals("Success",true)){
 
-                val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_DONE_SETUP, Context.MODE_PRIVATE)
-                val editor = sharedPref.edit()
-                editor.putBoolean(SHAREDPREF_IS_DONE_SETUP, true)
-                editor.apply()
-
                 val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -242,6 +245,14 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             when (it) {
                 is ShowNoAvailableAccounts -> {
                     noAvailableAccounts.visibility = View.VISIBLE
+                }
+
+                is ShowHandleNotAvailable -> {
+                    til_business_name.error = "This handle is no longer available. Please try another one."
+                }
+
+                is ShowApproverPermissionRequired -> {
+                    approverPermissionRequired.visibility = View.VISIBLE
                 }
             }
         })
@@ -330,7 +341,6 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     }
 
     companion object {
-        const val SHAREDPREF_IS_DONE_SETUP = "sharedpref_is_done_setup"
         const val REQUEST_CODE = 1216
     }
 }

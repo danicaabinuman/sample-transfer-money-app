@@ -1,6 +1,11 @@
 package com.unionbankph.corporate.payment_link.presentation.billing_details
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -8,8 +13,10 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkByReferenceIdResponse
 import kotlinx.android.synthetic.main.activity_billing_details.*
+import kotlinx.android.synthetic.main.activity_link_details.*
 import timber.log.Timber
 import java.text.SimpleDateFormat
+import java.util.*
 
 class BillingDetailsActivity :
         BaseActivity<BillingDetailsViewModel>(R.layout.activity_billing_details)
@@ -35,6 +42,10 @@ class BillingDetailsActivity :
         backButton()
         setupInputs()
         setupOutputs()
+        copyLink()
+        shareLink()
+
+
     }
 
     private fun backButton() {
@@ -90,8 +101,10 @@ class BillingDetailsActivity :
         tvFee.text = response.paymentDetails?.fee
         var status = response.paymentDetails?.status
 
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa")
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+        parser.timeZone = TimeZone.getTimeZone("UTC")
+        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa", Locale.ENGLISH)
+        formatter.timeZone = TimeZone.getDefault()
 
         var createdDateString = "UNAVAILABLE"
         response.createdDate?.let {
@@ -103,6 +116,7 @@ class BillingDetailsActivity :
             }
         }
         tvBillingDetailsDateCreated.text = createdDateString
+        tvExpiryInformation.text = "Payment has been eligible for payout since " + createdDateString
 
         var expiryDateString = "UNAVAILABLE"
         response.expiry?.let {
@@ -140,8 +154,33 @@ class BillingDetailsActivity :
         }
 
     }
+
+
     companion object{
         const val EXTRA_REFERENCE_NUMBER = "extra_reference_number"
     }
 
+    private fun copyLink(){
+        ivCopyButton.setOnClickListener{
+            val copiedUrl = tvLinkUrl.text
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
+
+            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+
+            clipboard.setPrimaryClip(clip)
+
+//            showToast("Copied to clipboard")
+        }
+    }
+
+    private fun shareLink() {
+        ivShareButton.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Share To:"))
+        }
+    }
 }

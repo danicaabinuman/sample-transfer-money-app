@@ -14,6 +14,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.CreateMercha
 import com.unionbankph.corporate.payment_link.domain.usecase.CreateMerchantUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsBalanceUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsUseCase
+import com.unionbankph.corporate.payment_link.domain.usecase.ValidateApproverUseCase
 import io.reactivex.rxkotlin.addTo
 import kotlinx.coroutines.delay
 import timber.log.Timber
@@ -23,7 +24,8 @@ class SetupPaymentLinkViewModel
 @Inject constructor(
     private val createMerchantUseCase: CreateMerchantUseCase,
     private val getAccountsUseCase: GetAccountsUseCase,
-    private val getAccountsBalanceUseCase: GetAccountsBalanceUseCase
+    private val getAccountsBalanceUseCase: GetAccountsBalanceUseCase,
+    private val validateApproverUseCase: ValidateApproverUseCase
 ) : BaseViewModel() {
 
     private val _setupPaymentLinkState = MutableLiveData<SetupPaymentLinkState>()
@@ -62,6 +64,30 @@ class SetupPaymentLinkViewModel
                 _uiState.value = Event(UiState.Complete)
             },
             params = form
+        ).addTo(disposables)
+    }
+
+    fun validateIfApprover(){
+        validateApproverUseCase.execute(
+            getDisposableSingleObserver(
+                {
+                    if(it.isApprover){
+                        getAccounts()
+                    }else{
+                        _setupPaymentLinkState.value = ShowApproverPermissionRequired
+                    }
+                }, {
+                    Timber.e(it, "getAccounts")
+                    _uiState.value = Event(UiState.Error(it))
+                }
+            ),
+            doOnSubscribeEvent = {
+                _uiState.value = Event(UiState.Loading)
+            },
+            doFinallyEvent = {
+                _uiState.value = Event(UiState.Complete)
+            },
+            params = null
         ).addTo(disposables)
     }
 
@@ -130,3 +156,7 @@ class SetupPaymentLinkViewModel
 sealed class SetupPaymentLinkState
 
 object ShowNoAvailableAccounts : SetupPaymentLinkState()
+
+object ShowHandleNotAvailable : SetupPaymentLinkState()
+
+object ShowApproverPermissionRequired : SetupPaymentLinkState()
