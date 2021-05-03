@@ -22,4 +22,6 @@ interface PaymentLinkGateway {
     fun putPaymentLinkStatus(transactionId: String, putPaymentLinkStatusForm: PutPaymentLinkStatusForm) : Single<PutPaymentLinkStatusResponse>
 
     fun validateMerchantByOrganization() : Single<ValidateMerchantByOrganizationResponse>
+
+    fun validateApprover() : Single<ValidateApproverResponse>
 }
