@@ -122,7 +122,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
         viewModel.markAsUnpaidPaymentLinkResponse.observe(this, Observer {
             flLoading.visibility = View.INVISIBLE
-            Toast.makeText(this,"Mark as unpaid successful", Toast.LENGTH_SHORT).show();
+            archiveSuccess.visibility = View.VISIBLE
             updateUnpaidView()
 
         })
