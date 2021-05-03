@@ -157,4 +157,16 @@ class PaymentLinkGatewayImpl
             }
             .flatMap { responseProvider.executeResponseSingle(it) }
     }
+
+
+    override fun validateApprover(): Single<ValidateApproverResponse> {
+        val role = cacheManager.getObject(CacheManager.ROLE) as? Role
+        var isApprover = false
+        if(role?.name != null){
+            isApprover = role?.name.equals("Approver")
+        }
+
+        return Single.fromCallable { ValidateApproverResponse(isApprover) }
+
+    }
 }
