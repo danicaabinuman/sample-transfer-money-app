@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_link_details.*
 import timber.log.Timber
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
+import java.util.*
 
 class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity_link_details) {
 
@@ -168,8 +169,10 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
 
 
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa")
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.ENGLISH)
+        parser.timeZone = TimeZone.getTimeZone("UTC")
+        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa", Locale.ENGLISH)
+        formatter.timeZone = TimeZone.getDefault()
 
         var createdDateString = "UNAVAILABLE"
         linkDetailsResponse.transactionData?.createdDate?.let {

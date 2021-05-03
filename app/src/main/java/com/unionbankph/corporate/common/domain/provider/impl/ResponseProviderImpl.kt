@@ -13,6 +13,7 @@ import com.unionbankph.corporate.common.domain.exception.SomethingWentWrongExcep
 import com.unionbankph.corporate.common.domain.exception.UnderMaintenanceException
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.payment_link.data.model.SMEApiError
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.Response
@@ -60,13 +61,21 @@ constructor(
 
     private fun <T> handleErrorResponse(response: Response<T>): Single<T> {
         val errorResponse = response.errorBody()?.string()
-        val throwable = try {
+
+        var ioException : IOException? = null
+        ioException = try {
             val apiError = JsonHelper.fromJson<ApiError>(errorResponse)
             throwException(apiError)
         } catch (e: Exception) {
-            SomethingWentWrongException(context)
+            try {
+                val smeApiError = JsonHelper.fromJson<SMEApiError>(errorResponse)
+                throwSMEException(smeApiError)
+            } catch (e: Exception) {
+                SomethingWentWrongException(context)
+            }
         }
-        return Single.error(throwable)
+
+        return Single.error(ioException)
     }
 
     private fun throwException(apiError: ApiError): IOException {
@@ -91,6 +100,14 @@ constructor(
             SessionExpiredException(context)
         } else if (apiError.errorCode != null) {
             ApiErrorException(apiError.message.notNullable())
+        } else {
+            SomethingWentWrongException(context)
+        }
+    }
+
+    private fun throwSMEException(smeApiError: SMEApiError): IOException {
+        return if (smeApiError.message != null) {
+            ApiErrorException(smeApiError.message.notNullable())
         } else {
             SomethingWentWrongException(context)
         }

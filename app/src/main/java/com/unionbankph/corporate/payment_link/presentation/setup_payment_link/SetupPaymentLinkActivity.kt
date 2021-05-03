@@ -243,6 +243,10 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
                 is ShowNoAvailableAccounts -> {
                     noAvailableAccounts.visibility = View.VISIBLE
                 }
+
+                is ShowHandleNotAvailable -> {
+                    til_business_name.error = "This handle is no longer available. Please try another one."
+                }
             }
         })
     }

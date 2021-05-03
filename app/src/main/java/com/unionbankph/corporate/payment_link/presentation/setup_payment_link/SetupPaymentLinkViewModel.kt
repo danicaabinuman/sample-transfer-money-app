@@ -130,3 +130,5 @@ class SetupPaymentLinkViewModel
 sealed class SetupPaymentLinkState
 
 object ShowNoAvailableAccounts : SetupPaymentLinkState()
+
+object ShowHandleNotAvailable : SetupPaymentLinkState()

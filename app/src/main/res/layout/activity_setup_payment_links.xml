@@ -99,9 +99,11 @@
                         android:textSize="10sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_business_name"
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1_half"
+                        app:errorEnabled="true"
                         android:hint="@string/hint_storehandle">
 
                         <com.google.android.material.textfield.TextInputEditText

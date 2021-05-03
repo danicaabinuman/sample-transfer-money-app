@@ -9,6 +9,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.payment_link.domain.model.PaymentLinkModel
 import timber.log.Timber
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 var mData = listOf<PaymentLinkModel>()
@@ -51,8 +52,10 @@ class PaymentLinkAdapter : RecyclerView.Adapter<PaymentLinkAdapter.PaymentLinkVi
     override fun onBindViewHolder(holder: PaymentLinkViewHolder, position: Int) {
         val item = mData[position]
 
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa")
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+        parser.timeZone = TimeZone.getTimeZone("UTC")
+        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa", Locale.ENGLISH)
+        formatter.timeZone = TimeZone.getDefault()
 
         var expiryDate = "UNAVAILABLE"
         item.expireDate?.let {

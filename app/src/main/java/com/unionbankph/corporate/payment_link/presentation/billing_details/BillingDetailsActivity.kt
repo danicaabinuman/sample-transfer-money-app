@@ -10,6 +10,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLi
 import kotlinx.android.synthetic.main.activity_billing_details.*
 import timber.log.Timber
 import java.text.SimpleDateFormat
+import java.util.*
 
 class BillingDetailsActivity :
         BaseActivity<BillingDetailsViewModel>(R.layout.activity_billing_details)
@@ -90,8 +91,10 @@ class BillingDetailsActivity :
         tvFee.text = response.paymentDetails?.fee
         var status = response.paymentDetails?.status
 
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa")
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+        parser.timeZone = TimeZone.getTimeZone("UTC")
+        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa", Locale.ENGLISH)
+        formatter.timeZone = TimeZone.getDefault()
 
         var createdDateString = "UNAVAILABLE"
         response.createdDate?.let {
