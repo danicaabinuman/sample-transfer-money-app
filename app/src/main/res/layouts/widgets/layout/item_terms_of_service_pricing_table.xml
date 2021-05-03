@@ -16,7 +16,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/for_table_pricing_right_bottom"
                 android:paddingLeft="10dp"
@@ -48,7 +48,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/for_table_pricing_right_top_bottom"
                 android:paddingLeft="10dp"
@@ -78,7 +78,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/for_table_pricing_right_top_bottom"
                 android:paddingLeft="10dp"
@@ -108,7 +108,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/for_table_pricing_right_top"
                 android:paddingLeft="10dp"
