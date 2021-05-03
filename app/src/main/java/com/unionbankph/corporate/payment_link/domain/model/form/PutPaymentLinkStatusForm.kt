@@ -7,5 +7,4 @@ import kotlinx.serialization.Serializable
 data class PutPaymentLinkStatusForm(
     @SerialName("status")
     var status: String = "archived"
-
 )
