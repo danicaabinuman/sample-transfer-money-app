@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.common.domain.provider.impl
 
 import android.content.Context
+import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.notNullable
@@ -30,7 +31,11 @@ constructor(
         return if (response.isSuccessful) {
             Single.just(response.body())
         } else {
-            handleErrorResponse(response)
+            if(BuildConfig.FLAVOR.contains("SME")){
+                handleSMEErrorResponse(response)
+            }else{
+                handleErrorResponse(response)
+            }
         }
     }
 
@@ -49,8 +54,14 @@ constructor(
         return if (response.isSuccessful) {
             Completable.complete()
         } else {
-            handleErrorResponse(response).flatMapCompletable {
-                Completable.complete()
+            if(BuildConfig.FLAVOR.contains("SME")){
+                handleSMEErrorResponse(response).flatMapCompletable {
+                    Completable.complete()
+                }
+            }else{
+                handleErrorResponse(response).flatMapCompletable {
+                    Completable.complete()
+                }
             }
         }
     }
@@ -61,21 +72,32 @@ constructor(
 
     private fun <T> handleErrorResponse(response: Response<T>): Single<T> {
         val errorResponse = response.errorBody()?.string()
-
-        var ioException : IOException? = null
-        ioException = try {
+        val throwable = try {
             val apiError = JsonHelper.fromJson<ApiError>(errorResponse)
             throwException(apiError)
         } catch (e: Exception) {
-            try {
-                val smeApiError = JsonHelper.fromJson<SMEApiError>(errorResponse)
-                throwSMEException(smeApiError)
-            } catch (e: Exception) {
-                SomethingWentWrongException(context)
-            }
+            SomethingWentWrongException(context)
         }
+        return Single.error(throwable)
+    }
 
-        return Single.error(ioException)
+    private fun <T> handleSMEErrorResponse(response: Response<T>): Single<T> {
+        val errorResponse = response.errorBody()?.string()
+        val throwable = try {
+            val smeApiError = JsonHelper.fromJson<SMEApiError>(errorResponse)
+            throwSMEException(smeApiError)
+        } catch (e: Exception) {
+            SomethingWentWrongException(context)
+        }
+        return Single.error(throwable)
+    }
+
+    private fun throwSMEException(smeApiError: SMEApiError): IOException {
+        return if (!smeApiError.message.isNullOrEmpty()) {
+            ApiErrorException(smeApiError.message.notNullable())
+        } else {
+            SomethingWentWrongException(context)
+        }
     }
 
     private fun throwException(apiError: ApiError): IOException {
@@ -105,14 +127,6 @@ constructor(
         }
     }
 
-    private fun throwSMEException(smeApiError: SMEApiError): IOException {
-        return if (smeApiError.message != null) {
-            ApiErrorException(smeApiError.message.notNullable())
-        } else {
-            SomethingWentWrongException(context)
-        }
-    }
-
     private fun <T> handleCustomError(
         it: Response<T>,
         errorAction: ((apiError: ApiError) -> Single<T>)
@@ -123,10 +137,18 @@ constructor(
                 val apiError = JsonHelper.fromJson<ApiError>(errorResponse)
                 errorAction.invoke(apiError)
             } catch (e: Exception) {
-                handleErrorResponse(it)
+                if(BuildConfig.FLAVOR.contains("SME")){
+                    handleSMEErrorResponse(it)
+                }else{
+                    handleErrorResponse(it)
+                }
             }
         } else {
-            handleErrorResponse(it)
+            if(BuildConfig.FLAVOR.contains("SME")){
+                handleSMEErrorResponse(it)
+            }else{
+                handleErrorResponse(it)
+            }
         }
     }
 

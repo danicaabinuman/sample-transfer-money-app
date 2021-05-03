@@ -8,7 +8,12 @@ import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.extension.getDisposableSingleObserver
 import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.app.dashboard.DashboardState
+import com.unionbankph.corporate.auth.presentation.otp.ShowOTPError
+import com.unionbankph.corporate.auth.presentation.otp.ShowOTPNominatePasswordError
+import com.unionbankph.corporate.common.data.model.ApiError
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.payment_link.data.model.SMEApiError
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.response.CreateMerchantResponse
 import com.unionbankph.corporate.payment_link.domain.usecase.CreateMerchantUseCase
@@ -48,13 +53,23 @@ class SetupPaymentLinkViewModel
 
     fun createMerchant(form: CreateMerchantForm){
 
+//        Thread.sleep(3_000)
+
         createMerchantUseCase.execute(
             getDisposableSingleObserver(
                 {
                     _createMerchantResponse.value = it
                 }, {
-                    Timber.e(it, "createMerchant")
-                    _uiState.value = Event(UiState.Error(it))
+                    Timber.e(it, "createMerchant Failed")
+                    try {
+                        if(it.message?.contains("This handle is no longer available. Please try another one.",true) == true){
+                            _setupPaymentLinkState.value = ShowHandleNotAvailable
+                        }else{
+                            _uiState.value = Event(UiState.Error(it))
+                        }
+                    } catch (e: Exception) {
+                        _uiState.value = Event(UiState.Error(it))
+                    }
                 }
             ),
             doOnSubscribeEvent = {

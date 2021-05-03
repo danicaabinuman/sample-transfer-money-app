@@ -75,6 +75,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         btnSetupBusinessLink.setOnClickListener {
 
             setupPaymentLinkLoading.visibility = View.VISIBLE
+            til_business_name.error = null
 
             val businessName = et_business_name.text.toString()
             val businessWebsite = et_business_websites.text.toString()
@@ -230,9 +231,14 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         })
 
         viewModel.uiState.observe(this, Observer {
-            setupPaymentLinkLoading.visibility = View.GONE
             it.getContentIfNotHandled().let { event ->
                 when (event) {
+                    is UiState.Loading -> {
+                        setupPaymentLinkLoading.visibility = View.VISIBLE
+                    }
+                    is UiState.Complete -> {
+                        setupPaymentLinkLoading.visibility = View.GONE
+                    }
                     is UiState.Error -> {
                         handleOnError(event.throwable)
                     }
