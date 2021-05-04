@@ -104,6 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1_half"
                         app:errorEnabled="true"
+                        app:errorTextColor="#ED5635"
                         android:hint="@string/hint_storehandle">
 
                         <com.google.android.material.textfield.TextInputEditText
