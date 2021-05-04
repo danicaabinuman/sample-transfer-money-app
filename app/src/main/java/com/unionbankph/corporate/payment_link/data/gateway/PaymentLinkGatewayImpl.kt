@@ -162,9 +162,10 @@ class PaymentLinkGatewayImpl
     override fun validateApprover(): Single<ValidateApproverResponse> {
         val role = cacheManager.getObject(CacheManager.ROLE) as? Role
         var isApprover = false
-        if(role?.name != null){
-            isApprover = role?.name.equals("Approver")
+        if(role!=null){
+            isApprover = role?.isApprover
         }
+
 
         return Single.fromCallable { ValidateApproverResponse(isApprover) }
 
