@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.setColor
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
@@ -149,7 +150,9 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         btnGenerateAnotherLink.text = "GENERATE NEW LINK"
         btnArchive.text = "MARK AS UNPAID"
         imgBtnShare.isEnabled = false
+        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
         ibURLcopy.isEnabled = false
+        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
         btnArchive.isEnabled = true
 
     }
@@ -162,7 +165,9 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         btnGenerateAnotherLink.text = "GENERATE NEW LINK"
         btnArchive.text = "ARCHIVE"
         imgBtnShare.isEnabled = true
+        imgBtnShare.background = getDrawable(R.drawable.ic_share_orange)
         ibURLcopy.isEnabled = true
+        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_orange)
         btnArchive.isEnabled = true
     }
 
