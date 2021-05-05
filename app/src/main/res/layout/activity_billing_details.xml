@@ -588,169 +588,169 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:background="@drawable/bg_card_view_payment_status"
                 android:orientation="vertical"
                 android:paddingTop="20dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="GCash"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="GCash"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="FAILED"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="FAILED"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="pay_sdjftef46790kjgd"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="pay_sdjftef46790kjgd"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="01 Jan 2021 at 3:30 PM"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="01 Jan 2021 at 3:30 PM"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:src="@drawable/view_gray_solid_line" />
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp"-->
+<!--                    android:src="@drawable/view_gray_solid_line" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="15dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Visa"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="Visa"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="FAILED"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="FAILED"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="pay_sdjftefhyfbklpiuy"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="pay_sdjftefhyfbklpiuy"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="02 Jan 2021 at 10:30 AM"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="02 Jan 2021 at 10:30 AM"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:src="@drawable/view_gray_solid_line" />
+<!--                <ImageView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3dp"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp"-->
+<!--                    android:src="@drawable/view_gray_solid_line" />-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="GCash"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="GCash"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="PAID"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="PAID"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp">-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="pay_sdbahdjkloiu890"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
+<!--                    <TextView-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="pay_sdbahdjkloiu890"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="01 Jan 2021 at 6:00 PM"
-                        android:textColor="#4B4948"
-                        android:textSize="12sp" />
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="01 Jan 2021 at 6:00 PM"-->
+<!--                        android:textColor="#4B4948"-->
+<!--                        android:textSize="12sp" />-->
+<!--                </LinearLayout>-->
 
             </LinearLayout>
 
