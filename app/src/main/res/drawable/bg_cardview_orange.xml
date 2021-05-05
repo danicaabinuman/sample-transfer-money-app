@@ -3,8 +3,8 @@
     android:shape="rectangle">
 
     <corners
-        android:radius="2dp" />
-    <solid android:color="@color/colorCardViewBorder" />
+        android:radius="3px" />
+    <solid android:color="#FF7F00" />
 
 
 </shape>
