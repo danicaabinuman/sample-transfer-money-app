@@ -1887,7 +1887,7 @@
     <string name="payment_link_tab_refunded">Refunded</string>
     <string name="payment_link_reference_no">Reference No.</string>
     <string name="payment_link_status_unpaid">UNPAID</string>
-    <string name="title_set_up_payment_link">Set-up Payment Link</string>
+    <string name="title_set_up_payment_link">Set-up Checkout Page</string>
     <string name="desc_set_up_your_business_link">Before we start, let\'s set-up your business link.</string>
     <string name="title_unique_store_handle">Unique Business Name</string>
     <string name="desc_personalize_your_store_handle">Personalize your payment link by nominating a unique handle for your business.</string>
