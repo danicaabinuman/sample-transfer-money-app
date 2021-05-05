@@ -69,6 +69,8 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
             (paymentForString.length in 1..255)
         ){
             if (amountString == "PHP 0"){buttonDisable()}
+            else if (amountString == "PHP 0.0"){buttonDisable()}
+            else if (amountString == "PHP 0.00"){buttonDisable()}
             else{
             buttonEnable()}
         } else {
