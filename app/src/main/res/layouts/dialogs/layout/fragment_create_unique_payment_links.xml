@@ -33,7 +33,7 @@
         android:layout_marginEnd="@dimen/content_group_spacing"
         android:layout_marginBottom="@dimen/content_spacing"
         android:gravity="center"
-        android:textSize="@dimen/text_18"
+        android:textSize="18sp"
         android:textColor="#FF8200"
         android:textStyle="bold"
         android:text="@string/title_create_unique_payment_links"

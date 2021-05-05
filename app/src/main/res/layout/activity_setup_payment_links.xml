@@ -25,7 +25,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -104,6 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1_half"
                         app:errorEnabled="true"
+                        app:errorTextColor="#ED5635"
                         android:hint="@string/hint_storehandle">
 
                         <com.google.android.material.textfield.TextInputEditText
