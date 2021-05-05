@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.payment_link.presentation.payment_link.PaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import kotlinx.android.synthetic.main.activity_setup_payment_link_success.*
 
@@ -14,7 +15,7 @@ class SetupPaymentLinkSuccessfulActivity : AppCompatActivity(){
         setContentView(R.layout.activity_setup_payment_link_success)
 
         btnTakeMeThere.setOnClickListener{
-            val intent = Intent(this, RequestForPaymentActivity::class.java)
+            val intent = Intent(this, PaymentLinkActivity::class.java)
             startActivity(intent)
             finish()
         }
