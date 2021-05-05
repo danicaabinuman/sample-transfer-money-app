@@ -322,4 +322,18 @@ class Navigator {
             transaction.commit()
         }
     }
+
+    fun popBackStack(
+            fragmentManager: FragmentManager?,
+            tag: String
+    ){
+        val fragmentPopped = fragmentManager?.popBackStackImmediate(tag, 0)
+        val fragment = fragmentManager?.findFragmentByTag(tag)
+        if (fragmentPopped == false && fragment != null) {
+            val transaction = fragmentManager.beginTransaction()
+
+            transaction.remove(fragment)
+            transaction.commit()
+        }
+    }
 }

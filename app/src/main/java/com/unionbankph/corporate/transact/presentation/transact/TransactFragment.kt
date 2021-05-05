@@ -30,13 +30,12 @@ import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
-import com.unionbankph.corporate.payment_link.presentation.payment_link.PaymentLinkActivity
 import com.unionbankph.corporate.settings.data.constant.PermissionNameEnum
 import com.unionbankph.corporate.settings.domain.constant.FeaturesEnum
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsHasPermission
-import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
@@ -234,14 +233,16 @@ class TransactFragment :
         }
 
         constraintLayoutRequestPayment.setOnClickListener{
-            navigator.navigate(
-                    (activity as DashboardActivity),
-                    PaymentLinkActivity::class.java,
+
+            frameLayoutTransact.visibility = View.VISIBLE
+            navigator.addFragmentWithAnimation(
+                    R.id.frameLayoutTransact,
+                    PaymentLinkListFragment(),
                     null,
-                    isClear = false,
-                    isAnimated = true,
-                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+                    childFragmentManager,
+                    TransactFragment.FRAGMENT_REQUEST_PAYMENT
             )
+
         }
     }
 
@@ -393,5 +394,9 @@ class TransactFragment :
             childFragmentManager,
             this::class.java.simpleName
         )
+    }
+
+    companion object {
+        const val FRAGMENT_REQUEST_PAYMENT = "request_payment"
     }
 }

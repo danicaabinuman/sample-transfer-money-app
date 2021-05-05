@@ -617,6 +617,11 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     textViewInitial.visibility != View.VISIBLE
                 ) {
                     isBackButtonFragmentAlerts = true
+                } else if (
+                    viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_TRANSACT] &&
+                    textViewInitial.visibility != View.VISIBLE
+                ) {
+                   //TODO
                 }
                 imageViewMarkAllAsRead.visibility(
                     position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
@@ -650,7 +655,8 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             )
 
             btnRequestPayment.visibility(
-                position == bottomNavigationItems[FRAGMENT_ACCOUNTS]
+                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
+                        position == bottomNavigationItems[FRAGMENT_TRANSACT]
             )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =

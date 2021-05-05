@@ -50,6 +50,7 @@ import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
+import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
@@ -331,5 +332,9 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun daoDefaultFragment(): DaoDefaultFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun paymentLinkListFragment(): PaymentLinkListFragment
 
 }
