@@ -10,7 +10,7 @@ data class GeneratePaymentLinkResponse(
     var link: String? = null,
 
     @SerialName("ref_no")
-    var referenceId: String? = null,
+    var referenceNumber: String? = null,
 
     @SerialName("amount")
     var amount: String = "0",

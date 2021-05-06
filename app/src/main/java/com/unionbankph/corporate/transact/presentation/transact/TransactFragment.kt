@@ -234,7 +234,6 @@ class TransactFragment :
 
         constraintLayoutRequestPayment.setOnClickListener{
 
-            frameLayoutTransact.visibility = View.VISIBLE
             navigator.addFragmentWithAnimation(
                     R.id.frameLayoutTransact,
                     PaymentLinkListFragment(),

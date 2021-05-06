@@ -24,10 +24,19 @@ data class PaymentDetailsModel(
     @SerialName("status")
     var status: String? = null,
 
+    @SerialName("upacTransacStatus")
+    var upacTransacStatus: String? = null,
+
     @SerialName("fee")
     var fee: String? = null,
 
     @SerialName("settlementDate")
-    var settlementDate: String? = null
+    var settlementDate: String? = null,
+
+    @SerialName("paymentDate")
+    var paymentDate: String? = null,
+
+    @SerialName("settledDate")
+    var settledDate: String? = null
 
 )

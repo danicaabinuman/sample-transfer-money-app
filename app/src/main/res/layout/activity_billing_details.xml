@@ -319,37 +319,11 @@
                         android:textColor="#4B4948"
                         android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/tvStatusUnpaid"
-                        android:layout_width="45dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="8sp"
-                        android:padding="3dp"
-                        android:text="@string/payment_link_status_unpaid"
-                        android:gravity="center"
-                        android:textColor="#FF9800"
-                        android:textStyle="bold"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/bg_unpaid"/>
-
-                    <TextView
-                        android:id="@+id/tvStatusArchived"
-                        android:layout_width="wrap_content"
-                        android:visibility="gone"
-                        android:layout_height="wrap_content"
-                        android:textSize="8sp"
-                        android:padding="3dp"
-                        android:text="ARCHIVED"
-                        android:gravity="center"
-                        android:textColor="#4A4A4A"
-                        android:textStyle="bold"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/bg_status_card_archived"/>
 
                     <TextView
                         android:id="@+id/tvStatusPaid"
                         android:layout_width="45dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:textSize="8sp"
                         android:padding="3dp"
@@ -360,19 +334,6 @@
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/bg_paid"/>
 
-                    <TextView
-                        android:id="@+id/tvStatusExpired"
-                        android:layout_width="45dp"
-                        android:visibility="gone"
-                        android:layout_height="wrap_content"
-                        android:textSize="8sp"
-                        android:padding="3dp"
-                        android:text="EXPIRED"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textColor="#E83C18"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/bg_expired"/>
                 </LinearLayout>
 
                 <LinearLayout

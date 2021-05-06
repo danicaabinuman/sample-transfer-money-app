@@ -311,6 +311,7 @@
     <string name="title_mobile_number">Mobile Number</string>
     <string name="title_business_mobile_number">Business Mobile Number</string>
     <string name="title_name">Name</string>
+    <string name="title_payment_links">Payment Links</string>
     <string name="title_profile">Profile</string>
     <string name="title_alerts">Alerts</string>
     <string name="title_fund_transfer">Fund Transfer</string>

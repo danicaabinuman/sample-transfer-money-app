@@ -129,30 +129,6 @@ class BillingDetailsActivity :
         }
         tvLinkExpiry.text = expiryDateString
 
-        if(status.equals("ARCHIVED",true)){
-
-            tvStatusArchived.visibility = View.VISIBLE
-            tvStatusUnpaid.visibility = View.GONE
-            tvStatusExpired.visibility = View.GONE
-            tvStatusPaid.visibility = View.GONE
-
-        }else if(status.equals("PAID", true)){
-            tvStatusArchived.visibility = View.GONE
-            tvStatusUnpaid.visibility = View.GONE
-            tvStatusExpired.visibility = View.GONE
-            tvStatusPaid.visibility = View.VISIBLE
-        }else if (status.equals("EXPIRED", true)){
-            tvStatusArchived.visibility = View.GONE
-            tvStatusUnpaid.visibility = View.GONE
-            tvStatusExpired.visibility = View.VISIBLE
-            tvStatusPaid.visibility = View.GONE
-        }else{
-            tvStatusArchived.visibility = View.GONE
-            tvStatusUnpaid.visibility = View.VISIBLE
-            tvStatusExpired.visibility = View.GONE
-            tvStatusPaid.visibility = View.GONE
-        }
-
     }
 
 

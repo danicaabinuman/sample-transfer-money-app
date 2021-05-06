@@ -16,6 +16,15 @@ data class GetPaymentLinkByReferenceIdResponse(
     @SerialName("transactionId")
     var transactionId: String? = null,
 
+    @SerialName("instapayTransactionId")
+    var instapayTransactionId: String? = null,
+
+    @SerialName("ubOnlineTransactionId")
+    var ubOnlineTransactionId: String? = null,
+
+    @SerialName("referenceNo")
+    var referenceNo: String? = null,
+
     @SerialName("paymentDetails")
     var paymentDetails: PaymentDetailsModel? = null,
 
