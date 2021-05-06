@@ -4,30 +4,29 @@ import com.unionbankph.corporate.common.domain.executor.PostExecutionThread
 import com.unionbankph.corporate.common.domain.executor.ThreadExecutor
 import com.unionbankph.corporate.common.domain.interactor.SingleUseCase
 import com.unionbankph.corporate.payment_link.data.gateway.PaymentLinkGateway
+import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusContainerForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
 import com.unionbankph.corporate.payment_link.domain.model.response.PutPaymentLinkStatusResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
-class ArchivePaymentLinkUseCase
+class PutPaymentLinkStatusUseCase
 @Inject
 constructor(
     threadExecutor: ThreadExecutor,
     postExecutionThread: PostExecutionThread,
     private val paymentLinkGateway: PaymentLinkGateway
-) : SingleUseCase<PutPaymentLinkStatusResponse, String>(
+) : SingleUseCase<PutPaymentLinkStatusResponse, PutPaymentLinkStatusContainerForm>(
     threadExecutor,
     postExecutionThread
 ) {
 
     override fun buildUseCaseObservable(
-        transactionId: String?
+        putPaymentLinkStatusContainerForm: PutPaymentLinkStatusContainerForm?
     ): Single<PutPaymentLinkStatusResponse> {
         return paymentLinkGateway.putPaymentLinkStatus(
-                transactionId!!,
-                PutPaymentLinkStatusForm(
-                        "archived"
-                )
+            putPaymentLinkStatusContainerForm?.transactionId!!,
+            putPaymentLinkStatusContainerForm?.putPaymentLinkStatusForm
         )
     }
 

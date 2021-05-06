@@ -7,31 +7,45 @@ import android.view.Gravity
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
+import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import kotlinx.android.synthetic.main.activity_check_deposit_form.*
 import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
+import kotlinx.android.synthetic.main.activity_link_details.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
+import kotlinx.android.synthetic.main.activity_request_payment.ivBackButton
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
-class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
+class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
 
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
     var linkExpiry = "12 hours"
 
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        viewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        )[RequestForPaymentViewModel::class.java]
+    }
+
     override fun onViewsBound() {
         super.onViewsBound()
         initViews()
 
-
+        setupOutputs()
         buttonDisable()
 
         requiredFields()
@@ -42,15 +56,32 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
     private fun initViews(){
         btnRequestPaymentGenerate.setOnClickListener{
 
+            val amount = et_amount.text.toString()
+            val paymentFor = et_paymentFor.text.toString()
+            val notes = et_notes.text.toString()
             val mobileNumber = textInputEditTextMobileNumber.text.toString()
             if(mobileNumber.isNotEmpty()){
                 if(mobileNumber.length<10){
                     Toast.makeText(this@RequestForPaymentActivity, "Mobile Number length is invalid",Toast.LENGTH_SHORT).show()
                 }else{
-                    navigateToLinkDetails()
+                    requestPaymentLoading.visibility = View.VISIBLE
+                    viewModel.preparePaymentLinkGeneration(
+                        amount,
+                        paymentFor,
+                        notes,
+                        linkExpiry,
+                        mobileNumber
+                    )
                 }
             }else{
-                navigateToLinkDetails()
+                requestPaymentLoading.visibility = View.VISIBLE
+                viewModel.preparePaymentLinkGeneration(
+                    amount,
+                    paymentFor,
+                    notes,
+                    linkExpiry,
+                    mobileNumber
+                )
             }
         }
 
@@ -58,6 +89,13 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun setupOutputs(){
+        viewModel.linkDetailsResponse.observe(this, Observer {
+            requestPaymentLoading.visibility = View.GONE
+            navigateToLinkDetails(it)
+        })
     }
 
     private fun validateForm(){
@@ -159,18 +197,11 @@ class RequestForPaymentActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layo
 
     }
 
-    private fun navigateToLinkDetails(){
-        val amount = et_amount.text.toString()
-        val paymentFor = et_paymentFor.text.toString()
-        val notes = et_notes.text.toString()
-        val mobileNumebr = textInputEditTextMobileNumber.text.toString()
+    private fun navigateToLinkDetails(response: GeneratePaymentLinkResponse){
 
+        val responseJson = JsonHelper.toJson(response)
         val intent = Intent(this, LinkDetailsActivity::class.java)
-        intent.putExtra(LinkDetailsActivity.EXTRA_AMOUNT, amount)
-        intent.putExtra(LinkDetailsActivity.EXTRA_PAYMENT_FOR, paymentFor)
-        intent.putExtra(LinkDetailsActivity.EXTRA_NOTES, notes)
-        intent.putExtra(LinkDetailsActivity.EXTRA_SELECTED_EXPIRY, linkExpiry)
-        intent.putExtra(LinkDetailsActivity.EXTRA_MOBILE_NUMBER, mobileNumebr)
+        intent.putExtra(LinkDetailsActivity.EXTRA_GENERATE_PAYMENT_LINK_RESPONSE,responseJson)
         startActivityForResult(intent, LinkDetailsActivity.REQUEST_CODE)
     }
 

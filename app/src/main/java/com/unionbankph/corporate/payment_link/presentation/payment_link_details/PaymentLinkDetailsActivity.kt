@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Build
 import android.view.View
 import android.widget.TextView
@@ -45,9 +46,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     override fun onViewsBound() {
         super.onViewsBound()
         initViews()
-        setupInputs()
         setupOutputs()
-        flLoading.visibility = View.VISIBLE
     }
 
     private fun initViews(){
@@ -71,61 +70,50 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
         btnArchive.setOnClickListener{
-            if(btnArchive.text.equals("ARCHIVE")){
-                flLoading.visibility = View.VISIBLE
-                mCurrentLinkDetails?.let {
-                    viewModel.getPaymentLinkDetailsThenArchive(it.referenceId!!)
+            flLoading.visibility = View.VISIBLE
+            when(btnArchive.text){
+                "ARCHIVE" -> {
+                    mCurrentLinkDetails?.let {
+                        viewModel.getPaymentLinkDetailsThenPut(
+                            it.referenceId!!,
+                            LinkDetailsViewModel.STATUS_ARCHIVE
+                        )
+                    }
                 }
-            }else{
-                flLoading.visibility = View.VISIBLE
-                mCurrentLinkDetails?.let {
-                    viewModel.getPaymentLinkDetailsThenMarkAsUnpaid(it.referenceId!!)
+
+                "MARK AS UNPAID" -> {
+                    mCurrentLinkDetails?.let {
+                        viewModel.getPaymentLinkDetailsThenPut(
+                            it.referenceId!!,
+                            LinkDetailsViewModel.STATUS_UNPAID
+                        )
+                    }
+                }
+
+                "VIEW MORE DETAILS" -> {
+                    //TODO NAVIGATE TO VIEW MORE DETAILS
                 }
             }
         }
 
         btnOkay.setOnClickListener {
             archiveSuccess.visibility = View.GONE
+            generateNewPaymentLinkAsResult()
         }
 
-    }
+        val responseString = intent.getStringExtra(EXTRA_GENERATE_PAYMENT_LINK_RESPONSE).toString()
+        mCurrentLinkDetails = JsonHelper.fromJson(responseString)
+        setupViews(mCurrentLinkDetails!!)
 
-    private fun setupInputs() {
-
-        val amount = intent.getStringExtra(EXTRA_AMOUNT).toString()
-        val paymentFor = intent.getStringExtra(EXTRA_PAYMENT_FOR).toString()
-        val notes = intent.getStringExtra(EXTRA_NOTES).toString()
-        val selectedExpiry = intent.getStringExtra(EXTRA_SELECTED_EXPIRY).toString()
-        val mobileNumber = intent.getStringExtra(EXTRA_MOBILE_NUMBER).toString()
-        viewModel.initBundleData(
-            amount,
-            paymentFor,
-            notes,
-            selectedExpiry,
-            mobileNumber
-        )
     }
 
     private fun setupOutputs() {
-        viewModel.linkDetailsResponse.observe(this, Observer {
-            flLoading.visibility = View.INVISIBLE
-            mCurrentLinkDetails = it
-            setupViews(it)
-        })
 
-
-
-        viewModel.archivePaymentLinkResponse.observe(this, Observer {
+        viewModel.putPaymentLinkStatusResponse.observe(this, Observer {
             flLoading.visibility = View.INVISIBLE
             archiveSuccess.visibility = View.VISIBLE
+
             updateArchivedView()
-
-        })
-
-        viewModel.markAsUnpaidPaymentLinkResponse.observe(this, Observer {
-            flLoading.visibility = View.INVISIBLE
-            archiveSuccess.visibility = View.VISIBLE
-            updateUnpaidView()
 
         })
 
@@ -154,25 +142,93 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         ibURLcopy.isEnabled = false
         ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
         btnArchive.isEnabled = true
+        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+        tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+        linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+        tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+        linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
 
+    }
+
+    private fun updatePendingView(){
+        tvStatus.text = "PENDING"
+        tvStatus.setTextColor(Color.parseColor("#FF8200"))
+        tvStatus.background = getDrawable(R.drawable.bg_status_card_pending)
+        clCyberSure.visibility = View.GONE
+        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        btnArchive.visibility = View.GONE
+        btnArchive.text = "ARCHIVE"
+        imgBtnShare.isEnabled = false
+        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
+        ibURLcopy.isEnabled = false
+        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        btnArchive.isEnabled = false
+        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+        tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+        linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+        tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+        linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
     }
 
     private fun updateUnpaidView(){
         tvStatus.text = "UNPAID"
-        tvStatus.setTextColor(Color.parseColor("#FF9800"))
+        tvStatus.setTextColor(Color.parseColor("#F6B000 "))
         tvStatus.background = getDrawable(R.drawable.bg_status_card_unpaid)
         clCyberSure.visibility = View.VISIBLE
-        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        btnGenerateAnotherLink.text = "GENERATE ANOTHER LINK"
         btnArchive.text = "ARCHIVE"
         imgBtnShare.isEnabled = true
         imgBtnShare.background = getDrawable(R.drawable.ic_share_orange)
         ibURLcopy.isEnabled = true
         ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_orange)
         btnArchive.isEnabled = true
+        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+        tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+        linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+        tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+        linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+    }
+
+    private fun updateExpiredView(){
+        tvStatus.text = "EXPIRED"
+        tvStatus.setTextColor(Color.parseColor("#E83C18"))
+        tvStatus.background = getDrawable(R.drawable.bg_status_card_expired)
+        clCyberSure.visibility = View.GONE
+        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        btnArchive.visibility = View.GONE
+        btnArchive.text = "ARCHIVE"
+        imgBtnShare.isEnabled = false
+        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
+        ibURLcopy.isEnabled = false
+        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        btnArchive.isEnabled = false
+        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+        tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+        linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+        tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+        linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+    }
+
+    private fun updatePaidView(){
+        tvStatus.text = "PAID"
+        tvStatus.setTextColor(Color.parseColor("#5CA500"))
+        tvStatus.background = getDrawable(R.drawable.bg_status_card_paid)
+        clCyberSure.visibility = View.VISIBLE
+        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        btnArchive.text = "VIEW MORE DETAILS"
+        imgBtnShare.isEnabled = false
+        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
+        ibURLcopy.isEnabled = false
+        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        btnArchive.isEnabled = false
+        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_orange)
+        tvReferenceNo.setTextColor(Color.parseColor("#FFFFFF"))
+        linkDetailsRefNo.setTextColor(Color.parseColor("#FFFFFF"))
+        tvDateCreated.setTextColor(Color.parseColor("#FFFFFF"))
+        linkDetailsCreatedDate.setTextColor(Color.parseColor("#FFFFFF"))
     }
 
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
-
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.ENGLISH)
         parser.timeZone = TimeZone.getTimeZone("UTC")
@@ -213,6 +269,18 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         linkDetailsNotes.text = linkDetailsResponse.description
 
         linkDetailsPaymentLink.text = linkDetailsResponse.link
+
+        if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_ARCHIVE)){
+            updateArchivedView()
+        }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_EXPIRED)){
+            updateExpiredView()
+        }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_PAID)){
+            updatePaidView()
+        }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_UNPAID)){
+            updateUnpaidView()
+        }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_PENDING)){
+            updatePendingView()
+        }
 
     }
 
@@ -258,6 +326,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         const val EXTRA_NOTES = "notes"
         const val EXTRA_SELECTED_EXPIRY = "selected expiry"
         const val EXTRA_MOBILE_NUMBER = "mobile_number"
+        
+        const val EXTRA_GENERATE_PAYMENT_LINK_RESPONSE = "extra_generate_payment_link_response"
     }
 
 }

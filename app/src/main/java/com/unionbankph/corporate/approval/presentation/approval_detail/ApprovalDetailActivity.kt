@@ -737,7 +737,7 @@ class ApprovalDetailActivity :
             approvalDetail.fields?.sortedWith(compareBy { it.index })?.forEach {
                 val viewFields = layoutInflater.inflate(R.layout.item_textview_biller, null)
                 val textViewTitle = viewFields.findViewById<TextView>(R.id.textViewTitle)
-                val textView = viewFields.findViewById<TextView>(R.id.textView)
+                val textView = viewFields.findViewById<TextView>(R.id.tvReferenceNo)
                 textViewTitle.text = it.name
                 textView.text = it.value
                 if (viewUtil.isValidDateFormat(ViewUtil.DATE_FORMAT_DATE_SLASH, it.value) &&

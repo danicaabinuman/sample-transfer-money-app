@@ -146,7 +146,7 @@ class ManageFrequentBillerDetailActivity :
             val textViewTitle =
                 viewAllowedSourceAccount.findViewById<TextView>(R.id.textViewTitle)
             val textView =
-                viewAllowedSourceAccount.findViewById<TextView>(R.id.textView)
+                viewAllowedSourceAccount.findViewById<TextView>(R.id.tvReferenceNo)
             val viewBorder =
                 viewAllowedSourceAccount.findViewById<View>(R.id.viewBorder)
             viewBorder.visibility = View.GONE
@@ -175,7 +175,7 @@ class ManageFrequentBillerDetailActivity :
                 val textViewTitle =
                     viewAllowedSourceAccount.findViewById<TextView>(R.id.textViewTitle)
                 val textView =
-                    viewAllowedSourceAccount.findViewById<TextView>(R.id.textView)
+                    viewAllowedSourceAccount.findViewById<TextView>(R.id.tvReferenceNo)
                 val viewBorder =
                     viewAllowedSourceAccount.findViewById<View>(R.id.viewBorder)
                 textViewTitle.text = account.name
@@ -194,7 +194,7 @@ class ManageFrequentBillerDetailActivity :
             val viewFields =
                 LayoutInflater.from(context).inflate(R.layout.item_textview_biller, null)
             val textViewTitle = viewFields.findViewById<TextView>(R.id.textViewTitle)
-            val textView = viewFields.findViewById<TextView>(R.id.textView)
+            val textView = viewFields.findViewById<TextView>(R.id.tvReferenceNo)
             textViewTitle.text = it.name
             textView.text = it.value
             if (viewUtil.isValidDateFormat(ViewUtil.DATE_FORMAT_DATE_SLASH, it.value) &&

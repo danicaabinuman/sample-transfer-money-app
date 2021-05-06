@@ -42,7 +42,7 @@ abstract class SingleSelectorItemModel : EpoxyModelWithHolder<SingleSelectorItem
         lateinit var itemView: View
 
         override fun bindView(itemView: View) {
-            textView = itemView.textView
+            textView = itemView.tvReferenceNo
             viewBorderTop = itemView.viewBorderTop
             viewItemState = itemView.viewItemState
             this.itemView = itemView

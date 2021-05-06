@@ -138,7 +138,7 @@ class AccountTransactionHistoryDetailsActivity :
             billsPayment.references?.forEachIndexed { index, reference ->
                 val viewFields = layoutInflater.inflate(R.layout.item_textview_biller, null)
                 val textViewTitle = viewFields.findViewById<TextView>(R.id.textViewTitle)
-                val textView = viewFields.findViewById<TextView>(R.id.textView)
+                val textView = viewFields.findViewById<TextView>(R.id.tvReferenceNo)
                 textViewTitle.text = reference.referenceName
                 textView.text = reference.referenceValue
                 if (reference.referenceValue.isValidDateFormat(DateFormatEnum.DATE_FORMAT_DATE_SLASH)) {

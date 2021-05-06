@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textView"
+        android:id="@+id/tvReferenceNo"
         style="@style/TextViewDark"
         android:layout_width="@dimen/match_constraint"
         android:layout_margin="@dimen/content_spacing"

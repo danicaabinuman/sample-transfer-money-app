@@ -195,7 +195,7 @@ class ManageBeneficiaryDetailActivity :
             val textViewTitle =
                 viewAllowedSourceAccount.findViewById<TextView>(R.id.textViewTitle)
             val textView =
-                viewAllowedSourceAccount.findViewById<TextView>(R.id.textView)
+                viewAllowedSourceAccount.findViewById<TextView>(R.id.tvReferenceNo)
             val viewBorder =
                 viewAllowedSourceAccount.findViewById<View>(R.id.viewBorder)
             viewBorder.visibility = View.GONE
@@ -224,7 +224,7 @@ class ManageBeneficiaryDetailActivity :
                 val textViewTitle =
                     viewAllowedSourceAccount.findViewById<TextView>(R.id.textViewTitle)
                 val textView =
-                    viewAllowedSourceAccount.findViewById<TextView>(R.id.textView)
+                    viewAllowedSourceAccount.findViewById<TextView>(R.id.tvReferenceNo)
                 val viewBorder =
                     viewAllowedSourceAccount.findViewById<View>(R.id.viewBorder)
                 textViewTitle.text = account.name
