@@ -105,6 +105,7 @@
                         android:layout_marginTop="@dimen/grid_1_half"
                         app:errorEnabled="true"
                         app:errorTextColor="#ED5635"
+                        android:background="#FFFFFF"
                         android:hint="@string/hint_storehandle">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -146,7 +147,8 @@
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1_half"
-                        android:hint="@string/hint_website">
+                        android:hint="@string/hint_website"
+                        android:background="#FFFFFF">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_business_websites"
@@ -186,6 +188,7 @@
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1_half"
+                        android:background="#FFFFFF"
                         android:hint="@string/hint_product">
 
                         <com.google.android.material.textfield.TextInputEditText
