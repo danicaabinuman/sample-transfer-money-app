@@ -227,7 +227,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
 
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.ENGLISH)
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.ENGLISH)
         parser.timeZone = TimeZone.getTimeZone("UTC")
         val formatter = SimpleDateFormat("MMM dd, yyyy , hh:mm aa", Locale.ENGLISH)
         formatter.timeZone = TimeZone.getDefault()
