@@ -69,7 +69,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
                     mCurrentLinkDetails?.let {
                         viewModel.getPaymentLinkDetailsThenPut(
                             it.referenceNumber!!,
-                            LinkDetailsViewModel.STATUS_ARCHIVE
+                            LinkDetailsViewModel.STATUS_ARCHIVED
                         )
                     }
                 }
@@ -267,7 +267,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
         linkDetailsPaymentLink.text = linkDetailsResponse.link
 
-        if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_ARCHIVE)){
+        if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_ARCHIVED)){
             updateArchivedView()
         }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_EXPIRED)){
             updateExpiredView()
