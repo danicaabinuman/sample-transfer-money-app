@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.payment_link.domain.model.PaymentLinkModel
 import timber.log.Timber
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -77,7 +78,11 @@ class PaymentLinkListAdapter : RecyclerView.Adapter<PaymentLinkListAdapter.Payme
 
 
         holder.tvReferenceNumber.text = item.referenceNo
-        holder.tvAmount.text = item.amount
+
+        val amountParse = DecimalFormat("####.##")
+        val amountFormat = DecimalFormat("PHP #,###.00")
+        val finalAmount = amountFormat.format(amountParse.parse(item.amount))
+        holder.tvAmount.text = finalAmount
         holder.tvDescription.text = item.paymentFor
 
         holder.tvStatus.text = item.status
