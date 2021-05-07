@@ -45,8 +45,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun initViews(){
 
         ivBackButton.setOnClickListener{
-            val intent = Intent(this, RequestForPaymentActivity::class.java)
-            startActivity(intent)
             finish()
         }
 
@@ -336,7 +334,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         const val REQUEST_CODE = 1209
         const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
         const val EXTRA_GENERATE_PAYMENT_LINK_RESPONSE = "extra_generate_payment_link_response"
-        const val EXTRA_SHOW_LINK_DETAILS = "extra_show_link_details"
     }
 
 }
