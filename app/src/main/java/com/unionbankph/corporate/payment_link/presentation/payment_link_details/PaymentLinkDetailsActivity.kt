@@ -217,7 +217,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
         ibURLcopy.isEnabled = false
         ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
-        btnArchive.isEnabled = false
+        btnArchive.isEnabled = true
         tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_orange)
         tvReferenceNo.setTextColor(Color.parseColor("#FFFFFF"))
         linkDetailsRefNo.setTextColor(Color.parseColor("#FFFFFF"))
