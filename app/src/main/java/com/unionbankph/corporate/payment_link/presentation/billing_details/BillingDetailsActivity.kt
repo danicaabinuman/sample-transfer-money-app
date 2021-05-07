@@ -15,6 +15,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLi
 import kotlinx.android.synthetic.main.activity_billing_details.*
 import kotlinx.android.synthetic.main.activity_link_details.*
 import timber.log.Timber
+import java.lang.NumberFormatException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -84,9 +85,27 @@ class BillingDetailsActivity :
 
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse){
 
-        tvGrossAmount.text = response.paymentDetails?.amount
-        tvFee.text = response.paymentDetails?.fee.toString()
-        tvNetAmount.text = response.paymentDetails?.amount
+        var grossAmountDouble = 0.00
+        var feeDouble = 0.00
+        try {
+            grossAmountDouble = response.paymentDetails?.amount?.toDouble()!!
+        }catch (e: NumberFormatException){
+            Timber.e(e.message)
+            e.printStackTrace()
+        }
+
+        try {
+            feeDouble = response.paymentDetails?.fee?.toDouble()!!
+        }catch (e: NumberFormatException){
+            Timber.e(e.message)
+            e.printStackTrace()
+        }
+
+        var netDouble = grossAmountDouble-feeDouble
+
+        tvGrossAmount.text = grossAmountDouble.toString()
+        tvFee.text = feeDouble.toString()
+        tvNetAmount.text = netDouble.toString()
 
         tvPayorName.text = response.payorDetails?.fullName
         tvPayorEmail.text = response.payorDetails?.emailAddress
@@ -98,7 +117,7 @@ class BillingDetailsActivity :
         tvDescription.text = response.paymentDetails?.paymentFor
         tvRemarks.text = response.paymentDetails?.description
         tvLinkUrl.text = response.paymentDetails?.paymentLink
-        tvFee.text = response.paymentDetails?.fee
+
         var status = response.paymentDetails?.status
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
