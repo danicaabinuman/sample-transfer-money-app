@@ -153,8 +153,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_business_websites"
                             style="@style/TextInputEditTextForm2"
-                            android:layout_height="48dp"
-                            android:inputType="textUri" />
+                            android:layout_height="48dp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

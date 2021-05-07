@@ -620,7 +620,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorInfo</item>
-        <item name="android:inputType">text</item>
+        <item name="android:inputType">textUri</item>
         <item name="android:maxLines">3</item>
         <item name="android:singleLine">true</item>
         <item name="android:paddingStart">@dimen/content_spacing</item>
