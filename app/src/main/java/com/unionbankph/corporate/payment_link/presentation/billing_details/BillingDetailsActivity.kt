@@ -138,7 +138,7 @@ class BillingDetailsActivity :
         val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         sdf.timeZone = TimeZone.getDefault()
         val localDateAndTime = sdf.format(Date())
-        val createdDate = sdf.format(formatter.parse(createdDateString))
+        val createdDate = sdf.format(formatter.parse(response.paymentDetails?.settlementDate))
 
         if (localDateAndTime == createdDate){
             tvExpiryInformation.text = "Payment will be eligible for payout on " + createdDate
