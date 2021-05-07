@@ -63,9 +63,10 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
         btnArchive.setOnClickListener{
-            flLoading.visibility = View.VISIBLE
+
             when(btnArchive.text){
                 "ARCHIVE" -> {
+                    flLoading.visibility = View.VISIBLE
                     mCurrentLinkDetails?.let {
                         viewModel.getPaymentLinkDetailsThenPut(
                             it.referenceNumber!!,
@@ -75,6 +76,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
                 }
 
                 "MARK AS UNPAID" -> {
+                    flLoading.visibility = View.VISIBLE
                     mCurrentLinkDetails?.let {
                         viewModel.getPaymentLinkDetailsThenPut(
                             it.referenceNumber!!,
@@ -84,6 +86,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
                 }
 
                 "VIEW MORE DETAILS" -> {
+                    flLoading.visibility = View.GONE
                     val intent = Intent(this@LinkDetailsActivity, BillingDetailsActivity::class.java)
                     mCurrentLinkDetails?.let {
                         intent.putExtra(BillingDetailsActivity.EXTRA_REFERENCE_NUMBER,it.referenceNumber!!)
