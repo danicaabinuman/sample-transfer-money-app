@@ -4,8 +4,10 @@ import android.content.Intent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
@@ -15,21 +17,34 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaym
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkTransactionData
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import kotlinx.android.synthetic.main.activity_payment_link.*
+import kotlinx.android.synthetic.main.activity_payment_link.editTextSearch
+import kotlinx.android.synthetic.main.activity_payment_link.flLoading
+import kotlinx.android.synthetic.main.activity_payment_link.rvPaymentLinkList
+import kotlinx.android.synthetic.main.fragment_payment_link_list.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
 
 class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.fragment_payment_link_list){
 
+    lateinit var mAdapter : PaymentLinkListAdapter
     override fun onViewModelBound() {
         super.onViewModelBound()
         viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
+                this,
+                viewModelFactory
         )[PaymentLinkListViewModel::class.java]
     }
 
     override fun onViewsBound() {
         super.onViewsBound()
+
+        mAdapter = PaymentLinkListAdapter(applicationContext)
+        rvPaymentLinkList.adapter = mAdapter
+        mAdapter.onItemClick = {
+            flLoading.visibility = View.VISIBLE
+            it.referenceNo?.let { it1 -> viewModel.getPaymentLinkDetails(it1) }
+        }
+
         initViews()
         setupOutputs()
     }
@@ -45,6 +60,17 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
             false
         })
 
+        rvPaymentLinkList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    pbPaymentLinkListLoading.visibility = View.VISIBLE
+                    viewModel.getAllNextPaymentLinks()
+                }
+            }
+        })
+
+
     }
 
     private fun setupInputs(){
@@ -59,7 +85,21 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
     private fun setupOutputs(){
         viewModel.paymentLinkListPaginatedResponse.observe(this, Observer {
             flLoading.visibility = View.GONE
-            updateRecyclerView(it.data)
+            if(it.data?.size!! > 0){
+                mAdapter.appendData(it.data!!)
+            }else{
+                Toast.makeText(activity, "No more data available", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+        viewModel.nextPaymentLinkListPaginatedResponse.observe(this, Observer {
+            pbPaymentLinkListLoading.visibility = View.GONE
+            if(it.data?.size!! > 0){
+                mAdapter.appendData(it.data!!)
+            }else{
+                Toast.makeText(activity, "No more data available", Toast.LENGTH_SHORT).show()
+            }
         })
 
         viewModel.paymentLinkDetailsResponse.observe(this, Observer {
@@ -91,6 +131,7 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
                 when (event) {
                     is UiState.Error -> {
                         flLoading.visibility = View.GONE
+                        pbPaymentLinkListLoading.visibility = View.GONE
                         handleOnError(event.throwable)
                     }
                 }
@@ -98,20 +139,11 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         })
     }
 
-    private fun updateRecyclerView(data: List<PaymentLinkModel>?) {
-        val paymentLinksAdapter = PaymentLinkListAdapter(applicationContext, data as MutableList<PaymentLinkModel>)
-        rvPaymentLinkList.adapter = paymentLinksAdapter
-        paymentLinksAdapter.onItemClick = {
-            flLoading.visibility = View.VISIBLE
-            it.referenceNo?.let { it1 -> viewModel.getPaymentLinkDetails(it1) }
-        }
-    }
-
 
     private fun showPaymentLinkDetails(generatePaymentLinkResponse: GeneratePaymentLinkResponse){
         val intent = Intent(applicationContext, LinkDetailsActivity::class.java)
         val responseJson = JsonHelper.toJson(generatePaymentLinkResponse)
-        intent.putExtra(LinkDetailsActivity.EXTRA_GENERATE_PAYMENT_LINK_RESPONSE,responseJson)
+        intent.putExtra(LinkDetailsActivity.EXTRA_GENERATE_PAYMENT_LINK_RESPONSE, responseJson)
         startActivity(intent)
     }
 

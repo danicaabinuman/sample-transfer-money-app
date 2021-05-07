@@ -14,18 +14,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-var mData = listOf<PaymentLinkModel>()
+
 class PaymentLinkListAdapter : RecyclerView.Adapter<PaymentLinkListAdapter.PaymentLinkViewHolder> {
 
+    var mData = mutableListOf<PaymentLinkModel>()
     var mContext : Context? = null
 
-    constructor(context: Context, paymentLinks: MutableList<PaymentLinkModel>) {
-        mData = paymentLinks
+    constructor(context: Context) {
         mContext = context
     }
 
     var onItemClick: ((PaymentLinkModel) -> Unit)? = null
 
+    fun appendData(data : List<PaymentLinkModel>){
+        mData.addAll(data)
+        notifyDataSetChanged()
+    }
 
     inner class PaymentLinkViewHolder(view : View): RecyclerView.ViewHolder(view){
 

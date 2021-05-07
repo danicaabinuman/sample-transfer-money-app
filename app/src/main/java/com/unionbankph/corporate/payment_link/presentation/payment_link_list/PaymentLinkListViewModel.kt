@@ -24,7 +24,7 @@ class PaymentLinkListViewModel
         private val getPaymentLinkByReferenceIdUseCase: GetPaymentLinkByReferenceIdUseCase
 ) : BaseViewModel(){
 
-
+    private var mCurrentPage = 1;
     private val _paymentLinkDetailsResponse = MutableLiveData<GetPaymentLinkByReferenceIdResponse>()
 
     val paymentLinkDetailsResponse: LiveData<GetPaymentLinkByReferenceIdResponse>
@@ -34,6 +34,9 @@ class PaymentLinkListViewModel
     private val _paymentLinkListPaginatedResponse = MutableLiveData<GetPaymentLinkListPaginatedResponse>()
     val paymentLinkListPaginatedResponse: LiveData<GetPaymentLinkListPaginatedResponse> = _paymentLinkListPaginatedResponse
 
+    private val _nextPaymentLinkListPaginatedResponse = MutableLiveData<GetPaymentLinkListPaginatedResponse>()
+    val nextPaymentLinkListPaginatedResponse: LiveData<GetPaymentLinkListPaginatedResponse> = _nextPaymentLinkListPaginatedResponse
+
 
     fun getAllPaymentLinks() {
         getAllPaymentLinksUseCase.execute(
@@ -41,7 +44,7 @@ class PaymentLinkListViewModel
                         {
                             _paymentLinkListPaginatedResponse.value = it
                         }, {
-                    Timber.e(it, "getAccounts")
+                    Timber.e(it, "getAllPaymentLinks")
                     _uiState.value = Event(UiState.Error(it))
                 }
                 ),
@@ -51,7 +54,33 @@ class PaymentLinkListViewModel
                 doFinallyEvent = {
                     _uiState.value = Event(UiState.Complete)
                 },
-                params = GetPaymentLinkListPaginatedForm(1,10)
+                params = GetPaymentLinkListPaginatedForm(mCurrentPage,10)
+        ).addTo(disposables)
+    }
+
+    fun getAllNextPaymentLinks() {
+        mCurrentPage++
+        getAllPaymentLinksUseCase.execute(
+                getDisposableSingleObserver(
+                        {
+                            if(it.totalCount!! > 0){
+                                _nextPaymentLinkListPaginatedResponse.value = it
+                            }else{
+                                mCurrentPage--
+                            }
+
+                        }, {
+                    Timber.e(it, "getAllNextPaymentLinks")
+                    _uiState.value = Event(UiState.Error(it))
+                }
+                ),
+                doOnSubscribeEvent = {
+                    _uiState.value = Event(UiState.Loading)
+                },
+                doFinallyEvent = {
+                    _uiState.value = Event(UiState.Complete)
+                },
+                params = GetPaymentLinkListPaginatedForm(mCurrentPage,10)
         ).addTo(disposables)
     }
 
