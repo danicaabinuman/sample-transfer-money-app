@@ -286,7 +286,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             updateArchivedView()
         }else if(linkDetailsResponse.status?.contains("EXPIRE",true) == true){
             updateExpiredView()
-        }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_PAID)){
+        }else if(linkDetailsResponse.status?.contains("PAID", true) == true){
             updatePaidView()
         }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_UNPAID)){
             updateUnpaidView()
