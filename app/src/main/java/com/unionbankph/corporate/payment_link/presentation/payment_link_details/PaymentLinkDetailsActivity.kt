@@ -102,6 +102,9 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         mCurrentLinkDetails = JsonHelper.fromJson(responseString)
         setupViews(mCurrentLinkDetails!!)
 
+//        val detailsResponseString = intent.getStringExtra(EXTRA_SHOW_LINK_DETAILS).toString()
+//        mCurrentLinkDetails = JsonHelper.fromJson(detailsResponseString)
+//        setupDetailsViews(mCurrentLinkDetails!!)
     }
 
     private fun setupOutputs() {
@@ -229,6 +232,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.ENGLISH)
         parser.timeZone = TimeZone.getTimeZone("UTC")
+        val detailsParser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.ENGLISH)
+        detailsParser.timeZone = TimeZone.getTimeZone("UTC")
         val formatter = SimpleDateFormat("MMM dd, yyyy , hh:mm aa", Locale.ENGLISH)
         formatter.timeZone = TimeZone.getDefault()
 
@@ -239,6 +244,12 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
                 createdDateString = formatter.format(parser.parse(it))
             } catch (e: Exception){
                 Timber.e(e.toString()) // this never gets called either
+            }
+
+            try {
+                createdDateString = formatter.format(detailsParser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString())
             }
         }
 
@@ -252,6 +263,13 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             } catch (e: Exception){
                 Timber.e(e.toString()) // this never gets called either
             }
+
+            try {
+                expiryDateString = formatter.format(detailsParser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString())
+            }
+
         }
         tv_link_details_expiry.text = expiryDateString
 
@@ -280,6 +298,62 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
     }
+
+//    private fun setupDetailsViews(detailsResponse: GeneratePaymentLinkResponse) {
+//
+//        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.ENGLISH)
+//        parser.timeZone = TimeZone.getTimeZone("UTC")
+//        val formatter = SimpleDateFormat("MMM dd, yyyy , hh:mm aa", Locale.ENGLISH)
+//        formatter.timeZone = TimeZone.getDefault()
+//
+//        var createdDateString = "UNAVAILABLE"
+//        detailsResponse.transactionData?.createdDate?.let {
+//            createdDateString = it
+//            try {
+//                createdDateString = formatter.format(parser.parse(it))
+//            } catch (e: Exception){
+//                Timber.e(e.toString()) // this never gets called either
+//            }
+//        }
+//
+//        linkDetailsCreatedDate.text = createdDateString
+//
+//        var expiryDateString = "UNAVAILABLE"
+//        detailsResponse.expireDate?.let {
+//            expiryDateString = it
+//            try {
+//                expiryDateString = formatter.format(parser.parse(it))
+//            } catch (e: Exception){
+//                Timber.e(e.toString()) // this never gets called either
+//            }
+//        }
+//        tv_link_details_expiry.text = expiryDateString
+//
+//        val amountParse = DecimalFormat("####.##")
+//        val amountFormat = DecimalFormat("#,###.##")
+//        val finalAmount = amountFormat.format(amountParse.parse(detailsResponse.amount))
+//
+//        linkDetailsRefNo.text = detailsResponse.referenceNumber.toString()
+//
+//        linkDetailsAmount.text = finalAmount
+//        linkDetailsDescription.text = detailsResponse.paymentFor
+//        linkDetailsNotes.text = detailsResponse.description
+//
+//        linkDetailsPaymentLink.text = detailsResponse.link
+//
+//        if(detailsResponse.status?.contains("ARCHIVE",true) == true){
+//            updateArchivedView()
+//        }else if(detailsResponse.status?.contains("EXPIRE",true) == true){
+//            updateExpiredView()
+//        }else if(detailsResponse.status.equals(LinkDetailsViewModel.STATUS_PAID)){
+//            updatePaidView()
+//        }else if(detailsResponse.status.equals(LinkDetailsViewModel.STATUS_UNPAID)){
+//            updateUnpaidView()
+//        }else if(detailsResponse.status.equals(LinkDetailsViewModel.STATUS_PENDING)){
+//            updatePendingView()
+//        }
+//
+//    }
 
 
     private fun copyLink(){
@@ -319,6 +393,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         const val REQUEST_CODE = 1209
         const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
         const val EXTRA_GENERATE_PAYMENT_LINK_RESPONSE = "extra_generate_payment_link_response"
+        const val EXTRA_SHOW_LINK_DETAILS = "extra_show_link_details"
     }
 
 }
