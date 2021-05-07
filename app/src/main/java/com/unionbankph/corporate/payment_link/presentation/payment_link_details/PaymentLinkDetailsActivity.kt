@@ -57,7 +57,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
         btnGenerateAnotherLink.setOnClickListener{
-            generateNewPaymentLinkAsResult()
+            startActivity(Intent(this@LinkDetailsActivity, RequestForPaymentActivity::class.java))
+            finish()
         }
 
         btnArchive.setOnClickListener{
@@ -324,7 +325,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun generateNewPaymentLinkAsResult() {
         val data = Intent()
         data.putExtra(RESULT_SHOULD_GENERATE_NEW_LINK, true);
-
         setResult(RESULT_OK, data);
         finish()
     }

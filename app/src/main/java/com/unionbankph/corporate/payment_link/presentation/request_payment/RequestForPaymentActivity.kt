@@ -208,14 +208,8 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     private fun finishRequestPayment() {
 
         ivBackButton.setOnClickListener {
-            val intent = Intent (this, DashboardActivity::class.java)
-            startActivity(intent)
+            finish()
         }
-    }
-
-    override fun onBackPressed() {
-        val intent = Intent (this, DashboardActivity::class.java)
-        startActivity(intent)
     }
 
     private fun clearAllFields(){
