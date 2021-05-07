@@ -103,7 +103,7 @@ class BillingDetailsActivity :
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
         parser.timeZone = TimeZone.getTimeZone("UTC")
-        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa", Locale.ENGLISH)
+        val formatter = SimpleDateFormat("MMM dd, yyyy , hh:mm aa", Locale.ENGLISH)
         formatter.timeZone = TimeZone.getDefault()
 
         var createdDateString = "UNAVAILABLE"
@@ -115,8 +115,19 @@ class BillingDetailsActivity :
                 Timber.e(e.toString()) // this never gets called either
             }
         }
+
+        val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
+        sdf.timeZone = TimeZone.getDefault()
+        val localDateAndTime = sdf.format(Date())
+        val createdDate = sdf.format(formatter.parse(createdDateString))
+
+        if (localDateAndTime == createdDate){
+            tvExpiryInformation.text = "Payment will be eligible for payout on " + createdDate
+        } else {
+            tvExpiryInformation.text = "Payment has been eligible for payout since " + createdDate
+        }
+
         tvBillingDetailsDateCreated.text = createdDateString
-        tvExpiryInformation.text = "Payment has been eligible for payout since " + createdDateString
 
         var expiryDateString = "UNAVAILABLE"
         response.expiry?.let {
@@ -128,30 +139,6 @@ class BillingDetailsActivity :
             }
         }
         tvLinkExpiry.text = expiryDateString
-
-        if(status.equals("ARCHIVED",true)){
-
-            tvStatusArchived.visibility = View.VISIBLE
-            tvStatusUnpaid.visibility = View.GONE
-            tvStatusExpired.visibility = View.GONE
-            tvStatusPaid.visibility = View.GONE
-
-        }else if(status.equals("PAID", true)){
-            tvStatusArchived.visibility = View.GONE
-            tvStatusUnpaid.visibility = View.GONE
-            tvStatusExpired.visibility = View.GONE
-            tvStatusPaid.visibility = View.VISIBLE
-        }else if (status.equals("EXPIRED", true)){
-            tvStatusArchived.visibility = View.GONE
-            tvStatusUnpaid.visibility = View.GONE
-            tvStatusExpired.visibility = View.VISIBLE
-            tvStatusPaid.visibility = View.GONE
-        }else{
-            tvStatusArchived.visibility = View.GONE
-            tvStatusUnpaid.visibility = View.VISIBLE
-            tvStatusExpired.visibility = View.GONE
-            tvStatusPaid.visibility = View.GONE
-        }
 
     }
 

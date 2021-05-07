@@ -34,8 +34,22 @@ data class PaymentLinkModel(
     var paymentLink: String? = null,
 
     @SerialName("createdDate")
-    var createdDate: String? = null
+    var createdDate: String? = null,
 
+    @SerialName("isCustomerConsent")
+    var isCustomerConsent: String? = null,
+
+    @SerialName("modifiedDate")
+    var modifiedDate: String? = null,
+
+    @SerialName("paymentDate")
+    var paymentDate: String? = null,
+
+    @SerialName("settlementDate")
+    var settlementDate: String? = null,
+
+    @SerialName("settledDate")
+    var settledDate: String? = null
 
 
 

@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.payment_link.presentation.payment_link_list
 
+import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +17,11 @@ import java.util.*
 var mData = listOf<PaymentLinkModel>()
 class PaymentLinkListAdapter : RecyclerView.Adapter<PaymentLinkListAdapter.PaymentLinkViewHolder> {
 
-    constructor(paymentLinks: MutableList<PaymentLinkModel>) {
+    var mContext : Context? = null
+
+    constructor(context: Context, paymentLinks: MutableList<PaymentLinkModel>) {
         mData = paymentLinks
+        mContext = context
     }
 
     var onItemClick: ((PaymentLinkModel) -> Unit)? = null
@@ -26,10 +31,7 @@ class PaymentLinkListAdapter : RecyclerView.Adapter<PaymentLinkListAdapter.Payme
 
 
 
-        val tvStatusUnpaid: TextView = view.findViewById(R.id.tvStatusUnpaid)
-        val tvStatusArchived: TextView = view.findViewById(R.id.tvStatusArchived)
-        val tvStatusPaid: TextView = view.findViewById(R.id.tvStatusPaid)
-        val tvStatusExpired: TextView = view.findViewById(R.id.tvStatusExpired)
+        val tvStatus: TextView = view.findViewById(R.id.tvStatus)
         val tvReferenceNumber: TextView = view.findViewById(R.id.tvReferenceNumber)
         val tvAmount: TextView = view.findViewById(R.id.tvAmount)
         val tvDescription: TextView = view.findViewById(R.id.tvDescription)
@@ -73,29 +75,33 @@ class PaymentLinkListAdapter : RecyclerView.Adapter<PaymentLinkListAdapter.Payme
         holder.tvAmount.text = item.amount
         holder.tvDescription.text = item.paymentFor
 
-        holder.tvStatusUnpaid.text = item.status
-        if(item.status.equals("ARCHIVED",true)){
+        holder.tvStatus.text = item.status
 
-            holder.tvStatusArchived.visibility = View.VISIBLE
-            holder.tvStatusUnpaid.visibility = View.GONE
-            holder.tvStatusExpired.visibility = View.GONE
-            holder.tvStatusPaid.visibility = View.GONE
+        if(item.status?.contains("ARCHIVE",true) == true){
 
-        }else if(item.status.equals("PAID", true)){
-            holder.tvStatusArchived.visibility = View.GONE
-            holder.tvStatusUnpaid.visibility = View.GONE
-            holder.tvStatusExpired.visibility = View.GONE
-            holder.tvStatusPaid.visibility = View.VISIBLE
-        }else if (item.status.equals("EXPIRED", true)){
-            holder.tvStatusArchived.visibility = View.GONE
-            holder.tvStatusUnpaid.visibility = View.GONE
-            holder.tvStatusExpired.visibility = View.VISIBLE
-            holder.tvStatusPaid.visibility = View.GONE
-        }else{
-            holder.tvStatusArchived.visibility = View.GONE
-            holder.tvStatusUnpaid.visibility = View.VISIBLE
-            holder.tvStatusExpired.visibility = View.GONE
-            holder.tvStatusPaid.visibility = View.GONE
+            holder.tvStatus.background = mContext?.getDrawable(R.drawable.bg_archived)
+            holder.tvStatus.setTextColor(Color.parseColor("#4A4A4A"))
+
+        }else if(item.status?.equals("PAID",true) == true){
+
+            holder.tvStatus.background = mContext?.getDrawable(R.drawable.bg_paid)
+            holder.tvStatus.setTextColor(Color.parseColor("#5CA500"))
+
+        }else if(item.status?.contains("EXPIRE",true) == true){
+
+            holder.tvStatus.background = mContext?.getDrawable(R.drawable.bg_expired)
+            holder.tvStatus.setTextColor(Color.parseColor("#E83C18"))
+
+        }else if(item.status?.contains("PENDING",true) == true){
+
+            holder.tvStatus.background = mContext?.getDrawable(R.drawable.bg_pending)
+            holder.tvStatus.setTextColor(Color.parseColor("#FF8200"))
+
+        }else if(item.status?.equals("UNPAID",true) == true){
+
+            holder.tvStatus.background = mContext?.getDrawable(R.drawable.bg_unpaid)
+            holder.tvStatus.setTextColor(Color.parseColor("#F6B000"))
+
         }
 
     }

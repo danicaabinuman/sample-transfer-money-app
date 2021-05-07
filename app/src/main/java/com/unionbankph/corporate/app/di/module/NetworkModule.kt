@@ -80,6 +80,7 @@ class NetworkModule {
             logInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(logInterceptor)
         }
+        builder.cache(null)
         return builder.build()
     }
 

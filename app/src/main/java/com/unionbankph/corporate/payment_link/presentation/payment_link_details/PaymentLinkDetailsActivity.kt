@@ -5,24 +5,17 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.opengl.Visibility
-import android.os.Build
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.extension.setColor
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
-import com.unionbankph.corporate.payment_link.presentation.payment_link.PaymentLinkActivity
+import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import kotlinx.android.synthetic.main.activity_archive_success.*
 import kotlinx.android.synthetic.main.activity_link_details.*
 import timber.log.Timber
@@ -75,8 +68,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
                 "ARCHIVE" -> {
                     mCurrentLinkDetails?.let {
                         viewModel.getPaymentLinkDetailsThenPut(
-                            it.referenceId!!,
-                            LinkDetailsViewModel.STATUS_ARCHIVE
+                            it.referenceNumber!!,
+                            LinkDetailsViewModel.STATUS_ARCHIVED
                         )
                     }
                 }
@@ -84,14 +77,18 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
                 "MARK AS UNPAID" -> {
                     mCurrentLinkDetails?.let {
                         viewModel.getPaymentLinkDetailsThenPut(
-                            it.referenceId!!,
+                            it.referenceNumber!!,
                             LinkDetailsViewModel.STATUS_UNPAID
                         )
                     }
                 }
 
                 "VIEW MORE DETAILS" -> {
-                    //TODO NAVIGATE TO VIEW MORE DETAILS
+                    val intent = Intent(this@LinkDetailsActivity, BillingDetailsActivity::class.java)
+                    mCurrentLinkDetails?.let {
+                        intent.putExtra(BillingDetailsActivity.EXTRA_REFERENCE_NUMBER,it.referenceNumber!!)
+                    }
+                    startActivity(intent)
                 }
             }
         }
@@ -230,7 +227,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
 
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.ENGLISH)
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.ENGLISH)
         parser.timeZone = TimeZone.getTimeZone("UTC")
         val formatter = SimpleDateFormat("MMM dd, yyyy , hh:mm aa", Locale.ENGLISH)
         formatter.timeZone = TimeZone.getDefault()
@@ -262,7 +259,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         val amountFormat = DecimalFormat("#,###.##")
         val finalAmount = amountFormat.format(amountParse.parse(linkDetailsResponse.amount))
 
-        linkDetailsRefNo.text = linkDetailsResponse.referenceId.toString()
+        linkDetailsRefNo.text = linkDetailsResponse.referenceNumber.toString()
 
         linkDetailsAmount.text = finalAmount
         linkDetailsDescription.text = linkDetailsResponse.paymentFor
@@ -270,9 +267,9 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
         linkDetailsPaymentLink.text = linkDetailsResponse.link
 
-        if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_ARCHIVE)){
+        if(linkDetailsResponse.status?.contains("ARCHIVE",true) == true){
             updateArchivedView()
-        }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_EXPIRED)){
+        }else if(linkDetailsResponse.status?.contains("EXPIRE",true) == true){
             updateExpiredView()
         }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_PAID)){
             updatePaidView()
@@ -321,12 +318,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     companion object {
         const val REQUEST_CODE = 1209
         const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
-        const val EXTRA_AMOUNT = "amount"
-        const val EXTRA_PAYMENT_FOR = "pament for"
-        const val EXTRA_NOTES = "notes"
-        const val EXTRA_SELECTED_EXPIRY = "selected expiry"
-        const val EXTRA_MOBILE_NUMBER = "mobile_number"
-        
         const val EXTRA_GENERATE_PAYMENT_LINK_RESPONSE = "extra_generate_payment_link_response"
     }
 

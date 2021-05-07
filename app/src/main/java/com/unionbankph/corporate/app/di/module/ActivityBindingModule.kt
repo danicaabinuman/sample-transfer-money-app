@@ -88,7 +88,6 @@ import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewAct
 import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryActivity
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
-import com.unionbankph.corporate.payment_link.presentation.payment_link.PaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
@@ -520,7 +519,4 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract fun activityLogsActivity(): ActivityLogsActivity
 
-    @PerActivity
-    @ContributesAndroidInjector
-    abstract fun paymentLinkActivity(): PaymentLinkActivity
 }

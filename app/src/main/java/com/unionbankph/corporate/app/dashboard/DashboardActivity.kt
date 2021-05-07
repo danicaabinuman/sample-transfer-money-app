@@ -572,6 +572,22 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     popStackFragmentNotifications()
                 }
             }
+        } else if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_TRANSACT]) {
+            val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
+            if (transactTabFragment.isAdded) {
+
+
+                val fragmentManager = transactTabFragment.childFragmentManager
+                val fragmentTag = transactTabFragment
+                        .childFragmentManager
+                        .getBackStackEntryAt(fragmentManager.backStackEntryCount - 1)
+                        .name
+                if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT,true)) {
+                    transactTabFragment.childFragmentManager.popBackStackImmediate()
+                } else {
+                    showLogoutBottomSheet()
+                }
+            }
         } else {
             if (viewApprovalsNavigation.visibility == View.VISIBLE) {
                 eventBus.actionSyncEvent.emmit(

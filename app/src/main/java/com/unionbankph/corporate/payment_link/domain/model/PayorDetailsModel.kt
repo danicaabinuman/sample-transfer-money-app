@@ -16,6 +16,9 @@ data class PayorDetailsModel(
     var paymentMethod: String? = null,
 
     @SerialName("mobileNumber")
-    var mobileNumber: String? = null
+    var mobileNumber: String? = null,
+
+    @SerialName("isCustomerConsent")
+    var isCustomerConsent: String? = null
 
 )

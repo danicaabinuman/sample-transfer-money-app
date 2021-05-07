@@ -75,7 +75,7 @@ class LinkDetailsViewModel
     }
 
     companion object{
-        const val STATUS_ARCHIVE = "archive"
+        const val STATUS_ARCHIVED = "archived"
         const val STATUS_PAID = "paid"
         const val STATUS_UNPAID = "unpaid"
         const val STATUS_PENDING = "pending"
