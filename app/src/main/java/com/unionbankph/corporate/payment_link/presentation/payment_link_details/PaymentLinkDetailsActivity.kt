@@ -272,7 +272,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         tv_link_details_expiry.text = expiryDateString
 
         val amountParse = DecimalFormat("####.##")
-        val amountFormat = DecimalFormat("#,###.##")
+        val amountFormat = DecimalFormat("#,###.00")
         val finalAmount = amountFormat.format(amountParse.parse(linkDetailsResponse.amount))
 
         linkDetailsRefNo.text = linkDetailsResponse.referenceNumber.toString()
