@@ -60,6 +60,7 @@
                     style="@style/TextInputLayoutForm"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
+                    android:background="#FFFFFF"
                     app:hintEnabled="false">
 
 
@@ -89,7 +90,8 @@
                     style="@style/TextInputLayoutForm"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
-                    android:hint="@string/hint_eg_10_peppermint_candles">
+                    android:hint="@string/hint_eg_10_peppermint_candles"
+                    android:background="#FFFFFF">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_paymentFor"
@@ -127,7 +129,8 @@
                     style="@style/TextInputLayoutForm"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
-                    android:hint="@string/hint_eg_for_marga">
+                    android:hint="@string/hint_eg_for_marga"
+                    android:background="#FFFFFF">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_notes"
@@ -148,7 +151,7 @@
                     android:id="@+id/til_status"
                     style="@style/Spinner.DropDownOrange"
                     android:layout_width="match_parent"
-                    >
+                    android:background="#FFFFFF">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
