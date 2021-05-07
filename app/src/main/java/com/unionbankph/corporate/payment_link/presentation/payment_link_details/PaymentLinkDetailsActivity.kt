@@ -169,7 +169,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
     private fun updateUnpaidView(){
         tvStatus.text = "UNPAID"
-        tvStatus.setTextColor(Color.parseColor("#F6B000 "))
+        tvStatus.setTextColor(Color.parseColor("#F6B000"))
         tvStatus.background = getDrawable(R.drawable.bg_status_card_unpaid)
         clCyberSure.visibility = View.VISIBLE
         btnGenerateAnotherLink.text = "GENERATE ANOTHER LINK"
@@ -271,11 +271,11 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             updateArchivedView()
         }else if(linkDetailsResponse.status?.contains("EXPIRE",true) == true){
             updateExpiredView()
-        }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_PAID)){
+        }else if(linkDetailsResponse.status.equals("PAID", true)){
             updatePaidView()
-        }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_UNPAID)){
+        }else if(linkDetailsResponse.status.equals("UNPAID", true)){
             updateUnpaidView()
-        }else if(linkDetailsResponse.status.equals(LinkDetailsViewModel.STATUS_PENDING)){
+        }else if(linkDetailsResponse.status.equals("PENDING", true)){
             updatePendingView()
         }
 
