@@ -45,9 +45,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun initViews(){
 
         ivBackButton.setOnClickListener{
-            val intent = Intent(this, RequestForPaymentActivity::class.java)
-            startActivity(intent)
-            finish()
+            generateNewPaymentLinkAsResult()
         }
 
         imgBtnShare.setOnClickListener{
