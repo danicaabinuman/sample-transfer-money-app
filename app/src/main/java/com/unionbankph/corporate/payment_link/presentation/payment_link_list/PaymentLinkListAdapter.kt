@@ -56,19 +56,19 @@ class PaymentLinkListAdapter : RecyclerView.Adapter<PaymentLinkListAdapter.Payme
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
         parser.timeZone = TimeZone.getTimeZone("UTC")
-        val formatter = SimpleDateFormat("MMM dd, yyyy hh:mm:aa", Locale.ENGLISH)
+        val formatter = SimpleDateFormat("MMM dd, yyyy, hh:mm aa", Locale.ENGLISH)
         formatter.timeZone = TimeZone.getDefault()
 
-        var expiryDate = "UNAVAILABLE"
-        item.expireDate?.let {
-            expiryDate = it
+        var dateCreated = "UNAVAILABLE"
+        item.createdDate?.let {
+            dateCreated = it
             try {
-                expiryDate = formatter.format(parser.parse(item.expireDate))
+                dateCreated = formatter.format(parser.parse(item.createdDate))
             } catch (e: Exception){
                 Timber.e(e.toString()) // this never gets called either
             }
         }
-        holder.tvDateTime.text = expiryDate
+        holder.tvDateTime.text = dateCreated
 
 
         holder.tvReferenceNumber.text = item.referenceNo

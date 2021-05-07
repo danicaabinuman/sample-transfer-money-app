@@ -227,8 +227,10 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
 
-        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.ENGLISH)
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",Locale.ENGLISH)
         parser.timeZone = TimeZone.getTimeZone("UTC")
+        val detailsParser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.ENGLISH)
+        detailsParser.timeZone = TimeZone.getTimeZone("UTC")
         val formatter = SimpleDateFormat("MMM dd, yyyy , hh:mm aa", Locale.ENGLISH)
         formatter.timeZone = TimeZone.getDefault()
 
@@ -239,6 +241,12 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
                 createdDateString = formatter.format(parser.parse(it))
             } catch (e: Exception){
                 Timber.e(e.toString()) // this never gets called either
+            }
+
+            try {
+                createdDateString = formatter.format(detailsParser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString())
             }
         }
 
@@ -252,6 +260,13 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             } catch (e: Exception){
                 Timber.e(e.toString()) // this never gets called either
             }
+
+            try {
+                expiryDateString = formatter.format(detailsParser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString())
+            }
+
         }
         tv_link_details_expiry.text = expiryDateString
 
@@ -271,7 +286,11 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             updateArchivedView()
         }else if(linkDetailsResponse.status?.contains("EXPIRE",true) == true){
             updateExpiredView()
+<<<<<<< HEAD
         }else if(linkDetailsResponse.status.equals("PAID", true)){
+=======
+        }else if(linkDetailsResponse.status?.contains("PAID", true) == true){
+>>>>>>> develop
             updatePaidView()
         }else if(linkDetailsResponse.status.equals("UNPAID", true)){
             updateUnpaidView()
@@ -280,7 +299,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
     }
-
 
     private fun copyLink(){
         ibURLcopy.setOnClickListener{
@@ -319,6 +337,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         const val REQUEST_CODE = 1209
         const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
         const val EXTRA_GENERATE_PAYMENT_LINK_RESPONSE = "extra_generate_payment_link_response"
+        const val EXTRA_SHOW_LINK_DETAILS = "extra_show_link_details"
     }
 
 }
