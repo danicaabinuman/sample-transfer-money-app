@@ -63,7 +63,7 @@ class PaymentLinkListAdapter : RecyclerView.Adapter<PaymentLinkListAdapter.Payme
         item.createdDate?.let {
             dateCreated = it
             try {
-                dateCreated = formatter.format(parser.parse(item.expireDate))
+                dateCreated = formatter.format(parser.parse(item.createdDate))
             } catch (e: Exception){
                 Timber.e(e.toString()) // this never gets called either
             }
