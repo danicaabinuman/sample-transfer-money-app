@@ -4,6 +4,7 @@ import com.unionbankph.corporate.auth.data.model.CorporateUser
 import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemote
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
@@ -33,7 +34,7 @@ class PaymentLinkGatewayImpl
         }
         generatePaymentLinkForm.organizationName = orgName
 
-        var corporateUser = cacheManager.getObject(CacheManager.CORPORATE_USER) as? CorporateUser
+        var corporateUser = JsonHelper.fromJson<CorporateUser>(cacheManager.get(CacheManager.CORPORATE_USER))
         if(corporateUser?.id != null){
             generatePaymentLinkForm.corporateId = corporateUser.id
         }
