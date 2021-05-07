@@ -22,6 +22,7 @@ class PaymentLinkListAdapter : RecyclerView.Adapter<PaymentLinkListAdapter.Payme
 
     constructor(context: Context) {
         mContext = context
+        mData = mutableListOf()
     }
 
     var onItemClick: ((PaymentLinkModel) -> Unit)? = null

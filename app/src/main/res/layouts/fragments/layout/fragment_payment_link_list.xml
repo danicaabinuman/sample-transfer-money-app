@@ -57,6 +57,8 @@
         android:id="@+id/flLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:clickable="true"
         android:background="#88000000"
         android:visibility="gone">
 

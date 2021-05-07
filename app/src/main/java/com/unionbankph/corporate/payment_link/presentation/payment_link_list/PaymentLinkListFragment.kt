@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_send_request.*
 class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.fragment_payment_link_list){
 
     lateinit var mAdapter : PaymentLinkListAdapter
+    var mDisableLazyLoading = false
     override fun onViewModelBound() {
         super.onViewModelBound()
         viewModel = ViewModelProviders.of(
@@ -37,13 +38,6 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
 
     override fun onViewsBound() {
         super.onViewsBound()
-
-        mAdapter = PaymentLinkListAdapter(applicationContext)
-        rvPaymentLinkList.adapter = mAdapter
-        mAdapter.onItemClick = {
-            flLoading.visibility = View.VISIBLE
-            it.referenceNo?.let { it1 -> viewModel.getPaymentLinkDetails(it1) }
-        }
 
         initViews()
         setupOutputs()
@@ -64,8 +58,11 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    pbPaymentLinkListLoading.visibility = View.VISIBLE
-                    viewModel.getAllNextPaymentLinks()
+                    if(!mDisableLazyLoading){
+                        pbPaymentLinkListLoading.visibility = View.VISIBLE
+                        rvPaymentLinkList.scrollToPosition((rvPaymentLinkList.adapter?.itemCount ?: 1) - 1);
+                        viewModel.getAllNextPaymentLinks()
+                    }
                 }
             }
         })
@@ -73,22 +70,28 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
 
     }
 
-    private fun setupInputs(){
-        flLoading.visibility = View.VISIBLE
-        viewModel.getAllPaymentLinks()
-    }
-
     override fun onResume() {
         super.onResume()
-        setupInputs()
+
+        mDisableLazyLoading = false
+        mAdapter = PaymentLinkListAdapter(applicationContext)
+        rvPaymentLinkList.adapter = mAdapter
+        mAdapter.onItemClick = {
+            flLoading.visibility = View.VISIBLE
+            it.referenceNo?.let { it1 -> viewModel.getPaymentLinkDetails(it1) }
+        }
+
+        flLoading.visibility = View.VISIBLE
+        viewModel.getAllPaymentLinks()
     }
     private fun setupOutputs(){
         viewModel.paymentLinkListPaginatedResponse.observe(this, Observer {
             flLoading.visibility = View.GONE
             if(it.data?.size!! > 0){
+                mDisableLazyLoading = false
                 mAdapter.appendData(it.data!!)
             }else{
-                Toast.makeText(activity, "No more data available", Toast.LENGTH_SHORT).show()
+                mDisableLazyLoading = true
             }
 
         })
@@ -96,14 +99,14 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         viewModel.nextPaymentLinkListPaginatedResponse.observe(this, Observer {
             pbPaymentLinkListLoading.visibility = View.GONE
             if(it.data?.size!! > 0){
+                mDisableLazyLoading = false
                 mAdapter.appendData(it.data!!)
             }else{
-                Toast.makeText(activity, "No more data available", Toast.LENGTH_SHORT).show()
+                mDisableLazyLoading = true
             }
         })
 
         viewModel.paymentLinkDetailsResponse.observe(this, Observer {
-            flLoading.visibility = View.GONE
             showPaymentLinkDetails(
                     GeneratePaymentLinkResponse(
                             it.paymentDetails?.paymentLink,

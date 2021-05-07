@@ -39,6 +39,7 @@ class PaymentLinkListViewModel
 
 
     fun getAllPaymentLinks() {
+        mCurrentPage = 1
         getAllPaymentLinksUseCase.execute(
                 getDisposableSingleObserver(
                         {
