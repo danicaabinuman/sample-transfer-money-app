@@ -192,7 +192,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_business_products_offered"
-                            style="@style/TextInputEditTextForm2"
+                            style="@style/TextInputEditTextFormProducts"
                             android:layout_height="48dp"
                             android:inputType="text" />
 
