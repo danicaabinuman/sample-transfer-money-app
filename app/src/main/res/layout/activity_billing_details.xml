@@ -204,9 +204,17 @@
                         android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/ic_gcash"
+                        android:id="@+id/instapayLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_fund_transfer_instapay"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/ubLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_ub_orange"
                         android:visibility="gone"/>
                 </LinearLayout>
 

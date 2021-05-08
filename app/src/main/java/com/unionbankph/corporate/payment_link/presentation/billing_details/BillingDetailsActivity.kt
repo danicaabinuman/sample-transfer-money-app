@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_billing_details.*
 import kotlinx.android.synthetic.main.activity_link_details.*
 import timber.log.Timber
 import java.lang.NumberFormatException
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -85,17 +86,24 @@ class BillingDetailsActivity :
 
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse){
 
-        var grossAmountDouble = 0.00
+        val amountParse = DecimalFormat("####.##")
+        val amountFormat = DecimalFormat("#,##0.00")
+
+        var grossAmountString = ""
+        var feeString = ""
         var feeDouble = 0.00
+        var grossAmountDouble = 0.00
         try {
-            grossAmountDouble = response.paymentDetails?.amount?.toDouble()!!
+            grossAmountString = amountFormat.format(response.paymentDetails?.amount?.toDouble()!!)
+            grossAmountDouble = grossAmountString.toDouble()
         }catch (e: NumberFormatException){
             Timber.e(e.message)
             e.printStackTrace()
         }
 
         try {
-            feeDouble = response.paymentDetails?.fee?.toDouble()!!
+            feeString = amountFormat.format(response.paymentDetails?.fee?.toDouble()!!)
+            feeDouble = feeString.toDouble()
         }catch (e: NumberFormatException){
             Timber.e(e.message)
             e.printStackTrace()
@@ -103,17 +111,28 @@ class BillingDetailsActivity :
 
         var netDouble = grossAmountDouble-feeDouble
 
-        tvGrossAmount.text = grossAmountDouble.toString()
-        tvFee.text = feeDouble.toString()
-        tvNetAmount.text = netDouble.toString()
+        tvGrossAmount.text = grossAmountString
+        tvFee.text = feeString
+        tvNetAmount.text = amountFormat.format(netDouble)
 
         tvPayorName.text = response.payorDetails?.fullName
         tvPayorEmail.text = response.payorDetails?.emailAddress
         tvPayorContactNumber.text = response.payorDetails?.mobileNumber
+        var paymentMethod = response.payorDetails?.paymentMethod
+
+        if (paymentMethod == "instapay"){
+            instapayLogo.visibility = View.VISIBLE
+            ubLogo.visibility = View.GONE
+        }else if (paymentMethod == "ub"){
+            instapayLogo.visibility = View.GONE
+            ubLogo.visibility = View.VISIBLE
+        } else {
+            Toast.makeText(this, "no payment method present", Toast.LENGTH_SHORT).show()
+        }
 
         tvRefNumber.text = response.paymentDetails?.referenceNo
         tvReferenceNumberTitle.text = response.paymentDetails?.referenceNo
-        tvAmount.text = response.paymentDetails?.amount
+        tvAmount.text = amountFormat.format(netDouble)
         tvDescription.text = response.paymentDetails?.paymentFor
         tvRemarks.text = response.paymentDetails?.description
         tvLinkUrl.text = response.paymentDetails?.paymentLink
