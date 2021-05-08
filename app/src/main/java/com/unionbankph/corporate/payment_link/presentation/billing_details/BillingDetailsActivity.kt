@@ -110,6 +110,17 @@ class BillingDetailsActivity :
         tvPayorName.text = response.payorDetails?.fullName
         tvPayorEmail.text = response.payorDetails?.emailAddress
         tvPayorContactNumber.text = response.payorDetails?.mobileNumber
+        var paymentMethod = response.payorDetails?.paymentMethod
+
+        if (paymentMethod == "instapay"){
+            instapayLogo.visibility = View.VISIBLE
+            ubLogo.visibility = View.GONE
+        }else if (paymentMethod == "ub"){
+            instapayLogo.visibility = View.GONE
+            ubLogo.visibility = View.VISIBLE
+        } else {
+            Toast.makeText(this, "no payment method present", Toast.LENGTH_SHORT).show()
+        }
 
         tvRefNumber.text = response.paymentDetails?.referenceNo
         tvReferenceNumberTitle.text = response.paymentDetails?.referenceNo
