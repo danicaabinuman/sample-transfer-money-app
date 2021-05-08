@@ -154,15 +154,34 @@ class BillingDetailsActivity :
             }
         }
 
+        var settlementDateString = "UNAVAILABLE"
         val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         sdf.timeZone = TimeZone.getDefault()
         val localDateAndTime = sdf.format(Date())
-        val createdDate = sdf.format(formatter.parse(response.paymentDetails?.settlementDate))
 
-        if (localDateAndTime == createdDate){
-            tvExpiryInformation.text = "Payment will be eligible for payout on " + createdDate
+        response.paymentDetails?.settlementDate?.let {
+            settlementDateString = it
+            try {
+                settlementDateString = sdf.format(parser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString())
+            }
+        }
+
+        var settledDateString = "UNAVAILABLE"
+        response.paymentDetails?.settledDate?.let {
+            settledDateString = it
+            try {
+                settledDateString = sdf.format(parser.parse(it))
+            } catch (e: Exception){
+                Timber.e(e.toString())
+            }
+        }
+
+        if (localDateAndTime <= settlementDateString){
+            tvExpiryInformation.text = "Payment will be eligible for payout on " + settlementDateString
         } else {
-            tvExpiryInformation.text = "Payment has been eligible for payout since " + createdDate
+            tvExpiryInformation.text = "Payment has been eligible for payout since " + settledDateString
         }
 
         tvBillingDetailsDateCreated.text = createdDateString
