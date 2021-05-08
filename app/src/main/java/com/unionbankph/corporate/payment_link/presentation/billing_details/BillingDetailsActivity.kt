@@ -120,10 +120,10 @@ class BillingDetailsActivity :
         tvPayorContactNumber.text = response.payorDetails?.mobileNumber
         var paymentMethod = response.payorDetails?.paymentMethod
 
-        if (paymentMethod == "instapay"){
+        if (paymentMethod == "INSTAPAY"){
             instapayLogo.visibility = View.VISIBLE
             ubLogo.visibility = View.GONE
-        }else if (paymentMethod == "ub"){
+        }else if (paymentMethod == "UB ONLINE"){
             instapayLogo.visibility = View.GONE
             ubLogo.visibility = View.VISIBLE
         } else {
