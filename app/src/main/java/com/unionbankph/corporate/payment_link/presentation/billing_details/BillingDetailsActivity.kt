@@ -87,7 +87,7 @@ class BillingDetailsActivity :
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse){
 
         val amountParse = DecimalFormat("####.##")
-        val amountFormat = DecimalFormat("PHP #,##0.00")
+        val amountFormat = DecimalFormat("#,##0.00")
         val feeFormat = DecimalFormat("#,##0.00")
 
         var grossAmountString = ""
@@ -112,6 +112,16 @@ class BillingDetailsActivity :
 
         var netDouble = grossAmountDouble-feeDouble
 
+        val amountFormatFinal = DecimalFormat("PHP #,##0.00")
+
+        try {
+            grossAmountString = amountFormatFinal.format(response.paymentDetails?.amount?.toDouble()!!)
+
+        }catch (e: NumberFormatException){
+            Timber.e(e.message)
+            e.printStackTrace()
+        }
+
         val feeFormatFinal = DecimalFormat("- #,##0.00")
         try {
             feeString = feeFormatFinal.format(response.paymentDetails?.fee?.toDouble()!!)
@@ -122,7 +132,7 @@ class BillingDetailsActivity :
 
         tvGrossAmount.text = grossAmountString
         tvFee.text = feeString
-        tvNetAmount.text = amountFormat.format(netDouble)
+        tvNetAmount.text = amountFormatFinal.format(netDouble)
 
         tvPayorName.text = response.payorDetails?.fullName
         tvPayorEmail.text = response.payorDetails?.emailAddress
@@ -141,7 +151,7 @@ class BillingDetailsActivity :
 
         tvRefNumber.text = response.paymentDetails?.referenceNo
         tvReferenceNumberTitle.text = response.paymentDetails?.referenceNo
-        tvAmount.text = amountFormat.format(netDouble)
+        tvAmount.text = amountFormatFinal.format(netDouble)
         tvDescription.text = response.paymentDetails?.paymentFor
         tvRemarks.text = response.paymentDetails?.description
         tvLinkUrl.text = response.paymentDetails?.paymentLink
