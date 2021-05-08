@@ -193,7 +193,7 @@ class BillingDetailsActivity :
             tvExpiryInformation.text = "Payment has been eligible for payout since " + settledDateString
         }
 
-        tvBillingDetailsDateCreated.text = createdDateString
+        tvBillingDetailsDateSettled.text = settledDateString
 
         var expiryDateString = "UNAVAILABLE"
         response.expiry?.let {
