@@ -110,7 +110,7 @@ class BillingDetailsActivity :
             e.printStackTrace()
         }
 
-        var netDouble = grossAmountDouble+feeDouble
+        var netDouble = grossAmountDouble-feeDouble
 
         val feeFormatFinal = DecimalFormat("- #,##0.00")
         try {
