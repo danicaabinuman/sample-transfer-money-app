@@ -18,7 +18,7 @@
     <integer name="max_length_tin">12</integer>
     <integer name="max_length_mobile_number_ph">10</integer>
     <integer name="max_length_mobile_number">30</integer>
-    <integer name="max_length_amount">18</integer>
+    <integer name="max_length_amount">16</integer>
     <integer name="max_length_amount_without_limit">50</integer>
     <integer name="remarks_max_length_field">30</integer>
     <integer name="max_length_field_100">100</integer>
