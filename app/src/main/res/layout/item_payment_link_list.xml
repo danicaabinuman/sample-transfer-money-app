@@ -40,7 +40,7 @@
 
             <TextView
                 android:id="@+id/tvStatus"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:visibility="visible"
                 android:layout_height="wrap_content"
                 android:textSize="8sp"

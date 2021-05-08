@@ -213,7 +213,7 @@
                     <ImageView
                         android:id="@+id/ubLogo"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="16dp"
                         android:src="@drawable/ic_ub_orange"
                         android:visibility="gone"/>
                 </LinearLayout>

@@ -87,7 +87,8 @@ class BillingDetailsActivity :
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse){
 
         val amountParse = DecimalFormat("####.##")
-        val amountFormat = DecimalFormat("#,##0.00")
+        val amountFormat = DecimalFormat("PHP #,##0.00")
+        val feeFormat = DecimalFormat("#,##0.00")
 
         var grossAmountString = ""
         var feeString = ""
@@ -102,14 +103,22 @@ class BillingDetailsActivity :
         }
 
         try {
-            feeString = amountFormat.format(response.paymentDetails?.fee?.toDouble()!!)
+            feeString = feeFormat.format(response.paymentDetails?.fee?.toDouble()!!)
             feeDouble = feeString.toDouble()
         }catch (e: NumberFormatException){
             Timber.e(e.message)
             e.printStackTrace()
         }
 
-        var netDouble = grossAmountDouble-feeDouble
+        var netDouble = grossAmountDouble+feeDouble
+
+        val feeFormatFinal = DecimalFormat("- #,##0.00")
+        try {
+            feeString = feeFormatFinal.format(response.paymentDetails?.fee?.toDouble()!!)
+        }catch (e: NumberFormatException){
+            Timber.e(e.message)
+            e.printStackTrace()
+        }
 
         tvGrossAmount.text = grossAmountString
         tvFee.text = feeString
@@ -120,10 +129,10 @@ class BillingDetailsActivity :
         tvPayorContactNumber.text = response.payorDetails?.mobileNumber
         var paymentMethod = response.payorDetails?.paymentMethod
 
-        if (paymentMethod == "instapay"){
+        if (paymentMethod == "INSTAPAY"){
             instapayLogo.visibility = View.VISIBLE
             ubLogo.visibility = View.GONE
-        }else if (paymentMethod == "ub"){
+        }else if (paymentMethod == "UB ONLINE"){
             instapayLogo.visibility = View.GONE
             ubLogo.visibility = View.VISIBLE
         } else {
