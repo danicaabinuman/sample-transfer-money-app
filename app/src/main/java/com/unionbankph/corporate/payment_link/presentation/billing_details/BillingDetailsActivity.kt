@@ -202,7 +202,7 @@ class BillingDetailsActivity :
 
         if(settlementDateLocal!=null){
             val elapsedTimeSinceSettlementDate = settlementDateLocal!!.time - localDate.time
-            if(elapsedTimeSinceSettlementDate<=0){
+            if(elapsedTimeSinceSettlementDate>0){
                 tvExpiryInformation.text = "Payment will be eligible for payout on " + settlementDateString
             }else{
                 tvExpiryInformation.text = "Payment has been eligible for payout since " + settlementDateString
