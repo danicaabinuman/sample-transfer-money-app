@@ -30,20 +30,7 @@
                 app:layout_constraintTop_toTopOf="@+id/viewBadge"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewTitle"
-                style="@style/TextViewThemeLarge"
-                android:layout_width="@dimen/match_constraint"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/content_spacing"
-                android:layout_marginEnd="@dimen/content_item_spacing"
-                android:gravity="top"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
-                app:layout_constraintEnd_toStartOf="@+id/btnRequestPayment"
-                app:layout_constraintStart_toEndOf="@+id/viewBadge"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCorporationName"
-                app:layout_constraintVertical_chainStyle="packed" />
+
 
             <TextView
                 android:id="@+id/btnRequestPayment"
@@ -55,13 +42,31 @@
                 android:gravity="center"
                 android:text="@string/dashboard_appbar_request_payment"
                 android:textAllCaps="true"
+                android:maxLines="1"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_12"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewHelp"
                 app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"
-                app:layout_constraintStart_toEndOf="@+id/textViewCorporationName"
                 app:layout_constraintTop_toTopOf="@+id/imageViewHelp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTitle"
+                style="@style/TextViewThemeLarge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_item_spacing"
+                android:gravity="top"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="SAMPLE ORGANIZATION"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@+id/btnRequestPayment"
+                app:layout_constraintStart_toEndOf="@+id/viewBadge"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCorporationName"
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <include
                 android:id="@+id/viewBadge"
