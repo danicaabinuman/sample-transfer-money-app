@@ -176,12 +176,15 @@ class BillingDetailsActivity :
         var settlementDateString = "UNAVAILABLE"
         val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         sdf.timeZone = TimeZone.getDefault()
-        val localDateAndTime = sdf.format(Date())
+
+        val localDate = Date()
+        var settlementDateLocal : Date? = null
 
         response.paymentDetails?.settlementDate?.let {
             settlementDateString = it
             try {
                 settlementDateString = sdf.format(parser.parse(it))
+                settlementDateLocal = sdf.parse(settlementDateString)
             } catch (e: Exception){
                 Timber.e(e.toString())
             }
@@ -197,11 +200,17 @@ class BillingDetailsActivity :
             }
         }
 
-        if (localDateAndTime <= settlementDateString){
-            tvExpiryInformation.text = "Payment will be eligible for payout on " + settlementDateString
-        } else {
-            tvExpiryInformation.text = "Payment has been eligible for payout since " + settledDateString
+        if(settlementDateLocal!=null){
+            val elapsedTimeSinceSettlementDate = settlementDateLocal!!.time - localDate.time
+            if(elapsedTimeSinceSettlementDate<=0){
+                tvExpiryInformation.text = "Payment will be eligible for payout on " + settlementDateString
+            }else{
+                tvExpiryInformation.text = "Payment has been eligible for payout since " + settlementDateString
+            }
+        }else{
+            tvExpiryInformation.text = "Payment settlement date not available"
         }
+
 
         tvBillingDetailsDateSettled.text = settledDateString
 
