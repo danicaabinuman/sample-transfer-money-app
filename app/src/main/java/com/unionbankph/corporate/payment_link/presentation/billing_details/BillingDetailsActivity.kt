@@ -191,7 +191,7 @@ class BillingDetailsActivity :
         response.paymentDetails?.settledDate?.let {
             settledDateString = it
             try {
-                settledDateString = sdf.format(parser.parse(it))
+                settledDateString = formatter.format(parser.parse(it))
             } catch (e: Exception){
                 Timber.e(e.toString())
             }
