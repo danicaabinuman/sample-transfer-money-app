@@ -34,6 +34,9 @@ class PaymentLinkListViewModel
     private val _paymentLinkListPaginatedResponse = MutableLiveData<GetPaymentLinkListPaginatedResponse>()
     val paymentLinkListPaginatedResponse: LiveData<GetPaymentLinkListPaginatedResponse> = _paymentLinkListPaginatedResponse
 
+    private val _searchPaymentLinkListPaginatedResponse = MutableLiveData<GetPaymentLinkListPaginatedResponse>()
+    val searchPaymentLinkListPaginatedResponse: LiveData<GetPaymentLinkListPaginatedResponse> = _searchPaymentLinkListPaginatedResponse
+
     private val _nextPaymentLinkListPaginatedResponse = MutableLiveData<GetPaymentLinkListPaginatedResponse>()
     val nextPaymentLinkListPaginatedResponse: LiveData<GetPaymentLinkListPaginatedResponse> = _nextPaymentLinkListPaginatedResponse
 
@@ -89,7 +92,7 @@ class PaymentLinkListViewModel
         getAllPaymentLinksByReferenceNumberUseCase.execute(
                 getDisposableSingleObserver(
                         {
-                            _paymentLinkListPaginatedResponse.value = it
+                            _searchPaymentLinkListPaginatedResponse.value = it
                         }, {
                     Timber.e(it, "doSearch")
                     _uiState.value = Event(UiState.Error(it))

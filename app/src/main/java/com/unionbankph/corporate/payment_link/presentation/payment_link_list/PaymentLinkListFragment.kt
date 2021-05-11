@@ -48,7 +48,18 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 flLoading.visibility = View.VISIBLE
-                viewModel.doSearch(editTextSearch.text.toString())
+
+                if(editTextSearch.text!=null){
+                    val searchString = editTextSearch.text!!.toString()
+                    if(searchString.isNotEmpty()){
+                        viewModel.doSearch(searchString)
+                    }else{
+                        viewModel.getAllPaymentLinks()
+                    }
+                }else{
+                    viewModel.getAllPaymentLinks()
+                }
+
                 return@OnEditorActionListener true
             }
             false
@@ -89,6 +100,7 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
             flLoading.visibility = View.GONE
             if(it.data?.size!! > 0){
                 mDisableLazyLoading = false
+                mAdapter.clearData()
                 mAdapter.appendData(it.data!!)
             }else{
                 mDisableLazyLoading = true
@@ -104,6 +116,12 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
             }else{
                 mDisableLazyLoading = true
             }
+        })
+
+        viewModel.searchPaymentLinkListPaginatedResponse.observe(this, Observer {
+            flLoading.visibility = View.GONE
+            mAdapter.clearData()
+            mAdapter.appendData(it.data!!)
         })
 
         viewModel.paymentLinkDetailsResponse.observe(this, Observer {

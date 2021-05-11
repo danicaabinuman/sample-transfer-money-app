@@ -156,22 +156,10 @@ class BillingDetailsActivity :
         tvRemarks.text = response.paymentDetails?.description
         tvLinkUrl.text = response.paymentDetails?.paymentLink
 
-        var status = response.paymentDetails?.status
-
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
         parser.timeZone = TimeZone.getTimeZone("UTC")
         val formatter = SimpleDateFormat("MMM dd, yyyy , hh:mm aa", Locale.ENGLISH)
         formatter.timeZone = TimeZone.getDefault()
-
-        var createdDateString = "UNAVAILABLE"
-        response.createdDate?.let {
-            createdDateString = it
-            try {
-                createdDateString = formatter.format(parser.parse(it))
-            } catch (e: Exception){
-                Timber.e(e.toString()) // this never gets called either
-            }
-        }
 
         var settlementDateString = "UNAVAILABLE"
         val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())

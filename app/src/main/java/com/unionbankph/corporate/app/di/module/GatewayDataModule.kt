@@ -24,6 +24,7 @@ import com.unionbankph.corporate.branch.data.source.local.CorporateUserCache
 import com.unionbankph.corporate.branch.data.source.remote.BranchVisitRemote
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
+import com.unionbankph.corporate.common.domain.provider.SMEResponseProvider
 import com.unionbankph.corporate.corporate.data.gateway.CorporateGatewayImpl
 import com.unionbankph.corporate.corporate.data.source.local.CorporateCache
 import com.unionbankph.corporate.corporate.data.source.remote.CorporateRemote
@@ -217,12 +218,12 @@ class GatewayDataModule {
     @Provides
     @PerApplication
     fun paymentLinkGateway(
-            responseProvider: ResponseProvider,
+            smeResponseProvider: SMEResponseProvider,
             paymentLinkRemote: PaymentLinkRemote,
             settingsCache: SettingsCache,
             cacheManager: CacheManager
     ): PaymentLinkGateway = PaymentLinkGatewayImpl(
-            responseProvider,
+            smeResponseProvider,
             paymentLinkRemote,
             settingsCache,
             cacheManager

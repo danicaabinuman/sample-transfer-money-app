@@ -24,8 +24,10 @@ import com.unionbankph.corporate.common.data.source.local.sharedpref.SharedPrefe
 import com.unionbankph.corporate.common.domain.executor.PostExecutionThread
 import com.unionbankph.corporate.common.domain.executor.ThreadExecutor
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
+import com.unionbankph.corporate.common.domain.provider.SMEResponseProvider
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.domain.provider.impl.ResponseProviderImpl
+import com.unionbankph.corporate.common.domain.provider.impl.SMEResponseProviderImpl
 import com.unionbankph.corporate.common.domain.provider.impl.SchedulerProviderImpl
 import com.unionbankph.corporate.settings.data.constant.SingleSelectorData
 import dagger.Module
@@ -80,6 +82,14 @@ class AppModule {
     internal fun responseProvider(context: Context): ResponseProvider {
         return ResponseProviderImpl(
             context
+        )
+    }
+
+    @Provides
+    @PerApplication
+    internal fun smeResponseProvider(context: Context): SMEResponseProvider {
+        return SMEResponseProviderImpl(
+                context
         )
     }
 

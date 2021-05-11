@@ -1,29 +1,23 @@
 package com.unionbankph.corporate.common.domain.provider.impl
 
 import android.content.Context
-import com.unionbankph.corporate.R
-import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.notNullable
-import com.unionbankph.corporate.common.data.constant.ResponseApiCodeEnum
-import com.unionbankph.corporate.common.data.model.ApiError
-import com.unionbankph.corporate.common.domain.exception.ApiErrorException
-import com.unionbankph.corporate.common.domain.exception.InvalidTokenException
-import com.unionbankph.corporate.common.domain.exception.SessionExpiredException
+import com.unionbankph.corporate.common.domain.exception.SMEApiErrorException
 import com.unionbankph.corporate.common.domain.exception.SomethingWentWrongException
-import com.unionbankph.corporate.common.domain.exception.UnderMaintenanceException
-import com.unionbankph.corporate.common.domain.provider.ResponseProvider
+import com.unionbankph.corporate.common.domain.provider.SMEResponseProvider
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.payment_link.data.model.SMEApiError
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
-class ResponseProviderImpl
+class SMEResponseProviderImpl
 @Inject
 constructor(
     private val context: Context
-) : ResponseProvider {
+) : SMEResponseProvider {
 
     override fun <T> executeResponseSingle(response: Response<T>): Single<T> {
         return if (response.isSuccessful) {
@@ -35,7 +29,7 @@ constructor(
 
     override fun <T> executeResponseCustomSingle(
         response: Response<T>,
-        errorAction: ((apiError: ApiError) -> Single<T>)
+        errorAction: ((smeApiError: SMEApiError) -> Single<T>)
     ): Single<T> {
         return if (response.isSuccessful) {
             Single.just(response.body())
@@ -54,43 +48,33 @@ constructor(
         }
     }
 
-    override fun <T> handleOnError(apiError: ApiError): Single<T> {
-        return Single.error(throwException(apiError))
+    override fun <T> handleOnError(smeApiError: SMEApiError): Single<T> {
+        return Single.error(throwException(smeApiError))
     }
 
     private fun <T> handleErrorResponse(response: Response<T>): Single<T> {
         val errorResponse = response.errorBody()?.string()
         val throwable = try {
-            val apiError = JsonHelper.fromJson<ApiError>(errorResponse)
-            throwException(apiError)
+            val smeApiError = JsonHelper.fromJson<SMEApiError>(errorResponse)
+            throwSMEException(smeApiError)
         } catch (e: Exception) {
             SomethingWentWrongException(context)
         }
         return Single.error(throwable)
     }
 
-    private fun throwException(apiError: ApiError): IOException {
-        return if (!apiError.errors.isNullOrEmpty()) {
-            val errorMessage = apiError.errors[0].message.notNullable()
-            if (errorMessage.contains(
-                    context.formatString(R.string.error_msg_under_maintenance),
-                    true
-                )
-            ) {
-                UnderMaintenanceException(context)
-            } else if (errorMessage == "Invalid Access Token" ||
-                apiError.code == ResponseApiCodeEnum.LOGOUT_USER.value
-            ) {
-                InvalidTokenException(errorMessage)
-            } else {
-                ApiErrorException(JsonHelper.toJson(apiError.errors[0]))
-            }
-        } else if (apiError.error != null &&
-            apiError.error.equals("invalid_token", true)
-        ) {
-            SessionExpiredException(context)
-        } else if (apiError.errorCode != null) {
-            ApiErrorException(apiError.message.notNullable())
+    private fun throwSMEException(smeApiError: SMEApiError): IOException {
+        return if (!smeApiError.message.isNullOrEmpty()) {
+            SMEApiErrorException(smeApiError.message.notNullable())
+        } else {
+            SomethingWentWrongException(context)
+        }
+    }
+
+    private fun throwException(smeApiError: SMEApiError): IOException {
+        return if (!smeApiError.message.isNullOrEmpty()) {
+            val errorMessage = smeApiError.message.notNullable()
+            SMEApiErrorException(errorMessage)
         } else {
             SomethingWentWrongException(context)
         }
@@ -98,12 +82,12 @@ constructor(
 
     private fun <T> handleCustomError(
         it: Response<T>,
-        errorAction: ((apiError: ApiError) -> Single<T>)
+        errorAction: ((smeApiError: SMEApiError) -> Single<T>)
     ): Single<T> {
         return if (!it.isSuccessful) {
             val errorResponse = it.errorBody()?.string()
             try {
-                val apiError = JsonHelper.fromJson<ApiError>(errorResponse)
+                val apiError = JsonHelper.fromJson<SMEApiError>(errorResponse)
                 errorAction.invoke(apiError)
             } catch (e: Exception) {
                 handleErrorResponse(it)

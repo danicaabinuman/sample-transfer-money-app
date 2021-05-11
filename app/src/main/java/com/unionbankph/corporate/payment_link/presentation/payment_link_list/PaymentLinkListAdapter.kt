@@ -28,6 +28,10 @@ class PaymentLinkListAdapter : RecyclerView.Adapter<PaymentLinkListAdapter.Payme
 
     var onItemClick: ((PaymentLinkModel) -> Unit)? = null
 
+    fun clearData(){
+        mData = mutableListOf()
+        notifyDataSetChanged()
+    }
     fun appendData(data : List<PaymentLinkModel>){
         mData.addAll(data)
         notifyDataSetChanged()

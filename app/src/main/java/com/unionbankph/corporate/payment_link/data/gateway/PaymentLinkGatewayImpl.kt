@@ -4,6 +4,7 @@ import com.unionbankph.corporate.auth.data.model.CorporateUser
 import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
+import com.unionbankph.corporate.common.domain.provider.SMEResponseProvider
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemote
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 class PaymentLinkGatewayImpl
 @Inject constructor(
-        private val responseProvider: ResponseProvider,
+        private val smeResponseProvider: SMEResponseProvider,
         private val paymentLinkRemote: PaymentLinkRemote,
         private val settingsCache: SettingsCache,
         private val cacheManager: CacheManager
@@ -47,7 +48,7 @@ class PaymentLinkGatewayImpl
                     generatePaymentLinkForm
                 )
             }
-            .flatMap { responseProvider.executeResponseSingle(it) }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
 
     }
 
@@ -66,7 +67,7 @@ class PaymentLinkGatewayImpl
                     createMerchantForm
                 )
             }
-            .flatMap { responseProvider.executeResponseSingle(it) }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
 
     }
 
@@ -89,7 +90,7 @@ class PaymentLinkGatewayImpl
                             itemsPerPage
                     )
                 }
-                .flatMap { responseProvider.executeResponseSingle(it) }
+                .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
     override fun getPaymentLinkListByReferenceNumber(
@@ -113,7 +114,7 @@ class PaymentLinkGatewayImpl
                             referenceNumber
                     )
                 }
-                .flatMap { responseProvider.executeResponseSingle(it) }
+                .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
     override fun getPaymentLinkByReferenceId(referenceId: String): Single<GetPaymentLinkByReferenceIdResponse> {
@@ -124,7 +125,7 @@ class PaymentLinkGatewayImpl
                             referenceId
                     )
                 }
-                .flatMap { responseProvider.executeResponseSingle(it) }
+                .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
 
@@ -140,7 +141,7 @@ class PaymentLinkGatewayImpl
                             putPaymentLinkStatusForm
                     )
                 }
-                .flatMap { responseProvider.executeResponseSingle(it) }
+                .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
     override fun validateMerchantByOrganization(): Single<ValidateMerchantByOrganizationResponse> {
@@ -156,7 +157,7 @@ class PaymentLinkGatewayImpl
                     orgId
                 )
             }
-            .flatMap { responseProvider.executeResponseSingle(it) }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
 

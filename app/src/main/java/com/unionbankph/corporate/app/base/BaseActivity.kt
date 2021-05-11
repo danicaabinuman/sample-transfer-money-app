@@ -71,6 +71,7 @@ import com.unionbankph.corporate.common.presentation.constant.NotificationLogTyp
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.*
 import com.unionbankph.corporate.mcd.presentation.detail.CheckDepositDetailActivity
+import com.unionbankph.corporate.payment_link.data.model.SMEApiError
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -700,6 +701,9 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
     fun handleOnError(throwable: Throwable?) {
         Timber.d("throwable?.message: ${throwable?.message}")
         when (throwable) {
+            is SMEApiErrorException -> {
+                showMaterialDialogError(title = "Oops", message = throwable.message)
+            }
             is ApiErrorException -> {
                 val error = JsonHelper.fromJson<Error>(throwable.message)
                 showMaterialDialogError(title = error.heading, message = error.message)
@@ -721,6 +725,7 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
             is InvalidTokenException -> {
                 showInvalidTokenDialog(message = throwable.message)
             }
+
             else -> {
                 var errorMessage = throwable?.message
                 if(errorMessage!=null){
