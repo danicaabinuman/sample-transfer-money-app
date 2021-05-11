@@ -120,6 +120,7 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
 
         viewModel.searchPaymentLinkListPaginatedResponse.observe(this, Observer {
             flLoading.visibility = View.GONE
+            mDisableLazyLoading = true
             mAdapter.clearData()
             mAdapter.appendData(it.data!!)
         })
