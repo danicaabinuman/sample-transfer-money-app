@@ -63,7 +63,13 @@ class PaymentLinkListViewModel
                             }
                         }, {
                     Timber.e(it, "getAllPaymentLinks")
-                    _paymentLinkListState.value = Error(it)
+                    if(it.message.equals("Merchant does not have any payment links.",true)){
+                        _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(true)
+                        _paymentLinkListState.value = ShouldShowRecyclerView(false)
+                    }else{
+                        _paymentLinkListState.value = Error(it)
+                        _paymentLinkListState.value = ShouldShowRecyclerView(true)
+                    }
                 }
                 ),
                 doOnSubscribeEvent = {
