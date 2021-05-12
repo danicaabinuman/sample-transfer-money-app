@@ -595,6 +595,11 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                         .name
                 if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT,true)) {
                     transactTabFragment.childFragmentManager.popBackStackImmediate()
+                    setToolbarTitle(
+                            getString(R.string.title_dashboard_header_transact),
+                            hasBackButton = false,
+                            hasMenuItem = true
+                    )
                 } else {
                     showLogoutBottomSheet()
                 }

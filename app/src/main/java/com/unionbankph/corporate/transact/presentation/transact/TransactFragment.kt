@@ -56,16 +56,6 @@ class TransactFragment :
             initListener()
         }
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        (activity as DashboardActivity).setToolbarTitle(
-                getString(R.string.title_dashboard_header_transact),
-                hasBackButton = false,
-                hasMenuItem = true
-        )
-
-    }
     private fun init() {
         if (App.isSupportedInProduction) {
             constraintLayoutBranchVisit.visibility(false)
