@@ -19,6 +19,7 @@ import com.unionbankph.corporate.app.dashboard.*
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
+import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
@@ -32,6 +33,8 @@ import kotlinx.android.synthetic.main.dialog_feature_unavailable.*
 class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_setup_payment_links) {
 
     private var accounts = mutableListOf<Account>()
+    private var fromWhatTab : String? = null
+
     override fun onViewModelBound() {
         super.onViewModelBound()
         viewModel = ViewModelProviders.of(
@@ -42,6 +45,13 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
     override fun onViewsBound() {
         super.onViewsBound()
+
+
+        fromWhatTab = intent.getStringExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB)
+        if(fromWhatTab == null){
+            fromWhatTab = DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON
+        }
+
         initViews()
         initTermsAndCondition()
 

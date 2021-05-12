@@ -3,35 +3,52 @@ package com.unionbankph.corporate.payment_link.presentation.onboarding
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
+import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.platform.bus.event.TransactSyncEvent
+import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
+import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import kotlinx.android.synthetic.main.activity_request_payment_splash_frame_screen.*
-import kotlinx.android.synthetic.main.item_organization.*
 
-class RequestPaymentSplashActivity : AppCompatActivity() {
+class RequestPaymentSplashActivity : BaseActivity<RequestPaymentSplashViewModel>(R.layout.activity_request_payment_splash_frame_screen) {
 
     private var merchantExists = false
+    private var fromWhatTab : String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_request_payment_splash_frame_screen)
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        viewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        )[RequestPaymentSplashViewModel::class.java]
+    }
+
+    override fun onViewsBound() {
+        super.onViewsBound()
+        initViews()
+    }
+
+    fun initViews() {
 
         setViewPager()
 
         merchantExists = intent.getBooleanExtra(EXTRA_MERCHANT_EXISTS,false)
+        fromWhatTab = intent.getStringExtra(EXTRA_FROM_WHAT_TAB)
+        if(fromWhatTab == null){
+            fromWhatTab = DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON
+        }
 
         val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_ONBOARDED, Context.MODE_PRIVATE)
         if (sharedPref.getBoolean(SHAREDPREF_IS_ONBOARDED, false)){
-            continueToPaymentLink()
+            continueToNextScreen()
         } else {
             val editor = sharedPref.edit()
             editor.putBoolean(SHAREDPREF_IS_ONBOARDED, true)
@@ -53,10 +70,10 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
         }
 
         btnGetStarted.setOnClickListener{
-            continueToPaymentLink()
+            continueToNextScreen()
         }
         skipBtn.setOnClickListener{
-            continueToPaymentLink()
+            continueToNextScreen()
         }
     }
 
@@ -94,19 +111,43 @@ class RequestPaymentSplashActivity : AppCompatActivity() {
     }
 
 
-    private fun continueToPaymentLink(){
-        val intent = if(merchantExists){
-            Intent(this, RequestForPaymentActivity::class.java)
-        }else{
-            Intent(this, SetupPaymentLinkActivity::class.java)
+    private fun continueToNextScreen(){
+
+        if(fromWhatTab.equals(DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)){
+
+            val intent = if(merchantExists){
+                Intent(this, RequestForPaymentActivity::class.java)
+            }else{
+                Intent(this, SetupPaymentLinkActivity::class.java)
+            }
+            intent.putExtra(EXTRA_FROM_WHAT_TAB,fromWhatTab)
+            startActivity(intent)
+            finish()
+
+        }else if(fromWhatTab.equals(DashboardViewModel.FROM_TRANSACT_TAB)){
+
+            if(merchantExists){
+                eventBus.transactSyncEvent.emmit(
+                    BaseEvent(TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST)
+                )
+                finish()
+            }else{
+                val intent = Intent(this, SetupPaymentLinkActivity::class.java)
+                intent.putExtra(EXTRA_FROM_WHAT_TAB,fromWhatTab)
+                startActivity(intent)
+                finish()
+            }
+
+
         }
-        startActivity(intent)
-        finish()
+
+
     }
 
     companion object {
         const val SHAREDPREF_IS_ONBOARDED = "sharedpref_is_onboarded"
         const val EXTRA_MERCHANT_EXISTS = "extra_merchant_exists"
+        const val EXTRA_FROM_WHAT_TAB = "from_what_tab"
     }
 
 }

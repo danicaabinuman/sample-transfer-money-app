@@ -1,8 +1,5 @@
 package com.unionbankph.corporate.app.dashboard
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
@@ -27,10 +24,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.presentation.account_list.AccountFragment
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.*
-import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
-import com.unionbankph.corporate.app.common.platform.bus.event.BiometricSyncEvent
-import com.unionbankph.corporate.app.common.platform.bus.event.NotificationSyncEvent
-import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
+import com.unionbankph.corporate.app.common.platform.bus.event.*
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
@@ -51,8 +45,6 @@ import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
-import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -201,7 +193,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     handleOnError(it.throwable)
                 }
                 is ShowPaymentLinkOnBoarding -> {
-                    navigatePaymentLinkOnBoarding(it.merchantExists)
+                    navigatePaymentLinkOnBoarding(it.merchantExists,it.fromWhatTab)
                 }
 
                 is Error -> {
@@ -263,7 +255,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         }
 
         btnRequestPayment.setOnClickListener{
-            viewModel.validateMerchant()
+            viewModel.validateMerchant(DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
         }
 
         RxView.clicks(viewBadge)
@@ -366,6 +358,20 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             }
         ) {
             Timber.e(it, "actionSyncEvent")
+        }.addTo(disposables)
+
+        eventBus.transactSyncEvent.flowable.subscribe {
+            when (it.eventType) {
+                TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST -> {
+                    viewModel.validateMerchant(DashboardViewModel.FROM_TRANSACT_TAB)
+                }
+                TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST -> {
+                    viewPagerBTR.currentItem = bottomNavigationItems[FRAGMENT_TRANSACT]!!
+                    eventBus.transactSyncEvent.emmit(
+                        BaseEvent(TransactSyncEvent.ACTION_REDIRECT_TO_PAYMENT_LINK_LIST)
+                    )
+                }
+            }
         }.addTo(disposables)
     }
 
@@ -633,11 +639,6 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     textViewInitial.visibility != View.VISIBLE
                 ) {
                     isBackButtonFragmentAlerts = true
-                } else if (
-                    viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_TRANSACT] &&
-                    textViewInitial.visibility != View.VISIBLE
-                ) {
-                   //TODO
                 }
                 imageViewMarkAllAsRead.visibility(
                     position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
@@ -1156,12 +1157,16 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         )
     }
 
-    private fun navigatePaymentLinkOnBoarding(merchantExists: Boolean) {
+    private fun navigatePaymentLinkOnBoarding(merchantExists: Boolean, fromWhatTab: String) {
 
         val bundle = Bundle()
         bundle.putBoolean(
             RequestPaymentSplashActivity.EXTRA_MERCHANT_EXISTS,
             merchantExists
+        )
+        bundle.putString(
+            RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB,
+            fromWhatTab
         )
 
         navigator.navigate(

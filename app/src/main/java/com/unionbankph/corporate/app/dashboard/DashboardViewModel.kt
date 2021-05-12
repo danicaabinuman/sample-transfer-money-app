@@ -373,13 +373,13 @@ class DashboardViewModel @Inject constructor(
             .addTo(disposables)
     }
 
-    fun validateMerchant(){
+    fun validateMerchant(fromWhatTab: String){
 
         validateMerchantUseCase.execute(
             getDisposableSingleObserver(
                 {
                     val merchantExists = it.merchantExists.equals("true",false)
-                    _dashBoardState.value = ShowPaymentLinkOnBoarding(merchantExists)
+                    _dashBoardState.value = ShowPaymentLinkOnBoarding(merchantExists,fromWhatTab)
                 }, {
                     Timber.e(it, "validateMerchant")
                     _dashBoardState.value = Error(it)
@@ -394,7 +394,13 @@ class DashboardViewModel @Inject constructor(
         ).addTo(disposables)
 
     }
+
+    companion object{
+        const val FROM_REQUEST_PAYMENT_BUTTON = "from_accounts_tab"
+        const val FROM_TRANSACT_TAB = "from_transact_tab"
+    }
 }
+
 
 sealed class DashboardState
 
@@ -419,7 +425,7 @@ data class ShowNotificationLogBadgeCount(
     val badgeCount: BadgeCount
 ) : DashboardState()
 
-data class ShowPaymentLinkOnBoarding(val merchantExists: Boolean) : DashboardState()
+data class ShowPaymentLinkOnBoarding(val merchantExists: Boolean, val fromWhatTab: String) : DashboardState()
 
 data class ShowBiometricSuccess(val token: String) : DashboardState()
 

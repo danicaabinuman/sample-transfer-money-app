@@ -99,6 +99,7 @@ import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryVie
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogViewModel
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsViewModel
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsViewModel
+import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
@@ -709,6 +710,13 @@ abstract class ViewModelModule {
     @ViewModelKey(PaymentLinkListViewModel::class)
     abstract fun paymentLinkListViewModel(
             viewModel: PaymentLinkListViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RequestPaymentSplashViewModel::class)
+    abstract fun requestPaymentSplashViewModel(
+        viewModel: RequestPaymentSplashViewModel
     ): ViewModel
 
 }
