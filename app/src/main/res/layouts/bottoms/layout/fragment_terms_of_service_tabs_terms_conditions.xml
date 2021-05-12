@@ -28,23 +28,53 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-<!--            <include layout="@layout/item_tc_introduction"/>-->
+            <include layout="@layout/item_tc_introduction"/>
 
-<!--            <include layout="@layout/item_tc_definition_of_terms"/>-->
+            <include layout="@layout/item_tc_definition_of_terms"/>
 
-<!--            <include layout="@layout/item_tc_enrollment_and_implementation"/>-->
+            <include layout="@layout/item_tc_enrollment_and_implementation"/>
 
-<!--            <include layout="@layout/item_tc_request_payment"/>-->
+            <include layout="@layout/item_tc_request_payment"/>
 
-<!--            <include layout="@layout/item_tc_merchant_website_and_obligations"/>-->
+            <include layout="@layout/item_tc_merchant_website_and_obligations"/>
 
-<!--            <include layout="@layout/item_tc_acceptance_and_proof_of_payments"-->
+            <include layout="@layout/item_tc_acceptance_and_proof_of_payments"/>
 
-<!--            <include layout="@layout/item_tc_settlement"/>-->
+            <include layout="@layout/item_tc_settlement"/>
 
-<!--            <include layout="@layout/item_tc_merchant_liabilities"/>-->
-            
+            <include layout="@layout/item_tc_merchant_liabilities"/>
 
+            <include layout="@layout/item_tc_disputed_transactions"/>
+
+            <include layout="@layout/item_tc_term_and_termination"/>
+
+            <include layout="@layout/item_tc_effects_of_termination"/>
+
+            <include layout="@layout/item_tc_intellectual_property_rights"/>
+
+            <include layout="@layout/item_tc_trademarks"/>
+
+            <include layout="@layout/item_tc_general_cooperation"/>
+
+            <include layout="@layout/item_tc_confidentiality_and_data_protection"/>
+
+            <include layout="@layout/item_tc_publicity"/>
+
+            <include layout="@layout/item_tc_representations_and_warranties"/>
+
+            <include layout="@layout/item_tc_audit"/>
+
+            <include layout="@layout/item_tc_limitation_of_liability"/>
+
+            <include layout="@layout/item_tc_indemnification"/>
+
+            <include layout="@layout/item_tc_assignment"/>
+
+            <include layout="@layout/item_tc_force_majeure"/>
+
+            <include layout="@layout/item_tc_merchant_hotline"/>
+
+            <include layout="@layout/item_tc_general"/>
         </LinearLayout>
 
     </ScrollView>
