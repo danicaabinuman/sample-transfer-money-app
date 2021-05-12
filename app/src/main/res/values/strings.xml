@@ -2166,4 +2166,11 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="tc_general_content_4">The provisions of this Agreement shall always prevail over any inconsistent terms or conditions embodied within any purchase order, invoice or other documentation issued under or in connection with this Agreement.</string>
     <string name="tc_general_content_5">If any provision herein is deemed by any tribunal or court of competent jurisdiction to be illegal, invalid or unenforceable under any applicable law or otherwise, it shall, to the extent required by such law, be severed from this Agreement and rendered ineffective so far as is possible without affecting the legality, validity or enforceability of the remaining provisions hereto.</string>
     <string name="tc_general_content_6">This Agreement shall be governed by and construed in accordance with the laws of the Philippines without regard to its conflict of laws principles. Any dispute whatsoever arising between the Parties concerning the interpretation or implementation of this Agreement or touching any subject matter arising or in relation to the Agreement shall in the first instance be referred to the duly authorized senior executives of the Bank and the Merchant, respectively, for amicable resolution. Any dispute or controversy or claim arising out of or relating to this contract, or the breach, termination or invalidity thereof shall be settled by arbitration in accordance with the Philippine Dispute Resolution Center Inc., Arbitration Rules as at present in force. The number of arbitrators shall be three (3). The place of arbitration shall be Pasig City. Any award or decision by the arbitral body may be enforced by the Parties in the exclusive jurisdiction of the courts of Pasig City to the exclusion of all other courts.</string>
+
+    <string name="tc_ia_content_1">*if Applicable</string>
+    <string name="tc_ia_content_2">Merchant’s application is subject to Bank’s approval.</string>
+    <string name="tc_ia_content_3">Kindly note that company directors and signatory maybe subject to credit check as per bank accreditation requirements.</string>
+    <string name="tc_ia_content_4">I/We agree to be bound to this Agreement fully and unconditionally.</string>
+
+
 </resources>

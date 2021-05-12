@@ -75,6 +75,10 @@
             <include layout="@layout/item_tc_merchant_hotline"/>
 
             <include layout="@layout/item_tc_general"/>
+
+            <include layout="@layout/item_tc_transaction_fee"/>
+
+
         </LinearLayout>
 
     </ScrollView>
