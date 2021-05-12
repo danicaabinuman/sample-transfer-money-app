@@ -1108,7 +1108,6 @@
     <string name="error_multiple_posting">This transaction has already been processed. Please return to the transaction dashboard to view the final status of the transaction.</string>
 
 
-
     <string name="msg_check_deposit_camera_tips_1">Place the check against a dark background</string>
     <string name="msg_check_deposit_camera_tips_2">Move camera on top of the check</string>
     <string name="msg_check_deposit_camera_tips_3">Ensure that the check details being captured are aligned to this instruction</string>
@@ -1950,7 +1949,7 @@
     <string name="detail_sorry_this_feature_is_not_yet_available_for_your_access_level_try_again_later">Sorry, this feature is not yet available for your access level. Try again later.</string>
     <string name="btn_back_to_dashboard">BACK TO DASHBOARD</string>
 
-    <string name="terms_conditions_payment_links">Customer Declaration\n\nI/We hereby certify that the information given by me/us is true, complete and correct. I/We authorize UnionBank of the Philippines or its authorized representative/s to verify, investigate or confirm any or all of the information provided by me/us from whatever sources it may consider appropriate. I/We understand and accept that my failure to provide true, complete and correct information to UnionBank of the Philippines or its authorized representative/s regarding my/our financial knowledge and experience may result in UnionBank of the Philippines’ inability to accurately determine the appropriateness of a product and/or service for me/us given the limited information available. I/We understand that falsifying or providing any false or inaccurate information or documents is sufficient ground for legal action and/or the rejection of my application. I/We understand that should my application be denied, UnionBank of the Philippines or its authorized representative/s has no obligation to provide me/us with the reason for such rejection. \n\nI/We hereby certify that the information given by me/us is true, complete and correct. I/We authorize UnionBank of the Philippines or its authorized representative/s to verify, investigate or confirm any or all of the information provided by me/us from whatever sources it may consider</string>
+    <string name="terms_conditions_header_payment_links">Payment Gateway  Services Agreement For Merchants</string>
     <string name="agree_and_continue">AGREE AND CONTINUE</string>
     <string name="fees_charges_text_1">UnionBank will collect the following fees for every transaction done through our generated payment links. See pricing table below:</string>
     <string name="title_pricing_table">Pricing Table</string>
@@ -1964,5 +1963,92 @@
     <string name="cybersure_2">Should you wish to edit the details of this page, click the archive and create another link.</string>
     <string name="cybersure_3">This link can be archieved as long as it has not yet been paid.</string>
     <string name="nominate_settlement_account">Nominate Settlement Account</string>
+    <string name="tc_introduction_content">This Payment Gateway Services Agreement (the “Agreement”) is a legally binding contract between you (“Merchant”) and UnionBank of the Philippines (the “Bank”). The Agreement sets out the terms and conditions under which Merchant may utilize UnionBank Payment Gateway Services. Merchant should read this Agreement carefully. \n\nBy clicking on the “I AGREE” button or by using or accessing UnionBank Payment Gateway Services through any means permissible including, without limitation via a web or a mobile application, Merchant acknowledges and agrees that: (i) it has reviewed and understands the Agreement; (ii) it agrees to be legally bound by the terms and conditions of the Agreement and to any of its future amendments or revisions; and (iii) its use of UnionBank Payment Gateway Services and any related products or services will be governed by this Agreement.</string>
+    <string name="tc_dot_content_1">“Cardholder” means the person whose name is embossed or printed on the card.</string>
+    <string name="tc_dot_content_2">“Cards” means all products authorized and bearing the mark of VISA, or Mastercard. Additional brands may be included by mutual agreement of the Parties.</string>
+    <string name="tc_dot_content_3">Chargeback” means the process by which the Bank will charge to Merchant the amount of transactions which have been paid by the Bank under such circumstances as described in the provisions below or under dispute by the Customer.</string>
+    <string name="tc_dot_content_4">“Confidential Information” means any information or material marked “Confidential”, “Restricted” or with such other restrictive legend; proprietary Software including source code and documentation; or any other form of information disclosed which may be reasonably construed to be confidential which either party may disclose to the other under this Agreement. The term Confidential Information shall also include all customer/client information of the Bank, including credit card / charge card code numbers of customers or clients, as well as all personal information of customers or clients, which Merchant may have access to as a consequence of implementation of this Agreement.</string>
+    <string name="tc_dot_content_5">“Customer” or “Payor” refers to any person, natural or juridical, that pays the Merchant through Unionbank Payment Gateway Service.</string>
+    <string name="tc_dot_content_6">“Documentation” means any online or printed manual or other associated instruction material provided by the Bank in connection with Software and the Services.</string>
+    <string name="tc_dot_content_7">“GCash” means the mobile wallet system service of Globe Telecoms.</string>
+    <string name="tc_dot_content_8">“Merchant” refers to the Registered Merchant and Unregistered Merchant authorized by the Bank to use the Services.</string>
+    <string name="tc_dot_content_9">“Partner Channels” pertain to the provider of the payment options that is available in the market.</string>
+    <string name="tc_dot_content_10">“Unionbank Payment Gateway Service” means the payment gateway owned and developed by the Bank that facilitates the transfer of information between a payment portal and the front-end processor or acquiring bank for purpose of authorizing payments.</string>
+    <string name="tc_dot_content_11">“Registered Merchant” means a business establishment duly registered with Department of Trade and Industry (DTI), Securities and Exchange Commission (SEC) and other government regulatory bodies.</string>
+    <string name="tc_dot_content_12">“Software” refers all or any portion of the binary computer software programs (including corresponding source code embodied in) relating to the Collections Portal whether in machine readable or printed form and includes all copies, corrections or updates made thereto.</string>
+    <string name="tc_dot_content_13">“Service” refers to the Bank’s provision of the UnionBank Payment Gateway Service that allows Merchant’s Customers to pay for goods and/or services through the Bank’s available channels set forth in Sec. B(2).</string>
+    <string name="tc_dot_content_14">“Unregistered Merchant” refers to individuals who sell goods or services online who are not required by the law to be registered with DTI, SEC and other government regulatory bodies.</string>
+
+    <string name="tc_eac_content_1">Merchant shall open and maintain an account with the Bank to avail the Service (the “Nominated Settlement Account”). All payments to the Merchant, subject to any allowable deductions as agreed to by the Parties, shall be credited to Merchant’s Nominated Settlement Account in accordance with Clause F.</string>
+    <string name="tc_eac_content_2">Card transactions are available only to Registered Merchants. All Card transactions shall require prior approval which will be electronically processed through the UnionBank Payment Gateway, in accordance with the Bank’s standard procedures. Transaction approval shall only refer to the verification of the Card’s validity and expiry date and availability of the credit limit at the time of the transaction.</string>
+    <string name="tc_eac_content_3">Merchant acknowledges that a transaction approval does not warrant the authenticity of the transaction or the identity of the Cardholder or Customer, the confirmation of which shall be the sole responsibility and accountability of the Merchant.</string>
+    <string name="tc_eac_content_4">All payment-related transactions are subject to this Agreement and to the applicable Terms &amp; Conditions of the Partner Channels, VISA, or Mastercard and other banks.</string>
+
+    <string name="tc_rp_content_1">The Request Payment Feature allows the Merchant to generate a unique checkout page with corresponding expiry duration which can be as short as six (6) hours or as long as seven (7) days. Merchant shall copy and share the page only to the intended Customer. The checkout page may only be used once and may be cancelled by the Merchant anytime as long as it has not been paid. The checkout page can be accessed by the Customers/Payors using any browser on a desktop or mobile device. Payments received through the checkout page will be credited to the Merchant’s Nominated Settlement Account at the specified settlement date in accordance with Schedule A or as defined by the Bank.</string>
+    <string name="tc_rp_content_2">Obligations of the Parties:</string>
+    <string name="tc_rp_content_2a">Merchant shall only share the checkout page to its intended Customer. In case the page is shared to an unintended recipient, the Merchant shall communicate the error or archive the specific checkout page to avoid future errors.</string>
+    <string name="tc_rp_content_2b">Merchant shall communicate with Customer the checkout page’ expiration and other information related to the transaction.</string>
+    <string name="tc_rp_content_2c">Merchant shall provide proper resolution to resolve the issues encountered by the Customer.</string>
+    <string name="tc_rp_content_2d">Merchant shall hold the Bank free and harmless from any injury or damage arising from or related to Merchant’s used of Request Payment Feature including but not limited to sharing of checkout page to unintended recipient.</string>
+
+    <string name="tc_mwao_content_1">Merchant shall assume sole responsibility for the development, publishing, and use of its own e-commerce website and social media accounts including but not limited to Facebook and Instagram (the “Merchant Website”). Merchant shall ensure that Merchant Website contains all the information required by law and the Bank. If appliable, Merchant Website shall be secure and must contain and clearly state, for the Customer’s information, at a minimum, the following:</string>
+    <string name="tc_mwao_content_1a">Complete description of goods and services;</string>
+    <string name="tc_mwao_content_1b">Address of Merchant where it is officially registered and located;</string>
+    <string name="tc_mwao_content_1c">Comprehensive cancellation policy;</string>
+    <string name="tc_mwao_content_1d">Comprehensive delivery policy;</string>
+    <string name="tc_mwao_content_1e">Statement on data privacy policies;</string>
+    <string name="tc_mwao_content_1f">Description of security and data controls;</string>
+    <string name="tc_mwao_content_1g">Such other information as may be required by the Bank.</string>
+    <string name="tc_mwao_content_2">The Bank retains the right to conduct random checks of the Merchant’s Website and/or offices to determine compliance with this Agreement. The Merchant shall further permit the Bank and its authorized representatives to carry out physical inspections of the Merchant’s place of business and any warehousing facility of the Merchant, if applicable.</string>
+    <string name="tc_mwao_content_3">In using the Service, the Merchant agrees:</string>
+    <string name="tc_mwao_content_3a">Not to use the Service in any manner, or in furtherance of any activity, which constitutes a violation of any applicable law, regulation or which may result in fraud on any person or which may cause the Bank to be subject to investigation, prosecution, or legal action;</string>
+    <string name="tc_mwao_content_3b">To use information regarding a Cardholder/Customer conveyed to Merchant only for the purpose of completing transactions for which it was intended, and not to sell or otherwise furnish such information to others unless the Merchant has an independent source of such information or obtains the express written consent of such Cardholder/Customer;</string>
+    <string name="tc_mwao_content_3c">To use the Software in accordance with the terms on which the Software has been provided to the Merchant and not to attempt to modify, translate, disassemble, decompile, or reverse engineer the Software; and</string>
+    <string name="tc_mwao_content_3d">That the Merchant Website shall at all times comply with applicable law, rules, and regulations relevant to the use of the Service.</string>
+    <string name="tc_mwao_content_4">Support. Merchant shall provide a commercially reasonable level of support to the Customer with respect to the transaction and sales made on Merchant’s Website. Such support shall include notice to Customer of (i) a means of contacting Merchant; (ii) procedures for resolving disputes. If the Bank determines in good faith that Merchant is unable to provide a commercially reasonable level of support to the Cardholder, the Bank may suspend or terminate this Agreement.</string>
+    <string name="tc_mwao_content_5">Registered Merchant’s Website shall at all times comply with the eCommerce authentication protocols and payment card operating procedure as mandated by the payment card brands.</string>
+    <string name="tc_mwao_content_6">Merchant unconditionally agrees to maintain compliance with the foregoing authentication protocols, as well as other security and data protection standards imposed by the Bank, PCI DSS, and the BSP, from time to time.</string>
+    <string name="tc_mwao_content_7">The Merchant warrants that it shall not sell or offer to sell, or otherwise facilitate the transfer, of the following:</string>
+    <string name="tc_mwao_content_7a">Pornographic materials;</string>
+    <string name="tc_mwao_content_7b">Prescription drugs and medicine;</string>
+    <string name="tc_mwao_content_7c">Escort services;</string>
+    <string name="tc_mwao_content_7d">Gambling operations;</string>
+    <string name="tc_mwao_content_7e">Firearms, ammunitions, explosives, and fireworks;</string>
+    <string name="tc_mwao_content_7f">Pyramid schemes or multi-level marketing structures;</string>
+    <string name="tc_mwao_content_7g">Timeshares and other investment products;</string>
+    <string name="tc_mwao_content_7h">Goods and services prohibited by applicable law, rules, and regulations;</string>
+    <string name="tc_mwao_content_7i">Banned and illegal substances;</string>
+    <string name="tc_mwao_content_7j">Other goods and services deemed prohibited by the Bank.</string>
+    <string name="tc_mwao_content_8">Merchant’s non-compliance with its obligations under this Clause E shall be deemed either a wilfull act, omission or negligence, as the case may be, by the Merchant. In case of non-compliance of any provision of this Clause E, the Bank is authorized by the Merchant to impose and collect a penalty equivalent to the amount of (a) the penalty imposed by the Card brands (if applicable) and (b) the transaction involved plus actual of the amounts of the transaction. Said penalties may automatically be deducted by the Bank from the Nominated Settlement Account or collected by other means provided in this Agreement or by law.</string>
+    <string name="numbering_j">j.</string>
+    <string name="numbering_i">i.</string>
+    <string name="numbering_h">h.</string>
+    <string name="numbering_g">g.</string>
+    <string name="numbering_f">f.</string>
+    <string name="numbering_e">e.</string>
+    <string name="numbering_d">d.</string>
+    <string name="numbering_c">c.</string>
+    <string name="numbering_b">b.</string>
+    <string name="numbering_a">a.</string>
+    <string name="tc_aapop_content_1">The Bank shall have the duty to credit Customers payments into the Merchant’s Nominated Settlement Account subject to the following conditions:</string>
+    <string name="tc_aapop_content_1a">The Bank’s actual receipt of the funds from the Customer;</string>
+    <string name="tc_aapop_content_1b">The amount to be credited shall be subject to deductions as agreed upon by the Parties;</string>
+    <string name="tc_aapop_content_1c">For the use of facilities which require enrollment, such as the Bank\'s or a Partner Channel\'s mobile, online or other facility, the Customer is enrolled in the said facility;</string>
+    <string name="tc_aapop_content_1d">The submission by the Customer of all required information to the Bank or the Bank\'s Partner Channel in the form required by the Bank or Partner-Channel, as the case may be;</string>
+    <string name="tc_aapop_content_1e">Where applicable, Registered Merchant shall: (i) honor without discrimination, all valid and unexpired Cards and/or accounts used by bona fide Card/Accountholders in the purchase of goods and/or services via the internet; (ii) honor Cards in the purchase of goods/services under the Bank\'s credit card installment plan, if any; (iii) participate in loyalty or promotional programs, which may be developed and implemented by the Bank for its Cards. Unless otherwise instructed by the Bank, there should be no minimum or maximum amount requirement for every card transaction.</string>
+
+    <string name="tc_settlement_content_1">Bank shall pay Merchant the amount representing all transactions validly generated in connection with sales transactions made at the rate indicated in Schedule A, computed from the face value of the transaction, and in accordance with this Agreement.</string>
+    <string name="tc_settlement_content_2">In order to facilitate the transfer of payments or debits between the Parties, Merchant may request Bank to (i) deposit the full amount of the Net Deposit of Merchant to the Nominated Settlement Account of the Merchant with the Bank, or (ii) issue check payments representing the Net Deposit of Merchant. Net Deposit of Merchant shall refer to the amount which is required to be paid to Merchant by the Bank which is equivalent to the Grand Total Sales less: (i) credit/refunds or discounts granted to Cardholders by Merchant, if any, (ii) the discount due to the Bank equivalent to a percentage of Grand Total Sales, (iii) applicable taxes, (iv) Chargebacks, (v) adjustments or reversals by the Bank, and (vi) penalties or unpaid amounts by Merchant to the Bank.</string>
+    <string name="tc_settlement_content_3">Bank shall withhold such withholding tax as may be imposed by the law and the Bureau of Internal Revenue, from the total reimbursements of the Merchant. If applicable, a creditable withholding tax certificate will be issued by the Bank to the Merchant on a regular basis.</string>
+    <string name="tc_settlement_content_4">In case of closure of the Merchants Nominated Settlement Account for any reason, the total sales amount shall be settled via Union Bank Manager\'s Check in favor of the Client, or by any other means mutually agreed upon by the Parties.</string>
+
+    <string name="tc_ml_content">Merchant shall indemnify and hold the Bank free and harmless from any and all claims, expenses, fines, and liability incurred arising out of:</string>
+    <string name="tc_ml_content_a">A Chargeback, Refund, over-payment, or other invalidated payments caused by Merchant;</string>
+    <string name="tc_ml_content_b">Any error, negligence, misconduct, or fraud by Merchant, its employees or agents; and</string>
+    <string name="tc_ml_content_c">Any losses resulting from Merchant’s failure to comply with this Agreement.</string>
+
+
+
+
 
 </resources>

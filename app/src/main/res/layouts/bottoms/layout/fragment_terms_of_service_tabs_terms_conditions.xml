@@ -1,32 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:singleLine="false">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:paddingTop="20dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:id="@+id/tvFCDetails"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/terms_conditions_payment_links"
-            android:textColor="#4A4A4A"
-            android:textSize="12sp"
-            android:minLines="1"
-            android:paddingBottom="100dp"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTCHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:minLines="1"
+                android:text="@string/terms_conditions_header_payment_links"
+                android:textColor="#4A4A4A"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+<!--            <include layout="@layout/item_tc_introduction"/>-->
+
+<!--            <include layout="@layout/item_tc_definition_of_terms"/>-->
+
+<!--            <include layout="@layout/item_tc_enrollment_and_implementation"/>-->
+
+<!--            <include layout="@layout/item_tc_request_payment"/>-->
+
+<!--            <include layout="@layout/item_tc_merchant_website_and_obligations"/>-->
+
+<!--            <include layout="@layout/item_tc_acceptance_and_proof_of_payments"-->
+
+<!--            <include layout="@layout/item_tc_settlement"/>-->
+
+<!--            <include layout="@layout/item_tc_merchant_liabilities"/>-->
+            
+
+        </LinearLayout>
 
     </ScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
