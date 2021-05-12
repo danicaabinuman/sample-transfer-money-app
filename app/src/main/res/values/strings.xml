@@ -1965,4 +1965,8 @@
     <string name="cybersure_3">This link can be archieved as long as it has not yet been paid.</string>
     <string name="nominate_settlement_account">Nominate Settlement Account</string>
 
+    <string name="dialog_oops_something_went_wrong_title">Oops!</string>
+    <string name="dialog_oops_something_went_wrong_description">Something went wrong in activating this feature. Please try again later.</string>
+    <string name="dialog_oops_something_went_wrong_action">Close</string>
+
 </resources>
