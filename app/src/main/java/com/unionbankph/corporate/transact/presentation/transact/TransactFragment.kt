@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.transact.presentation.transact
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,11 +12,13 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.setEnableView
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
+import com.unionbankph.corporate.app.common.platform.bus.event.TransactSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.tutorial.OnTutorialListener
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.branch.presentation.list.BranchVisitActivity
 import com.unionbankph.corporate.common.domain.exception.JsonParseException
@@ -37,6 +40,7 @@ import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsHasPermission
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import io.reactivex.rxkotlin.addTo
+import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
 class TransactFragment :
@@ -52,7 +56,6 @@ class TransactFragment :
             initListener()
         }
     }
-
     private fun init() {
         if (App.isSupportedInProduction) {
             constraintLayoutBranchVisit.visibility(false)
@@ -234,12 +237,8 @@ class TransactFragment :
 
         constraintLayoutRequestPayment.setOnClickListener{
 
-            navigator.addFragmentWithAnimation(
-                    R.id.frameLayoutTransact,
-                    PaymentLinkListFragment(),
-                    null,
-                    childFragmentManager,
-                    TransactFragment.FRAGMENT_REQUEST_PAYMENT
+            eventBus.transactSyncEvent.emmit(
+                BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST)
             )
 
         }
@@ -312,6 +311,21 @@ class TransactFragment :
             BaseEvent(SettingsSyncEvent.ACTION_DISABLE_NAVIGATION_BOTTOM)
         )
         tutorialViewModel.hasTutorial(TutorialScreenEnum.TRANSACT)
+
+
+        eventBus.transactSyncEvent.flowable.subscribe {
+            when (it.eventType) {
+                TransactSyncEvent.ACTION_REDIRECT_TO_PAYMENT_LINK_LIST -> {
+                    navigator.addFragmentWithAnimation(
+                        R.id.frameLayoutTransact,
+                        PaymentLinkListFragment(),
+                        null,
+                        childFragmentManager,
+                        TransactFragment.FRAGMENT_REQUEST_PAYMENT
+                    )
+                }
+            }
+        }.addTo(disposables)
     }
 
     private fun setCheckDepositClickListener() {

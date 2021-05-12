@@ -5,14 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.extension.getDisposableSingleObserver
 import com.unionbankph.corporate.app.common.platform.events.Event
+import com.unionbankph.corporate.app.dashboard.DashboardState
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.GetPaymentLinkListByReferenceNumberForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GetPaymentLinkListPaginatedForm
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkByReferenceIdResponse
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkListPaginatedResponse
-import com.unionbankph.corporate.payment_link.domain.usecase.GetAllPaymentLinksByReferenceNumberUseCase
-import com.unionbankph.corporate.payment_link.domain.usecase.GetAllPaymentLinksUseCase
-import com.unionbankph.corporate.payment_link.domain.usecase.GetPaymentLinkByReferenceIdUseCase
+import com.unionbankph.corporate.payment_link.domain.usecase.*
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
@@ -40,23 +39,47 @@ class PaymentLinkListViewModel
     private val _nextPaymentLinkListPaginatedResponse = MutableLiveData<GetPaymentLinkListPaginatedResponse>()
     val nextPaymentLinkListPaginatedResponse: LiveData<GetPaymentLinkListPaginatedResponse> = _nextPaymentLinkListPaginatedResponse
 
+    private val _paymentLinkListState = MutableLiveData<PaymentLinkListState>()
+
+    val paymentLinkListState: LiveData<PaymentLinkListState> get() = _paymentLinkListState
 
     fun getAllPaymentLinks() {
         mCurrentPage = 1
         getAllPaymentLinksUseCase.execute(
                 getDisposableSingleObserver(
                         {
-                            _paymentLinkListPaginatedResponse.value = it
+                            if(it.data != null){
+                                if(it.data!!.isNotEmpty()){
+                                    _paymentLinkListPaginatedResponse.value = it
+                                    _paymentLinkListState.value = ShouldShowRecyclerView(true)
+                                    _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(false)
+                                }else{
+                                    _paymentLinkListState.value = ShouldShowRecyclerView(false)
+                                    _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(true)
+                                }
+                            }else{
+                                _paymentLinkListState.value = ShouldShowRecyclerView(false)
+                                _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(true)
+                            }
                         }, {
                     Timber.e(it, "getAllPaymentLinks")
-                    _uiState.value = Event(UiState.Error(it))
+                    if(it.message.equals("Merchant does not have any payment links.",true)){
+                        _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(true)
+                        _paymentLinkListState.value = ShouldShowRecyclerView(false)
+                    }else{
+                        _paymentLinkListState.value = Error(it)
+                        _paymentLinkListState.value = ShouldShowRecyclerView(true)
+                    }
                 }
                 ),
                 doOnSubscribeEvent = {
-                    _uiState.value = Event(UiState.Loading)
+                    _paymentLinkListState.value = ShouldShowProgressLoading(true)
+                    _paymentLinkListState.value = ShouldShowRecyclerView(false)
+                    _paymentLinkListState.value = ShouldShowLazyLoading(false)
+                    _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(false)
                 },
                 doFinallyEvent = {
-                    _uiState.value = Event(UiState.Complete)
+                    _paymentLinkListState.value = ShouldShowProgressLoading(false)
                 },
                 params = GetPaymentLinkListPaginatedForm(mCurrentPage,10)
         ).addTo(disposables)
@@ -67,22 +90,30 @@ class PaymentLinkListViewModel
         getAllPaymentLinksUseCase.execute(
                 getDisposableSingleObserver(
                         {
-                            if(it.totalCount!! > 0){
-                                _nextPaymentLinkListPaginatedResponse.value = it
+                            if(it.data != null){
+                                if(it.data!!.isNotEmpty()){
+                                    _nextPaymentLinkListPaginatedResponse.value = it
+                                }else{
+                                    mCurrentPage--
+                                    _paymentLinkListState.value = NoMoreAvailablePaymentLinks
+                                }
                             }else{
                                 mCurrentPage--
+                                _paymentLinkListState.value = NoMoreAvailablePaymentLinks
                             }
-
                         }, {
                     Timber.e(it, "getAllNextPaymentLinks")
-                    _uiState.value = Event(UiState.Error(it))
+                    _paymentLinkListState.value = Error(it)
                 }
                 ),
                 doOnSubscribeEvent = {
-                    _uiState.value = Event(UiState.Loading)
+                    _paymentLinkListState.value = ShouldShowProgressLoading(false)
+                    _paymentLinkListState.value = ShouldShowRecyclerView(true)
+                    _paymentLinkListState.value = ShouldShowLazyLoading(true)
+                    _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(false)
                 },
                 doFinallyEvent = {
-                    _uiState.value = Event(UiState.Complete)
+                    _paymentLinkListState.value = ShouldShowLazyLoading(false)
                 },
                 params = GetPaymentLinkListPaginatedForm(mCurrentPage,10)
         ).addTo(disposables)
@@ -92,17 +123,40 @@ class PaymentLinkListViewModel
         getAllPaymentLinksByReferenceNumberUseCase.execute(
                 getDisposableSingleObserver(
                         {
-                            _searchPaymentLinkListPaginatedResponse.value = it
+
+                            if(it.data != null){
+                                if(it.data!!.isNotEmpty()){
+                                    _searchPaymentLinkListPaginatedResponse.value = it
+                                }else{
+                                    mCurrentPage--
+                                    _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(true)
+                                    _paymentLinkListState.value = ShouldShowRecyclerView(false)
+                                }
+                            }else{
+                                mCurrentPage--
+                                _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(true)
+                                _paymentLinkListState.value = ShouldShowRecyclerView(false)
+                            }
+
                         }, {
                     Timber.e(it, "doSearch")
-                    _uiState.value = Event(UiState.Error(it))
+                    if(it.message.equals("Merchant does not have any payment links.",true)){
+                        _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(true)
+                        _paymentLinkListState.value = ShouldShowRecyclerView(false)
+                    }else{
+                        _paymentLinkListState.value = Error(it)
+                        _paymentLinkListState.value = ShouldShowRecyclerView(true)
+                    }
                 }
                 ),
                 doOnSubscribeEvent = {
-                    _uiState.value = Event(UiState.Loading)
+                    _paymentLinkListState.value = ShouldShowProgressLoading(true)
+                    _paymentLinkListState.value = ShouldShowRecyclerView(true)
+                    _paymentLinkListState.value = ShouldShowLazyLoading(false)
+                    _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(false)
                 },
                 doFinallyEvent = {
-                    _uiState.value = Event(UiState.Complete)
+                    _paymentLinkListState.value = ShouldShowProgressLoading(false)
                 },
                 params = GetPaymentLinkListByReferenceNumberForm(1,10, query )
         ).addTo(disposables)
@@ -115,16 +169,34 @@ class PaymentLinkListViewModel
                             _paymentLinkDetailsResponse.value = it
                         }, {
                     Timber.e(it, "getPaymentLinkByReferenceId")
-                    _uiState.value = Event(UiState.Error(it))
+                    _paymentLinkListState.value = Error(it)
                 }
                 ),
                 doOnSubscribeEvent = {
-                    _uiState.value = Event(UiState.Loading)
+                    _paymentLinkListState.value = ShouldShowProgressLoading(true)
+                    _paymentLinkListState.value = ShouldShowRecyclerView(true)
+                    _paymentLinkListState.value = ShouldShowLazyLoading(false)
+                    _paymentLinkListState.value = ShouldShowNoAvailablePaymentLinks(false)
                 },
                 doFinallyEvent = {
-                    _uiState.value = Event(UiState.Complete)
+                    _paymentLinkListState.value = ShouldShowProgressLoading(false)
                 },
                 params = referenceNumber
         ).addTo(disposables)
     }
+
 }
+
+sealed class PaymentLinkListState
+
+data class ShouldShowProgressLoading(val shouldShow: Boolean) : PaymentLinkListState()
+
+data class ShouldShowLazyLoading(val shouldShow: Boolean) : PaymentLinkListState()
+
+data class ShouldShowRecyclerView(val shouldShow: Boolean) : PaymentLinkListState()
+
+data class ShouldShowNoAvailablePaymentLinks(val shouldShow: Boolean) : PaymentLinkListState()
+
+object NoMoreAvailablePaymentLinks : PaymentLinkListState()
+
+data class Error(val throwable: Throwable) : PaymentLinkListState()

@@ -10,4 +10,5 @@ class EventBus {
     val fragmentSettingsSyncEvent = FragmentSettingsSyncEvent()
     val resultSyncEvent = ResultSyncEvent()
     val actionSyncEvent = ActionSyncEvent()
+    val transactSyncEvent = TransactSyncEvent()
 }

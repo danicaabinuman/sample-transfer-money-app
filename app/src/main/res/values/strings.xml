@@ -2173,4 +2173,11 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="tc_ia_content_4">I/We agree to be bound to this Agreement fully and unconditionally.</string>
 
 
+    <string name="dialog_oops_something_went_wrong_title">Oops!</string>
+    <string name="dialog_oops_something_went_wrong_description">Something went wrong in activating this feature. Please try again later.</string>
+    <string name="dialog_oops_something_went_wrong_action">Close</string>
+
+    <string name="payment_link_list_no_available_title">No Request for Payment</string>
+    <string name="payment_link_list_no_available_description">You have no requests for payment yet. Click the Request Payment button to create your first checkout page.</string>
+
 </resources>

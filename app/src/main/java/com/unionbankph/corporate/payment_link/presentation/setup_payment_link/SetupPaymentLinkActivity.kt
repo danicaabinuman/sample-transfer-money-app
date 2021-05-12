@@ -1,8 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -13,18 +11,16 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.mtramin.rxfingerprint.RxFingerprint
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.dashboard.*
-import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
+import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
-import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
@@ -32,11 +28,13 @@ import kotlinx.android.synthetic.main.activity_link_details.*
 import kotlinx.android.synthetic.main.activity_no_available_accounts.*
 import kotlinx.android.synthetic.main.activity_setup_payment_links.*
 import kotlinx.android.synthetic.main.activity_setup_payment_links.ivBackButton
-import kotlinx.android.synthetic.main.fragment_request_payment_error_dialog.*
+import kotlinx.android.synthetic.main.dialog_feature_unavailable.*
 
 class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_setup_payment_links) {
 
     private var accounts = mutableListOf<Account>()
+    private var fromWhatTab : String? = null
+
     override fun onViewModelBound() {
         super.onViewModelBound()
         viewModel = ViewModelProviders.of(
@@ -47,6 +45,13 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
     override fun onViewsBound() {
         super.onViewsBound()
+
+
+        fromWhatTab = intent.getStringExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB)
+        if(fromWhatTab == null){
+            fromWhatTab = DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON
+        }
+
         initViews()
         initTermsAndCondition()
 

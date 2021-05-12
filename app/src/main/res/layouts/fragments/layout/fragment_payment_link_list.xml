@@ -4,6 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:focusable="true"
+    android:clickable="true"
     android:layout_height="match_parent"
     style="@style/DefaultBackgroundMatchParent"
     >
@@ -39,6 +41,7 @@
             android:id="@+id/rvPaymentLinkList"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:padding="@dimen/grid_2"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -50,6 +53,60 @@
             android:visibility="gone"
             android:layout_height="30dp"
             android:layout_gravity="center" />
+
+        <FrameLayout
+            android:id="@+id/flNoAvailablePaymenLinks"
+            android:layout_width="match_parent"
+            android:padding="@dimen/grid_2"
+            android:background="#F9F9F9"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:padding="@dimen/grid_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_white_circle">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="35dp"
+                        android:adjustViewBounds="true"
+                        android:layout_height="35dp"
+                        android:src="@drawable/payment_link_chain"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:padding="@dimen/grid_1"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/text_16"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:text="@string/payment_link_list_no_available_title"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/text_14"
+                    android:layout_height="wrap_content"
+                    android:text="@string/payment_link_list_no_available_description"/>
+
+            </LinearLayout>
+
+
+
+
+        </FrameLayout>
 
     </LinearLayout>
 

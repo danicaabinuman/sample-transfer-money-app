@@ -48,6 +48,7 @@ import com.unionbankph.corporate.app.common.platform.glide.GlideApp
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.MyContextWrapper
 import com.unionbankph.corporate.app.common.widget.dialog.ProgressBarDialog
+import com.unionbankph.corporate.app.common.widget.dialog.SMEGenericErrorDialog
 import com.unionbankph.corporate.app.common.widget.dialog.SessionTimeOutBottomSheet
 import com.unionbankph.corporate.app.common.widget.tutorial.TutorialEngineUtil
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
@@ -702,7 +703,7 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
         Timber.d("throwable?.message: ${throwable?.message}")
         when (throwable) {
             is SMEApiErrorException -> {
-                showMaterialDialogError(title = "Oops", message = throwable.message)
+                showSMEGenericError()
             }
             is ApiErrorException -> {
                 val error = JsonHelper.fromJson<Error>(throwable.message)
@@ -840,6 +841,11 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
                 }
             )
         }
+    }
+
+    fun showSMEGenericError(
+    ) {
+        SMEGenericErrorDialog().show(supportFragmentManager, "Oops")
     }
 
     private fun showInvalidTokenDialog(message: String?) {

@@ -49,7 +49,7 @@ constructor(
     }
 
     override fun <T> handleOnError(smeApiError: SMEApiError): Single<T> {
-        return Single.error(throwException(smeApiError))
+        return Single.error(throwSMEException(smeApiError))
     }
 
     private fun <T> handleErrorResponse(response: Response<T>): Single<T> {
@@ -64,20 +64,8 @@ constructor(
     }
 
     private fun throwSMEException(smeApiError: SMEApiError): IOException {
-        return if (!smeApiError.message.isNullOrEmpty()) {
-            SMEApiErrorException(smeApiError.message.notNullable())
-        } else {
-            SomethingWentWrongException(context)
-        }
-    }
-
-    private fun throwException(smeApiError: SMEApiError): IOException {
-        return if (!smeApiError.message.isNullOrEmpty()) {
-            val errorMessage = smeApiError.message.notNullable()
-            SMEApiErrorException(errorMessage)
-        } else {
-            SomethingWentWrongException(context)
-        }
+        val errorMessage = smeApiError.message + ""
+        return SMEApiErrorException(errorMessage)
     }
 
     private fun <T> handleCustomError(
