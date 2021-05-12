@@ -4,22 +4,16 @@ import android.content.Intent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
+import com.unionbankph.corporate.app.dashboard.*
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.payment_link.domain.model.PaymentLinkModel
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkTransactionData
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
-import kotlinx.android.synthetic.main.activity_payment_link.*
-import kotlinx.android.synthetic.main.activity_payment_link.editTextSearch
-import kotlinx.android.synthetic.main.activity_payment_link.flLoading
-import kotlinx.android.synthetic.main.activity_payment_link.rvPaymentLinkList
 import kotlinx.android.synthetic.main.fragment_payment_link_list.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
@@ -41,6 +35,12 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
 
         initViews()
         setupOutputs()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mDisableLazyLoading = false
+        viewModel.getAllPaymentLinks()
     }
 
     private fun initViews(){
@@ -70,7 +70,6 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
                     if(!mDisableLazyLoading){
-                        pbPaymentLinkListLoading.visibility = View.VISIBLE
                         rvPaymentLinkList.scrollToPosition((rvPaymentLinkList.adapter?.itemCount ?: 1) - 1);
                         viewModel.getAllNextPaymentLinks()
                     }
@@ -78,13 +77,6 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
             }
         })
 
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        mDisableLazyLoading = false
         mAdapter = PaymentLinkListAdapter(applicationContext)
         rvPaymentLinkList.adapter = mAdapter
         mAdapter.onItemClick = {
@@ -92,12 +84,11 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
             it.referenceNo?.let { it1 -> viewModel.getPaymentLinkDetails(it1) }
         }
 
-        flLoading.visibility = View.VISIBLE
-        viewModel.getAllPaymentLinks()
     }
+
+
     private fun setupOutputs(){
         viewModel.paymentLinkListPaginatedResponse.observe(this, Observer {
-            flLoading.visibility = View.GONE
             if(it.data?.size!! > 0){
                 mDisableLazyLoading = false
                 mAdapter.clearData()
@@ -109,7 +100,6 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         })
 
         viewModel.nextPaymentLinkListPaginatedResponse.observe(this, Observer {
-            pbPaymentLinkListLoading.visibility = View.GONE
             if(it.data?.size!! > 0){
                 mDisableLazyLoading = false
                 mAdapter.appendData(it.data!!)
@@ -119,10 +109,36 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         })
 
         viewModel.searchPaymentLinkListPaginatedResponse.observe(this, Observer {
-            flLoading.visibility = View.GONE
             mDisableLazyLoading = true
             mAdapter.clearData()
             mAdapter.appendData(it.data!!)
+        })
+
+
+        viewModel.paymentLinkListState.observe(this, Observer {
+            when (it) {
+                is ShouldShowProgressLoading -> {
+                    flLoading.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
+                }
+                is ShouldShowNoAvailablePaymentLinks -> {
+                    flNoAvailablePaymenLinks.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
+                }
+                is ShouldShowLazyLoading -> {
+                    pbPaymentLinkListLoading.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
+                }
+                is ShouldShowRecyclerView -> {
+                    rvPaymentLinkList.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
+                }
+
+                is NoMoreAvailablePaymentLinks -> {
+                    mDisableLazyLoading = true
+                }
+
+                is Error -> {
+                    mDisableLazyLoading = true
+                    handleOnError(it.throwable)
+                }
+            }
         })
 
         viewModel.paymentLinkDetailsResponse.observe(this, Observer {
@@ -147,18 +163,6 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
                     )
             )
         })
-
-        viewModel.uiState.observe(this, Observer {
-            it.getContentIfNotHandled().let { event ->
-                when (event) {
-                    is UiState.Error -> {
-                        flLoading.visibility = View.GONE
-                        pbPaymentLinkListLoading.visibility = View.GONE
-                        handleOnError(event.throwable)
-                    }
-                }
-            }
-        })
     }
 
 
@@ -167,10 +171,6 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         val responseJson = JsonHelper.toJson(generatePaymentLinkResponse)
         intent.putExtra(LinkDetailsActivity.EXTRA_GENERATE_PAYMENT_LINK_RESPONSE, responseJson)
         startActivity(intent)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
 }
