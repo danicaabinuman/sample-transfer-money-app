@@ -370,6 +370,11 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     eventBus.transactSyncEvent.emmit(
                         BaseEvent(TransactSyncEvent.ACTION_REDIRECT_TO_PAYMENT_LINK_LIST)
                     )
+                    setToolbarTitle(
+                            getString(R.string.title_payment_links),
+                            hasBackButton = false,
+                            hasMenuItem = true
+                    )
                 }
             }
         }.addTo(disposables)

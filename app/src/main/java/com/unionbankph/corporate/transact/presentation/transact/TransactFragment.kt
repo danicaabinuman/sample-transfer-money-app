@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.transact.presentation.transact
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -56,6 +57,15 @@ class TransactFragment :
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        (activity as DashboardActivity).setToolbarTitle(
+                getString(R.string.title_dashboard_header_transact),
+                hasBackButton = false,
+                hasMenuItem = true
+        )
+
+    }
     private fun init() {
         if (App.isSupportedInProduction) {
             constraintLayoutBranchVisit.visibility(false)
