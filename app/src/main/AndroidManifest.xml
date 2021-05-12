@@ -560,7 +560,7 @@
         <activity
             android:name=".payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard"/>
+            android:launchMode="standard" />
         <activity
             android:name=".payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
