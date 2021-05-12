@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginBottom="20dp">
+
+    <TextView
+        android:id="@+id/tvTCIntroduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:minLines="1"
+        android:text="TRANSACTION FEE"
+        android:textColor="#4A4A4A"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <include layout="@layout/item_terms_of_service_transaction_fee"/>
+
+    <include layout="@layout/item_tc_if_applicable"/>
+
+</LinearLayout>
