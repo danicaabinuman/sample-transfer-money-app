@@ -128,7 +128,7 @@
                     android:paddingLeft="10dp"
                     android:text="3.00%"
                     android:textColor="#4A4A4A"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -206,7 +206,7 @@
                     android:background="@drawable/for_transaction_fee_mid_gray"
                     android:paddingLeft="20dp"
                     android:paddingBottom="10dp"
-                    android:text="Mastercard"
+                    android:text="Handling Fee"
                     android:textColor="#4A4A4A"
                     android:textSize="14sp" />
 

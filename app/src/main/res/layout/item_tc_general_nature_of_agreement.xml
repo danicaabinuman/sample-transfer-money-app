@@ -5,12 +5,12 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvTCRP"
+        android:id="@+id/tvTCIntroduction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:minLines="1"
-        android:text="REQUEST PAYMENT"
+        android:text="GENERAL NATURE OF AGREEMENT"
         android:textColor="#4A4A4A"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="1"
-                android:text="@string/tc_rp_content_1"
+                android:text="@string/tc_gnoa_content_1"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -56,94 +56,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="1"
-                android:text="@string/tc_rp_content_2"
+                android:text="@string/tc_gnoa_content_2"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp" />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/numbering_a"
+                android:text="3. "
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="1"
-                android:text="@string/tc_rp_content_2a"
+                android:text="@string/tc_gnoa_content_3"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="20dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/numbering_b"
-                android:textColor="#4A4A4A"
-                android:textSize="12sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minLines="1"
-                android:text="@string/tc_rp_content_2b"
-                android:textColor="#4A4A4A"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="20dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/numbering_c"
-                android:textColor="#4A4A4A"
-                android:textSize="12sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minLines="1"
-                android:text="@string/tc_rp_content_2c"
-                android:textColor="#4A4A4A"
-                android:textSize="12sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="20dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/numbering_d"
-                android:textColor="#4A4A4A"
-                android:textSize="12sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minLines="1"
-                android:text="@string/tc_rp_content_2d"
-                android:textColor="#4A4A4A"
-                android:textSize="12sp" />
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -32,6 +32,8 @@
 
             <include layout="@layout/item_tc_definition_of_terms"/>
 
+            <include layout="@layout/item_tc_general_nature_of_agreement"/>
+
             <include layout="@layout/item_tc_enrollment_and_implementation"/>
 
             <include layout="@layout/item_tc_request_payment"/>

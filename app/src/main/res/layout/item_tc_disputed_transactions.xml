@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:minLines="1"
         android:text="DISPUTED TRANSACTIONS, CHARGEBACK, AND HOLD-OUT DEPOSIT"
         android:textColor="#4A4A4A"
@@ -177,7 +178,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="i. "
+                android:text="@string/numbering_roman_i"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
@@ -195,12 +196,13 @@
             android:orientation="horizontal"
             android:layout_marginStart="60dp"
             android:layout_marginEnd="20dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ii. "
+                android:text="@string/numbering_roman_ii"
                 android:textColor="#4A4A4A"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -219,7 +221,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="iii."
+                android:text="@string/numbering_roman_iii"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
@@ -240,7 +242,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="iv."
+                android:text="@string/numbering_roman_iv"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
@@ -368,7 +370,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="i. "
+                android:text="@string/numbering_roman_i"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
@@ -389,7 +391,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ii. "
+                android:text="@string/numbering_roman_ii"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
@@ -410,7 +412,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="iii."
+                android:text="@string/numbering_roman_iii"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView

@@ -1966,7 +1966,7 @@
     <string name="tc_introduction_content">This Payment Gateway Services Agreement (the “Agreement”) is a legally binding contract between you (“Merchant”) and UnionBank of the Philippines (the “Bank”). The Agreement sets out the terms and conditions under which Merchant may utilize UnionBank Payment Gateway Services. Merchant should read this Agreement carefully. \n\nBy clicking on the “I AGREE” button or by using or accessing UnionBank Payment Gateway Services through any means permissible including, without limitation via a web or a mobile application, Merchant acknowledges and agrees that: (i) it has reviewed and understands the Agreement; (ii) it agrees to be legally bound by the terms and conditions of the Agreement and to any of its future amendments or revisions; and (iii) its use of UnionBank Payment Gateway Services and any related products or services will be governed by this Agreement.</string>
     <string name="tc_dot_content_1">“Cardholder” means the person whose name is embossed or printed on the card.</string>
     <string name="tc_dot_content_2">“Cards” means all products authorized and bearing the mark of VISA, or Mastercard. Additional brands may be included by mutual agreement of the Parties.</string>
-    <string name="tc_dot_content_3">Chargeback” means the process by which the Bank will charge to Merchant the amount of transactions which have been paid by the Bank under such circumstances as described in the provisions below or under dispute by the Customer.</string>
+    <string name="tc_dot_content_3">“Chargeback” means the process by which the Bank will charge to Merchant the amount of transactions which have been paid by the Bank under such circumstances as described in the provisions below or under dispute by the Customer.</string>
     <string name="tc_dot_content_4">“Confidential Information” means any information or material marked “Confidential”, “Restricted” or with such other restrictive legend; proprietary Software including source code and documentation; or any other form of information disclosed which may be reasonably construed to be confidential which either party may disclose to the other under this Agreement. The term Confidential Information shall also include all customer/client information of the Bank, including credit card / charge card code numbers of customers or clients, as well as all personal information of customers or clients, which Merchant may have access to as a consequence of implementation of this Agreement.</string>
     <string name="tc_dot_content_5">“Customer” or “Payor” refers to any person, natural or juridical, that pays the Merchant through Unionbank Payment Gateway Service.</string>
     <string name="tc_dot_content_6">“Documentation” means any online or printed manual or other associated instruction material provided by the Bank in connection with Software and the Services.</string>
@@ -2020,16 +2020,16 @@
     <string name="tc_mwao_content_7i">Banned and illegal substances;</string>
     <string name="tc_mwao_content_7j">Other goods and services deemed prohibited by the Bank.</string>
     <string name="tc_mwao_content_8">Merchant’s non-compliance with its obligations under this Clause E shall be deemed either a wilfull act, omission or negligence, as the case may be, by the Merchant. In case of non-compliance of any provision of this Clause E, the Bank is authorized by the Merchant to impose and collect a penalty equivalent to the amount of (a) the penalty imposed by the Card brands (if applicable) and (b) the transaction involved plus actual of the amounts of the transaction. Said penalties may automatically be deducted by the Bank from the Nominated Settlement Account or collected by other means provided in this Agreement or by law.</string>
-    <string name="numbering_j">j. </string>
-    <string name="numbering_i">i. </string>
-    <string name="numbering_h">h. </string>
-    <string name="numbering_g">g. </string>
-    <string name="numbering_f">f. </string>
-    <string name="numbering_e">e. </string>
-    <string name="numbering_d">d. </string>
-    <string name="numbering_c">c. </string>
-    <string name="numbering_b">b. </string>
-    <string name="numbering_a">a. </string>
+    <string name="numbering_j">j.&#160;</string>
+    <string name="numbering_i">i.&#160;</string>
+    <string name="numbering_h">h.&#160;</string>
+    <string name="numbering_g">g.&#160;</string>
+    <string name="numbering_f">f.&#160;</string>
+    <string name="numbering_e">e.&#160;</string>
+    <string name="numbering_d">d.&#160;</string>
+    <string name="numbering_c">c.&#160;</string>
+    <string name="numbering_b">b.&#160;</string>
+    <string name="numbering_a">a.&#160;</string>
     <string name="tc_aapop_content_1">The Bank shall have the duty to credit Customers payments into the Merchant’s Nominated Settlement Account subject to the following conditions:</string>
     <string name="tc_aapop_content_1a">The Bank’s actual receipt of the funds from the Customer;</string>
     <string name="tc_aapop_content_1b">The amount to be credited shall be subject to deductions as agreed upon by the Parties;</string>
@@ -2179,5 +2179,13 @@ Neither Party shall be liable for any failure to perform its obligations under t
 
     <string name="payment_link_list_no_available_title">No Request for Payment</string>
     <string name="payment_link_list_no_available_description">You have no requests for payment yet. Click the Request Payment button to create your first checkout page.</string>
+    
+    <string name="tc_gnoa_content_1">The Merchant hereby engages the Bank as its service provider to provide online payment gateway services, specifically the Unionbank Payment Gateway Service, which allows Customers to pay and Merchant to receive payments through a wide array of payment facilities.</string>
+    <string name="tc_gnoa_content_2">Merchant desires to use Unionbank Payment Gateway Service to receive payment of goods and/or services from Customers through available channels including but not limited to Cards, bank transfers (through PESONet or Instapay), GCash, Over The Counter, Digital Wallet, Partner Channels and QR code (“Service”).</string>
+    <string name="tc_gnoa_content_3">By availing the Service, the Merchant is granted a limited, non-exclusive, non-transferable, non-sublicensable license by the Bank to use and access Unionbank Payment Gateway Service subject to the terms and conditions of this Agreement and other agreements executed by the Parties.</string>
+    <string name="numbering_roman_i">i.&#160;</string>
+    <string name="numbering_roman_ii">ii.&#160;</string>
+    <string name="numbering_roman_iii">iii.&#160;</string>
+    <string name="numbering_roman_iv">iv.&#160;</string>
 
 </resources>

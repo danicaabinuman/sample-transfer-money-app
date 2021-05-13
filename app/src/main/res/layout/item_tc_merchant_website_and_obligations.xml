@@ -232,7 +232,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="a. "
+                android:text="@string/numbering_a"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
@@ -253,7 +253,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="b. "
+                android:text="@string/numbering_b"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
@@ -274,7 +274,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="c. "
+                android:text="@string/numbering_c"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
@@ -295,7 +295,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="d. "
+                android:text="@string/numbering_d"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
             <TextView
