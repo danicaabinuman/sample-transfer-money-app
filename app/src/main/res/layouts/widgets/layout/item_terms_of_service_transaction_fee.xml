@@ -89,7 +89,7 @@
                     android:background="@drawable/for_transaction_fee_mid_white"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:text="Merchant Discount Rate"
+                    android:text="Merchant Discount Rate:"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp" />
 
@@ -248,7 +248,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/for_transaction_fee_mid_white"
                     android:paddingLeft="10dp"
-                    android:text="0.5%"
+                    android:text="0.5%*"
                     android:gravity="bottom"
                     android:textColor="#4A4A4A"
                     android:textSize="14sp" />

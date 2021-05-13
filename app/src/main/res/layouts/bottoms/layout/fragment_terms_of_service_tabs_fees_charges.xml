@@ -10,10 +10,23 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvTCHeader"
+        android:id="@+id/tvFeeCharges"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:text="Fees and Charges"
+        android:textColor="#4A4A4A"
+        android:textStyle="bold"
+        android:textSize="24sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvTCHeader"
+        app:layout_constraintTop_toBottomOf="@id/tvFeeCharges"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
         android:text="@string/fees_charges_text_1"
         android:textColor="#4A4A4A"
         android:textSize="12sp"/>
