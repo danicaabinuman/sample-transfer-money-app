@@ -12,6 +12,36 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp">
 
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="150dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/for_transaction_fee_top_left"-->
+<!--                android:paddingStart="20dp"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingBottom="10dp"-->
+
+<!--                android:textColor="#4A4A4A"-->
+<!--                android:textSize="14sp" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/for_transaction_fee_top_right"-->
+<!--                android:paddingStart="10dp"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingBottom="10dp"-->
+
+<!--                android:textColor="#4A4A4A"-->
+<!--                android:textSize="14sp" />-->
+
+<!--        </LinearLayout>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,40 +51,10 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/for_transaction_fee_top_left"
-                android:paddingStart="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Set-Up Fee"
-                android:textColor="#4A4A4A"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/for_transaction_fee_top_right"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="PHP 20,000.00 one time"
-                android:textColor="#4A4A4A"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/for_transaction_fee_mid_gray"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Annual MID Fee per Account"
+                android:text="Annual MID Fee per account for Card Facility only"
                 android:textColor="#4A4A4A"
                 android:textSize="14sp" />
 
@@ -62,104 +62,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/for_transaction_fee_mid_gray"
+                android:background="@drawable/for_transaction_fee_top_right"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="PHP 25,000.00"
+                android:gravity="center_vertical"
+                android:text="PHP 15,000.00"
                 android:textColor="#4A4A4A"
                 android:textSize="14sp" />
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/for_transaction_fee_mid_white"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:text="Merchant Discount Rate:"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="10dp"
-
-
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="20dp"
-                    android:text="Visa"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="10dp"
-                    android:text="3.00%"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="20dp"
-                    android:paddingBottom="10dp"
-                    android:text="Mastercard"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="10dp"
-                    android:text="3.00%"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -178,18 +90,18 @@
                     android:background="@drawable/for_transaction_fee_mid_gray"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:text="Transaction"
+                    android:text="Merchant Discount Rate:"
                     android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/for_transaction_fee_mid_gray"
-                    android:gravity="bottom"
                     android:paddingLeft="10dp"
-                    android:text="PHP 5.00 per transaction"
+                    android:text="Visa, MasterCard"
+                    android:gravity="bottom"
                     android:textColor="#4A4A4A"
                     android:textSize="14sp" />
 
@@ -205,8 +117,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/for_transaction_fee_mid_gray"
                     android:paddingLeft="20dp"
-                    android:paddingBottom="10dp"
-                    android:text="Handling Fee"
+                    android:text="Visa"
                     android:textColor="#4A4A4A"
                     android:textSize="14sp" />
 
@@ -215,10 +126,205 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="10dp"
+                    android:text="3.00% + Php 10.00"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="20dp"
+                    android:text="MasterCard"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="10dp"
+                    android:text="3.00% + Php 10.00"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="20dp"
+                    android:text="Withholding Tax"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="10dp"
+                    android:text="0.5% only applicable to Card"
+                    android:gravity="bottom"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="20dp"
+                    android:text="(Quarterly release of"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp" />
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:text="Transactions"
+                    android:paddingLeft="10dp"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="20dp"
+                    android:text="CWT/BIR 2307)"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="10dp"
+                    android:textColor="#4A4A4A" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="20dp"
+                    android:text="International Cards"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="10dp"
+                    android:text="+ 1.00%"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="Chargeback Fee"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="10dp"
+                    android:text="PHP 400.00"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/for_transaction_fee_mid_gray"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/for_transaction_fee_mid_white"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Instapay"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/for_transaction_fee_mid_white"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="PHP 15.00"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -235,75 +341,123 @@
                 <TextView
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_mid_white"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:text="Withholding Tax"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="10dp"
-                    android:text="0.5%*"
-                    android:gravity="bottom"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="20dp"
-                    android:text="(Quarterly release of"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="10dp"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="20dp"
                     android:paddingBottom="10dp"
-                    android:text="CWT/BIR 2307"
+                    android:text="E-Wallet"
                     android:textColor="#4A4A4A"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_mid_white"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
                     android:paddingLeft="10dp"
-                    android:textColor="#4A4A4A" />
+                    android:text="2.00% + Php 10.00"
+                    android:gravity="center_vertical"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
 
             </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_transaction_fee_mid_white"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Over-the-Counter Cash Payments"
+                android:textColor="#4A4A4A"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/for_transaction_fee_mid_white"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Php 20.00"
+                android:textColor="#4A4A4A"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/for_transaction_fee_mid_white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Unionbank Online"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/for_transaction_fee_mid_gray"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="Php 10.00"
+                    android:textColor="#4A4A4A"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_transaction_fee_mid_white"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Merchant Description on Statement"
+                android:textColor="#4A4A4A"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/for_transaction_fee_mid_white"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Merchant Name"
+                android:textColor="#4A4A4A"
+                android:textSize="14sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -318,7 +472,7 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Settlement"
+                android:text="Settlement Non Card Transaction"
                 android:textColor="#4A4A4A"
                 android:textSize="14sp" />
 
@@ -337,37 +491,68 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_transaction_fee_mid_white"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Settlement Card Transaction"
+                android:textColor="#4A4A4A"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/for_transaction_fee_mid_white"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="T+7 to T+14 banking days"
+                android:textColor="#4A4A4A"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/for_transaction_fee_mid_gray"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Merchant Description on Statement"
+                android:textColor="#4A4A4A"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/for_transaction_fee_mid_gray"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="Merchant Name"
+                android:textColor="#4A4A4A"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/for_transaction_fee_mid_white"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="10dp"
-                    android:text="Merchant Description"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:text="Merchant Name"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -380,126 +565,8 @@
                     android:background="@drawable/for_transaction_fee_mid_white"
                     android:paddingLeft="20dp"
                     android:paddingBottom="10dp"
-                    android:text="on Statement"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/for_transaction_fee_mid_gray"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Credit Card Brands"
-                android:textColor="#4A4A4A"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/for_transaction_fee_mid_gray"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="Visa, MasterCard"
-                android:textColor="#4A4A4A"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/for_transaction_fee_mid_white"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="International Cards"
-                android:textColor="#4A4A4A"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/for_transaction_fee_mid_white"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="+ 1.00%"
-                android:textColor="#4A4A4A"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/for_transaction_fee_mid_gray"
-                android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="Chargeback Fee"
-                android:textColor="#4A4A4A"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/for_transaction_fee_mid_gray"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:text="PHP 400.00"
-                android:textColor="#4A4A4A"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/for_transaction_fee_mid_white"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:text="Main Settlement"
+                    android:text="Nominated Settlement Account (Unionbank Account Number)"
                     android:textColor="#4A4A4A"
                     android:textSize="14sp" />
 
@@ -508,57 +575,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="10dp"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="20dp"
-                    android:text="Account"
-                    android:textColor="#4A4A4A"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_mid_white"
-                    android:paddingLeft="10dp"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/for_transaction_fee_bottom_left"
-                    android:paddingLeft="20dp"
-                    android:paddingBottom="10dp"
-                    android:text="(Unionbank Account Number)"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/for_transaction_fee_bottom_right"
                     android:paddingLeft="10dp"
                     android:textColor="#4A4A4A"
                     android:textSize="14sp" />
