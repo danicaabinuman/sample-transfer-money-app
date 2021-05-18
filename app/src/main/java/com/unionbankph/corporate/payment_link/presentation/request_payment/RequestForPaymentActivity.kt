@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.isEmpty
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
@@ -20,12 +21,16 @@ import com.unionbankph.corporate.payment_link.presentation.payment_link_details.
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
+import kotlinx.android.synthetic.main.activity_check_deposit_filter.*
 import kotlinx.android.synthetic.main.activity_check_deposit_form.*
 import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_link_details.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.activity_request_payment.ivBackButton
 import kotlinx.android.synthetic.main.fragment_send_request.*
+import timber.log.Timber
+import java.lang.Exception
+import java.lang.NumberFormatException
 
 class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
 
@@ -55,7 +60,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun initViews(){
         btnRequestPaymentGenerate.setOnClickListener{
-
             val amount = et_amount.text.toString()
             val paymentFor = et_paymentFor.text.toString()
             val notes = et_notes.text.toString()
@@ -103,8 +107,8 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         val paymentForString = et_paymentFor.text.toString()
 
         if (
-            (amountString.length) > 4 &&
-            (paymentForString.length in 1..255)
+            (amountString.length >= 3) &&
+            (paymentForString.length in 1..100)
         ){
             if (amountString == "PHP 0"){buttonDisable()}
             else if (amountString == "PHP 0."){buttonDisable()}
@@ -136,6 +140,12 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                val totalAmount = et_amount.text.toString()
+                if (s != null) {
+                    if (count < 7){
+                        et_amount.error = "Minimum amount should be PHP 100.00 and above"
+                    }
+                }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
