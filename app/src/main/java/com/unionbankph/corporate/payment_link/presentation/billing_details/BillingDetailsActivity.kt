@@ -87,7 +87,7 @@ class BillingDetailsActivity :
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse){
 
         val amountParse = DecimalFormat("####.##")
-        val amountFormat = DecimalFormat("#,##0.00")
+        val amountFormat = DecimalFormat("")
         val feeFormat = DecimalFormat("#,##0.00")
 
         var grossAmountString = ""
@@ -95,7 +95,7 @@ class BillingDetailsActivity :
         var feeDouble = 0.00
         var grossAmountDouble = 0.00
         try {
-            grossAmountString = amountFormat.format(response.paymentDetails?.amount?.toDouble()!!)
+            grossAmountString = response.paymentDetails!!.amount
             grossAmountDouble = grossAmountString.toDouble()
         }catch (e: NumberFormatException){
             Timber.e(e.message)
@@ -103,7 +103,7 @@ class BillingDetailsActivity :
         }
 
         try {
-            feeString = feeFormat.format(response.paymentDetails?.fee?.toDouble()!!)
+            feeString = response.paymentDetails!!.fee!!
             feeDouble = feeString.toDouble()
         }catch (e: NumberFormatException){
             Timber.e(e.message)
