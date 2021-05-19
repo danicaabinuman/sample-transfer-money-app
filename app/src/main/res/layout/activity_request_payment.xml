@@ -61,6 +61,8 @@
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
                     android:background="#FFFFFF"
+                    app:errorEnabled="true"
+                    app:errorTextColor="#ED5635"
                     app:hintEnabled="false">
 
 
