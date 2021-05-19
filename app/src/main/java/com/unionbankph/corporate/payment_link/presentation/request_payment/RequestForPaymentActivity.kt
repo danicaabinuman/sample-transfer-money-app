@@ -156,7 +156,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(count<9){
                     val cleanString = s.toString().replace("PHP","").replace(" ","")
                     var amountDouble = 0.00
                     try {
@@ -170,8 +169,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                         Timber.e(e.message)
                         e.printStackTrace()
                     }
-
-                }
+                
                 validateForm()
             }
         })
