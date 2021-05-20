@@ -2187,5 +2187,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="numbering_roman_ii">ii.&#160;</string>
     <string name="numbering_roman_iii">iii.&#160;</string>
     <string name="numbering_roman_iv">iv.&#160;</string>
+    <string name="fee_calculator_details">Fees will change depending on the payment method selected by your customer. Select the cards below to see the Net Amount.</string>
 
 </resources>
