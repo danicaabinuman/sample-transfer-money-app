@@ -16,6 +16,8 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.dashboard.*
+import com.unionbankph.corporate.auth.data.model.Role
+import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
@@ -82,6 +84,8 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             setupPaymentLinkLoading.visibility = View.VISIBLE
             til_business_name.error = null
 
+            val role = cacheManager.getObject(CacheManager.ROLE) as? Role
+            val orgName = role?.organizationName
             val businessName = et_business_name.text.toString()
             val businessWebsite = et_business_websites.text.toString()
             val businessProductsOffered = et_business_products_offered.text.toString()
@@ -89,7 +93,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             viewModel.createMerchant(
                     CreateMerchantForm(
                             "",
-                            businessName,
+                            orgName!!,
                             businessName,
                             include1.findViewById<TextView>(R.id.textViewAccountNumber).text.toString(),
                             include1.findViewById<TextView>(R.id.textViewCorporateName).text.toString(),
