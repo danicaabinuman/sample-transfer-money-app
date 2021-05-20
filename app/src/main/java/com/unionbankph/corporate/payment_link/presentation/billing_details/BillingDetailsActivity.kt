@@ -85,17 +85,12 @@ class BillingDetailsActivity :
     }
 
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse){
-
-        val amountParse = DecimalFormat("####.##")
-        val amountFormat = DecimalFormat("#,##0.00")
-        val feeFormat = DecimalFormat("#,##0.00")
-
-        var grossAmountString = ""
-        var feeString = ""
+        var grossAmountString = "0.00"
+        var feeString = "0.00"
         var feeDouble = 0.00
         var grossAmountDouble = 0.00
         try {
-            grossAmountString = amountFormat.format(response.paymentDetails?.amount?.toDouble()!!)
+            grossAmountString = response.paymentDetails!!.amount
             grossAmountDouble = grossAmountString.toDouble()
         }catch (e: NumberFormatException){
             Timber.e(e.message)
@@ -103,7 +98,7 @@ class BillingDetailsActivity :
         }
 
         try {
-            feeString = feeFormat.format(response.paymentDetails?.fee?.toDouble()!!)
+            feeString = response.paymentDetails!!.fee!!
             feeDouble = feeString.toDouble()
         }catch (e: NumberFormatException){
             Timber.e(e.message)
@@ -151,7 +146,7 @@ class BillingDetailsActivity :
 
         tvRefNumber.text = response.paymentDetails?.referenceNo
         tvReferenceNumberTitle.text = response.paymentDetails?.referenceNo
-        tvAmount.text = amountFormatFinal.format(netDouble)
+        tvAmount.text = grossAmountString
         tvDescription.text = response.paymentDetails?.paymentFor
         tvRemarks.text = response.paymentDetails?.description
         tvLinkUrl.text = response.paymentDetails?.paymentLink

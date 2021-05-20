@@ -583,6 +583,8 @@
         <item name="errorTextAppearance">@style/TextInputLayoutErrorAppearance</item>
         <item name="android:theme">@style/TextInputEditTextAccent</item>
         <item name="boxStrokeColor">@drawable/state_edit_text</item>
+        <item name="boxBackgroundColor">@color/jumio_white</item>
+        <item name="background">@color/jumio_white</item>
         <item name="errorIconDrawable">@null</item>
     </style>
 
