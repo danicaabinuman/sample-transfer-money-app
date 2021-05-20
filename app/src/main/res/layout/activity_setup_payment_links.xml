@@ -103,15 +103,15 @@
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
                         app:errorEnabled="true"
-                        app:errorTextColor="#ED5635"
-                        android:hint="@string/hint_storehandle">
+                        app:hintEnabled="false"
+                        app:errorTextColor="#ED5635">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_business_name"
                             style="@style/TextInputEditTextForm3"
                             android:layout_height="48dp"
-                            android:background="#FFFFFF"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:hint="@string/hint_storehandle"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,13 +146,13 @@
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1_half"
-                        android:hint="@string/hint_website"
-                        android:background="#FFFFFF">
+                        app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_business_websites"
                             style="@style/TextInputEditTextForm2"
-                            android:layout_height="48dp" />
+                            android:layout_height="48dp"
+                            android:hint="@string/hint_website"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -186,14 +186,14 @@
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1_half"
-                        android:background="#FFFFFF"
-                        android:hint="@string/hint_product">
+                        app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_business_products_offered"
                             style="@style/TextInputEditTextFormProducts"
                             android:layout_height="48dp"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:hint="@string/hint_product"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
