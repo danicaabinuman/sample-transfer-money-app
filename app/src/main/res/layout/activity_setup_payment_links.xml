@@ -102,16 +102,15 @@
                         android:id="@+id/til_business_name"
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
-                        android:layout_marginTop="@dimen/grid_1_half"
                         app:errorEnabled="true"
                         app:errorTextColor="#ED5635"
-                        android:background="#FFFFFF"
                         android:hint="@string/hint_storehandle">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_business_name"
                             style="@style/TextInputEditTextForm3"
                             android:layout_height="48dp"
+                            android:background="#FFFFFF"
                             android:inputType="text" />
 
                     </com.google.android.material.textfield.TextInputLayout>
