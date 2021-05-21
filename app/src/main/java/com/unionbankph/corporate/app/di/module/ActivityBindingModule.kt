@@ -92,6 +92,7 @@ import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPay
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
 import com.unionbankph.corporate.settings.presentation.country.CountryActivity
 import com.unionbankph.corporate.settings.presentation.email.UpdateEmailActivity
@@ -523,5 +524,9 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun requestPaymentSplashActivity(): RequestPaymentSplashActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun setupPaymentLinkSuccessfulActivity(): SetupPaymentLinkSuccessfulActivity
 
 }

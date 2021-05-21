@@ -215,6 +215,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             if(it.message.equals("Success",true)){
 
                 val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
+                intent.putExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB,fromWhatTab)
                 startActivity(intent)
                 finish()
             }else{

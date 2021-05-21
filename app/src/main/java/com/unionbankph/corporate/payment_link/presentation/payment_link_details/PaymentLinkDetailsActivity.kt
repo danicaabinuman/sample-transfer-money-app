@@ -45,7 +45,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun initViews(){
 
         ivBackButton.setOnClickListener{
-            generateNewPaymentLinkAsResult()
+            finish()
         }
 
         imgBtnShare.setOnClickListener{
@@ -57,8 +57,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
         btnGenerateAnotherLink.setOnClickListener{
-            startActivity(Intent(this@LinkDetailsActivity, RequestForPaymentActivity::class.java))
-            finish()
+            //TODO check if from payment link list or from dashboard
+            generateNewPaymentLinkAsResult()
         }
 
         btnArchive.setOnClickListener{
@@ -106,13 +106,12 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
     }
 
+
     private fun setupOutputs() {
 
         viewModel.putPaymentLinkStatusResponse.observe(this, Observer {
             flLoading.visibility = View.INVISIBLE
             archiveSuccess.visibility = View.VISIBLE
-
-            updateArchivedView()
 
         })
 

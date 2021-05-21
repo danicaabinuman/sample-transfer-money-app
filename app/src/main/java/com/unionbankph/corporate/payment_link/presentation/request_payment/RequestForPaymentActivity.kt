@@ -231,10 +231,4 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        clearAllFields()
-    }
-
 }

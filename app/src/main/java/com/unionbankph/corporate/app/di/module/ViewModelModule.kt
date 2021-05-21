@@ -104,6 +104,7 @@ import com.unionbankph.corporate.payment_link.presentation.payment_link_list.Pay
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceViewModel
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.country.CountryViewModel
@@ -717,6 +718,13 @@ abstract class ViewModelModule {
     @ViewModelKey(RequestPaymentSplashViewModel::class)
     abstract fun requestPaymentSplashViewModel(
         viewModel: RequestPaymentSplashViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SetupPaymentLinkSuccessfulViewModel::class)
+    abstract fun setupPaymentLinkSuccessfulViewModel(
+        viewModel: SetupPaymentLinkSuccessfulViewModel
     ): ViewModel
 
 }
