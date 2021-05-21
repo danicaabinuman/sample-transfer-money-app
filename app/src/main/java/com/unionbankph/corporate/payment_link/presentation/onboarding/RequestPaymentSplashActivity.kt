@@ -73,7 +73,23 @@ class RequestPaymentSplashActivity : BaseActivity<RequestPaymentSplashViewModel>
             continueToNextScreen()
         }
         skipBtn.setOnClickListener{
-            continueToNextScreen()
+//            continueToNextScreen()
+            when (viewPager2.currentItem) {
+                0 -> {
+                    viewPager2.currentItem = viewPager2.currentItem + 2
+                    llSkipAndNextBtn.visibility = View.GONE
+                    btnGetStarted.visibility = View.VISIBLE
+                }
+                1 -> {
+                    viewPager2.currentItem = viewPager2.currentItem + 1
+                    llSkipAndNextBtn.visibility = View.GONE
+                    btnGetStarted.visibility = View.VISIBLE
+                }
+                2 -> {
+                    llSkipAndNextBtn.visibility = View.GONE
+                    btnGetStarted.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
