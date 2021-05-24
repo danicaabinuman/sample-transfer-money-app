@@ -682,8 +682,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             )
 
             btnRequestPayment.visibility(
-                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
-                        position == bottomNavigationItems[FRAGMENT_TRANSACT]
+                position == bottomNavigationItems[FRAGMENT_ACCOUNTS]
             )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
