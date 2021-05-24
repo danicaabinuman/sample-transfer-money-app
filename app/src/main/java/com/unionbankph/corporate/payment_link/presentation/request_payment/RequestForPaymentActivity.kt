@@ -212,23 +212,4 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         }
     }
 
-//    private fun clearAllFields(){
-//        et_amount.text?.clear()
-//        et_paymentFor.text?.clear()
-//        et_notes.text?.clear()
-//        textInputEditTextMobileNumber.text?.clear()
-//        et_amount.requestFocus()
-//    }
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if(requestCode == LinkDetailsActivity.REQUEST_CODE){
-//            if (resultCode == RESULT_OK) {
-//                val shouldGenerateNewPaymentLink = data?.getBooleanExtra(LinkDetailsActivity.RESULT_SHOULD_GENERATE_NEW_LINK,false)
-//                if(shouldGenerateNewPaymentLink == true){
-//                    clearAllFields()
-//                }
-//            }
-//        }
-//    }
 }
