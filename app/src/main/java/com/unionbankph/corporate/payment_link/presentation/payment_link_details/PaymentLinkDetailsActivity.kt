@@ -43,6 +43,14 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         super.onViewsBound()
         initViews()
         setupOutputs()
+        initIntentData()
+    }
+
+    private fun initIntentData(){
+        fromWhatTab = intent.getStringExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB)
+        if(fromWhatTab == null){
+            fromWhatTab = DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON
+        }
     }
 
     private fun initViews(){
@@ -60,11 +68,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
         btnGenerateAnotherLink.setOnClickListener{
-            fromWhatTab = intent.getStringExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB)
-            if(fromWhatTab == null){
-                fromWhatTab = DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON
-            }
-
             when(fromWhatTab){
                 DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON -> {
                     val intent = Intent(this, RequestForPaymentActivity::class.java)
@@ -349,8 +352,6 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         const val REQUEST_CODE = 1209
         const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
         const val EXTRA_GENERATE_PAYMENT_LINK_RESPONSE = "extra_generate_payment_link_response"
-        const val FROM_REQUEST_PAYMENT_BUTTON = "from_accounts_tab"
-        const val FROM_TRANSACT_TAB = "from_transact_tab"
     }
 
 }
