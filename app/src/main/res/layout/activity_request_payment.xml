@@ -60,11 +60,9 @@
                     style="@style/TextInputLayoutForm"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
-                    android:background="#FFFFFF"
                     app:errorEnabled="true"
                     app:errorTextColor="#ED5635"
                     app:hintEnabled="false">
-
 
                     <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
                         android:id="@+id/et_amount"
@@ -74,7 +72,8 @@
                         android:inputType="numberDecimal"
                         android:paddingEnd="@dimen/content_spacing"
                         app:currencySymbol="@string/title_php"
-                        app:useCurrencySymbolAsHint="true" />
+                        app:useCurrencySymbolAsHint="true"
+                        android:drawableEnd="@drawable/ic_calculator"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,12 +91,12 @@
                     style="@style/TextInputLayoutForm"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
-                    android:hint="@string/hint_eg_10_peppermint_candles"
-                    android:background="#FFFFFF">
+                    app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_paymentFor"
                         style="@style/TextInputEditTextFormCounter"
+                        android:hint="@string/hint_eg_10_peppermint_candles"
                         android:paddingBottom="40dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -131,12 +130,12 @@
                     style="@style/TextInputLayoutForm"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
-                    android:hint="@string/hint_eg_for_marga"
-                    android:background="#FFFFFF">
+                    app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_notes"
                         style="@style/TextInputEditTextForm4"
+                        android:hint="@string/hint_eg_for_marga"
                         android:paddingBottom="40dp"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -152,8 +151,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_status"
                     style="@style/Spinner.DropDownOrange"
-                    android:layout_width="match_parent"
-                    android:background="#FFFFFF">
+                    android:layout_width="match_parent">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
