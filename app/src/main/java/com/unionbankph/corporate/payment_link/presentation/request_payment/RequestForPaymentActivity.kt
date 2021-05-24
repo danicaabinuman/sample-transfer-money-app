@@ -15,6 +15,7 @@ import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
+import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import timber.log.Timber
 
@@ -77,6 +78,14 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
         btnRequestPaymentCancel.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnCalculator.setOnClickListener{
+            val intent = Intent(this, FeeCalculatorActivity::class.java)
+            val amountString = et_amount.text.toString()
+            val amountChecker = amountString.replace("PHP","").replace(" ","")
+            intent.putExtra("value", amountChecker)
             startActivity(intent)
         }
     }
