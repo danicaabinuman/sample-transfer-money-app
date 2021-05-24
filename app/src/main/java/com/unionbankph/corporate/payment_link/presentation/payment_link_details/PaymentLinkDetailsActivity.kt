@@ -11,10 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import kotlinx.android.synthetic.main.activity_archive_success.*
 import kotlinx.android.synthetic.main.activity_link_details.*
@@ -27,6 +29,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
 
     var mCurrentLinkDetails: GeneratePaymentLinkResponse? = null
+    private var fromWhatTab : String? = null
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -57,8 +60,21 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
         btnGenerateAnotherLink.setOnClickListener{
-            //TODO check if from payment link list or from dashboard
-            generateNewPaymentLinkAsResult()
+            fromWhatTab = intent.getStringExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB)
+            if(fromWhatTab == null){
+                fromWhatTab = DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON
+            }
+
+            when(fromWhatTab){
+                DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON -> {
+                    val intent = Intent(this, RequestForPaymentActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                DashboardViewModel.FROM_TRANSACT_TAB -> {
+                    generateNewPaymentLinkAsResult()
+                }
+            }
         }
 
         btnArchive.setOnClickListener{
@@ -333,6 +349,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         const val REQUEST_CODE = 1209
         const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
         const val EXTRA_GENERATE_PAYMENT_LINK_RESPONSE = "extra_generate_payment_link_response"
+        const val FROM_REQUEST_PAYMENT_BUTTON = "from_accounts_tab"
+        const val FROM_TRANSACT_TAB = "from_transact_tab"
     }
 
 }
