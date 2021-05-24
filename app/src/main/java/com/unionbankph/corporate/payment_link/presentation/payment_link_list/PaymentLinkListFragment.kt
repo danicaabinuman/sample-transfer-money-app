@@ -13,6 +13,7 @@ import com.unionbankph.corporate.app.dashboard.*
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkTransactionData
+import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import kotlinx.android.synthetic.main.fragment_payment_link_list.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
@@ -170,6 +171,7 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         val intent = Intent(applicationContext, LinkDetailsActivity::class.java)
         val responseJson = JsonHelper.toJson(generatePaymentLinkResponse)
         intent.putExtra(LinkDetailsActivity.EXTRA_GENERATE_PAYMENT_LINK_RESPONSE, responseJson)
+        intent.putExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB, DashboardViewModel.FROM_TRANSACT_TAB)
         startActivity(intent)
     }
 

@@ -70,12 +70,12 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         btnGenerateAnotherLink.setOnClickListener{
             when(fromWhatTab){
                 DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON -> {
-                    val intent = Intent(this, RequestForPaymentActivity::class.java)
-                    startActivity(intent)
                     finish()
                 }
                 DashboardViewModel.FROM_TRANSACT_TAB -> {
-                    generateNewPaymentLinkAsResult()
+                    val intent = Intent(this, RequestForPaymentActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
         }
