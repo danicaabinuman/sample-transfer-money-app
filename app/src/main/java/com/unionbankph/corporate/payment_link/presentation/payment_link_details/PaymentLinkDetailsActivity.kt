@@ -11,10 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import kotlinx.android.synthetic.main.activity_archive_success.*
 import kotlinx.android.synthetic.main.activity_link_details.*
@@ -27,6 +29,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
 
     var mCurrentLinkDetails: GeneratePaymentLinkResponse? = null
+    private var fromWhatTab : String? = null
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -40,6 +43,14 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         super.onViewsBound()
         initViews()
         setupOutputs()
+        initIntentData()
+    }
+
+    private fun initIntentData(){
+        fromWhatTab = intent.getStringExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB)
+        if(fromWhatTab == null){
+            fromWhatTab = DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON
+        }
     }
 
     private fun initViews(){
@@ -57,8 +68,16 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         }
 
         btnGenerateAnotherLink.setOnClickListener{
-            //TODO check if from payment link list or from dashboard
-            generateNewPaymentLinkAsResult()
+            when(fromWhatTab){
+                DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON -> {
+                    finish()
+                }
+                DashboardViewModel.FROM_TRANSACT_TAB -> {
+                    val intent = Intent(this, RequestForPaymentActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
 
         btnArchive.setOnClickListener{
