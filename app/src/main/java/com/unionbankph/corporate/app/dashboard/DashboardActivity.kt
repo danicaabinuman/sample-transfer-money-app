@@ -375,6 +375,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                             hasBackButton = false,
                             hasMenuItem = true
                     )
+                    btnRequestPayment.visibility = View.VISIBLE
                 }
             }
         }.addTo(disposables)
@@ -587,7 +588,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
             if (transactTabFragment.isAdded) {
 
-
+                btnRequestPayment.visibility = View.GONE
                 val fragmentManager = transactTabFragment.childFragmentManager
                 val fragmentTag = transactTabFragment
                         .childFragmentManager
