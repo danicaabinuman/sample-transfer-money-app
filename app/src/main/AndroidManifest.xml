@@ -540,7 +540,7 @@
         <activity
             android:name=".payment_link.presentation.request_payment.RequestForPaymentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".payment_link.presentation.payment_link.PaymentLinkActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
