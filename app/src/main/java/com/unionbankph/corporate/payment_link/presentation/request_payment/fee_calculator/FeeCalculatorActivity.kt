@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator
 
+import android.os.Bundle
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_fee_calculator.*
@@ -18,51 +19,44 @@ class FeeCalculatorActivity :
 
     private fun initViews() {
         var feeAmount = 0.00
-        var grossAmount = 0.00
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        grossAmount = intent.getStringExtra("value")!!.toDouble()
+        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        var grossAmountDouble = grossAmountPutExtra.toDouble()
 
-        tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmount.toString())
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount.toString())
-        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount.toString())
+
+        tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
+        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
+        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
 
         btnUB.setOnClickListener { btnUBOnClicked() }
         btnInstapay.setOnClickListener { btnInstapayOnClicked() }
         btnCreditDebitCard.setOnClickListener { btnCreditDebitCardOnClicked() }
         btnEWallet.setOnClickListener { btnEWalletOnClicked() }
         btnOverTheCounter.setOnClickListener { btnOverTheCounterOnClicked() }
+        btnClose.setOnClickListener { finish() }
     }
 
     private fun btnUBOnClicked() {
 
         var feeAmount = 10.00
-        var grossAmount = 0.00
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount.toString())
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount.toString())
-        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount.toString())
+        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        var grossAmountDouble = grossAmountPutExtra.toDouble()
 
-        try {
 
-            grossAmount = intent.getStringExtra("value")!!.toDouble()
-            tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmount.toString())
+        tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
+        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
+        netAmount = grossAmountDouble - feeAmount
+        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
 
-        } catch (e: NumberFormatException) {
-            Timber.e(e.message)
-            e.printStackTrace()
-        }
-
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount.toString())
-        netAmount = grossAmount - feeAmount
-        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount.toString())
         btnUB.background = getDrawable(R.drawable.bg_fee_payment_method_active)
         btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
         btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -74,25 +68,19 @@ class FeeCalculatorActivity :
     private fun btnInstapayOnClicked() {
 
         var feeAmount = 15.00
-        var grossAmount = 0.00
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        try {
+        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        var grossAmountDouble = grossAmountPutExtra.toDouble()
 
-            grossAmount = intent.getStringExtra("value")!!.toDouble()
-            tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmount.toString())
 
-        } catch (e: NumberFormatException) {
-            Timber.e(e.message)
-            e.printStackTrace()
-        }
-
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount.toString())
-        netAmount = grossAmount - feeAmount
-        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount.toString())
+        tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
+        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
+        netAmount = grossAmountDouble - feeAmount
+        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
         btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
         btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
         btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -104,25 +92,20 @@ class FeeCalculatorActivity :
     private fun btnCreditDebitCardOnClicked() {
 
         var feeAmount = 10.00
-        var grossAmount = 0.00
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        try {
+        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        var grossAmountDouble = grossAmountPutExtra.toDouble()
 
-            grossAmount = intent.getStringExtra("value")!!.toDouble()
-            tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmount.toString())
 
-        } catch (e: NumberFormatException) {
-            Timber.e(e.message)
-            e.printStackTrace()
-        }
+        tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
+        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
+        netAmount = grossAmountDouble - ((grossAmountDouble * .03) + feeAmount)
+        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
 
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount.toString())
-        netAmount = grossAmount - ((grossAmount * .03) + feeAmount)
-        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount.toString())
         btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
         btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_payment_method_active)
         btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -134,25 +117,20 @@ class FeeCalculatorActivity :
     private fun btnEWalletOnClicked() {
 
         var feeAmount = 10.00
-        var grossAmount = 0.00
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        try {
+        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        var grossAmountDouble = grossAmountPutExtra.toDouble()
 
-            grossAmount = intent.getStringExtra("value")!!.toDouble()
-            tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmount.toString())
 
-        } catch (e: NumberFormatException) {
-            Timber.e(e.message)
-            e.printStackTrace()
-        }
+        tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
+        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
+        netAmount = grossAmountDouble - ((grossAmountDouble * .02) + feeAmount)
+        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
 
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount.toString())
-        netAmount = grossAmount - ((grossAmount * .02) + feeAmount)
-        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount.toString())
         btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
         btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
         btnEWallet.background = getDrawable(R.drawable.bg_fee_payment_method_active)
@@ -164,25 +142,20 @@ class FeeCalculatorActivity :
     private fun btnOverTheCounterOnClicked() {
 
         var feeAmount = 20.00
-        var grossAmount = 0.00
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        try {
+        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        var grossAmountDouble = grossAmountPutExtra.toDouble()
 
-            grossAmount = intent.getStringExtra("value")!!.toDouble()
-            tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmount.toString())
 
-        } catch (e: NumberFormatException) {
-            Timber.e(e.message)
-            e.printStackTrace()
-        }
+        tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
+        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
+        netAmount = grossAmountDouble - feeAmount
+        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
 
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount.toString())
-        netAmount = grossAmount - feeAmount
-        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount.toString())
         btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
         btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
         btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)

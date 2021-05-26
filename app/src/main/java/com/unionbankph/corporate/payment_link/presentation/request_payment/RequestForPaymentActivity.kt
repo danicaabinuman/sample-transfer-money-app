@@ -104,10 +104,14 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         val amountChecker = amountString.replace("PHP","").replace(" ","")
 
         when (amountString) {
-            "PHP 0" -> {buttonDisable()}
-            "PHP 0." -> {buttonDisable()}
-            "PHP 0.0" -> {buttonDisable()}
-            "PHP 0.00" -> {buttonDisable()}
+            "PHP 0" -> {buttonDisable()
+                buttonCalculatorDisabled()}
+            "PHP 0." -> {buttonDisable()
+                buttonCalculatorDisabled()}
+            "PHP 0.0" -> {buttonDisable()
+                buttonCalculatorDisabled()}
+            "PHP 0.00" -> {buttonDisable()
+                buttonCalculatorDisabled()}
         }
 
         if (amountChecker.isNotEmpty() && paymentForString.length in 1..100){
@@ -115,6 +119,14 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         } else {
             buttonDisable()
         }
+    }
+
+    private fun buttonCalculatorDisabled(){
+        btnCalculator?.isEnabled = false
+    }
+
+    private fun buttonCalculatorEnabled(){
+        btnCalculator?.isEnabled = true
     }
 
     private fun buttonDisable(){
@@ -143,9 +155,11 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                     try {
                         amountDouble = cleanString.toDouble()
                         if(amountDouble < 100.00){
+                            buttonCalculatorDisabled()
                             til_amount.error = "Minimum amount is Php 100.00"
                         } else {
                             til_amount.error = ""
+                            buttonCalculatorEnabled()
                         }
                     }catch (e: NumberFormatException){
                         Timber.e(e.message)
