@@ -30,6 +30,7 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/errorMerchantDisabled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -41,7 +42,7 @@
             android:layout_marginRight="20dp"/>
 
         <TextView
-            android:id="@+id/btnFeatureUnavailableBackToDashboard"
+            android:id="@+id/btnErrorMerchantDisabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/grid_1"

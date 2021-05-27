@@ -9,8 +9,10 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.domain.usecase.GeneratePaymentLinkUseCase
+import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListState
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
+import java.lang.Error
 import javax.inject.Inject
 
 class RequestForPaymentViewModel
@@ -24,6 +26,8 @@ class RequestForPaymentViewModel
     val linkDetailsResponse: LiveData<GeneratePaymentLinkResponse>
         get() =
             _linkDetailsResponse
+
+    val _linkDetailsState = MutableLiveData<RequestForPaymentLinkState>()
 
     fun preparePaymentLinkGeneration(amount: String, paymentFor: String, notes: String?, selectedExpiry: String, mobileNumber: String?){
         var expiry = 12
@@ -73,7 +77,13 @@ class RequestForPaymentViewModel
                     _linkDetailsResponse.value = it
                 }, {
                     Timber.e(it, "getPaymentLinkDetails")
-                    _uiState.value = Event(UiState.Error(it))
+//                    _uiState.value = Event(UiState.Error(it))
+                    if (it.message.equals("Unable to generate new link, your merchant is currently disabled.", true)){
+                        _linkDetailsState.value = ErrorMerchantDisabled(it)
+                    } else {
+                        _linkDetailsState.value = ShouldContinueGenerate(true)
+                    }
+
                 }
             ),
             doOnSubscribeEvent = {
@@ -87,3 +97,9 @@ class RequestForPaymentViewModel
     }
 
 }
+
+sealed class RequestForPaymentLinkState
+
+data class ShouldContinueGenerate(val shouldContinue: Boolean) : RequestForPaymentLinkState()
+
+data class ErrorMerchantDisabled(val throwable: Throwable) : RequestForPaymentLinkState()
