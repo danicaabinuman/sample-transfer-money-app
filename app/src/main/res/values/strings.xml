@@ -2187,5 +2187,8 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="numbering_roman_ii">ii.&#160;</string>
     <string name="numbering_roman_iii">iii.&#160;</string>
     <string name="numbering_roman_iv">iv.&#160;</string>
+    <string name="failed">Failed</string>
+    <string name="merchant_disabled_information">Unable to generate new link, your merchant is currently disabled.</string>
+    <string name="text_okay">Okay</string>
 
 </resources>
