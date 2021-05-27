@@ -36,7 +36,8 @@ class LinkDetailsViewModel
                                 PutPaymentLinkStatusContainerForm(
                                     it.transactionId!!,
                                     PutPaymentLinkStatusForm(
-                                        putStatus
+                                        putStatus,
+                                        ""
                                     )
                                 )
                             )
