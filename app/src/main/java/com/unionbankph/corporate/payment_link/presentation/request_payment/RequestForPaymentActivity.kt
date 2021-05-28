@@ -84,8 +84,8 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         btnCalculator.setOnClickListener{
             val intent = Intent(this, FeeCalculatorActivity::class.java)
             val amountString = et_amount.text.toString()
-            val amountChecker = amountString.replace("PHP","").replace(" ","")
-            intent.putExtra("value", amountChecker)
+            val amountChecker = amountString.replace("PHP","").replace(",","")
+            intent.putExtra(FeeCalculatorActivity.AMOUNT_VALUE, amountChecker)
             startActivity(intent)
         }
     }

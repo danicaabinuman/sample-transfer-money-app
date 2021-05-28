@@ -24,7 +24,7 @@ class FeeCalculatorActivity :
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        val grossAmountPutExtra = intent.getStringExtra(AMOUNT_VALUE).toString()
         var grossAmountDouble = grossAmountPutExtra.toDouble()
 
 
@@ -42,13 +42,13 @@ class FeeCalculatorActivity :
 
     private fun btnUBOnClicked() {
 
-        var feeAmount = 10.00
+        var feeAmount = 10
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        val grossAmountPutExtra = intent.getStringExtra(AMOUNT_VALUE).toString()
         var grossAmountDouble = grossAmountPutExtra.toDouble()
 
 
@@ -67,13 +67,13 @@ class FeeCalculatorActivity :
 
     private fun btnInstapayOnClicked() {
 
-        var feeAmount = 15.00
+        var feeAmount = 15
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        val grossAmountPutExtra = intent.getStringExtra(AMOUNT_VALUE).toString()
         var grossAmountDouble = grossAmountPutExtra.toDouble()
 
 
@@ -91,19 +91,19 @@ class FeeCalculatorActivity :
 
     private fun btnCreditDebitCardOnClicked() {
 
-        var feeAmount = 10.00
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        val grossAmountPutExtra = intent.getStringExtra(AMOUNT_VALUE).toString()
         var grossAmountDouble = grossAmountPutExtra.toDouble()
+        var feeAmount = ((grossAmountDouble * .03) + 10)
 
 
         tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
         tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
-        netAmount = grossAmountDouble - ((grossAmountDouble * .03) + feeAmount)
+        netAmount = grossAmountDouble - feeAmount
         tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
 
         btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -116,19 +116,19 @@ class FeeCalculatorActivity :
 
     private fun btnEWalletOnClicked() {
 
-        var feeAmount = 10.00
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        val grossAmountPutExtra = intent.getStringExtra(AMOUNT_VALUE).toString()
         var grossAmountDouble = grossAmountPutExtra.toDouble()
+        var feeAmount = ((grossAmountDouble * .02) + 10)
 
 
         tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
         tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
-        netAmount = grossAmountDouble - ((grossAmountDouble * .02) + feeAmount)
+        netAmount = grossAmountDouble - feeAmount
         tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
 
         btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -141,13 +141,13 @@ class FeeCalculatorActivity :
 
     private fun btnOverTheCounterOnClicked() {
 
-        var feeAmount = 20.00
+        var feeAmount = 10
         var netAmount = 0.00
 
         val amountFormat = DecimalFormat("PHP #,##0.00")
         val feeFormat = DecimalFormat("- #,##0.00")
 
-        val grossAmountPutExtra = intent.getStringExtra("value").toString()
+        val grossAmountPutExtra = intent.getStringExtra(AMOUNT_VALUE).toString()
         var grossAmountDouble = grossAmountPutExtra.toDouble()
 
 
@@ -162,6 +162,11 @@ class FeeCalculatorActivity :
         btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
         btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_payment_method_active)
 
+    }
+
+    companion object{
+
+        const val AMOUNT_VALUE = "VALUE"
     }
 
 
