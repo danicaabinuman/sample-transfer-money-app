@@ -82,7 +82,7 @@ interface PaymentLinkApiClient {
 
 
 
-    @GET("msme/api/{api_version}/payment-link/{reference_id}")
+    @GET("msme/api/{api_version}/organizations/{organization_id}/payment-link/{reference_id}")
     fun getPaymentLinkByReferenceId(
         @Header("Authorization")
         accessToken: String,
@@ -92,6 +92,8 @@ interface PaymentLinkApiClient {
         clientSecret: String,
         @Path("api_version")
         apiVersion: String,
+        @Path("organization_id")
+        organizationId: String,
         @Path("reference_id")
         referenceId: String
     ): Single<Response<GetPaymentLinkByReferenceIdResponse>>
