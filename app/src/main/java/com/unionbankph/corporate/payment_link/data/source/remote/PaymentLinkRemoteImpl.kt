@@ -83,13 +83,16 @@ class PaymentLinkRemoteImpl
 
     override fun getPaymentLinkByReferenceId(
             accessToken: String,
+            organizationId: String,
             referenceId: String
+
     ): Single<Response<GetPaymentLinkByReferenceIdResponse>> {
         return paymentLinkApiClient.getPaymentLinkByReferenceId(
                 accessToken,
                 BuildConfig.MSME_CLIENT_ID,
                 BuildConfig.MSME_CLIENT_SECRET,
                 BuildConfig.MSME_CLIENT_API_VERSION,
+                organizationId,
                 referenceId
         )
     }
