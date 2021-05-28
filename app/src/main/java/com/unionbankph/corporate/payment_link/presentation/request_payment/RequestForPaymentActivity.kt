@@ -104,15 +104,9 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         val amountChecker = amountString.replace("PHP","").replace(" ","")
 
         when (amountString) {
-            "PHP 0" -> {buttonDisable()
+            "PHP 0", "PHP 0.", "PHP 0.0", "PHP 0.00" -> {buttonDisable()
                 buttonCalculatorDisabled()}
-            "PHP 0." -> {buttonDisable()
-                buttonCalculatorDisabled()}
-            "PHP 0.0" -> {buttonDisable()
-                buttonCalculatorDisabled()}
-            "PHP 0.00" -> {buttonDisable()
-                buttonCalculatorDisabled()}
-        }
+        }   
 
         if (amountChecker.isNotEmpty() && paymentForString.length in 1..100){
             buttonEnable()
