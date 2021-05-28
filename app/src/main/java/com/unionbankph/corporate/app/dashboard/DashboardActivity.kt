@@ -589,21 +589,25 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             if (transactTabFragment.isAdded) {
 
                 btnRequestPayment.visibility = View.GONE
-                val fragmentManager = transactTabFragment.childFragmentManager
-                val fragmentTag = transactTabFragment
+                val count = transactTabFragment.childFragmentManager.backStackEntryCount
+                if (count == 0 || viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_TRANSACT]){
+                    showLogoutBottomSheet()
+                } else {
+                    val fragmentManager = transactTabFragment.childFragmentManager
+                    val fragmentTag = transactTabFragment
                         .childFragmentManager
                         .getBackStackEntryAt(fragmentManager.backStackEntryCount - 1)
                         .name
-                if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT,true)) {
-                    transactTabFragment.childFragmentManager.popBackStackImmediate()
-                    setToolbarTitle(
+                    if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT,true)) {
+                        transactTabFragment.childFragmentManager.popBackStackImmediate()
+                        setToolbarTitle(
                             getString(R.string.title_dashboard_header_transact),
-                            hasBackButton = false,
+                            hasBackButton = true,
                             hasMenuItem = true
-                    )
-                } else {
-                    showLogoutBottomSheet()
+                        )
+                    }
                 }
+
             }
         } else {
             if (viewApprovalsNavigation.visibility == View.VISIBLE) {
