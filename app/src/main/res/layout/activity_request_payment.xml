@@ -55,27 +55,41 @@
                     android:textSize="@dimen/text_14"
                     android:textStyle="bold"
                     android:text="@string/head_total_amount"/>
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_amount"
-                    style="@style/TextInputLayoutForm"
+
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    app:errorEnabled="true"
-                    app:errorTextColor="#ED5635"
-                    app:hintEnabled="false">
+                    android:layout_height="wrap_content">
 
-                    <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
-                        android:id="@+id/et_amount"
-                        style="@style/EditTextAmount"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_amount"
+                        style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
-                        android:paddingStart="@dimen/content_spacing"
-                        android:inputType="numberDecimal"
-                        android:paddingEnd="@dimen/content_spacing"
-                        app:currencySymbol="@string/title_php"
-                        app:useCurrencySymbolAsHint="true"
-                        android:drawableEnd="@drawable/ic_calculator"/>
+                        android:layout_marginTop="@dimen/grid_1_half"
+                        app:errorEnabled="true"
+                        app:errorTextColor="#ED5635"
+                        app:hintEnabled="false">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
+                            android:id="@+id/et_amount"
+                            style="@style/EditTextAmount"
+                            android:layout_width="match_parent"
+                            android:paddingStart="@dimen/content_spacing"
+                            android:inputType="numberDecimal"
+                            android:paddingEnd="@dimen/content_spacing"
+                            app:currencySymbol="@string/title_php"
+                            app:useCurrencySymbolAsHint="true"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/btnCalculator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_calculator"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginEnd="20dp"/>
+                </FrameLayout>
+
 
 
                 <TextView

@@ -15,6 +15,7 @@ import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
+import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import timber.log.Timber
 
@@ -79,6 +80,14 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
+
+        btnCalculator.setOnClickListener{
+            val intent = Intent(this, FeeCalculatorActivity::class.java)
+            val amountString = et_amount.text.toString()
+            val amountChecker = amountString.replace("PHP","").replace(",","")
+            intent.putExtra(FeeCalculatorActivity.AMOUNT_VALUE, amountChecker)
+            startActivity(intent)
+        }
     }
 
     private fun setupOutputs(){
@@ -95,10 +104,8 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         val amountChecker = amountString.replace("PHP","").replace(" ","")
 
         when (amountString) {
-            "PHP 0" -> {buttonDisable()}
-            "PHP 0." -> {buttonDisable()}
-            "PHP 0.0" -> {buttonDisable()}
-            "PHP 0.00" -> {buttonDisable()}
+            "PHP 0", "PHP 0.", "PHP 0.0", "PHP 0.00" -> {buttonDisable()
+                buttonCalculatorDisabled()}
         }
 
         if (amountChecker.isNotEmpty() && paymentForString.length in 1..100){
@@ -106,6 +113,14 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         } else {
             buttonDisable()
         }
+    }
+
+    private fun buttonCalculatorDisabled(){
+        btnCalculator?.isEnabled = false
+    }
+
+    private fun buttonCalculatorEnabled(){
+        btnCalculator?.isEnabled = true
     }
 
     private fun buttonDisable(){
@@ -134,9 +149,11 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                     try {
                         amountDouble = cleanString.toDouble()
                         if(amountDouble < 100.00){
+                            buttonCalculatorDisabled()
                             til_amount.error = "Minimum amount is Php 100.00"
                         } else {
                             til_amount.error = ""
+                            buttonCalculatorEnabled()
                         }
                     }catch (e: NumberFormatException){
                         Timber.e(e.message)
