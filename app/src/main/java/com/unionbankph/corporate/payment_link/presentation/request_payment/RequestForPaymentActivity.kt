@@ -26,7 +26,9 @@ import kotlinx.android.synthetic.main.activity_check_deposit_form.*
 import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
 import kotlinx.android.synthetic.main.activity_link_details.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
+import kotlinx.android.synthetic.main.activity_request_payment.errorMerchantDisabled
 import kotlinx.android.synthetic.main.activity_request_payment.ivBackButton
+import kotlinx.android.synthetic.main.dialog_failed_merchant_diasbled.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
 class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
@@ -97,6 +99,17 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         viewModel.linkDetailsResponse.observe(this, Observer {
             requestPaymentLoading.visibility = View.GONE
             navigateToLinkDetails(it)
+        })
+
+        viewModel._linkDetailsState.observe(this, Observer {
+            when(it){
+                is ErrorMerchantDisabled -> {
+                    errorMerchantDisabled.visibility = View.VISIBLE
+                    btnErrorMerchantDisabled.setOnClickListener{
+                        finish()
+                    }
+                }
+            }
         })
     }
 
