@@ -104,7 +104,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         viewModel._linkDetailsState.observe(this, Observer {
             when(it){
                 is ErrorMerchantDisabled -> {
-//                    handleOnError(it.throwable)
                     errorMerchantDisabled.visibility = View.VISIBLE
                     btnErrorMerchantDisabled.setOnClickListener{
                         finish()

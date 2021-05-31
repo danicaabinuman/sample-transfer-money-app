@@ -77,7 +77,6 @@ class RequestForPaymentViewModel
                     _linkDetailsResponse.value = it
                 }, {
                     Timber.e(it, "getPaymentLinkDetails")
-//                    _uiState.value = Event(UiState.Error(it))
                     if (it.message.equals("Unable to generate new link, your merchant is currently disabled.", true)){
                         _linkDetailsState.value = ErrorMerchantDisabled(it)
                     } else {
