@@ -44,7 +44,6 @@ class PaymentLinkGatewayImpl
             .flatMap {
                 paymentLinkRemote.generatePaymentLink(
                     it,
-                    orgId,
                     generatePaymentLinkForm
                 )
             }
@@ -59,7 +58,6 @@ class PaymentLinkGatewayImpl
         if(role?.organizationId != null){
             orgId = role.organizationId!!
         }
-        createMerchantForm.organizationId = orgId
         return settingsCache.getAccessToken()
             .flatMap {
                 paymentLinkRemote.createMerchant(
@@ -85,7 +83,6 @@ class PaymentLinkGatewayImpl
                 .flatMap {
                     paymentLinkRemote.getPaymentLinkListPaginated(
                             it,
-                            orgId,
                             page,
                             itemsPerPage
                     )
@@ -108,7 +105,6 @@ class PaymentLinkGatewayImpl
                 .flatMap {
                     paymentLinkRemote.getPaymentLinkListByReferenceNumber(
                             it,
-                            orgId,
                             page,
                             itemsPerPage,
                             referenceNumber
@@ -127,7 +123,6 @@ class PaymentLinkGatewayImpl
                 .flatMap {
                     paymentLinkRemote.getPaymentLinkByReferenceId(
                             it,
-                            orgId,
                             referenceId
                     )
                 }
@@ -159,8 +154,7 @@ class PaymentLinkGatewayImpl
         return settingsCache.getAccessToken()
             .flatMap {
                 paymentLinkRemote.validateMerchantByOrganization(
-                    it,
-                    orgId
+                    it
                 )
             }
             .flatMap { smeResponseProvider.executeResponseSingle(it) }

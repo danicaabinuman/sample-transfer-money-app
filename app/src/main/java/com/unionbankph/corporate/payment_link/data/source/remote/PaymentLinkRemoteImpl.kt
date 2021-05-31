@@ -20,14 +20,12 @@ class PaymentLinkRemoteImpl
 
     override fun generatePaymentLink(
         accessToken: String,
-        organizationId: String,
         generatePaymentLinkForm: GeneratePaymentLinkForm
     ): Single<Response<GeneratePaymentLinkResponse>> {
         return paymentLinkApiClient.generatePaymentLink(accessToken,
             BuildConfig.MSME_CLIENT_ID,
             BuildConfig.MSME_CLIENT_SECRET,
             BuildConfig.MSME_CLIENT_API_VERSION,
-            organizationId,
             generatePaymentLinkForm
         )
     }
@@ -47,7 +45,6 @@ class PaymentLinkRemoteImpl
 
     override fun getPaymentLinkListPaginated(
             accessToken: String,
-            organizationId: String,
             page: String,
             itemsPerPage: String
     ): Single<Response<GetPaymentLinkListPaginatedResponse>> {
@@ -56,7 +53,6 @@ class PaymentLinkRemoteImpl
                 BuildConfig.MSME_CLIENT_ID,
                 BuildConfig.MSME_CLIENT_SECRET,
                 BuildConfig.MSME_CLIENT_API_VERSION,
-                organizationId,
                 page,
                 itemsPerPage
         )
@@ -64,7 +60,6 @@ class PaymentLinkRemoteImpl
 
     override fun getPaymentLinkListByReferenceNumber(
             accessToken: String,
-            organizationId: String,
             page: String,
             itemsPerPage: String,
             referenceNumber: String
@@ -74,7 +69,6 @@ class PaymentLinkRemoteImpl
                 BuildConfig.MSME_CLIENT_ID,
                 BuildConfig.MSME_CLIENT_SECRET,
                 BuildConfig.MSME_CLIENT_API_VERSION,
-                organizationId,
                 page,
                 itemsPerPage,
                 referenceNumber
@@ -83,7 +77,6 @@ class PaymentLinkRemoteImpl
 
     override fun getPaymentLinkByReferenceId(
             accessToken: String,
-            organizationId: String,
             referenceId: String
 
     ): Single<Response<GetPaymentLinkByReferenceIdResponse>> {
@@ -92,7 +85,6 @@ class PaymentLinkRemoteImpl
                 BuildConfig.MSME_CLIENT_ID,
                 BuildConfig.MSME_CLIENT_SECRET,
                 BuildConfig.MSME_CLIENT_API_VERSION,
-                organizationId,
                 referenceId
         )
     }
@@ -113,15 +105,13 @@ class PaymentLinkRemoteImpl
     }
 
     override fun validateMerchantByOrganization(
-        accessToken: String,
-        organizationId: String
+        accessToken: String
     ): Single<Response<ValidateMerchantByOrganizationResponse>> {
         return paymentLinkApiClient.validateMerchantByOrganization(
             accessToken,
             BuildConfig.MSME_CLIENT_ID,
             BuildConfig.MSME_CLIENT_SECRET,
-            BuildConfig.MSME_CLIENT_API_VERSION,
-            organizationId
+            BuildConfig.MSME_CLIENT_API_VERSION
         )
     }
 }

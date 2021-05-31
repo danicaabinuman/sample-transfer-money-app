@@ -9,8 +9,6 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class CreateMerchantForm(
-        @SerialName("organizationId")
-        var organizationId: String,
         @SerialName("merchantName")
         var merchantName: String,
         @SerialName("uniqueStoreHandle")
