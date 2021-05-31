@@ -8,9 +8,6 @@ data class CreateMerchantResponse(
         @SerialName("message")
         var message: String? = null,
 
-        @SerialName("organizationId")
-        var organizationId: String? = null,
-
         @SerialName("merchantName")
         val merchantName: String? = null,
 

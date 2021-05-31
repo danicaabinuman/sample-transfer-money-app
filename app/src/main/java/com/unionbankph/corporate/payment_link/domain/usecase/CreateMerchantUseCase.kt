@@ -25,8 +25,7 @@ constructor(
     ): Single<CreateMerchantResponse> {
         return paymentLinkGateway.createMerchant(
             CreateMerchantForm(
-                params!!.organizationId,
-                params.merchantName,
+                params!!.merchantName,
                 params.uniqueStoreHandle,
                 params.accountNo,
                 params.accountName,

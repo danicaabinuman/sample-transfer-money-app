@@ -26,11 +26,7 @@ class PaymentLinkGatewayImpl
     override fun generatePaymentLink(generatePaymentLinkForm: GeneratePaymentLinkForm): Single<GeneratePaymentLinkResponse> {
 
         val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgId = "6460b955-1a2e-4662-9bc3-b762"
         var orgName = "Test Org 6247 2"
-        if(role?.organizationId != null){
-            orgId = role.organizationId!!
-        }
         if(role?.organizationName != null){
         }
         generatePaymentLinkForm.organizationName = orgName
@@ -44,7 +40,6 @@ class PaymentLinkGatewayImpl
             .flatMap {
                 paymentLinkRemote.generatePaymentLink(
                     it,
-                    orgId,
                     generatePaymentLinkForm
                 )
             }
@@ -54,12 +49,6 @@ class PaymentLinkGatewayImpl
 
     override fun createMerchant(createMerchantForm: CreateMerchantForm): Single<CreateMerchantResponse> {
 
-        val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgId = "6460b955-1a2e-4662-9bc3-b762"
-        if(role?.organizationId != null){
-            orgId = role.organizationId!!
-        }
-        createMerchantForm.organizationId = orgId
         return settingsCache.getAccessToken()
             .flatMap {
                 paymentLinkRemote.createMerchant(
@@ -75,17 +64,11 @@ class PaymentLinkGatewayImpl
             page: String,
             itemsPerPage: String
     ): Single<GetPaymentLinkListPaginatedResponse> {
-        val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgId = "6460b955-1a2e-4662-9bc3-b762"
-        if(role?.organizationId != null){
-            orgId = role.organizationId!!
-        }
 
         return settingsCache.getAccessToken()
                 .flatMap {
                     paymentLinkRemote.getPaymentLinkListPaginated(
                             it,
-                            orgId,
                             page,
                             itemsPerPage
                     )
@@ -98,17 +81,11 @@ class PaymentLinkGatewayImpl
             itemsPerPage: String,
             referenceNumber: String
     ): Single<GetPaymentLinkListPaginatedResponse> {
-        val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgId = "6460b955-1a2e-4662-9bc3-b762"
-        if(role?.organizationId != null){
-            orgId = role.organizationId!!
-        }
 
         return settingsCache.getAccessToken()
                 .flatMap {
                     paymentLinkRemote.getPaymentLinkListByReferenceNumber(
                             it,
-                            orgId,
                             page,
                             itemsPerPage,
                             referenceNumber
@@ -118,16 +95,11 @@ class PaymentLinkGatewayImpl
     }
 
     override fun getPaymentLinkByReferenceId(referenceId: String): Single<GetPaymentLinkByReferenceIdResponse> {
-        val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgId = "6460b955-1a2e-4662-9bc3-b762"
-        if(role?.organizationId != null){
-            orgId = role.organizationId!!
-        }
+
         return settingsCache.getAccessToken()
                 .flatMap {
                     paymentLinkRemote.getPaymentLinkByReferenceId(
                             it,
-                            orgId,
                             referenceId
                     )
                 }
@@ -151,16 +123,11 @@ class PaymentLinkGatewayImpl
     }
 
     override fun validateMerchantByOrganization(): Single<ValidateMerchantByOrganizationResponse> {
-        val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgId = "6460b955-1a2e-4662-9bc3-b762"
-        if(role?.organizationId != null){
-            orgId = role.organizationId!!
-        }
+
         return settingsCache.getAccessToken()
             .flatMap {
                 paymentLinkRemote.validateMerchantByOrganization(
-                    it,
-                    orgId
+                    it
                 )
             }
             .flatMap { smeResponseProvider.executeResponseSingle(it) }

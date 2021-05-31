@@ -11,7 +11,7 @@ import retrofit2.http.*
 
 interface PaymentLinkApiClient {
 
-    @POST("msme/api/{api_version}/organizations/{organization_id}/payment-links")
+    @POST("msme/api/{api_version}/payment-links")
     fun generatePaymentLink(
         @Header("Authorization")
         accessToken: String,
@@ -21,8 +21,6 @@ interface PaymentLinkApiClient {
         clientSecret: String,
         @Path("api_version")
         apiVersion: String,
-        @Path("organization_id")
-        organizationId: String,
         @Body
         generatePaymentLinkForm: GeneratePaymentLinkForm
     ): Single<Response<GeneratePaymentLinkResponse>>
@@ -42,7 +40,7 @@ interface PaymentLinkApiClient {
     ): Single<Response<CreateMerchantResponse>>
 
 
-    @GET("msme/api/{api_version}/organizations/{organization_id}/payment-links")
+    @GET("msme/api/{api_version}/payment-links")
     fun getPaymentLinkListPaginated(
         @Header("Authorization")
         accessToken: String,
@@ -52,15 +50,13 @@ interface PaymentLinkApiClient {
         clientSecret: String,
         @Path("api_version")
         apiVersion: String,
-        @Path("organization_id")
-        organizationId: String,
         @Query("page")
         page: String,
         @Query("items-per-page")
         itemsPerPage: String
     ): Single<Response<GetPaymentLinkListPaginatedResponse>>
 
-    @GET("msme/api/{api_version}/organizations/{organization_id}/payment-links")
+    @GET("msme/api/{api_version}/payment-links")
     fun getPaymentLinkByReferenceNumber(
             @Header("Authorization")
             accessToken: String,
@@ -70,8 +66,6 @@ interface PaymentLinkApiClient {
             clientSecret: String,
             @Path("api_version")
             apiVersion: String,
-            @Path("organization_id")
-            organizationId: String,
             @Query("page")
             page: String,
             @Query("items-per-page")
@@ -82,7 +76,7 @@ interface PaymentLinkApiClient {
 
 
 
-    @GET("msme/api/{api_version}/organizations/{organization_id}/payment-link/{reference_id}")
+    @GET("msme/api/{api_version}/payment-link/{reference_id}")
     fun getPaymentLinkByReferenceId(
         @Header("Authorization")
         accessToken: String,
@@ -92,8 +86,6 @@ interface PaymentLinkApiClient {
         clientSecret: String,
         @Path("api_version")
         apiVersion: String,
-        @Path("organization_id")
-        organizationId: String,
         @Path("reference_id")
         referenceId: String
     ): Single<Response<GetPaymentLinkByReferenceIdResponse>>
@@ -115,7 +107,7 @@ interface PaymentLinkApiClient {
             putPaymentLinkStatusForm: PutPaymentLinkStatusForm
     ): Single<Response<PutPaymentLinkStatusResponse>>
 
-    @GET("msme/api/{api_version}/organization/{organization_id}/merchant")
+    @GET("msme/api/{api_version}/merchant")
     fun validateMerchantByOrganization(
         @Header("Authorization")
         accessToken: String,
@@ -124,8 +116,6 @@ interface PaymentLinkApiClient {
         @Header("x-client-secret")
         clientSecret: String,
         @Path("api_version")
-        apiVersion: String,
-        @Path("organization_id")
-        organizationId: String
+        apiVersion: String
     ): Single<Response<ValidateMerchantByOrganizationResponse>>
 }
