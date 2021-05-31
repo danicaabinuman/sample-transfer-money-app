@@ -17,7 +17,7 @@ interface PaymentLinkRemote {
 
     fun getPaymentLinkListByReferenceNumber(accessToken: String, organizationId: String, page: String, itemsPerPage: String, referenceNumber: String) : Single<Response<GetPaymentLinkListPaginatedResponse>>
 
-    fun getPaymentLinkByReferenceId(accessToken: String, referenceId: String) : Single<Response<GetPaymentLinkByReferenceIdResponse>>
+    fun getPaymentLinkByReferenceId(accessToken: String, organizationId: String, referenceId: String) : Single<Response<GetPaymentLinkByReferenceIdResponse>>
 
     fun putPaymentLinkStatus(accessToken: String, transactionId: String, putPaymentLinkStatusForm: PutPaymentLinkStatusForm) : Single<Response<PutPaymentLinkStatusResponse>>
 
