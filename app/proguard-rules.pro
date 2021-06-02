@@ -221,3 +221,10 @@
 -dontwarn net.sf.scuba.data.Country
 -dontwarn net.sf.scuba.smartcards.CardServiceException
 -dontwarn net.sf.scuba.smartcards.FileInfo
+
+### Resources
+-keepattributes InnerClasses
+ -keep class **.R
+ -keep class **.R$* {
+    <fields>;
+ }
