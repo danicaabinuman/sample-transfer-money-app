@@ -104,6 +104,7 @@ class SplashFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splash_s
         PAGE_TRANSFER,
         PAGE_BILLS_PAYMENT,
         PAGE_ORGANIZATION,
-        PAGE_SUMMARY
+        PAGE_SUMMARY,
+        PAGE_LOGIN
     }
 }

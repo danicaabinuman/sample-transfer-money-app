@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <View
+        android:id="@+id/view_border_top"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_item"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rectangle_white"
+        android:paddingTop="@dimen/content_spacing"
+        android:paddingBottom="@dimen/content_spacing"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_border_top">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_title"
+            style="@style/TextViewDarkLarge"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_spacing"
+            android:layout_marginRight="@dimen/content_spacing"
+            android:text="@string/title_learn_more_row_one"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_desc"
+            style="@style/TextViewDark"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginLeft="@dimen/content_spacing"
+            android:layout_marginRight="@dimen/content_spacing"
+            android:text="@string/desc_learn_more_row_one"
+            android:textColorLink="?colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view_border_bottom"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_item" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.unionbankph.corporate.app.common.platform.navigation
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.common.presentation.constant.URLDataEnum
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraActivity
 
 class Navigator {
@@ -196,6 +198,12 @@ class Navigator {
         }
     }
 
+    fun navigateBrowser(source: AppCompatActivity, urlDataEnum: URLDataEnum) {
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(urlDataEnum.value)
+        source.startActivity(i)
+    }
+
     fun replaceFragment(
         container: Int,
         newFragment: Fragment,
@@ -268,12 +276,15 @@ class Navigator {
         fragment: Fragment,
         args: Bundle? = null,
         fragmentManager: FragmentManager?,
-        tag: String
+        tag: String,
+        hasAddToStack: Boolean = true
     ) {
         val transaction = fragmentManager?.beginTransaction()
         fragment.arguments = args
         transaction?.replace(container, fragment)
-        transaction?.addToBackStack(tag)
+        if (hasAddToStack) {
+            transaction?.addToBackStack(tag)
+        }
         transaction?.setMaxLifecycle(fragment, Lifecycle.State.RESUMED)
         transaction?.commit()
     }

@@ -1,6 +1,22 @@
+## [1.3.5]
+### Added
+- [AM-2653][cDAO] As a client, I should be able to select between opening an account or continuing an application.
+- [AM-2411][cDAO] As a client, I should see the link to the DAO and DE page in the Learn More page.
+- [AM-2637][cDAO] As a client, there should be a button in the login screen where I can apply for a business loan
+
+### Fixed
+- [AM-2718][cDAO] [Android] Last onboarding screen of a freshly installed app is not updated.
+
+
+## [1.3.4]
+### Fixed
+- [AM-2730][cDAO] Unable to retake ID in DAO
+
+
 ## [1.3.3]
 ### Fixed
 - [AM-2703][MCD] Android | MCD | Able to filter with 0 amount
+
 
 ## [1.3.2]
 ### Fixed

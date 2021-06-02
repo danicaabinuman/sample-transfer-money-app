@@ -1,3 +1,3 @@
-## [1.3.3]
+## [1.3.8]
 ### Fixed
-- [AM-2703][MCD] Android | MCD | Able to filter with 0 amount
+- [AM-2808][Login] Android | Sign up now link redirects to DAO

@@ -48,7 +48,7 @@
         android:layout_marginStart="@dimen/content_group_spacing"
         android:layout_marginTop="@dimen/content_spacing"
         android:layout_marginEnd="@dimen/content_group_spacing"
-        android:layout_marginBottom="@dimen/content_spacing_xl"
+        android:layout_marginBottom="@dimen/grid_12"
         android:gravity="center"
         android:lineSpacingExtra="@dimen/text_view_spacing"
         android:maxLines="10"

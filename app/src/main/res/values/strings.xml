@@ -407,6 +407,7 @@
     <string name="title_payment_channel">Payment Channel</string>
     <string name="title_biller">Biller</string>
     <string name="title_error">Error</string>
+    <string name="title_emulator_detected">Emulator Detected</string>
     <string name="title_customer_name">Customer Name</string>
     <string name="title_payment_to">Payment to</string>
     <string name="title_allowed_source_accounts">Allowed Source Accounts</string>
@@ -472,6 +473,7 @@
     <string name="title_display">Display</string>
     <string name="title_welcome_back">Welcome back</string>
     <string name="title_welcome">Welcome</string>
+    <string name="title_welcome_">Welcome!</string>
     <string name="title_important">Important</string>
     <string name="title_reminders">Reminders</string>
     <string name="title_untrusted_devices">Untrusted Devices</string>
@@ -532,11 +534,14 @@
     <string name="title_organization_splash">Manage multiple\norganizations</string>
     <string name="title_create_frequent_biller">Create Frequent Biller</string>
     <string name="title_edit_frequent_biller">Edit Frequent Biller</string>
+    <string name="title_learn_more_open_business_account">How do I open a UnionBank Business Account?</string>
+    <string name="title_learn_more_enroll">I already have a UnionBank Business Account. How do I enroll it to The Portal App?</string>
+    <string name="title_learn_more_enroll_sme">I already have a UnionBank Business Account. How do I enroll it to the SME Business Banking App?</string>
     <string name="title_learn_more_row_one">What can I do in the mobile app?</string>
-    <string name="title_learn_more_row_two_sme">How do I enroll my business to SME Business Banking App?</string>
-    <string name="title_learn_more_row_two">How do I enroll my business to The Portal App?</string>
     <string name="title_learn_more_row_three">What are the Terms and Conditions?</string>
     <string name="title_learn_more_row_four">Who can I contact for questions?</string>
+    <string name="title_dao_open_business_account">I want to open a business account.</string>
+    <string name="title_dao_existing_application">I already have an existing application.</string>
     <string name="title_mobile_country_code">Mobile Country Code</string>
     <string name="title_beneficiary_contact_details">Beneficiary Contact Details</string>
     <string name="title_beneficiary_email_address">Beneficiary Email Address</string>
@@ -599,6 +604,7 @@
     <string name="title_personal_information">Personal Information</string>
     <string name="title_confirm_your_details">Confirm your Details</string>
     <string name="title_no_permission_to_transact">No Permission to Transact</string>
+    <string name="title_disclaimer">Disclaimer</string>
     <string name="title_acceptance_required">Acceptance Required</string>
     <string name="title_check_deposit_unavailable">Check Deposit Unavailable</string>
     <string name="title_e_billing_unavailable">Electronic Billing Unavailable</string>
@@ -789,6 +795,8 @@
     <string name="desc_transaction_authentication">
         The system will require authentication\nwhen transacting in the UnionBank\nBusiness Banking.
     </string>
+    <string name="desc_no_thanks">No thanks</string>
+    <string name="desc_welcome_desc">Take a quick tour to see what you can do\nwith SME Business Banking!</string>
     <string name="desc_beneficiary_created">you can quickly select this beneficiary when creating transfers.</string>
     <string name="desc_frequent_biller_added">You can use this to easily fill up your Bills Payment form so you dont have to manually type in information every transaction!</string>
     <string name="desc_resend_code_seconds"><![CDATA[Resend code in: <b>%1$s</b>]]></string>
@@ -812,9 +820,12 @@
     <string name="desc_bills_payment">Facilitate all your business payments with the most extensive list of government and utility billers. And many more!</string>
     <string name="desc_organization">Enroll all your companies and subsidiaries. Easily switch between them without needing to logout.</string>
     <string name="desc_contact_info">UnionBank Business Support\nbusiness@unionbankph.com\n(02) 8\–667–2668</string>
-    <string name="desc_learn_more_row_two">Please contact UnionBank Business Support (business@unionbankph.com or (02) 8\–667–2668) to get your business started with UnionBank.</string>
+    <string name="desc_learn_more_open_business_account">Open an account online. You can view the list of required documents on the account opening website. Tap here to get started.</string>
+    <string name="desc_learn_more_enroll">Enroll your account online. The Business Banking enrollment form will be generated for you upon submission. Upload the signed document and get access in 1–2 days. Tap here to get started.</string>
     <string name="desc_learn_more_row_three">You can view the Privacy Policy and the Terms and Conditions here.</string>
     <string name="desc_learn_more_row_one">You can view the key features of the app here.</string>
+    <string name="desc_dao_open_business_account">Tap here to apply for a UnionBank Business account. This will redirect you to the Business Banking website. It is advisable to view it from your desktop browser.</string>
+    <string name="desc_dao_existing_application">Tap here to continue your UnionBank Business account application. You can also check the status of your existing application. You will be asked for a reference number.</string>
     <string name="desc_splash_screen_end">Your business will need an enrolled UnionBank Account to use Business Banking. If you don`t have one, please contact UnionBank Corporate Customer Care and we’ll get you started.</string>
     <string name="desc_learn_more_row_four">You can reach UnionBank Business Support through business@unionbankph.com or (02) 8\–667–2668.</string>
     <string name="desc_learn_more">View the FAQs and Terms &amp; Conditions</string>
@@ -990,6 +1001,7 @@
     <string name="action_retry">Retry</string>
     <string name="action_deposit_check">Deposit Check</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_proceed">Proceed</string>
     <string name="action_session_logout">Don\'t log me out</string>
     <string name="action_setting">Setting</string>
     <string name="action_edit">Edit</string>
@@ -1022,6 +1034,7 @@
     <string name="action_migrate_another_account">Migrate Another Account</string>
     <string name="action_back_to_login">Back to Login</string>
     <string name="action_login">Log in</string>
+    <string name="action_lets_go">Great, let\'s go!</string>
     <string name="action_go_to_device_settings">Go to device settings</string>
     <string name="action_receive_via_sms">Receive via SMS</string>
     <string name="action_link">Link</string>
@@ -1065,10 +1078,12 @@
     <string name="action_view_additional_information">View Additional Information</string>
     <string name="action_manage_devices">Manage Devices</string>
     <string name="action_sign_up"><![CDATA[Don’t have an account? <b>Open a Business Account</b>]]></string>
+    <string name="action_sign_up_with_existing">Sign up now with my existing account</string>
     <string name="action_take_photo">Take Photo</string>
     <string name="action_open_file_manager">Open File Manager</string>
     <string name="action_edit_an_existing_application">Edit an existing application</string>
     <string name="action_open_a_business_account">Open a Business Account</string>
+    <string name="action_apply_loan">Apply for a Loan</string>
     <string name="action_got_it">Got it</string>
     <string name="action_go_back">Go Back</string>
     <string name="action_retake_id">Retake ID</string>
@@ -1436,6 +1451,7 @@
     <string name="msg_bills_payment_scheduled_summary">You will receive a reference number once your payment has been successfully posted.</string>
     <string name="msg_error_404">Error</string>
     <string name="msg_error_missing_fields">There are missing required fields.</string>
+    <string name="msg_emulator_not_supported">This application cannot be used with an emulator.</string>
     <string name="msg_finger_print_not_available">Fingerprint not available</string>
     <string name="msg_cash_deposit">• Book an appointment at a branch to deposit.\n• Free of charge</string>
     <string name="msg_cash_withdrawal">• Book an appointment at a branch to withdraw.\n• Free of charge.</string>
@@ -1488,7 +1504,7 @@
     <string name="msg_acceptance_required">Please read and agree to the Privacy Policy and UnionBank Business Banking Terms &amp; Conditions before proceeding.</string>
     <string name="msg_check_deposit_unavailable">Check Deposit is currently unavailable at the moment. Please check back again later.</string>
     <string name="msg_e_billing_unavailable">Sorry Electronic Billing is currently unavailable at the moment. Please check back again later.</string>
-
+    <string name="msg_apply_loan_disclaimer">You will be redirected to our loan application gateway powered by Seekcap.ph, no information about you, your company or your transactions will be released for your protection.</string>
 
     <string name="hint_account_number_format">[0000] [0000] [0000]</string>
     <string name="hint_other_bank_account_number_format">[0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [00]</string>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutLogin"
+    style="@style/MatchParent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewBackground"
+        style="@style/ImageViewBackground"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutContent"
+        style="@style/MatchConstraint"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            style="@style/MatchConstraint"
+            app:layout_constraintBottom_toTopOf="@+id/buttonGenerateOTP"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout"
+                style="@style/MatchWrapParent"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include
+                    android:id="@+id/imageViewLogo"
+                    layout="@layout/widget_the_portal_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewWelcomeBack"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewWelcomeBack"
+                    style="@style/TextViewTheme"
+                    android:layout_marginTop="@dimen/content_margin"
+                    android:text="@string/title_welcome_back"
+                    android:textColor="@color/colorLightGray"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewFullname"
+                    style="@style/TextViewTheme"
+                    android:textSize="@dimen/text_18"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewWelcomeBack" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilUsername"
+                    style="@style/TextInputLayoutUnderlineForm"
+                    android:layout_marginLeft="@dimen/content_margin"
+                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:layout_marginRight="@dimen/content_margin"
+                    android:hint="@string/hint_email_address"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewFullname">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etUsername"
+                        style="@style/TextInputEditTextForm.Full"
+                        android:digits="@string/digits_with_restriction"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewEmail"
+                    style="@style/CardViewEditText"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/tilUsername"
+                    app:layout_constraintEnd_toEndOf="@+id/tilUsername"
+                    app:layout_constraintStart_toStartOf="@+id/tilUsername"
+                    app:layout_constraintTop_toTopOf="@+id/tilUsername">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageViewEmail"
+                            android:layout_width="@dimen/image_view_icon_small_size"
+                            android:layout_height="@dimen/image_view_icon_small_size"
+                            android:layout_marginStart="@dimen/content_spacing"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_email_sme" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etUsernameSME"
+                            style="@style/AppCompatEditTextDark.SME"
+                            android:layout_width="@dimen/match_constraint"
+                            android:layout_marginEnd="@dimen/content_spacing"
+                            android:digits="@string/digits_with_restriction"
+                            android:hint="@string/hint_email_address"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:padding="@dimen/content_spacing_halfx"
+                            android:theme="@style/EditTextDarkAccent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewEmail"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPassword"
+                    style="@style/TextInputLayoutUnderlineForm.Password"
+                    android:layout_marginLeft="@dimen/content_margin"
+                    android:layout_marginTop="@dimen/content_spacing_small"
+                    android:layout_marginRight="@dimen/content_margin"
+                    android:hint="@string/hint_password"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tilUsername">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPassword"
+                        style="@style/TextInputEditTextForm.Full"
+                        android:digits="@string/digits_with_restriction"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardViewPassword"
+                    style="@style/CardViewEditText"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/tilPassword"
+                    app:layout_constraintEnd_toEndOf="@+id/tilPassword"
+                    app:layout_constraintStart_toStartOf="@+id/tilPassword"
+                    app:layout_constraintTop_toTopOf="@+id/tilPassword">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageViewPassword"
+                            android:layout_width="@dimen/image_view_icon_small_size"
+                            android:layout_height="@dimen/image_view_icon_small_size"
+                            android:layout_marginStart="@dimen/content_spacing"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_lock_sme" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etPasswordSME"
+                            style="@style/AppCompatEditTextDark.SME"
+                            android:layout_width="@dimen/match_constraint"
+                            android:digits="@string/digits_with_restriction"
+                            android:hint="@string/hint_password"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword"
+                            android:paddingStart="@dimen/content_spacing_halfx"
+                            android:paddingTop="@dimen/content_spacing_halfx"
+                            android:paddingEnd="@dimen/content_spacing_xxl"
+                            android:paddingBottom="@dimen/content_spacing_halfx"
+                            android:theme="@style/EditTextDarkAccent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageViewPassword"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="RtlSymmetry" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/iv_show_password"
+                            android:layout_width="@dimen/image_view_icon_size"
+                            android:layout_height="@dimen/image_view_icon_size"
+                            android:layout_marginStart="@dimen/content_spacing"
+                            android:layout_marginEnd="@dimen/content_spacing"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:padding="@dimen/content_spacing_small"
+                            android:scaleType="fitCenter"
+                            app:layout_constraintBottom_toBottomOf="@+id/etPasswordSME"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/etPasswordSME"
+                            app:srcCompat="@drawable/selector_eye_password_edittext"
+                            app:tint="@color/colorInfo" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvForgotPassword"
+                    style="@style/TextViewTheme"
+                    android:padding="@dimen/text_view_padding"
+                    android:text="@string/title_forgot_password"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/buttonLogin"
+                    app:layout_constraintTop_toBottomOf="@+id/tilPassword" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_open_business_account"
+                    style="@style/RoundedButtonOrange"
+                    android:layout_marginLeft="@dimen/content_margin"
+                    android:layout_marginTop="@dimen/content_spacing_large"
+                    android:layout_marginRight="@dimen/content_margin"
+                    android:text="@string/action_open_a_business_account"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_apply_loan"
+                    style="@style/RoundedButtonOrange"
+                    android:layout_marginLeft="@dimen/content_margin"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginRight="@dimen/content_margin"
+                    android:text="@string/action_apply_loan"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_open_business_account" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_initial_login"
+                    style="@style/RoundedButtonLightOverlay"
+                    android:layout_height="@dimen/button_normal_size"
+                    android:layout_marginLeft="@dimen/content_margin"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginRight="@dimen/content_margin"
+                    android:layout_marginBottom="@dimen/content_spacing_small"
+                    android:text="@string/action_login"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/tv_sign_up"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_apply_loan" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonLogin"
+                    style="@style/RoundedButtonOrange"
+                    android:layout_marginLeft="@dimen/content_margin"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginRight="@dimen/content_margin"
+                    android:layout_marginBottom="@dimen/content_spacing_half"
+                    android:text="@string/action_login"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_sign_up"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_sign_up"
+                    style="@style/TextViewTheme"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="@dimen/text_view_padding"
+                    android:text="@string/action_sign_up"
+                    app:layout_constraintBottom_toTopOf="@+id/imgFingerPrint"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgFingerPrint"
+                    style="@style/WrapContent"
+                    android:layout_width="@dimen/image_view_login_fingerprint_size"
+                    android:layout_height="@dimen/image_view_login_fingerprint_size"
+                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_sign_up"
+                    app:srcCompat="@drawable/ic_fingerprint_white_48dp"
+                    app:tint="?colorImage" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonGenerateOTP"
+            style="@style/RoundedButtonBorderedLightOverLay"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_small_size"
+            android:layout_marginBottom="@dimen/content_spacing_half"
+            android:drawableStart="@drawable/ic_lock_gray"
+            android:drawablePadding="@dimen/image_view_icon_padding"
+            android:paddingStart="@dimen/button_padding_large"
+            android:paddingEnd="@dimen/button_padding_large"
+            android:text="@string/action_generate_otp"
+            android:textColor="@color/colorButtonGray"
+            app:layout_constraintBottom_toTopOf="@+id/textViewMigration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewMigration"
+            style="@style/TextViewTheme"
+            android:layout_marginBottom="@dimen/content_spacing_half"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/text_view_spacing"
+            android:padding="@dimen/text_view_padding"
+            android:text="@string/desc_migration_login"
+            app:layout_constraintBottom_toTopOf="@+id/textViewLearnMore"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLearnMore"
+            style="@style/TextViewTheme"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginBottom="@dimen/grid_8"
+            android:padding="@dimen/text_view_padding"
+            android:text="@string/title_learn_more"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewVersion"
+            style="@style/TextViewThemeSmall"
+            android:layout_marginTop="@dimen/content_spacing_large"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:padding="@dimen/text_view_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/imageViewLogoAnimate"
+        style="@style/ImageViewLogo"
+        layout="@layout/widget_the_portal_logo"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayoutContent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayoutContent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

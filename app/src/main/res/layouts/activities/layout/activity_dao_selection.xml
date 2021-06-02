@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/DefaultBackgroundMatchConstraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+
+        <View
+            android:id="@+id/view1"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_open_business_account"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/content_spacing"
+            android:paddingBottom="@dimen/content_spacing"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view1">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_open_business_account_title"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:text="@string/title_dao_open_business_account"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_open_business_account"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginLeft="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:layout_marginRight="@dimen/content_spacing"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                android:text="@string/desc_dao_open_business_account"
+                android:textColorLink="?colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_open_business_account_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_border_open_business_account"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_open_business_account" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_existing_application"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rectangle_white"
+            android:paddingTop="@dimen/content_spacing"
+            android:paddingBottom="@dimen/content_spacing"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_border_open_business_account">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_existing_application_title"
+                style="@style/TextViewLightOrangeLarge"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:text="@string/title_dao_existing_application"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_existing_application"
+                style="@style/TextViewDark"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginTop="@dimen/content_spacing_small"
+                android:layout_marginEnd="@dimen/content_spacing"
+                android:lineSpacingExtra="@dimen/text_view_spacing"
+                android:text="@string/desc_dao_existing_application"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_existing_application_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view_border_existing_application"
+            style="@style/BorderHorizontal"
+            android:background="@color/colorGreyLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_existing_application" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

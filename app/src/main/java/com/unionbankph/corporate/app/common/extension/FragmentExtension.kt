@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.app.common.extension
 
-import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.text.Spanned
 import android.util.TypedValue
 import android.view.Gravity
@@ -19,6 +20,14 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.button.MaterialButton
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
+
+fun Fragment.runPostDelayed(func: (() -> Unit), delayMillisecond: Long) {
+    Handler(Looper.getMainLooper()).postDelayed(
+        {
+            func.invoke()
+        }, delayMillisecond
+    )
+}
 
 fun Fragment.formatString(stringResId: Int, vararg args: Any?): String =
     String.format(getString(stringResId, *args))
