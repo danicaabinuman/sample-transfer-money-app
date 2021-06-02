@@ -72,7 +72,6 @@ import com.unionbankph.corporate.common.presentation.constant.NotificationLogTyp
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.*
 import com.unionbankph.corporate.mcd.presentation.detail.CheckDepositDetailActivity
-import com.unionbankph.corporate.payment_link.data.model.SMEApiError
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -640,7 +639,7 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
         viewLoadingState: View,
         swipeRefreshLayout: SwipeRefreshLayout?,
         view: View,
-        textView: TextView?,
+        viewState: View?,
         headerTableView: View? = null
     ) {
         if (swipeRefreshLayout == null) {
@@ -648,7 +647,7 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
         }
         if (swipeRefreshLayout != null && !swipeRefreshLayout.isRefreshing) {
             viewLoadingState.visibility = View.VISIBLE
-            textView?.visibility = View.GONE
+            viewState?.visibility = View.GONE
             headerTableView?.visibility(false)
         }
         if (viewLoadingState.visibility == View.VISIBLE) {

@@ -62,6 +62,7 @@ import com.unionbankph.corporate.dao.presentation.personal_info_4.DaoPersonalInf
 import com.unionbankph.corporate.dao.presentation.preferred_branch.DaoPreferredBranchViewModel
 import com.unionbankph.corporate.dao.presentation.reminders.DaoRemindersViewModel
 import com.unionbankph.corporate.dao.presentation.result.DaoResultViewModel
+import com.unionbankph.corporate.dao.presentation.selection.DaoSelectionViewModel
 import com.unionbankph.corporate.dao.presentation.signature.DaoSignatureViewModel
 import com.unionbankph.corporate.dao.presentation.signature_preview.DaoSignaturePreviewViewModel
 import com.unionbankph.corporate.dao.presentation.type_of_business.DaoTypeOfBusinessViewModel
@@ -111,10 +112,12 @@ import com.unionbankph.corporate.settings.presentation.country.CountryViewModel
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayViewModel
 import com.unionbankph.corporate.settings.presentation.fingerprint.BiometricViewModel
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsViewModel
+import com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreViewModel
 import com.unionbankph.corporate.settings.presentation.notification.NotificationViewModel
 import com.unionbankph.corporate.settings.presentation.security.device.ManageDevicesViewModel
 import com.unionbankph.corporate.settings.presentation.selector.SelectorViewModel
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorViewModel
+import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenViewModel
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordViewModel
 import dagger.Binds
 import dagger.Module
@@ -125,6 +128,11 @@ abstract class ViewModelModule {
 
     @Binds
     abstract fun viewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SplashStartedScreenViewModel::class)
+    abstract fun splashStartedScreenViewModel(viewModel: SplashStartedScreenViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -656,6 +664,15 @@ abstract class ViewModelModule {
     @ViewModelKey(EBillingGenerateViewModel::class)
     abstract fun eBillingGenerateViewModel(viewModel: EBillingGenerateViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(DaoSelectionViewModel::class)
+    abstract fun daoSelectionViewModel(viewModel: DaoSelectionViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LearnMoreViewModel::class)
+    abstract fun learnMoreViewModel(viewModel: LearnMoreViewModel): ViewModel
 
     @Binds
     @IntoMap

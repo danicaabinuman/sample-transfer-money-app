@@ -43,6 +43,7 @@ import com.unionbankph.corporate.branch.presentation.transactionlist.BranchTrans
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.dao.presentation.selection.DaoSelectionActivity
 import com.unionbankph.corporate.dao.presentation.signature_preview.DaoSignaturePreviewActivity
 import com.unionbankph.corporate.ebilling.presentation.confirmation.EBillingConfirmationActivity
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
@@ -103,6 +104,7 @@ import com.unionbankph.corporate.settings.presentation.password.PasswordActivity
 import com.unionbankph.corporate.settings.presentation.selector.SelectorActivity
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashFrameActivity
+import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity
 import dagger.Module
@@ -110,6 +112,10 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityBindingModule {
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun splashStartedScreenActivity(): SplashStartedScreenActivity
 
     @PerActivity
     @ContributesAndroidInjector
@@ -492,6 +498,10 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun eBillingGenerateActivity(): EBillingGenerateActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun daoSelectionActivity(): DaoSelectionActivity
 
     @PerActivity
     @ContributesAndroidInjector

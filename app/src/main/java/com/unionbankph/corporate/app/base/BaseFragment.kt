@@ -6,18 +6,15 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.tbruyelle.rxpermissions2.RxPermissions
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.common.extension.formatString
-import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.extension.setColor
 import com.unionbankph.corporate.app.common.platform.bus.data.DataBus
 import com.unionbankph.corporate.app.common.platform.bus.event.EventBus
@@ -27,6 +24,7 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxValida
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.SettingsUtil
 import com.unionbankph.corporate.app.util.ViewUtil
+import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.data.source.local.sharedpref.SharedPreferenceUtil
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
@@ -64,6 +62,9 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
     lateinit var sharedPreferenceUtil: SharedPreferenceUtil
 
     @Inject
+    lateinit var cacheManager: CacheManager
+
+    @Inject
     lateinit var tutorialEngineUtil: TutorialEngineUtil
 
     @Inject
@@ -81,6 +82,8 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
     var isSkipTutorial: Boolean = false
 
     var isClickedHelpTutorial = false
+
+    var isValidForm: Boolean = false
 
     val disposables = CompositeDisposable()
 
@@ -150,14 +153,14 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
         viewLoadingState: View,
         swipeRefreshLayout: SwipeRefreshLayout?,
         view: View,
-        textViewState: TextView?,
+        viewState: View?,
         headerTableView: View? = null
     ) {
         (activity as BaseActivity<*>).showLoading(
             viewLoadingState,
             swipeRefreshLayout,
             view,
-            textViewState,
+            viewState,
             headerTableView
         )
     }
@@ -172,6 +175,18 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
         view: View
     ) {
         (activity as BaseActivity<*>).dismissLoading(viewLoadingState, swipeRefreshLayout, view)
+    }
+
+    fun setMargins(view: View, left: Int, top: Int, right: Int, bottom: Int) {
+        (activity as BaseActivity<*>).setMargins(view, left, top, right, bottom)
+    }
+
+    fun getStatusBarHeight(): Int {
+        return (activity as BaseActivity<*>).getStatusBarHeight()
+    }
+
+    fun getNavHeight(): Int {
+        return (activity as BaseActivity<*>).getNavHeight()
     }
 
     fun handleOnError(throwable: Throwable) {

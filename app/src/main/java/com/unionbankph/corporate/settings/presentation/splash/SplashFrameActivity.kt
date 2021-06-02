@@ -6,6 +6,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
+import com.unionbankph.corporate.auth.presentation.login.LoginFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
 import kotlinx.android.synthetic.main.activity_splash_frame_screen.*
 
@@ -14,7 +15,6 @@ class SplashFrameActivity : BaseActivity<GeneralViewModel>(R.layout.activity_spl
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initTransparency()
-        setMargins(indicator, 0, 0, 0, getNavHeight())
         setMargins(
             textViewSkip,
             0,
@@ -66,14 +66,21 @@ class SplashFrameActivity : BaseActivity<GeneralViewModel>(R.layout.activity_spl
             SplashFragment.newInstance(SplashFragment.SplashScreenPage.PAGE_ORGANIZATION),
             SplashFragment.SplashScreenPage.PAGE_ORGANIZATION.name
         )
-        if (sharedPreferenceUtil.isLaunched().get()) {
+        if (intent.getStringExtra(EXTRA_SCREEN) == SCREEN_LEARN_MORE) {
             textViewSkip.visibility = View.INVISIBLE
             viewPager?.offscreenPageLimit = 4
         } else {
-            adapter.addFragment(
-                SplashEndFragment(),
-                SplashFragment.SplashScreenPage.PAGE_SUMMARY.name
-            )
+            if (isSME) {
+                adapter.addFragment(
+                    LoginFragment(),
+                    SplashFragment.SplashScreenPage.PAGE_LOGIN.name
+                )
+            } else {
+                adapter.addFragment(
+                    SplashEndFragment(),
+                    SplashFragment.SplashScreenPage.PAGE_SUMMARY.name
+                )
+            }
             viewPager?.offscreenPageLimit = 5
         }
 
@@ -125,4 +132,11 @@ class SplashFrameActivity : BaseActivity<GeneralViewModel>(R.layout.activity_spl
             }
         })
     }
+
+    companion object {
+        const val EXTRA_SCREEN = "screen"
+        const val SCREEN_SPLASH = "splash"
+        const val SCREEN_LEARN_MORE = "learn_more"
+    }
+
 }

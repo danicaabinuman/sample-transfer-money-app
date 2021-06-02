@@ -9,6 +9,7 @@ import com.unionbankph.corporate.app.di.scope.PerActivity
 import com.unionbankph.corporate.approval.presentation.ApprovalFragment
 import com.unionbankph.corporate.approval.presentation.approval_done.ApprovalDoneFragment
 import com.unionbankph.corporate.approval.presentation.approval_ongoing.ApprovalOngoingFragment
+import com.unionbankph.corporate.auth.presentation.login.LoginFragment
 import com.unionbankph.corporate.auth.presentation.migration.migration_merge.NominateMergeVerifyAccountFragment
 import com.unionbankph.corporate.auth.presentation.migration.nominate_email.NominateEmailFragment
 import com.unionbankph.corporate.auth.presentation.migration.nominate_merge.NominateMergeEmailFragment
@@ -23,8 +24,6 @@ import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyFragment
 import com.unionbankph.corporate.auth.presentation.policy.TermsAndConditionsFragment
 import com.unionbankph.corporate.bills_payment.presentation.biller.biller_all.AllBillerFragment
 import com.unionbankph.corporate.bills_payment.presentation.biller.frequent_biller.FrequentBillerFragment
-import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
-import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.dao.presentation.business_registration_papers.DaoBusinessRegistrationPapersFragment
 import com.unionbankph.corporate.dao.presentation.checking_account.DaoCheckingAccountTypeFragment
 import com.unionbankph.corporate.dao.presentation.company_info_1.DaoCompanyInformationStepOneFragment
@@ -47,6 +46,8 @@ import com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterF
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
+import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
+import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
@@ -332,6 +333,10 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun daoDefaultFragment(): DaoDefaultFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun loginFragment(): LoginFragment
 
     @PerActivity
     @ContributesAndroidInjector

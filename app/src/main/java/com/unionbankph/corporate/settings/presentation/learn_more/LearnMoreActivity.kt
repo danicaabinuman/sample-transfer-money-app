@@ -3,18 +3,23 @@ package com.unionbankph.corporate.settings.presentation.learn_more
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.extension.formatString
-import com.unionbankph.corporate.app.common.extension.makeLinks
+import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity
-import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
+import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
+import com.unionbankph.corporate.common.presentation.constant.URLDataEnum
 import com.unionbankph.corporate.settings.presentation.splash.SplashFrameActivity
 import kotlinx.android.synthetic.main.activity_learn_more.*
 import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
-class LearnMoreActivity : BaseActivity<GeneralViewModel>(R.layout.activity_learn_more) {
+class LearnMoreActivity : BaseActivity<LearnMoreViewModel>(R.layout.activity_learn_more),
+    EpoxyAdapterCallback<LearnMoreData> {
+
+    private val controller by lazyFast { LearnMoreController() }
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -23,35 +28,45 @@ class LearnMoreActivity : BaseActivity<GeneralViewModel>(R.layout.activity_learn
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
-    override fun onViewsBound() {
-        super.onViewsBound()
-        textViewRowTwoTitle.text = formatString(
-            if (isSME) {
-                R.string.title_learn_more_row_two_sme
-            } else {
-                R.string.title_learn_more_row_two
-            }
-        )
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        initViewModel()
     }
 
-    override fun onInitializeListener() {
-        super.onInitializeListener()
-        textViewRowOne.makeLinks(
-            Pair(getString(R.string.action_here), View.OnClickListener {
+    override fun onViewsBound() {
+        super.onViewsBound()
+        srl_learn_more.isEnabled = false
+        initRecyclerView()
+    }
+
+    override fun onClickItem(view: View, data: LearnMoreData, position: Int) {
+        when (data.id) {
+            1 -> {
+                navigator.navigateBrowser(
+                    this,
+                    URLDataEnum.ACCOUNT_OPENING_LINK
+                )
+            }
+            2 -> {
+                navigator.navigateBrowser(
+                    this,
+                    URLDataEnum.ENROLLMENT_LINK
+                )
+            }
+            3 -> {
                 navigateSplashScreen()
-            })
-        )
-        textViewRowOne.setOnClickListener {
-            navigateSplashScreen()
-        }
-        textViewRowThree.makeLinks(
-            Pair(getString(R.string.action_here), View.OnClickListener {
+            }
+            4 -> {
                 navigatePrivacyPolicy()
-            })
-        )
-        textViewRowThree.setOnClickListener {
-            navigatePrivacyPolicy()
+            }
         }
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[LearnMoreViewModel::class.java]
+        viewModel.learnMoreData.observe(this, Observer {
+            updateController(it)
+        })
     }
 
     private fun navigatePrivacyPolicy() {
@@ -73,7 +88,9 @@ class LearnMoreActivity : BaseActivity<GeneralViewModel>(R.layout.activity_learn
         navigator.navigate(
             this,
             SplashFrameActivity::class.java,
-            null,
+            Bundle().apply {
+                putString(SplashFrameActivity.EXTRA_SCREEN, SplashFrameActivity.SCREEN_LEARN_MORE)
+            },
             isClear = false,
             isAnimated = true,
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
@@ -94,4 +111,14 @@ class LearnMoreActivity : BaseActivity<GeneralViewModel>(R.layout.activity_learn
         onBackPressed(false)
         overridePendingTransition(R.anim.anim_no_change, R.anim.anim_slide_down)
     }
+
+    private fun initRecyclerView() {
+        controller.setAdapterCallbacks(this)
+        rv_learn_more.setController(controller)
+    }
+
+    private fun updateController(data: MutableList<LearnMoreData>) {
+        controller.setData(data)
+    }
+
 }

@@ -225,4 +225,20 @@
         <item>@string/title_student</item>
     </string-array>
 
+    <string-array name="array_learn_more_title">
+        <item>@string/title_learn_more_open_business_account</item>
+        <item>@string/title_learn_more_enroll</item>
+        <item>@string/title_learn_more_row_one</item>
+        <item>@string/title_learn_more_row_three</item>
+        <item>@string/title_learn_more_row_four</item>
+    </string-array>
+
+    <string-array name="array_learn_more_desc">
+        <item>@string/desc_learn_more_open_business_account</item>
+        <item>@string/desc_learn_more_enroll</item>
+        <item>@string/desc_learn_more_row_one</item>
+        <item>@string/desc_learn_more_row_three</item>
+        <item>@string/desc_learn_more_row_four</item>
+    </string-array>
+
 </resources>
