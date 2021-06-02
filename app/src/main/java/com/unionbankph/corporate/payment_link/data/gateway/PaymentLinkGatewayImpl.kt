@@ -48,7 +48,7 @@ class PaymentLinkGatewayImpl
     }
 
     override fun createMerchant(createMerchantForm: CreateMerchantForm): Single<CreateMerchantResponse> {
-
+        
         return settingsCache.getAccessToken()
             .flatMap {
                 paymentLinkRemote.createMerchant(
