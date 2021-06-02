@@ -92,7 +92,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
             viewModel.createMerchant(
                     CreateMerchantForm(
-                            "",
+                            orgName!!,
                             businessName,
                             include1.findViewById<TextView>(R.id.textViewAccountNumber).text.toString(),
                             include1.findViewById<TextView>(R.id.textViewCorporateName).text.toString(),
