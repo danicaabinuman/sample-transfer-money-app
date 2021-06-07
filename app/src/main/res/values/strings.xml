@@ -1307,7 +1307,6 @@
     <string name="msg_tutorial_transact_bills_payment">While here you can make payments to government and utility billers.</string>
     <string name="msg_tutorial_transact_check_deposit">Here you can capture check images and deposit them without going to a branch.</string>
     <string name="msg_tutorial_transact_electronic_billing">Generate a QR code that can be used to send transfers into your account.</string>
-    <string name="msg_tutorial_transact_request_payment">Here you can request for payment or check your payment links.</string>
     <string name="msg_tutorial_setting_biometric">Tap here to enable or disable fingerprint authentication.</string>
     <string name="msg_tutorial_setting_tutorial">Tap here to reset and view all tutorial again.</string>
     <string name="msg_tutorial_setting_notification">Customize which notifications you want to receive here.</string>
@@ -2207,6 +2206,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="failed">Failed</string>
     <string name="merchant_disabled_information">Unable to generate new link, your merchant is currently disabled.</string>
     <string name="text_okay">Okay</string>
-    <string name="fee_calculator_details">Fees will change depending on the payment method selected by your customer. Select the cards below to see the Net Amount.</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.transact.presentation.transact
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,6 +18,7 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.tutorial.OnTutorialListener
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.branch.presentation.list.BranchVisitActivity
 import com.unionbankph.corporate.common.domain.exception.JsonParseException
@@ -31,13 +33,14 @@ import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
-import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.settings.data.constant.PermissionNameEnum
 import com.unionbankph.corporate.settings.domain.constant.FeaturesEnum
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsHasPermission
+import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import io.reactivex.rxkotlin.addTo
+import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 
 class TransactFragment :
@@ -143,26 +146,24 @@ class TransactFragment :
                         )
                     }
                     constraintLayoutCheckDeposit.id -> {
-                        tutorialEngineUtil.startTutorial(
-                            getAppCompatActivity(),
-                            constraintLayoutRequestPayment,
-                            R.layout.frame_tutorial_upper_left,
-                            0f,
-                            false,
-                            getString(R.string.msg_tutorial_transact_request_payment),
-                            GravityEnum.BOTTOM,
-                            OverlayAnimationEnum.ANIM_EXPLODE
-                        )
+                        if (constraintLayoutElectronicBilling.visibility == View.VISIBLE) {
+                            tutorialEngineUtil.startTutorial(
+                                getAppCompatActivity(),
+                                constraintLayoutElectronicBilling,
+                                R.layout.frame_tutorial_upper_left,
+                                0f,
+                                false,
+                                getString(R.string.msg_tutorial_transact_electronic_billing),
+                                GravityEnum.BOTTOM,
+                                OverlayAnimationEnum.ANIM_EXPLODE
+                            )
+                        }
                     }
-                    constraintLayoutRequestPayment.id -> {
+                    constraintLayoutElectronicBilling.id -> {
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
                         )
                     }
-
-//                    constraintLayoutRequestPayment.id -> {
-//
-//                    }
                 }
             } else {
                 if (isClickedHelpTutorial) {

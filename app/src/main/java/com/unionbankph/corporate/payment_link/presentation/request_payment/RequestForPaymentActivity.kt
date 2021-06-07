@@ -1,7 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.request_payment
 
 import android.content.Intent
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -11,22 +10,26 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
-import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
-import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
+import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
+import kotlinx.android.synthetic.main.activity_check_deposit_form.*
+import kotlinx.android.synthetic.main.activity_check_deposit_form.et_amount
+import kotlinx.android.synthetic.main.activity_link_details.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.activity_request_payment.errorMerchantDisabled
 import kotlinx.android.synthetic.main.activity_request_payment.ivBackButton
 import kotlinx.android.synthetic.main.dialog_failed_merchant_diasbled.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
-import timber.log.Timber
 
 class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
 
@@ -48,7 +51,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
         setupOutputs()
         buttonDisable()
-        buttonCalculatorDisabled()
 
         requiredFields()
         paymentLinkExpiry()
@@ -57,6 +59,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun initViews(){
         btnRequestPaymentGenerate.setOnClickListener{
+
             val amount = et_amount.text.toString()
             val paymentFor = et_paymentFor.text.toString()
             val notes = et_notes.text.toString()
@@ -90,28 +93,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
-
-        btnCalculator.setOnClickListener{
-            val amountString = et_amount.text.toString()
-            val amountChecker = amountString.replace("PHP","").replace(",","")
-
-            if (amountString.isEmpty()){
-
-            } else {
-                btnCalculator.isEnabled
-            }
-            val bundle = Bundle()
-            bundle.putString(FeeCalculatorActivity.AMOUNT_VALUE, amountChecker)
-
-            navigator.navigate(
-                this,
-                FeeCalculatorActivity::class.java,
-                bundle,
-                isClear = false,
-                isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
-            )
-        }
     }
 
     private fun setupOutputs(){
@@ -136,25 +117,19 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         val amountString = et_amount.text.toString()
         val paymentForString = et_paymentFor.text.toString()
 
-        val amountChecker = amountString.replace("PHP","").replace(" ","")
-
-        when (amountString) {
-            "PHP 0", "PHP 0.", "PHP 0.0", "PHP 0.00" -> {buttonDisable()}
-        }
-
-        if (amountChecker.isNotEmpty() && paymentForString.length in 1..100){
-            buttonEnable()
+        if (
+            (amountString.length) > 4 &&
+            (paymentForString.length in 1..255)
+        ){
+            if (amountString == "PHP 0"){buttonDisable()}
+            else if (amountString == "PHP 0."){buttonDisable()}
+            else if (amountString == "PHP 0.0"){buttonDisable()}
+            else if (amountString == "PHP 0.00"){buttonDisable()}
+            else{
+            buttonEnable()}
         } else {
             buttonDisable()
         }
-    }
-
-    private fun buttonCalculatorDisabled(){
-        btnCalculator?.isEnabled = false
-    }
-
-    private fun buttonCalculatorEnabled(){
-        btnCalculator?.isEnabled = true
     }
 
     private fun buttonDisable(){
@@ -169,6 +144,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
     }
 
+
     private fun requiredFields(){
         et_amount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -178,22 +154,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val cleanString = s.toString().replace("PHP","").replace(" ","")
-                    var amountDouble = 0.00
-                    try {
-                        amountDouble = cleanString.toDouble()
-                        if(amountDouble < 100.00){
-                            buttonCalculatorDisabled()
-                            til_amount.error = "Minimum amount is Php 100.00"
-                        } else {
-                            til_amount.error = ""
-                            buttonCalculatorEnabled()
-                        }
-                    }catch (e: NumberFormatException){
-                        Timber.e(e.message)
-                        e.printStackTrace()
-                    }
-
                 validateForm()
             }
         })
@@ -253,17 +213,12 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     }
 
     private fun navigateToLinkDetails(response: GeneratePaymentLinkResponse){
+
         val responseJson = JsonHelper.toJson(response)
         val intent = Intent(this, LinkDetailsActivity::class.java)
         intent.putExtra(LinkDetailsActivity.EXTRA_GENERATE_PAYMENT_LINK_RESPONSE,responseJson)
         intent.putExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB, DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
         startActivityForResult(intent, LinkDetailsActivity.REQUEST_CODE)
-    }
-
-    private fun navigateToFeeCalculator(){
-        val intent = Intent(this, FeeCalculatorActivity::class.java)
-        intent.putExtra(FeeCalculatorActivity.FROM_WHAT_TAB, DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
-        startActivity(intent)
     }
 
     private fun finishRequestPayment() {
