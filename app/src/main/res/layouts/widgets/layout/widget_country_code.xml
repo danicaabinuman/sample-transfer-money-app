@@ -5,7 +5,6 @@
     android:id="@+id/constraintLayoutCountryCode"
     style="@style/WrapContent">
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_country_code"
         style="@style/TextInputLayoutForm"
