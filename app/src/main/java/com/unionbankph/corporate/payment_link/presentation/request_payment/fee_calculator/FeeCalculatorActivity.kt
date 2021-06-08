@@ -1,10 +1,13 @@
 package com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator
 
+import android.content.Intent
 import android.os.Bundle
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import kotlinx.android.synthetic.main.activity_fee_calculator.*
 import timber.log.Timber
 import java.lang.NumberFormatException
@@ -43,7 +46,7 @@ class FeeCalculatorActivity :
         btnCreditDebitCard.setOnClickListener { btnCreditDebitCardOnClicked() }
         btnEWallet.setOnClickListener { btnEWalletOnClicked() }
         btnOverTheCounter.setOnClickListener { btnOverTheCounterOnClicked() }
-        btnClose.setOnClickListener { finish() }
+        btnClose.setOnClickListener { returnToRequestPayment() }
     }
 
     private fun initIntentData(){
@@ -140,6 +143,24 @@ class FeeCalculatorActivity :
 
     private fun btnOverTheCounterOnClicked() {
         reformatStrings()
+    }
+
+    private fun returnToRequestPayment(){
+
+        navigator.navigate(
+            this,
+            RequestForPaymentActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_DOWN
+        )
+
+        finish()
+    }
+
+    override fun onBackPressed() {
+        returnToRequestPayment()
     }
 
     companion object{
