@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorValueModel
+import kotlinx.android.synthetic.main.item_terms_of_service_pricing_table.*
+import java.text.DecimalFormat
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -30,6 +33,31 @@ class FeeCharges : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_terms_of_service_tabs_fees_charges, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val feeCalculatorValueModel = FeeCalculatorValueModel(0.00)
+        fncUnionBank.text = "PHP. 0.00"
+        fncInstapay.text = "PHP. 0.00"
+        fncCard.text = "PHP. 0.00"
+        fncEWallet.text = "PHP. 0.00"
+        fncOTC.text = "PHP. 0.00"
+        val percentageFormat = DecimalFormat("##0.00")
+        val feeFormat = DecimalFormat("PHP #,##0.00")
+        val ubFeeValue = feeFormat.format(feeCalculatorValueModel.ubOnlineFee)
+        val instapayFeeValue = feeFormat.format(feeCalculatorValueModel.instapay)
+        val cardFeeValue = feeFormat.format(feeCalculatorValueModel.card)
+        val cardPercentageFeeValue = percentageFormat.format(feeCalculatorValueModel.cardPercentageFee)
+        val eWalletFeeValue = feeFormat.format(feeCalculatorValueModel.eWallet)
+        val eWalletPercentageFeeValue = percentageFormat.format(feeCalculatorValueModel.eWalletPercentageFee)
+        val otcFeeValue = feeFormat.format(feeCalculatorValueModel.instapay)
+
+        fncUnionBank.text = ubFeeValue
+        fncInstapay.text = instapayFeeValue
+        fncCard.text = cardPercentageFeeValue + "% + " + cardFeeValue
+        fncEWallet.text = eWalletPercentageFeeValue + "% + " + eWalletFeeValue
+        fncOTC.text = otcFeeValue
     }
 
     companion object {
