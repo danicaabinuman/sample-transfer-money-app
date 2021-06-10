@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/ivBackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/arrow_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save and Exit"
+                android:textColor="#FF8200"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:id="@+id/tv_about_your_business_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="We want to know more about your business"
+                    android:textColor="#4A4A4A"
+                    android:textSize="24sp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_name_of_business_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="Nature of Business"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_about_your_business_title" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_status"
+                    style="@style/Spinner.DropDownOrange"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_of_business_title">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/dropdownPaymentLinkExport"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/a_spinner_outline"
+                            android:dropDownSelector="#000"
+                            android:spinnerMode="dropdown" />
+
+                        <ImageView
+                            android:layout_width="@dimen/grid_5"
+                            android:layout_height="0dp"
+                            android:layout_alignTop="@+id/dropdownPaymentLinkExport"
+                            android:layout_alignBottom="@+id/dropdownPaymentLinkExport"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/grid_2"
+                            android:src="@drawable/ic_arrow_black_down" />
+                    </RelativeLayout>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_product_of_services_offered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:text="Products of Services Offered"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_status" />
+
+                <TextView
+                    android:id="@+id/tv_product_of_services_offered_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What products or services are you offering and what kind of
+customers are you targeting?"
+                    android:textColor="#9B9B9B"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_of_services_offered" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_product_of_services_offered"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_of_services_offered_details">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_product_of_services_offered"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="Placeholder text"
+                        android:paddingBottom="40dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/view_gray_solid_line"
+                    app:layout_constraintTop_toBottomOf="@id/til_product_of_services_offered" />
+
+                <TextView
+                    android:id="@+id/tv_business_years"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="How long have you been in\nbusiness?"
+                    android:textColor="#4A4A4A"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+                <ImageView
+                    android:id="@+id/btn_decrement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
+                    app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_business_years" />
+
+                <TextView
+                    android:id="@+id/tv_years_counter"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="100"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
+                    app:layout_constraintEnd_toStartOf="@id/btn_increment"
+                    app:layout_constraintTop_toTopOf="@id/tv_business_years" />
+
+                <ImageView
+                    android:id="@+id/btn_increment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_baseline_add_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_business_years" />
+
+                <ImageView
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/view_gray_solid_line"
+                    app:layout_constraintTop_toBottomOf="@id/tv_business_years" />
+
+                <TextView
+                    android:id="@+id/tv_where_do_you_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Where do you sell?"
+                    android:textColor="#4A4A4A"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+                <TextView
+                    android:id="@+id/tv_where_do_you_sell_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select all that apply."
+                    android:textColor="#9B9B9B"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_where_do_you_sell" />
+
+                <LinearLayout
+                    android:id="@+id/ll_where_do_you_sell_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_where_do_you_sell_details">
+
+                    <TextView
+                        android:id="@+id/btn_lazada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
+                        android:paddingStart="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="6dp"
+                        android:text="Lazada" />
+
+                    <TextView
+                        android:id="@+id/btn_shopee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
+                        android:paddingStart="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="6dp"
+                        android:text="Shopee" />
+
+                    <TextView
+                        android:id="@+id/btn_website"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_where_do_you_sell_active"
+                        android:paddingStart="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="6dp"
+                        android:text="Website"
+                        android:textColor="#FF8200" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_where_do_you_sell_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_1">
+
+                    <TextView
+                        android:id="@+id/btn_physical_store"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_where_do_you_sell_active"
+                        android:paddingStart="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="6dp"
+                        android:text="Physical Store"
+                        android:textColor="#FF8200" />
+
+                    <TextView
+                        android:id="@+id/btn_facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_where_do_you_sell_active"
+                        android:paddingStart="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="6dp"
+                        android:text="Facebook"
+                        android:textColor="#FF8200" />
+
+                    <TextView
+                        android:id="@+id/btn_instagram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_where_do_you_sell_active"
+                        android:paddingStart="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="6dp"
+                        android:text="Instagram"
+                        android:textColor="#FF8200" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/divider_dashed"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/view_dashed"
+                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_2" />
+
+                <TextView
+                    android:id="@+id/tv_input_store_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Input store name / link"
+                    android:textColor="#9B9B9B"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+                <TextView
+                    android:id="@+id/tv_website_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Website"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_input_store_name" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_website"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginBottom="15dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_website_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_website"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="www.storename.com" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_physical_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Physical Store"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_website" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_physical_store"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginBottom="15dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_physical_store">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_physical_store"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="address" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_facebook_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Facebook"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_physical_store" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_facebook"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginBottom="15dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_facebook_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_facebook"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="/storename" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_instagram_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Instagram"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_facebook" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_instagram"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginBottom="15dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_instagram_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_instagram"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="/@storename" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/view_gray_solid_line"
+                    app:layout_constraintTop_toBottomOf="@id/til_instagram" />
+
+                <TextView
+                    android:id="@+id/tv_number_of_branch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="How many branches do you\nhave?"
+                    android:textColor="#4A4A4A"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+                <ImageView
+                    android:id="@+id/btn_decrement_branch_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
+                    app:layout_constraintEnd_toStartOf="@id/tv_branch_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+
+                <TextView
+                    android:id="@+id/tv_branch_counter"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="100"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
+                    app:layout_constraintEnd_toStartOf="@id/btn_increment_branch_number"
+                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+
+                <ImageView
+                    android:id="@+id/btn_increment_branch_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_baseline_add_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+
+                <TextView
+                    android:id="@+id/btnNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="11dp"
+                    android:background="@drawable/btn_back_to_dashboard"
+                    android:text="Next"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/text_14"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:clickable="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_of_branch"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>
