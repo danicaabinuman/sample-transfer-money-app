@@ -6,18 +6,28 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
+import kotlinx.android.synthetic.main.activity_request_payment.dropdownPaymentLinkExport
 
 class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R.layout.activity_business_information),
     AdapterView.OnItemSelectedListener {
 
+    private var state = State.OFF
     var businessType = arrayOf("Manufacturer", "Wholesaler", "Service", "Importer", "Exporter", "Retailer")
     var business = "Wholesaler"
 
     override fun onViewsBound() {
         super.onViewsBound()
 
+        initViews()
         natureOfBusiness()
+    }
+
+    private fun initViews(){
+
+        btn_lazada.setOnClickListener{}
+        btn_shopee.setOnClickListener {  }
     }
     private fun natureOfBusiness(){
 
@@ -39,6 +49,18 @@ class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("Not yet implemented")
+    }
+
+    private fun btnLazadaClicked(){
+
+    }
+
+    private fun btnActive(){
+
+    }
+    enum class State {
+        ON,
+        OFF
     }
 
 }
