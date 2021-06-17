@@ -89,6 +89,8 @@ import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewAct
 import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryActivity
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
@@ -544,4 +546,7 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract fun feeCalculatorActivity(): FeeCalculatorActivity
 
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingUploadPhotosActivity(): OnboardingUploadPhotosActivity
 }
