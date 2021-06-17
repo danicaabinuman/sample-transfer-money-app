@@ -234,19 +234,21 @@ customers are you targeting?"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_status"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
+                        android:clickable="true"
                         android:paddingStart="12dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Lazada" />
+                        android:text="Lazada"
+                        android:focusable="true" />
 
                     <TextView
                         android:id="@+id/btn_shopee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_status"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
                         android:paddingStart="12dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
@@ -258,13 +260,12 @@ customers are you targeting?"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_status"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
                         android:paddingStart="12dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Website"
-                        android:textColor="#FF8200" />
+                        android:text="Website"/>
 
                 </LinearLayout>
 
@@ -283,41 +284,63 @@ customers are you targeting?"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_status"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
                         android:paddingStart="12dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Physical Store"
-                        android:textColor="#FF8200" />
+                        android:text="Physical Store"/>
 
                     <TextView
                         android:id="@+id/btn_facebook"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_status"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
                         android:paddingStart="12dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Facebook"
-                        android:textColor="#FF8200" />
+                        android:text="Facebook"/>
 
                     <TextView
                         android:id="@+id/btn_instagram"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_status"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
                         android:paddingStart="12dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Instagram"
-                        android:textColor="#FF8200" />
+                        android:text="Instagram"/>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_where_do_you_sell_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_2">
+
+                    <TextView
+                        android:id="@+id/btn_others"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
+                        android:paddingStart="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="6dp"
+                        android:text="Others"/>
+
+                </LinearLayout>
+
 
                 <ImageView
                     android:id="@+id/divider_dashed"
@@ -325,7 +348,7 @@ customers are you targeting?"
                     android:layout_height="3dp"
                     android:layout_marginTop="25dp"
                     android:src="@drawable/view_dashed"
-                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_2" />
+                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
 
                 <TextView
                     android:id="@+id/tv_input_store_name"
@@ -339,6 +362,60 @@ customers are you targeting?"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 
                 <TextView
+                    android:id="@+id/tv_lazada_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Lazada"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_input_store_name" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_lazada"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginBottom="15dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_lazada_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_lazada"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="lazada link" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_shopee_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Shopee"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_lazada" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_shopee"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginBottom="15dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_shopee_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_shopee"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="shopee link" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
                     android:id="@+id/tv_website_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -347,7 +424,7 @@ customers are you targeting?"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_input_store_name" />
+                    app:layout_constraintTop_toBottomOf="@id/til_shopee" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_website"
@@ -502,20 +579,20 @@ customers are you targeting?"
                     android:id="@+id/btnNext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginEnd="10dp"
+                    android:background="@drawable/btn_back_to_dashboard"
+                    android:clickable="false"
                     android:paddingTop="11dp"
                     android:paddingBottom="11dp"
-                    android:background="@drawable/btn_back_to_dashboard"
                     android:text="Next"
+                    android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="#fff"
                     android:textSize="@dimen/text_14"
-                    android:textAlignment="center"
                     android:textStyle="bold"
-                    android:clickable="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_number_of_branch"/>
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_of_branch" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

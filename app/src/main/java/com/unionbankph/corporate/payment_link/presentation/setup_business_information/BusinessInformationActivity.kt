@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_business_information
 
+import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
@@ -13,9 +14,14 @@ import kotlinx.android.synthetic.main.activity_request_payment.dropdownPaymentLi
 class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R.layout.activity_business_information),
     AdapterView.OnItemSelectedListener {
 
-    private var state = State.OFF
     var businessType = arrayOf("Manufacturer", "Wholesaler", "Service", "Importer", "Exporter", "Retailer")
     var business = "Wholesaler"
+    var lazadaCounter = 0
+    var shopeeCounter = 0
+    var facebookCounter = 0
+    var physicalStoreCounter = 0
+    var instagramCounter = 0
+    var websiteCounter = 0
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -26,8 +32,12 @@ class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R
 
     private fun initViews(){
 
-        btn_lazada.setOnClickListener{}
-        btn_shopee.setOnClickListener {  }
+        btn_lazada.setOnClickListener{btnLazadaClicked()}
+        btn_shopee.setOnClickListener{btnShopeeClicked()}
+        btn_facebook.setOnClickListener{btnFacebookClicked()}
+        btn_physical_store.setOnClickListener{btnPhysicalStoreClicked()}
+        btn_instagram.setOnClickListener{btnInstagramClicked()}
+        btn_website.setOnClickListener{btnWebsiteClicked()}
     }
     private fun natureOfBusiness(){
 
@@ -52,15 +62,71 @@ class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R
     }
 
     private fun btnLazadaClicked(){
+        lazadaCounter++
+        var stateChecker = lazadaCounter%2
+        if (stateChecker  == 1){
+            btn_lazada.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            btn_lazada.setTextColor(Color.parseColor("#FF8200"))
+        } else if (stateChecker  == 0) {
+            btn_lazada.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            btn_lazada.setTextColor(Color.parseColor("#4A4A4A"))
+        }
 
     }
 
-    private fun btnActive(){
-
+    private fun btnShopeeClicked(){
+        shopeeCounter++
+        var stateChecker = shopeeCounter%2
+        if (stateChecker  == 1){
+            btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            btn_shopee.setTextColor(Color.parseColor("#FF8200"))
+        } else if (stateChecker  == 0) {
+            btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            btn_shopee.setTextColor(Color.parseColor("#4A4A4A"))
+        }
     }
-    enum class State {
-        ON,
-        OFF
+    private fun btnFacebookClicked(){
+        facebookCounter++
+        var stateChecker = facebookCounter%2
+        if (stateChecker  == 1){
+            btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            btn_facebook.setTextColor(Color.parseColor("#FF8200"))
+        } else if (stateChecker  == 0) {
+            btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            btn_facebook.setTextColor(Color.parseColor("#4A4A4A"))
+        }
     }
-
+    private fun btnPhysicalStoreClicked(){
+        physicalStoreCounter++
+        var stateChecker = physicalStoreCounter%2
+        if (stateChecker  == 1){
+            btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            btn_physical_store.setTextColor(Color.parseColor("#FF8200"))
+        } else if (stateChecker  == 0) {
+            btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            btn_physical_store.setTextColor(Color.parseColor("#4A4A4A"))
+        }
+    }
+    private fun btnInstagramClicked(){
+        instagramCounter++
+        var stateChecker = instagramCounter%2
+        if (stateChecker  == 1){
+            btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            btn_instagram.setTextColor(Color.parseColor("#FF8200"))
+        } else if (stateChecker  == 0) {
+            btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            btn_instagram.setTextColor(Color.parseColor("#4A4A4A"))
+        }
+    }
+    private fun btnWebsiteClicked(){
+        websiteCounter++
+        var stateChecker = websiteCounter%2
+        if (stateChecker  == 1){
+            btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            btn_website.setTextColor(Color.parseColor("#FF8200"))
+        } else if (stateChecker  == 0) {
+            btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            btn_website.setTextColor(Color.parseColor("#4A4A4A"))
+        }
+    }
 }
