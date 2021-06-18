@@ -216,6 +216,21 @@
                         android:layout_height="16dp"
                         android:src="@drawable/ic_ub_orange"
                         android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/gcashLogo"
+                        android:layout_width="60dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_gcash"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/grabpayLogo"
+                        android:layout_width="60dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_grabpay"
+                        android:visibility="gone"/>
+
                 </LinearLayout>
 
                 <TextView

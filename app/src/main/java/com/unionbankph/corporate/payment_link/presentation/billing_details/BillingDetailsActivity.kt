@@ -137,9 +137,23 @@ class BillingDetailsActivity :
         if (paymentMethod == "INSTAPAY"){
             instapayLogo.visibility = View.VISIBLE
             ubLogo.visibility = View.GONE
+            grabpayLogo.visibility = View.GONE
+            gcashLogo.visibility = View.GONE
         }else if (paymentMethod == "UB ONLINE"){
             instapayLogo.visibility = View.GONE
             ubLogo.visibility = View.VISIBLE
+            grabpayLogo.visibility = View.GONE
+            gcashLogo.visibility = View.GONE
+        } else if (paymentMethod == "GCASH"){
+            instapayLogo.visibility = View.GONE
+            ubLogo.visibility = View.GONE
+            grabpayLogo.visibility = View.GONE
+            gcashLogo.visibility = View.VISIBLE
+        } else if (paymentMethod == "GRABPAY"){
+            instapayLogo.visibility = View.GONE
+            ubLogo.visibility = View.GONE
+            grabpayLogo.visibility = View.VISIBLE
+            gcashLogo.visibility = View.GONE
         } else {
             Toast.makeText(this, "no payment method present", Toast.LENGTH_SHORT).show()
         }
