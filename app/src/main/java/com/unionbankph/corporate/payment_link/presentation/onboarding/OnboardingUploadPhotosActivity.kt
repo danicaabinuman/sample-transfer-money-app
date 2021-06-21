@@ -42,6 +42,7 @@ class OnboardingUploadPhotosActivity :
                     clUploadPhotosIntro.visibility = View.GONE
                     clSelectedPhotos.visibility = View.VISIBLE
                     btnSaveAndExit.visibility = View.VISIBLE
+                    btnNext.visibility = View.VISIBLE
                     ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
                     ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
                     ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
@@ -54,6 +55,7 @@ class OnboardingUploadPhotosActivity :
                 clUploadPhotosIntro.visibility = View.GONE
                 clSelectedPhotos.visibility = View.VISIBLE
                 btnSaveAndExit.visibility = View.VISIBLE
+                btnNext.visibility = View.VISIBLE
                 ivPhotoFromGallery.setImageURI(imageUri)
             }
         }
