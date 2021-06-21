@@ -120,7 +120,8 @@
 
     <!-- DESIGN SYSTEM -->
 
-    <color name="dsColorDisabledButton">#BFBFBF</color>
+    <color name="dsColorDisabledButtonPrimary">#BFBFBF</color>
+    <color name="dsColorEnabledButtonPrimary">#FFFFFF</color>
 
     <!--Transparency-->
     <!--100% — FF-->
