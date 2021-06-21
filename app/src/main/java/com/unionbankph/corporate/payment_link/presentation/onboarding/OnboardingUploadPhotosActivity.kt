@@ -35,20 +35,23 @@ class OnboardingUploadPhotosActivity :
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 
             if (data?.clipData != null) {
+                clUploadPhotosIntro.visibility = View.GONE
+                clSelectedPhotos.visibility = View.VISIBLE
+                btnSaveAndExit.visibility = View.VISIBLE
+                btnNext.visibility = View.VISIBLE
+
+                val uri = data.clipData
+                ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
+                ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
+                ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
+                ivPhotoFromGallery4.setImageURI(uri.getItemAt(3).uri)
+                ivPhotoFromGallery5.setImageURI(uri.getItemAt(4).uri)
+                ivPhotoFromGallery6.setImageURI(uri.getItemAt(5).uri)
+//
                 var count = data.clipData!!.itemCount
                 for (i in 0 until count - 1) {
                     imageUri = data.clipData!!.getItemAt(i).uri
-                    val uri = data.clipData
-                    clUploadPhotosIntro.visibility = View.GONE
-                    clSelectedPhotos.visibility = View.VISIBLE
-                    btnSaveAndExit.visibility = View.VISIBLE
-                    btnNext.visibility = View.VISIBLE
-                    ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
-                    ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
-                    ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
-                    ivPhotoFromGallery4.setImageURI(uri.getItemAt(3).uri)
-                    ivPhotoFromGallery5.setImageURI(uri.getItemAt(4).uri)
-                    ivPhotoFromGallery6.setImageURI(uri.getItemAt(5).uri)
+                    
                 }
             } else if (data?.data != null) {
                 imageUri = data.data!!
