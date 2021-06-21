@@ -117,6 +117,11 @@
     <color name="colorSMEDisabledBGButton">@color/colorWhite</color>
     <color name="colorDisabledBGButton">#666666</color>
 
+
+    <!-- DESIGN SYSTEM -->
+
+    <color name="dsColorDisabledButton">#BFBFBF</color>
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->
