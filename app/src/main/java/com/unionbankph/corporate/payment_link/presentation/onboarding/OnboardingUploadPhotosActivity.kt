@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
 class OnboardingUploadPhotosActivity :
     BaseActivity<RequestPaymentSplashViewModel>(R.layout.activity_onboarding_upload_photos) {
 
-    private val pickImage = 100
     private var imageUri: Uri? = null
     val REQUEST_CODE = 200
     override fun onViewsBound() {
@@ -25,29 +24,36 @@ class OnboardingUploadPhotosActivity :
 
             openGalleryForImages()
         }
+
+        btnAddPhotos2.setOnClickListener{
+            openGalleryForImages()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-//            imageUri = data?.data
-//            clUploadPhotosIntro.visibility = View.GONE
-//            clSelectedPhotos.visibility = View.VISIBLE
-//            ivPhotoFromGallery.setImageURI(imageUri)
 
             if (data?.clipData != null) {
                 var count = data.clipData!!.itemCount
                 for (i in 0 until count - 1) {
-                    var imageUri: Uri = data.clipData!!.getItemAt(i).uri
+                    imageUri = data.clipData!!.getItemAt(i).uri
+                    val uri = data.clipData
                     clUploadPhotosIntro.visibility = View.GONE
                     clSelectedPhotos.visibility = View.VISIBLE
-                    ivPhotoFromGallery.setImageURI(imageUri)
-                    ivPhotoFromGallery2.setImageURI(imageUri)
+                    btnSaveAndExit.visibility = View.VISIBLE
+                    ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
+                    ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
+                    ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
+                    ivPhotoFromGallery4.setImageURI(uri.getItemAt(3).uri)
+                    ivPhotoFromGallery5.setImageURI(uri.getItemAt(4).uri)
+                    ivPhotoFromGallery6.setImageURI(uri.getItemAt(5).uri)
                 }
             } else if (data?.data != null) {
-                var imageUri: Uri = data.data!!
+                imageUri = data.data!!
                 clUploadPhotosIntro.visibility = View.GONE
                 clSelectedPhotos.visibility = View.VISIBLE
+                btnSaveAndExit.visibility = View.VISIBLE
                 ivPhotoFromGallery.setImageURI(imageUri)
             }
         }
