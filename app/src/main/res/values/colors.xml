@@ -120,8 +120,17 @@
 
     <!-- DESIGN SYSTEM -->
 
-    <color name="dsColorDisabledButtonPrimary">#BFBFBF</color>
+    <color name="dsColorLightGray">#BFBFBF</color>
     <color name="dsColorEnabledButtonPrimary">#FFFFFF</color>
+    <color name="dsColorDarkOrange">#ED5635</color>
+    <color name="dsColorMediumOrange">#FF8200</color>
+    <color name="dsColorLightOrange">#FFF3E5</color>
+    <color name="dsColorDarkGray">#4B4948</color>
+    <color name="dsColorMediumGray">#9B9B9B</color>
+    <color name="dsColorExtraLightGray">#F8F8F8</color>
+    <color name="dsColorSystemError">#FE3D2F</color>
+    <color name="dsColorSystemSuccess">#3BB537</color>
+
 
     <!--Transparency-->
     <!--100% — FF-->
