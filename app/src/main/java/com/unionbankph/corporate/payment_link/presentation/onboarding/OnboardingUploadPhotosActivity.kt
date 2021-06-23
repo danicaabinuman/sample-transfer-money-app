@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.view.View
+import android.widget.GridView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
@@ -13,6 +14,8 @@ class OnboardingUploadPhotosActivity :
 
     private var imageUri: Uri? = null
     val REQUEST_CODE = 200
+    lateinit var gridView: GridView
+
     override fun onViewsBound() {
         super.onViewsBound()
 
@@ -41,25 +44,64 @@ class OnboardingUploadPhotosActivity :
                 btnNext.visibility = View.VISIBLE
 
                 val uri = data.clipData
-                ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
-                ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
-                ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
-                ivPhotoFromGallery4.setImageURI(uri.getItemAt(3).uri)
-                ivPhotoFromGallery5.setImageURI(uri.getItemAt(4).uri)
-                ivPhotoFromGallery6.setImageURI(uri.getItemAt(5).uri)
+//                ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
+//                ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
+//                ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
+//                ivPhotoFromGallery4.setImageURI(uri.getItemAt(3).uri)
+//                ivPhotoFromGallery5.setImageURI(uri.getItemAt(4).uri)
+//                ivPhotoFromGallery6.setImageURI(uri.getItemAt(5).uri)
 //
+
+                gridView = findViewById(R.id.gv)
                 var count = data.clipData!!.itemCount
-                for (i in 0 until count - 1) {
-                    imageUri = data.clipData!!.getItemAt(i).uri
-                    
+                val uriArrayList = arrayListOf<Uri>()
+                for (i in 0 until count) {
+                    val imageUri = data.clipData!!.getItemAt(i).uri
+                    uriArrayList.add(imageUri)
+                    val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
+
+                    gridView.adapter = adapter
                 }
-            } else if (data?.data != null) {
-                imageUri = data.data!!
+
+//                if (count == 2){
+//                    ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
+//                    ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
+//                } else if (count == 3){
+//                    ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
+//                    ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
+//                    ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
+//                } else if (count == 4){
+//                    ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
+//                    ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
+//                    ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
+//                    ivPhotoFromGallery4.setImageURI(uri.getItemAt(3).uri)
+//                } else if (count ==5){
+//                    ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
+//                    ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
+//                    ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
+//                    ivPhotoFromGallery4.setImageURI(uri.getItemAt(3).uri)
+//                    ivPhotoFromGallery5.setImageURI(uri.getItemAt(4).uri)
+//                } else if (count == 6){
+//                    ivPhotoFromGallery.setImageURI(uri!!.getItemAt(0).uri)
+//                    ivPhotoFromGallery2.setImageURI(uri.getItemAt(1).uri)
+//                    ivPhotoFromGallery3.setImageURI(uri.getItemAt(2).uri)
+//                    ivPhotoFromGallery4.setImageURI(uri.getItemAt(3).uri)
+//                    ivPhotoFromGallery5.setImageURI(uri.getItemAt(4).uri)
+//                    ivPhotoFromGallery6.setImageURI(uri.getItemAt(5).uri)
+//                }
+            }
+            else if (data?.data != null) {
                 clUploadPhotosIntro.visibility = View.GONE
                 clSelectedPhotos.visibility = View.VISIBLE
                 btnSaveAndExit.visibility = View.VISIBLE
                 btnNext.visibility = View.VISIBLE
-                ivPhotoFromGallery.setImageURI(imageUri)
+                gridView = findViewById(R.id.gv)
+
+                val imageUri = data.data!!
+                val uriArrayList = arrayListOf<Uri>()
+                uriArrayList.add(imageUri)
+                val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
+                gridView.adapter = adapter
             }
         }
     }
