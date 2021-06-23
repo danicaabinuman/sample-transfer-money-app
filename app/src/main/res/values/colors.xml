@@ -131,6 +131,13 @@
     <color name="dsColorSystemError">#FE3D2F</color>
     <color name="dsColorSystemSuccess">#3BB537</color>
 
+    <color name="dsColorUnpaidBackground">#FFDA1C</color>
+    <color name="dsColorPendingBackground">@color/dsColorMediumOrange</color>
+    <color name="dsColorPaidBackground">#009783</color>
+    <color name="dsColorExpiredBackground">@color/dsColorDarkOrange</color>
+    <color name="dsColorArchivedBackground">#4A4A4A</color>
+
+
 
     <!--Transparency-->
     <!--100% — FF-->
