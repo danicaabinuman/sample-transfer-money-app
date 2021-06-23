@@ -37,6 +37,9 @@ class OnboardingUploadPhotosActivity :
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 
+            val uriArrayList = arrayListOf<Uri>()
+            gridView = findViewById(R.id.gv)
+
             if (data?.clipData != null) {
                 clUploadPhotosIntro.visibility = View.GONE
                 clSelectedPhotos.visibility = View.VISIBLE
@@ -52,9 +55,8 @@ class OnboardingUploadPhotosActivity :
 //                ivPhotoFromGallery6.setImageURI(uri.getItemAt(5).uri)
 //
 
-                gridView = findViewById(R.id.gv)
+//                gridView = findViewById(R.id.gv)
                 var count = data.clipData!!.itemCount
-                val uriArrayList = arrayListOf<Uri>()
                 for (i in 0 until count) {
                     val imageUri = data.clipData!!.getItemAt(i).uri
                     uriArrayList.add(imageUri)
@@ -95,10 +97,9 @@ class OnboardingUploadPhotosActivity :
                 clSelectedPhotos.visibility = View.VISIBLE
                 btnSaveAndExit.visibility = View.VISIBLE
                 btnNext.visibility = View.VISIBLE
-                gridView = findViewById(R.id.gv)
 
                 val imageUri = data.data!!
-                val uriArrayList = arrayListOf<Uri>()
+//                val uriArrayList = arrayListOf<Uri>()
                 uriArrayList.add(imageUri)
                 val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
                 gridView.adapter = adapter
