@@ -158,11 +158,23 @@ customers are you targeting?"
                     app:layout_constraintTop_toBottomOf="@id/divider1" />
 
                 <ImageView
-                    android:id="@+id/btn_decrement"
+                    android:id="@+id/btn_years_decrement_active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:visibility="gone"
                     android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
+                    app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_business_years" />
+
+                <ImageView
+                    android:id="@+id/btn_years_decrement_inactive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="visible"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
                     app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
                     app:layout_constraintTop_toTopOf="@id/tv_business_years" />
@@ -173,7 +185,7 @@ customers are you targeting?"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="100"
+                    android:text="0"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
                     app:layout_constraintEnd_toStartOf="@id/btn_increment"
@@ -236,12 +248,12 @@ customers are you targeting?"
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/bg_where_do_you_sell_inactive"
                         android:clickable="true"
+                        android:focusable="true"
                         android:paddingStart="12dp"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Lazada"
-                        android:focusable="true" />
+                        android:text="Lazada" />
 
                     <TextView
                         android:id="@+id/btn_shopee"
@@ -265,7 +277,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Website"/>
+                        android:text="Website" />
 
                 </LinearLayout>
 
@@ -289,7 +301,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Physical Store"/>
+                        android:text="Physical Store" />
 
                     <TextView
                         android:id="@+id/btn_facebook"
@@ -301,7 +313,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Facebook"/>
+                        android:text="Facebook" />
 
                     <TextView
                         android:id="@+id/btn_instagram"
@@ -313,7 +325,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Instagram"/>
+                        android:text="Instagram" />
 
                 </LinearLayout>
 
@@ -337,7 +349,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Others"/>
+                        android:text="Others" />
 
                 </LinearLayout>
 
@@ -369,6 +381,7 @@ customers are you targeting?"
                     android:text="Lazada"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_input_store_name" />
 
@@ -378,6 +391,7 @@ customers are you targeting?"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
                     android:layout_marginBottom="15dp"
+                    android:visibility="gone"
                     app:hintEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/tv_lazada_title">
 
@@ -396,6 +410,7 @@ customers are you targeting?"
                     android:text="Shopee"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/til_lazada" />
 
@@ -405,6 +420,7 @@ customers are you targeting?"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
                     android:layout_marginBottom="15dp"
+                    android:visibility="gone"
                     app:hintEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/tv_shopee_title">
 
@@ -423,6 +439,7 @@ customers are you targeting?"
                     android:text="Website"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/til_shopee" />
 
@@ -432,6 +449,7 @@ customers are you targeting?"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
                     android:layout_marginBottom="15dp"
+                    android:visibility="gone"
                     app:hintEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/tv_website_title">
 
@@ -450,6 +468,7 @@ customers are you targeting?"
                     android:text="Physical Store"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/til_website" />
 
@@ -459,6 +478,7 @@ customers are you targeting?"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
                     android:layout_marginBottom="15dp"
+                    android:visibility="gone"
                     app:hintEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/tv_physical_store">
 
@@ -477,6 +497,7 @@ customers are you targeting?"
                     android:text="Facebook"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/til_physical_store" />
 
@@ -486,6 +507,7 @@ customers are you targeting?"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
                     android:layout_marginBottom="15dp"
+                    android:visibility="gone"
                     app:hintEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/tv_facebook_title">
 
@@ -504,6 +526,7 @@ customers are you targeting?"
                     android:text="Instagram"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/til_facebook" />
 
@@ -513,11 +536,41 @@ customers are you targeting?"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
                     android:layout_marginBottom="15dp"
+                    android:visibility="gone"
                     app:hintEnabled="false"
                     app:layout_constraintTop_toBottomOf="@id/tv_instagram_title">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_instagram"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="/@storename" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_others_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Others"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_instagram" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_others"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginBottom="15dp"
+                    android:visibility="gone"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_others_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_others"
                         style="@style/TextInputEditTextFormCounter"
                         android:hint="/@storename" />
 
@@ -529,7 +582,7 @@ customers are you targeting?"
                     android:layout_height="3dp"
                     android:layout_marginTop="25dp"
                     android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/til_instagram" />
+                    app:layout_constraintTop_toBottomOf="@id/til_others" />
 
                 <TextView
                     android:id="@+id/tv_number_of_branch"
@@ -559,7 +612,7 @@ customers are you targeting?"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="100"
+                    android:text="0"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
                     app:layout_constraintEnd_toStartOf="@id/btn_increment_branch_number"
