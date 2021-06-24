@@ -597,11 +597,22 @@ customers are you targeting?"
                     app:layout_constraintTop_toBottomOf="@id/divider3" />
 
                 <ImageView
-                    android:id="@+id/btn_decrement_branch_number"
+                    android:id="@+id/btn_decrement_branch_number_active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
+                    app:layout_constraintEnd_toStartOf="@id/tv_branch_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+
+                <ImageView
+                    android:id="@+id/btn_decrement_branch_number_inactive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
                     app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
                     app:layout_constraintEnd_toStartOf="@id/tv_branch_counter"
                     app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />

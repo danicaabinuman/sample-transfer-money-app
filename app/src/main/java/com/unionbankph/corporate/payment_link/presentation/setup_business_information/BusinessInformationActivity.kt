@@ -42,6 +42,9 @@ class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R
         btn_website.setOnClickListener{btnWebsiteClicked()}
         btn_others.setOnClickListener {btnOtherClicked()}
         btn_increment.setOnClickListener { businessYearIncrementClicked() }
+        btn_years_decrement_active.setOnClickListener { businessYearDecrementClicked() }
+        btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
+        btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
     }
     private fun natureOfBusiness(){
 
@@ -59,23 +62,57 @@ class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R
 
     private fun fromZeroCounter(){
 
-        if (tv_years_counter.toString() == "0") {
+        if (tv_years_counter.text == "0") {
             btn_years_decrement_active.visibility = View.GONE
             btn_years_decrement_inactive.visibility = View.VISIBLE
         } else {
             btn_years_decrement_active.visibility = View.VISIBLE
             btn_years_decrement_inactive.visibility = View.GONE
         }
+
+        if (tv_branch_counter.text == "0") {
+            btn_decrement_branch_number_active.visibility = View.GONE
+            btn_decrement_branch_number_inactive.visibility = View.VISIBLE
+        } else {
+            btn_decrement_branch_number_active.visibility = View.VISIBLE
+            btn_decrement_branch_number_inactive.visibility = View.GONE
+        }
     }
 
     private  fun businessYearIncrementClicked(){
 
-        var yearCounter = tv_years_counter.toString().toInt()
-
+        var yearCounter = tv_years_counter.text.toString().toInt()
         yearCounter++
-
         tv_years_counter.text = yearCounter.toString()
 
+        fromZeroCounter()
+
+    }
+
+    private  fun businessYearDecrementClicked(){
+
+        var yearCounter = tv_years_counter.text.toString().toInt()
+        yearCounter--
+        tv_years_counter.text = yearCounter.toString()
+
+        fromZeroCounter()
+
+    }
+
+    private  fun branchCounterIncrementClicked(){
+        var branchCounter = tv_branch_counter.text.toString().toInt()
+        branchCounter++
+        tv_branch_counter.text = branchCounter.toString()
+
+        fromZeroCounter()
+    }
+
+    private  fun branchCounterDecrementClicked(){
+        var branchCounter = tv_branch_counter.text.toString().toInt()
+        branchCounter--
+        tv_branch_counter.text = branchCounter.toString()
+
+        fromZeroCounter()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
