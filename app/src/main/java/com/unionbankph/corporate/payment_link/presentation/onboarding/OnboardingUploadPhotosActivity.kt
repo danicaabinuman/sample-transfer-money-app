@@ -20,7 +20,7 @@ class OnboardingUploadPhotosActivity :
     override fun onViewsBound() {
         super.onViewsBound()
 
-        ivBackButton.setOnClickListener{
+        ivBackButton.setOnClickListener {
             clUploadPhotosIntro.visibility = View.VISIBLE
             clSelectedPhotos.visibility = View.GONE
             btnSaveAndExit.visibility = View.GONE
@@ -35,9 +35,10 @@ class OnboardingUploadPhotosActivity :
             openGalleryForImages()
         }
 
-        btnAddPhotos2.setOnClickListener{
+        btnAddPhotos2.setOnClickListener {
             openGalleryForImages()
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -54,8 +55,8 @@ class OnboardingUploadPhotosActivity :
 
                 val uri = data.clipData
                 var count = uri!!.itemCount
-                if (uriArrayList.size < 6){
-                for (i in 0 until count) {
+                if (uriArrayList.size < 6) {
+                    for (i in 0 until count) {
 
                         btnAddPhotos2.visibility = View.VISIBLE
                         val imageUri = data.clipData!!.getItemAt(i).uri
@@ -63,22 +64,36 @@ class OnboardingUploadPhotosActivity :
                         val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
 
                         gridView.adapter = adapter
+                        if (uriArrayList.size == 6) {
+                            btnAddPhotos2.visibility = View.GONE
+                            return
+                        }
                     }
                 } else {
                     btnAddPhotos2.visibility = View.GONE
                 }
 
-            }
-            else if (data?.data != null) {
+            } else if (data?.data != null) {
                 clUploadPhotosIntro.visibility = View.GONE
                 clSelectedPhotos.visibility = View.VISIBLE
                 btnSaveAndExit.visibility = View.VISIBLE
                 btnNext.visibility = View.VISIBLE
 
-                val imageUri = data.data!!
-                uriArrayList.add(imageUri)
-                val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
-                gridView.adapter = adapter
+                if (uriArrayList.size < 6) {
+                    val imageUri = data.data!!
+                    uriArrayList.add(imageUri)
+                    val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
+                    gridView.adapter = adapter
+                } else {
+                    btnAddPhotos2.visibility = View.GONE
+                }
+
+            }
+
+            if (uriArrayList.size < 6) {
+                btnAddPhotos2.visibility = View.VISIBLE
+            } else {
+                btnAddPhotos2.visibility = View.GONE
             }
 
         }
