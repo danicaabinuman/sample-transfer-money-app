@@ -60,15 +60,17 @@ class FeeCalculatorActivity :
         var feeAmount = 0.00
         var netAmount = 0.00
         val amountFormat = DecimalFormat("PHP #,##0.00")
-        val feeFormat = DecimalFormat("- #,##0.00")
+            val feeFormat = DecimalFormat("- #,##0.00")
 
         val grossAmountPutExtra = intent.getStringExtra(AMOUNT_VALUE).toString()
         var grossAmountDouble = grossAmountPutExtra.toDouble()
 
         tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
 
+        val feeCalculatorValueModel = FeeCalculatorValueModel(0.00)
+
         if (btnUB.isPressed){
-            feeAmount = 10.00
+            feeAmount = feeCalculatorValueModel.ubOnlineFee
             netAmount = grossAmountDouble - feeAmount
 
             btnUB.background = getDrawable(R.drawable.bg_fee_payment_method_active)
@@ -78,7 +80,7 @@ class FeeCalculatorActivity :
             btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
         } else if (btnInstapay.isPressed){
-            feeAmount = 15.00
+            feeAmount = feeCalculatorValueModel.instapay
             netAmount = grossAmountDouble - feeAmount
 
             btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -88,7 +90,7 @@ class FeeCalculatorActivity :
             btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
         } else if (btnCreditDebitCard.isPressed){
-            feeAmount = ((grossAmountDouble * .03) + 10)
+            feeAmount = ((grossAmountDouble * (feeCalculatorValueModel.cardPercentageFee/100)) + feeCalculatorValueModel.card)
             netAmount = grossAmountDouble - feeAmount
 
             btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -98,7 +100,7 @@ class FeeCalculatorActivity :
             btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
         } else if (btnEWallet.isPressed){
-            feeAmount = ((grossAmountDouble * .02) + 10)
+            feeAmount = ((grossAmountDouble * (feeCalculatorValueModel.eWalletPercentageFee/100)) + feeCalculatorValueModel.eWallet)
             netAmount = grossAmountDouble - feeAmount
 
             btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -108,7 +110,7 @@ class FeeCalculatorActivity :
             btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
         } else if (btnOverTheCounter.isPressed){
-            feeAmount = 20.00
+            feeAmount = feeCalculatorValueModel.otc
             netAmount = grossAmountDouble - feeAmount
 
             btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
