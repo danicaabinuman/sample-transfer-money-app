@@ -117,6 +117,9 @@
     <color name="colorSMEDisabledBGButton">@color/colorWhite</color>
     <color name="colorDisabledBGButton">#666666</color>
 
+    
+    <!-- SD COLORS -->
+    <color name="sd_chip_font_color_active">#FF8200</color>
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->
