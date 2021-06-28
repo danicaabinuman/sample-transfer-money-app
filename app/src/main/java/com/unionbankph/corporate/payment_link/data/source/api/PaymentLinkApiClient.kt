@@ -118,4 +118,16 @@ interface PaymentLinkApiClient {
         @Path("api_version")
         apiVersion: String
     ): Single<Response<ValidateMerchantByOrganizationResponse>>
+
+    @PUT("msme/api/v1/rmo/merchantmsme/api/v1/rmo/merchant")
+    fun putBusinessInformation(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Body
+
+    )
 }
