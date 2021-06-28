@@ -44,4 +44,7 @@ internal class UploadPhotosCustomAdapter(
         return convertView
     }
 
+    fun removeItem(position: Int){
+        image.removeAt(position)
+    }
 }

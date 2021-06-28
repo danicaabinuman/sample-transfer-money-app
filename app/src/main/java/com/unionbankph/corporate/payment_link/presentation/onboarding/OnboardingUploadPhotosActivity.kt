@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.view.View
+import android.widget.AdapterView
 import android.widget.GridView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -64,13 +65,18 @@ class OnboardingUploadPhotosActivity :
                         val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
 
                         gridView.adapter = adapter
+                        gridView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+                            adapter.removeItem(position)
+                            adapter.notifyDataSetChanged()
+                            if (uriArrayList.size < 6){
+                                btnAddPhotos2.visibility = View.VISIBLE
+                            }
+                        }
                         if (uriArrayList.size == 6) {
                             btnAddPhotos2.visibility = View.GONE
                             return
                         }
                     }
-                } else {
-                    btnAddPhotos2.visibility = View.GONE
                 }
 
             } else if (data?.data != null) {
@@ -84,17 +90,20 @@ class OnboardingUploadPhotosActivity :
                     uriArrayList.add(imageUri)
                     val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
                     gridView.adapter = adapter
-                } else {
-                    btnAddPhotos2.visibility = View.GONE
+                    gridView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+                        adapter.removeItem(position)
+                        adapter.notifyDataSetChanged()
+                    }
+
                 }
-
             }
 
-            if (uriArrayList.size < 6) {
-                btnAddPhotos2.visibility = View.VISIBLE
-            } else {
-                btnAddPhotos2.visibility = View.GONE
-            }
+//
+//            if (uriArrayList.size < 6) {
+//                btnAddPhotos2.visibility = View.VISIBLE
+//            } else {
+//                btnAddPhotos2.visibility = View.GONE
+//            }
 
         }
     }
