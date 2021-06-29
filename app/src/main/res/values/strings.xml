@@ -1959,6 +1959,8 @@
     <string name="head_payment_link_expiry">Payment Link Expiry</string>
     <string name="head_notify_the_recipient">Notify the Recipient</string>
     <string name="detail_we_ll_send_an_sms_about_the_payment_link_reference_number">We\'ll send an SMS containing the reference number only. Please share the payment link separately. </string>
+    <string name="title_review_settlement_account">Review Settlement Account</string>
+    <string name="detail_tap_the_card_to_select_another_settlement_account">Tap the card to select to another settlement account</string>
     <string name="country_code_63">+63</string>
     <string name="hint_e_g_9123456789">e.g. 9123456789</string>
     <string name="btn_generate_unique_link">GENERATE UNIQUE LINK</string>

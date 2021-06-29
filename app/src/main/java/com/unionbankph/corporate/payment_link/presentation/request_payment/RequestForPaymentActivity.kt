@@ -7,10 +7,12 @@ import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.widget.*
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
@@ -21,15 +23,21 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaym
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
+import io.supercharge.shimmerlayout.ShimmerLayout
+import kotlinx.android.synthetic.main.activity_no_available_accounts.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.activity_request_payment.errorMerchantDisabled
 import kotlinx.android.synthetic.main.activity_request_payment.ivBackButton
+import kotlinx.android.synthetic.main.activity_setup_payment_links.*
 import kotlinx.android.synthetic.main.dialog_failed_merchant_diasbled.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 import timber.log.Timber
 
 class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
 
+    private var accounts = mutableListOf<Account>()
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
     var linkExpiry = "12 hours"
@@ -56,6 +64,14 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     }
 
     private fun initViews(){
+        include_settlement_account.setOnClickListener {
+            openNominateAccounts()
+        }
+
+        btnBackToDashboard.setOnClickListener {
+            finish()
+        }
+
         btnRequestPaymentGenerate.setOnClickListener{
             val amount = et_amount.text.toString()
             val paymentFor = et_paymentFor.text.toString()
@@ -266,8 +282,23 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         startActivity(intent)
     }
 
-    private fun finishRequestPayment() {
+    private fun openNominateAccounts(){
+        if(accounts.size>1){
+            val intent = Intent(this@RequestForPaymentActivity, NominateSettlementActivity::class.java)
+            val accountsJson = JsonHelper.toJson(accounts)
+            intent.putExtra(NominateSettlementActivity.EXTRA_ACCOUNTS_ARRAY, accountsJson)
+            startActivityForResult(intent, SetupPaymentLinkActivity.REQUEST_CODE)
+        }else if(accounts.size == 1){
+            if(include_settlement_account.visibility == View.VISIBLE){
+                //DO NOTHING
+            }
+        }else {
+            noOtherAvailableAccounts.visibility = View.VISIBLE
+        }
 
+    }
+
+    private fun finishRequestPayment() {
         ivBackButton.setOnClickListener {
             finish()
         }
@@ -281,6 +312,34 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         et_amount.requestFocus()
     }
 
+    private fun populateNominatedSettlementAccount(accountData: Account){
+        val tvCorporateName: AppCompatTextView = include1.findViewById(R.id.textViewCorporateName)
+        val tvAccountName: AppCompatTextView = include1.findViewById(R.id.textViewAccountName)
+        val tvAccountNumber: AppCompatTextView = include1.findViewById(R.id.textViewAccountNumber)
+        val tvAvailableBalance: AppCompatTextView = include1.findViewById(R.id.textViewAvailableBalance)
+        val slAmount: ShimmerLayout = include1.findViewById(R.id.shimmerLayoutAmount)
+        val viewShimmer: View = include1.findViewById(R.id.viewShimmer)
+
+        tvCorporateName.text = accountData.name
+        tvAccountNumber.text = accountData.accountNumber
+        tvAccountName.text = accountData.productCodeDesc
+
+        accountData.headers.forEach{ header ->
+            header.name?.let { headerName ->
+                if(headerName.equals("CURBAL",true)){
+                    header.value?.let{ headerValue ->
+                        slAmount.stopShimmerAnimation()
+                        viewShimmer.visibility = View.GONE
+                        tvAvailableBalance.visibility = View.VISIBLE
+                        tvAvailableBalance.text = headerValue
+                    }
+                }
+            }
+        }
+
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == LinkDetailsActivity.REQUEST_CODE){
@@ -290,6 +349,14 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                     clearAllFields()
                 }
             }
+        }else if(requestCode == SetupPaymentLinkActivity.REQUEST_CODE){
+            if (resultCode == RESULT_OK) {
+                val accountData = JsonHelper.fromJson<Account>(data?.getStringExtra(NominateSettlementActivity.RESULT_DATA))
+                populateNominatedSettlementAccount(accountData)
+            }
         }
+    }
+    companion object {
+        const val REQUEST_CODE = 1216
     }
 }
