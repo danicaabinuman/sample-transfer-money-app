@@ -19,11 +19,14 @@ import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ShowApproverPermissionRequired
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ShowNoAvailableAccounts
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_no_available_accounts.*
@@ -54,6 +57,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         super.onViewsBound()
         initViews()
 
+        setupInputs()
         setupOutputs()
         buttonDisable()
         buttonCalculatorDisabled()
@@ -111,11 +115,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             val amountString = et_amount.text.toString()
             val amountChecker = amountString.replace("PHP","").replace(",","")
 
-            if (amountString.isEmpty()){
-
-            } else {
-                btnCalculator.isEnabled
-            }
+            if(!amountString.isEmpty())btnCalculator.isEnabled
             val bundle = Bundle()
             bundle.putString(FeeCalculatorActivity.AMOUNT_VALUE, amountChecker)
 
@@ -128,6 +128,11 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
             )
         }
+    }
+
+    private fun setupInputs(){
+        requestPaymentLoading.visibility = View.VISIBLE
+        viewModel.validateIfApprover()
     }
 
     private fun setupOutputs(){
@@ -144,8 +149,51 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                         finish()
                     }
                 }
+                is ShowNoOtherAvailableAccounts -> {
+                    noAvailableAccounts.visibility = View.VISIBLE
+                }
+
+                is ShowTheApproverPermissionRequired -> {
+                    approverPermissionRequired.visibility = View.VISIBLE
+                }
             }
         })
+
+        viewModel.soleAccount.observe(this, Observer {
+            requestPaymentLoading.visibility = View.GONE
+            populateNominatedSettlementAccount(it)
+            accounts = mutableListOf()
+            accounts.add(it)
+
+        })
+
+        viewModel.accounts.observe(this, Observer {
+            requestPaymentLoading.visibility = View.GONE
+            accounts = it
+        })
+
+        viewModel.accountsBalances.observe(this, Observer {
+            requestPaymentLoading.visibility = View.GONE
+            populateNominatedSettlementAccount(it.first())
+        })
+
+        viewModel.uiState.observe(this, Observer {
+            it.getContentIfNotHandled().let { event ->
+                when (event) {
+                    is UiState.Loading -> {
+                        requestPaymentLoading.visibility = View.VISIBLE
+                    }
+                    is UiState.Complete -> {
+                        requestPaymentLoading.visibility = View.GONE
+                    }
+                    is UiState.Error -> {
+                        handleOnError(event.throwable)
+                    }
+                }
+            }
+        })
+
+
     }
 
     private fun validateForm(){
@@ -287,7 +335,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             val intent = Intent(this@RequestForPaymentActivity, NominateSettlementActivity::class.java)
             val accountsJson = JsonHelper.toJson(accounts)
             intent.putExtra(NominateSettlementActivity.EXTRA_ACCOUNTS_ARRAY, accountsJson)
-            startActivityForResult(intent, SetupPaymentLinkActivity.REQUEST_CODE)
+            startActivityForResult(intent, REQUEST_CODE)
         }else if(accounts.size == 1){
             if(include_settlement_account.visibility == View.VISIBLE){
                 //DO NOTHING
@@ -349,7 +397,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                     clearAllFields()
                 }
             }
-        }else if(requestCode == SetupPaymentLinkActivity.REQUEST_CODE){
+        }else if(requestCode == REQUEST_CODE){
             if (resultCode == RESULT_OK) {
                 val accountData = JsonHelper.fromJson<Account>(data?.getStringExtra(NominateSettlementActivity.RESULT_DATA))
                 populateNominatedSettlementAccount(accountData)
@@ -357,6 +405,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         }
     }
     companion object {
-        const val REQUEST_CODE = 1216
+        const val REQUEST_CODE = 1226
     }
 }
