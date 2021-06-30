@@ -1,11 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DefaultBackgroundMatchParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment">
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="@dimen/grid_2"
+        android:scrollbars="none">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutMainContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/grid_2"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fees_and_charges"
+                    android:textSize="24sp"
+                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="#4B4948" />
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/unionbank_will_collect_the_following_fees_for_every_transaction_done"
+                    android:textColor="#4B4948" />
+
+                <TextView
+                    android:id="@+id/textViewUnionBankOnline"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_3"
+                    android:text="@string/pricing_table"
+                    android:textColor="#4B4948" />
 
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1">
 
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideLine"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintGuide_percent="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_default="percent" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="@dimen/grid_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="0.5dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guideLine"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/border_half"
+                            android:background="@drawable/bg_light_gray_top_left_only_radius8"
+                            android:padding="10dp"
+                            android:text="@string/payment_method"
+                            android:textColor="#4B4948" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/border_half"
+                            android:background="#F1F1F1"
+                            android:padding="10dp"
+                            android:text="@string/title_unionbank"
+                            android:textColor="#4B4948" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/border_half"
+                            android:background="#F8F8F8"
+                            android:padding="10dp"
+                            android:text="@string/instapay"
+                            android:textColor="#4B4948" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/border_half"
+                            android:background="#F1F1F1"
+                            android:padding="10dp"
+                            android:text="@string/e_wallets"
+                            android:textColor="#4B4948" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#F8F8F8"
+                            android:padding="10dp"
+                            android:text="@string/over_the_counter"
+                            android:textColor="#4B4948" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="@dimen/grid_0"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="0.5dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideLine"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/border_half"
+                            android:background="@drawable/bg_light_gray_top_right_only_radius8"
+                            android:padding="10dp"
+                            android:text="@string/fee_per_transaction"
+                            android:textColor="#4B4948" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/border_half"
+                            android:background="#F1F1F1"
+                            android:padding="10dp"
+                            android:text="@string/php_10"
+                            android:textColor="#4B4948" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/border_half"
+                            android:background="#F8F8F8"
+                            android:padding="10dp"
+                            android:text="@string/php_10"
+                            android:textColor="#4B4948" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/border_half"
+                            android:background="#F1F1F1"
+                            android:padding="10dp"
+                            android:text="@string/php_15"
+                            android:textColor="#4B4948" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#F8F8F8"
+                            android:padding="10dp"
+                            android:text="@string/php_15"
+                            android:textColor="#4B4948" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/grid_3"
+                    android:text="@string/settlement_for_the_payments_made_using_these_channels_will_be_credited"
+                    android:textColor="#4B4948" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

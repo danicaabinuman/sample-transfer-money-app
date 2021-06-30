@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -53,11 +54,25 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPagerPaymentLinkChannels"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             app:layout_constraintBottom_toTopOf="@id/btnAgreeAndContinue"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_normal_size"
+            android:background="@drawable/bg_gradient_orange_radius4"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginBottom="@dimen/grid_2"
+            android:text="@string/action_next"
+            android:textColor="#FFFFFFFF" />
 
     </LinearLayout>
 

@@ -15,12 +15,13 @@ class PaymentLinkChannelsActivity :
         super.onViewsBound()
         setupTabs()
         backButton()
+        nextButton()
     }
 
     private fun setupTabs() {
         val adapter = TabLayoutAdapter(supportFragmentManager)
         adapter.addFragment(PaymentMethodsFragment(), getString(R.string.title_payment_methods))
-        adapter.addFragment(FeesAndChargesFragment(), getString(R.string.title_fees_charges))
+        adapter.addFragment(FeesAndChargesFragment(), getString(R.string.fees_and_charges))
         viewPagerPaymentLinkChannels.adapter = adapter
 
         tlPaymentLinkChannels.setupWithViewPager(viewPagerPaymentLinkChannels)
@@ -50,8 +51,14 @@ class PaymentLinkChannelsActivity :
     }
 
     private fun backButton(){
-        btnBack.setOnClickListener(){
+        btnBack.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun nextButton() {
+        btnNext.setOnClickListener {
+            TODO() // Set Destination Activity
         }
     }
 

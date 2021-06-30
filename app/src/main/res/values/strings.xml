@@ -753,7 +753,7 @@
     <string name="title_verification_completed">Verification Completed</string>
     <string name="title_dao_result_skip">Thank you for applying for a UnionBank Account</string>
     <string name="title_payment_methods">Payment Methods</string>
-    <string name="title_fees_charges">Fees &amp; Charges</string>
+    <string name="fees_and_charges">Fees &amp; Charges</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -2233,7 +2233,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="rd_pawnshop">RD Pawnshop</string>
     <string name="ruralnet">RuralNet</string>
     <string name="expresspay">ExpressPay</string>
-    <string name="pay_go">Pay &amp; Go</string>
+    <string name="pay_go">Pay&amp;Go</string>
     <string name="da5">DA5</string>
     <string name="posible">Posible</string>
     <string name="ussc">USSC</string>
@@ -2242,4 +2242,12 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="wellcome">Wellcome</string>
     <string name="tambunting">Tambunting</string>
     <string name="cvm_pawnshop">CVM Pawnshop</string>
+    <string name="unionbank_will_collect_the_following_fees_for_every_transaction_done">UnionBank will collect the following fees for every transaction done through our generated payment links. See pricing table below:</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="php_10">PHP 10.00</string>
+    <string name="php_15">PHP 15.00</string>
+    <string name="fee_per_transaction">Fee Per Transaction</string>
+    <string name="instapay">InstaPay</string>
+    <string name="settlement_for_the_payments_made_using_these_channels_will_be_credited">Settlement for the payments made using these channels will be credited to your nominated settlement account two (2) days after receipt of payment.</string>
+    <string name="pricing_table">Pricing Table</string>
 </resources>

@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DefaultBackgroundMatchParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#ffffff"
-    style="@style/DefaultBackgroundMatchParent">
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
+        android:clipToPadding="false"
         android:padding="@dimen/grid_2"
-        android:clipToPadding="false">
+        android:scrollbars="none">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/grid_2"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="#4B4948"
-                android:text="@string/these_are_the_payment_channels_available_for_you"/>
+                android:text="@string/these_are_the_payment_channels_available_for_you"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="#4B4948" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/grid_1"
-                android:textSize="@dimen/text_14"
+                android:text="@string/your_customers_will_be_able_to_pay_you_using_any_one_of_the_channels_listed_below"
                 android:textColor="#9B9B9B"
-                android:text="@string/your_customers_will_be_able_to_pay_you_using_any_one_of_the_channels_listed_below"/>
+                android:textSize="@dimen/text_14" />
 
             <!-- UnionBank Online Section-->
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,8 +66,8 @@
                     android:id="@+id/viewUBBullet1"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textUBViewBullet1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -89,9 +90,9 @@
                     android:id="@+id/viewUBBullet2"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textUBViewBullet2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textUBViewBullet2" />
@@ -141,8 +142,8 @@
                     android:id="@+id/viewBTBullet1"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textBTViewBullet1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -165,8 +166,8 @@
                     android:id="@+id/viewBTBullet2"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textBTViewBullet2"
                     app:layout_constraintStart_toStartOf="parent"
@@ -208,8 +209,8 @@
                     android:id="@+id/imageViewGCash"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/grid_3"
-                    android:src="@drawable/ic_gcash"
                     android:layout_marginEnd="@dimen/grid_1"
+                    android:src="@drawable/ic_gcash"
                     app:layout_constraintBottom_toBottomOf="@id/textViewEWallets"
                     app:layout_constraintEnd_toStartOf="@id/imageViewGrabPay"
                     app:layout_constraintTop_toTopOf="@id/textViewEWallets" />
@@ -227,8 +228,8 @@
                     android:id="@+id/viewEWBullet1"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textEWViewBullet1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -251,8 +252,8 @@
                     android:id="@+id/viewEWBullet2"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textEWViewBullet2"
                     app:layout_constraintStart_toStartOf="parent"
@@ -288,11 +289,10 @@
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintGuide_percent="0.5039578"
+                    app:layout_constraintGuide_percent="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_default="percent"
-                    app:layout_constraintWidth_percent="50" />
+                    app:layout_constraintWidth_default="percent" />
 
                 <TextView
                     android:id="@+id/textViewOverCounter"
@@ -300,17 +300,17 @@
                     android:layout_height="wrap_content"
                     android:text="@string/over_the_counter"
                     android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="spread_inside"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet1"/>
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
 
                 <ImageView
                     android:id="@+id/imageView711"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/grid_3"
-                    android:src="@drawable/ic_7_11"
                     android:layout_marginEnd="@dimen/grid_1"
+                    android:src="@drawable/ic_7_11"
                     app:layout_constraintBottom_toBottomOf="@id/textViewOverCounter"
                     app:layout_constraintEnd_toStartOf="@id/imageViewBayadCenter"
                     app:layout_constraintTop_toTopOf="@id/textViewOverCounter" />
@@ -319,8 +319,8 @@
                     android:id="@+id/imageViewBayadCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/grid_3"
-                    android:src="@drawable/ic_bayad_center"
                     android:layout_marginEnd="@dimen/grid_1"
+                    android:src="@drawable/ic_bayad_center"
                     app:layout_constraintBottom_toBottomOf="@id/imageView711"
                     app:layout_constraintEnd_toStartOf="@id/imageViewLBC"
                     app:layout_constraintTop_toTopOf="@id/imageView711" />
@@ -338,8 +338,8 @@
                     android:id="@+id/viewOCBullet1"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -351,9 +351,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/_7_11"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet2"
                     app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet1"
@@ -363,9 +363,9 @@
                     android:id="@+id/viewOCBullet2"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet2" />
@@ -376,11 +376,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/bayad_center"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet3"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet2"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet1" />
 
@@ -388,9 +388,9 @@
                     android:id="@+id/viewOCBullet3"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet3" />
@@ -401,11 +401,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/cebuana"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet4"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet3"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet2" />
 
@@ -413,9 +413,9 @@
                     android:id="@+id/viewOCBullet4"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet4" />
@@ -426,11 +426,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/ecpay"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet4"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet3" />
 
@@ -438,9 +438,9 @@
                     android:id="@+id/viewOCBullet5"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet5" />
@@ -452,11 +452,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/lbc"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet6"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet5"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet4" />
 
@@ -464,9 +464,9 @@
                     android:id="@+id/viewOCBullet6"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet6"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet6" />
@@ -477,11 +477,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/robinsons"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet7"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet6"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet5" />
 
@@ -489,9 +489,9 @@
                     android:id="@+id/viewOCBullet7"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet7"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet7" />
@@ -502,11 +502,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/palawan_pawnshop"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet8"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet7"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet6" />
 
@@ -514,9 +514,9 @@
                     android:id="@+id/viewOCBullet8"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet8"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet8" />
@@ -527,11 +527,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/sm"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet9"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet8"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet7" />
 
@@ -539,9 +539,9 @@
                     android:id="@+id/viewOCBullet9"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet9"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet9" />
@@ -552,11 +552,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/rd_pawnshop"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet10"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet9"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet8" />
 
@@ -564,9 +564,9 @@
                     android:id="@+id/viewOCBullet10"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
-                    android:layout_marginStart="@dimen/grid_1"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet10"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet10" />
@@ -577,11 +577,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/ruralnet"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet10"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet9" />
 
@@ -589,8 +589,8 @@
                     android:id="@+id/viewOCBullet11"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet11"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
@@ -602,21 +602,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/expresspay"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintVertical_chainStyle="spread_inside"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet12"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet11"
-                    app:layout_constraintTop_toBottomOf="@id/textViewOverCounter" />
+                    app:layout_constraintTop_toBottomOf="@id/textViewOverCounter"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
 
                 <View
                     android:id="@+id/viewOCBullet12"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet12"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
@@ -628,11 +628,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/pay_go"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet13"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet12"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet11" />
 
@@ -640,8 +640,8 @@
                     android:id="@+id/viewOCBullet13"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet13"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
@@ -653,11 +653,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/da5"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet14"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet13"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet12" />
 
@@ -665,8 +665,8 @@
                     android:id="@+id/viewOCBullet14"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet14"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
@@ -678,11 +678,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/posible"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/textOCViewBullet15"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet14"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet13" />
 
@@ -690,8 +690,8 @@
                     android:id="@+id/viewOCBullet15"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet15"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
@@ -703,20 +703,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/ussc"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet16"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet15"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet16"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet14" />
 
                 <View
                     android:id="@+id/viewOCBullet16"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet16"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
@@ -728,20 +728,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/rustan"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet17"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet16"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet17"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet15" />
 
                 <View
                     android:id="@+id/viewOCBullet17"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet17"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
@@ -753,20 +753,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/shopwise"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet18"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet17"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet18"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet16" />
 
                 <View
                     android:id="@+id/viewOCBullet18"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet18"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
@@ -778,24 +778,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/wellcome"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet19"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet18"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet19"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet17" />
 
                 <View
                     android:id="@+id/viewOCBullet19"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintBottom_toBottomOf="@id/textOCViewBullet19"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet19"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintBottom_toBottomOf="@id/textOCViewBullet19"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet19" />
 
                 <TextView
@@ -804,24 +804,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/tambunting"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet20"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet19"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet20"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet18" />
 
                 <View
                     android:id="@+id/viewOCBullet20"
                     android:layout_width="8dp"
                     android:layout_height="8dp"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
                     android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintBottom_toBottomOf="@id/textOCViewBullet20"
                     app:layout_constraintEnd_toStartOf="@id/textOCViewBullet20"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintBottom_toBottomOf="@id/textOCViewBullet20"
                     app:layout_constraintTop_toTopOf="@id/textOCViewBullet20" />
 
 
@@ -831,25 +831,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/cvm_pawnshop"
                     android:textColor="#4B4948"
-                    android:layout_marginEnd="@dimen/grid_1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet20"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet19" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_normal_size"
-                android:id="@+id/btnNext"
-                android:layout_marginTop="@dimen/grid_4"
-                android:background="@drawable/bg_gradient_orange_radius4"
-                android:text="@string/action_next"
-                android:gravity="center"
-                style="@style/TextAppearance.AppCompat.Widget.Button"
-                android:textColor="#FFFFFFFF"/>
+<!--            <TextView-->
+<!--                android:id="@+id/btnNext"-->
+<!--                style="@style/TextAppearance.AppCompat.Widget.Button"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/button_normal_size"-->
+<!--                android:layout_marginTop="@dimen/grid_4"-->
+<!--                android:background="@drawable/bg_gradient_orange_radius4"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/action_next"-->
+<!--                android:textColor="#FFFFFFFF" />-->
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
