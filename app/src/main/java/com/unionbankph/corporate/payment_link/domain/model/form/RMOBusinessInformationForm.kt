@@ -8,10 +8,37 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class RMOBusinessInformationForm {
+data class RMOBusinessInformationForm(
     @SerialName("businessType")
     var businessType: String,
     @SerialName("product")
-    var product: String,
-
-} : Parcelable
+    var storeProduct: String,
+    @SerialName("yearsInBusiness")
+    var yearsInBusiness: Int,
+    @SerialName("numberOfBranches")
+    var numberOfBranches: Int,
+    @SerialName("physicalStore")
+    var physicalStore: String,
+    @SerialName("website")
+    var website: String,
+    @SerialName("lazadaUrl")
+    var lazadaUrl: String,
+    @SerialName("shopeeUrl")
+    var shopeeUrl: String,
+    @SerialName("facebookUrl")
+    var facebookUrl: String,
+    @SerialName("instagramUrl")
+    var instagramUrl: String,
+    @SerialName("imageUrl1")
+    var imageUrl1: String,
+    @SerialName("imageUrl2")
+    var imageUrl2: String,
+    @SerialName("imageUrl3")
+    var imageUrl3: String,
+    @SerialName("imageUrl4")
+    var imageUrl4: String,
+    @SerialName("imageUrl5")
+    var imageUrl5: String,
+    @SerialName("imageUrl6")
+    var imageUrl6: String
+) : Parcelable

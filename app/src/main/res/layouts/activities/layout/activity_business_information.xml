@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content">
 
                         <Spinner
-                            android:id="@+id/dropdownPaymentLinkExport"
+                            android:id="@+id/dropdownBusinessInformation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/a_spinner_outline"
@@ -90,8 +90,8 @@
                         <ImageView
                             android:layout_width="@dimen/grid_5"
                             android:layout_height="0dp"
-                            android:layout_alignTop="@+id/dropdownPaymentLinkExport"
-                            android:layout_alignBottom="@+id/dropdownPaymentLinkExport"
+                            android:layout_alignTop="@+id/dropdownBusinessInformation"
+                            android:layout_alignBottom="@+id/dropdownBusinessInformation"
                             android:layout_alignParentEnd="true"
                             android:layout_marginEnd="@dimen/grid_2"
                             android:src="@drawable/ic_arrow_black_down" />
@@ -576,7 +576,7 @@ customers are you targeting?"
                     app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
 
                 <TextView
-                    android:id="@+id/btnNext"
+                    android:id="@+id/btn_next"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

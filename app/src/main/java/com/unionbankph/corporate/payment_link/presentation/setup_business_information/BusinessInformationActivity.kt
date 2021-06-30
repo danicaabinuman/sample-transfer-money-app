@@ -5,8 +5,10 @@ import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
 import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.activity_request_payment.dropdownPaymentLinkExport
@@ -23,6 +25,14 @@ class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R
     var instagramCounter = 0
     var websiteCounter = 0
 
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        viewModel = ViewModelProviders.of(
+            this,
+            viewModelFactory
+        )[BusinessInformationViewModel::class.java]
+    }
+
     override fun onViewsBound() {
         super.onViewsBound()
 
@@ -38,6 +48,7 @@ class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R
         btn_physical_store.setOnClickListener{btnPhysicalStoreClicked()}
         btn_instagram.setOnClickListener{btnInstagramClicked()}
         btn_website.setOnClickListener{btnWebsiteClicked()}
+        btn_next.setOnClickListener {  }
     }
     private fun natureOfBusiness(){
 
@@ -129,4 +140,18 @@ class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R
             btn_website.setTextColor(Color.parseColor("#4A4A4A"))
         }
     }
+
+    private fun btnNextClicked(){
+
+        val businessType = business.toString()
+        val storeProduct = et_product_of_services_offered.text.toString()
+        val
+
+        viewModel.submitBusinessInformation(
+            RMOBusinessInformationForm(
+
+            )
+        )
+    }
+
 }

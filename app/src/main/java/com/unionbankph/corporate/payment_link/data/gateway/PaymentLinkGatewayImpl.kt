@@ -10,6 +10,7 @@ import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemo
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
+import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import com.unionbankph.corporate.settings.data.source.local.SettingsCache
 import io.reactivex.Single
@@ -58,6 +59,18 @@ class PaymentLinkGatewayImpl
             }
             .flatMap { smeResponseProvider.executeResponseSingle(it) }
 
+    }
+
+    override fun submitBusinessInformation(rmoBusinessInformation: RMOBusinessInformationForm): Single<RMOBusinessInformationResponse> {
+
+        return settingsCache.getAccessToken()
+            .flatMap {
+                paymentLinkRemote.putBusinessInformation(
+                    it,
+                    rmoBusinessInformation
+                )
+            }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
     override fun getPaymentLinkListPaginated(
