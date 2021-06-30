@@ -57,7 +57,7 @@ class BusinessInformationActivity :
         var aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, businessType)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        with(dropdownPaymentLinkExport) {
+        with(dropdownBusinessInformation) {
             adapter = aa
             setSelection(1, false)
             onItemSelectedListener = this@BusinessInformationActivity
@@ -151,8 +151,8 @@ class BusinessInformationActivity :
 
         val businessType = business.toString()
         val storeProduct = et_product_of_services_offered.text.toString()
-        val yearsInBusiness = tv_business_years.text.toString().toInt()
-        val numberOfBranches = tv_number_of_branch.text.toString().toInt()
+        val yearsInBusiness = tv_years_counter.text.toString().toInt()
+        val numberOfBranches = tv_branch_counter.text.toString().toInt()
         val physicalStore = et_physical_store.text.toString()
         val website = et_website.text.toString()
         val lazadaUrl = et_lazada.text.toString()
