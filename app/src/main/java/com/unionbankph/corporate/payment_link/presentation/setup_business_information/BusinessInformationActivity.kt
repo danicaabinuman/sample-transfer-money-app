@@ -49,7 +49,7 @@ class BusinessInformationActivity :
         btn_physical_store.setOnClickListener { btnPhysicalStoreClicked() }
         btn_instagram.setOnClickListener { btnInstagramClicked() }
         btn_website.setOnClickListener { btnWebsiteClicked() }
-        btn_next.setOnClickListener { }
+        btn_next.setOnClickListener { btnNextClicked() }
     }
 
     private fun natureOfBusiness() {
