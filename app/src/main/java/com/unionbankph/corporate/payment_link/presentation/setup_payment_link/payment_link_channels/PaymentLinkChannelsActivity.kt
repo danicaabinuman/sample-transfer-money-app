@@ -13,8 +13,8 @@ class PaymentLinkChannelsActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-
         setupTabs()
+        backButton()
     }
 
     private fun setupTabs() {
@@ -47,6 +47,12 @@ class PaymentLinkChannelsActivity :
 
 
         })
+    }
+
+    private fun backButton(){
+        btnBack.setOnClickListener(){
+            finish()
+        }
     }
 
 

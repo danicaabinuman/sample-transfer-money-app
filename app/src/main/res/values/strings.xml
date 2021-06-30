@@ -2212,5 +2212,34 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="fee_calculator_details">Fees will change depending on the payment method selected by your customer. Select the cards below to see the Net Amount.</string>
     <string name="these_are_the_payment_channels_available_for_you">These are the payment channels available for you</string>
     <string name="your_customers_will_be_able_to_pay_you_using_any_one_of_the_channels_listed_below">Your customers will be able to pay you using any one of the channels listed below.</string>
-
+    <string name="unionbank_online">UnionBank Online</string>
+    <string name="you_will_be_asked_to_login_and_authenticate_using_your_username_and_password">You will be asked to login and authenticate using your username and password.</string>
+    <string name="pay_using_your_unionbank_online_app">Pay using your UnionBank Online app.</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="pay_using_other_banks_or_e_wallet_accounts_via_online_banking">Pay using other banks or e-wallet accounts via Online Banking.</string>
+    <string name="php_50_000_transaction_limit_applies">PHP 50,000 transaction limit applies.</string>
+    <string name="e_wallets">E-Wallets</string>
+    <string name="g_cash">GCash</string>
+    <string name="grabpay">GrabPay</string>
+    <string name="over_the_counter">Over the Counter</string>
+    <string name="_7_11">7-11</string>
+    <string name="bayad_center">Bayad Center</string>
+    <string name="cebuana">Cebuana</string>
+    <string name="ecpay">ECPay</string>
+    <string name="lbc">LBC</string>
+    <string name="robinsons">Robinsons</string>
+    <string name="palawan_pawnshop">Palawan Pawnshop</string>
+    <string name="sm">SM</string>
+    <string name="rd_pawnshop">RD Pawnshop</string>
+    <string name="ruralnet">RuralNet</string>
+    <string name="expresspay">ExpressPay</string>
+    <string name="pay_go">Pay &amp; Go</string>
+    <string name="da5">DA5</string>
+    <string name="posible">Posible</string>
+    <string name="ussc">USSC</string>
+    <string name="rustan">Rustan</string>
+    <string name="shopwise">Shopwise</string>
+    <string name="wellcome">Wellcome</string>
+    <string name="tambunting">Tambunting</string>
+    <string name="cvm_pawnshop">CVM Pawnshop</string>
 </resources>

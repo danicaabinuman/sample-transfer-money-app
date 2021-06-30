@@ -21,7 +21,7 @@
             android:paddingBottom="15dp">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/backButton"
+                android:id="@+id/btnBack"
                 android:layout_width="18dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="25dp"
