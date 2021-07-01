@@ -107,6 +107,7 @@ import com.unionbankph.corporate.payment_link.presentation.request_payment.Reque
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceViewModel
@@ -764,8 +765,14 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(PaymentLinkChannelsViewModel::class)
-    abstract fun paymentLinkChannelsActivity(
+    abstract fun paymentLinkChannelsViewModel(
         viewModel: PaymentLinkChannelsViewModel
     ): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(CardAcceptanceOptionViewModel::class)
+    abstract fun cardAcceptanceOptionViewModel(
+        viewModel: CardAcceptanceOptionViewModel
+    ): ViewModel
 }

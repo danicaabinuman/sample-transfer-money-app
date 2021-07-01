@@ -493,6 +493,7 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
         if (App.isSME()) {
             appBarLayout.setContextCompatBackgroundColor(R.color.colorWhite)
             toolbar?.context?.setTheme(R.style.ToolbarSME)
+            setDrawableBackButton(R.drawable.ic_msme_back_button_orange)
         } else {
             removeElevation(appBarLayout)
             appBarLayout.setContextCompatBackgroundColor(R.color.colorTransparent)
@@ -628,7 +629,7 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
             ContextCompat.getColor(
                 this,
                 if (App.isSME())
-                    R.color.colorInfo
+                    R.color.colorSMEMediumOrange
                 else R.color.colorWhiteDirty
             ), PorterDuff.Mode.SRC_ATOP
         )

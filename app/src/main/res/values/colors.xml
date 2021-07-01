@@ -9,6 +9,8 @@
     <color name="colorGray">#303030</color>
     <color name="color80DarkGray">#CC303030</color>
     <color name="colorLightGray">#757575</color>
+    <color name="colorDarkGray4B4948">#4B4948</color>
+
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhite10">#1AFFFFFF</color>
@@ -116,6 +118,7 @@
 
     <color name="colorSMEDisabledBGButton">@color/colorWhite</color>
     <color name="colorDisabledBGButton">#666666</color>
+    <color name="colorSMEMediumOrange">#FF8200</color>
 
     
     <!-- SD COLORS -->

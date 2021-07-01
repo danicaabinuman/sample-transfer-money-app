@@ -2250,4 +2250,11 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="instapay">InstaPay</string>
     <string name="settlement_for_the_payments_made_using_these_channels_will_be_credited">Settlement for the payments made using these channels will be credited to your nominated settlement account two (2) days after receipt of payment.</string>
     <string name="pricing_table">Pricing Table</string>
+    <string name="start_accepting_card_payments">Start accepting card payments</string>
+    <string name="you_can_add_card_acceptance_to_the_list_of_payment_channels">You can add card acceptance to the list of payment channels. We just need additional information. Do you want to apply?</string>
+    <string name="yes_i_want">Yes, I want</string>
+    <string name="don_t_ask_me_again">Don\'t ask me again</string>
+    <string name="allow_customers_to_pay_you_using_their_debit_or_debit_card">Allow customers to pay you using their debit or debit card</string>
+    <string name="no_set_up_or_annual_fees">No set-up or annual fees</string>
+    <string name="we_ll_collect_3_php_10_per_transaction">We\'ll collect 3% + PHP 10 per transaction</string>
 </resources>
