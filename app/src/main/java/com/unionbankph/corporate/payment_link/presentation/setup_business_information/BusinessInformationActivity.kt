@@ -138,8 +138,8 @@ class BusinessInformationActivity :
 
     private fun btnLazadaClicked() {
         lazadaCounter++
-        var stateChecker = lazadaCounter % 2
-        if (stateChecker == 1) {
+        var stateChecker = lazadaCounter%2
+        if (stateChecker  == 1) {
             btn_lazada.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_lazada.setTextColor(Color.parseColor("#FF8200"))
             tv_lazada_title.visibility = View.VISIBLE
@@ -157,8 +157,8 @@ class BusinessInformationActivity :
 
     private fun btnShopeeClicked() {
         shopeeCounter++
-        var stateChecker = shopeeCounter % 2
-        if (stateChecker == 1) {
+        var stateChecker = shopeeCounter%2
+        if (stateChecker  == 1) {
             btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_shopee.setTextColor(Color.parseColor("#FF8200"))
             tv_shopee_title.visibility = View.VISIBLE
@@ -175,8 +175,8 @@ class BusinessInformationActivity :
 
     private fun btnFacebookClicked() {
         facebookCounter++
-        var stateChecker = facebookCounter % 2
-        if (stateChecker == 1) {
+        var stateChecker = facebookCounter%2
+        if (stateChecker  == 1) {
             btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_facebook.setTextColor(Color.parseColor("#FF8200"))
             tv_facebook_title.visibility = View.VISIBLE
@@ -193,8 +193,8 @@ class BusinessInformationActivity :
 
     private fun btnPhysicalStoreClicked() {
         physicalStoreCounter++
-        var stateChecker = physicalStoreCounter % 2
-        if (stateChecker == 1) {
+        var stateChecker = physicalStoreCounter%2
+        if (stateChecker  == 1) {
             btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_physical_store.setTextColor(Color.parseColor("#FF8200"))
             tv_physical_store.visibility = View.VISIBLE
@@ -211,8 +211,8 @@ class BusinessInformationActivity :
 
     private fun btnInstagramClicked() {
         instagramCounter++
-        var stateChecker = instagramCounter % 2
-        if (stateChecker == 1) {
+        var stateChecker = instagramCounter%2
+        if (stateChecker  == 1) {
             btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_instagram.setTextColor(Color.parseColor("#FF8200"))
             tv_instagram_title.visibility = View.VISIBLE
@@ -229,8 +229,8 @@ class BusinessInformationActivity :
 
     private fun btnWebsiteClicked() {
         websiteCounter++
-        var stateChecker = websiteCounter % 2
-        if (stateChecker == 1) {
+        var stateChecker = websiteCounter%2
+        if (stateChecker  == 1) {
             btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_website.setTextColor(Color.parseColor("#FF8200"))
             tv_website_title.visibility = View.VISIBLE
