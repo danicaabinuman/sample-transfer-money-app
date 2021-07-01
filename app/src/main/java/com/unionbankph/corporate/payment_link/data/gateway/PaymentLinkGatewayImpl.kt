@@ -61,17 +61,7 @@ class PaymentLinkGatewayImpl
 
     }
 
-    override fun submitBusinessInformation(rmoBusinessInformation: RMOBusinessInformationForm): Single<RMOBusinessInformationResponse> {
 
-        return settingsCache.getAccessToken()
-            .flatMap {
-                paymentLinkRemote.putBusinessInformation(
-                    it,
-                    rmoBusinessInformation
-                )
-            }
-            .flatMap { smeResponseProvider.executeResponseSingle(it) }
-    }
 
     override fun getPaymentLinkListPaginated(
             page: String,

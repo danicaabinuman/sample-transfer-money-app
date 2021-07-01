@@ -26,5 +26,4 @@ interface PaymentLinkGateway {
 
     fun validateApprover() : Single<ValidateApproverResponse>
 
-    fun submitBusinessInformation(rmoBusinessInformation : RMOBusinessInformationForm) : Single<RMOBusinessInformationResponse>
 }
