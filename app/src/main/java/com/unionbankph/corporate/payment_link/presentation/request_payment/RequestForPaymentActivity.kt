@@ -64,9 +64,13 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         finishRequestPayment()
 
         noOtherAvailableAccounts.visibility = View.GONE
+
+
     }
 
+
     private fun initViews(){
+
         include_settlement_account.setOnClickListener {
             openNominateAccounts()
         }
@@ -131,7 +135,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun setupInputs(){
         requestPaymentLoading.visibility = View.VISIBLE
-        viewModel.validateIfApprover()
+        viewModel.getAccounts()
     }
 
     private fun setupOutputs(){
@@ -168,6 +172,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
         viewModel.accounts.observe(this, Observer {
             requestPaymentLoading.visibility = View.GONE
+            populateNominatedSettlementAccount(it.first())
             accounts = it
         })
 

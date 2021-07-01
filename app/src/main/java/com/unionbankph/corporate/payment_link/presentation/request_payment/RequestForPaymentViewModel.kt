@@ -112,29 +112,7 @@ class RequestForPaymentViewModel
         ).addTo(disposables)
     }
 
-    fun validateIfApprover(){
-        validateApproverUseCase.execute(
-            getDisposableSingleObserver(
-                {
-                    if(it.isApprover){
-                        getAccounts()
-                    }else{
-                        _linkDetailsState.value = ShowTheApproverPermissionRequired
-                    }
-                }, {
-                    Timber.e(it, "getAccounts")
-                    _uiState.value = Event(UiState.Error(it))
-                }
-            ),
-            doOnSubscribeEvent = {
-                _uiState.value = Event(UiState.Loading)
-            },
-            doFinallyEvent = {
-                _uiState.value = Event(UiState.Complete)
-            },
-            params = null
-        ).addTo(disposables)
-    }
+
 
     fun getAccounts() {
         getAccountsUseCase.execute(

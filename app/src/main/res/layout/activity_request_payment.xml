@@ -168,8 +168,7 @@
                     android:layout_width="match_parent">
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        style="@style/MatchWrapParent">
                         <Spinner
                             android:id="@+id/dropdownPaymentLinkExport"
                             android:layout_height="wrap_content"
@@ -244,7 +243,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
-                    android:id="@+id/llSettlementAccount"
                     style="@style/MatchWrapParent"
                     android:layout_marginTop="@dimen/grid_4"
                     android:orientation="vertical"
@@ -271,10 +269,9 @@
 
                 </LinearLayout>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnRequestPaymentGenerate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/MatchWrapParent"
                     android:layout_marginTop="30dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -289,17 +286,18 @@
                     android:textStyle="bold"
                     android:clickable="false"/>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnRequestPaymentCancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textColor="#4A4A4A"
                     android:text="@string/btn_cancel"
                     android:textSize="@dimen/text_14"
                     android:textAlignment="center"
+                    android:background="@drawable/bg_white_rounded_corners"
                     android:textStyle="bold"/>
             </LinearLayout>
         </ScrollView>
@@ -312,9 +310,8 @@
         android:layout_height="match_parent"
         android:background="#88000000"
         android:clickable="true"
-        android:visibility="gone"
-        android:focusable="true">
 
+        android:focusable="true">
         <include layout="@layout/activity_no_available_accounts"/>
     </FrameLayout>
 
