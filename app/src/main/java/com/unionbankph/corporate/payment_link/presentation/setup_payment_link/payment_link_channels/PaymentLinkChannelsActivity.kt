@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -7,14 +8,20 @@ import androidx.viewpager.widget.ViewPager
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_payment_link_channels.*
+import kotlinx.android.synthetic.main.activity_payment_link_channels.viewToolbar
+import kotlinx.android.synthetic.main.widget_transparent_org_appbar_with_tab_layout.*
 
 class PaymentLinkChannelsActivity :
     BaseActivity<PaymentLinkChannelsViewModel>(R.layout.activity_payment_link_channels) {
 
+    override fun afterLayout(savedInstanceState: Bundle?) {
+        super.afterLayout(savedInstanceState)
+        initToolbar(toolbar, viewToolbar)
+    }
+
     override fun onViewsBound() {
         super.onViewsBound()
         setupTabs()
-        backButton()
         nextButton()
     }
 
@@ -24,7 +31,7 @@ class PaymentLinkChannelsActivity :
         adapter.addFragment(FeesAndChargesFragment(), getString(R.string.fees_and_charges))
         viewPagerPaymentLinkChannels.adapter = adapter
 
-        tlPaymentLinkChannels.setupWithViewPager(viewPagerPaymentLinkChannels)
+        tabLayout.setupWithViewPager(viewPagerPaymentLinkChannels)
 
         viewPagerPaymentLinkChannels.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
@@ -48,12 +55,6 @@ class PaymentLinkChannelsActivity :
 
 
         })
-    }
-
-    private fun backButton(){
-        btnBack.setOnClickListener {
-            finish()
-        }
     }
 
     private fun nextButton() {

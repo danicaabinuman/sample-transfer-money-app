@@ -40,11 +40,12 @@
 
                 <TextView
                     android:id="@+id/textViewUnionBankOnline"
-                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_3"
                     android:text="@string/pricing_table"
+                    android:textSize="18sp"
                     android:textColor="#4B4948" />
 
 
@@ -83,6 +84,7 @@
                             android:background="@drawable/bg_light_gray_top_left_only_radius8"
                             android:padding="10dp"
                             android:text="@string/payment_method"
+                            android:textSize="16sp"
                             android:textColor="#4B4948" />
 
                         <TextView
@@ -140,6 +142,7 @@
                             android:background="@drawable/bg_light_gray_top_right_only_radius8"
                             android:padding="10dp"
                             android:text="@string/fee_per_transaction"
+                            android:textSize="16sp"
                             android:textColor="#4B4948" />
 
                         <TextView

@@ -13,43 +13,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:orientation="horizontal"
-            android:paddingTop="30dp"
-            android:paddingBottom="15dp">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/btnBack"
-                android:layout_width="18dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="25dp"
-                app:srcCompat="@drawable/ic_back_orange"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:textColor="#4A4A4A"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tlPaymentLinkChannels"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_title_bar"
-            app:tabIndicatorColor="#FF8200"
-            app:tabIndicatorHeight="3dp"
-            app:tabSelectedTextColor="#FF8200"
-            app:tabTextAppearance="@style/TextAppearance.AppCompat.Widget.Button"
-            app:tabTextColor="#BFBFBF">
-
-        </com.google.android.material.tabs.TabLayout>
+        <include
+            android:id="@+id/viewToolbar"
+            layout="@layout/widget_transparent_org_appbar_with_tab_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPagerPaymentLinkChannels"
