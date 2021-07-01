@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.*
@@ -17,16 +18,12 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
-import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ShowApproverPermissionRequired
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ShowNoAvailableAccounts
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_no_available_accounts.*
@@ -65,6 +62,8 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         requiredFields()
         paymentLinkExpiry()
         finishRequestPayment()
+
+        noOtherAvailableAccounts.visibility = View.GONE
     }
 
     private fun initViews(){
@@ -150,11 +149,11 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                     }
                 }
                 is ShowNoOtherAvailableAccounts -> {
-                    noAvailableAccounts.visibility = View.VISIBLE
+                    noOtherAvailableAccounts.visibility = View.VISIBLE
                 }
 
                 is ShowTheApproverPermissionRequired -> {
-                    approverPermissionRequired.visibility = View.VISIBLE
+                    theApproverPermissionRequired.visibility = View.VISIBLE
                 }
             }
         })
@@ -361,12 +360,12 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     }
 
     private fun populateNominatedSettlementAccount(accountData: Account){
-        val tvCorporateName: AppCompatTextView = include1.findViewById(R.id.textViewCorporateName)
-        val tvAccountName: AppCompatTextView = include1.findViewById(R.id.textViewAccountName)
-        val tvAccountNumber: AppCompatTextView = include1.findViewById(R.id.textViewAccountNumber)
-        val tvAvailableBalance: AppCompatTextView = include1.findViewById(R.id.textViewAvailableBalance)
-        val slAmount: ShimmerLayout = include1.findViewById(R.id.shimmerLayoutAmount)
-        val viewShimmer: View = include1.findViewById(R.id.viewShimmer)
+        val tvCorporateName: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewCorporateName)
+        val tvAccountName: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAccountName)
+        val tvAccountNumber: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAccountNumber)
+        val tvAvailableBalance: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAvailableBalance)
+        val slAmount: ShimmerLayout = include_settlement_account.findViewById(R.id.shimmerLayoutAmount)
+        val viewShimmer: View = include_settlement_account.findViewById(R.id.viewShimmer)
 
         tvCorporateName.text = accountData.name
         tvAccountNumber.text = accountData.accountNumber

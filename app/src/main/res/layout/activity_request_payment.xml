@@ -342,7 +342,7 @@
         <include layout="@layout/dialog_failed_merchant_diasbled"/>
     </FrameLayout>
     <FrameLayout
-        android:id="@+id/approverPermissionRequired"
+        android:id="@+id/theApproverPermissionRequired"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#88000000"
