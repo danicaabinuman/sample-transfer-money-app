@@ -104,6 +104,7 @@ import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPay
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulViewModel
@@ -750,6 +751,13 @@ abstract class ViewModelModule {
     @ViewModelKey(FeeCalculatorViewModel::class)
     abstract fun feeCalculatorViewModel(
         viewModel: FeeCalculatorViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BusinessInformationViewModel::class)
+    abstract fun businessInformationViewModel(
+        viewModel: BusinessInformationViewModel
     ): ViewModel
 
 }

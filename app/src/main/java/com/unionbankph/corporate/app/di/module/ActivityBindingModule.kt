@@ -92,6 +92,7 @@ import com.unionbankph.corporate.payment_link.presentation.billing_details.Billi
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
@@ -543,5 +544,9 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun feeCalculatorActivity(): FeeCalculatorActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessInformationActivity(): BusinessInformationActivity
 
 }
