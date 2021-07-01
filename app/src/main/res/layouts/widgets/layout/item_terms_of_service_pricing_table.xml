@@ -59,6 +59,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/fncUnionBank"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -89,6 +90,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/fncInstapay"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/for_table_pricing_left_top_bottom"
@@ -119,6 +121,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/fncCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/for_table_pricing_left_top_bottom"
@@ -149,6 +152,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/fncEWallet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/for_table_pricing_left_top_bottom"
@@ -179,6 +183,7 @@
                 android:textSize="12sp"/>
 
             <TextView
+                android:id="@+id/fncOTC"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/for_table_pricing_left_top"
