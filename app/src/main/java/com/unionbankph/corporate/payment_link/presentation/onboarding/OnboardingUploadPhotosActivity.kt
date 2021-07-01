@@ -28,11 +28,6 @@ class OnboardingUploadPhotosActivity :
             btnNext.visibility = View.GONE
         }
         btnAddPhotos.setOnClickListener {
-//            showbottomSheetDialog()
-
-//            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-//            startActivityForResult(gallery, pickImage)
-
             openGalleryForImages()
         }
 
@@ -97,14 +92,6 @@ class OnboardingUploadPhotosActivity :
 
                 }
             }
-
-//
-//            if (uriArrayList.size < 6) {
-//                btnAddPhotos2.visibility = View.VISIBLE
-//            } else {
-//                btnAddPhotos2.visibility = View.GONE
-//            }
-
         }
     }
 
