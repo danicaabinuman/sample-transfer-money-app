@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_business_information
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.Gravity
 import android.view.View
@@ -7,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosActivity
 import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.activity_request_payment.dropdownPaymentLinkExport
@@ -45,6 +47,10 @@ class BusinessInformationActivity : BaseActivity<BusinessInformationViewModel>(R
         btn_years_decrement_active.setOnClickListener { businessYearDecrementClicked() }
         btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
         btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
+        btnNext.setOnClickListener {
+            val intent = Intent(this, OnboardingUploadPhotosActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun natureOfBusiness(){
 
