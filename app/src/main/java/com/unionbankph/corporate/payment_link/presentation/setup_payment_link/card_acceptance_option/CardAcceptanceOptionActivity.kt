@@ -14,6 +14,7 @@ class CardAcceptanceOptionActivity :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initToolbar(toolbar, viewToolbar)
+        setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorSMEMediumOrange, true)
     }
 
     override fun onViewsBound() {
