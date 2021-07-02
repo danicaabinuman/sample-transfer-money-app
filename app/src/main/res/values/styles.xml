@@ -956,4 +956,12 @@
         <item name="android:textColor">@color/colorInfo</item>
     </style>
 
+    <style name="DSRadioButtonStyle" parent="WrapContent">
+        <item name="colorAccent">@color/dsColorMediumOrange</item>
+    </style>
+
+    <style name="DSCheckBoxStyle" parent="WrapContent">
+        <item name="colorAccent">@color/dsColorMediumOrange</item>
+    </style>
+
 </resources>
