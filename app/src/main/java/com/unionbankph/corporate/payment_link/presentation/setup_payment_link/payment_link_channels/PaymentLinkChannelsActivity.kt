@@ -18,7 +18,7 @@ class PaymentLinkChannelsActivity :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initToolbar(toolbar, viewToolbar)
-        setDrawableBackButton(R.drawable.ic_msme_back_button_orange)
+        setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorDarkOrange, true)
     }
 
     override fun onViewsBound() {
