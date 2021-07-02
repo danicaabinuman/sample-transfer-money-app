@@ -628,7 +628,7 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
             ContextCompat.getColor(
                 this,
                 if (App.isSME())
-                    R.color.colorInfo
+                    R.color.colorDarkOrange
                 else R.color.colorWhiteDirty
             ), PorterDuff.Mode.SRC_ATOP
         )
