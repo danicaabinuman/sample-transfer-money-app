@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DefaultBackgroundMatchParent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:padding="@dimen/grid_2"
+        android:scrollbars="none">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/grid_2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/these_are_the_payment_channels_available_for_you"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="#4B4948" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_1"
+                android:text="@string/your_customers_will_be_able_to_pay_you_using_any_one_of_the_channels_listed_below"
+                android:textColor="#9B9B9B"
+                android:textSize="@dimen/text_14" />
+
+            <!-- UnionBank Online Section-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:background="@drawable/bg_gray_radius4_width1"
+                android:padding="@dimen/grid_2">
+
+                <TextView
+                    android:id="@+id/textViewUnionBankOnline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unionbank_online"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:textSize="18sp"
+                    android:textColor="#4B4948"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageViewUnionBank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/grid_3"
+                    android:src="@drawable/ic_ub_with_orange_square_bg"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewUnionBankOnline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textViewUnionBankOnline" />
+
+                <View
+                    android:id="@+id/viewUBBullet1"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textUBViewBullet1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textUBViewBullet1" />
+
+                <TextView
+                    android:id="@+id/textUBViewBullet1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/pay_using_your_unionbank_online_app"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textUBViewBullet2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewUBBullet1"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewUnionBank" />
+
+                <View
+                    android:id="@+id/viewUBBullet2"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textUBViewBullet2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textUBViewBullet2" />
+
+                <TextView
+                    android:id="@+id/textUBViewBullet2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/you_will_be_asked_to_login_and_authenticate_using_your_username_and_password"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewUBBullet2"
+                    app:layout_constraintTop_toBottomOf="@id/textUBViewBullet1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Bank Transfer Section-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:background="@drawable/bg_gray_radius4_width1"
+                android:padding="@dimen/grid_2">
+
+                <TextView
+                    android:id="@+id/textViewBankTransfer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bank_transfer"
+                    android:textSize="18sp"
+                    android:textColor="#4B4948"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageViewBankTransfer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/grid_3"
+                    android:src="@drawable/ic_instapay"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewBankTransfer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textViewBankTransfer" />
+
+                <View
+                    android:id="@+id/viewBTBullet1"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textBTViewBullet1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textBTViewBullet1" />
+
+                <TextView
+                    android:id="@+id/textBTViewBullet1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/pay_using_other_banks_or_e_wallet_accounts_via_online_banking"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textBTViewBullet2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewBTBullet1"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewBankTransfer" />
+
+                <View
+                    android:id="@+id/viewBTBullet2"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textBTViewBullet2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textBTViewBullet2" />
+
+                <TextView
+                    android:id="@+id/textBTViewBullet2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/php_50_000_transaction_limit_applies"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewBTBullet2"
+                    app:layout_constraintTop_toBottomOf="@id/textBTViewBullet1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- E-Wallets -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:background="@drawable/bg_gray_radius4_width1"
+                android:padding="@dimen/grid_2">
+
+                <TextView
+                    android:id="@+id/textViewEWallets"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/e_wallets"
+                    android:textSize="18sp"
+                    android:textColor="#4B4948"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageViewGCash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/grid_3"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:src="@drawable/ic_gcash"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewEWallets"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewGrabPay"
+                    app:layout_constraintTop_toTopOf="@id/textViewEWallets" />
+
+                <ImageView
+                    android:id="@+id/imageViewGrabPay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/grid_3"
+                    android:src="@drawable/ic_grab"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewGCash"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imageViewGCash" />
+
+                <View
+                    android:id="@+id/viewEWBullet1"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textEWViewBullet1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textEWViewBullet1" />
+
+                <TextView
+                    android:id="@+id/textEWViewBullet1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:text="@string/g_cash"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textEWViewBullet2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewEWBullet1"
+                    app:layout_constraintTop_toBottomOf="@id/textViewEWallets" />
+
+                <View
+                    android:id="@+id/viewEWBullet2"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textEWViewBullet2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textEWViewBullet2" />
+
+                <TextView
+                    android:id="@+id/textEWViewBullet2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/grabpay"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewEWBullet2"
+                    app:layout_constraintTop_toBottomOf="@id/textEWViewBullet1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Over the counter -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:background="@drawable/bg_gray_radius4_width1"
+                android:padding="@dimen/grid_2">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintGuide_percent="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_default="percent" />
+
+                <TextView
+                    android:id="@+id/textViewOverCounter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/over_the_counter"
+                    android:textSize="18sp"
+                    android:textColor="#4B4948"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
+
+                <ImageView
+                    android:id="@+id/imageView711"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/grid_3"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:src="@drawable/ic_7_11"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewOverCounter"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewBayadCenter"
+                    app:layout_constraintTop_toTopOf="@id/textViewOverCounter" />
+
+                <ImageView
+                    android:id="@+id/imageViewBayadCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/grid_3"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:src="@drawable/ic_bayad_center"
+                    app:layout_constraintBottom_toBottomOf="@id/imageView711"
+                    app:layout_constraintEnd_toStartOf="@id/imageViewLBC"
+                    app:layout_constraintTop_toTopOf="@id/imageView711" />
+
+                <ImageView
+                    android:id="@+id/imageViewLBC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/grid_3"
+                    android:src="@drawable/ic_lbc"
+                    app:layout_constraintBottom_toBottomOf="@id/imageView711"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imageView711" />
+
+                <View
+                    android:id="@+id/viewOCBullet1"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet1" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/_7_11"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet2"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet1"
+                    app:layout_constraintTop_toBottomOf="@id/textViewOverCounter" />
+
+                <View
+                    android:id="@+id/viewOCBullet2"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet2" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/bayad_center"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet3"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet2"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet1" />
+
+                <View
+                    android:id="@+id/viewOCBullet3"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet3" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/cebuana"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet4"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet3"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet2" />
+
+                <View
+                    android:id="@+id/viewOCBullet4"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet4" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/ecpay"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet4"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet3" />
+
+                <View
+                    android:id="@+id/viewOCBullet5"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet5" />
+
+
+                <TextView
+                    android:id="@+id/textOCViewBullet5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/lbc"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet6"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet5"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet4" />
+
+                <View
+                    android:id="@+id/viewOCBullet6"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet6" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/robinsons"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet7"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet6"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet5" />
+
+                <View
+                    android:id="@+id/viewOCBullet7"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet7"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet7" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/palawan_pawnshop"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet8"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet7"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet6" />
+
+                <View
+                    android:id="@+id/viewOCBullet8"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet8" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/sm"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet9"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet8"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet7" />
+
+                <View
+                    android:id="@+id/viewOCBullet9"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet9"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet9" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/rd_pawnshop"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet10"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet9"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet8" />
+
+                <View
+                    android:id="@+id/viewOCBullet10"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet10" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet10"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/ruralnet"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/guideLine"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet10"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet9" />
+
+                <View
+                    android:id="@+id/viewOCBullet11"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet11"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet11" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet11"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/expresspay"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet12"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet11"
+                    app:layout_constraintTop_toBottomOf="@id/textViewOverCounter"
+                    app:layout_constraintVertical_chainStyle="spread_inside" />
+
+                <View
+                    android:id="@+id/viewOCBullet12"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet12"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet12" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/pay_go"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet13"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet12"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet11" />
+
+                <View
+                    android:id="@+id/viewOCBullet13"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet13"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet13" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet13"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/da5"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet13"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet12" />
+
+                <View
+                    android:id="@+id/viewOCBullet14"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet14"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet14" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/posible"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet14"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet13" />
+
+                <View
+                    android:id="@+id/viewOCBullet15"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet15"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet15" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet15"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/ussc"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet15"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet14" />
+
+                <View
+                    android:id="@+id/viewOCBullet16"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet16"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet16" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet16"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/rustan"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet17"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet16"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet15" />
+
+                <View
+                    android:id="@+id/viewOCBullet17"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet17"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet17" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet17"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/shopwise"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet18"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet17"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet16" />
+
+                <View
+                    android:id="@+id/viewOCBullet18"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet18"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet18" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet18"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/wellcome"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet19"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet18"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet17" />
+
+                <View
+                    android:id="@+id/viewOCBullet19"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintBottom_toBottomOf="@id/textOCViewBullet19"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet19"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet19" />
+
+                <TextView
+                    android:id="@+id/textOCViewBullet19"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/tambunting"
+                    android:textColor="#4B4948"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet19"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet18" />
+
+                <View
+                    android:id="@+id/viewOCBullet20"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/image_view_x_padding"
+                    android:background="@drawable/circle_solid_orange"
+                    app:layout_constraintBottom_toBottomOf="@id/textOCViewBullet20"
+                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet20"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet20" />
+
+
+                <TextView
+                    android:id="@+id/textOCViewBullet20"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/cvm_pawnshop"
+                    android:textColor="#4B4948"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewOCBullet20"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet19" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--            <TextView-->
+<!--                android:id="@+id/btnNext"-->
+<!--                style="@style/TextAppearance.AppCompat.Widget.Button"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/button_normal_size"-->
+<!--                android:layout_marginTop="@dimen/grid_4"-->
+<!--                android:background="@drawable/bg_gradient_orange_radius4"-->
+<!--                android:gravity="center"-->
+<!--                android:text="@string/action_next"-->
+<!--                android:textColor="#FFFFFFFF" />-->
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
