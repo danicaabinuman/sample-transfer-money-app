@@ -15,7 +15,6 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
-import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
@@ -159,14 +158,12 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun buttonDisable(){
         btnRequestPaymentGenerate?.isEnabled = false
-        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button_disabled)
+        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.dsColorLightGray))
     }
 
     private fun buttonEnable(){
         btnRequestPaymentGenerate?.isEnabled = true
         btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
     }
 
     private fun requiredFields(){

@@ -457,6 +457,18 @@
         <item name="elevation">@dimen/grid_1</item>
     </style>
 
+    <style name="TabLayoutSME">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="tabIndicatorColor">#FF8200</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Widget.Button</item>
+        <item name="fontWeight">500</item>
+        <item name="tabSelectedTextColor">#FF8200</item>
+        <item name="tabTextColor">#BFBFBF</item>
+    </style>
+
     <style name="CardViewLight" parent="MatchWrapParent">
         <item name="cardCornerRadius">@dimen/card_radius</item>
     </style>
@@ -954,6 +966,14 @@
     <style name="JumioConfirmationHint">
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:textColor">@color/colorInfo</item>
+    </style>
+
+    <style name="DSRadioButtonStyle" parent="WrapContent">
+        <item name="colorAccent">@color/dsColorMediumOrange</item>
+    </style>
+
+    <style name="DSCheckBoxStyle" parent="WrapContent">
+        <item name="colorAccent">@color/dsColorMediumOrange</item>
     </style>
 
 </resources>
