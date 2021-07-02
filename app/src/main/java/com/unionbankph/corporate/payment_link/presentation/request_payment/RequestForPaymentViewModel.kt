@@ -13,10 +13,6 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaym
 import com.unionbankph.corporate.payment_link.domain.usecase.GeneratePaymentLinkUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsBalanceUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsUseCase
-import com.unionbankph.corporate.payment_link.domain.usecase.ValidateApproverUseCase
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkState
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ShowApproverPermissionRequired
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ShowNoAvailableAccounts
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
@@ -25,8 +21,7 @@ class RequestForPaymentViewModel
 @Inject constructor(
     private val generatePaymentLinkUseCase: GeneratePaymentLinkUseCase,
     private val getAccountsUseCase: GetAccountsUseCase,
-    private val getAccountsBalanceUseCase: GetAccountsBalanceUseCase,
-    private val validateApproverUseCase: ValidateApproverUseCase
+    private val getAccountsBalanceUseCase: GetAccountsBalanceUseCase
 ) : BaseViewModel(){
 
 
