@@ -17,6 +17,7 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
+import com.unionbankph.corporate.branch.presentation.confirmation.BranchVisitConfirmationActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
@@ -332,10 +333,21 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun openNominateAccounts(){
         if(accounts.size>1){
-            val intent = Intent(this@RequestForPaymentActivity, NominateSettlementActivity::class.java)
-            val accountsJson = JsonHelper.toJson(accounts)
-            intent.putExtra(NominateSettlementActivity.EXTRA_ACCOUNTS_ARRAY, accountsJson)
-            startActivityForResult(intent, REQUEST_CODE)
+            val bundle = Bundle().apply {
+                putString(
+                    NominateSettlementActivity.EXTRA_ACCOUNTS_ARRAY,
+                    JsonHelper.toJson(accounts)
+                )
+            }
+            navigator.navigateForResult(
+                this,
+                NominateSettlementActivity::class.java,
+                bundle,
+                isClear = false,
+                isAnimated = true,
+                resultCode = REQUEST_CODE,
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+            )
         }else{
             noOtherAvailableAccounts.visibility = View.VISIBLE
         }
