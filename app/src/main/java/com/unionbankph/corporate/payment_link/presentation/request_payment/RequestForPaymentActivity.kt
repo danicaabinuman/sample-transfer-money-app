@@ -17,10 +17,8 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
-import com.unionbankph.corporate.approval.presentation.approval_batch_detail.BatchDetailActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
@@ -42,7 +40,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
     var linkExpiry = "12 hours"
-    private var accountData : Account? = null
     val REQUEST_CODE = 1226
 
     override fun onViewModelBound() {
@@ -71,8 +68,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun initViews(){
         requestPaymentLoading.visibility = View.VISIBLE
-         accountData = JsonHelper.fromJson<Account>(intent.getStringExtra(NominateSettlementActivity.RESULT_DATA))
-        accountData?.let { populateNominatedSettlementAccount(it) }
 
         include_settlement_account.setOnClickListener {
             openNominateAccounts()
@@ -260,7 +255,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                             buttonCalculatorEnabled()
                         }
                     }catch (e: NumberFormatException){
-                        Timber.e(e.message)
+                        Timber.e(e)
                         e.printStackTrace()
                     }
 
@@ -338,29 +333,10 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun openNominateAccounts(){
         if(accounts.size>1){
-            val bundle = Bundle().apply {
-                putString(
-                    NominateSettlementActivity.EXTRA_ACCOUNTS_ARRAY,
-                    JsonHelper.toJson(accounts)
-                )
-                putInt(
-                    NominateSettlementActivity.RESULT_DATA,
-                    REQUEST_CODE
-                )
-            }
-            navigator.navigate(
-                this,
-                NominateSettlementActivity::class.java,
-                bundle,
-                isClear = false,
-                isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
-            )
-
-           /* val intent = Intent(this@RequestForPaymentActivity, NominateSettlementActivity::class.java)
+            val intent = Intent(this@RequestForPaymentActivity, NominateSettlementActivity::class.java)
             val accountsJson = JsonHelper.toJson(accounts)
             intent.putExtra(NominateSettlementActivity.EXTRA_ACCOUNTS_ARRAY, accountsJson)
-            startActivityForResult(intent, REQUEST_CODE)*/
+            startActivityForResult(intent, REQUEST_CODE)
         }else{
             noOtherAvailableAccounts.visibility = View.VISIBLE
         }
