@@ -8,6 +8,10 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.auth.presentation.otp.OTPActivity
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
 import kotlinx.android.synthetic.main.activity_payment_link_channels.*
 import kotlinx.android.synthetic.main.activity_payment_link_channels.viewToolbar
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar_with_tab_layout.*
@@ -71,7 +75,18 @@ class PaymentLinkChannelsActivity :
 
     private fun nextButton() {
         btnNext.setOnClickListener {
-            TODO() // Set Destination Activity
+
+            val bundle = Bundle()
+            // bundle.putString( ) Todo() Setup Bundle
+
+            navigator.navigate(
+                this,
+                CardAcceptanceOptionActivity::class.java,
+                bundle,
+                isClear = false,
+                isAnimated = true,
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+            )
         }
     }
 
