@@ -40,7 +40,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
     var linkExpiry = "12 hours"
-    val REQUEST_CODE = 1226
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -402,7 +401,6 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         }
     }
     companion object {
-        const val EXTRA_FROM_REQUEST_PAYMENT = "from_request_payment"
         const val REQUEST_CODE = 1226
     }
 }
