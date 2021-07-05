@@ -90,6 +90,7 @@ import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryAct
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
@@ -548,5 +549,9 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun businessInformationActivity(): BusinessInformationActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun paymentLinkChannelsActivity(): PaymentLinkChannelsActivity
 
 }

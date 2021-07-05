@@ -117,9 +117,25 @@
     <color name="colorSMEDisabledBGButton">@color/colorWhite</color>
     <color name="colorDisabledBGButton">#666666</color>
 
-    
-    <!-- SD COLORS -->
+    <!-- DESIGN SYSTEM -->
     <color name="sd_chip_font_color_active">#FF8200</color>
+    <color name="dsColorLightGray">#BFBFBF</color>
+    <color name="dsColorEnabledButtonPrimary">#FFFFFF</color>
+    <color name="dsColorDarkOrange">#ED5635</color>
+    <color name="dsColorMediumOrange">#FF8200</color>
+    <color name="dsColorLightOrange">#FFF3E5</color>
+    <color name="dsColorDarkGray">#4B4948</color>
+    <color name="dsColorMediumGray">#9B9B9B</color>
+    <color name="dsColorExtraLightGray">#F8F8F8</color>
+    <color name="dsColorSystemError">#FE3D2F</color>
+    <color name="dsColorSystemSuccess">#3BB537</color>
+
+    <color name="dsColorUnpaidBackground">#FFDA1C</color>
+    <color name="dsColorPendingBackground">@color/dsColorMediumOrange</color>
+    <color name="dsColorPaidBackground">#009783</color>
+    <color name="dsColorExpiredBackground">@color/dsColorDarkOrange</color>
+    <color name="dsColorArchivedBackground">#4A4A4A</color>
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->

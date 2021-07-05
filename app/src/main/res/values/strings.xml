@@ -752,6 +752,8 @@
     <string name="title_congratulations">Congratulations!</string>
     <string name="title_verification_completed">Verification Completed</string>
     <string name="title_dao_result_skip">Thank you for applying for a UnionBank Account</string>
+    <string name="title_payment_methods">Payment Methods</string>
+    <string name="fees_and_charges">Fees &amp; Charges</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -2196,7 +2198,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
 
     <string name="payment_link_list_no_available_title">No Request for Payment</string>
     <string name="payment_link_list_no_available_description">You have no requests for payment yet. Click the Request Payment button to create your first checkout page.</string>
-    
+
     <string name="tc_gnoa_content_1">The Merchant hereby engages the Bank as its service provider to provide online payment gateway services, specifically the Unionbank Payment Gateway Service, which allows Customers to pay and Merchant to receive payments through a wide array of payment facilities.</string>
     <string name="tc_gnoa_content_2">Merchant desires to use Unionbank Payment Gateway Service to receive payment of goods and/or services from Customers through available channels including but not limited to Cards, bank transfers (through PESONet or Instapay), GCash, Over The Counter, Digital Wallet, Partner Channels and QR code (“Service”).</string>
     <string name="tc_gnoa_content_3">By availing the Service, the Merchant is granted a limited, non-exclusive, non-transferable, non-sublicensable license by the Bank to use and access Unionbank Payment Gateway Service subject to the terms and conditions of this Agreement and other agreements executed by the Parties.</string>
@@ -2208,5 +2210,44 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="merchant_disabled_information">Unable to generate new link, your merchant is currently disabled.</string>
     <string name="text_okay">Okay</string>
     <string name="fee_calculator_details">Fees will change depending on the payment method selected by your customer. Select the cards below to see the Net Amount.</string>
-
+    <string name="these_are_the_payment_channels_available_for_you">These are the payment channels available for you</string>
+    <string name="your_customers_will_be_able_to_pay_you_using_any_one_of_the_channels_listed_below">Your customers will be able to pay you using any one of the channels listed below.</string>
+    <string name="unionbank_online">UnionBank Online</string>
+    <string name="you_will_be_asked_to_login_and_authenticate_using_your_username_and_password">You will be asked to login and authenticate using your username and password.</string>
+    <string name="pay_using_your_unionbank_online_app">Pay using your UnionBank Online app.</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="pay_using_other_banks_or_e_wallet_accounts_via_online_banking">Pay using other banks or e-wallet accounts via Online Banking.</string>
+    <string name="php_50_000_transaction_limit_applies">PHP 50,000 transaction limit applies.</string>
+    <string name="e_wallets">E-Wallets</string>
+    <string name="g_cash">GCash</string>
+    <string name="grabpay">GrabPay</string>
+    <string name="over_the_counter">Over the Counter</string>
+    <string name="_7_11">7-11</string>
+    <string name="bayad_center">Bayad Center</string>
+    <string name="cebuana">Cebuana</string>
+    <string name="ecpay">ECPay</string>
+    <string name="lbc">LBC</string>
+    <string name="robinsons">Robinsons</string>
+    <string name="palawan_pawnshop">Palawan Pawnshop</string>
+    <string name="sm">SM</string>
+    <string name="rd_pawnshop">RD Pawnshop</string>
+    <string name="ruralnet">RuralNet</string>
+    <string name="expresspay">ExpressPay</string>
+    <string name="pay_go">Pay&amp;Go</string>
+    <string name="da5">DA5</string>
+    <string name="posible">Posible</string>
+    <string name="ussc">USSC</string>
+    <string name="rustan">Rustan</string>
+    <string name="shopwise">Shopwise</string>
+    <string name="wellcome">Wellcome</string>
+    <string name="tambunting">Tambunting</string>
+    <string name="cvm_pawnshop">CVM Pawnshop</string>
+    <string name="unionbank_will_collect_the_following_fees_for_every_transaction_done">UnionBank will collect the following fees for every transaction done through our generated payment links. See pricing table below:</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="php_10">PHP 10.00</string>
+    <string name="php_15">PHP 15.00</string>
+    <string name="fee_per_transaction">Fee Per Transaction</string>
+    <string name="instapay">InstaPay</string>
+    <string name="settlement_for_the_payments_made_using_these_channels_will_be_credited">Settlement for the payments made using these channels will be credited to your nominated settlement account two (2) days after receipt of payment.</string>
+    <string name="pricing_table">Pricing Table</string>
 </resources>
