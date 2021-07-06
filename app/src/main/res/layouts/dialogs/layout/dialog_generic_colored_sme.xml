@@ -54,6 +54,7 @@
         android:background="@drawable/bg_gradient_orange_radius4"
         android:layout_marginStart="@dimen/grid_1"
         android:layout_marginEnd="@dimen/grid_1"
+        android:layout_marginBottom="@dimen/grid_1"
         android:text="@string/action_next"
         android:textColor="@color/colorWhite"
         android:textStyle="bold" />
@@ -63,7 +64,6 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_small_size"
-        android:layout_marginTop="@dimen/grid_1"
         android:background="@drawable/bg_white_rounded_radius10"
         android:layout_marginStart="@dimen/grid_1"
         android:layout_marginEnd="@dimen/grid_1"
