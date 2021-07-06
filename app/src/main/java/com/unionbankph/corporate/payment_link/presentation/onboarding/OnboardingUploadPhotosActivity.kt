@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.GridView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
 
 class OnboardingUploadPhotosActivity :
@@ -35,6 +36,10 @@ class OnboardingUploadPhotosActivity :
             openGalleryForImages()
         }
 
+        btnNext.setOnClickListener {
+            val intent = Intent(this, PaymentLinkChannelsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -115,5 +120,11 @@ class OnboardingUploadPhotosActivity :
             intent.type = "image/*"
             startActivityForResult(intent, REQUEST_CODE)
         }
+    }
+
+    companion object {
+        const val REQUEST_CODE = 1209
+        const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
+        const val EXTRA_SETUP_MERCHANT_DETAILS = "extra_setup_merchant_details"
     }
 }
