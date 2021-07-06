@@ -40,7 +40,7 @@ interface PaymentLinkApiClient {
         createMerchantForm: CreateMerchantForm
     ): Single<Response<CreateMerchantResponse>>
 
-    @PUT("msme/api/v1/rmo/merchantmsme/api/v1/rmo/merchant")
+    @PUT("msme/api/{api_version}/rmo/merchant")
     fun putBusinessInformation(
         @Header("Authorization")
         accessToken: String,

@@ -168,8 +168,7 @@
                     android:layout_width="match_parent">
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        style="@style/MatchWrapParent">
                         <Spinner
                             android:id="@+id/dropdownPaymentLinkExport"
                             android:layout_height="wrap_content"
@@ -243,10 +242,36 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
+                <LinearLayout
+                    style="@style/MatchWrapParent"
+                    android:layout_marginTop="@dimen/grid_4"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        style="@style/WrapContent"
+                        android:text="@string/title_review_settlement_account"
+                        android:textSize="@dimen/text_14"
+                        android:textStyle="bold" />
+                    <TextView
+                        style="@style/MatchWrapParent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="12dp"
+                        android:textSize="@dimen/text_12"
+                        android:textColor="@color/colorGrey"
+                        android:text="@string/detail_tap_the_card_to_select_another_settlement_account"/>
+
+
+                    <include
+                        android:id="@+id/include_settlement_account"
+                        layout="@layout/item_nominate_account"/>
+
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnRequestPaymentGenerate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/MatchWrapParent"
                     android:layout_marginTop="30dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -261,23 +286,35 @@
                     android:textStyle="bold"
                     android:clickable="false"/>
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnRequestPaymentCancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:textColor="#4A4A4A"
                     android:text="@string/btn_cancel"
                     android:textSize="@dimen/text_14"
                     android:textAlignment="center"
+                    android:background="@drawable/bg_white_rounded_corners"
                     android:textStyle="bold"/>
             </LinearLayout>
         </ScrollView>
 
 
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/noOtherAvailableAccounts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88000000"
+        android:clickable="true"
+        android:visibility="gone"
+
+        android:focusable="true">
+        <include layout="@layout/activity_no_available_accounts"/>
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/requestPaymentLoading"
@@ -300,8 +337,18 @@
         android:clickable="true"
         android:visibility="gone"
         android:focusable="true">
-
         <include layout="@layout/dialog_failed_merchant_diasbled"/>
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/theApproverPermissionRequired"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88000000"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true">
+
+        <include layout="@layout/dialog_feature_unavailable"/>
     </FrameLayout>
 
 </FrameLayout>
