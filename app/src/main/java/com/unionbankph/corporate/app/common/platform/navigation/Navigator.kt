@@ -67,6 +67,45 @@ class Navigator {
         }
     }
 
+    fun navigateForResult(
+        source: AppCompatActivity,
+        target: Class<out AppCompatActivity>,
+        bundle: Bundle? = null,
+        isClear: Boolean,
+        isAnimated: Boolean,
+        resultCode: Int,
+        transitionActivity: TransitionActivity? = null
+    ) {
+        val intent = Intent(source, target).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            bundle?.let { putExtras(it) }
+        }
+        source.startActivityForResult(intent, resultCode)
+        if (isClear) source.finish()
+        if (isAnimated) {
+            when (transitionActivity) {
+                TransitionActivity.TRANSITION_SLIDE_UP -> source.overridePendingTransition(
+                    R.anim.anim_slide_up, R.anim.anim_no_change
+                )
+                TransitionActivity.TRANSITION_SLIDE_DOWN -> source.overridePendingTransition(
+                    R.anim.anim_no_change, R.anim.anim_slide_down
+                )
+                TransitionActivity.TRANSITION_SLIDE_LEFT -> source.overridePendingTransition(
+                    R.anim.anim_forward_left_to_right, R.anim.anim_forward_right_to_left
+                )
+                TransitionActivity.TRANSITION_SLIDE_RIGHT -> source.overridePendingTransition(
+                    R.anim.anim_backward_left_to_right, R.anim.anim_backward_right_to_left
+                )
+                TransitionActivity.TRANSITION_FADE_IN -> source.overridePendingTransition(
+                    R.anim.anim_fade_in, R.anim.anim_no_change
+                )
+                TransitionActivity.TRANSITION_FADE_OUT -> source.overridePendingTransition(
+                    R.anim.anim_fade_out, R.anim.anim_no_change
+                )
+            }
+        }
+    }
+
     fun navigateImageTransition(
         source: AppCompatActivity,
         target: Class<out AppCompatActivity>,
