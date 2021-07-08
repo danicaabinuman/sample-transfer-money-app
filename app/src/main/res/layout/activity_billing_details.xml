@@ -216,6 +216,41 @@
                         android:layout_height="16dp"
                         android:src="@drawable/ic_ub_orange"
                         android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/bayadCenterLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/bayad_center_logo"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/ecpayLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ecpay_logo"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/lbcLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/lbc_logo"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/palawanLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/palawan_logo"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/cebuanaLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/cebuana_logo"
+                        android:visibility="gone"/>
                 </LinearLayout>
 
                 <TextView
