@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <shape android:dither="true" android:shape="rectangle" android:useLevel="false" android:visible="true">
+            <solid android:color="@color/dsColorMediumOrange"/>
+            <corners android:radius="@dimen/grid_3_half" />
+            <size android:width="@dimen/grid_6" android:height="@dimen/grid_3_half" />
+
+        </shape>
+    </item>
+    <item android:state_checked="false">
+        <shape android:dither="true" android:shape="rectangle" android:useLevel="false" android:visible="true">
+            <solid android:color="@color/dsColorMediumGray"/>
+            <corners android:radius="@dimen/grid_3_half" />
+            <size android:width="@dimen/grid_6" android:height="@dimen/grid_3_half" />
+        </shape>
+    </item>
+</selector>
