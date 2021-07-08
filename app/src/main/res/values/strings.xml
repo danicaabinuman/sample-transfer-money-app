@@ -2259,4 +2259,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="allow_customers_to_pay_you_using_their_debit_or_debit_card">Allow customers to pay you using their debit or debit card</string>
     <string name="no_set_up_or_annual_fees">No set-up or annual fees</string>
     <string name="we_ll_collect_3_php_10_per_transaction">We\'ll collect 3% + PHP 10 per transaction</string>
+    <string name="_1"><![CDATA[<1]]></string>
 </resources>
