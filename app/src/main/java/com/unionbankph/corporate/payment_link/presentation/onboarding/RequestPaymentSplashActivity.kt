@@ -15,6 +15,7 @@ import com.unionbankph.corporate.app.common.platform.bus.event.TransactSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import kotlinx.android.synthetic.main.activity_request_payment_splash_frame_screen.*
 
@@ -134,7 +135,7 @@ class RequestPaymentSplashActivity : BaseActivity<RequestPaymentSplashViewModel>
             val intent = if(merchantExists){
                 Intent(this, RequestForPaymentActivity::class.java)
             }else{
-                Intent(this, SetupPaymentLinkActivity::class.java)
+                Intent(this, BusinessInformationActivity::class.java)
             }
             intent.putExtra(EXTRA_FROM_WHAT_TAB,fromWhatTab)
             startActivity(intent)
@@ -148,7 +149,7 @@ class RequestPaymentSplashActivity : BaseActivity<RequestPaymentSplashViewModel>
                 )
                 finish()
             }else{
-                val intent = Intent(this, SetupPaymentLinkActivity::class.java)
+                val intent = Intent(this, BusinessInformationActivityw::class.java)
                 intent.putExtra(EXTRA_FROM_WHAT_TAB,fromWhatTab)
                 startActivity(intent)
                 finish()
