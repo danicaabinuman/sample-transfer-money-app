@@ -976,4 +976,20 @@
         <item name="colorAccent">@color/dsColorMediumOrange</item>
     </style>
 
+    <style name="SMELargeButton" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ds_sme_large_button</item>
+        <item name="android:textSize">@dimen/text_14</item>
+    </style>
+
+    <style name="SMEPrimaryButtonLarge" parent="SMELargeButton">
+        <item name="android:background">@drawable/style_primary_button_large</item>
+        <item name="android:textColor">@drawable/style_primary_button_text</item>
+    </style>
+
+    <style name="SMESecondaryButtonLarge" parent="SMELargeButton">
+        <item name="android:background">@drawable/style_secondary_button_large</item>
+        <item name="android:textColor">@drawable/style_secondary_button_text</item>
+    </style>
+
 </resources>
