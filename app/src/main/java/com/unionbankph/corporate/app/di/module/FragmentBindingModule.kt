@@ -352,7 +352,4 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun paymentLinkChannelsFeesAndChargesFragment(): FeesAndChargesFragment
 
-    @PerActivity
-    @ContributesAndroidInjector
-    abstract fun nominateSettlementFragment(): NominateSettlementFragment
 }
