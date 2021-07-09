@@ -15,6 +15,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
@@ -23,6 +24,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaym
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_no_available_accounts.*
@@ -40,6 +42,10 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
     var linkExpiry = "12 hours"
+    private var nominateSettlementAccountBottomSheet: NominateSettlementAccountBottomSheet? = null
+
+
+
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -345,6 +351,8 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                 resultCode = REQUEST_CODE,
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
+
+
         }else{
             noOtherAvailableAccounts.visibility = View.VISIBLE
         }
