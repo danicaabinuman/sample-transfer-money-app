@@ -149,7 +149,7 @@ class RequestPaymentSplashActivity : BaseActivity<RequestPaymentSplashViewModel>
                 )
                 finish()
             }else{
-                val intent = Intent(this, BusinessInformationActivityw::class.java)
+                val intent = Intent(this, BusinessInformationActivity::class.java)
                 intent.putExtra(EXTRA_FROM_WHAT_TAB,fromWhatTab)
                 startActivity(intent)
                 finish()
