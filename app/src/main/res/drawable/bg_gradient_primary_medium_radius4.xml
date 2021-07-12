@@ -5,8 +5,8 @@
     <corners android:radius="@dimen/ds_sme_large_button_radius" />
 
     <gradient
-        android:startColor="@color/SMEColorPrimaryMedium"
-        android:endColor="@color/SMEColorPrimaryDark"
+        android:startColor="@color/dsColorPrimaryMedium"
+        android:endColor="@color/dsColorPrimaryDark"
         android:angle="180"
         />
 </shape>

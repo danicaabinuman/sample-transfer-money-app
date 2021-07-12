@@ -121,6 +121,20 @@
     <color name="colorSMEMediumOrange">#FF8200</color>
 
     <!-- DESIGN SYSTEM -->
+    <color name="dsColorPrimaryDark">@color/dsColorDarkOrange</color>
+    <color name="dsColorPrimaryMedium">@color/dsColorMediumOrange</color>
+    <color name="dsColorPrimaryLight">@color/dsColorLightOrange</color>
+
+    <color name="dsColorPrimaryButtonText">@color/colorWhite</color>
+    <color name="dsColorSecondaryButtonText">@color/dsColorDarkGray</color>
+    <color name="dsColorTertiaryButtonText">@color/dsColorDarkGray</color>
+    <color name="dsColorButtonTextDisabled">@color/dsColorLightGray</color>
+
+    <color name="dsColorPrimaryDarkGradientStart">#FF8955</color>
+    <color name="dsColorPrimaryDarkGradientEnd">@color/dsColorDarkOrange</color>
+
+    <color name="dsColorLightGray50">#80BFBFBF</color>
+
     <color name="sd_chip_font_color_active">#FF8200</color>
     <color name="dsColorLightGray">#BFBFBF</color>
     <color name="dsColorEnabledButtonPrimary">#FFFFFF</color>
@@ -138,20 +152,6 @@
     <color name="dsColorPaidBackground">#009783</color>
     <color name="dsColorExpiredBackground">@color/dsColorDarkOrange</color>
     <color name="dsColorArchivedBackground">#4A4A4A</color>
-
-    <color name="SMEColorPrimaryDark">#ED5635</color>
-    <color name="SMEColorPrimaryMedium">#FF8200</color>
-    <color name="SMEColorPrimaryLight">#FFF3E5</color>
-
-    <color name="SMEPrimaryDarkGradientStart">#FF8955</color>
-    <color name="SMEPrimaryDarkGradientEnd">#ED5635</color>
-
-    <color name="SMEColorDarkGray">#4B4948</color>
-    <color name="SMEColorMediumGray">#9B9B9B</color>
-    <color name="SMEColorLightGray">#BFBFBF</color>
-    <color name="SMEColorExtraLightGray">#F8F8F8</color>
-
-    <color name="SMEColorLightGray50">#80BFBFBF</color>
 
     <!--Transparency-->
     <!--100% — FF-->
