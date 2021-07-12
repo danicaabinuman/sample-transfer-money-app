@@ -4,10 +4,6 @@
 
     <corners
         android:radius="@dimen/grid_1_half" />
-    <solid android:color="@color/colorTransparent" />
-
-    <stroke
-        android:width="@dimen/border_half"
-        android:color="@color/colorTransparent" />
+    <solid android:color="@color/dsColorSecondaryDefault" />
 
 </shape>

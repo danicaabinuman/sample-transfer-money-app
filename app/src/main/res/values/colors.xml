@@ -130,7 +130,6 @@
     <color name="dsColorTertiaryButtonText">@color/dsColorDarkGray</color>
     <color name="dsColorButtonTextDisabled">@color/dsColorLightGray</color>
 
-    <color name="dsColorPrimaryDarkGradientStart">#FF8955</color>
     <color name="dsColorPrimaryDarkGradientEnd">@color/dsColorDarkOrange</color>
 
     <color name="dsColorLightGray50">#80BFBFBF</color>
@@ -146,12 +145,38 @@
     <color name="dsColorExtraLightGray">#F8F8F8</color>
     <color name="dsColorSystemError">#FE3D2F</color>
     <color name="dsColorSystemSuccess">#3BB537</color>
+    <color name="dsColorOrangeForDarkGradient">#FF8955</color>\
 
     <color name="dsColorUnpaidBackground">#FFDA1C</color>
     <color name="dsColorPendingBackground">@color/dsColorMediumOrange</color>
     <color name="dsColorPaidBackground">#009783</color>
     <color name="dsColorExpiredBackground">@color/dsColorDarkOrange</color>
     <color name="dsColorArchivedBackground">#4A4A4A</color>
+
+    <!-- Button Primary-->
+    <color name="dsColorPrimaryButtonGradientStartDefault">@color/colorSMEMediumOrange</color>
+    <color name="dsColorPrimaryButtonGradientEndDefault">@color/dsColorDarkOrange</color>
+    <color name="dsColorPrimaryButtonGradientStartPressed">@color/dsColorOrangeForDarkGradient</color>
+    <color name="dsColorPrimaryButtonGradientEndPressed">@color/dsColorDarkOrange</color>
+    <color name="dsColorPrimaryButtonDisabled">@color/dsColorExtraLightGray</color>
+    <color name="dsColorPrimaryButtonTextDisabled">@color/dsColorLightGray</color>
+    <color name="dsColorPrimaryButtonTextDefault">@color/colorWhite</color>
+
+    <!-- Button Secondary-->
+    <color name="dsColorSecondaryDefault">@color/colorWhite</color>
+    <color name="dsColorSecondaryPressed">@color/dsColorExtraLightGray</color>
+    <color name="dsColorSecondaryDisabled">@color/dsColorExtraLightGray</color>
+    <color name="dsColorSecondaryButtonTextPressed">@color/dsColorDarkGray</color>
+    <color name="dsColorSecondaryButtonTextDefault">@color/dsColorDarkGray</color>
+    <color name="dsColorSecondaryButtonTextDisabled">@color/dsColorLightGray</color>
+
+    <!-- Button Tertiary-->
+    <color name="dsColorTertiaryDefault">@color/colorTransparent</color>
+    <color name="dsColorTertiaryPressed">@color/dsColorExtraLightGray</color>
+<!--    <color name="dsColorTertiaryDisabled">@color/dsColorExtraLightGray</color>-->
+<!--    <color name="dsColorTertiaryButtonTextPressed">@color/dsColorLightGray</color>-->
+<!--    <color name="dsColorTertiaryButtonTextDefault">@color/dsColorDarkGray</color>-->
+<!--    <color name="dsColorTertiaryButtonTextDisabled">@color/dsColorLightGray</color>-->
 
     <!-- Button With Icon-->
     <color name="dsColorButtonWithIconSolidColorDefault">@color/colorWhite</color>

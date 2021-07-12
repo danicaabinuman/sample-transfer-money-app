@@ -5,7 +5,7 @@
     <corners android:radius="@dimen/ds_sme_small_button_radius" />
 
     <gradient
-        android:startColor="@color/dsColorPrimaryDarkGradientStart"
+        android:startColor="@color/dsColorPrimaryButtonGradientStartPressed"
         android:endColor="@color/dsColorPrimaryDarkGradientEnd"
         android:angle="225"
         />

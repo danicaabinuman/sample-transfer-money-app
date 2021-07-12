@@ -4,6 +4,6 @@
 
     <corners
         android:radius="@dimen/grid_1_half" />
-    <solid android:color="@color/dsColorExtraLightGray" />
+    <solid android:color="@color/dsColorSecondaryPressed" />
 
 </shape>
