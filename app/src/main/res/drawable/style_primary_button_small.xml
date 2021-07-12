@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Pressed-->
+    <item android:drawable="@drawable/bg_gradient_primary_dark_radius30"
+        android:state_pressed="true" />
+
+    <!-- Disabled-->
+    <item android:drawable="@drawable/bg_extra_light_gray_radius30"
+        android:state_enabled="false"/>
+
+    <!-- Default-->
+    <item android:drawable="@drawable/bg_gradient_primary_medium_radius30"  />
+</selector>
