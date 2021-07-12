@@ -153,6 +153,12 @@
     <color name="dsColorExpiredBackground">@color/dsColorDarkOrange</color>
     <color name="dsColorArchivedBackground">#4A4A4A</color>
 
+    <!-- Button With Icon-->
+    <color name="dsColorButtonWithIconSolidColorDefault">@color/colorWhite</color>
+    <color name="dsColorButtonWithIconBorderDefault">@color/dsColorLightGray</color>
+    <color name="dsColorButtonWithIconSolidColorSelected">@color/dsColorLightOrange</color>
+    <color name="dsColorButtonWithIconBorderSelected">@color/colorSMEMediumOrange</color>
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->
