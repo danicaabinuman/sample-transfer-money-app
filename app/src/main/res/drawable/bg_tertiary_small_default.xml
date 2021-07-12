@@ -4,6 +4,10 @@
 
     <corners
         android:radius="@dimen/ds_sme_small_button_radius" />
-    <solid android:color="@color/dsColorExtraLightGray" />
+    <solid android:color="@color/dsColorTertiaryDefault" />
+
+    <stroke
+        android:width="@dimen/border_half"
+        android:color="@color/dsColorTertiaryDefault" />
 
 </shape>

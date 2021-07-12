@@ -125,33 +125,42 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnYes"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_normal_size"
                 android:layout_marginTop="@dimen/grid_3"
+                android:background="@drawable/bg_gradient_orange_radius4"
                 android:text="@string/yes_i_want"
-                style="@style/SMEPrimaryButtonLarge"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
                 android:layout_marginStart="@dimen/grid_1"
-                android:enabled="true"
                 android:layout_marginEnd="@dimen/grid_1"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnNotNow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_normal_size"
                 android:layout_marginTop="@dimen/grid_2"
+                android:background="@drawable/bg_gradient_white_radius4"
                 android:text="@string/action_not_now"
-                style="@style/SMESecondaryButtonLarge"
+                android:textColor="@color/colorDarkGray4B4948"
+                android:textStyle="bold"
                 android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_1"
-                android:enabled="true"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDontAskAgain"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_normal_size"
                 android:layout_marginTop="@dimen/grid_2"
                 android:layout_marginBottom="@dimen/grid_3"
                 android:text="@string/don_t_ask_me_again"
+                android:textColor="@color/colorDarkGray4B4948"
                 android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_1"
-                style="@style/SMETertiaryButtonLarge"
-                android:enabled="false"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

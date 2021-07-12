@@ -6,7 +6,7 @@
 
     <gradient
         android:startColor="@color/dsColorPrimaryButtonGradientStartPressed"
-        android:endColor="@color/dsColorPrimaryDarkGradientEnd"
+        android:endColor="@color/dsColorPrimaryButtonGradientEndPressed"
         android:angle="225"
         />
 </shape>
