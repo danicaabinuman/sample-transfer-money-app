@@ -137,10 +137,66 @@ class BillingDetailsActivity :
         if (paymentMethod == "INSTAPAY"){
             instapayLogo.visibility = View.VISIBLE
             ubLogo.visibility = View.GONE
+            bayadCenterLogo.visibility = View.GONE
+            ecpayLogo.visibility = View.GONE
+            lbcLogo.visibility = View.GONE
+            palawanLogo.visibility = View.GONE
+            cebuanaLogo.visibility = View.GONE
         }else if (paymentMethod == "UB ONLINE"){
             instapayLogo.visibility = View.GONE
             ubLogo.visibility = View.VISIBLE
-        } else {
+            bayadCenterLogo.visibility = View.GONE
+            ecpayLogo.visibility = View.GONE
+            lbcLogo.visibility = View.GONE
+            palawanLogo.visibility = View.GONE
+            cebuanaLogo.visibility = View.GONE
+        }
+        else if (paymentMethod == "CEBUANALHUILLIER"){
+            instapayLogo.visibility = View.GONE
+            ubLogo.visibility = View.GONE
+            bayadCenterLogo.visibility = View.GONE
+            ecpayLogo.visibility = View.GONE
+            lbcLogo.visibility = View.GONE
+            palawanLogo.visibility = View.GONE
+            cebuanaLogo.visibility = View.VISIBLE
+        }
+        else if (paymentMethod == "PALAWAN"){
+            instapayLogo.visibility = View.GONE
+            ubLogo.visibility = View.GONE
+            bayadCenterLogo.visibility = View.GONE
+            ecpayLogo.visibility = View.GONE
+            lbcLogo.visibility = View.GONE
+            palawanLogo.visibility = View.VISIBLE
+            cebuanaLogo.visibility = View.GONE
+        }
+        else if (paymentMethod == "LBC"){
+            instapayLogo.visibility = View.GONE
+            ubLogo.visibility = View.GONE
+            bayadCenterLogo.visibility = View.GONE
+            ecpayLogo.visibility = View.GONE
+            lbcLogo.visibility = View.VISIBLE
+            palawanLogo.visibility = View.GONE
+            cebuanaLogo.visibility = View.GONE
+        }
+        else if (paymentMethod == "ECPAY"){
+            instapayLogo.visibility = View.GONE
+            ubLogo.visibility = View.GONE
+            bayadCenterLogo.visibility = View.GONE
+            ecpayLogo.visibility = View.VISIBLE
+            lbcLogo.visibility = View.GONE
+            palawanLogo.visibility = View.GONE
+            cebuanaLogo.visibility = View.GONE
+        }
+        else if (paymentMethod == "BAYADCENTER"){
+            instapayLogo.visibility = View.VISIBLE
+            ubLogo.visibility = View.GONE
+            bayadCenterLogo.visibility = View.GONE
+            ecpayLogo.visibility = View.GONE
+            lbcLogo.visibility = View.GONE
+            palawanLogo.visibility = View.GONE
+            cebuanaLogo.visibility = View.GONE
+        }
+        else {
             Toast.makeText(this, "no payment method present", Toast.LENGTH_SHORT).show()
         }
 

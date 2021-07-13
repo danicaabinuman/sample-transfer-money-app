@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_business_information
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.Gravity
 import android.view.View
@@ -8,6 +9,8 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
 import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
@@ -56,7 +59,9 @@ class BusinessInformationActivity :
         btn_years_decrement_active.setOnClickListener { businessYearDecrementClicked() }
         btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
         btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
-        btn_next.setOnClickListener { btnNextClicked() }
+        btn_next.setOnClickListener {
+            btnNextClicked()
+        }
     }
 
     private fun natureOfBusiness() {
@@ -78,12 +83,16 @@ class BusinessInformationActivity :
         if (tv_years_counter.text == "0") {
             btn_years_decrement_active.visibility = View.GONE
             btn_years_decrement_inactive.visibility = View.VISIBLE
+            tv_years_counter.visibility = View.INVISIBLE
+            tv_years_counter_less_than_1.visibility = View.VISIBLE
         } else {
             btn_years_decrement_active.visibility = View.VISIBLE
             btn_years_decrement_inactive.visibility = View.GONE
+            tv_years_counter.visibility = View.VISIBLE
+            tv_years_counter_less_than_1.visibility = View.GONE
         }
 
-        if (tv_branch_counter.text == "0") {
+        if (tv_branch_counter.text == "1") {
             btn_decrement_branch_number_active.visibility = View.GONE
             btn_decrement_branch_number_inactive.visibility = View.VISIBLE
         } else {
@@ -305,6 +314,16 @@ class BusinessInformationActivity :
                 imageUrl6
             )
         )
+
+        val intent = Intent(this, OnboardingUploadPhotosActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToUploadPhotos(response: RMOBusinessInformationForm){
+        val responseJson = JsonHelper.toJson(response)
+        val intent = Intent(this, OnboardingUploadPhotosActivity::class.java)
+        intent.putExtra(OnboardingUploadPhotosActivity.EXTRA_SETUP_MERCHANT_DETAILS, responseJson)
+        startActivityForResult(intent, OnboardingUploadPhotosActivity.REQUEST_CODE)
     }
 
 }
