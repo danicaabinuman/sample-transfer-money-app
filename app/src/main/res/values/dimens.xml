@@ -346,6 +346,7 @@
     <dimen name="image_view_signature_height_size">@dimen/grid_18</dimen>
     <dimen name="image_view_signature_width_size">@dimen/grid_24</dimen>
 
+    <dimen name="ds_sme_big_button">56dp</dimen>
     <dimen name="ds_sme_large_button">40dp</dimen>
     <dimen name="ds_sme_small_button">32dp</dimen>
     <dimen name="ds_sme_large_button_radius">4dp</dimen>

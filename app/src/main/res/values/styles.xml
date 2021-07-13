@@ -1022,6 +1022,22 @@
         <item name="android:textColor">@drawable/style_secondary_button_text</item>
     </style>
 
+    <style name="SMEBigButton" parent="SMELargeButton">
+        <item name="android:layout_height">@dimen/ds_sme_big_button</item>
+        <item name="android:paddingStart">@dimen/grid_3</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="SMEPrimaryButtonBig" parent="SMEBigButton">
+        <item name="android:background">@drawable/style_primary_button_large</item>
+        <item name="android:textColor">@drawable/style_primary_button_text</item>
+    </style>
+
+    <style name="SMESecondaryButtonBig" parent="SMEBigButton">
+        <item name="android:background">@drawable/style_secondary_button_large</item>
+        <item name="android:textColor">@drawable/style_secondary_button_text</item>
+    </style>
+
     <style name="SMECheckableButtonWithIcon" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
