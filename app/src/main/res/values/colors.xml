@@ -184,6 +184,14 @@
     <color name="dsColorButtonWithIconSolidColorSelected">@color/dsColorLightOrange</color>
     <color name="dsColorButtonWithIconBorderSelected">@color/colorSMEMediumOrange</color>
 
+    <!-- Typograhpy-->
+    <color name="dsColorHeadlineH1">@color/dsColorDarkGray</color>
+    <color name="dsColorHeadlineH2">@color/dsColorDarkGray</color>
+    <color name="dsColorSubtitle1">@color/dsColorDarkGray</color>
+    <color name="dsColorSubtitle2">@color/dsColorDarkGray</color>
+    <color name="dsColorBody">@color/dsColorDarkGray</color>
+    <color name="dsColorCaption">@color/dsColorDarkGray</color>
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->

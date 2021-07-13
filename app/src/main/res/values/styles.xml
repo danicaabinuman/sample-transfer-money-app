@@ -1035,4 +1035,34 @@
         <item name="android:button">@null</item>
     </style>
 
+    <style name="SMEHeadlineH1" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">@dimen/text_30</item>
+        <item name="android:textColor">@color/dsColorHeadlineH1</item>
+    </style>
+
+    <style name="SMEHeadlineH2" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">@dimen/text_24</item>
+        <item name="android:textColor">@color/dsColorHeadlineH2</item>
+    </style>
+
+    <style name="SMESubtitle1" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
+        <item name="android:textSize">@dimen/text_18</item>
+        <item name="android:textColor">@color/dsColorSubtitle1</item>
+    </style>
+
+    <style name="SMESubtitle2" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/dsColorSubtitle2</item>
+    </style>
+
+    <style name="SMEBody" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/dsColorBody</item>
+    </style>
+
+    <style name="SMECaption" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">@color/dsColorCaption</item>
+    </style>
+
 </resources>
