@@ -1,64 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_rectangle_white"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="25dp"
-    android:paddingRight="25dp">
+    android:orientation="vertical"
+    >
+
+
 
     <LinearLayout
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-        
+        android:layout_weight="1">
         <LinearLayout
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/buttonClose"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                app:srcCompat="@drawable/ic_nominate_settlement_close_btn"
+            android:layout_height="@dimen/content_spacing_xl"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/button_close_dialog"
+                android:layout_width="@dimen/grid_5_half"
                 android:layout_gravity="center_vertical"
-                />
-            
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:background="@drawable/ic_close_orange"
+                android:adjustViewBounds="true"/>
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:paddingStart="@dimen/grid_2"
+                android:layout_weight="1"
                 android:textStyle="bold"
+                android:gravity="center_vertical|left"
+                android:layout_height="match_parent"
                 android:textSize="16sp"
-                android:textColor="#4B4948"
-                android:layout_marginLeft="20dp"
-                android:text="Nominate Settlement Account"/>
-
+                android:text="@string/nominate_settlement_account"/>
         </LinearLayout>
-
-        <include layout="@layout/item_bank_accounts"
-            app:layout_constraintTop_toBottomOf="@id/buttonClose"
+        <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/rvBSNominateSettlementAccounts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"/>
-
-        <include layout="@layout/item_bank_accounts"
-            app:layout_constraintTop_toBottomOf="@id/buttonClose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"/>
-
-        <include layout="@layout/item_bank_accounts"
-            app:layout_constraintTop_toBottomOf="@id/buttonClose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"/>
-
+            android:padding="@dimen/grid_2"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

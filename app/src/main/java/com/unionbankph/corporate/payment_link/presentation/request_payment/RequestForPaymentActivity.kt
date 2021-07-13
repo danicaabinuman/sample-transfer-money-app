@@ -23,6 +23,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaym
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_no_available_accounts.*
@@ -34,12 +35,16 @@ import kotlinx.android.synthetic.main.dialog_failed_merchant_diasbled.*
 import kotlinx.android.synthetic.main.fragment_send_request.*
 import timber.log.Timber
 
-class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.layout.activity_request_payment), AdapterView.OnItemSelectedListener {
+class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.layout.activity_request_payment),
+    AdapterView.OnItemSelectedListener,
+    NominateSettlementAccountFragment.OnNominateSettlementAccountListener{
 
     private var accounts = mutableListOf<Account>()
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
     var linkExpiry = "12 hours"
+    private var nominateSettlementAccountFragment: NominateSettlementAccountFragment? = null
+
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -330,21 +335,13 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun openNominateAccounts(){
         if(accounts.size>1){
-            val bundle = Bundle().apply {
-                putString(
-                    NominateSettlementActivity.EXTRA_ACCOUNTS_ARRAY,
-                    JsonHelper.toJson(accounts)
-                )
-            }
-            navigator.navigateForResult(
-                this,
-                NominateSettlementActivity::class.java,
-                bundle,
-                isClear = false,
-                isAnimated = true,
-                resultCode = REQUEST_CODE,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+            nominateSettlementAccountFragment = NominateSettlementAccountFragment.newInstance(JsonHelper.toJson(accounts))
+            nominateSettlementAccountFragment?.setOnNominateSettlementAccountListener(this)
+            nominateSettlementAccountFragment?.show(
+                supportFragmentManager,
+                RequestForPaymentActivity::class.java.simpleName
             )
+
         }else{
             noOtherAvailableAccounts.visibility = View.VISIBLE
         }
@@ -392,6 +389,10 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     }
 
+    override fun onAccountSelected(account: Account) {
+        populateNominatedSettlementAccount(account)
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -411,5 +412,8 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     }
     companion object {
         const val REQUEST_CODE = 1226
+
     }
+
+
 }
