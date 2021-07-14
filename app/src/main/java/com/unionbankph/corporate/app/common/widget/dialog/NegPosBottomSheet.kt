@@ -3,10 +3,13 @@ package com.unionbankph.corporate.app.common.widget.dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
 import com.unionbankph.corporate.common.presentation.viewmodel.NegPosBottomSheetViewModel
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.bottom_sheet_neg_pos.*
+import java.util.concurrent.TimeUnit
 
 class NegPosBottomSheet :
     BaseBottomSheetDialog<NegPosBottomSheetViewModel>(R.layout.bottom_sheet_neg_pos) {
@@ -44,11 +47,20 @@ class NegPosBottomSheet :
 
     private fun initNegativeButton() {
         val negativeButtonTextArgs = arguments?.getString(EXTRA_NEGATIVE_BUTTON_TEXT)
+
         if (!negativeButtonTextArgs.isNullOrEmpty()) {
-            buttonNegative.text = negativeButtonTextArgs
-            buttonNegative.setOnClickListener {
-                callbackListener?.onNegativeButtonClicked()
-                if (dismissOnActionClicked) dismiss()
+            buttonNegative.apply {
+                text = negativeButtonTextArgs
+
+                RxView.clicks(buttonNegative)
+                    .throttleFirst(
+                        3.toLong(),
+                        TimeUnit.SECONDS
+                    )
+                    .subscribe {
+                        callbackListener?.onNegativeButtonClicked()
+                        if (dismissOnActionClicked) dismiss()
+                    }.addTo(disposables)
             }
         } else {
             buttonNegative.visibility = View.GONE
@@ -57,11 +69,20 @@ class NegPosBottomSheet :
 
     private fun initPositiveButton() {
         val positiveButtonTextArgs = arguments?.getString(EXTRA_POSITIVE_BUTTON_TEXT)
+
         if (!positiveButtonTextArgs.isNullOrEmpty()) {
-            buttonPositive.text = positiveButtonTextArgs
-            buttonPositive.setOnClickListener {
-                callbackListener?.onPositiveButtonClicked()
-                if (dismissOnActionClicked) dismiss()
+            buttonPositive.apply {
+                text = positiveButtonTextArgs
+
+                RxView.clicks(this)
+                    .throttleFirst(
+                        3.toLong(),
+                        TimeUnit.SECONDS
+                    )
+                    .subscribe {
+                        callbackListener?.onPositiveButtonClicked()
+                        if (dismissOnActionClicked) dismiss()
+                    }.addTo(disposables)
             }
         }
     }

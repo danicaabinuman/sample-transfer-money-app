@@ -913,6 +913,15 @@
         <item name="android:background">@drawable/bg_bottom_sheet_top_rounded</item>
     </style>
 
+    <style name="RoundedDialogBackground" parent="WrapContent">
+        <item name="android:minWidth">@dimen/dialog_width</item>
+        <item name="android:paddingTop">@dimen/grid_3</item>
+        <item name="android:paddingBottom">@dimen/grid_3</item>
+        <item name="android:paddingStart">@dimen/grid_1</item>
+        <item name="android:paddingEnd">@dimen/grid_1</item>
+        <item name="android:background">@drawable/bg_white_rounded_radius10</item>
+    </style>
+
     <style name="ImageViewLogo" parent="WrapContent">
         <item name="srcCompat">?appLogo</item>
     </style>
