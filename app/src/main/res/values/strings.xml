@@ -16,6 +16,8 @@
     <string name="use_password">Use password</string>
     <string name="password">Password</string>
     <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="confirm_fingerprint_description">Confirm login with your biometrics</string>
+    <string name="touch_the_fingerprint_sensor">Touch the fingerprint sensor</string>
     <string name="fingerprint_hint">Touch sensor</string>
     <string name="password_description">Enter your store password to continue</string>
     <string name="purchase">Purchase</string>
@@ -78,6 +80,7 @@
     <string name="title_forgot_password">Forgot Password</string>
     <string name="title_lets_get_started">Let\'s Get Started!</string>
     <string name="title_login_with_fingerprint">Login with Fingerprint</string>
+    <string name="title_login_in_using_biometrics">Log in using biometrics</string>
     <string name="title_fingerprint_not_detected">Fingerprint Not Detected</string>
     <string name="title_new_fingerprint_detected">New Fingerprint Detected</string>
     <string name="title_session_time_out">Your session is about to expire</string>

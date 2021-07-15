@@ -117,6 +117,8 @@
     <color name="colorSMEDisabledBGButton">@color/colorWhite</color>
     <color name="colorDisabledBGButton">#666666</color>
 
+    <color name="colorFingerPrintIconPlain">@color/dsColorMediumOrange</color>
+
     <color name="dsColorMediumOrange">#FF8200</color>
     <color name="dsColorRoundedTopBottomSheet">@color/colorWhite</color>
 
