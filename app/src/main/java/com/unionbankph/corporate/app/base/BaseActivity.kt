@@ -622,14 +622,20 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
 
     fun getProgressAlertDialog() = dialog
 
-    fun setDrawableBackButton(resource: Int) {
+    fun setDrawableBackButton(
+        resource: Int,
+        customColor: Int = R.color.colorWhite,
+        useCustomColor: Boolean = false
+    ) {
         val arrowDrawable = ContextCompat.getDrawable(this, resource)
         arrowDrawable?.setColorFilter(
             ContextCompat.getColor(
                 this,
-                if (App.isSME())
-                    R.color.colorInfo
-                else R.color.colorWhiteDirty
+                when {
+                    useCustomColor -> customColor
+                    App.isSME() -> R.color.colorInfo
+                    else -> R.color.colorWhiteDirty
+                }
             ), PorterDuff.Mode.SRC_ATOP
         )
         supportActionBar?.setHomeAsUpIndicator(arrowDrawable)
