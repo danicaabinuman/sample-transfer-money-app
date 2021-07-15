@@ -2259,4 +2259,9 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="allow_customers_to_pay_you_using_their_debit_or_debit_card">Allow customers to pay you using their debit or debit card</string>
     <string name="no_set_up_or_annual_fees">No set-up or annual fees</string>
     <string name="we_ll_collect_3_php_10_per_transaction">We\'ll collect 3% + PHP 10 per transaction</string>
+    <string name="upload_photos_intro">Upload photos of your products or photos that best describe the services offered</string>
+    <string name="maximum_of_6_photos_only">(Maximum of 6 photos only)</string>
+    <string name="add_photos">Add Photos</string>
+    <string name="add_photos_2">+ Add Photos</string>
+    <string name="save_and_exit">Save and Exit</string>
 </resources>
