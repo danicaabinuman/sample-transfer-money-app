@@ -118,6 +118,7 @@
     <color name="colorDisabledBGButton">#666666</color>
 
     <color name="dsColorMediumOrange">#FF8200</color>
+    <color name="dsColorRoundedTopBottomSheet">@color/colorWhite</color>
 
     <!--Transparency-->
     <!--100% — FF-->

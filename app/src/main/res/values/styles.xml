@@ -894,7 +894,7 @@
     </style>
 
     <style name="BottomSheetBackground" parent="MatchWrapParent">
-        <item name="android:background">?bottomSheetBackground</item>
+        <item name="android:background">@drawable/bg_bottom_sheet_top_rounded</item>
     </style>
 
     <style name="ImageViewLogo" parent="WrapContent">
