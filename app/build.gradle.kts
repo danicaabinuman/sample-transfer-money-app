@@ -14,19 +14,22 @@ properties.load(FileInputStream(versionPropertiesFile))
 plugins {
     id(BuildPlugins.androidApplication)
     id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kotlinAndroidExtensions)
     id(BuildPlugins.kotlinKapt)
     id(BuildPlugins.kotlinxSerialization)
+    id(BuildPlugins.kotlinAndroidParcelize)
     id(BuildPlugins.navigationSafeArgs)
     id(BuildPlugins.googleServices)
     id(BuildPlugins.firebaseCrashlytics)
     id(BuildPlugins.ktLint)
-//    id(BuildPlugins.kotlinAndroidParcelize)
 }
+
 
 android {
     compileSdkVersion(AndroidSdk.compile)
     flavorDimensions(AndroidSdk.dimension)
+    buildFeatures {
+        dataBinding = true
+    }
     defaultConfig {
         minSdkVersion(AndroidSdk.min)
         targetSdkVersion(AndroidSdk.target)
@@ -189,6 +192,7 @@ dependencies {
     implementation(Libraries.dagger)
     implementation(Libraries.daggerSupport)
     implementation(Libraries.coreKtx)
+    implementation(Libraries.kotlinXCore)
     implementation(Libraries.kotlinX)
     implementation(Libraries.kotlinXConverter)
     implementation(Libraries.extensionLifeCycle)
@@ -280,15 +284,12 @@ fun setupProductFlavors(
     productFlavor.versionCode = newVersionCode
     productFlavor.applicationIdSuffix = getApplicationSuffixId(appId, env)
     productFlavor.versionNameSuffix = getVersionNameSuffix(env)
-    productFlavor.setDimension(AndroidSdk.dimension)
-    val host = buildGradle.properties["host${env.getDisplayName()}"].toString()
-    productFlavor.manifestPlaceholders = mapOf(
-        "appTheme" to if (appId == AppId.SME) {
-            "@style/AppThemeSME"
-        } else {
-            "@style/AppThemePortal"
-        }
-    )
+    productFlavor.dimension(AndroidSdk.dimension)
+    var host = buildGradle.properties["host${env.getDisplayName()}"].toString()
+    productFlavor.manifestPlaceholders["appTheme"] = when (appId == AppId.SME) {
+        true -> "@style/AppThemeSME"
+        else -> "@style/AppThemePortal"
+    }
     productFlavor.resValue("string", "app_name", getAppName(appId, env))
     productFlavor.resValue(
         "string",

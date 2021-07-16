@@ -1,26 +1,24 @@
 object BuildPlugins {
 
     object Versions {
-        const val buildTools = "3.6.3"
-        const val navigationSafeArgs = "2.3.0-alpha05"
+        const val buildTools = "4.1.2"
+        const val navigationSafeArgs = "2.4.0-alpha02"
         const val firebaseCrashlytics = "2.4.1"
         const val googleServices = "4.3.4"
-        const val kotlin = "1.3.70"
-//        const val kotlin = "1.4.30" // working with this version
+        const val kotlin = "1.4.30"
         const val klint = "9.2.1"
         const val buildKonfig = "0.4.1"
     }
 
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
-    const val kotlinAndroidExtensions = "kotlin-android-extensions"
     const val kotlinKapt = "kotlin-kapt"
+    const val kotlinAndroidParcelize = "kotlin-parcelize"
     const val kotlinxSerialization = "kotlinx-serialization"
     const val firebaseCrashlytics = "com.google.firebase.crashlytics"
     const val navigationSafeArgs = "androidx.navigation.safeargs.kotlin"
     const val googleServices = "com.google.gms.google-services"
     const val ktLint = "org.jlleitschuh.gradle.ktlint"
-    const val kotlinAndroidParcelize = "kotlin-parcelize"
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.buildTools}"
     const val kotlinGradlePlugin =
@@ -37,7 +35,7 @@ object BuildPlugins {
 
 object Libraries {
     private object Versions {
-        const val kotlin = "1.3.70"
+        const val kotlin = "1.4.30"
 
         const val appCompat = "1.1.0"
         const val support = "1.0.0"
@@ -47,7 +45,7 @@ object Libraries {
         const val cardView = "1.0.0"
         const val activityAndroidX = "1.0.0"
         const val fragmentAndroidX = "1.1.0"
-        const val navigation = "2.3.0-alpha04"
+        const val navigation = "2.4.0-alpha02"
 
         // Core
         const val okhttp = "3.9.0"
@@ -64,8 +62,8 @@ object Libraries {
         const val rxRelay = "2.1.0"
         const val rxBinding2 = "2.1.1"
         const val rxPermission = "0.10.2"
-        const val kotlinX = "0.20.0"
-        const val kotlinXConverter = "0.5.0"
+        const val kotlinX = "1.2.2"
+        const val kotlinXConverter = "0.8.0"
         const val coreKtx = "1.3.2"
         const val multiDex = "2.0.0"
         const val stetho = "1.5.0"
@@ -102,7 +100,7 @@ object Libraries {
         const val circularProgress = "1.3.0"
         const val aeroGear = "1.0.0"
         const val cameraView = "2.6.3"
-        const val compressor = "2.1.0"
+        const val compressor = "3.0.1"
         const val smartCropper = "v2.1.3"
         const val paris = "1.5.0"
         const val stv = "1.0.0"
@@ -138,7 +136,8 @@ object Libraries {
     const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava2}"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${Versions.rxKotlin}"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroid}"
-    const val kotlinX = "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.kotlinX}"
+    const val kotlinXCore = "org.jetbrains.kotlinx:kotlinx-serialization-core:${Versions.kotlinX}"
+    const val kotlinX = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinX}"
     const val kotlinXConverter =
         "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.kotlinXConverter}"
     const val rxJava2Adapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit2}"

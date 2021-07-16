@@ -1,22 +1,20 @@
 package com.unionbankph.corporate.common.presentation.helper
 
 import com.unionbankph.corporate.common.domain.exception.JsonParseException
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.UnstableDefault
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
-import kotlinx.serialization.parse
-import kotlinx.serialization.parseList
-import kotlinx.serialization.stringify
 
-@OptIn(ImplicitReflectionSerializer::class, UnstableDefault::class)
 object JsonHelper {
 
-    val json = Json(JsonConfiguration.Stable.copy(isLenient = true, ignoreUnknownKeys = true))
+    val json = Json {
+        isLenient = true
+        ignoreUnknownKeys = true
+    }
 
     inline fun <reified T : Any> fromJson(value: String?): T {
         return try {
-            json.parse(value!!)
+            json.decodeFromString(value!!)
         } catch (e: Exception) {
             throw JsonParseException()
         }
@@ -24,7 +22,7 @@ object JsonHelper {
 
     inline fun <reified T : Any> fromListJson(value: String?): MutableList<T> {
         return try {
-            json.parseList<T>(value!!).toMutableList()
+            json.decodeFromString<List<T>>(value!!).toMutableList()
         } catch (e: Exception) {
             throw JsonParseException()
         }
@@ -33,13 +31,13 @@ object JsonHelper {
 
     inline fun <reified T : Any> toJson(value: List<T>?): String {
         return value?.let {
-            json.stringify(value)
+            json.encodeToString(value)
         } ?: ""
     }
 
     inline fun <reified T : Any> toJson(value: T?): String {
         return value?.let {
-            json.stringify(value)
+            json.encodeToString(value)
         } ?: ""
     }
 }
