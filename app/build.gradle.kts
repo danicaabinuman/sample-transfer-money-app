@@ -21,6 +21,7 @@ plugins {
     id(BuildPlugins.googleServices)
     id(BuildPlugins.firebaseCrashlytics)
     id(BuildPlugins.ktLint)
+//    id(BuildPlugins.kotlinAndroidParcelize)
 }
 
 android {
@@ -236,10 +237,12 @@ dependencies {
     implementation(Libraries.jumioMRZ)
     implementation(Libraries.jumioNFC)
     implementation(Libraries.jumioOCR)
-    implementation(Libraries.jumioFace)
-    implementation(Libraries.jumioDV)
-    implementation(Libraries.facetecZoom)
+    implementation(Libraries.jumioIProove)
     implementation(Libraries.roomRuntime)
+
+    implementation(Libraries.iProovSDK) {
+        exclude("org.json", "json")
+    }
 
     /* Testing */
     testImplementation(TestLibraries.junit)

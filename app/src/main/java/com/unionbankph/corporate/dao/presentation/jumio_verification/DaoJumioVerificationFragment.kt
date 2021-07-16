@@ -263,7 +263,7 @@ class DaoJumioVerificationFragment :
         netVerifySDK.setPreselectedDocumentVariant(NVDocumentVariant.PLASTIC)
         netVerifySDK.setEnableVerification(true)
         netVerifySDK.setEnableIdentityVerification(true)
-        netVerifySDK.setEnableEMRTD(true)
+//        netVerifySDK.setEnableEMRTD(true)
         netVerifySDK.sendDebugInfoToJumio(true)
     }
 

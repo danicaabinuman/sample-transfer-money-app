@@ -6,6 +6,7 @@ object BuildPlugins {
         const val firebaseCrashlytics = "2.4.1"
         const val googleServices = "4.3.4"
         const val kotlin = "1.3.70"
+//        const val kotlin = "1.4.30" // working with this version
         const val klint = "9.2.1"
         const val buildKonfig = "0.4.1"
     }
@@ -19,6 +20,7 @@ object BuildPlugins {
     const val navigationSafeArgs = "androidx.navigation.safeargs.kotlin"
     const val googleServices = "com.google.gms.google-services"
     const val ktLint = "org.jlleitschuh.gradle.ktlint"
+    const val kotlinAndroidParcelize = "kotlin-parcelize"
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.buildTools}"
     const val kotlinGradlePlugin =
@@ -39,8 +41,8 @@ object Libraries {
 
         const val appCompat = "1.1.0"
         const val support = "1.0.0"
-        const val constraintLayout = "1.1.3"
-        const val material = "1.2.0"
+        const val constraintLayout = "2.0.4"
+        const val material = "1.2.1"
         const val recyclerView = "1.0.0"
         const val cardView = "1.0.0"
         const val activityAndroidX = "1.0.0"
@@ -64,7 +66,7 @@ object Libraries {
         const val rxPermission = "0.10.2"
         const val kotlinX = "0.20.0"
         const val kotlinXConverter = "0.5.0"
-        const val coreKtx = "1.0.0"
+        const val coreKtx = "1.3.2"
         const val multiDex = "2.0.0"
         const val stetho = "1.5.0"
         const val stethoOkhttp3 = "1.5.0"
@@ -106,8 +108,8 @@ object Libraries {
         const val stv = "1.0.0"
 
         //Third Party SDK
-        const val jumio = "3.5.0@aar"
-        const val facetecZoom = "8.0.11@aar"
+        const val jumio = "3.9.2@aar"
+        const val iProov = "6.4.1"
         const val roomRuntime = "2.2.5"
     }
 
@@ -199,10 +201,10 @@ object Libraries {
     const val jumioMRZ = "com.jumio.android:nv-mrz:${Versions.jumio}"
     const val jumioNFC = "com.jumio.android:nv-nfc:${Versions.jumio}"
     const val jumioOCR = "com.jumio.android:nv-ocr:${Versions.jumio}"
-    const val jumioFace = "com.jumio.android:face:${Versions.jumio}"
-    const val jumioDV = "com.jumio.android:dv:${Versions.jumio}"
-    const val facetecZoom = "com.facetec:zoom-authentication:${Versions.facetecZoom}"
+    const val jumioIProove = "com.jumio.android:iproov:${Versions.jumio}"
     const val roomRuntime = "androidx.room:room-runtime:${Versions.roomRuntime}"
+
+    const val iProovSDK = "com.iproov.sdk:iproov:${Versions.iProov}"
 
     //Firebase
     const val fireBaseCore = "com.google.firebase:firebase-core:${Versions.firebase}"
