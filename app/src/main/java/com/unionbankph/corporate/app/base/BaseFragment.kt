@@ -6,12 +6,15 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.widget.EditText
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewbinding.ViewBinding
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.common.extension.formatString
@@ -35,7 +38,18 @@ import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
 
-abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) {
+abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>() : Fragment() {
+
+    lateinit var viewModel: VM
+        private set
+
+    lateinit var binding: VB
+        private set
+
+    @get:LayoutRes
+    abstract val layoutId: Int
+
+    protected abstract val viewModelClassType: Class<VM>
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -73,8 +87,6 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
     @Inject
     lateinit var settingsUtil: SettingsUtil
 
-    lateinit var viewModel: VM
-
     lateinit var tutorialViewModel: TutorialViewModel
 
     var hasInitialLoad: Boolean = true
@@ -94,7 +106,8 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
     protected open fun beforeLayout(savedInstanceState: Bundle?) = Unit
     protected open fun afterLayout(savedInstanceState: Bundle?) = Unit
     protected open fun onViewsBound() = Unit
-    protected open fun onViewModelBound() = Unit
+    protected open fun onViewModelBound() { initViewModel() }
+
     protected open fun onInitializeListener() = Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,6 +146,10 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
         AndroidSupportInjection.inject(this)
     }
 
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[viewModelClassType]
+    }
+
     fun getLinearLayoutManager(): LinearLayoutManager {
         return LinearLayoutManager(
             context,
@@ -142,11 +159,11 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
     }
 
     fun showProgressAlertDialog(tag: String) {
-        (activity as BaseActivity<*>).showProgressAlertDialog(tag)
+        (activity as BaseActivity<*,*>).showProgressAlertDialog(tag)
     }
 
     fun dismissProgressAlertDialog() {
-        (activity as BaseActivity<*>).dismissProgressAlertDialog()
+        (activity as BaseActivity<*,*>).dismissProgressAlertDialog()
     }
 
     fun showLoading(
@@ -156,7 +173,7 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
         viewState: View?,
         headerTableView: View? = null
     ) {
-        (activity as BaseActivity<*>).showLoading(
+        (activity as BaseActivity<*,*>).showLoading(
             viewLoadingState,
             swipeRefreshLayout,
             view,
@@ -166,7 +183,7 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
     }
 
     fun updateShortCutBadgeCount() {
-        (activity as BaseActivity<*>).generalViewModel.updateShortCutBadgeCount()
+        (activity as BaseActivity<*,*>).generalViewModel.updateShortCutBadgeCount()
     }
 
     fun dismissLoading(
@@ -174,23 +191,23 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
         swipeRefreshLayout: SwipeRefreshLayout?,
         view: View
     ) {
-        (activity as BaseActivity<*>).dismissLoading(viewLoadingState, swipeRefreshLayout, view)
+        (activity as BaseActivity<*,*>).dismissLoading(viewLoadingState, swipeRefreshLayout, view)
     }
 
     fun setMargins(view: View, left: Int, top: Int, right: Int, bottom: Int) {
-        (activity as BaseActivity<*>).setMargins(view, left, top, right, bottom)
+        (activity as BaseActivity<*,*>).setMargins(view, left, top, right, bottom)
     }
 
     fun getStatusBarHeight(): Int {
-        return (activity as BaseActivity<*>).getStatusBarHeight()
+        return (activity as BaseActivity<*,*>).getStatusBarHeight()
     }
 
     fun getNavHeight(): Int {
-        return (activity as BaseActivity<*>).getNavHeight()
+        return (activity as BaseActivity<*,*>).getNavHeight()
     }
 
     fun handleOnError(throwable: Throwable) {
-        (activity as BaseActivity<*>).handleOnError(throwable)
+        (activity as BaseActivity<*,*>).handleOnError(throwable)
     }
 
     fun initSetError(
@@ -221,10 +238,10 @@ abstract class BaseFragment<VM : ViewModel>(layoutId: Int) : Fragment(layoutId) 
         title: String = formatString(R.string.title_error),
         message: String
     ) {
-        (activity as BaseActivity<*>).showMaterialDialogError(title, message)
+        (activity as BaseActivity<*,*>).showMaterialDialogError(title, message)
     }
 
-    fun isTableView() = (activity as BaseActivity<*>).isTableView()
+    fun isTableView() = (activity as BaseActivity<*,*>).isTableView()
 
     fun getAppCompatActivity(): AppCompatActivity = (activity as AppCompatActivity)
 }

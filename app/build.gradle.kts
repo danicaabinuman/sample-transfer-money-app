@@ -29,6 +29,7 @@ android {
     flavorDimensions(AndroidSdk.dimension)
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
     defaultConfig {
         minSdkVersion(AndroidSdk.min)
@@ -217,6 +218,7 @@ dependencies {
     implementation(Libraries.materialDialogLifeCycle)
     implementation(Libraries.shimmer)
     implementation(Libraries.epoxy)
+    implementation(Libraries.epoxyViewBinding)
     implementation(Libraries.ahbottomnavigation)
     implementation(Libraries.shortcutBadger)
     implementation(Libraries.phoneNumber)

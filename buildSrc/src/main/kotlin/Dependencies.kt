@@ -83,7 +83,8 @@ object Libraries {
         const val circleIndicator = "1.2.2@aar"
         const val materialDialog = "3.3.0"
         const val materialDialogLifeCycle = "3.2.1"
-        const val epoxy = "3.8.0"
+        const val epoxy = "4.6.2"
+        const val epoxyViewBinding = "2.6.0"
 
         //epoxy = "2.19.0"
         const val shimmer = "2.1.0"
@@ -165,6 +166,7 @@ object Libraries {
     const val materialDialogLifeCycle = "com.afollestad.material-dialogs:lifecycle:${Versions.materialDialogLifeCycle}"
     const val epoxy = "com.airbnb.android:epoxy:${Versions.epoxy}"
     const val epoxyProcessor = "com.airbnb.android:epoxy-processor:${Versions.epoxy}"
+    const val epoxyViewBinding = "com.airbnb.android:epoxy-databinding:${Versions.epoxyViewBinding}"
     const val ahbottomnavigation =
         "com.aurelhubert:ahbottomnavigation:${Versions.ahbottomnavigation}"
     const val shimmer = "io.supercharge:shimmerlayout:${Versions.shimmer}"
