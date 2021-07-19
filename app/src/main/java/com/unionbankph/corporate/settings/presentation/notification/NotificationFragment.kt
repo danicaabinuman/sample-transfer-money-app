@@ -15,13 +15,13 @@ import com.unionbankph.corporate.app.common.platform.bus.event.ResultSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentNotificationBinding
 import com.unionbankph.corporate.notification.data.form.NotificationForm
 import com.unionbankph.corporate.notification.data.model.NotificationDto
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_notification.*
 
 class NotificationFragment :
-    BaseFragment<NotificationViewModel>(R.layout.fragment_notification),
+    BaseFragment<FragmentNotificationBinding, NotificationViewModel>(),
     NotificationController.AdapterCallbacks {
 
     private lateinit var notificationDto: NotificationDto
@@ -36,7 +36,6 @@ class NotificationFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[NotificationViewModel::class.java]
         viewModel.state.observe(this, Observer {
 
             when (it) {
@@ -47,24 +46,24 @@ class NotificationFragment :
                     dismissProgressAlertDialog()
                 }
                 is ShowNotificationLoading -> {
-                    if (!swipeRefreshLayoutNotification.isRefreshing) {
-                        viewLoadingState?.visibility = View.VISIBLE
+                    if (!binding.swipeRefreshLayoutNotification.isRefreshing) {
+                        binding.viewLoadingState.viewLoadingLayout.visibility = View.VISIBLE
                     }
-                    if (viewLoadingState?.visibility == View.VISIBLE) {
-                        swipeRefreshLayoutNotification.isEnabled = true
+                    if (binding.viewLoadingState.viewLoadingLayout.visibility == View.VISIBLE) {
+                        binding.swipeRefreshLayoutNotification.isEnabled = true
                     }
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutNotification,
-                        recyclerViewNotification,
+                        binding.viewLoadingState.viewLoadingLayout,
+                        binding.swipeRefreshLayoutNotification,
+                        binding.recyclerViewNotification,
                         null
                     )
                 }
                 is ShowNotificationDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutNotification,
-                        recyclerViewNotification
+                        binding.viewLoadingState.viewLoadingLayout,
+                        binding.swipeRefreshLayoutNotification,
+                        binding.recyclerViewNotification
                     )
                 }
                 is ShowNotificationData -> {
@@ -88,14 +87,14 @@ class NotificationFragment :
             hasBackButton = true,
             hasMenuItem = false
         )
-        recyclerViewNotification.itemAnimator = null
+        binding.recyclerViewNotification.itemAnimator = null
         controller.setAdapterCallbacks(this)
-        recyclerViewNotification.setController(controller)
+        binding.recyclerViewNotification.setController(controller)
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        swipeRefreshLayoutNotification.apply {
+        binding.swipeRefreshLayoutNotification.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 viewModel.getNotifications()
@@ -135,11 +134,17 @@ class NotificationFragment :
             notificationDto.receiveAllNotifications =
                 !currentSwitch?.isChecked!!
             val switchCompat =
-                recyclerViewNotification[0].findViewById<SwitchMaterial>(R.id.switchCompat)
+                binding.recyclerViewNotification[0].findViewById<SwitchMaterial>(R.id.switchCompat)
             switchCompat.tag = NotificationController::class.java.simpleName
             switchCompat.isChecked =
                 !currentSwitch?.isChecked!!
             updateController()
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_notification
+
+    override val viewModelClassType: Class<NotificationViewModel>
+        get() = NotificationViewModel::class.java
 }
