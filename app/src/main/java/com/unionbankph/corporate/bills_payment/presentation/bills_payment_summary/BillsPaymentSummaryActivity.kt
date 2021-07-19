@@ -41,16 +41,13 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity
+import com.unionbankph.corporate.databinding.ActivityBillsPaymentSummaryBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_bills_payment_summary.*
-import kotlinx.android.synthetic.main.widget_button_share_outline.*
-import kotlinx.android.synthetic.main.widget_header_transaction_summary.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class BillsPaymentSummaryActivity :
-    BaseActivity<BillsPaymentSummaryViewModel>(R.layout.activity_bills_payment_summary),
+    BaseActivity<ActivityBillsPaymentSummaryBinding, BillsPaymentSummaryViewModel>(),
     OnTutorialListener {
 
     private lateinit var billsPaymentForm: BillsPaymentForm
@@ -61,7 +58,7 @@ class BillsPaymentSummaryActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -97,8 +94,8 @@ class BillsPaymentSummaryActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_payment_summary),
                         it.orgName
                     )
@@ -109,8 +106,6 @@ class BillsPaymentSummaryActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[BillsPaymentSummaryViewModel::class.java]
         viewModel.summaryState.observe(this, Observer {
             when (it) {
                 is ShowBillsPaymentSummaryError -> {
@@ -142,7 +137,7 @@ class BillsPaymentSummaryActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         tutorialEngineUtil.setOnTutorialListener(this)
-        RxView.clicks(buttonViewOrganizationPayments)
+        RxView.clicks(binding.buttonViewOrganizationPayments)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -153,7 +148,7 @@ class BillsPaymentSummaryActivity :
                     BaseEvent(ActionSyncEvent.ACTION_UPDATE_TRANSACTION_LIST)
                 )
             }.addTo(disposables)
-        RxView.clicks(buttonMakeAnotherPayment)
+        RxView.clicks(binding.buttonMakeAnotherPayment)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -172,7 +167,7 @@ class BillsPaymentSummaryActivity :
                     BaseEvent(ActionSyncEvent.ACTION_UPDATE_TRANSACTION_LIST)
                 )
             }.addTo(disposables)
-        RxView.clicks(buttonShare)
+        RxView.clicks(binding.viewShareButton.buttonShare)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -222,15 +217,15 @@ class BillsPaymentSummaryActivity :
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.button_radius)
             when (view) {
-                buttonViewOrganizationPayments -> {
-                    viewUtil.setFocusOnView(scrollView, buttonMakeAnotherPayment)
+                binding.buttonViewOrganizationPayments -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.buttonMakeAnotherPayment)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        buttonMakeAnotherPayment,
+                        binding.buttonMakeAnotherPayment,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -240,7 +235,7 @@ class BillsPaymentSummaryActivity :
                     )
                 }
                 else -> {
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.BILLS_PAYMENT_SUMMARY, false)
                 }
             }
@@ -265,10 +260,10 @@ class BillsPaymentSummaryActivity :
                 selectedAccount
             )
         )
-        imageViewHeader.post {
-            imageViewHeader.layoutParams.width = imageViewHeader.measuredWidth
+        binding.imageViewHeader.post {
+            binding.imageViewHeader.layoutParams.width = binding.imageViewHeader.measuredWidth
         }
-        textViewTransferFrom.text =
+        binding.textViewTransferFrom.text =
             Html.fromHtml(
                 String.format(
                     getString(R.string.params_account_detail),
@@ -307,7 +302,7 @@ class BillsPaymentSummaryActivity :
                 }
             }
 
-        textViewPaymentTo.text =
+        binding.textViewPaymentTo.text =
             Html.fromHtml(
                 billsPaymentForm.billerName +
                         "<br>" +
@@ -315,10 +310,10 @@ class BillsPaymentSummaryActivity :
                         sb.toString()
             )
 
-        textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
+        binding.textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
             billsPaymentForm.amount?.value.toString(), billsPaymentForm.amount?.currency
         )
-        textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
+        binding.textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(EXTRA_SERVICE_FEE)
             )
@@ -332,7 +327,7 @@ class BillsPaymentSummaryActivity :
         } else {
             getString(R.string.value_service_fee_free)
         }
-        textViewProposedTransferDate.text =
+        binding.textViewProposedTransferDate.text =
             if (billsPaymentForm.immediate!!)
                 getString(R.string.title_immediately)
             else
@@ -342,66 +337,66 @@ class BillsPaymentSummaryActivity :
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
         if (billsPaymentForm.immediate!!) {
-            view4.visibility = View.GONE
-            textViewStartDateTitle.visibility = View.GONE
-            textViewStartDate.visibility = View.GONE
-            view5.visibility = View.GONE
-            textViewFrequencyTitle.visibility = View.GONE
-            textViewFrequency.visibility = View.GONE
-            view6.visibility = View.GONE
-            textViewEndDateTitle.visibility = View.GONE
-            textViewEndDate.visibility = View.GONE
-            view7.visibility = View.GONE
-            textViewProposedTransferDateTitle.visibility = View.VISIBLE
-            textViewProposedTransferDate.visibility = View.VISIBLE
+            binding.view4.visibility = View.GONE
+            binding.textViewStartDateTitle.visibility = View.GONE
+            binding.textViewStartDate.visibility = View.GONE
+            binding.view5.visibility = View.GONE
+            binding.textViewFrequencyTitle.visibility = View.GONE
+            binding.textViewFrequency.visibility = View.GONE
+            binding.view6.visibility = View.GONE
+            binding.textViewEndDateTitle.visibility = View.GONE
+            binding.textViewEndDate.visibility = View.GONE
+            binding.view7.visibility = View.GONE
+            binding.textViewProposedTransferDateTitle.visibility = View.VISIBLE
+            binding.textViewProposedTransferDate.visibility = View.VISIBLE
         } else {
-            textViewStartDate.text =
+            binding.textViewStartDate.text =
                 viewUtil.getDateFormatByDateString(
                     billsPaymentForm.paymentDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
-            textViewEndDate.text =
+            binding.textViewEndDate.text =
                 viewUtil.getDateFormatByDateString(
                     billsPaymentForm.recurrenceEndDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DATE
                 )
-            textViewFrequency.text = billsPaymentForm.frequency
+            binding.textViewFrequency.text = billsPaymentForm.frequency
             if (billsPaymentForm.frequency == getString(R.string.title_one_time)) {
-                textViewEndDate.visibility = View.GONE
-                textViewEndDateTitle.visibility = View.GONE
-                view7.visibility = View.GONE
-                textViewFrequencyTitle.visibility = View.GONE
-                textViewFrequency.visibility = View.GONE
-                view6.visibility = View.GONE
-                textViewStartDateTitle.visibility = View.GONE
-                textViewStartDate.visibility = View.GONE
-                view5.visibility = View.GONE
-                view4.visibility = View.GONE
+                binding.textViewEndDate.visibility = View.GONE
+                binding.textViewEndDateTitle.visibility = View.GONE
+                binding.view7.visibility = View.GONE
+                binding.textViewFrequencyTitle.visibility = View.GONE
+                binding.textViewFrequency.visibility = View.GONE
+                binding.view6.visibility = View.GONE
+                binding.textViewStartDateTitle.visibility = View.GONE
+                binding.textViewStartDate.visibility = View.GONE
+                binding.view5.visibility = View.GONE
+                binding.view4.visibility = View.GONE
             } else {
-                textViewProposedTransferDateTitle.visibility = View.GONE
-                textViewProposedTransferDate.visibility = View.GONE
-                view4.visibility = View.GONE
+                binding.textViewProposedTransferDateTitle.visibility = View.GONE
+                binding.textViewProposedTransferDate.visibility = View.GONE
+                binding.view4.visibility = View.GONE
             }
         }
-        textViewRemarks.text = viewUtil.getStringOrEmpty(billsPaymentForm.remarks)
+        binding.textViewRemarks.text = viewUtil.getStringOrEmpty(billsPaymentForm.remarks)
         if (billsPaymentForm.remarks == null || billsPaymentForm.remarks == "") {
-            textViewRemarksTitle.visibility = View.GONE
-            textViewRemarks.visibility = View.GONE
-            view7.visibility = View.GONE
+            binding.textViewRemarksTitle.visibility = View.GONE
+            binding.textViewRemarks.visibility = View.GONE
+            binding.view7.visibility = View.GONE
         } else {
-            textViewRemarksTitle.visibility = View.VISIBLE
-            textViewRemarks.visibility = View.VISIBLE
-            view7.visibility = View.VISIBLE
+            binding.textViewRemarksTitle.visibility = View.VISIBLE
+            binding.textViewRemarks.visibility = View.VISIBLE
+            binding.view7.visibility = View.VISIBLE
         }
-        textViewCreatedBy.text = billsPaymentVerify.createdBy
-        textViewCreatedOn.text = viewUtil.getDateFormatByDateString(
+        binding.textViewCreatedBy.text = billsPaymentVerify.createdBy
+        binding.textViewCreatedOn.text = viewUtil.getDateFormatByDateString(
             billsPaymentVerify.createdDate,
             DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
             DateFormatEnum.DATE_FORMAT_DEFAULT.value
         )
-        textViewDateDownloaded.text = viewUtil.getCurrentDateString()
+        binding.textViewDateDownloaded.text = viewUtil.getCurrentDateString()
         setTransactionStatus(contextualFeature, transaction)
     }
 
@@ -550,11 +545,11 @@ class BillsPaymentSummaryActivity :
         headerColor: Int,
         headerMsg: String?
     ) {
-        viewHeader.setContextCompatBackground(background)
-        imageViewHeader.setImageResource(icon)
-        textViewHeader.text = header.notEmpty().toHtmlSpan()
-        textViewHeader.setContextCompatTextColor(headerColor)
-        textViewMsg.text = headerMsg.notEmpty().toHtmlSpan()
+        binding.viewHeader.setContextCompatBackground(background)
+        binding.imageViewHeader.setImageResource(icon)
+        binding.textViewHeader.text = header.notEmpty().toHtmlSpan()
+        binding.textViewHeader.setContextCompatTextColor(headerColor)
+        binding.textViewMsg.text = headerMsg.notEmpty().toHtmlSpan()
     }
 
 
@@ -607,11 +602,11 @@ class BillsPaymentSummaryActivity :
             .doOnSubscribe { showProgressAlertDialog(BillsPaymentSummaryActivity::class.java.simpleName) }
             .subscribe(
                 {
-                    imageViewQRCode.setImageBitmap(it.toBitmap())
+                    binding.viewHeaderTransaction.imageViewQRCode.setImageBitmap(it.toBitmap())
                     showShareContent(true)
                     Handler().postDelayed(
                         {
-                            val shareBitmap = viewUtil.getBitmapByView(constraintLayoutShare)
+                            val shareBitmap = viewUtil.getBitmapByView(binding.constraintLayoutShare)
                             showShareContent(false)
                             dismissProgressAlertDialog()
                             startShareMediaActivity(shareBitmap)
@@ -627,29 +622,29 @@ class BillsPaymentSummaryActivity :
 
     private fun showShareContent(isShown: Boolean) {
         if (isShown) {
-            viewHeaderTransaction.visibility(true)
-            viewShareButton.visibility(false)
-            viewBorderCreatedBy.visibility(true)
-            textViewCreatedByTitle.visibility(true)
-            textViewCreatedBy.visibility(true)
-            textViewCreatedOnTitle.visibility(true)
-            textViewCreatedOn.visibility(true)
-            textViewDateDownloadedTitle.visibility(true)
-            textViewDateDownloaded.visibility(true)
-            buttonMakeAnotherPayment.visibility(false)
-            buttonViewOrganizationPayments.visibility(false)
+            binding.viewHeaderTransaction.root.visibility(true)
+            binding.viewShareButton.root.visibility(false)
+            binding.viewBorderCreatedBy.visibility(true)
+            binding.textViewCreatedByTitle.visibility(true)
+            binding.textViewCreatedBy.visibility(true)
+            binding.textViewCreatedOnTitle.visibility(true)
+            binding.textViewCreatedOn.visibility(true)
+            binding.textViewDateDownloadedTitle.visibility(true)
+            binding.textViewDateDownloaded.visibility(true)
+            binding.buttonMakeAnotherPayment.visibility(false)
+            binding.buttonViewOrganizationPayments.visibility(false)
         } else {
-            viewHeaderTransaction.visibility(false)
-            viewShareButton.visibility(true)
-            viewBorderCreatedBy.visibility(false)
-            textViewCreatedByTitle.visibility(false)
-            textViewCreatedBy.visibility(false)
-            textViewCreatedOnTitle.visibility(false)
-            textViewCreatedOn.visibility(false)
-            textViewDateDownloadedTitle.visibility(false)
-            textViewDateDownloaded.visibility(false)
-            buttonMakeAnotherPayment.visibility(true)
-            buttonViewOrganizationPayments.visibility(true)
+            binding.viewHeaderTransaction.root.visibility(false)
+            binding.viewShareButton.root.visibility(true)
+            binding.viewBorderCreatedBy.visibility(false)
+            binding.textViewCreatedByTitle.visibility(false)
+            binding.textViewCreatedBy.visibility(false)
+            binding.textViewCreatedOnTitle.visibility(false)
+            binding.textViewCreatedOn.visibility(false)
+            binding.textViewDateDownloadedTitle.visibility(false)
+            binding.textViewDateDownloaded.visibility(false)
+            binding.buttonMakeAnotherPayment.visibility(true)
+            binding.buttonViewOrganizationPayments.visibility(true)
         }
     }
 
@@ -664,11 +659,11 @@ class BillsPaymentSummaryActivity :
     }
 
     private fun startViewTutorial() {
-        viewUtil.setFocusOnView(scrollView, buttonViewOrganizationPayments)
+        viewUtil.setFocusOnView(binding.scrollView, binding.buttonViewOrganizationPayments)
         val radius = resources.getDimension(R.dimen.button_radius)
         tutorialEngineUtil.startTutorial(
             this,
-            buttonViewOrganizationPayments,
+            binding.buttonViewOrganizationPayments,
             R.layout.frame_tutorial_lower_left,
             radius,
             false,
@@ -691,4 +686,10 @@ class BillsPaymentSummaryActivity :
         const val EXTRA_ERROR_MESSAGE = "error_message"
         const val EXTRA_SERVICE_FEE = "service_fee"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_bills_payment_summary
+
+    override val viewModelClassType: Class<BillsPaymentSummaryViewModel>
+        get() = BillsPaymentSummaryViewModel::class.java
 }
