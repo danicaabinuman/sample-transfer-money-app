@@ -12,12 +12,12 @@ import com.unionbankph.corporate.approval.presentation.approval_batch_list.Batch
 import com.unionbankph.corporate.approval.presentation.approval_cwt.BatchCWTActivity
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityBatchDetailBinding
 import com.unionbankph.corporate.fund_transfer.data.model.Batch
-import kotlinx.android.synthetic.main.activity_batch_detail.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 
-class BatchDetailActivity : BaseActivity<BatchTransferViewModel>(R.layout.activity_batch_detail) {
+class BatchDetailActivity :
+    BaseActivity<ActivityBatchDetailBinding, BatchTransferViewModel>() {
 
     private val batch by lazyFast {
         JsonHelper.fromJson<Batch>(intent.getStringExtra(EXTRA_BATCH))
@@ -27,8 +27,8 @@ class BatchDetailActivity : BaseActivity<BatchTransferViewModel>(R.layout.activi
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, getString(R.string.title_transfer_details))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_transfer_details))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -49,10 +49,10 @@ class BatchDetailActivity : BaseActivity<BatchTransferViewModel>(R.layout.activi
 
     private fun initBatchDetailView() {
         batch.let {
-            textViewStatus.setContextCompatTextColor(ConstantHelper.Color.getTextColor(it.status))
-            textViewStatus.text = it.status?.description
+            binding.textViewStatus.setContextCompatTextColor(ConstantHelper.Color.getTextColor(it.status))
+            binding.textViewStatus.text = it.status?.description
 
-            textViewTransferTo.text =
+            binding.textViewTransferTo.text =
                 if (it.beneficiaryName != null)
                     formatString(
                         R.string.params_two_format,
@@ -62,13 +62,13 @@ class BatchDetailActivity : BaseActivity<BatchTransferViewModel>(R.layout.activi
                 else
                     viewUtil.getAccountNumberFormat(it.receiverAccountNumber)
 
-            textViewAmount.text =
+            binding.textViewAmount.text =
                 autoFormatUtil.formatWithTwoDecimalPlaces(batch.amount.toString(), batch.currency)
 
             if (0.00 >= it.serviceFee?.value?.toDouble() ?: 0.00 || it.serviceFee == null) {
-                textViewServiceFee.text = getString(R.string.value_service_fee_free)
+                binding.textViewServiceFee.text = getString(R.string.value_service_fee_free)
             } else {
-                textViewServiceFee.text = formatString(
+                binding.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         it.serviceFee?.value,
@@ -78,57 +78,57 @@ class BatchDetailActivity : BaseActivity<BatchTransferViewModel>(R.layout.activi
             }
 
             val hasBeneficiaryAddress = it.beneAddress != null
-            viewBorderBeneficiaryAddress.visibility(hasBeneficiaryAddress)
-            textViewBeneficiaryAddressTitle.visibility(hasBeneficiaryAddress)
-            textViewBeneficiaryAddress.visibility(hasBeneficiaryAddress)
-            textViewBeneficiaryAddress.text = it.beneAddress
+            binding.viewBorderBeneficiaryAddress.visibility(hasBeneficiaryAddress)
+            binding.textViewBeneficiaryAddressTitle.visibility(hasBeneficiaryAddress)
+            binding.textViewBeneficiaryAddress.visibility(hasBeneficiaryAddress)
+            binding.textViewBeneficiaryAddress.text = it.beneAddress
 
-            textViewChannel.text = ConstantHelper.Text.getChannelByChannelId(it.channelId?.toInt())
+            binding.textViewChannel.text = ConstantHelper.Text.getChannelByChannelId(it.channelId?.toInt())
 
             val hasBankCode = it.bankCode != null
-            viewBorderBankCode.visibility(hasBankCode)
-            textViewBankCodeTitle.visibility(hasBankCode)
-            textViewBankCode.visibility(hasBankCode)
-            textViewBankCode.text = it.bankCode
+            binding.viewBorderBankCode.visibility(hasBankCode)
+            binding.textViewBankCodeTitle.visibility(hasBankCode)
+            binding.textViewBankCode.visibility(hasBankCode)
+            binding.textViewBankCode.text = it.bankCode
 
             val hasBankName = it.bankName != null
-            viewBorderBankName.visibility(hasBankName)
-            textViewBankNameTitle.visibility(hasBankName)
-            textViewBankName.visibility(hasBankName)
-            textViewBankName.text = it.bankName
+            binding.viewBorderBankName.visibility(hasBankName)
+            binding.textViewBankNameTitle.visibility(hasBankName)
+            binding.textViewBankName.visibility(hasBankName)
+            binding.textViewBankName.text = it.bankName
 
             val hasPurpose = it.purpose != null
-            viewBorderPurpose.visibility(hasPurpose)
-            textViewPurposeTitle.visibility(hasPurpose)
-            textViewPurpose.visibility(hasPurpose)
-            textViewPurpose.text = it.purpose
+            binding.viewBorderPurpose.visibility(hasPurpose)
+            binding.textViewPurposeTitle.visibility(hasPurpose)
+            binding.textViewPurpose.visibility(hasPurpose)
+            binding.textViewPurpose.text = it.purpose
 
             val hasORReleaseBranch = it.orReleasingBranch != null
-            viewBorderORReleaseBranch.visibility(hasORReleaseBranch)
-            textViewORReleaseBranchTitle.visibility(hasORReleaseBranch)
-            textViewORReleaseBranch.visibility(hasORReleaseBranch)
-            textViewORReleaseBranch.text = it.orReleasingBranch
+            binding.viewBorderORReleaseBranch.visibility(hasORReleaseBranch)
+            binding.textViewORReleaseBranchTitle.visibility(hasORReleaseBranch)
+            binding.textViewORReleaseBranch.visibility(hasORReleaseBranch)
+            binding.textViewORReleaseBranch.text = it.orReleasingBranch
 
             val hasRemarks = it.remarks != null
-            viewBorderRemarks.visibility(hasRemarks)
-            textViewRemarksTitle.visibility(hasRemarks)
-            textViewRemarks.visibility(hasRemarks)
-            textViewRemarks.text = it.remarks
+            binding.viewBorderRemarks.visibility(hasRemarks)
+            binding.textViewRemarksTitle.visibility(hasRemarks)
+            binding.textViewRemarks.visibility(hasRemarks)
+            binding.textViewRemarks.text = it.remarks
 
-            val buttonViewCWT = viewButtonViewCWT.findViewById<Button>(R.id.button)
-            val textViewViewCWT = viewButtonViewCWT.findViewById<TextView>(R.id.textViewShare)
+            val buttonViewCWT = binding.viewButtonViewCWT.button
+            val textViewViewCWT = binding.viewButtonViewCWT.textViewShare
 
             val buttonViewAdditionalInformation =
-                viewButtonViewAdditionalInformation.findViewById<Button>(R.id.button)
+                binding.viewButtonViewAdditionalInformation.button
             val textViewViewAdditionalInformation =
-                viewButtonViewAdditionalInformation.findViewById<TextView>(R.id.textViewShare)
+                binding.viewButtonViewAdditionalInformation.textViewShare
 
             textViewViewCWT.text = formatString(R.string.action_view_cwt)
             textViewViewAdditionalInformation.text =
                 formatString(R.string.action_view_additional_information)
 
-            viewButtonViewCWT.visibility(supportCWT)
-            viewButtonViewAdditionalInformation.visibility(supportCWT)
+            binding.viewButtonViewCWT.root.visibility(supportCWT)
+            binding.viewButtonViewAdditionalInformation.root.visibility(supportCWT)
 
             buttonViewCWT.setOnClickListener { _ ->
                 val bundle = Bundle().apply {
@@ -163,5 +163,11 @@ class BatchDetailActivity : BaseActivity<BatchTransferViewModel>(R.layout.activi
         const val EXTRA_BATCH = "batch"
         const val EXTRA_SUPPORT_CWT = "support_cwt"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_batch_detail
+
+    override val viewModelClassType: Class<BatchTransferViewModel>
+        get() = BatchTransferViewModel::class.java
 
 }
