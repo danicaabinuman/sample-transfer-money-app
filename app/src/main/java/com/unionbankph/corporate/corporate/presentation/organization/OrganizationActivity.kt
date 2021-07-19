@@ -26,12 +26,11 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.corporate.data.model.CorporateUsers
+import com.unionbankph.corporate.databinding.ActivityOrganizationBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_organization.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 class OrganizationActivity :
-    BaseActivity<OrganizationViewModel>(R.layout.activity_organization),
+    BaseActivity<ActivityOrganizationBinding, OrganizationViewModel>(),
     OrganizationController.AdapterCallbacks,
     OnTutorialListener {
 
@@ -53,7 +52,7 @@ class OrganizationActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -84,22 +83,21 @@ class OrganizationActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[OrganizationViewModel::class.java]
         viewModel.state.observe(this, Observer {
 
             when (it) {
                 is ShowOrganizationLoading -> {
-                    if (!swipeRefreshLayoutUser.isRefreshing) {
+                    if (!binding.swipeRefreshLayoutUser.isRefreshing) {
                         isLoading = true
                         updateController()
                     }
                 }
                 is ShowOrganizationDismissLoading -> {
-                    if (!swipeRefreshLayoutUser.isRefreshing) {
+                    if (!binding.swipeRefreshLayoutUser.isRefreshing) {
                         isLoading = false
                         updateController()
                     } else {
-                        swipeRefreshLayoutUser.isRefreshing = false
+                        binding.swipeRefreshLayoutUser.isRefreshing = false
                     }
                 }
                 is ShowOrganizationSwitchOrgLoading -> {
@@ -111,19 +109,19 @@ class OrganizationActivity :
                     dismissProgressAlertDialog()
                 }
                 is ShowOrganizationActiveCorporate -> {
-                    recyclerViewUser.visibility = View.VISIBLE
+                    binding.recyclerViewUser.visibility = View.VISIBLE
                     tutorialUserDetail = it.userDetails
                     userDetails = it.userDetails
                     organizationName = userDetails?.role?.organizationName.notNullable()
                     updateController()
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         getString(R.string.title_profile),
                         userDetails?.role?.organizationName.notNullable()
                     )
                     if (corporateUsers.isNotEmpty()) {
-                        swipeRefreshLayoutUser.isRefreshing = true
+                        binding.swipeRefreshLayoutUser.isRefreshing = true
                     }
                     viewModel.getCorporateUsers()
                 }
@@ -150,14 +148,14 @@ class OrganizationActivity :
         tutorialEngineUtil.setOnTutorialListener(this)
         controller = OrganizationController(this, this, viewUtil)
         tutorialController = OrganizationController(this, this, viewUtil)
-        recyclerViewUser.setController(controller)
-        recyclerViewTutorialUser.setController(tutorialController)
+        binding.recyclerViewUser.setController(controller)
+        binding.recyclerViewTutorialUser.setController(tutorialController)
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
         initDataBus()
-        swipeRefreshLayoutUser.apply {
+        binding.swipeRefreshLayoutUser.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 viewModel.getCorporateUsers()
@@ -233,9 +231,9 @@ class OrganizationActivity :
                     isClickedHelpTutorial = false
                     val rect = Rect()
                     val rect2 = Rect()
-                    val cardView = recyclerViewTutorialUser
+                    val cardView = binding.recyclerViewTutorialUser
                         .findViewHolderForAdapterPosition(2)?.itemView
-                    val cardViewEnd = recyclerViewTutorialUser
+                    val cardViewEnd = binding.recyclerViewTutorialUser
                         .findViewHolderForAdapterPosition(2 + tutorialCorporateUsers.size)?.itemView
                     val totalHeight = cardView?.height!! *
                             (tutorialCorporateUsers.size + 1) +
@@ -275,11 +273,11 @@ class OrganizationActivity :
 
     private fun clearTutorialData() {
         tutorialCorporateUsers.clear()
-        recyclerViewTutorialUser.visibility = View.GONE
-        recyclerViewUser.visibility = View.VISIBLE
+        binding.recyclerViewTutorialUser.visibility = View.GONE
+        binding.recyclerViewUser.visibility = View.VISIBLE
         setToolbarTitle(
-            textViewTitle,
-            textViewCorporationName,
+            binding.viewToolbar.textViewTitle,
+            binding.viewToolbar.textViewCorporationName,
             getString(R.string.title_profile),
             organizationName
         )
@@ -290,9 +288,9 @@ class OrganizationActivity :
             setToolbarTitle(TUTORIAL_ORG_NAME, formatString(R.string.title_dashboard_header_user))
             val parseUsers: String = viewUtil.loadJSONFromAsset(this, "users")
             tutorialCorporateUsers = JsonHelper.fromListJson(parseUsers)
-            recyclerViewUser.visibility = View.GONE
+            binding.recyclerViewUser.visibility = View.GONE
             updateTutorialController()
-            recyclerViewTutorialUser.visibility = View.VISIBLE
+            binding.recyclerViewTutorialUser.visibility = View.VISIBLE
         }
         tutorialEngineUtil.startTutorial(
             this,
@@ -304,8 +302,8 @@ class OrganizationActivity :
 
     private fun setToolbarTitle(orgName: String, toolbar: String) {
         setToolbarTitle(
-            textViewTitle,
-            textViewCorporationName,
+            binding.viewToolbar.textViewTitle,
+            binding.viewToolbar.textViewCorporationName,
             toolbar,
             orgName
         )
@@ -314,4 +312,10 @@ class OrganizationActivity :
     companion object {
         const val TUTORIAL_ORG_NAME = "ABC Company"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_organization
+
+    override val viewModelClassType: Class<OrganizationViewModel>
+        get() = OrganizationViewModel::class.java
 }
