@@ -17,36 +17,33 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxValida
 import com.unionbankph.corporate.auth.data.form.PasswordRecoveryForm
 import com.unionbankph.corporate.auth.presentation.otp.OTPActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityPasswordRecoveryBinding
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_password_recovery.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
-class PasswordRecoveryActivity : BaseActivity<PasswordRecoveryViewModel>(R.layout.activity_password_recovery) {
+class PasswordRecoveryActivity :
+    BaseActivity<ActivityPasswordRecoveryBinding, PasswordRecoveryViewModel>() {
 
     private var dialog: ProgressBarDialog? = null
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewsBound() {
         super.onViewsBound()
-        validateForm(etEmail)
-        etEmail.post {
+        validateForm(binding.etEmail)
+        binding.etEmail.post {
             if (intent.getStringExtra(EXTRA_EMAIL).notNullable().isNotEmpty()) {
-                etEmail.setText(intent.getStringExtra(EXTRA_EMAIL))
+                binding.etEmail.setText(intent.getStringExtra(EXTRA_EMAIL))
             }
         }
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[PasswordRecoveryViewModel::class.java]
-
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowPRecoveryLoading -> {
@@ -87,7 +84,7 @@ class PasswordRecoveryActivity : BaseActivity<PasswordRecoveryViewModel>(R.layou
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(btnSubmit)
+        RxView.clicks(binding.btnSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -95,7 +92,7 @@ class PasswordRecoveryActivity : BaseActivity<PasswordRecoveryViewModel>(R.layou
             .subscribe {
                 viewModel.resetPass(
                     PasswordRecoveryForm(
-                        etEmail.text.toString().trim()
+                        binding.etEmail.text.toString().trim()
                     )
                 )
             }.addTo(disposables)
@@ -116,7 +113,7 @@ class PasswordRecoveryActivity : BaseActivity<PasswordRecoveryViewModel>(R.layou
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
-                    tilEmail.hint
+                    binding.tilEmail.hint
                 )
             )
             .email(getString(R.string.error_invalid_email_address))
@@ -141,11 +138,17 @@ class PasswordRecoveryActivity : BaseActivity<PasswordRecoveryViewModel>(R.layou
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                btnSubmit.enableButton(it)
+                binding.btnSubmit.enableButton(it)
             }.addTo(disposables)
     }
 
     companion object {
         const val EXTRA_EMAIL = "email"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_password_recovery
+
+    override val viewModelClassType: Class<PasswordRecoveryViewModel>
+        get() = PasswordRecoveryViewModel::class.java
 }
