@@ -56,23 +56,16 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.ActivityApprovalDetailsBinding
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_approval_details.*
-import kotlinx.android.synthetic.main.header_title.*
-import kotlinx.android.synthetic.main.view_cash_withdrawal_details.*
-import kotlinx.android.synthetic.main.view_transaction_details.*
-import kotlinx.android.synthetic.main.view_transaction_share.*
-import kotlinx.android.synthetic.main.widget_button_share_outline.*
-import kotlinx.android.synthetic.main.widget_header_transaction_summary.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.annotation.concurrent.ThreadSafe
 
 
 class ApprovalDetailActivity :
-    BaseActivity<ApprovalDetailViewModel>(R.layout.activity_approval_details),
+    BaseActivity<ActivityApprovalDetailsBinding, ApprovalDetailViewModel>(),
     OnTutorialListener {
 
     private lateinit var approvalDetail: Transaction
@@ -87,7 +80,7 @@ class ApprovalDetailActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -166,7 +159,7 @@ class ApprovalDetailActivity :
             getApprovalHierarchy()
         } else {
             if (view != null) {
-                if (view.id == viewHierarchy.id) {
+                if (view.id == binding.viewHierarchy.id) {
                     tutorialEngineUtil.startTutorial(
                         this,
                         approvalHierarchyManager.rootView,
@@ -220,8 +213,6 @@ class ApprovalDetailActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[ApprovalDetailViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowApprovalDetailInitialLoading -> {
@@ -270,7 +261,7 @@ class ApprovalDetailActivity :
                     handleOnError(it.throwable)
                 }
                 is ShowApprovalDetailError -> {
-                    nestedScrollView?.visibility = View.GONE
+                    binding.nestedScrollView.visibility = View.GONE
                     handleOnError(it.throwable)
                 }
             }
@@ -281,10 +272,10 @@ class ApprovalDetailActivity :
     }
 
     private fun updateApprovalDetails(transaction: Transaction) {
-        if (nestedScrollView?.visibility == View.GONE) {
-            nestedScrollView?.visibility = View.VISIBLE
+        if (binding.nestedScrollView.visibility == View.GONE) {
+            binding.nestedScrollView.visibility = View.VISIBLE
         }
-        nestedScrollView.smoothScrollTo(0, 0)
+        binding.nestedScrollView.smoothScrollTo(0, 0)
         approvalDetail = transaction
         setInitialView()
         approvalHierarchyManager.resetApprovalHierarchy()
@@ -292,35 +283,35 @@ class ApprovalDetailActivity :
     }
 
     private fun showApprovalDetailLoading() {
-        viewLoadingState.visibility = View.VISIBLE
-        constraintLayout.visibility = View.GONE
-        if (cardViewApprovalDetail.visibility == View.VISIBLE)
-            cardViewApprovalDetail.visibility = View.INVISIBLE
-        zoomLayout.setVisible(false)
-        zoomLayout.layoutParams.height =
+        binding.viewLoadingState.root.visibility = View.VISIBLE
+        binding.constraintLayout.visibility = View.GONE
+        if (binding.cardViewApprovalDetail.visibility == View.VISIBLE)
+            binding.cardViewApprovalDetail.visibility = View.INVISIBLE
+        binding.zoomLayout.setVisible(false)
+        binding.zoomLayout.layoutParams.height =
             resources.getDimension(
                 R.dimen.constraint_approval_hierarchy_small
             ).toInt()
     }
 
     private fun dismissApprovalDetailLoading() {
-        if (viewLoadingState.visibility == View.VISIBLE) {
-            viewLoadingState.visibility = View.GONE
+        if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
+            binding.viewLoadingState.root.visibility = View.GONE
         }
-        constraintLayout.visibility = View.VISIBLE
+        binding.constraintLayout.visibility = View.VISIBLE
     }
 
     private fun dismissInitialLoading() {
-        if (viewLoadingStateInitial.visibility == View.VISIBLE) {
-            viewLoadingStateInitial.visibility = View.GONE
+        if (binding.viewLoadingStateInitial.root.visibility == View.VISIBLE) {
+            binding.viewLoadingStateInitial.root.visibility = View.GONE
         }
     }
 
     private fun showInitialLoading() {
-        if (nestedScrollView.visibility == View.VISIBLE) {
-            nestedScrollView.visibility = View.GONE
+        if (binding.nestedScrollView.visibility == View.VISIBLE) {
+            binding.nestedScrollView.visibility = View.GONE
         }
-        viewLoadingStateInitial.visibility = View.VISIBLE
+        binding.viewLoadingStateInitial.root.visibility = View.VISIBLE
     }
 
     private fun showCancelApprovalSuccessDialog(message: String) {
@@ -346,11 +337,11 @@ class ApprovalDetailActivity :
             viewUtil.loadJSONFromAsset(this, "approval_hierarchy")
         approvalHierarchyManager.tutorialApprovalHierarchyDto =
             JsonHelper.fromJson(parseApprovalHierarchy)
-        textViewState.visibility = View.GONE
+        binding.textViewState.visibility = View.GONE
         drawApprovalHierarchy(approvalHierarchyManager.tutorialApprovalHierarchyDto)
         tutorialEngineUtil.startTutorial(
             this,
-            viewHierarchy,
+            binding.viewHierarchy,
             R.layout.frame_tutorial_upper_left,
             0f,
             false,
@@ -361,7 +352,7 @@ class ApprovalDetailActivity :
     }
 
     private fun initClickListener() {
-        RxView.clicks(buttonApprove)
+        RxView.clicks(binding.viewTransactionDetails.buttonApprove)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -369,7 +360,7 @@ class ApprovalDetailActivity :
             .subscribe {
                 showApprovalConfirmationBottomSheet()
             }.addTo(disposables)
-        RxView.clicks(buttonReject)
+        RxView.clicks(binding.viewTransactionDetails.buttonReject)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -377,7 +368,7 @@ class ApprovalDetailActivity :
             .subscribe {
                 showReasonForRejectionBottomSheet(title = R.string.title_reject_transaction)
             }.addTo(disposables)
-        RxView.clicks(buttonShare)
+        RxView.clicks(binding.viewShareButton.buttonShare)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -385,7 +376,7 @@ class ApprovalDetailActivity :
             .subscribe {
                 initPermission()
             }.addTo(disposables)
-        RxView.clicks(buttonViewLogs)
+        RxView.clicks(binding.buttonViewLogs)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -394,7 +385,7 @@ class ApprovalDetailActivity :
                 navigateActivityLogsScreen()
             }.addTo(disposables)
 
-        RxView.clicks(buttonViewAllTransaction)
+        RxView.clicks(binding.buttonViewAllTransaction)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -402,7 +393,7 @@ class ApprovalDetailActivity :
             .subscribe {
                 navigateBatchTransfer()
             }.addTo(disposables)
-        RxView.clicks(buttonDelete)
+        RxView.clicks(binding.buttonDelete)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -549,10 +540,10 @@ class ApprovalDetailActivity :
     private fun onClickedHelp() {
         if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return
         mLastClickTime = SystemClock.elapsedRealtime()
-        if (viewLoadingStateInitial.visibility != View.VISIBLE &&
-            viewLoadingState.visibility != View.VISIBLE
+        if (binding.viewLoadingStateInitial.root.visibility != View.VISIBLE &&
+            binding.viewLoadingState.root.visibility != View.VISIBLE
         ) {
-            nestedScrollView.fullScroll(NestedScrollView.FOCUS_UP)
+            binding.nestedScrollView.fullScroll(NestedScrollView.FOCUS_UP)
             Handler().postDelayed(
                 {
                     startTutorial()
@@ -563,29 +554,29 @@ class ApprovalDetailActivity :
     }
 
     private fun initViewDetails(isShownButtons: Boolean) {
-        textViewTitle?.text = getString(R.string.title_approval_hierarchy)
-        buttonApprove.visibility(isShownButtons)
-        buttonReject.visibility(isShownButtons)
-        viewBorderStatus.visibility(isShownButtons)
+        binding.viewHeader.textViewTitle.text = getString(R.string.title_approval_hierarchy)
+        binding.viewTransactionDetails.buttonApprove.visibility(isShownButtons)
+        binding.viewTransactionDetails.buttonReject.visibility(isShownButtons)
+        binding.viewTransactionDetails.viewBorderStatus.visibility(isShownButtons)
         if ((approvalDetail.immediate == false &&
                     approvalDetail.transactionStatus?.type == Constant.STATUS_SCHEDULED) ||
             (approvalDetail.maker == true &&
                     approvalDetail.transactionStatus?.type == Constant.STATUS_FOR_APPROVAL)
         ) {
-            buttonDelete.visibility = View.VISIBLE
+            binding.buttonDelete.visibility = View.VISIBLE
             val constraintSet = ConstraintSet()
-            constraintSet.clone(constraintLayoutContent)
+            constraintSet.clone(binding.constraintLayoutContent)
             constraintSet.connect(
-                buttonViewLogs.id,
+                binding.buttonViewLogs.id,
                 ConstraintSet.BOTTOM,
-                buttonDelete.id,
+                binding.buttonDelete.id,
                 ConstraintSet.TOP
             )
-            constraintSet.applyTo(constraintLayoutContent)
+            constraintSet.applyTo(binding.constraintLayoutContent)
         } else {
-            buttonDelete.visibility = View.GONE
+            binding.buttonDelete.visibility = View.GONE
         }
-        textViewStatus.text =
+        binding.viewTransactionDetails.textViewStatus.text =
             if (approvalDetail.transactionStatus?.type == Constant.STATUS_FOR_PROCESSING ||
                 approvalDetail.transactionStatus?.type == Constant.STATUS_SUCCESSFUL ||
                 approvalDetail.transactionStatus?.type == Constant.STATUS_SUCCESS ||
@@ -599,13 +590,13 @@ class ApprovalDetailActivity :
             } else {
                 "<b>${approvalDetail.transactionStatus?.description.notEmpty()}</b>".toHtmlSpan()
             }
-        textViewStatus.setTextColor(
+        binding.viewTransactionDetails.textViewStatus.setTextColor(
             ContextCompat.getColor(
                 this,
                 ConstantHelper.Color.getTextColor(approvalDetail.transactionStatus)
             )
         )
-        textViewRemarks.text = if (approvalDetail.batchType == Constant.TYPE_BATCH) {
+        binding.viewTransactionDetails.textViewRemarks.text = if (approvalDetail.batchType == Constant.TYPE_BATCH) {
             if (approvalDetail.remarks == "" || approvalDetail.remarks == null)
                 approvalDetail.fileName
             else
@@ -613,8 +604,8 @@ class ApprovalDetailActivity :
         } else {
             ConstantHelper.Text.getRemarks(this, approvalDetail)
         }
-        textViewCreatedBy.text = viewUtil.getStringOrEmpty(approvalDetail.createdBy)
-        textViewCreatedDate.text = viewUtil.getStringOrEmpty(
+        binding.viewTransactionDetails.textViewCreatedBy.text = viewUtil.getStringOrEmpty(approvalDetail.createdBy)
+        binding.viewTransactionDetails.textViewCreatedDate.text = viewUtil.getStringOrEmpty(
             viewUtil.getDateFormatByDateString(
                 approvalDetail.createdDate,
                 ViewUtil.DATE_FORMAT_ISO_WITHOUT_T,
@@ -622,7 +613,7 @@ class ApprovalDetailActivity :
             )
         )
 
-        textViewSourceAccount.text =
+        binding.viewTransactionDetails.textViewSourceAccount.text =
             Html.fromHtml(
                 String.format(
                     getString(R.string.params_account_detail),
@@ -633,107 +624,107 @@ class ApprovalDetailActivity :
             )
 
         if (approvalDetail.channel.equals(ChannelBankEnum.CHECK_WRITER.value, true)) {
-            textViewHeaderTransferTo.text = formatString(R.string.title_payee)
-            textViewHeaderPaymentTo.visibility(false)
-            cardViewPaymentTo.visibility(false)
-            textViewHeaderBankDetails.visibility(false)
-            cardViewBankDetails.visibility(false)
-            viewBorderPurpose.visibility(false)
-            textViewPurposeTitle.visibility(false)
-            textViewPurpose.visibility(false)
-            textViewBeneficiaryCodeTitle.visibility(false)
-            textViewBeneficiaryCode.visibility(false)
-            viewBorderBeneficiaryName.visibility(false)
-            viewBorderBeneficiaryAddress.visibility(false)
-            textViewBeneficiaryAddressTitle.visibility(false)
-            textViewBeneficiaryAddress.visibility(false)
-            viewBorderAccountNumber.visibility(false)
-            viewShareButton.visibility(false)
-            buttonViewAllTransaction.visibility(false)
-            buttonDelete.visibility(false)
-            viewBorderProposedTransactionDate.visibility(false)
-            textViewProposedTransactionDateTitle.visibility(false)
-            textViewProposedTransactionDate.visibility(false)
-            viewBorderCurrency.visibility(true)
-            textViewCurrencyTitle.visibility(true)
-            textViewCurrency.visibility(true)
-            viewBorderCheckNumber.visibility(true)
-            textViewCheckNumberTitle.visibility(true)
-            textViewCheckNumber.visibility(true)
-            viewBorderCheckDate.visibility(true)
-            textViewCheckDateTitle.visibility(true)
-            textViewCheckDate.visibility(true)
-            viewBorderCWTAmount.visibility(false)
-            textViewCWTAmountTitle.visibility(false)
-            textViewCWTAmount.visibility(false)
-            viewBorderPrintingType.visibility(true)
-            textViewPrintingTypeTitle.visibility(true)
-            textViewPrintingType.visibility(true)
-            viewBorderReferenceNumber.visibility(approvalDetail.transactionReferenceNumber != null)
-            textViewReferenceNumberTitle.visibility(approvalDetail.transactionReferenceNumber != null)
-            textViewReferenceNumber.visibility(approvalDetail.transactionReferenceNumber != null)
+            binding.viewTransactionDetails.textViewHeaderTransferTo.text = formatString(R.string.title_payee)
+            binding.viewTransactionDetails.textViewHeaderPaymentTo.visibility(false)
+            binding.viewTransactionDetails.cardViewPaymentTo.visibility(false)
+            binding.viewTransactionDetails.textViewHeaderBankDetails.visibility(false)
+            binding.viewTransactionDetails.cardViewBankDetails.visibility(false)
+            binding.viewTransactionDetails.viewBorderPurpose.visibility(false)
+            binding.viewTransactionDetails.textViewPurposeTitle.visibility(false)
+            binding.viewTransactionDetails.textViewPurpose.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryCodeTitle.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryCode.visibility(false)
+            binding.viewTransactionDetails.viewBorderBeneficiaryName.visibility(false)
+            binding.viewTransactionDetails.viewBorderBeneficiaryAddress.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryAddressTitle.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryAddress.visibility(false)
+            binding.viewTransactionDetails.viewBorderAccountNumber.visibility(false)
+            binding.viewShareButton.root.visibility(false)
+            binding.buttonViewAllTransaction.visibility(false)
+            binding.buttonDelete.visibility(false)
+            binding.viewTransactionDetails.viewBorderProposedTransactionDate.visibility(false)
+            binding.viewTransactionDetails.textViewProposedTransactionDateTitle.visibility(false)
+            binding.viewTransactionDetails.textViewProposedTransactionDate.visibility(false)
+            binding.viewTransactionDetails.viewBorderCurrency.visibility(true)
+            binding.viewTransactionDetails.textViewCurrencyTitle.visibility(true)
+            binding.viewTransactionDetails.textViewCurrency.visibility(true)
+            binding.viewTransactionDetails.viewBorderCheckNumber.visibility(true)
+            binding.viewTransactionDetails.textViewCheckNumberTitle.visibility(true)
+            binding.viewTransactionDetails.textViewCheckNumber.visibility(true)
+            binding.viewTransactionDetails.viewBorderCheckDate.visibility(true)
+            binding.viewTransactionDetails.textViewCheckDateTitle.visibility(true)
+            binding.viewTransactionDetails.textViewCheckDate.visibility(true)
+            binding.viewTransactionDetails.viewBorderCWTAmount.visibility(false)
+            binding.viewTransactionDetails.textViewCWTAmountTitle.visibility(false)
+            binding.viewTransactionDetails.textViewCWTAmount.visibility(false)
+            binding.viewTransactionDetails.viewBorderPrintingType.visibility(true)
+            binding.viewTransactionDetails.textViewPrintingTypeTitle.visibility(true)
+            binding.viewTransactionDetails.textViewPrintingType.visibility(true)
+            binding.viewTransactionDetails.viewBorderReferenceNumber.visibility(approvalDetail.transactionReferenceNumber != null)
+            binding.viewTransactionDetails.textViewReferenceNumberTitle.visibility(approvalDetail.transactionReferenceNumber != null)
+            binding.viewTransactionDetails.textViewReferenceNumber.visibility(approvalDetail.transactionReferenceNumber != null)
             if (approvalDetail.batchType == Constant.TYPE_BATCH) {
-                textViewBeneficiaryNameTitle.visibility(false)
-                textViewBeneficiaryName.visibility(false)
-                textViewBeneficiaryAccountNumberTitle.visibility(true)
-                textViewBeneficiaryAccountNumber.visibility(true)
-                textViewBeneficiaryAccountNumberTitle.text =
+                binding.viewTransactionDetails.textViewBeneficiaryNameTitle.visibility(false)
+                binding.viewTransactionDetails.textViewBeneficiaryName.visibility(false)
+                binding.viewTransactionDetails.textViewBeneficiaryAccountNumberTitle.visibility(true)
+                binding.viewTransactionDetails.textViewBeneficiaryAccountNumber.visibility(true)
+                binding.viewTransactionDetails.textViewBeneficiaryAccountNumberTitle.text =
                     formatString(R.string.title_number_of_checks)
-                textViewCheckNumberTitle.text = formatString(R.string.title_file_name)
-                textViewCheckNumber.text = approvalDetail.fileName
+                binding.viewTransactionDetails.textViewCheckNumberTitle.text = formatString(R.string.title_file_name)
+                binding.viewTransactionDetails.textViewCheckNumber.text = approvalDetail.fileName
             } else {
-                textViewBeneficiaryNameTitle.visibility(true)
-                textViewBeneficiaryName.visibility(true)
-                textViewBeneficiaryAccountNumberTitle.visibility(false)
-                textViewBeneficiaryAccountNumber.visibility(false)
-                textViewCheckNumber.text = approvalDetail.checkNumber.notEmpty()
+                binding.viewTransactionDetails.textViewBeneficiaryNameTitle.visibility(true)
+                binding.viewTransactionDetails.textViewBeneficiaryName.visibility(true)
+                binding.viewTransactionDetails.textViewBeneficiaryAccountNumberTitle.visibility(false)
+                binding.viewTransactionDetails.textViewBeneficiaryAccountNumber.visibility(false)
+                binding.viewTransactionDetails.textViewCheckNumber.text = approvalDetail.checkNumber.notEmpty()
             }
-            textViewBeneficiaryNameTitle.text = formatString(R.string.title_payee_name)
-            textViewBeneficiaryName.text = approvalDetail.payeeName
-            textViewCurrency.text = approvalDetail.currency
-            textViewCheckDate.text =
+            binding.viewTransactionDetails.textViewBeneficiaryNameTitle.text = formatString(R.string.title_payee_name)
+            binding.viewTransactionDetails.textViewBeneficiaryName.text = approvalDetail.payeeName
+            binding.viewTransactionDetails.textViewCurrency.text = approvalDetail.currency
+            binding.viewTransactionDetails.textViewCheckDate.text =
                 approvalDetail.checkDate.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DATE)
-            textViewPrintingType.text = approvalDetail.printingType
+            binding.viewTransactionDetails.textViewPrintingType.text = approvalDetail.printingType
         } else if (approvalDetail.channel.equals(ChannelBankEnum.CASH_WITHDRAWAL.name, true)) {
-            view_cash_withdrawal_details.visibility(true)
-            textViewHeaderPaymentTo.visibility(false)
-            cardViewPaymentTo.visibility(false)
-            textViewHeaderBankDetails.visibility(false)
-            cardViewBankDetails.visibility(false)
-            textViewHeaderTransferTo.visibility(false)
-            cardViewTransferTo.visibility(false)
-            viewShareButton.isVisible = false
-            buttonViewLogs.isVisible = false
-            view_cash_withdrawal_details.isVisible = true
-            textViewHeaderTransactionDetail.isVisible = false
-            cardViewTransactionDetails.isVisible = false
-            textViewHeaderTransferFrom.text = formatString(R.string.title_withdrawal_from)
-            tv_cash_transaction_date.text =
+            binding.viewTransactionDetails.viewCashWithdrawalDetails.root.visibility(true)
+            binding.viewTransactionDetails.textViewHeaderPaymentTo.visibility(false)
+            binding.viewTransactionDetails.cardViewPaymentTo.visibility(false)
+            binding.viewTransactionDetails.textViewHeaderBankDetails.visibility(false)
+            binding.viewTransactionDetails.cardViewBankDetails.visibility(false)
+            binding.viewTransactionDetails.textViewHeaderTransferTo.visibility(false)
+            binding.viewTransactionDetails.cardViewTransferTo.visibility(false)
+            binding.viewShareButton.root.isVisible = false
+            binding.buttonViewLogs.isVisible = false
+            binding.viewTransactionDetails.viewCashWithdrawalDetails.root.isVisible = true
+            binding.viewTransactionDetails.textViewHeaderTransactionDetail.isVisible = false
+            binding.viewTransactionDetails.cardViewTransactionDetails.isVisible = false
+            binding.viewTransactionDetails.textViewHeaderTransferFrom.text = formatString(R.string.title_withdrawal_from)
+            binding.viewTransactionDetails.viewCashWithdrawalDetails.tvCashTransactionDate.text =
                 approvalDetail.branchTransactionDate.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DATE)
-            tv_cash_branch_name.text = approvalDetail.branchName
-            tv_cash_branch_address.text = approvalDetail.branchAddress
-            tv_cash_amount.text = approvalDetail.totalAmount.formatAmount(approvalDetail.currency)
+            binding.viewTransactionDetails.viewCashWithdrawalDetails.tvCashBranchName.text = approvalDetail.branchName
+            binding.viewTransactionDetails.viewCashWithdrawalDetails.tvCashBranchAddress.text = approvalDetail.branchAddress
+            binding.viewTransactionDetails.viewCashWithdrawalDetails.tvCashAmount.text = approvalDetail.totalAmount.formatAmount(approvalDetail.currency)
             initServiceFee(
-                tv_cash_service_fee,
-                tv_cash_discount_service_fee,
-                view_cash_discount_service_fee
+                binding.viewTransactionDetails.viewCashWithdrawalDetails.tvCashServiceFee,
+                binding.viewTransactionDetails.viewCashWithdrawalDetails.tvCashDiscountServiceFee,
+                binding.viewTransactionDetails.viewCashWithdrawalDetails.viewCashDiscountServiceFee
             )
-            tv_cash_representative_name.text = approvalDetail.representativeName
-            tv_cash_channel.text = ChannelBankEnum.CASH_WITHDRAWAL.value
-            tv_cash_reference_number.text = approvalDetail.transactionReferenceId.notEmpty()
+            binding.viewTransactionDetails.viewCashWithdrawalDetails.tvCashRepresentativeName.text = approvalDetail.representativeName
+            binding.viewTransactionDetails.viewCashWithdrawalDetails.tvCashChannel.text = ChannelBankEnum.CASH_WITHDRAWAL.value
+            binding.viewTransactionDetails.viewCashWithdrawalDetails.tvCashReferenceNumber.text = approvalDetail.transactionReferenceId.notEmpty()
         } else if (approvalDetail.channel.equals(ChannelBankEnum.BILLS_PAYMENT.value, true)) {
-            textViewHeaderTransferFrom.text = formatString(R.string.title_payment_from)
-            textViewProposedTransactionDateTitle.text =
+            binding.viewTransactionDetails.textViewHeaderTransferFrom.text = formatString(R.string.title_payment_from)
+            binding.viewTransactionDetails.textViewProposedTransactionDateTitle.text =
                 formatString(R.string.title_proposed_payment_date)
-            textViewHeaderTransferTo.visibility(false)
-            cardViewTransferTo.visibility(false)
-            textViewHeaderBankDetails.visibility(false)
-            cardViewBankDetails.visibility(false)
-            viewBorderPurpose.visibility(false)
-            textViewPurposeTitle.visibility(false)
-            textViewPurpose.visibility(false)
-            textViewBiller.text = approvalDetail.billerName.notEmpty()
-            linearLayoutBillerFields.removeAllViews()
+            binding.viewTransactionDetails.textViewHeaderTransferTo.visibility(false)
+            binding.viewTransactionDetails.cardViewTransferTo.visibility(false)
+            binding.viewTransactionDetails.textViewHeaderBankDetails.visibility(false)
+            binding.viewTransactionDetails.cardViewBankDetails.visibility(false)
+            binding.viewTransactionDetails.viewBorderPurpose.visibility(false)
+            binding.viewTransactionDetails.textViewPurposeTitle.visibility(false)
+            binding.viewTransactionDetails.textViewPurpose.visibility(false)
+            binding.viewTransactionDetails.textViewBiller.text = approvalDetail.billerName.notEmpty()
+            binding.viewTransactionDetails.linearLayoutBillerFields.removeAllViews()
             approvalDetail.fields?.sortedWith(compareBy { it.index })?.forEach {
                 val viewFields = layoutInflater.inflate(R.layout.item_textview_biller, null)
                 val textViewTitle = viewFields.findViewById<TextView>(R.id.textViewTitle)
@@ -751,7 +742,7 @@ class ApprovalDetailActivity :
                 } else {
                     textView.text = it.value.notEmpty()
                 }
-                linearLayoutBillerFields?.addView(viewFields)
+                binding.viewTransactionDetails.linearLayoutBillerFields?.addView(viewFields)
             }
         } else if (approvalDetail.channel.equals(ChannelBankEnum.UBP_TO_UBP.value, true) ||
             approvalDetail.channel.equals(ChannelBankEnum.PESONET.value, true) ||
@@ -760,63 +751,63 @@ class ApprovalDetailActivity :
             approvalDetail.channel.equals(ChannelBankEnum.SWIFT.value, true)
         ) {
             if (approvalDetail.channel.equals(ChannelBankEnum.UBP_TO_UBP.value, true)) {
-                textViewHeaderBankDetails.visibility(false)
-                cardViewBankDetails.visibility(false)
-                viewBorderPurpose.visibility(false)
-                textViewPurposeTitle.visibility(false)
-                textViewPurpose.visibility(false)
-                textViewBeneficiaryCodeTitle.visibility(false)
-                textViewBeneficiaryCode.visibility(false)
-                viewBorderBeneficiaryName.visibility(false)
-                textViewBeneficiaryNameTitle.visibility(false)
-                textViewBeneficiaryName.visibility(false)
-                viewBorderBeneficiaryAddress.visibility(false)
-                textViewBeneficiaryAddressTitle.visibility(false)
-                textViewBeneficiaryAddress.visibility(false)
-                viewBorderAccountNumber.visibility(false)
+                binding.viewTransactionDetails.textViewHeaderBankDetails.visibility(false)
+                binding.viewTransactionDetails.cardViewBankDetails.visibility(false)
+                binding.viewTransactionDetails.viewBorderPurpose.visibility(false)
+                binding.viewTransactionDetails.textViewPurposeTitle.visibility(false)
+                binding.viewTransactionDetails.textViewPurpose.visibility(false)
+                binding.viewTransactionDetails.textViewBeneficiaryCodeTitle.visibility(false)
+                binding.viewTransactionDetails.textViewBeneficiaryCode.visibility(false)
+                binding.viewTransactionDetails.viewBorderBeneficiaryName.visibility(false)
+                binding.viewTransactionDetails.textViewBeneficiaryNameTitle.visibility(false)
+                binding.viewTransactionDetails.textViewBeneficiaryName.visibility(false)
+                binding.viewTransactionDetails.viewBorderBeneficiaryAddress.visibility(false)
+                binding.viewTransactionDetails.textViewBeneficiaryAddressTitle.visibility(false)
+                binding.viewTransactionDetails.textViewBeneficiaryAddress.visibility(false)
+                binding.viewTransactionDetails.viewBorderAccountNumber.visibility(false)
             } else if (approvalDetail.channel.equals(ChannelBankEnum.SWIFT.value, true)) {
-                viewBorderReceivingBankName.visibility(true)
-                textViewSwiftCodeTitle.visibility(true)
-                textViewSwiftCode.visibility(true)
-                viewBorderReceivingBankAddress.visibility(true)
-                textViewReceivingBankAddressTitle.visibility(true)
-                textViewReceivingBankAddress.visibility(true)
+                binding.viewTransactionDetails.viewBorderReceivingBankName.visibility(true)
+                binding.viewTransactionDetails.textViewSwiftCodeTitle.visibility(true)
+                binding.viewTransactionDetails.textViewSwiftCode.visibility(true)
+                binding.viewTransactionDetails.viewBorderReceivingBankAddress.visibility(true)
+                binding.viewTransactionDetails.textViewReceivingBankAddressTitle.visibility(true)
+                binding.viewTransactionDetails.textViewReceivingBankAddress.visibility(true)
             }
-            textViewHeaderPaymentTo.visibility(false)
-            cardViewPaymentTo.visibility(false)
-            textViewHeaderTransferFrom.text = formatString(R.string.title_transfer_from)
-            textViewProposedTransactionDateTitle.text =
+            binding.viewTransactionDetails.textViewHeaderPaymentTo.visibility(false)
+            binding.viewTransactionDetails.cardViewPaymentTo.visibility(false)
+            binding.viewTransactionDetails.textViewHeaderTransferFrom.text = formatString(R.string.title_transfer_from)
+            binding.viewTransactionDetails.textViewProposedTransactionDateTitle.text =
                 formatString(R.string.title_transaction_date)
-            textViewBeneficiaryCode.text = viewUtil.getStringOrEmpty(approvalDetail.beneficiaryCode)
-            textViewBeneficiaryName.text = viewUtil.getStringOrEmpty(approvalDetail.beneficiaryName)
-            textViewBeneficiaryAddress.text =
+            binding.viewTransactionDetails.textViewBeneficiaryCode.text = viewUtil.getStringOrEmpty(approvalDetail.beneficiaryCode)
+            binding.viewTransactionDetails.textViewBeneficiaryName.text = viewUtil.getStringOrEmpty(approvalDetail.beneficiaryName)
+            binding.viewTransactionDetails.textViewBeneficiaryAddress.text =
                 viewUtil.getStringOrEmpty(approvalDetail.beneficiaryAddress)
-            textViewBeneficiaryAccountNumber.text =
+            binding.viewTransactionDetails.textViewBeneficiaryAccountNumber.text =
                 viewUtil.getAccountNumberFormat(approvalDetail.destinationAccountNumber)
-            textViewSwiftCode.text = viewUtil.getStringOrEmpty(approvalDetail.swiftCode)
-            textViewReceivingBankName.text = viewUtil.getStringOrEmpty(approvalDetail.receivingBank)
-            textViewReceivingBankAddress.text =
+            binding.viewTransactionDetails.textViewSwiftCode.text = viewUtil.getStringOrEmpty(approvalDetail.swiftCode)
+            binding.viewTransactionDetails.textViewReceivingBankName.text = viewUtil.getStringOrEmpty(approvalDetail.receivingBank)
+            binding.viewTransactionDetails.textViewReceivingBankAddress.text =
                 viewUtil.getStringOrEmpty(approvalDetail.bankAddress)
-            textViewPurpose?.text = viewUtil.getStringOrEmpty(approvalDetail.purpose)
+            binding.viewTransactionDetails.textViewPurpose.text = viewUtil.getStringOrEmpty(approvalDetail.purpose)
         }
 
-        textViewAmount?.text = viewUtil.getStringOrEmpty(
+        binding.viewTransactionDetails.textViewAmount.text = viewUtil.getStringOrEmpty(
             autoFormatUtil.formatWithTwoDecimalPlaces(
                 approvalDetail.totalAmount,
                 approvalDetail.currency
             )
         )
-        textViewServiceFeeTitle.text = if (approvalDetail.batchType == Constant.TYPE_BATCH) {
+        binding.viewTransactionDetails.textViewServiceFeeTitle.text = if (approvalDetail.batchType == Constant.TYPE_BATCH) {
             getString(R.string.title_total_service_fee)
         } else {
             getString(R.string.title_service_fee)
         }
         initServiceFee(
-            textViewServiceFee,
-            textViewServiceDiscountFee,
-            viewBorderServiceDiscountFee
+            binding.viewTransactionDetails.textViewServiceFee,
+            binding.viewTransactionDetails.textViewServiceDiscountFee,
+            binding.viewTransactionDetails.viewBorderServiceDiscountFee
         )
-        textViewProposedTransactionDate?.text =
+        binding.viewTransactionDetails.textViewProposedTransactionDate.text =
             if (approvalDetail.immediate == true)
                 getString(R.string.title_immediately)
             else
@@ -829,17 +820,17 @@ class ApprovalDetailActivity :
                 )
         if (approvalDetail.immediate == false) {
             if (approvalDetail.endDate == null || approvalDetail.numberOfOccurrences.notNullable() == 1) {
-                viewBorderEndDate.visibility(false)
-                textViewEndDateTitle.visibility(false)
-                textViewEndDate.visibility(false)
+                binding.viewTransactionDetails.viewBorderEndDate.visibility(false)
+                binding.viewTransactionDetails.textViewEndDateTitle.visibility(false)
+                binding.viewTransactionDetails.textViewEndDate.visibility(false)
             } else {
-                textViewProposedTransactionDateTitle.text =
+                binding.viewTransactionDetails.textViewProposedTransactionDateTitle.text =
                     getString(R.string.title_transaction_date)
             }
-            textViewFrequency.text = viewUtil.getStringOrEmpty(approvalDetail.frequency)
+            binding.viewTransactionDetails.textViewFrequency.text = viewUtil.getStringOrEmpty(approvalDetail.frequency)
             if (approvalDetail.numberOfOccurrences.notNullable() > 1) {
-                textViewProposedTransactionDateTitle.text = formatString(R.string.title_start_date)
-                textViewEndDate.text =
+                binding.viewTransactionDetails.textViewProposedTransactionDateTitle.text = formatString(R.string.title_start_date)
+                binding.viewTransactionDetails.textViewEndDate.text =
                     ("After ${approvalDetail.numberOfOccurrences} occurrences" +
                             "\n" +
                             "(Until " +
@@ -850,55 +841,55 @@ class ApprovalDetailActivity :
                             })")
             }
         } else {
-            viewBorderFrequency.visibility(false)
-            textViewFrequencyTitle.visibility(false)
-            textViewFrequency.visibility(false)
-            viewBorderEndDate.visibility(false)
-            textViewEndDateTitle.visibility(false)
-            textViewEndDate.visibility(false)
+            binding.viewTransactionDetails.viewBorderFrequency.visibility(false)
+            binding.viewTransactionDetails.textViewFrequencyTitle.visibility(false)
+            binding.viewTransactionDetails.textViewFrequency.visibility(false)
+            binding.viewTransactionDetails.viewBorderEndDate.visibility(false)
+            binding.viewTransactionDetails.textViewEndDateTitle.visibility(false)
+            binding.viewTransactionDetails.textViewEndDate.visibility(false)
         }
-        textViewChannel.text = approvalDetail.channel
+        binding.viewTransactionDetails.textViewChannel.text = approvalDetail.channel
         if (approvalDetail.batchType == Constant.TYPE_BATCH) {
-            textViewHeaderBankDetails.visibility(false)
-            cardViewBankDetails.visibility(false)
-            textViewBeneficiaryCodeTitle.visibility(false)
-            textViewBeneficiaryCode.visibility(false)
-            textViewBeneficiaryNameTitle.visibility(false)
-            textViewBeneficiaryName.visibility(false)
-            textViewBeneficiaryAddressTitle.visibility(false)
-            textViewBeneficiaryAddress.visibility(false)
-            viewBorderBeneficiaryName.visibility(false)
-            viewBorderBeneficiaryAddress.visibility(false)
-            viewBorderAccountNumber.visibility(false)
-            viewBorderPurpose.visibility(false)
-            textViewPurposeTitle.visibility(false)
-            textViewPurpose.visibility(false)
-            textViewBeneficiaryAccountNumberTitle.text =
+            binding.viewTransactionDetails.textViewHeaderBankDetails.visibility(false)
+            binding.viewTransactionDetails.cardViewBankDetails.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryCodeTitle.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryCode.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryNameTitle.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryName.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryAddressTitle.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryAddress.visibility(false)
+            binding.viewTransactionDetails.viewBorderBeneficiaryName.visibility(false)
+            binding.viewTransactionDetails.viewBorderBeneficiaryAddress.visibility(false)
+            binding.viewTransactionDetails.viewBorderAccountNumber.visibility(false)
+            binding.viewTransactionDetails.viewBorderPurpose.visibility(false)
+            binding.viewTransactionDetails.textViewPurposeTitle.visibility(false)
+            binding.viewTransactionDetails.textViewPurpose.visibility(false)
+            binding.viewTransactionDetails.textViewBeneficiaryAccountNumberTitle.text =
                 getString(R.string.title_number_of_transfers)
-            textViewBeneficiaryAccountNumber.setTextColor(
+            binding.viewTransactionDetails.textViewBeneficiaryAccountNumber.setTextColor(
                 ContextCompat.getColor(this, getAccentColor())
             )
-            textViewBeneficiaryAccountNumber.setCompoundDrawablesWithIntrinsicBounds(
+            binding.viewTransactionDetails.textViewBeneficiaryAccountNumber.setCompoundDrawablesWithIntrinsicBounds(
                 R.drawable.ic_batch_orange,
                 0,
                 0,
                 0
             )
             val constraintSet = ConstraintSet()
-            constraintSet.clone(constraintLayoutTransferTo)
+            constraintSet.clone(binding.viewTransactionDetails.constraintLayoutTransferTo)
             constraintSet.clear(R.id.textViewBeneficiaryAccountNumber, ConstraintSet.START)
-            constraintSet.applyTo(constraintLayoutTransferTo)
-            zoomLayout.setVisible(true)
-            textViewBeneficiaryAccountNumber.text =
+            constraintSet.applyTo(binding.viewTransactionDetails.constraintLayoutTransferTo)
+            binding.zoomLayout.setVisible(true)
+            binding.viewTransactionDetails.textViewBeneficiaryAccountNumber.text =
                 viewUtil.getStringOrEmpty(approvalDetail.numberOfTransactions)
             if (!approvalDetail.channel.equals(ChannelBankEnum.CHECK_WRITER.value, true)) {
-                buttonViewAllTransaction.visibility(true)
-                constraintLayoutTransferTo.setOnClickListener {
+                binding.buttonViewAllTransaction.visibility(true)
+                binding.viewTransactionDetails.constraintLayoutTransferTo.setOnClickListener {
                     navigateBatchTransfer()
                 }
             }
         } else {
-            constraintLayoutTransferTo.setOnClickListener(null)
+            binding.viewTransactionDetails.constraintLayoutTransferTo.setOnClickListener(null)
         }
         if (approvalDetail.transactionReferenceId != null) {
             if (approvalDetail.transactionStatus?.description == Constant.TRANSFER_SUCCESSFUL ||
@@ -907,16 +898,16 @@ class ApprovalDetailActivity :
                 approvalDetail.transactionStatus?.type == Constant.STATUS_FOR_PROCESSING ||
                 approvalDetail.transactionStatus?.type == Constant.STATUS_SUCCESS
             ) {
-                textViewReferenceNumber.text = approvalDetail.transactionReferenceId
+                binding.viewTransactionDetails.textViewReferenceNumber.text = approvalDetail.transactionReferenceId
             } else {
-                viewBorderReferenceNumber.visibility(false)
-                textViewReferenceNumberTitle.visibility(false)
-                textViewReferenceNumber.visibility(false)
+                binding.viewTransactionDetails.viewBorderReferenceNumber.visibility(false)
+                binding.viewTransactionDetails.textViewReferenceNumberTitle.visibility(false)
+                binding.viewTransactionDetails.textViewReferenceNumber.visibility(false)
             }
         } else {
-            viewBorderReferenceNumber.visibility(false)
-            textViewReferenceNumberTitle.visibility(false)
-            textViewReferenceNumber.visibility(false)
+            binding.viewTransactionDetails.viewBorderReferenceNumber.visibility(false)
+            binding.viewTransactionDetails.textViewReferenceNumberTitle.visibility(false)
+            binding.viewTransactionDetails.textViewReferenceNumber.visibility(false)
         }
     }
 
@@ -969,7 +960,7 @@ class ApprovalDetailActivity :
     }
 
     private fun initViewShareDetails(transaction: Transaction) {
-        textViewShareTransferFrom.text = formatString(
+        binding.viewShareDetails.textViewShareTransferFrom.text = formatString(
             R.string.params_account_detail,
             transaction.sourceAccountName,
             viewUtil.getAccountNumberFormat(transaction.sourceAccountNumber),
@@ -977,31 +968,31 @@ class ApprovalDetailActivity :
         ).toHtmlSpan()
 
         if (transaction.batchType == Constant.TYPE_BATCH) {
-            textViewShareAmountTitle.text = formatString(R.string.title_total_amount)
-            textViewShareServiceFeeTitle.text = formatString(R.string.title_total_service_fee)
-            textViewShareTransferToTitle.text = formatString(R.string.title_number_of_transfers)
+            binding.viewShareDetails.textViewShareAmountTitle.text = formatString(R.string.title_total_amount)
+            binding.viewShareDetails.textViewShareServiceFeeTitle.text = formatString(R.string.title_total_service_fee)
+            binding.viewShareDetails.textViewShareTransferToTitle.text = formatString(R.string.title_number_of_transfers)
         }
 
         when (transaction.channel) {
             ChannelBankEnum.UBP_TO_UBP.value -> {
-                textViewShareReceivingBankTitle.visibility(false)
-                textViewShareReceivingBank.visibility(false)
-                viewShareBorderPurpose.visibility(false)
-                textViewSharePurposeTitle.visibility(false)
-                textViewSharePurpose.visibility(false)
-                textViewShareTransferTo.text = if (transaction.batchType == Constant.TYPE_BATCH) {
+                binding.viewShareDetails.textViewShareReceivingBankTitle.visibility(false)
+                binding.viewShareDetails.textViewShareReceivingBank.visibility(false)
+                binding.viewShareDetails.viewShareBorderPurpose.visibility(false)
+                binding.viewShareDetails.textViewSharePurposeTitle.visibility(false)
+                binding.viewShareDetails.textViewSharePurpose.visibility(false)
+                binding.viewShareDetails.textViewShareTransferTo.text = if (transaction.batchType == Constant.TYPE_BATCH) {
                     transaction.numberOfTransactions.toString().notEmpty()
                 } else {
                     viewUtil.getAccountNumberFormat(transaction.destinationAccountNumber)
                 }
             }
             ChannelBankEnum.BILLS_PAYMENT.value -> {
-                textViewShareReceivingBankTitle.visibility(false)
-                textViewShareReceivingBank.visibility(false)
-                viewShareBorderPurpose.visibility(false)
-                textViewSharePurposeTitle.visibility(false)
-                textViewSharePurpose.visibility(false)
-                textViewShareProposedTransferDateTitle.text =
+                binding.viewShareDetails.textViewShareReceivingBankTitle.visibility(false)
+                binding.viewShareDetails.textViewShareReceivingBank.visibility(false)
+                binding.viewShareDetails.viewShareBorderPurpose.visibility(false)
+                binding.viewShareDetails.textViewSharePurposeTitle.visibility(false)
+                binding.viewShareDetails.textViewSharePurpose.visibility(false)
+                binding.viewShareDetails.textViewShareProposedTransferDateTitle.text =
                     formatString(R.string.title_proposed_payment_date)
                 val stringBuilder = StringBuilder()
                 transaction.fields
@@ -1036,7 +1027,7 @@ class ApprovalDetailActivity :
                         }
                     }
 
-                textViewShareTransferTo.text =
+                binding.viewShareDetails.textViewShareTransferTo.text =
                     Html.fromHtml(
                         transaction.billerName +
                                 "<br>" +
@@ -1045,7 +1036,7 @@ class ApprovalDetailActivity :
                     )
             }
             else -> {
-                textViewShareTransferTo.text = if (transaction.batchType == Constant.TYPE_BATCH) {
+                binding.viewShareDetails.textViewShareTransferTo.text = if (transaction.batchType == Constant.TYPE_BATCH) {
                     transaction.numberOfTransactions.toString().notEmpty()
                 } else {
                     formatString(
@@ -1055,25 +1046,25 @@ class ApprovalDetailActivity :
                     ).toHtmlSpan()
                 }
                 if (transaction.channel == ChannelBankEnum.SWIFT.value) {
-                    textViewShareReceivingBank.text = formatString(
+                    binding.viewShareDetails.textViewShareReceivingBank.text = formatString(
                         R.string.params_account_detail,
                         transaction.swiftCode,
                         transaction.receivingBank,
                         transaction.bankAddress
                     ).toHtmlSpan()
                 } else {
-                    textViewShareReceivingBank.text = transaction.receivingBank.notEmpty()
+                    binding.viewShareDetails.textViewShareReceivingBank.text = transaction.receivingBank.notEmpty()
                 }
             }
         }
         if (approvalDetail.batchType == Constant.TYPE_BATCH) {
-            textViewShareReceivingBankTitle.visibility(false)
-            textViewShareReceivingBank.visibility(false)
-            viewShareBorderPurpose.visibility(false)
-            textViewSharePurposeTitle.visibility(false)
-            textViewSharePurpose.visibility(false)
+            binding.viewShareDetails.textViewShareReceivingBankTitle.visibility(false)
+            binding.viewShareDetails.textViewShareReceivingBank.visibility(false)
+            binding.viewShareDetails.viewShareBorderPurpose.visibility(false)
+            binding.viewShareDetails.textViewSharePurposeTitle.visibility(false)
+            binding.viewShareDetails.textViewSharePurpose.visibility(false)
         }
-        textViewShareAmount.text =
+        binding.viewShareDetails.textViewShareAmount.text =
             AutoFormatUtil().formatWithTwoDecimalPlaces(
                 transaction.totalAmount,
                 transaction.currency
@@ -1083,9 +1074,9 @@ class ApprovalDetailActivity :
             transaction.serviceFee != null
         ) {
             if (0.00 >= transaction.customServiceFee?.value?.toDouble() ?: 0.00) {
-                textViewShareServiceFee.text = getString(R.string.value_service_fee_free)
+                binding.viewShareDetails.textViewShareServiceFee.text = getString(R.string.value_service_fee_free)
             } else {
-                textViewShareServiceFee.text = formatString(
+                binding.viewShareDetails.textViewShareServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         transaction.customServiceFee?.value,
@@ -1093,15 +1084,15 @@ class ApprovalDetailActivity :
                     )
                 )
             }
-            textViewShareServiceDiscountFee.visibility(true)
-            viewBorderShareServiceDiscountFee.visibility(true)
+            binding.viewShareDetails.textViewShareServiceDiscountFee.visibility(true)
+            binding.viewShareDetails.viewBorderShareServiceDiscountFee.visibility(true)
         } else {
-            textViewShareServiceDiscountFee.visibility(false)
-            viewBorderShareServiceDiscountFee.visibility(false)
+            binding.viewShareDetails.textViewShareServiceDiscountFee.visibility(false)
+            binding.viewShareDetails.viewBorderShareServiceDiscountFee.visibility(false)
         }
         if (transaction.serviceFee != null) {
             if (transaction.customServiceFee != null) {
-                textViewShareServiceDiscountFee.text = formatString(
+                binding.viewShareDetails.textViewShareServiceDiscountFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         transaction.serviceFee?.value,
@@ -1109,7 +1100,7 @@ class ApprovalDetailActivity :
                     )
                 )
             } else {
-                textViewShareServiceFee.text = formatString(
+                binding.viewShareDetails.textViewShareServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         transaction.serviceFee?.value,
@@ -1118,12 +1109,12 @@ class ApprovalDetailActivity :
                 )
             }
         } else {
-            textViewShareServiceFee.text = getString(R.string.value_service_fee_free)
+            binding.viewShareDetails.textViewShareServiceFee.text = getString(R.string.value_service_fee_free)
         }
 
-        textViewShareChannel.text = transaction.channel.notEmpty()
-        textViewSharePurpose.text = transaction.purpose.notEmpty()
-        textViewShareRemarks.text = if (approvalDetail.batchType == Constant.TYPE_BATCH) {
+        binding.viewShareDetails.textViewShareChannel.text = transaction.channel.notEmpty()
+        binding.viewShareDetails.textViewSharePurpose.text = transaction.purpose.notEmpty()
+        binding.viewShareDetails.textViewShareRemarks.text = if (approvalDetail.batchType == Constant.TYPE_BATCH) {
             if (approvalDetail.remarks == "" || approvalDetail.remarks == null)
                 approvalDetail.fileName
             else
@@ -1131,7 +1122,7 @@ class ApprovalDetailActivity :
         } else {
             approvalDetail.remarks.notEmpty()
         }
-        textViewShareProposedTransferDate.text =
+        binding.viewShareDetails.textViewShareProposedTransferDate.text =
             if (transaction.immediate == true)
                 getString(R.string.title_immediately)
             else
@@ -1141,20 +1132,20 @@ class ApprovalDetailActivity :
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
         if (transaction.immediate == true) {
-            textViewShareStartDateTitle.visibility = View.GONE
-            textViewShareStartDate.visibility = View.GONE
-            viewBorderShareStartDate.visibility = View.GONE
-            textViewShareFrequencyTitle.visibility = View.GONE
-            textViewShareFrequency.visibility = View.GONE
-            viewBorderShareFrequency.visibility = View.GONE
-            textViewShareEndDateTitle.visibility = View.GONE
-            textViewShareEndDate.visibility = View.GONE
-            viewBorderShareEndDate.visibility = View.GONE
-            textViewShareProposedTransferDateTitle.visibility = View.VISIBLE
-            textViewShareProposedTransferDate.visibility = View.VISIBLE
-            viewBorderShareProposedTransferDate.visibility = View.VISIBLE
+            binding.viewShareDetails.textViewShareStartDateTitle.visibility = View.GONE
+            binding.viewShareDetails.textViewShareStartDate.visibility = View.GONE
+            binding.viewShareDetails.viewBorderShareStartDate.visibility = View.GONE
+            binding.viewShareDetails.textViewShareFrequencyTitle.visibility = View.GONE
+            binding.viewShareDetails.textViewShareFrequency.visibility = View.GONE
+            binding.viewShareDetails.viewBorderShareFrequency.visibility = View.GONE
+            binding.viewShareDetails.textViewShareEndDateTitle.visibility = View.GONE
+            binding.viewShareDetails.textViewShareEndDate.visibility = View.GONE
+            binding.viewShareDetails.viewBorderShareEndDate.visibility = View.GONE
+            binding.viewShareDetails.textViewShareProposedTransferDateTitle.visibility = View.VISIBLE
+            binding.viewShareDetails.textViewShareProposedTransferDate.visibility = View.VISIBLE
+            binding.viewShareDetails.viewBorderShareProposedTransferDate.visibility = View.VISIBLE
         } else {
-            textViewShareStartDate.text =
+            binding.viewShareDetails.textViewShareStartDate.text =
                 viewUtil.getDateFormatByDateString(
                     transaction.startDate,
                     ViewUtil.DATE_FORMAT_ISO_WITHOUT_T,
@@ -1162,7 +1153,7 @@ class ApprovalDetailActivity :
                 )
             if (transaction.endDate != null) {
                 if (approvalDetail.numberOfOccurrences.notNullable() > 1) {
-                    textViewShareEndDate.text =
+                    binding.viewShareDetails.textViewShareEndDate.text =
                         ("After ${approvalDetail.numberOfOccurrences} occurrences" +
                                 "\n" +
                                 "(Until " +
@@ -1173,28 +1164,28 @@ class ApprovalDetailActivity :
                                 })")
                 }
             }
-            textViewShareFrequency.text = transaction.frequency
+            binding.viewShareDetails.textViewShareFrequency.text = transaction.frequency
             if (transaction.frequency == getString(R.string.title_one_time)) {
-                textViewShareEndDate.visibility = View.GONE
-                textViewShareEndDateTitle.visibility = View.GONE
-                viewBorderShareEndDate.visibility = View.GONE
-                textViewShareStartDateTitle.visibility = View.GONE
-                textViewShareStartDate.visibility = View.GONE
-                viewBorderShareStartDate.visibility = View.GONE
+                binding.viewShareDetails.textViewShareEndDate.visibility = View.GONE
+                binding.viewShareDetails.textViewShareEndDateTitle.visibility = View.GONE
+                binding.viewShareDetails.viewBorderShareEndDate.visibility = View.GONE
+                binding.viewShareDetails.textViewShareStartDateTitle.visibility = View.GONE
+                binding.viewShareDetails.textViewShareStartDate.visibility = View.GONE
+                binding.viewShareDetails.viewBorderShareStartDate.visibility = View.GONE
             } else {
-                textViewShareProposedTransferDateTitle.visibility = View.GONE
-                textViewShareProposedTransferDate.visibility = View.GONE
-                viewBorderShareProposedTransferDate.visibility = View.GONE
+                binding.viewShareDetails.textViewShareProposedTransferDateTitle.visibility = View.GONE
+                binding.viewShareDetails.textViewShareProposedTransferDate.visibility = View.GONE
+                binding.viewShareDetails.viewBorderShareProposedTransferDate.visibility = View.GONE
             }
         }
 
-        textViewShareCreatedBy.text = transaction.createdBy
-        textViewShareCreatedOn.text = viewUtil.getDateFormatByDateString(
+        binding.viewShareDetails.textViewShareCreatedBy.text = transaction.createdBy
+        binding.viewShareDetails.textViewShareCreatedOn.text = viewUtil.getDateFormatByDateString(
             transaction.createdDate,
             DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
             DateFormatEnum.DATE_FORMAT_DEFAULT.value
         )
-        textViewShareDateDownloaded.text = viewUtil.getCurrentDateString()
+        binding.viewShareDetails.textViewShareDateDownloaded.text = viewUtil.getCurrentDateString()
 
         initShareDetailStatus(transaction)
     }
@@ -1557,11 +1548,11 @@ class ApprovalDetailActivity :
         headerTitle: String?,
         headerContent: String?
     ) {
-        linearLayoutHeaderStatus.setContextCompatBackground(background)
-        imageViewHeader.setImageResource(logo)
-        textViewHeader.text = headerTitle.notEmpty().toHtmlSpan()
-        textViewHeader.setContextCompatTextColor(headerTextColor)
-        textViewMsg.text = headerContent.notEmpty().toHtmlSpan()
+        binding.viewShareDetails.linearLayoutHeaderStatus.setContextCompatBackground(background)
+        binding.viewShareDetails.imageViewHeader.setImageResource(logo)
+        binding.viewShareDetails.textViewHeader.text = headerTitle.notEmpty().toHtmlSpan()
+        binding.viewShareDetails.textViewHeader.setContextCompatTextColor(headerTextColor)
+        binding.viewShareDetails.textViewMsg.text = headerContent.notEmpty().toHtmlSpan()
     }
 
     private fun drawApprovalHierarchy(approvalHierarchyDto: ApprovalHierarchyDto?) {
@@ -1569,10 +1560,10 @@ class ApprovalDetailActivity :
             approvalHierarchyManager.startDrawApprovalHierarchy(approvalHierarchyDto)
         } else {
             approvalHierarchyManager.approvalHierarchyName = ""
-            viewApprovalStatus.visibility = View.GONE
-            textViewState.visibility = View.VISIBLE
-            zoomLayout.setVisible(false)
-            zoomLayout.layoutParams.height = resources.getDimension(
+            binding.viewApprovalStatus.root.visibility = View.GONE
+            binding.textViewState.visibility = View.VISIBLE
+            binding.zoomLayout.setVisible(false)
+            binding.zoomLayout.layoutParams.height = resources.getDimension(
                 R.dimen.constraint_approval_hierarchy_small
             ).toInt()
         }
@@ -1584,19 +1575,19 @@ class ApprovalDetailActivity :
 
     private fun getApprovalHierarchy() {
         if (approvalDetail.approvalProcessId != null) {
-            viewApprovalStatus.visibility = View.VISIBLE
+            binding.viewApprovalStatus.root.visibility = View.VISIBLE
             viewModel.getApprovalHierarchy(
                 approvalDetail.approvalProcessId.notNullable(),
                 approvalDetail.transactionStatus?.type
             )
         } else {
-            viewApprovalStatus.visibility = View.GONE
-            textViewState.visibility = View.VISIBLE
-            zoomLayout.layoutParams.height = resources.getDimension(
+            binding.viewApprovalStatus.root.visibility = View.GONE
+            binding.textViewState.visibility = View.VISIBLE
+            binding.zoomLayout.layoutParams.height = resources.getDimension(
                 R.dimen.constraint_approval_hierarchy_small
             ).toInt()
-            zoomLayout.setVisible(false)
-            textViewTitle.text = getString(R.string.title_no_approval_hierarchy)
+            binding.zoomLayout.setVisible(false)
+            binding.viewHeader.textViewTitle.text = getString(R.string.title_no_approval_hierarchy)
             approvalHierarchyManager.approvalHierarchyName = ""
             initViewShareDetails(approvalDetail)
         }
@@ -1606,16 +1597,16 @@ class ApprovalDetailActivity :
         approvalDetail = JsonHelper.fromJson(intent.getStringExtra(EXTRA_TRANSACTION_DETAIL))
         when (approvalDetail.channel) {
             ChannelBankEnum.BILLS_PAYMENT.value -> {
-                setToolbarTitle(tvToolbar, getString(R.string.title_payment_details))
+                setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_payment_details))
             }
             ChannelBankEnum.CHECK_WRITER.value -> {
-                setToolbarTitle(tvToolbar, getString(R.string.title_check_details))
+                setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_check_details))
             }
             ChannelBankEnum.CASH_WITHDRAWAL.name -> {
-                setToolbarTitle(tvToolbar, getString(R.string.title_cash_withdrawal_details))
+                setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_cash_withdrawal_details))
             }
             else -> {
-                setToolbarTitle(tvToolbar, getString(R.string.title_transfer_details))
+                setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_transfer_details))
             }
         }
         getDetailsBasedOnChannel()
@@ -1656,16 +1647,16 @@ class ApprovalDetailActivity :
     }
 
     private fun initPushNotification() {
-        zoomLayout?.visibility = View.INVISIBLE
+        binding.zoomLayout.visibility = View.INVISIBLE
         viewModel.getUserDetails()
         if (intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA) != null) {
             val pushNotificationPayload = JsonHelper.fromJson<PushNotificationPayload>(
                 intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
             )
             if (pushNotificationPayload.channel?.equals("bills-payments", true) == true) {
-                setToolbarTitle(tvToolbar, getString(R.string.title_payment_details))
+                setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_payment_details))
             } else {
-                setToolbarTitle(tvToolbar, getString(R.string.title_transfer_details))
+                setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_transfer_details))
             }
             if (pushNotificationPayload.channel?.equals("bills-payments", true) == true) {
                 viewModel.getBillsPaymentDetail(
@@ -1985,12 +1976,12 @@ class ApprovalDetailActivity :
             }
             .subscribe(
                 {
-                    imageViewQRCode.setImageBitmap(it.toBitmap())
-                    scrollView.visibility(true)
+                    binding.viewShareDetails.viewHeaderTransaction.imageViewQRCode.setImageBitmap(it.toBitmap())
+                    binding.scrollView.visibility(true)
                     Handler().postDelayed(
                         {
-                            val shareBitmap = viewUtil.getBitmapByView(viewShareDetails)
-                            scrollView.visibility(false)
+                            val shareBitmap = viewUtil.getBitmapByView(binding.viewShareDetails.root)
+                            binding.scrollView.visibility(false)
                             dismissProgressAlertDialog()
                             startShareMediaActivity(shareBitmap)
                             if (isClickedShare) isClickedShare = false
@@ -2017,5 +2008,11 @@ class ApprovalDetailActivity :
 
         const val SHOW_APRROVAL_ACTION = "approval_actions"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_approval_details
+
+    override val viewModelClassType: Class<ApprovalDetailViewModel>
+        get() = ApprovalDetailViewModel::class.java
 
 }
