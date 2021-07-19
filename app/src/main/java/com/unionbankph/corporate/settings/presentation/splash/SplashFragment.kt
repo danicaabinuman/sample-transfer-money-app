@@ -5,9 +5,10 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
-import kotlinx.android.synthetic.main.fragment_splash_screen.*
+import com.unionbankph.corporate.databinding.FragmentSplashScreenBinding
 
-class SplashFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splash_screen) {
+class SplashFragment :
+    BaseFragment<FragmentSplashScreenBinding, GeneralViewModel>() {
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -15,53 +16,53 @@ class SplashFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splash_s
             SplashScreenPage.PAGE_SAFE_FIRST -> {
                 if (App.isSME()) {
                     addPaddingLargeImageView()
-                    imageView.setImageResource(R.drawable.bg_splash_safety_first_sme)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_safety_first_sme)
                 } else {
-                    imageView.setImageResource(R.drawable.bg_splash_safety_first)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_safety_first)
                 }
-                textViewHeader.text = getString(R.string.title_safety_first)
-                textViewDesc.text = getString(R.string.desc_safety_first)
+                binding.textViewHeader.text = getString(R.string.title_safety_first)
+                binding.textViewDesc.text = getString(R.string.desc_safety_first)
             }
             SplashScreenPage.PAGE_TRANSFER -> {
                 if (App.isSME()) {
-                    imageView.setImageResource(R.drawable.bg_splash_transfers_sme)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_transfers_sme)
                 } else {
-                    imageView.setImageResource(R.drawable.bg_splash_transfers)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_transfers)
                 }
-                textViewHeader.text = getString(R.string.title_transfers)
-                textViewDesc.text = getString(R.string.desc_transfers)
+                binding.textViewHeader.text = getString(R.string.title_transfers)
+                binding.textViewDesc.text = getString(R.string.desc_transfers)
             }
             SplashScreenPage.PAGE_BILLS_PAYMENT -> {
                 if (App.isSME()) {
                     addPaddingLargeImageView()
-                    imageView.setImageResource(R.drawable.bg_splash_bills_payment_sme)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_bills_payment_sme)
                 } else {
-                    imageView.setImageResource(R.drawable.bg_splash_bills_payment)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_bills_payment)
                 }
-                textViewHeader.text = getString(R.string.title_bills_payment_splash)
-                textViewDesc.text = getString(R.string.desc_bills_payment)
+                binding.textViewHeader.text = getString(R.string.title_bills_payment_splash)
+                binding.textViewDesc.text = getString(R.string.desc_bills_payment)
             }
             SplashScreenPage.PAGE_APPROVAL -> {
                 if (App.isSME()) {
-                    imageView.setImageResource(R.drawable.bg_splash_approval_sme)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_approval_sme)
                     addPaddingImageView()
                 } else {
                     addPaddingLargeImageView()
-                    imageView.setImageResource(R.drawable.bg_splash_approval)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_approval)
                 }
-                textViewHeader.text = getString(R.string.title_approve_transactions)
-                textViewDesc.text = getString(R.string.desc_approve_transactions)
+                binding.textViewHeader.text = getString(R.string.title_approve_transactions)
+                binding.textViewDesc.text = getString(R.string.desc_approve_transactions)
             }
             SplashScreenPage.PAGE_ORGANIZATION -> {
                 if (App.isSME()) {
                     addPaddingLargeImageView()
-                    imageView.setImageResource(R.drawable.bg_splash_organizations_sme)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_organizations_sme)
                 } else {
                     addPaddingImageView()
-                    imageView.setImageResource(R.drawable.bg_splash_organizations)
+                    binding.imageView.setImageResource(R.drawable.bg_splash_organizations)
                 }
-                textViewHeader.text = getString(R.string.title_organization_splash)
-                textViewDesc.text = getString(R.string.desc_organization)
+                binding.textViewHeader.text = getString(R.string.title_organization_splash)
+                binding.textViewDesc.text = getString(R.string.desc_organization)
             }
             SplashScreenPage.PAGE_SUMMARY -> {
             }
@@ -69,7 +70,7 @@ class SplashFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splash_s
     }
 
     private fun addPaddingLargeImageView() {
-        imageView.setPadding(
+        binding.imageView.setPadding(
             resources.getDimension(R.dimen.content_group_spacing).toInt(),
             resources.getDimension(R.dimen.content_group_spacing).toInt(),
             resources.getDimension(R.dimen.content_group_spacing).toInt(),
@@ -78,7 +79,7 @@ class SplashFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splash_s
     }
 
     private fun addPaddingImageView() {
-        imageView.setPadding(
+        binding.imageView.setPadding(
             resources.getDimension(R.dimen.content_spacing).toInt(),
             resources.getDimension(R.dimen.content_spacing).toInt(),
             resources.getDimension(R.dimen.content_spacing).toInt(),
@@ -107,4 +108,10 @@ class SplashFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splash_s
         PAGE_SUMMARY,
         PAGE_LOGIN
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_splash_screen
+
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
 }

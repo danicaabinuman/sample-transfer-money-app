@@ -9,10 +9,13 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
-import kotlinx.android.synthetic.main.footer_error.view.*
+import com.unionbankph.corporate.databinding.FooterErrorBinding
 
-@EpoxyModelClass(layout = R.layout.footer_error)
 abstract class ErrorAccountFooterModel : EpoxyModelWithHolder<ErrorAccountFooterModel.Holder>() {
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.footer_error
+    }
 
     @EpoxyAttribute
     lateinit var title: String
@@ -23,22 +26,19 @@ abstract class ErrorAccountFooterModel : EpoxyModelWithHolder<ErrorAccountFooter
     override fun bind(holder: Holder) {
         super.bind(holder)
         holder.apply {
-            tv_title.text = title
-            cl_error.setOnClickListener {
+            binding.tvTitle.text = title
+            binding.clError.setOnClickListener {
                 callbacks.onTapToRetry()
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var cl_error: ConstraintLayout
-        lateinit var tv_title: AppCompatTextView
-        lateinit var tv_desc: AppCompatTextView
+
+        lateinit var binding : FooterErrorBinding
 
         override fun bindView(itemView: View) {
-            cl_error = itemView.cl_error
-            tv_title = itemView.tv_title
-            tv_desc = itemView.tv_desc
+            binding = FooterErrorBinding.bind(itemView)
         }
     }
 }
