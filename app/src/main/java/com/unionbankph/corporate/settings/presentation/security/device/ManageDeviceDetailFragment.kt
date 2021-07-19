@@ -22,13 +22,13 @@ import com.unionbankph.corporate.common.data.model.ItemState
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentManageDeviceDetailBinding
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.data.model.Device
 import com.unionbankph.corporate.settings.data.model.LastAccessed
-import kotlinx.android.synthetic.main.fragment_manage_device_detail.*
 
 class ManageDeviceDetailFragment :
-    BaseFragment<ManageDevicesViewModel>(R.layout.fragment_manage_device_detail),
+    BaseFragment<FragmentManageDeviceDetailBinding, ManageDevicesViewModel>(),
     OnConfirmationPageCallBack,
     ManageDeviceDetailController.AdapterCallback, EpoxyAdapterCallback<LastAccessed> {
 
@@ -58,8 +58,7 @@ class ManageDeviceDetailFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[ManageDevicesViewModel::class.java]
+
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowManageDevicesProgressLoading -> {
@@ -72,17 +71,17 @@ class ManageDeviceDetailFragment :
                 }
                 is ShowManageDevicesLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.viewLoadingLayout,
                         null,
-                        recyclerViewManageDeviceDetail,
+                        binding.recyclerViewManageDeviceDetail,
                         null
                     )
                 }
                 is ShowManageDevicesDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.viewLoadingLayout,
                         null,
-                        recyclerViewManageDeviceDetail
+                        binding.recyclerViewManageDeviceDetail
                     )
                 }
                 is ShowManageDevicesEndlessLoading -> {
@@ -173,8 +172,8 @@ class ManageDeviceDetailFragment :
 
     private fun initRecyclerView() {
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewManageDeviceDetail.layoutManager = linearLayoutManager
-        recyclerViewManageDeviceDetail.addOnScrollListener(
+        binding.recyclerViewManageDeviceDetail.layoutManager = linearLayoutManager
+        binding.recyclerViewManageDeviceDetail.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = pageable.totalPageCount
@@ -191,7 +190,7 @@ class ManageDeviceDetailFragment :
                 }
             }
         )
-        recyclerViewManageDeviceDetail.setController(controller)
+        binding.recyclerViewManageDeviceDetail.setController(controller)
         controller.setAdapterCallbacks(this)
         controller.setEpoxyAdapterCallback(this)
     }
@@ -312,4 +311,10 @@ class ManageDeviceDetailFragment :
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_manage_device_detail
+
+    override val viewModelClassType: Class<ManageDevicesViewModel>
+        get() = ManageDevicesViewModel::class.java
 }

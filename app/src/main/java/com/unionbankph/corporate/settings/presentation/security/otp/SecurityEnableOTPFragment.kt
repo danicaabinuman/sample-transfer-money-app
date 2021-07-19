@@ -13,6 +13,7 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.auth.presentation.otp.OTPActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentSecurityEnableOtpBinding
 import com.unionbankph.corporate.settings.data.form.OTPSettingsForm
 import com.unionbankph.corporate.settings.data.model.OTPSettingsDto
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
@@ -24,10 +25,9 @@ import com.unionbankph.corporate.settings.presentation.ShowSettingsLoading
 import com.unionbankph.corporate.settings.presentation.ShowSettingsOTPSettingsSuccess
 import com.unionbankph.corporate.settings.presentation.ShowSettingsProgressBarLoading
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_security_enable_otp.*
 
 class SecurityEnableOTPFragment :
-    BaseFragment<SettingsViewModel>(R.layout.fragment_security_enable_otp) {
+    BaseFragment<FragmentSecurityEnableOtpBinding, SettingsViewModel>() {
 
     private val dashboardActivity by lazyFast { (activity as DashboardActivity) }
 
@@ -37,16 +37,15 @@ class SecurityEnableOTPFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[SettingsViewModel::class.java]
+
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSettingsLoading -> {
-                    viewLoadingState.visibility(true)
-                    constraintLayout.visibility(false)
+                    binding.viewLoadingState.viewLoadingLayout.visibility(true)
+                    binding.constraintLayout.visibility(false)
                 }
                 is ShowSettingsDismissLoading -> {
-                    viewLoadingState.visibility(false)
+                    binding.viewLoadingState.viewLoadingLayout.visibility(false)
                 }
                 is ShowSettingsProgressBarLoading -> {
                     showProgressAlertDialog(SecurityEnableOTPFragment::class.java.simpleName)
@@ -55,7 +54,7 @@ class SecurityEnableOTPFragment :
                     dismissProgressAlertDialog()
                 }
                 is ShowSettingsGetOTPSettings -> {
-                    constraintLayout.visibility(true)
+                    binding.constraintLayout.visibility(true)
                     oTPSettingsDto = OTPSettingsDto(
                         it.otpSettingsDto.loginOtp,
                         it.otpSettingsDto.transactionOtp
@@ -96,11 +95,11 @@ class SecurityEnableOTPFragment :
     }
 
     private fun initViews() {
-        switchLoginAuth.tag = SecurityEnableOTPFragment::class.java.simpleName
-        switchTransactionAuth.tag = SecurityEnableOTPFragment::class.java.simpleName
+        binding.switchLoginAuth.tag = SecurityEnableOTPFragment::class.java.simpleName
+        binding.switchTransactionAuth.tag = SecurityEnableOTPFragment::class.java.simpleName
 
-        switchLoginAuth.isChecked = oTPSettingsDto.loginOtp
-        switchTransactionAuth.isChecked = oTPSettingsDto.transactionOtp
+        binding.switchLoginAuth.isChecked = oTPSettingsDto.loginOtp
+        binding.switchTransactionAuth.isChecked = oTPSettingsDto.transactionOtp
     }
 
     override fun onViewsBound() {
@@ -120,38 +119,44 @@ class SecurityEnableOTPFragment :
                 this.oTPSettingsDto = JsonHelper.fromJson(it.payload)
                 initViews()
             } else if (it.eventType == ResultSyncEvent.ACTION_BACK_SECURITY) {
-                switchLoginAuth.tag = SecurityEnableOTPFragment::class.java.simpleName
-                switchTransactionAuth.tag = SecurityEnableOTPFragment::class.java.simpleName
+                binding.switchLoginAuth.tag = SecurityEnableOTPFragment::class.java.simpleName
+                binding.switchTransactionAuth.tag = SecurityEnableOTPFragment::class.java.simpleName
                 initViews()
             }
         }.addTo(disposables)
 
-        switchLoginAuth.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (switchLoginAuth.tag != null) {
-                switchLoginAuth.tag = null
+        binding.switchLoginAuth.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (binding.switchLoginAuth.tag != null) {
+                binding.switchLoginAuth.tag = null
                 return@setOnCheckedChangeListener
             }
             oTPSettingsForm.loginOtp = isChecked
             viewModel.oTPSettings(oTPSettingsForm)
         }
 
-        switchTransactionAuth.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (switchTransactionAuth.tag != null) {
-                switchTransactionAuth.tag = null
+        binding.switchTransactionAuth.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (binding.switchTransactionAuth.tag != null) {
+                binding.switchTransactionAuth.tag = null
                 return@setOnCheckedChangeListener
             }
             oTPSettingsForm.transactionOtp = isChecked
             viewModel.oTPSettings(oTPSettingsForm)
         }
 
-        switchLoginAuth.setOnTouchListener { view, motionEvent ->
-            switchLoginAuth.tag = null
+        binding.switchLoginAuth.setOnTouchListener { view, motionEvent ->
+            binding.switchLoginAuth.tag = null
             return@setOnTouchListener false
         }
 
-        switchTransactionAuth.setOnTouchListener { view, motionEvent ->
-            switchTransactionAuth.tag = null
+        binding.switchTransactionAuth.setOnTouchListener { view, motionEvent ->
+            binding.switchTransactionAuth.tag = null
             return@setOnTouchListener false
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_security_enable_otp
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
 }

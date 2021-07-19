@@ -11,6 +11,7 @@ import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.auth.data.model.CorporateUser
+import com.unionbankph.corporate.databinding.FragmentProfileSettingsBinding
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsDismissLoading
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
@@ -20,14 +21,13 @@ import com.unionbankph.corporate.settings.presentation.ShowSettingsLoading
 import com.unionbankph.corporate.settings.presentation.email.UpdateEmailActivity
 import com.unionbankph.corporate.settings.presentation.mobile.ChangeMobileNumberActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_profile_settings.*
 import java.util.concurrent.TimeUnit
 
-class ProfileSettingsFragment : BaseFragment<SettingsViewModel>(R.layout.fragment_profile_settings) {
+class ProfileSettingsFragment :
+    BaseFragment<FragmentProfileSettingsBinding, SettingsViewModel>() {
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[SettingsViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSettingsLoading -> {
@@ -42,7 +42,7 @@ class ProfileSettingsFragment : BaseFragment<SettingsViewModel>(R.layout.fragmen
                     setCorporateUserDetails(it.corporateUser)
                 }
                 is ShowSettingsHasPendingChangeEmail -> {
-                    imageViewPendingEmail.setVisible(it.hasPending)
+                    binding.imageViewPendingEmail.setVisible(it.hasPending)
                 }
                 is ShowSettingsError -> {
                     handleOnError(it.throwable)
@@ -55,7 +55,7 @@ class ProfileSettingsFragment : BaseFragment<SettingsViewModel>(R.layout.fragmen
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        RxView.clicks(textViewEditEmail)
+        RxView.clicks(binding.textViewEditEmail)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -71,7 +71,7 @@ class ProfileSettingsFragment : BaseFragment<SettingsViewModel>(R.layout.fragmen
                 )
             }.addTo(disposables)
 
-        RxView.clicks(textViewEditMobileNumber)
+        RxView.clicks(binding.textViewEditMobileNumber)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -113,11 +113,17 @@ class ProfileSettingsFragment : BaseFragment<SettingsViewModel>(R.layout.fragmen
     }
 
     private fun setCorporateUserDetails(corporateUser: CorporateUser) {
-        textViewEmail.text = corporateUser.emailAddress
-        textViewMobileNumber.text =
+        binding.textViewEmail.text = corporateUser.emailAddress
+        binding.textViewMobileNumber.text =
             ("+${corporateUser.countryCode?.callingCode} ${corporateUser.mobileNumber}")
-        imageViewCountry.setImageResource(
+        binding.imageViewCountry.setImageResource(
             viewUtil.getDrawableById("ic_flag_${corporateUser.countryCode?.code?.toLowerCase()}")
         )
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_profile_settings
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
 }
