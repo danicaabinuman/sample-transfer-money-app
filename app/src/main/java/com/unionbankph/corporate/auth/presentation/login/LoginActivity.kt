@@ -6,11 +6,12 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
+import com.unionbankph.corporate.databinding.ActivityLoginBinding
 import com.unionbankph.corporate.settings.presentation.splash.SplashFrameActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 
 class LoginActivity :
-    BaseActivity<LoginViewModel>(R.layout.activity_login) {
+    BaseActivity<ActivityLoginBinding, LoginViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -78,4 +79,10 @@ class LoginActivity :
     companion object {
         const val EXTRA_SPLASH_SCREEN = "splash_screen"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_login
+
+    override val viewModelClassType: Class<LoginViewModel>
+        get() = LoginViewModel::class.java
 }

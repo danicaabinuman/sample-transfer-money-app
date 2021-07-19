@@ -21,10 +21,6 @@ import com.unionbankph.corporate.databinding.ActivityBatchCwtDetailBinding
 import com.unionbankph.corporate.databinding.ActivityBatchDetailBinding
 import com.unionbankph.corporate.fund_transfer.data.model.CWTDetail
 import com.unionbankph.corporate.fund_transfer.data.model.CWTItem
-//import kotlinx.android.synthetic.main.activity_batch_cwt.linearLayoutCWT
-//import kotlinx.android.synthetic.main.activity_batch_cwt.viewLoadingState
-//import kotlinx.android.synthetic.main.activity_batch_cwt_detail.*
-//import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 
 class BatchCWTDetailActivity :
