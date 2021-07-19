@@ -20,9 +20,11 @@ import com.unionbankph.corporate.approval.presentation.approval_done.ApprovalDon
 import com.unionbankph.corporate.approval.presentation.approval_ongoing.ApprovalOngoingViewModel
 import com.unionbankph.corporate.auth.presentation.login.LoginViewModel
 import com.unionbankph.corporate.auth.presentation.migration.MigrationViewModel
+import com.unionbankph.corporate.auth.presentation.onboarding_register.OnboardingRegisterViewModel
 import com.unionbankph.corporate.auth.presentation.otp.OTPViewModel
 import com.unionbankph.corporate.auth.presentation.password_recovery.PasswordRecoveryViewModel
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyViewModel
+import com.unionbankph.corporate.auth.presentation.login_onboarding.LoginOnboardingViewModel
 import com.unionbankph.corporate.bills_payment.presentation.biller.BillerMainViewModel
 import com.unionbankph.corporate.bills_payment.presentation.biller.biller_all.AllBillerViewModel
 import com.unionbankph.corporate.bills_payment.presentation.biller.frequent_biller.FrequentBillerViewModel
@@ -790,5 +792,19 @@ abstract class ViewModelModule {
     @ViewModelKey(PaymentMethodsViewModel::class)
     abstract fun paymentMethodsViewModel(
         viewModel: PaymentMethodsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoginOnboardingViewModel::class)
+    abstract fun loginOnboardingViewModel(
+        viewModel: LoginOnboardingViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OnboardingRegisterViewModel::class)
+    abstract fun onboardingRegisterViewModel(
+        viewModel: OnboardingRegisterViewModel
     ): ViewModel
 }
