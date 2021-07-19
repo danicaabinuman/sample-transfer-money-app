@@ -41,17 +41,14 @@ import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEn
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.FragmentApprovalOngoingBinding
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_approval_ongoing.*
-import kotlinx.android.synthetic.main.widget_approvals_navigation.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_table_view.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class ApprovalOngoingFragment :
-    BaseFragment<ApprovalOngoingViewModel>(R.layout.fragment_approval_ongoing),
+    BaseFragment<FragmentApprovalOngoingBinding, ApprovalOngoingViewModel>(),
     ApprovalOngoingController.AdapterCallbacks,
     EpoxyAdapterCallback<Transaction>,
     OnTutorialListener {
@@ -99,24 +96,22 @@ class ApprovalOngoingFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[ApprovalOngoingViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowApprovalOngoingLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.viewLoadingLayout,
                         getSwipeRefreshLayout(),
                         getRecyclerView(),
-                        textViewState
+                        binding.textViewState
                     )
-                    if (viewLoadingState.visibility == View.VISIBLE) {
+                    if (binding.viewLoadingState.viewLoadingLayout.visibility == View.VISIBLE) {
                         updateController(mutableListOf())
                     }
                 }
                 is ShowApprovalOngoingDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.viewLoadingLayout,
                         getSwipeRefreshLayout(),
                         getRecyclerView()
                     )
@@ -185,7 +180,7 @@ class ApprovalOngoingFragment :
         val parseApprovals = viewUtil.loadJSONFromAsset(getAppCompatActivity(), "approvals")
         tutorialResults = JsonHelper.fromListJson(parseApprovals)
         if (isTableView()) {
-            linearLayoutRow.visibility(true)
+            binding.viewTable.linearLayoutRow.visibility(true)
         }
         getRecyclerView().visibility(false)
         updateTutorialController()
@@ -229,7 +224,7 @@ class ApprovalOngoingFragment :
                 fetchApprovalOngoing(true)
             }
         }
-        RxView.clicks(dashBoardActivity.textViewApprove)
+        RxView.clicks(dashBoardActivity.binding.viewApprovalsNavigation.textViewApprove)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -244,16 +239,16 @@ class ApprovalOngoingFragment :
                     )
                 )
             }.addTo(disposables)
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.requestFocus()
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.requestFocus()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        RxView.clicks(dashBoardActivity.textViewReject)
+        RxView.clicks(dashBoardActivity.binding.viewApprovalsNavigation.textViewReject)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -261,7 +256,7 @@ class ApprovalOngoingFragment :
             .subscribe {
                 clickRejectButton()
             }.addTo(disposables)
-        RxView.clicks(dashBoardActivity.textViewSelectAll)
+        RxView.clicks(dashBoardActivity.binding.viewApprovalsNavigation.textViewSelectAll)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -538,27 +533,27 @@ class ApprovalOngoingFragment :
 
     private fun clearRecyclerView() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutApprovalOngoing.visibility(false)
-            recyclerViewApprovalOngoing.clear()
-            recyclerViewApprovalOngoing.clearPreloaders()
-            recyclerViewApprovalOngoing.adapter = null
-            recyclerViewApprovalOngoing.layoutManager = null
-            recyclerViewTutorialApprovalOngoing.clear()
-            recyclerViewTutorialApprovalOngoing.clearPreloaders()
-            recyclerViewTutorialApprovalOngoing.adapter = null
-            recyclerViewTutorialApprovalOngoing.layoutManager = null
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutApprovalOngoing.visibility(false)
+            binding.recyclerViewApprovalOngoing.clear()
+            binding.recyclerViewApprovalOngoing.clearPreloaders()
+            binding.recyclerViewApprovalOngoing.adapter = null
+            binding.recyclerViewApprovalOngoing.layoutManager = null
+            binding.recyclerViewTutorialApprovalOngoing.clear()
+            binding.recyclerViewTutorialApprovalOngoing.clearPreloaders()
+            binding.recyclerViewTutorialApprovalOngoing.adapter = null
+            binding.recyclerViewTutorialApprovalOngoing.layoutManager = null
         } else {
-            swipeRefreshLayoutTable.visibility(false)
-            swipeRefreshLayoutApprovalOngoing.visibility(true)
-            recyclerViewTable.clear()
-            recyclerViewTable.clearPreloaders()
-            recyclerViewTable.adapter = null
-            recyclerViewTable.layoutManager = null
-            recyclerViewTableTutorial.clear()
-            recyclerViewTableTutorial.clearPreloaders()
-            recyclerViewTableTutorial.adapter = null
-            recyclerViewTableTutorial.layoutManager = null
+            binding.swipeRefreshLayoutTable.visibility(false)
+            binding.swipeRefreshLayoutApprovalOngoing.visibility(true)
+            binding.viewTable.recyclerViewTable.clear()
+            binding.viewTable.recyclerViewTable.clearPreloaders()
+            binding.viewTable.recyclerViewTable.adapter = null
+            binding.viewTable.recyclerViewTable.layoutManager = null
+            binding.viewTable.recyclerViewTableTutorial.clear()
+            binding.viewTable.recyclerViewTableTutorial.clearPreloaders()
+            binding.viewTable.recyclerViewTableTutorial.adapter = null
+            binding.viewTable.recyclerViewTableTutorial.layoutManager = null
         }
     }
 
@@ -576,7 +571,7 @@ class ApprovalOngoingFragment :
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        coordinatorLayoutSnackBar,
+                        binding.coordinatorLayoutSnackBar,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -601,15 +596,15 @@ class ApprovalOngoingFragment :
 
     private fun showEmptyState(data: MutableList<Transaction>) {
         if (isTableView()) {
-            linearLayoutRow.visibility(data.size > 0)
+            binding.viewTable.linearLayoutRow.visibility(data.size > 0)
         }
         if (data.size > 0) {
             if ((parentFragment as ApprovalFragment).viewPager().currentItem == 0) {
                 dashBoardActivity.allowMultipleSelectionApprovals(true)
             }
-            if (textViewState.visibility == View.VISIBLE) textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState?.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -624,16 +619,16 @@ class ApprovalOngoingFragment :
 
     private fun updateViews() {
         val isValid = selectedIds.size.plus(checkWriterSelectedIds.size) > 0
-        dashBoardActivity.textViewApprove.isEnabled = isValid
-        dashBoardActivity.textViewReject.isEnabled = isValid
-        dashBoardActivity.textViewApprove.alpha = if (isValid) 1f else 0.5f
-        dashBoardActivity.textViewReject.alpha = if (isValid) 1f else 0.5f
-        dashBoardActivity.textViewApprove.text =
+        dashBoardActivity.binding.viewApprovalsNavigation.textViewApprove.isEnabled = isValid
+        dashBoardActivity.binding.viewApprovalsNavigation.textViewReject.isEnabled = isValid
+        dashBoardActivity.binding.viewApprovalsNavigation.textViewApprove.alpha = if (isValid) 1f else 0.5f
+        dashBoardActivity.binding.viewApprovalsNavigation.textViewReject.alpha = if (isValid) 1f else 0.5f
+        dashBoardActivity.binding.viewApprovalsNavigation.textViewApprove.text =
             formatString(
                 R.string.param_action_approve,
                 selectedIds.size.plus(checkWriterSelectedIds.size).toString()
             )
-        dashBoardActivity.textViewReject.text =
+        dashBoardActivity.binding.viewApprovalsNavigation.textViewReject.text =
             formatString(
                 R.string.param_action_reject,
                 selectedIds.size.plus(checkWriterSelectedIds.size).toString()
@@ -723,7 +718,7 @@ class ApprovalOngoingFragment :
     }
 
     private fun resetSearchLayout() {
-        editTextSearch.text?.clear()
+        binding.viewSearchLayout.editTextSearch.text?.clear()
     }
 
     private fun showReasonForRejectionBottomSheet(
@@ -841,16 +836,16 @@ class ApprovalOngoingFragment :
         getRecyclerView().visibility(true)
         getRecyclerViewTutorial().visibility(false)
         updateTutorialController()
-        if (viewLoadingState.visibility != View.VISIBLE) {
+        if (binding.viewLoadingState.viewLoadingLayout.visibility != View.VISIBLE) {
             showEmptyState(getTransactions())
         }
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(
             TextView.OnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    editTextSearch.clearFocus()
+                    binding.viewSearchLayout.editTextSearch.clearFocus()
                     viewUtil.dismissKeyboard(getAppCompatActivity())
                     fetchApprovalOngoing(true)
                     return@OnEditorActionListener true
@@ -858,7 +853,7 @@ class ApprovalOngoingFragment :
                 false
             }
         )
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -866,7 +861,7 @@ class ApprovalOngoingFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     pageable.filter = filter.text().toString().nullable()
                     fetchApprovalOngoing(true)
@@ -914,7 +909,7 @@ class ApprovalOngoingFragment :
             .observeOn(schedulerProvider.ui())
             .subscribe(
                 {
-                    dashBoardActivity.textViewSelectAll.text =
+                    dashBoardActivity.binding.viewApprovalsNavigation.textViewSelectAll.text =
                         if (it.toInt() == getTransactions().size)
                             formatString(R.string.action_deselect_all)
                         else
@@ -1026,30 +1021,30 @@ class ApprovalOngoingFragment :
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            coordinatorLayoutSnackBar.visibility(true)
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutApprovalOngoing.visibility(false)
+            binding.coordinatorLayoutSnackBar.visibility(true)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutApprovalOngoing.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_ongoing_approvals).toMutableList()
-            linearLayoutRow.removeAllViews()
+            binding.viewTable.linearLayoutRow.removeAllViews()
             headers.forEach {
                 val viewRowHeader = layoutInflater.inflate(R.layout.header_table_row, null)
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewApprovalOngoing
+        if (isTableView()) binding.viewTable.recyclerViewTable else binding.recyclerViewApprovalOngoing
 
     private fun getRecyclerViewTutorial() =
-        if (isTableView()) recyclerViewTableTutorial else recyclerViewTutorialApprovalOngoing
+        if (isTableView()) binding.viewTable.recyclerViewTableTutorial else binding.recyclerViewTutorialApprovalOngoing
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutApprovalOngoing
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutApprovalOngoing
 
     private fun getTransactions(): MutableList<Transaction> =
         viewModel.transactions.value ?: mutableListOf()
@@ -1069,5 +1064,11 @@ class ApprovalOngoingFragment :
         }
 
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_approval_ongoing
+
+    override val viewModelClassType: Class<ApprovalOngoingViewModel>
+        get() = ApprovalOngoingViewModel::class.java
 
 }
