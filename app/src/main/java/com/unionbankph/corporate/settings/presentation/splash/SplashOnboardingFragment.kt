@@ -7,7 +7,7 @@ import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
 import kotlinx.android.synthetic.main.fragment_splash_screen.*
 
-class SplashOnboardingFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splash_screen) {
+class SplashOnboardingFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splash_screen_onboarding) {
 
     override fun onViewsBound() {
         super.onViewsBound()
