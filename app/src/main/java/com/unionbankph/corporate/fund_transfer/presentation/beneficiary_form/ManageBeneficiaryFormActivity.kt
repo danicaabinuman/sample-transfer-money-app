@@ -767,7 +767,7 @@ class ManageBeneficiaryFormActivity :
                 binding.textInputEditTextBeneficiaryAddress.setText(binding.textInputEditTextBeneficiaryAddress.text.toString())
             }
             if (binding.viewBankDetails.textInputEditTextReceivingBank.length() != 0) {
-                binding.viewBankDetails.textInputEditTextReceivingBank.setText(viewBankDetails.textInputEditTextReceivingBank.text.toString())
+                binding.viewBankDetails.textInputEditTextReceivingBank.setText(binding.viewBankDetails.textInputEditTextReceivingBank.text.toString())
             }
         }
     }
