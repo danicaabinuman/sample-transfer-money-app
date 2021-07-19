@@ -23,16 +23,14 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScroll
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivitySwiftBankBinding
 import com.unionbankph.corporate.fund_transfer.data.model.SwiftBank
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_swift_bank.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
 
 class SwiftBankActivity :
-    BaseActivity<SwiftBankViewModel>(R.layout.activity_swift_bank),
+    BaseActivity<ActivitySwiftBankBinding, SwiftBankViewModel>(),
     EpoxyAdapterCallback<SwiftBank> {
 
     private val controller by lazyFast {
@@ -44,8 +42,8 @@ class SwiftBankActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, getString(R.string.hint_select_receiving_bank))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.hint_select_receiving_bank))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -56,18 +54,17 @@ class SwiftBankActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[SwiftBankViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
                     if (viewModel.pageable.isInitialLoad) {
                         showLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutSwiftBanks,
-                            recyclerViewSwiftBanks,
-                            textViewState
+                            binding.viewLoadingState.root,
+                            binding.swipeRefreshLayoutSwiftBanks,
+                            binding.recyclerViewSwiftBanks,
+                            binding.textViewState
                         )
-                        if (viewLoadingState.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     } else {
@@ -78,9 +75,9 @@ class SwiftBankActivity :
                 is UiState.Complete -> {
                     if (viewModel.pageable.isInitialLoad) {
                         dismissLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutSwiftBanks,
-                            recyclerViewSwiftBanks
+                            binding.viewLoadingState.root,
+                            binding.swipeRefreshLayoutSwiftBanks,
+                            binding.recyclerViewSwiftBanks
                         )
                     } else {
                         updateController()
@@ -107,15 +104,15 @@ class SwiftBankActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initRxSearchEventListener()
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        swipeRefreshLayoutSwiftBanks.apply {
+        binding.swipeRefreshLayoutSwiftBanks.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getSwiftBanks(true)
@@ -145,10 +142,10 @@ class SwiftBankActivity :
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(
             TextView.OnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    editTextSearch.clearFocus()
+                    binding.viewSearchLayout.editTextSearch.clearFocus()
                     getSwiftBanks(true)
                     viewUtil.dismissKeyboard(this@SwiftBankActivity)
                     return@OnEditorActionListener true
@@ -156,7 +153,7 @@ class SwiftBankActivity :
                 false
             }
         )
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -164,7 +161,7 @@ class SwiftBankActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     viewModel.pageable.filter = filter.text().toString().nullable()
                     getSwiftBanks(true)
@@ -178,22 +175,23 @@ class SwiftBankActivity :
 
     private fun showEmptyState(data: MutableList<SwiftBank>) {
         if (data.size > 0) {
-            if (textViewState?.visibility == View.VISIBLE) textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun scrollToTop() {
-        recyclerViewSwiftBanks.post {
-            recyclerViewSwiftBanks.smoothScrollToPosition(0)
+        binding.recyclerViewSwiftBanks.post {
+            binding.recyclerViewSwiftBanks.smoothScrollToPosition(0)
         }
     }
 
     private fun initRecyclerView() {
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewSwiftBanks.layoutManager = linearLayoutManager
-        recyclerViewSwiftBanks.addOnScrollListener(
+        binding.recyclerViewSwiftBanks.layoutManager = linearLayoutManager
+        binding.recyclerViewSwiftBanks.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = viewModel.pageable.totalPageCount
@@ -209,7 +207,7 @@ class SwiftBankActivity :
                 }
             }
         )
-        recyclerViewSwiftBanks.setController(controller)
+        binding.recyclerViewSwiftBanks.setController(controller)
         controller.setEpoxyAdapterCallback(this)
     }
 
@@ -224,5 +222,11 @@ class SwiftBankActivity :
         }
         viewModel.getSwiftBanks(isInitialLoading)
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_swift_bank
+
+    override val viewModelClassType: Class<SwiftBankViewModel>
+        get() = SwiftBankViewModel::class.java
 
 }
