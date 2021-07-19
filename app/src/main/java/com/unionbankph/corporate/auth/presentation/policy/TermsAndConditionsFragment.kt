@@ -5,14 +5,14 @@ import android.text.Html
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
-import kotlinx.android.synthetic.main.fragment_terms_conditions.*
+import com.unionbankph.corporate.databinding.FragmentTermsConditionsBinding
 
 class TermsAndConditionsFragment :
-    BaseFragment<GeneralViewModel>(R.layout.fragment_terms_conditions) {
+    BaseFragment<FragmentTermsConditionsBinding, GeneralViewModel>() {
 
     override fun onViewsBound() {
         super.onViewsBound()
-        textViewTermsConditions.text = Html.fromHtml(
+        binding.textViewTermsConditions.text = Html.fromHtml(
             viewUtil.getFileText(
                 (activity as PrivacyPolicyActivity),
                 "terms"
@@ -29,4 +29,10 @@ class TermsAndConditionsFragment :
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_terms_conditions
+
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
 }

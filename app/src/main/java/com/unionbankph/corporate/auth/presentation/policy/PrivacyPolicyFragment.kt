@@ -5,13 +5,14 @@ import android.text.Html
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
-import kotlinx.android.synthetic.main.fragment_privacy_policy.*
+import com.unionbankph.corporate.databinding.FragmentPrivacyPolicyBinding
 
-class PrivacyPolicyFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_privacy_policy) {
+class PrivacyPolicyFragment :
+    BaseFragment<FragmentPrivacyPolicyBinding, GeneralViewModel>() {
 
     override fun onViewsBound() {
         super.onViewsBound()
-        textViewPolicyDesc.text = Html.fromHtml(
+        binding.textViewPolicyDesc.text = Html.fromHtml(
             viewUtil.getFileText(
                 (activity as PrivacyPolicyActivity),
                 "privacy"
@@ -28,4 +29,10 @@ class PrivacyPolicyFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_p
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_privacy_policy
+
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
 }
