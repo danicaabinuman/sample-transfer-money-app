@@ -26,15 +26,14 @@ import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityBeneficiaryDetailBinding
 import com.unionbankph.corporate.fund_transfer.data.model.BeneficiaryDetailDto
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_form.ManageBeneficiaryFormActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_beneficiary_detail.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 class ManageBeneficiaryDetailActivity :
-    BaseActivity<ManageBeneficiaryDetailViewModel>(R.layout.activity_beneficiary_detail),
+    BaseActivity<ActivityBeneficiaryDetailBinding, ManageBeneficiaryDetailViewModel>(),
     OnConfirmationPageCallBack, View.OnClickListener {
 
     private var deleteConfirmationBottomSheet: ConfirmationBottomSheet? = null
@@ -43,19 +42,19 @@ class ManageBeneficiaryDetailActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, getString(R.string.title_beneficiary_details))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_beneficiary_details))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonViewEditLog.setOnClickListener(this)
-        buttonEditDetails.setOnClickListener(this)
-        buttonDelete.setOnClickListener(this)
+        binding.buttonViewEditLog.setOnClickListener(this)
+        binding.buttonEditDetails.setOnClickListener(this)
+        binding.buttonDelete.setOnClickListener(this)
         eventBus.actionSyncEvent.flowable.subscribe {
             if (it.eventType == ActionSyncEvent.ACTION_UPDATE_BENEFICIARY_DETAIL) {
-                scrollViewBeneficiaryDetail?.fullScroll(ScrollView.FOCUS_UP)
+                binding.scrollViewBeneficiaryDetail.fullScroll(ScrollView.FOCUS_UP)
                 val beneficiaryDetailDto =
                     JsonHelper.fromJson<BeneficiaryDetailDto>(it.payload)
                 this.beneficiaryDetailDto = beneficiaryDetailDto
@@ -66,18 +65,14 @@ class ManageBeneficiaryDetailActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[ManageBeneficiaryDetailViewModel::class.java]
         viewModel.beneficiaryDetailState.observe(this, Observer {
             when (it) {
                 is ShowBeneficiaryDetailLoading -> {
-                    constraintLayout.visibility(false)
-                    viewLoadingState.visibility(true)
+                    binding.constraintLayout.visibility(false)
+                    binding.viewLoadingState.root.visibility(true)
                 }
                 is ShowBeneficiaryDetailDismissLoading -> {
-                    viewLoadingState.visibility(false)
+                    binding.viewLoadingState.root.visibility(false)
                 }
                 is ShowBeneficiaryDetailProgressBarLoading -> {
                     showProgressAlertDialog(ManageBeneficiaryDetailActivity::class.java.simpleName)
@@ -86,7 +81,7 @@ class ManageBeneficiaryDetailActivity :
                     dismissProgressAlertDialog()
                 }
                 is ShowBeneficiaryDetailGetBeneficiaryDetail -> {
-                    constraintLayout.visibility(true)
+                    binding.constraintLayout.visibility(true)
                     beneficiaryDetailDto = it.data
                     initView()
                 }
@@ -103,28 +98,28 @@ class ManageBeneficiaryDetailActivity :
 
     private fun initView() {
         val constraintSet = ConstraintSet()
-        constraintSet.clone(constraintLayout)
+        constraintSet.clone(binding.constraintLayout)
         if (beneficiaryDetailDto.swiftBankDetails != null) {
             constraintSet.connect(
-                textViewHeaderContactDetails.id,
+                binding.textViewHeaderContactDetails.id,
                 ConstraintSet.TOP,
-                cardViewSwiftBankDetails.id,
+                binding.cardViewSwiftBankDetails.id,
                 ConstraintSet.BOTTOM,
                 resources.getDimension(R.dimen.content_spacing).toInt()
             )
         } else {
             constraintSet.connect(
-                textViewHeaderContactDetails.id,
+                binding.textViewHeaderContactDetails.id,
                 ConstraintSet.TOP,
-                cardViewReceivingBankDetails.id,
+                binding.cardViewReceivingBankDetails.id,
                 ConstraintSet.BOTTOM,
                 resources.getDimension(R.dimen.content_spacing).toInt()
             )
         }
-        constraintSet.applyTo(constraintLayout)
+        constraintSet.applyTo(binding.constraintLayout)
 
-        cardViewReceivingBankDetails.visibility(beneficiaryDetailDto.swiftBankDetails == null)
-        cardViewSwiftBankDetails.visibility(beneficiaryDetailDto.swiftBankDetails != null)
+        binding.cardViewReceivingBankDetails.visibility(beneficiaryDetailDto.swiftBankDetails == null)
+        binding.cardViewSwiftBankDetails.visibility(beneficiaryDetailDto.swiftBankDetails != null)
 
         val isVisibleContactDetails =
             (beneficiaryDetailDto.emailAddress != null
@@ -132,62 +127,62 @@ class ManageBeneficiaryDetailActivity :
                     || (beneficiaryDetailDto.mobileNumber != null
                     && beneficiaryDetailDto.mobileNumber != "")
 
-        textViewHeaderContactDetails.visibility(isVisibleContactDetails)
-        cardViewContactDetails.visibility(isVisibleContactDetails)
+        binding.textViewHeaderContactDetails.visibility(isVisibleContactDetails)
+        binding.cardViewContactDetails.visibility(isVisibleContactDetails)
 
-        textViewBeneficiaryAddressTitle.visibility(
+        binding.textViewBeneficiaryAddressTitle.visibility(
             beneficiaryDetailDto.channelId == ChannelBankEnum.SWIFT.getChannelId()
         )
-        textViewBeneficiaryAddress.visibility(
+        binding.textViewBeneficiaryAddress.visibility(
             beneficiaryDetailDto.channelId == ChannelBankEnum.SWIFT.getChannelId()
         )
-        viewBorderBeneficiaryAddress.visibility(
+        binding.viewBorderBeneficiaryAddress.visibility(
             beneficiaryDetailDto.channelId == ChannelBankEnum.SWIFT.getChannelId()
         )
-        textViewBeneficiaryAddress.text = beneficiaryDetailDto.address.notEmpty()
+        binding.textViewBeneficiaryAddress.text = beneficiaryDetailDto.address.notEmpty()
 
-        textViewBeneficiaryName.text = beneficiaryDetailDto.name
-        textViewBeneficiaryCode.text = beneficiaryDetailDto.code
-        textViewBeneficiaryAccountNumber.text =
+        binding.textViewBeneficiaryName.text = beneficiaryDetailDto.name
+        binding.textViewBeneficiaryCode.text = beneficiaryDetailDto.code
+        binding.textViewBeneficiaryAccountNumber.text =
             viewUtil.getAccountNumberFormat(beneficiaryDetailDto.accountNumber)
 
-        textViewChannel.text =
+        binding.textViewChannel.text =
             ConstantHelper.Text.getChannelByChannelId(beneficiaryDetailDto.channelId)
 
-        textViewReceivingBank.text =
+        binding.textViewReceivingBank.text =
             if (beneficiaryDetailDto.channelId == ChannelBankEnum.UBP_TO_UBP.getChannelId())
                 formatString(R.string.value_receiving_bank_ubp)
             else
                 beneficiaryDetailDto.bankDetails?.name
 
-        textViewEmailAddress.text = beneficiaryDetailDto.emailAddress.notEmpty()
-        textViewMobileNumber.text = beneficiaryDetailDto.mobileNumber.notEmpty()
-        imageViewFlag.setImageResource(
+        binding.textViewEmailAddress.text = beneficiaryDetailDto.emailAddress.notEmpty()
+        binding.textViewMobileNumber.text = beneficiaryDetailDto.mobileNumber.notEmpty()
+        binding.imageViewFlag.setImageResource(
             viewUtil.getDrawableById("ic_flag_${beneficiaryDetailDto.countryCode?.code?.toLowerCase()}")
         )
         val isHasEmail =
             beneficiaryDetailDto.emailAddress != null && beneficiaryDetailDto.emailAddress != ""
-        textViewEmailAddressTitle.visibility(isHasEmail)
-        textViewEmailAddress.visibility(isHasEmail)
-        textViewMobileNumberTitle.visibility(beneficiaryDetailDto.mobileNumber != null)
-        textViewMobileNumber.visibility(beneficiaryDetailDto.mobileNumber != null)
-        imageViewFlag.visibility(beneficiaryDetailDto.mobileNumber != null)
-        viewBorderMobileNumber.visibility(beneficiaryDetailDto.mobileNumber != null && isHasEmail)
+        binding.textViewEmailAddressTitle.visibility(isHasEmail)
+        binding.textViewEmailAddress.visibility(isHasEmail)
+        binding.textViewMobileNumberTitle.visibility(beneficiaryDetailDto.mobileNumber != null)
+        binding.textViewMobileNumber.visibility(beneficiaryDetailDto.mobileNumber != null)
+        binding.imageViewFlag.visibility(beneficiaryDetailDto.mobileNumber != null)
+        binding.viewBorderMobileNumber.visibility(beneficiaryDetailDto.mobileNumber != null && isHasEmail)
 
         beneficiaryDetailDto.swiftBankDetails?.let {
-            textViewSwiftCode.text = it.swiftBicCode
-            textViewSwiftReceivingBank.text = it.bankName
-            textViewSwiftReceivingAddressBank.text = it.let {
+            binding.textViewSwiftCode.text = it.swiftBicCode
+            binding.textViewSwiftReceivingBank.text = it.bankName
+            binding.textViewSwiftReceivingAddressBank.text = it.let {
                 if (it.address1 == null && it.address2 == null) {
                     Constant.EMPTY
                 } else {
                     it.address1.notNullable() + it.address2.notNullable()
                 }
             }
-            textViewSwiftCountry.text = it.country.notEmpty()
+            binding.textViewSwiftCountry.text = it.country.notEmpty()
         }
 
-        linearLayoutAllowedSourceAccounts.removeAllViews()
+        binding.linearLayoutAllowedSourceAccounts.removeAllViews()
         if (beneficiaryDetailDto.accounts?.size ?: 0 > 3) {
             val viewAllowedSourceAccount =
                 LayoutInflater.from(context)
@@ -211,10 +206,10 @@ class ManageBeneficiaryDetailActivity :
                 ),
                 formatString(R.string.title_beneficiary)
             ).toHtmlSpan()
-            cardViewAllowedSourceAccounts.setOnClickListener {
+            binding.cardViewAllowedSourceAccounts.setOnClickListener {
                 navigateSourceAccountScreen(beneficiaryDetailDto)
             }
-            linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
+            binding.linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
         } else {
             beneficiaryDetailDto.accounts?.forEachIndexed { index, account ->
                 val viewAllowedSourceAccount = LayoutInflater.from(context).inflate(
@@ -234,8 +229,8 @@ class ManageBeneficiaryDetailActivity :
                         View.GONE
                     else
                         View.VISIBLE
-                linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
-                cardViewAllowedSourceAccounts.setOnClickListener(null)
+                binding.linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
+                binding.cardViewAllowedSourceAccounts.setOnClickListener(null)
             }
         }
     }
@@ -398,4 +393,10 @@ class ManageBeneficiaryDetailActivity :
         const val EXTRA_ID = "id"
         const val TAG_DELETE_BENEFICIARY_DIALOG = "delete_beneficiary_dialog"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_beneficiary_detail
+
+    override val viewModelClassType: Class<ManageBeneficiaryDetailViewModel>
+        get() = ManageBeneficiaryDetailViewModel::class.java
 }
