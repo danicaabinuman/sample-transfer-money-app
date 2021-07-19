@@ -15,13 +15,12 @@ import com.unionbankph.corporate.approval.presentation.approval_batch_detail.Bat
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityBatchTransferBinding
 import com.unionbankph.corporate.fund_transfer.data.model.Batch
-import kotlinx.android.synthetic.main.activity_batch_transfer.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 
 class BatchTransferActivity :
-    BaseActivity<BatchTransferViewModel>(R.layout.activity_batch_transfer),
+    BaseActivity<ActivityBatchTransferBinding, BatchTransferViewModel>(),
     EpoxyAdapterCallback<Batch> {
 
     private val pageable by lazyFast { Pageable() }
@@ -42,8 +41,8 @@ class BatchTransferActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, getString(R.string.title_view_all_transfers))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_view_all_transfers))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -54,23 +53,21 @@ class BatchTransferActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[BatchTransferViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowBatchTransferLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutBatchTransfer,
-                        recyclerViewBatchTransfer,
-                        textViewState
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutBatchTransfer,
+                        binding.recyclerViewBatchTransfer,
+                        binding.textViewState
                     )
                 }
                 is ShowBatchTransferDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutBatchTransfer,
-                        recyclerViewBatchTransfer
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutBatchTransfer,
+                        binding.recyclerViewBatchTransfer
                     )
                 }
                 is ShowBatchTransferEndlessLoading -> {
@@ -108,7 +105,7 @@ class BatchTransferActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        swipeRefreshLayoutBatchTransfer.apply {
+        binding.swipeRefreshLayoutBatchTransfer.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getBatchTransfers(true)
@@ -159,16 +156,16 @@ class BatchTransferActivity :
 
     private fun showEmptyState() {
         if (batchTransfers.size > 0) {
-            if (textViewState?.visibility == View.VISIBLE) textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun initRecyclerView() {
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewBatchTransfer.layoutManager = linearLayoutManager
-        recyclerViewBatchTransfer.addOnScrollListener(
+        binding.recyclerViewBatchTransfer.layoutManager = linearLayoutManager
+        binding.recyclerViewBatchTransfer.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = pageable.totalPageCount
@@ -184,13 +181,13 @@ class BatchTransferActivity :
                 }
             }
         )
-        recyclerViewBatchTransfer.setController(controller)
+        binding.recyclerViewBatchTransfer.setController(controller)
         controller.setEpoxyAdapterCallback(this)
     }
 
     private fun scrollToTop() {
-        recyclerViewBatchTransfer.post {
-            recyclerViewBatchTransfer.smoothScrollToPosition(0)
+        binding.recyclerViewBatchTransfer.post {
+            binding.recyclerViewBatchTransfer.smoothScrollToPosition(0)
         }
     }
 
@@ -210,5 +207,11 @@ class BatchTransferActivity :
         const val EXTRA_ID = "id"
         const val EXTRA_SUPPORT_CWT = "support_cwt"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_batch_transfer
+
+    override val viewModelClassType: Class<BatchTransferViewModel>
+        get() = BatchTransferViewModel::class.java
 
 }
