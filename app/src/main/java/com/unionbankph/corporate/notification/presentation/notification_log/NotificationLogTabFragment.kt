@@ -13,6 +13,7 @@ import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentTabNotificationsBinding
 import com.unionbankph.corporate.notification.data.model.NotificationLogDto
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
@@ -20,7 +21,7 @@ import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 
 class NotificationLogTabFragment :
-    BaseFragment<NotificationLogViewModel>(R.layout.fragment_tab_notifications) {
+    BaseFragment<FragmentTabNotificationsBinding, NotificationLogViewModel>() {
 
     private val imageViewMarkAllAsRead by lazyFast {
         (activity as DashboardActivity).imageViewMarkAllAsRead()
@@ -103,4 +104,10 @@ class NotificationLogTabFragment :
         const val FRAGMENT_NOTIFICATION_LOG = "notification_log"
         const val FRAGMENT_NOTIFICATION_LOG_DETAIL = "notification_log_detail"
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_tab_notifications
+
+    override val viewModelClassType: Class<NotificationLogViewModel>
+        get() = NotificationLogViewModel::class.java
 }

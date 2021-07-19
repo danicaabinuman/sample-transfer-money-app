@@ -48,10 +48,6 @@ import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBo
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
-//import kotlinx.android.synthetic.main.activity_dashboard.*
-//import kotlinx.android.synthetic.main.widget_badge_initial.*
-//import kotlinx.android.synthetic.main.widget_badge_small.*
-//import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import kotlin.collections.set
