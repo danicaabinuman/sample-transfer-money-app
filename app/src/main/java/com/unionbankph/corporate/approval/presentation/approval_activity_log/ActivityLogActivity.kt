@@ -12,13 +12,12 @@ import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.approval.data.model.Transaction
 import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityActivityLogBinding
 import com.unionbankph.corporate.fund_transfer.data.model.ActivityLogDto
-import kotlinx.android.synthetic.main.activity_activity_log.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 
 class ActivityLogActivity :
-    BaseActivity<ActivityLogViewModel>(R.layout.activity_activity_log),
+    BaseActivity<ActivityActivityLogBinding, ActivityLogViewModel>(),
     ActivityLogController.AdapterCallbacks {
 
     private lateinit var controller: ActivityLogController
@@ -31,11 +30,11 @@ class ActivityLogActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         if (page == PAGE_APPROVAL_DETAIL) {
-            setToolbarTitle(tvToolbar, getString(R.string.title_activity_log))
+            setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_activity_log))
         } else {
-            setToolbarTitle(tvToolbar, getString(R.string.title_edit_log))
+            setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_edit_log))
         }
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
@@ -47,25 +46,23 @@ class ActivityLogActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[ActivityLogViewModel::class.java]
-
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowActivityLogLoading -> {
-                    if (!swipeRefreshLayoutActivityLogs.isRefreshing)
-                        viewLoadingState?.visibility = View.VISIBLE
-                    if (viewLoadingState?.visibility == View.VISIBLE)
-                        swipeRefreshLayoutActivityLogs?.isEnabled = false
+                    if (!binding.swipeRefreshLayoutActivityLogs.isRefreshing)
+                        binding.viewLoadingState.root.visibility = View.VISIBLE
+                    if (binding.viewLoadingState.root.visibility == View.VISIBLE)
+                        binding.swipeRefreshLayoutActivityLogs.isEnabled = false
                 }
                 is ShowActivityLogDismissLoading -> {
-                    swipeRefreshLayoutActivityLogs?.isEnabled = true
-                    if (!swipeRefreshLayoutActivityLogs.isRefreshing)
-                        viewLoadingState?.visibility = View.GONE
+                    binding.swipeRefreshLayoutActivityLogs.isEnabled = true
+                    if (!binding.swipeRefreshLayoutActivityLogs.isRefreshing)
+                        binding.viewLoadingState.root.visibility = View.GONE
                     else
-                        swipeRefreshLayoutActivityLogs?.isRefreshing = false
+                        binding.swipeRefreshLayoutActivityLogs.isRefreshing = false
                 }
                 is ShowActivityLogSuccess -> {
-                    recyclerViewActivityLogs.visibility = View.VISIBLE
+                    binding.recyclerViewActivityLogs.visibility = View.VISIBLE
                     updateController()
                     showEmptyState()
                 }
@@ -79,7 +76,7 @@ class ActivityLogActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        swipeRefreshLayoutActivityLogs.apply {
+        binding.swipeRefreshLayoutActivityLogs.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 fetchActivityLogs()
@@ -146,15 +143,15 @@ class ActivityLogActivity :
                 this,
                 viewUtil
             )
-        recyclerViewActivityLogs.setController(controller)
+        binding.recyclerViewActivityLogs.setController(controller)
     }
 
     private fun showEmptyState() {
         if (viewModel.activityLogs.size > 0) {
-            if (textViewState?.visibility == View.VISIBLE)
-                textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -169,5 +166,11 @@ class ActivityLogActivity :
         const val PAGE_CHECK_WRITER_DETAIL = "check_writer_detail"
 
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_activity_log
+
+    override val viewModelClassType: Class<ActivityLogViewModel>
+        get() = ActivityLogViewModel::class.java
 
 }
