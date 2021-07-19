@@ -19,6 +19,7 @@ import com.unionbankph.corporate.auth.presentation.migration.migration_form.Migr
 import com.unionbankph.corporate.auth.presentation.migration.migration_merge.MigrationMergeActivity
 import com.unionbankph.corporate.auth.presentation.migration.migration_selection.MigrationSelectionActivity
 import com.unionbankph.corporate.auth.presentation.migration.nominate_migration_success.NominateMigrationSuccessActivity
+import com.unionbankph.corporate.auth.presentation.onboarding_register.OnboardingRegisterActivity
 import com.unionbankph.corporate.auth.presentation.otp.OTPActivity
 import com.unionbankph.corporate.auth.presentation.password_recovery.PasswordRecoveryActivity
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity
@@ -90,7 +91,6 @@ import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryAct
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosActivity
-import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
@@ -110,6 +110,7 @@ import com.unionbankph.corporate.settings.presentation.password.PasswordActivity
 import com.unionbankph.corporate.settings.presentation.selector.SelectorActivity
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashFrameActivity
+import com.unionbankph.corporate.settings.presentation.splash.SplashFrameOnboardingActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity
@@ -564,4 +565,13 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun cardAcceptanceOptionActivity(): CardAcceptanceOptionActivity
+
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingRegisterActivity(): OnboardingRegisterActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun splashFrameOnboardingActivity(): SplashFrameOnboardingActivity
 }

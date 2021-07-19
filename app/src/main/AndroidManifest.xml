@@ -615,6 +615,14 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name="com.unionbankph.corporate.auth.presentation.onboarding_register.OnboardingRegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.unionbankph.corporate.settings.presentation.splash.SplashFrameOnboardingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
         <!-- Others -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
