@@ -18,8 +18,7 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScroll
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import kotlinx.android.synthetic.main.activity_account_transaction_history.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import com.unionbankph.corporate.databinding.ActivityAccountTransactionHistoryBinding
 
 class AccountTransactionHistoryActivity :
     BaseActivity<ActivityAccountTransactionHistoryBinding, AccountTransactionHistoryViewModel>(),
@@ -47,7 +46,7 @@ class AccountTransactionHistoryActivity :
                 is UiState.Loading -> {
                     if (viewModel.pageable.isInitialLoad) {
                         showLoading(
-                            binding.viewLoadingState,
+                            binding.viewLoadingState.viewLoadingLayout,
                             binding.swipeRefreshLayoutTransactionHistory,
                             binding.recyclerViewTransactionHistory,
                             binding.textViewState
@@ -59,7 +58,7 @@ class AccountTransactionHistoryActivity :
                 is UiState.Complete -> {
                     if (viewModel.pageable.isInitialLoad) {
                         dismissLoading(
-                            binding.viewLoadingState.viewProgress,
+                            binding.viewLoadingState.viewLoadingLayout,
                             binding.swipeRefreshLayoutTransactionHistory,
                             binding.recyclerViewTransactionHistory
                         )

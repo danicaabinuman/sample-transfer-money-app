@@ -79,13 +79,13 @@ class AccountFragment :
                         showEndlessProgressBar()
                     } else {
                         showLoading(
-                            binding.viewLoadingState.viewProgress,
+                            binding.viewLoadingState.viewLoadingLayout,
                             getSwipeRefreshLayout(),
                             getRecyclerView(),
                             binding.textViewState,
                             binding.linearLayoutRow
                         )
-                        if (binding.viewLoadingState.viewProgress.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.viewLoadingLayout.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     }
@@ -95,7 +95,7 @@ class AccountFragment :
                         dismissEndlessProgressBar()
                     } else {
                         dismissLoading(
-                            binding.viewLoadingState.viewProgress,
+                            binding.viewLoadingState.viewLoadingLayout,
                             getSwipeRefreshLayout(),
                             getRecyclerView()
                         )
@@ -369,7 +369,7 @@ class AccountFragment :
         getRecyclerView().visibility(true)
         tutorialDataAccounts.clear()
         updateTutorialController()
-        if (binding.viewLoadingState.viewProgress.visibility != View.VISIBLE) {
+        if (binding.viewLoadingState.viewLoadingLayout.visibility != View.VISIBLE) {
             showEmptyState()
         }
     }
