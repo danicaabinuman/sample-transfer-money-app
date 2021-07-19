@@ -24,8 +24,8 @@ import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
-import kotlinx.android.synthetic.main.header_title_orange.view.*
-import kotlinx.android.synthetic.main.item_transaction_history.view.*
+import com.unionbankph.corporate.databinding.HeaderTitleOrangeBinding
+import com.unionbankph.corporate.databinding.ItemTransactionHistoryBinding
 
 class AccountTransactionHistoryController :
     Typed2EpoxyController<MutableList<SectionedAccountTransactionHistory>, Pageable>() {
@@ -88,32 +88,38 @@ class AccountTransactionHistoryController :
     }
 }
 
-@EpoxyModelClass(layout = R.layout.header_title_orange)
 abstract class TransactionHistoryHeaderModel :
     EpoxyModelWithHolder<TransactionHistoryHeaderModel.Holder>() {
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.header_title_orange
+    }
 
     @EpoxyAttribute
     lateinit var date: String
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.textViewTitle.text = date
+        holder.binding.apply {
+            textViewTitle.text = date
+        }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutHeaderTitle: ConstraintLayout
-        lateinit var textViewTitle: TextView
+        lateinit var binding: HeaderTitleOrangeBinding
 
         override fun bindView(itemView: View) {
-            textViewTitle = itemView.textViewTitle
-            constraintLayoutHeaderTitle = itemView.constraintLayoutHeaderTitle
+            binding = HeaderTitleOrangeBinding.bind(itemView)
         }
     }
 }
 
-@EpoxyModelClass(layout = R.layout.item_transaction_history)
 abstract class TransactionHistoryItemModel :
     EpoxyModelWithHolder<TransactionHistoryItemModel.Holder>() {
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.item_transaction_history
+    }
 
     @EpoxyAttribute
     lateinit var record: Record
@@ -130,44 +136,36 @@ abstract class TransactionHistoryItemModel :
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        if (hasFirstPosition) {
-            holder.viewBorder.visibility = View.VISIBLE
-        } else {
-            holder.viewBorder.visibility = View.GONE
-        }
+        holder.binding.apply {
+            if (hasFirstPosition) {
+                viewBorder.visibility = View.VISIBLE
+            } else {
+                viewBorder.visibility = View.GONE
+            }
 
-        holder.textViewAmount.text = record.amount.formatAmount(record.currency)
-        holder.textViewDate.text =
-            record.postedDate.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_TIME)
-        holder.textViewRemarks.text = record.tranDescription.notEmpty()
+            textViewAmount.text = record.amount.formatAmount(record.currency)
+            textViewDate.text =
+                record.postedDate.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_TIME)
+            textViewRemarks.text = record.tranDescription.notEmpty()
 
-        holder.imageViewTransferType.setImageResource(
-            ConstantHelper.Drawable.getAccountTransactionType(
-                record.transactionClass
+            imageViewTransferType.setImageResource(
+                ConstantHelper.Drawable.getAccountTransactionType(
+                    record.transactionClass
+                )
             )
-        )
-        holder.constraintLayoutItemRecent.setOnClickListener {
-            callbacks.onClickItem(holder.constraintLayoutItemRecent, record, position)
+            constraintLayoutItemRecent.setOnClickListener {
+                callbacks.onClickItem(constraintLayoutItemRecent, record, position)
+            }
         }
+
+
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var viewBorder: View
-        lateinit var viewBorder2: View
-        lateinit var constraintLayoutItemRecent: ConstraintLayout
-        lateinit var textViewAmount: TextView
-        lateinit var textViewDate: TextView
-        lateinit var textViewRemarks: TextView
-        lateinit var imageViewTransferType: ImageView
+        lateinit var binding: ItemTransactionHistoryBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutItemRecent = itemView.constraintLayoutItemRecent
-            textViewAmount = itemView.textViewAmount
-            textViewDate = itemView.textViewDate
-            textViewRemarks = itemView.textViewRemarks
-            viewBorder = itemView.viewBorder
-            viewBorder2 = itemView.viewBorder2
-            imageViewTransferType = itemView.imageViewTransferType
+            binding = ItemTransactionHistoryBinding.bind(itemView)
         }
     }
 }

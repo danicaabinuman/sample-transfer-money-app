@@ -22,15 +22,15 @@ import kotlinx.android.synthetic.main.activity_account_transaction_history.*
 import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 class AccountTransactionHistoryActivity :
-    BaseActivity<AccountTransactionHistoryViewModel>(R.layout.activity_account_transaction_history),
+    BaseActivity<ActivityAccountTransactionHistoryBinding, AccountTransactionHistoryViewModel>(),
     EpoxyAdapterCallback<Record> {
 
     private val controller = AccountTransactionHistoryController()
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, getString(R.string.title_transaction_history))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_transaction_history))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -41,20 +41,16 @@ class AccountTransactionHistoryActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[AccountTransactionHistoryViewModel::class.java]
 
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
                     if (viewModel.pageable.isInitialLoad) {
                         showLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutTransactionHistory,
-                            recyclerViewTransactionHistory,
-                            textViewState
+                            binding.viewLoadingState,
+                            binding.swipeRefreshLayoutTransactionHistory,
+                            binding.recyclerViewTransactionHistory,
+                            binding.textViewState
                         )
                     } else {
                         updateController()
@@ -63,9 +59,9 @@ class AccountTransactionHistoryActivity :
                 is UiState.Complete -> {
                     if (viewModel.pageable.isInitialLoad) {
                         dismissLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutTransactionHistory,
-                            recyclerViewTransactionHistory
+                            binding.viewLoadingState.viewProgress,
+                            binding.swipeRefreshLayoutTransactionHistory,
+                            binding.recyclerViewTransactionHistory
                         )
                     } else {
                         updateController()
@@ -90,7 +86,7 @@ class AccountTransactionHistoryActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        swipeRefreshLayoutTransactionHistory.apply {
+        binding.swipeRefreshLayoutTransactionHistory.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getRecentTransactions(true)
@@ -141,15 +137,15 @@ class AccountTransactionHistoryActivity :
 
     private fun showEmptyState(data: MutableList<SectionedAccountTransactionHistory>) {
         if (data.size > 0) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun scrollToTop() {
-        recyclerViewTransactionHistory.post {
-            recyclerViewTransactionHistory.smoothScrollToPosition(0)
+        binding.recyclerViewTransactionHistory.post {
+            binding.recyclerViewTransactionHistory.smoothScrollToPosition(0)
         }
     }
 
@@ -160,8 +156,8 @@ class AccountTransactionHistoryActivity :
     private fun initRecyclerView() {
         controller.setAdapterCallbacks(this)
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewTransactionHistory.layoutManager = linearLayoutManager
-        recyclerViewTransactionHistory.addOnScrollListener(
+        binding.recyclerViewTransactionHistory.layoutManager = linearLayoutManager
+        binding.recyclerViewTransactionHistory.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = viewModel.pageable.totalPageCount
@@ -177,7 +173,7 @@ class AccountTransactionHistoryActivity :
                 }
             }
         )
-        recyclerViewTransactionHistory.setController(controller)
+        binding.recyclerViewTransactionHistory.setController(controller)
     }
 
     private fun getRecentTransactions(isInitialLoading: Boolean, isTapToRetry: Boolean = false) {
@@ -199,4 +195,10 @@ class AccountTransactionHistoryActivity :
     companion object {
         const val EXTRA_ID = "id"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_account_transaction_history
+
+    override val viewModelClassType: Class<AccountTransactionHistoryViewModel>
+        get() = AccountTransactionHistoryViewModel::class.java
 }

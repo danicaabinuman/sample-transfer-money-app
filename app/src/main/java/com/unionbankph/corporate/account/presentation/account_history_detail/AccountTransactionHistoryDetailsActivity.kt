@@ -29,37 +29,31 @@ import com.unionbankph.corporate.approval.presentation.approval_detail.ApprovalD
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityAccountTransactionHistoryDetailsBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_account_transaction_history_details.*
-import kotlinx.android.synthetic.main.view_account_transaction_share.*
-import kotlinx.android.synthetic.main.widget_header_transaction_summary.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 
 class AccountTransactionHistoryDetailsActivity :
-    BaseActivity<AccountTransactionHistoryDetailsViewModel>(R.layout.activity_account_transaction_history_details) {
+    BaseActivity<ActivityAccountTransactionHistoryDetailsBinding ,AccountTransactionHistoryDetailsViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, getString(R.string.title_transaction_details))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_transaction_details))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[AccountTransactionHistoryDetailsViewModel::class.java]
+
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
-                    viewLoadingState.isVisible = true
-                    scroll_view.isVisible = false
+                    binding.viewLoadingState.progressBar.isVisible = true
+                    binding.scrollView.isVisible = false
                 }
                 is UiState.Complete -> {
-                    viewLoadingState.isVisible = false
+                    binding.viewLoadingState.progressBar.isVisible = false
                 }
                 is UiState.Error -> {
                     handleOnError(it.throwable)
@@ -107,34 +101,34 @@ class AccountTransactionHistoryDetailsActivity :
     }
 
     private fun setupViews(accountDetails: AccountTransactionHistoryDetails) {
-        scroll_view.isVisible = true
-        text_view_trans_ref_no.text = accountDetails.referenceNumber.notEmpty()
-        text_view_trans_date.text =
+        binding.scrollView.isVisible = true
+        binding.textViewTransRefNo.text = accountDetails.referenceNumber.notEmpty()
+        binding.textViewTransDate.text =
             accountDetails.transactionDate.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DEFAULT)
-        tv_account.text = formatString(
+        binding.tvAccount.text = formatString(
             R.string.params_account_detail,
             accountDetails.account?.name,
             accountDetails.account?.accountNumber.formatAccountNumber(),
             accountDetails.account?.productCodeDesc
         ).toHtmlSpan()
-        tv_posted_date.text =
+        binding.tvPostedDate.text =
             accountDetails.postingDate.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DEFAULT)
-        tv_description.text = accountDetails.description.notEmpty()
-        tv_check_number.text = accountDetails.checkNumber.notEmpty()
-        tv_amount.text =
+        binding.tvDescription.text = accountDetails.description.notEmpty()
+        binding.tvCheckNumber.text = accountDetails.checkNumber.notEmpty()
+        binding.tvAmount.text =
             accountDetails.amount?.value.toString().formatAmount(accountDetails.amount?.currency)
-        tv_ending_balance.text =
+        binding.tvEndingBalance.text =
             viewModel.record.value?.endingBalance.formatAmount(viewModel.record.value?.balanceCurrency)
-        iv_transfer_type.setImageResource(
+        binding.ivTransferType.setImageResource(
             ConstantHelper.Drawable.getAccountTransactionType(
                 accountDetails.transactionClass
             )
         )
-        ll_fields.removeAllViews()
+        binding.llFields.removeAllViews()
         accountDetails.billsPayment?.also { billsPayment ->
-            tv_biller_name.text = billsPayment.billerName
-            tv_bills_payment_header.isVisible = true
-            cv_bills_payment.isVisible = true
+            binding.tvBillerName.text = billsPayment.billerName
+            binding.tvBillsPaymentHeader.isVisible = true
+            binding.cvBillsPayment.isVisible = true
             billsPayment.references?.forEachIndexed { index, reference ->
                 val viewFields = layoutInflater.inflate(R.layout.item_textview_biller, null)
                 val textViewTitle = viewFields.findViewById<TextView>(R.id.textViewTitle)
@@ -148,52 +142,52 @@ class AccountTransactionHistoryDetailsActivity :
                 } else {
                     textView.text = reference.referenceValue.notEmpty()
                 }
-                ll_fields.addView(viewFields)
+                binding.llFields.addView(viewFields)
             }
         }
-        tv_check_number_title.isVisible = accountDetails.checkNumber != null
-        tv_check_number.isVisible = accountDetails.checkNumber != null
-        border_check_number.isVisible = accountDetails.checkNumber != null
-        btn_view_transaction.isVisible = accountDetails.portalTransaction != null &&
+        binding.tvCheckNumberTitle.isVisible = accountDetails.checkNumber != null
+        binding.tvCheckNumber.isVisible = accountDetails.checkNumber != null
+        binding.borderCheckNumber.isVisible = accountDetails.checkNumber != null
+        binding.btnViewTransaction.isVisible = accountDetails.portalTransaction != null &&
                 "Debit".equals(accountDetails.transactionClass?.description, true)
 
         setupShareDetails(accountDetails)
-        btn_view_transaction.setOnClickListener {
+        binding.btnViewTransaction.setOnClickListener {
             viewModel.onClickedViewTransaction()
         }
     }
 
     private fun setupShareDetails(accountDetails: AccountTransactionHistoryDetails) {
-        textViewQRCodeDesc.isVisible = false
-        imageViewQRCode.isVisible = false
-        tv_share_reference_number.text = accountDetails.referenceNumber.notEmpty()
-        tv_share_account.text = formatString(
+        binding.viewShareDetails.viewHeaderTransaction.textViewQRCodeDesc.isVisible = false
+        binding.viewShareDetails.viewHeaderTransaction.imageViewQRCode.isVisible = false
+        binding.viewShareDetails.tvShareReferenceNumber.text = accountDetails.referenceNumber.notEmpty()
+        binding.viewShareDetails.tvShareAccount.text = formatString(
             R.string.params_account_detail,
             accountDetails.account?.name,
             accountDetails.account?.accountNumber.formatAccountNumber(),
             accountDetails.account?.productCodeDesc
         ).toHtmlSpan()
-        tv_share_posted_date.text =
+        binding.viewShareDetails.tvSharePostedDate.text =
             accountDetails.postingDate.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DEFAULT)
-        tv_share_transaction_date.text =
+        binding.viewShareDetails.tvShareTransactionDate.text =
             accountDetails.transactionDate.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DEFAULT)
-        tv_share_check_number_title.isVisible = accountDetails.checkNumber != null
-        tv_share_check_number.isVisible = accountDetails.checkNumber != null
-        tv_share_check_number.text = accountDetails.checkNumber.notEmpty()
-        tv_share_description.text = accountDetails.description.notEmpty()
-        tv_share_amount.text =
+        binding.viewShareDetails.tvShareCheckNumberTitle.isVisible = accountDetails.checkNumber != null
+        binding.viewShareDetails.tvShareCheckNumber.isVisible = accountDetails.checkNumber != null
+        binding.viewShareDetails.tvShareCheckNumber.text = accountDetails.checkNumber.notEmpty()
+        binding.viewShareDetails.tvShareDescription.text = accountDetails.description.notEmpty()
+        binding.viewShareDetails.tvShareAmount.text =
             accountDetails.amount?.value.toString().formatAmount(accountDetails.amount?.currency)
-        tv_share_ending_balance.text =
+        binding.viewShareDetails.tvShareEndingBalance.text =
             viewModel.record.value?.endingBalance.formatAmount(viewModel.record.value?.balanceCurrency)
-        iv_share_transfer_type.setImageResource(
+        binding.viewShareDetails.ivShareTransferType.setImageResource(
             ConstantHelper.Drawable.getAccountTransactionType(
                 accountDetails.transactionClass
             )
         )
         accountDetails.billsPayment?.also { billsPayment ->
-            tv_share_remittance_details.isVisible = true
-            tv_share_fields.isVisible = true
-            border_remittance_details.isVisible = true
+            binding.viewShareDetails.tvShareRemittanceDetails.isVisible = true
+            binding.viewShareDetails.tvShareFields.isVisible = true
+            binding.viewShareDetails.borderRemittanceDetails.isVisible = true
             val stringBuilder = StringBuilder()
             billsPayment.references?.forEachIndexed { index, reference ->
                 if (reference.referenceValue.isValidDateFormat(DateFormatEnum.DATE_FORMAT_DATE_SLASH)) {
@@ -217,7 +211,7 @@ class AccountTransactionHistoryDetailsActivity :
                 }
             }
 
-            tv_share_fields.text = (
+            binding.viewShareDetails.tvShareFields.text = (
                     billsPayment.billerName +
                             "<br>" +
                             formatString(
@@ -229,12 +223,11 @@ class AccountTransactionHistoryDetailsActivity :
                             stringBuilder.toString()
                     ).toHtmlSpan()
         }
-        tv_share_date_downloaded.text = viewUtil.getCurrentDateString()
+        binding.viewShareDetails.tvShareDateDownloaded.text = viewUtil.getCurrentDateString()
     }
 
     private fun initViews() {
-        val buttonShare = view_share_button.findViewById<Button>(R.id.buttonShare)
-        buttonShare.setOnClickListener {
+        binding.viewShareButton.buttonShare.setOnClickListener {
             initPermission()
         }
     }
@@ -248,11 +241,13 @@ class AccountTransactionHistoryDetailsActivity :
             .subscribe { granted ->
                 if (granted) {
                     showProgressAlertDialog(this::class.java.simpleName)
-                    sv_share.isVisible = true
+                    binding.svShare.isVisible = true
                     Handler().postDelayed(
                         {
-                            val shareBitmap = viewUtil.getBitmapByView(viewShareDetails)
-                            sv_share.isVisible = false
+                            val shareBitmap = viewUtil.getBitmapByView(
+                                binding.viewShareDetails.viewShareAccountTransaction
+                            )
+                            binding.svShare.isVisible = false
                             dismissProgressAlertDialog()
                             startShareMediaActivity(shareBitmap)
                         }, resources.getInteger(R.integer.time_delay_share_media).toLong()
@@ -299,5 +294,11 @@ class AccountTransactionHistoryDetailsActivity :
         const val EXTRA_RECORD = "record"
         const val EXTRA_ID = "id"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_account_transaction_history_details
+
+    override val viewModelClassType: Class<AccountTransactionHistoryDetailsViewModel>
+        get() = AccountTransactionHistoryDetailsViewModel::class.java
 
 }

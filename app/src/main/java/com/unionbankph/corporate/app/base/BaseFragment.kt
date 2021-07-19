@@ -2,12 +2,11 @@ package com.unionbankph.corporate.app.base
 
 import android.content.Context
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
 import android.widget.EditText
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -116,8 +115,18 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>() : Fragment() {
         beforeLayout(savedInstanceState)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        initViewBinding(inflater, container)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         afterLayout(savedInstanceState)
         onViewModelBound()
         onViewsBound()
@@ -148,6 +157,10 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>() : Fragment() {
 
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[viewModelClassType]
+    }
+
+    private fun initViewBinding(inflater: LayoutInflater, container: ViewGroup?) {
+        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
     }
 
     fun getLinearLayoutManager(): LinearLayoutManager {

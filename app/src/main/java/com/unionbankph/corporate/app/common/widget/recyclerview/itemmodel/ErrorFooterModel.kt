@@ -12,11 +12,14 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
-import kotlinx.android.synthetic.main.footer_error.view.*
-import kotlinx.android.synthetic.main.footer_progress_bar.view.*
+import com.unionbankph.corporate.databinding.FooterErrorBinding
+import com.unionbankph.corporate.databinding.FooterProgressBarBinding
 
-@EpoxyModelClass(layout = R.layout.footer_error)
 abstract class ErrorFooterModel : EpoxyModelWithHolder<ErrorFooterModel.Holder>() {
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.footer_error
+    }
 
     @EpoxyAttribute
     lateinit var title: String
@@ -26,23 +29,20 @@ abstract class ErrorFooterModel : EpoxyModelWithHolder<ErrorFooterModel.Holder>(
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
-            tv_title.text = title
-            cl_error.setOnClickListener {
+        holder.binding.apply {
+
+            tvTitle.text = title
+            clError.setOnClickListener {
                 callbacks.onTapToRetry()
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var cl_error: ConstraintLayout
-        lateinit var tv_title: AppCompatTextView
-        lateinit var tv_desc: AppCompatTextView
+        lateinit var binding : FooterErrorBinding
 
         override fun bindView(itemView: View) {
-            cl_error = itemView.cl_error
-            tv_title = itemView.tv_title
-            tv_desc = itemView.tv_desc
+            binding = FooterErrorBinding.bind(itemView)
         }
     }
 }
