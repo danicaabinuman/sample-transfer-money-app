@@ -20,17 +20,13 @@ import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.util.BitmapUtil
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityCheckDepositCameraBinding
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositScreenEnum
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositTypeEnum
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
 import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewActivity
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_check_deposit_camera.*
-import kotlinx.android.synthetic.main.activity_check_deposit_camera.cameraView
-import kotlinx.android.synthetic.main.activity_check_deposit_camera.imageViewCapture
-import kotlinx.android.synthetic.main.fragment_dao_signature.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -40,21 +36,17 @@ import javax.inject.Inject
  * Created by herald25santos on 2019-10-23
  */
 class CheckDepositCameraActivity :
-    BaseActivity<CheckDepositCameraViewModel>(R.layout.activity_check_deposit_camera) {
+    BaseActivity<ActivityCheckDepositCameraBinding, CheckDepositCameraViewModel>() {
 
     @Inject lateinit var bitmapUtil: BitmapUtil
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[CheckDepositCameraViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -83,9 +75,9 @@ class CheckDepositCameraActivity :
         viewModel.isFlashOn
             .subscribe {
                 if (it) {
-                    cameraView.flash = Flash.TORCH
+                    binding.cameraView.flash = Flash.TORCH
                 } else {
-                    cameraView.flash = Flash.OFF
+                    binding.cameraView.flash = Flash.OFF
                 }
                 invalidateOptionsMenu()
             }.addTo(disposables)
@@ -93,9 +85,9 @@ class CheckDepositCameraActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        imageViewCapture.setOnClickListener {
+        binding.imageViewCapture.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
-            cameraView.takePicture()
+            binding.cameraView.takePicture()
         }
     }
 
@@ -163,10 +155,10 @@ class CheckDepositCameraActivity :
         viewModel.checkDepositType.subscribe {
             when (it) {
                 CheckDepositTypeEnum.FRONT_OF_CHECK.name -> {
-                    setToolbarTitle(tvToolbar, formatString(R.string.title_front_of_check))
+                    setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_front_of_check))
                 }
                 CheckDepositTypeEnum.BACK_OF_CHECK.name -> {
-                    setToolbarTitle(tvToolbar, formatString(R.string.title_back_of_check))
+                    setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_back_of_check))
                 }
             }
         }.addTo(disposables)
@@ -174,7 +166,7 @@ class CheckDepositCameraActivity :
 
     private fun initCameraView() {
         CameraLogger.setLogLevel(CameraLogger.LEVEL_VERBOSE)
-        with(cameraView) {
+        with(binding.cameraView) {
             setLifecycleOwner(this@CheckDepositCameraActivity)
             addCameraListener(cameraViewListener)
         }
@@ -186,15 +178,15 @@ class CheckDepositCameraActivity :
             .subscribeOn(schedulerProvider.newThread())
             .observeOn(schedulerProvider.ui())
             .doOnComplete {
-                when (imageViewTips.text) {
+                when (binding.imageViewTips.text) {
                     formatString(R.string.msg_check_deposit_camera_tips_1) -> {
-                        imageViewTips.text = formatString(R.string.msg_check_deposit_camera_tips_2)
+                        binding.imageViewTips.text = formatString(R.string.msg_check_deposit_camera_tips_2)
                     }
                     formatString(R.string.msg_check_deposit_camera_tips_2) -> {
-                        imageViewTips.text = formatString(R.string.msg_check_deposit_camera_tips_3)
+                        binding.imageViewTips.text = formatString(R.string.msg_check_deposit_camera_tips_3)
                     }
                     else -> {
-                        imageViewTips.text = formatString(R.string.msg_check_deposit_camera_tips_1)
+                        binding.imageViewTips.text = formatString(R.string.msg_check_deposit_camera_tips_1)
                     }
                 }
                 changeTextMessageTips()
@@ -207,7 +199,7 @@ class CheckDepositCameraActivity :
             .request(Manifest.permission.CAMERA)
             .subscribe { granted ->
                 if (granted) {
-                    cameraView.open()
+                    binding.cameraView.open()
                 } else {
                     initCheckPermission()
                 }
@@ -264,4 +256,10 @@ class CheckDepositCameraActivity :
         const val EXTRA_CHECK_DEPOSIT_TYPE = "check_deposit_type"
         const val EXTRA_CHECK_DEPOSIT_UPLOAD = "check_deposit_upload"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_check_deposit_camera
+
+    override val viewModelClassType: Class<CheckDepositCameraViewModel>
+        get() = CheckDepositCameraViewModel::class.java
 }
