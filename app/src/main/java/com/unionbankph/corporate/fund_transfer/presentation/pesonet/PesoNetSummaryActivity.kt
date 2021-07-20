@@ -39,20 +39,17 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity
+import com.unionbankph.corporate.databinding.ActivityFundTransferSummaryPesonetBinding
 import com.unionbankph.corporate.fund_transfer.data.form.FundTransferPesoNetForm
 import com.unionbankph.corporate.fund_transfer.data.model.FundTransferVerify
 import com.unionbankph.corporate.fund_transfer.data.model.TransactionVerify
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_fund_transfer_summary_pesonet.*
-import kotlinx.android.synthetic.main.widget_button_share_outline.*
-import kotlinx.android.synthetic.main.widget_header_transaction_summary.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class PesoNetSummaryActivity :
-    BaseActivity<PesoNetViewModel>(R.layout.activity_fund_transfer_summary_pesonet),
+    BaseActivity<ActivityFundTransferSummaryPesonetBinding, PesoNetViewModel>(),
     OnTutorialListener {
 
     private val fundTransferVerify by lazyFast {
@@ -71,7 +68,7 @@ class PesoNetSummaryActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -83,7 +80,6 @@ class PesoNetSummaryActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[PesoNetViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowPesoNetError -> {
@@ -99,8 +95,8 @@ class PesoNetSummaryActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_transfer_summary),
                         it.orgName
                     )
@@ -154,7 +150,7 @@ class PesoNetSummaryActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         tutorialEngineUtil.setOnTutorialListener(this)
-        RxView.clicks(buttonViewOrganizationTransactions)
+        RxView.clicks(binding.buttonViewOrganizationTransactions)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -162,7 +158,7 @@ class PesoNetSummaryActivity :
             .subscribe {
                 navigateFTDashboard()
             }.addTo(disposables)
-        RxView.clicks(buttonMakeAnotherTransfer)
+        RxView.clicks(binding.buttonMakeAnotherTransfer)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -170,7 +166,7 @@ class PesoNetSummaryActivity :
             .subscribe {
                 navigateChannels()
             }.addTo(disposables)
-        RxView.clicks(buttonShare)
+        RxView.clicks(binding.viewShareButton.buttonShare)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -220,15 +216,15 @@ class PesoNetSummaryActivity :
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.button_radius)
             when (view) {
-                buttonViewOrganizationTransactions -> {
-                    viewUtil.setFocusOnView(scrollView, buttonMakeAnotherTransfer)
+                binding.buttonViewOrganizationTransactions -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.buttonMakeAnotherTransfer)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        buttonMakeAnotherTransfer,
+                        binding.buttonMakeAnotherTransfer,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -238,7 +234,7 @@ class PesoNetSummaryActivity :
                     )
                 }
                 else -> {
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.PESONET_SUMMARY, false)
                 }
             }
@@ -262,10 +258,10 @@ class PesoNetSummaryActivity :
                 selectedAccount
             )
         )
-        imageViewHeader.post {
-            imageViewHeader.layoutParams.width = imageViewHeader.measuredWidth
+        binding.imageViewHeader.post {
+            binding.imageViewHeader.layoutParams.width = binding.imageViewHeader.measuredWidth
         }
-        textViewTransferFrom.text =
+        binding.textViewTransferFrom.text =
             Html.fromHtml(
                 String.format(
                     getString(R.string.params_account_detail),
@@ -275,7 +271,7 @@ class PesoNetSummaryActivity :
                 )
             )
 
-        textViewTransferTo.text = if (fundTransferPesoNetForm.beneficiaryMasterForm == null) {
+        binding.textViewTransferTo.text = if (fundTransferPesoNetForm.beneficiaryMasterForm == null) {
             Html.fromHtml(
                 String.format(
                     getString(R.string.params_two_format),
@@ -294,13 +290,13 @@ class PesoNetSummaryActivity :
                 )
             )
         }
-        textViewReceivingBank.text = if (fundTransferPesoNetForm.beneficiaryMasterForm == null) {
+        binding.textViewReceivingBank.text = if (fundTransferPesoNetForm.beneficiaryMasterForm == null) {
             fundTransferPesoNetForm.receivingBankName
         } else {
             fundTransferPesoNetForm.beneficiaryMasterForm?.beneficiaryBankName
         }
 
-        textViewAmount.text =
+        binding.textViewAmount.text =
             AutoFormatUtil().formatWithTwoDecimalPlaces(
                 fundTransferPesoNetForm.amount.toString(),
                 account.currency
@@ -313,9 +309,9 @@ class PesoNetSummaryActivity :
                 intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE)
             )
             if (0.00 >= customServiceFee.value?.toDouble() ?: 0.00) {
-                textViewServiceFee.text = getString(R.string.value_service_fee_free)
+                binding.textViewServiceFee.text = getString(R.string.value_service_fee_free)
             } else {
-                textViewServiceFee.text = formatString(
+                binding.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         customServiceFee.value,
@@ -323,18 +319,18 @@ class PesoNetSummaryActivity :
                     )
                 )
             }
-            textViewServiceDiscountFee.visibility(true)
-            viewBorderServiceDiscountFee.visibility(true)
+            binding.textViewServiceDiscountFee.visibility(true)
+            binding.viewBorderServiceDiscountFee.visibility(true)
         } else {
-            textViewServiceDiscountFee.visibility(false)
-            viewBorderServiceDiscountFee.visibility(false)
+            binding.textViewServiceDiscountFee.visibility(false)
+            binding.viewBorderServiceDiscountFee.visibility(false)
         }
         if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(EXTRA_SERVICE_FEE)
             )
             if (intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE) != null) {
-                textViewServiceDiscountFee.text = formatString(
+                binding.textViewServiceDiscountFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         serviceFee.value,
@@ -342,7 +338,7 @@ class PesoNetSummaryActivity :
                     )
                 )
             } else {
-                textViewServiceFee.text = formatString(
+                binding.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         serviceFee.value,
@@ -351,18 +347,18 @@ class PesoNetSummaryActivity :
                 )
             }
         } else {
-            textViewServiceFee.text = getString(R.string.value_service_fee_free)
+            binding.textViewServiceFee.text = getString(R.string.value_service_fee_free)
         }
 
-        textViewChannel.text = intent.getStringExtra(EXTRA_ACCOUNT_TYPE)
-        textViewPurpose.text = fundTransferPesoNetForm.purposeDesc
-        textViewRemarks.text = viewUtil.getStringOrEmpty(fundTransferPesoNetForm.remarks)
+        binding.textViewChannel.text = intent.getStringExtra(EXTRA_ACCOUNT_TYPE)
+        binding.textViewPurpose.text = fundTransferPesoNetForm.purposeDesc
+        binding.textViewRemarks.text = viewUtil.getStringOrEmpty(fundTransferPesoNetForm.remarks)
         if (fundTransferPesoNetForm.remarks == null || fundTransferPesoNetForm.remarks == "") {
-            textViewRemarksTitle.visibility = View.GONE
-            textViewRemarks.visibility = View.GONE
-            view9.visibility = View.GONE
+            binding.textViewRemarksTitle.visibility = View.GONE
+            binding.textViewRemarks.visibility = View.GONE
+            binding.view9.visibility = View.GONE
         }
-        textViewProposedTransferDate.text =
+        binding.textViewProposedTransferDate.text =
             if (fundTransferPesoNetForm.immediate!!)
                 getString(R.string.title_immediately)
             else
@@ -372,20 +368,20 @@ class PesoNetSummaryActivity :
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
         if (fundTransferPesoNetForm.immediate!!) {
-            textViewStartDateTitle.visibility = View.GONE
-            textViewStartDate.visibility = View.GONE
-            view5.visibility = View.GONE
-            textViewFrequencyTitle.visibility = View.GONE
-            textViewFrequency.visibility = View.GONE
-            view6.visibility = View.GONE
-            textViewEndDateTitle.visibility = View.GONE
-            textViewEndDate.visibility = View.GONE
-            view7.visibility = View.GONE
-            textViewProposedTransferDateTitle.visibility = View.VISIBLE
-            textViewProposedTransferDate.visibility = View.VISIBLE
-            view4.visibility = View.VISIBLE
+            binding.textViewStartDateTitle.visibility = View.GONE
+            binding.textViewStartDate.visibility = View.GONE
+            binding.view5.visibility = View.GONE
+            binding.textViewFrequencyTitle.visibility = View.GONE
+            binding.textViewFrequency.visibility = View.GONE
+            binding.view6.visibility = View.GONE
+            binding.textViewEndDateTitle.visibility = View.GONE
+            binding.textViewEndDate.visibility = View.GONE
+            binding.view7.visibility = View.GONE
+            binding.textViewProposedTransferDateTitle.visibility = View.VISIBLE
+            binding.textViewProposedTransferDate.visibility = View.VISIBLE
+            binding.view4.visibility = View.VISIBLE
         } else {
-            textViewStartDate.text =
+            binding.textViewStartDate.text =
                 viewUtil.getDateFormatByDateString(
                     fundTransferPesoNetForm.transferDate,
                     ViewUtil.DATE_FORMAT_ISO,
@@ -397,35 +393,35 @@ class PesoNetSummaryActivity :
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DATE
                 )
-                textViewEndDate.text =
+                binding.textViewEndDate.text =
                     ("${fundTransferPesoNetForm.occurrencesText}\n(Until $endDate)")
             } else {
-                textViewEndDate.text = fundTransferPesoNetForm.occurrencesText
+                binding.textViewEndDate.text = fundTransferPesoNetForm.occurrencesText
             }
-            textViewFrequency.text = fundTransferPesoNetForm.frequency
+            binding.textViewFrequency.text = fundTransferPesoNetForm.frequency
             if (fundTransferPesoNetForm.frequency == getString(R.string.title_one_time)) {
-                textViewEndDate.visibility = View.GONE
-                textViewEndDateTitle.visibility = View.GONE
-                view7.visibility = View.GONE
-                textViewFrequencyTitle.visibility = View.GONE
-                textViewFrequency.visibility = View.GONE
-                view6.visibility = View.GONE
-                textViewStartDateTitle.visibility = View.GONE
-                textViewStartDate.visibility = View.GONE
-                view5.visibility = View.GONE
+                binding.textViewEndDate.visibility = View.GONE
+                binding.textViewEndDateTitle.visibility = View.GONE
+                binding.view7.visibility = View.GONE
+                binding.textViewFrequencyTitle.visibility = View.GONE
+                binding.textViewFrequency.visibility = View.GONE
+                binding.view6.visibility = View.GONE
+                binding.textViewStartDateTitle.visibility = View.GONE
+                binding.textViewStartDate.visibility = View.GONE
+                binding.view5.visibility = View.GONE
             } else {
-                textViewProposedTransferDateTitle.visibility = View.GONE
-                textViewProposedTransferDate.visibility = View.GONE
-                view4.visibility = View.GONE
+                binding.textViewProposedTransferDateTitle.visibility = View.GONE
+                binding.textViewProposedTransferDate.visibility = View.GONE
+                binding.view4.visibility = View.GONE
             }
         }
-        textViewCreatedBy.text = fundTransferVerify.createdBy
-        textViewCreatedOn.text = viewUtil.getDateFormatByDateString(
+        binding.textViewCreatedBy.text = fundTransferVerify.createdBy
+        binding.textViewCreatedOn.text = viewUtil.getDateFormatByDateString(
             transaction.transferDate,
             DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
             DateFormatEnum.DATE_FORMAT_DEFAULT.value
         )
-        textViewDateDownloaded.text = viewUtil.getCurrentDateString()
+        binding.textViewDateDownloaded.text = viewUtil.getCurrentDateString()
 
         setTransactionStatus(contextualFeature, transaction)
     }
@@ -611,11 +607,11 @@ class PesoNetSummaryActivity :
         headerColor: Int,
         headerMsg: String?
     ) {
-        viewHeader.setContextCompatBackground(background)
-        imageViewHeader.setImageResource(icon)
-        textViewHeader.text = header.notEmpty().toHtmlSpan()
-        textViewHeader.setContextCompatTextColor(headerColor)
-        textViewMsg.text = headerMsg.notEmpty().toHtmlSpan()
+        binding.viewHeader.setContextCompatBackground(background)
+        binding.imageViewHeader.setImageResource(icon)
+        binding.textViewHeader.text = header.notEmpty().toHtmlSpan()
+        binding.textViewHeader.setContextCompatTextColor(headerColor)
+        binding.textViewMsg.text = headerMsg.notEmpty().toHtmlSpan()
     }
 
     private fun initPermission() {
@@ -667,11 +663,11 @@ class PesoNetSummaryActivity :
             .doOnSubscribe { showProgressAlertDialog(PesoNetSummaryActivity::class.java.simpleName) }
             .subscribe(
                 {
-                    imageViewQRCode.setImageBitmap(it.toBitmap())
+                    binding.imageViewQRCode.setImageBitmap(it.toBitmap())
                     showShareContent(true)
                     Handler().postDelayed(
                         {
-                            val shareBitmap = viewUtil.getBitmapByView(constraintLayoutShare)
+                            val shareBitmap = viewUtil.getBitmapByView(binding.constraintLayoutShare)
                             showShareContent(false)
                             dismissProgressAlertDialog()
                             startShareMediaActivity(shareBitmap)
@@ -687,29 +683,29 @@ class PesoNetSummaryActivity :
 
     private fun showShareContent(isShown: Boolean) {
         if (isShown) {
-            viewHeaderTransaction.visibility(true)
-            viewShareButton.visibility(false)
-            viewBorderCreatedBy.visibility(true)
-            textViewCreatedByTitle.visibility(true)
-            textViewCreatedBy.visibility(true)
-            textViewCreatedOnTitle.visibility(true)
-            textViewCreatedOn.visibility(true)
-            textViewDateDownloadedTitle.visibility(true)
-            textViewDateDownloaded.visibility(true)
-            buttonMakeAnotherTransfer.visibility(false)
-            buttonViewOrganizationTransactions.visibility(false)
+            binding.viewHeaderTransaction.root.visibility(true)
+            binding.viewShareButton.root.visibility(false)
+            binding.viewBorderCreatedBy.visibility(true)
+            binding.textViewCreatedByTitle.visibility(true)
+            binding.textViewCreatedBy.visibility(true)
+            binding.textViewCreatedOnTitle.visibility(true)
+            binding.textViewCreatedOn.visibility(true)
+            binding.textViewDateDownloadedTitle.visibility(true)
+            binding.textViewDateDownloaded.visibility(true)
+            binding.buttonMakeAnotherTransfer.visibility(false)
+            binding.buttonViewOrganizationTransactions.visibility(false)
         } else {
-            viewHeaderTransaction.visibility(false)
-            viewShareButton.visibility(true)
-            viewBorderCreatedBy.visibility(false)
-            textViewCreatedByTitle.visibility(false)
-            textViewCreatedBy.visibility(false)
-            textViewCreatedOnTitle.visibility(false)
-            textViewCreatedOn.visibility(false)
-            textViewDateDownloadedTitle.visibility(false)
-            textViewDateDownloaded.visibility(false)
-            buttonMakeAnotherTransfer.visibility(true)
-            buttonViewOrganizationTransactions.visibility(true)
+            binding.viewHeaderTransaction.root.visibility(false)
+            binding.viewShareButton.root.visibility(true)
+            binding.viewBorderCreatedBy.visibility(false)
+            binding.textViewCreatedByTitle.visibility(false)
+            binding.textViewCreatedBy.visibility(false)
+            binding.textViewCreatedOnTitle.visibility(false)
+            binding.textViewCreatedOn.visibility(false)
+            binding.textViewDateDownloadedTitle.visibility(false)
+            binding.textViewDateDownloaded.visibility(false)
+            binding.buttonMakeAnotherTransfer.visibility(true)
+            binding.buttonViewOrganizationTransactions.visibility(true)
         }
     }
 
@@ -743,11 +739,11 @@ class PesoNetSummaryActivity :
     }
 
     private fun startViewTutorial() {
-        viewUtil.setFocusOnView(scrollView, buttonViewOrganizationTransactions)
+        viewUtil.setFocusOnView(binding.scrollView, binding.buttonViewOrganizationTransactions)
         val radius = resources.getDimension(R.dimen.button_radius)
         tutorialEngineUtil.startTutorial(
             this,
-            buttonViewOrganizationTransactions,
+            binding.buttonViewOrganizationTransactions,
             R.layout.frame_tutorial_lower_left,
             radius,
             false,
@@ -766,4 +762,10 @@ class PesoNetSummaryActivity :
         const val EXTRA_SERVICE_FEE = "service_fee"
         const val EXTRA_CUSTOM_SERVICE_FEE = "custom_service_fee"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_fund_transfer_summary_pesonet
+
+    override val viewModelClassType: Class<PesoNetViewModel>
+        get() = PesoNetViewModel::class.java
 }
