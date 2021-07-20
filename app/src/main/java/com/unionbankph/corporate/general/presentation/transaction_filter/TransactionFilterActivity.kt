@@ -22,13 +22,12 @@ import com.unionbankph.corporate.bills_payment.presentation.biller.biller_all.Al
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityTransactionFilterBinding
 import com.unionbankph.corporate.general.data.model.TransactionFilterForm
 import com.unionbankph.corporate.settings.presentation.form.SelectorData
 import com.unionbankph.corporate.settings.presentation.selector.SelectorActivity
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_transaction_filter.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.*
 import javax.annotation.concurrent.ThreadSafe
 
@@ -36,7 +35,7 @@ import javax.annotation.concurrent.ThreadSafe
  * Created by herald25santos on 2020-02-18
  */
 class TransactionFilterActivity :
-    BaseActivity<TransactionFilterViewModel>(R.layout.activity_transaction_filter) {
+    BaseActivity<ActivityTransactionFilterBinding, TransactionFilterViewModel>() {
 
     private lateinit var textInputEditTextStartDate: TextInputEditText
     private lateinit var textInputEditTextEndDate: TextInputEditText
@@ -47,15 +46,14 @@ class TransactionFilterActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_filters))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_filters))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[TransactionFilterViewModel::class.java]
+
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Complete -> {
@@ -166,15 +164,15 @@ class TransactionFilterActivity :
         viewModel.screen
             .subscribe {
                 if (it == BILLS_PAYMENT_SCREEN) {
-                    textViewChannel.visibility(false)
-                    viewChannel.visibility(false)
-                    textViewBillerName.visibility(true)
-                    viewBillerName.visibility(true)
+                    binding.textViewChannel.visibility(false)
+                    binding.viewChannel.root.visibility(false)
+                    binding.textViewBillerName.visibility(true)
+                    binding.viewBillerName.root.visibility(true)
                 } else {
-                    textViewChannel.visibility(true)
-                    viewChannel.visibility(true)
-                    textViewBillerName.visibility(false)
-                    viewBillerName.visibility(false)
+                    binding.textViewChannel.visibility(true)
+                    binding.viewChannel.root.visibility(true)
+                    binding.textViewBillerName.visibility(false)
+                    binding.viewBillerName.root.visibility(false)
                 }
             }.addTo(disposables)
         viewModel.startDateInput
@@ -211,31 +209,31 @@ class TransactionFilterActivity :
 
     private fun init() {
         val textInputLayoutStartDate =
-            viewStartDate.findViewById<TextInputLayout>(R.id.textInputLayoutStartDate)
+            binding.viewStartDate.textInputLayoutStartDate
         val textInputLayoutEndDate =
-            viewEndDate.findViewById<TextInputLayout>(R.id.textInputLayoutStartDate)
+            binding.viewEndDate.textInputLayoutStartDate
         val textInputLayoutChannel =
-            viewChannel.findViewById<TextInputLayout>(R.id.textInputLayoutSelector)
+            binding.viewChannel.textInputLayoutSelector
         val textInputLayoutStatus =
-            viewStatus.findViewById<TextInputLayout>(R.id.textInputLayoutSelector)
+            binding.viewStatus.textInputLayoutSelector
         val textInputLayoutBillerName =
-            viewBillerName.findViewById<TextInputLayout>(R.id.textInputLayoutSelector)
+            binding.viewBillerName.textInputLayoutSelector
         val viewBorderStartDate =
-            viewStartDate.findViewById<View>(R.id.viewBorderProposedStartDate)
+            binding.viewStartDate.viewBorderProposedStartDate
         val viewBorderEndDate =
-            viewEndDate.findViewById<View>(R.id.viewBorderProposedStartDate)
-        val buttonApplyFilter = viewPrimaryButton.findViewById<Button>(R.id.buttonPrimary)
-        val buttonClearFilter = viewSecondaryButton.findViewById<Button>(R.id.buttonSecondary)
+            binding.viewEndDate.viewBorderProposedStartDate
+        val buttonApplyFilter = binding.viewPrimaryButton.buttonPrimary
+        val buttonClearFilter = binding.viewSecondaryButton.buttonSecondary
         textInputEditTextStartDate =
-            viewStartDate.findViewById(R.id.textInputEditTextStartDate)
+            binding.viewStartDate.textInputEditTextStartDate
         textInputEditTextEndDate =
-            viewEndDate.findViewById(R.id.textInputEditTextStartDate)
+            binding.viewEndDate.textInputEditTextStartDate
         textInputEditTextChannel =
-            viewChannel.findViewById(R.id.textInputEditTextSelector)
+            binding.viewChannel.textInputEditTextSelector
         textInputEditTextStatus =
-            viewStatus.findViewById(R.id.textInputEditTextSelector)
+            binding.viewStatus.textInputEditTextSelector
         textInputEditTextBillerName =
-            viewBillerName.findViewById(R.id.textInputEditTextSelector)
+            binding.viewBillerName.textInputEditTextSelector
         viewBorderStartDate.visibility(false)
         viewBorderEndDate.visibility(false)
         textInputLayoutStartDate.hint = formatString(R.string.title_start_date)
@@ -380,4 +378,10 @@ class TransactionFilterActivity :
         const val FUND_TRANSFER_SCREEN = "fund_transfer_screen"
         const val BILLS_PAYMENT_SCREEN = "bills_payment_screen"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_transaction_filter
+
+    override val viewModelClassType: Class<TransactionFilterViewModel>
+        get() = TransactionFilterViewModel::class.java
 }
