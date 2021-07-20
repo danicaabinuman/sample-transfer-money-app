@@ -2,6 +2,7 @@ package com.unionbankph.corporate.auth.presentation.migration.migration_selectio
 
 import android.os.Bundle
 import android.view.View
+import androidx.room.migration.Migration
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -11,22 +12,23 @@ import com.unionbankph.corporate.app.common.extension.setEnableView
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.migration.MigrationViewModel
 import com.unionbankph.corporate.auth.presentation.migration.migration_form.MigrationFormActivity
-import kotlinx.android.synthetic.main.activity_migration_selection.*
+import com.unionbankph.corporate.databinding.ActivityMigrationSelectionBinding
 
 /**
  * Created by herald25santos on 2020-02-03
  */
-class MigrationSelectionActivity : BaseActivity<MigrationViewModel>(R.layout.activity_migration_selection) {
+class MigrationSelectionActivity :
+    BaseActivity<ActivityMigrationSelectionBinding, MigrationViewModel>() {
 
     override fun onViewsBound() {
         super.onViewsBound()
-        constraintLayoutECrediting.setEnableView(!App.isSupportedInProduction)
-        textViewMigration.makeLinks(
+        binding.constraintLayoutECrediting.setEnableView(!App.isSupportedInProduction)
+        binding.textViewMigration.makeLinks(
             Pair(getString(R.string.action_here), View.OnClickListener {
                 onBackPressed()
             })
         )
-        textViewTitle.text = formatString(
+        binding.textViewTitle.text = formatString(
             if (isSME) {
                 R.string.title_migration_selection_sme
             } else {
@@ -37,10 +39,10 @@ class MigrationSelectionActivity : BaseActivity<MigrationViewModel>(R.layout.act
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        constraintLayoutEBanking.setOnClickListener {
+        binding.constraintLayoutEBanking.setOnClickListener {
             navigateMigrationFormScreen(MigrationFormActivity.SCREEN_EBANKING)
         }
-        constraintLayoutECrediting.setOnClickListener {
+        binding.constraintLayoutECrediting.setOnClickListener {
             navigateMigrationFormScreen(MigrationFormActivity.SCREEN_ECREDITING)
         }
     }
@@ -55,4 +57,10 @@ class MigrationSelectionActivity : BaseActivity<MigrationViewModel>(R.layout.act
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_migration_selection
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }

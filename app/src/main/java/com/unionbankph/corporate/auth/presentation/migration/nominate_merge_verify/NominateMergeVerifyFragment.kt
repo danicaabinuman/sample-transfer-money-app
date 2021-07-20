@@ -24,10 +24,11 @@ import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationLoadin
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationMergeAccount
 import com.unionbankph.corporate.auth.presentation.migration.migration_merge.MigrationMergeActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentNominateEmailTakenVerifyBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_nominate_email_taken_verify.*
 
-class NominateMergeVerifyFragment : BaseFragment<MigrationViewModel>(R.layout.fragment_nominate_email_taken_verify) {
+class NominateMergeVerifyFragment :
+    BaseFragment<FragmentNominateEmailTakenVerifyBinding, MigrationViewModel>() {
 
     private val migrationMergeActivity by lazyFast { (activity as MigrationMergeActivity) }
 
@@ -35,7 +36,6 @@ class NominateMergeVerifyFragment : BaseFragment<MigrationViewModel>(R.layout.fr
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MigrationViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowMigrationLoading -> {
@@ -71,13 +71,13 @@ class NominateMergeVerifyFragment : BaseFragment<MigrationViewModel>(R.layout.fr
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonContinue.setOnClickListener {
+        binding.buttonContinue.setOnClickListener {
             if (migrationMergeActivity.getType() == MigrationMergeActivity.TYPE_ECREDITING) {
                 viewModel.mergeECredAccount(
                     migrationMergeActivity.getAccessToken(),
                     ECredMergeAccountForm(
                         username = loginMigrationDto.emailAddress,
-                        password = editTextPassword.text.toString()
+                        password = binding.editTextPassword.text.toString()
                     )
                 )
             } else {
@@ -86,14 +86,14 @@ class NominateMergeVerifyFragment : BaseFragment<MigrationViewModel>(R.layout.fr
                 migrationMergeAccountForm.corpId = loginMigrationDto.corpId
                 migrationMergeAccountForm.userId = loginMigrationDto.userId
                 migrationMergeAccountForm.emailAddress = loginMigrationDto.emailAddress
-                migrationMergeAccountForm.password = editTextPassword.text.toString().trim()
+                migrationMergeAccountForm.password = binding.editTextPassword.text.toString().trim()
                 migrationMergeAccountForm.migrationToken = loginMigrationDto.migrationToken
                 migrationMergeAccountForm.temporaryCorporateUserId =
                     loginMigrationDto.temporaryCorporateUserId
                 viewModel.migrationMergeAccount(migrationMergeAccountForm)
             }
         }
-        buttonBack.setOnClickListener {
+        binding.buttonBack.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
             migrationMergeActivity.getViewPager().currentItem =
@@ -102,7 +102,7 @@ class NominateMergeVerifyFragment : BaseFragment<MigrationViewModel>(R.layout.fr
     }
 
     private fun initView(loginMigrationDto: LoginMigrationDto) {
-        textViewEmailTakenVerifyDesc.text = formatString(
+        binding.textViewEmailTakenVerifyDesc.text = formatString(
             R.string.param_desc_email_address_taken_verify,
             loginMigrationDto.emailAddress
         ).toHtmlSpan()
@@ -114,7 +114,7 @@ class NominateMergeVerifyFragment : BaseFragment<MigrationViewModel>(R.layout.fr
             isValueChanged = true,
             minLength = 8,
             maxLength = 30,
-            editText = editTextPassword
+            editText = binding.editTextPassword
         )
 
         passwordObservable
@@ -129,7 +129,7 @@ class NominateMergeVerifyFragment : BaseFragment<MigrationViewModel>(R.layout.fr
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                buttonContinue.enableButton(it)
+                binding.buttonContinue.enableButton(it)
             }.addTo(disposables)
     }
 
@@ -147,4 +147,10 @@ class NominateMergeVerifyFragment : BaseFragment<MigrationViewModel>(R.layout.fr
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_nominate_email_taken_verify
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }

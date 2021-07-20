@@ -19,10 +19,10 @@ import com.unionbankph.corporate.auth.presentation.migration.nominate_verify.Nom
 import com.unionbankph.corporate.auth.presentation.migration.nominate_welcome.NominateWelcomeFragment
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
-import kotlinx.android.synthetic.main.activity_migration_main.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import com.unionbankph.corporate.databinding.ActivityMigrationMainBinding
 
-class MigrationMainActivity : BaseActivity<GeneralViewModel>(R.layout.activity_migration_main) {
+class MigrationMainActivity :
+    BaseActivity<ActivityMigrationMainBinding, GeneralViewModel>() {
 
     private lateinit var adapter: ViewPagerAdapter
 
@@ -34,7 +34,7 @@ class MigrationMainActivity : BaseActivity<GeneralViewModel>(R.layout.activity_m
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -46,7 +46,7 @@ class MigrationMainActivity : BaseActivity<GeneralViewModel>(R.layout.activity_m
             loginMigrationDto = JsonHelper.fromJson(intent.getStringExtra(EXTRA_DATA))
         }
 
-        textViewStep.text = String.format(
+        binding.textViewStep.text = String.format(
             getString(R.string.param_steps), 1, 5
         )
         setupViewPager()
@@ -64,7 +64,7 @@ class MigrationMainActivity : BaseActivity<GeneralViewModel>(R.layout.activity_m
 
     override fun onBackPressed() {
         onBackPressedEvent?.onBackPressed()
-        when (viewPagerMigration.currentItem) {
+        when (binding.viewPagerMigration.currentItem) {
             0 -> {
                 super.onBackPressed()
             }
@@ -80,10 +80,10 @@ class MigrationMainActivity : BaseActivity<GeneralViewModel>(R.layout.activity_m
                 )
             }
             else -> {
-                if (viewUtil.isSoftKeyboardShown(parentLayout)) {
+                if (viewUtil.isSoftKeyboardShown(binding.parentLayout)) {
                     viewUtil.dismissKeyboard(this)
                 }
-                viewPagerMigration.currentItem = viewPagerMigration.currentItem.minus(1)
+                binding.viewPagerMigration.currentItem = binding.viewPagerMigration.currentItem.minus(1)
             }
         }
     }
@@ -116,10 +116,10 @@ class MigrationMainActivity : BaseActivity<GeneralViewModel>(R.layout.activity_m
             NominateVerifyAccountResultFragment.newInstance(),
             FRAGMENT_NOMINATE_VERIFY_ACCOUNT_RESULT
         )
-        viewPagerMigration.offscreenPageLimit = 5
-        viewPagerMigration.currentItem = 1
-        viewPagerMigration.adapter = adapter
-        viewPagerMigration.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        binding.viewPagerMigration.offscreenPageLimit = 5
+        binding.viewPagerMigration.currentItem = 1
+        binding.viewPagerMigration.adapter = adapter
+        binding.viewPagerMigration.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
@@ -136,8 +136,8 @@ class MigrationMainActivity : BaseActivity<GeneralViewModel>(R.layout.activity_m
                         setDrawableBackButton(R.drawable.ic_arrow_back_white_24dp)
                     }
                 }
-                textViewStep.visibility = if (position == 0) View.GONE else View.VISIBLE
-                textViewStep.text = String.format(
+                binding.textViewStep.visibility = if (position == 0) View.GONE else View.VISIBLE
+                binding.textViewStep.text = String.format(
                     getString(R.string.param_steps),
                     position,
                     5
@@ -157,10 +157,10 @@ class MigrationMainActivity : BaseActivity<GeneralViewModel>(R.layout.activity_m
     fun getType() = intent.getStringExtra(EXTRA_TYPE)
 
     fun setCurrentViewPager(currentItem: Int) {
-        viewPagerMigration.currentItem = currentItem
+        binding.viewPagerMigration.currentItem = currentItem
     }
 
-    fun getViewPager(): ViewPager = viewPagerMigration
+    fun getViewPager(): ViewPager = binding.viewPagerMigration
 
     fun getLoginMigrationInfo(): LoginMigrationDto = loginMigrationDto
 
@@ -181,4 +181,10 @@ class MigrationMainActivity : BaseActivity<GeneralViewModel>(R.layout.activity_m
         const val FRAGMENT_NOMINATE_VERIFY_ACCOUNT = "nominate_verify_account"
         const val FRAGMENT_NOMINATE_VERIFY_ACCOUNT_RESULT = "nominate_verify_account_result"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_migration_main
+
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
 }

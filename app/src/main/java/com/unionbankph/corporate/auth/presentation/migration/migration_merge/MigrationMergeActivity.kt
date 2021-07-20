@@ -15,10 +15,10 @@ import com.unionbankph.corporate.auth.presentation.migration.nominate_merge.Nomi
 import com.unionbankph.corporate.auth.presentation.migration.nominate_merge.NominateMergeSuccessFragment
 import com.unionbankph.corporate.auth.presentation.migration.nominate_merge_verify.NominateMergeVerifyFragment
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import kotlinx.android.synthetic.main.activity_migration_merge.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import com.unionbankph.corporate.databinding.ActivityMigrationMergeBinding
 
-class MigrationMergeActivity : BaseActivity<MigrationViewModel>(R.layout.activity_migration_merge) {
+class MigrationMergeActivity :
+    BaseActivity<ActivityMigrationMergeBinding, MigrationViewModel>() {
 
     private lateinit var adapter: ViewPagerAdapter
 
@@ -30,7 +30,7 @@ class MigrationMergeActivity : BaseActivity<MigrationViewModel>(R.layout.activit
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewsBound() {
@@ -50,7 +50,7 @@ class MigrationMergeActivity : BaseActivity<MigrationViewModel>(R.layout.activit
 
     override fun onBackPressed() {
         onBackPressedEvent?.onBackPressed()
-        when (viewPagerMigrationMerge.currentItem) {
+        when (binding.viewPagerMigrationMerge.currentItem) {
             0 -> {
                 onBackPressed(false)
                 overridePendingTransition(R.anim.anim_no_change, R.anim.anim_slide_down)
@@ -65,10 +65,10 @@ class MigrationMergeActivity : BaseActivity<MigrationViewModel>(R.layout.activit
                 )
             }
             else -> {
-                if (viewUtil.isSoftKeyboardShown(parentLayout)) {
+                if (viewUtil.isSoftKeyboardShown(binding.parentLayout)) {
                     viewUtil.dismissKeyboard(this)
                 }
-                viewPagerMigrationMerge.currentItem = viewPagerMigrationMerge.currentItem.minus(1)
+                binding.viewPagerMigrationMerge.currentItem = binding.viewPagerMigrationMerge.currentItem.minus(1)
             }
         }
     }
@@ -90,18 +90,18 @@ class MigrationMergeActivity : BaseActivity<MigrationViewModel>(R.layout.activit
                 NominateMergeVerifyAccountFragment.newInstance(),
                 FRAGMENT_MERGE_VERIFY_OTP
             )
-            viewPagerMigrationMerge.offscreenPageLimit = 3
+            binding.viewPagerMigrationMerge.offscreenPageLimit = 3
         } else {
-            viewPagerMigrationMerge.offscreenPageLimit = 2
+            binding.viewPagerMigrationMerge.offscreenPageLimit = 2
         }
         adapter.addFragment(
             NominateMergeSuccessFragment.newInstance(),
             FRAGMENT_MERGE_SUCCESS
         )
 
-        viewPagerMigrationMerge.currentItem = 1
-        viewPagerMigrationMerge.adapter = adapter
-        viewPagerMigrationMerge.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        binding.viewPagerMigrationMerge.currentItem = 1
+        binding.viewPagerMigrationMerge.adapter = adapter
+        binding.viewPagerMigrationMerge.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }
 
@@ -121,7 +121,7 @@ class MigrationMergeActivity : BaseActivity<MigrationViewModel>(R.layout.activit
         this.onBackPressedEvent = onBackPressedEvent
     }
 
-    fun getViewPager(): ViewPager = viewPagerMigrationMerge
+    fun getViewPager(): ViewPager = binding.viewPagerMigrationMerge
 
     fun getType(): String = intent.getStringExtra(EXTRA_TYPE).notNullable()
 
@@ -140,4 +140,10 @@ class MigrationMergeActivity : BaseActivity<MigrationViewModel>(R.layout.activit
         const val FRAGMENT_MERGE_VERIFY_OTP = "merge_verify_otp"
         const val FRAGMENT_MERGE_SUCCESS = "merge_success"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_migration_merge
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }

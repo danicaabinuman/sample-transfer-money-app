@@ -27,12 +27,13 @@ import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationNomina
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationSaveECredPayload
 import com.unionbankph.corporate.auth.presentation.migration.migration_merge.MigrationMergeActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentNominateEmailBinding
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_nominate_email.*
 import java.util.concurrent.TimeUnit
 
-class NominateEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fragment_nominate_email) {
+class NominateEmailFragment :
+    BaseFragment<FragmentNominateEmailBinding, MigrationViewModel>() {
 
     private val migrationMainActivity by lazyFast { (activity as MigrationMainActivity) }
 
@@ -40,7 +41,6 @@ class NominateEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fragment
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MigrationViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowMigrationLoading -> {
@@ -63,11 +63,11 @@ class NominateEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fragment
                         enumValueOf<ECredStatus>(it.nominateEmailDto.status.notNullable())
                     if (eCredStatus == ECredStatus.NEW_ECRED_MIGRATION) {
                         viewModel.saveECredPayload(
-                            ECredForm(emailAddress = editTextEmailAddress.text.toString())
+                            ECredForm(emailAddress = binding.editTextEmailAddress.text.toString())
                         )
                     } else if (eCredStatus == ECredStatus.FOR_ECRED_MERGING) {
                         val loginMigrationDto = LoginMigrationDto().apply {
-                            emailAddress = editTextEmailAddress.text.toString()
+                            emailAddress = binding.editTextEmailAddress.text.toString()
                             userId = migrationMainActivity.intent.getStringExtra(
                                 MigrationMainActivity.EXTRA_USER_ID
                             )
@@ -92,17 +92,17 @@ class NominateEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fragment
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonNext.setOnClickListener {
+        binding.buttonNext.setOnClickListener {
             if (migrationMainActivity.getType() == MigrationMainActivity.TYPE_ECREDITING) {
                 viewModel.nominateECreditingEmailAddress(
                     migrationMainActivity.getAccessToken(),
-                    editTextEmailAddress.text.toString().trim()
+                    binding.editTextEmailAddress.text.toString().trim()
                 )
             } else {
                 viewModel.nominateEmailMigration(
                     loginMigrationDto.temporaryCorporateUserId!!,
                     MigrationNominateEmailForm(
-                        editTextEmailAddress.text.toString().trim(),
+                        binding.editTextEmailAddress.text.toString().trim(),
                         loginMigrationDto.migrationToken
                     )
                 )
@@ -111,11 +111,11 @@ class NominateEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fragment
     }
 
     private fun validateForm() {
-        val emailObservable = RxValidator.createFor(editTextEmailAddress)
+        val emailObservable = RxValidator.createFor(binding.editTextEmailAddress)
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
-                    textInputLayoutEmailAddress.hint
+                    binding.textInputLayoutEmailAddress.hint
                 )
             )
             .email(getString(R.string.error_invalid_email_address))
@@ -140,7 +140,7 @@ class NominateEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fragment
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                buttonNext.enableButton(it)
+                binding.buttonNext.enableButton(it)
             }.addTo(disposables)
     }
 
@@ -150,7 +150,7 @@ class NominateEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fragment
         eventBus.actionSyncEvent.emmit(
             BaseEvent(
                 ActionSyncEvent.ACTION_UPDATE_EMAIL_MIGRATION,
-                editTextEmailAddress.text.toString()
+                binding.editTextEmailAddress.text.toString()
             )
         )
     }
@@ -187,4 +187,10 @@ class NominateEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fragment
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_nominate_email
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }

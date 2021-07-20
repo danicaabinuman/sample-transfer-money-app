@@ -26,12 +26,12 @@ import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationNomina
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationSaveECredPayload
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentNominateMobileNumberBinding
 import com.unionbankph.corporate.settings.presentation.country.CountryActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_nominate_mobile_number.*
-import kotlinx.android.synthetic.main.widget_country_picker.*
 
-class NominateMobileNumberFragment : BaseFragment<MigrationViewModel>(R.layout.fragment_nominate_mobile_number) {
+class NominateMobileNumberFragment :
+    BaseFragment<FragmentNominateMobileNumberBinding, MigrationViewModel>() {
 
     private val migrationMainActivity by lazyFast { (activity as MigrationMainActivity) }
 
@@ -41,7 +41,6 @@ class NominateMobileNumberFragment : BaseFragment<MigrationViewModel>(R.layout.f
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MigrationViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowMigrationLoading -> {
@@ -95,14 +94,14 @@ class NominateMobileNumberFragment : BaseFragment<MigrationViewModel>(R.layout.f
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        countryCodePicker.setOnClickListener {
+        binding.countryCodePicker.root.setOnClickListener {
             navigateCountryScreen()
         }
-        buttonSubmit.setOnClickListener {
+        binding.buttonSubmit.setOnClickListener {
             if (migrationMainActivity.getType() == MigrationMainActivity.TYPE_ECREDITING) {
                 viewModel.saveECredPayload(
                     ECredForm(
-                        mobileNumber = editTextMobileNumber.text.toString().trim(),
+                        mobileNumber = binding.editTextMobileNumber.text.toString().trim(),
                         countryCodeId = countryCode.id
                     )
                 )
@@ -111,7 +110,7 @@ class NominateMobileNumberFragment : BaseFragment<MigrationViewModel>(R.layout.f
                     loginMigrationDto.temporaryCorporateUserId!!,
                     MigrationNominateMobileNumberForm(
                         countryCode.id,
-                        editTextMobileNumber.text.toString().trim(),
+                        binding.editTextMobileNumber.text.toString().trim(),
                         loginMigrationDto.migrationToken
                     )
                 )
@@ -129,8 +128,8 @@ class NominateMobileNumberFragment : BaseFragment<MigrationViewModel>(R.layout.f
     }
 
     private fun initCountryDefault(selectedCountryCode: CountryCode?) {
-        textViewCallingCode.text = selectedCountryCode?.callingCode
-        imageViewFlag.setImageResource(
+        binding.countryCodePicker.textViewCallingCode.text = selectedCountryCode?.callingCode
+        binding.countryCodePicker.imageViewFlag.setImageResource(
             viewUtil.getDrawableById("ic_flag_${selectedCountryCode?.code?.toLowerCase()}")
         )
     }
@@ -141,7 +140,7 @@ class NominateMobileNumberFragment : BaseFragment<MigrationViewModel>(R.layout.f
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = editTextMobileNumber
+            editText = binding.editTextMobileNumber
         )
         RxCombineValidator(mobileNumberObservable)
             .asObservable()
@@ -149,7 +148,7 @@ class NominateMobileNumberFragment : BaseFragment<MigrationViewModel>(R.layout.f
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                buttonSubmit.enableButton(it)
+                binding.buttonSubmit.enableButton(it)
             }.addTo(disposables)
     }
 
@@ -185,4 +184,10 @@ class NominateMobileNumberFragment : BaseFragment<MigrationViewModel>(R.layout.f
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_nominate_mobile_number
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }

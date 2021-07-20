@@ -7,9 +7,9 @@ import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.auth.presentation.migration.MigrationMainActivity
 import com.unionbankph.corporate.auth.presentation.migration.MigrationViewModel
-import kotlinx.android.synthetic.main.fragment_nominate_welcome.*
+import com.unionbankph.corporate.databinding.FragmentNominateWelcomeBinding
 
-class NominateWelcomeFragment : BaseFragment<MigrationViewModel>(R.layout.fragment_nominate_welcome) {
+class NominateWelcomeFragment : BaseFragment<FragmentNominateWelcomeBinding, MigrationViewModel>() {
 
     private val migrationMainActivity by lazyFast { (activity as MigrationMainActivity) }
 
@@ -23,12 +23,12 @@ class NominateWelcomeFragment : BaseFragment<MigrationViewModel>(R.layout.fragme
             val loginMigrationDto = migrationMainActivity.getLoginMigrationInfo()
             "Welcome\n${loginMigrationDto.firstName} ${loginMigrationDto.lastName}!"
         }
-        textViewWelcomeTitle.text = fullName
+        binding.textViewWelcomeTitle.text = fullName
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonContinue.setOnClickListener {
+        binding.buttonContinue.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
             migrationMainActivity.getViewPager().currentItem =
@@ -45,4 +45,10 @@ class NominateWelcomeFragment : BaseFragment<MigrationViewModel>(R.layout.fragme
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_nominate_welcome
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }

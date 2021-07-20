@@ -24,12 +24,13 @@ import com.unionbankph.corporate.auth.presentation.migration.*
 import com.unionbankph.corporate.auth.presentation.otp.OTPActivity
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityMigrationFormBinding
 import com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_migration_form.*
 import java.util.concurrent.TimeUnit
 
-class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity_migration_form) {
+class MigrationFormActivity :
+    BaseActivity<ActivityMigrationFormBinding, MigrationViewModel>() {
 
     private lateinit var imeOptionEditText: ImeOptionEditText
 
@@ -37,7 +38,7 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
         super.afterLayout(savedInstanceState)
         initTransparency()
         setMargins(
-            textViewLearnMore,
+            binding.textViewLearnMore,
             0,
             0,
             0,
@@ -47,7 +48,6 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MigrationViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowMigrationLoading -> {
@@ -73,27 +73,27 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
         super.onViewsBound()
         validateForm()
         if (intent.getStringExtra(EXTRA_SCREEN) == SCREEN_ECREDITING) {
-            textViewDesc.text = formatString(
+            binding.textViewDesc.text = formatString(
                 if (isSME) {
                     R.string.desc_migration_form_e_crediting_sme
                 } else {
                     R.string.desc_migration_form_e_crediting
                 }
             )
-            textInputLayoutCorpId.visibility(false)
+            binding.textInputLayoutCorpId.visibility(false)
             Handler().post {
-                editTextCorpId.setText(Constant.EMPTY)
+                binding.editTextCorpId.setText(Constant.EMPTY)
             }
         } else {
-            textViewDesc.text = formatString(
+            binding.textViewDesc.text = formatString(
                 if (isSME) {
                     R.string.desc_migration_form_e_banking_sme
                 } else {
                     R.string.desc_migration_form_e_banking
                 }
             )
-            textInputLayoutCorpId.visibility(true)
-            editTextCorpId.text?.clear()
+            binding.textInputLayoutCorpId.visibility(true)
+            binding.editTextCorpId.text?.clear()
         }
     }
 
@@ -102,9 +102,9 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
         initEventBus()
         imeOptionEditText =
             ImeOptionEditText()
-        imeOptionEditText.addEditText(editTextCorpId, editTextUserId, editTextPassword)
+        imeOptionEditText.addEditText(binding.editTextCorpId, binding.editTextUserId, binding.editTextPassword)
         imeOptionEditText.startListener()
-        textViewMigration.makeLinks(
+        binding.textViewMigration.makeLinks(
             Pair(getString(R.string.action_here), View.OnClickListener {
                 navigator.navigateClearUpStack(
                     this,
@@ -115,28 +115,28 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
                 )
             })
         )
-        textViewMigration.setOnClickListener {
+        binding.textViewMigration.setOnClickListener {
             onBackPressed()
         }
-        buttonNext.setOnClickListener {
+        binding.buttonNext.setOnClickListener {
             if (intent.getStringExtra(EXTRA_SCREEN) == SCREEN_ECREDITING) {
                 viewModel.loginECreditingMigration(
                     LoginECreditingMigrationForm(
-                        username = editTextUserId.text.toString().trim(),
-                        password = editTextPassword.text.toString().trim()
+                        username = binding.editTextUserId.text.toString().trim(),
+                        password = binding.editTextPassword.text.toString().trim()
                     )
                 )
             } else {
                 viewModel.loginEBankingMigration(
                     LoginEBankingMigrationForm(
-                        corpId = editTextCorpId.text.toString().trim(),
-                        userId = editTextUserId.text.toString().trim(),
-                        password = editTextPassword.text.toString().trim()
+                        corpId = binding.editTextCorpId.text.toString().trim(),
+                        userId = binding.editTextUserId.text.toString().trim(),
+                        password = binding.editTextPassword.text.toString().trim()
                     )
                 )
             }
         }
-        textViewLearnMore.setOnClickListener {
+        binding.textViewLearnMore.setOnClickListener {
             initClickTextViewLearnMore()
         }
     }
@@ -144,11 +144,11 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
     private fun initEventBus() {
         eventBus.actionSyncEvent.flowable.subscribe {
             if (it.eventType == ActionSyncEvent.ACTION_REFRESH_MIGRATION_FORM_SCREEN) {
-                editTextCorpId.text?.clear()
-                editTextUserId.text?.clear()
-                editTextPassword.text?.clear()
-                constraintLayout.requestFocus()
-                constraintLayout.isFocusableInTouchMode = true
+                binding.editTextCorpId.text?.clear()
+                binding.editTextUserId.text?.clear()
+                binding.editTextPassword.text?.clear()
+                binding.constraintLayout.requestFocus()
+                binding.constraintLayout.isFocusableInTouchMode = true
             }
         }.addTo(disposables)
     }
@@ -159,21 +159,21 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field),
-            editText = editTextCorpId
+            editText = binding.editTextCorpId
         )
         val userIdObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field),
-            editText = editTextUserId
+            editText = binding.editTextUserId
         )
         val passwordObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field),
-            editText = editTextPassword
+            editText = binding.editTextPassword
         )
         RxCombineValidator(corpIdObservable, userIdObservable, passwordObservable)
             .asObservable()
@@ -181,12 +181,12 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                buttonNext.enableButton(it)
+                binding.buttonNext.enableButton(it)
             }.addTo(disposables)
     }
 
     private fun initClickTextViewLearnMore() {
-        RxView.clicks(textViewLearnMore)
+        RxView.clicks(binding.textViewLearnMore)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -215,7 +215,7 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
             )
             putString(
                 MigrationMainActivity.EXTRA_USER_ID,
-                editTextUserId.text.toString()
+                binding.editTextUserId.text.toString()
             )
         }
         navigator.navigate(
@@ -240,7 +240,7 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
             )
             putString(
                 OTPActivity.EXTRA_USER_ID,
-                editTextUserId.text.toString()
+                binding.editTextUserId.text.toString()
             )
         }
         navigator.navigate(
@@ -258,4 +258,10 @@ class MigrationFormActivity : BaseActivity<MigrationViewModel>(R.layout.activity
         const val SCREEN_ECREDITING = "ecrediting"
         const val SCREEN_EBANKING = "ebanking"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_migration_form
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }

@@ -25,12 +25,11 @@ import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationResend
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationVerify
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationVerifyECred
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentNominateVerifyAccountBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_nominate_verify_account.*
-import kotlinx.android.synthetic.main.widget_pin_code.*
 
 class NominateVerifyAccountFragment :
-    BaseFragment<MigrationViewModel>(R.layout.fragment_nominate_verify_account),
+    BaseFragment<FragmentNominateVerifyAccountBinding, MigrationViewModel>(),
     PincodeEditText.OnOTPCallback, MigrationMainActivity.OnBackPressedEvent {
 
     private lateinit var pinCodeEditText: PincodeEditText
@@ -43,7 +42,6 @@ class NominateVerifyAccountFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MigrationViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowMigrationLoading -> {
@@ -98,8 +96,8 @@ class NominateVerifyAccountFragment :
             init()
         }
         if (!hasInitialLoad) {
-            editTextHidden.requestFocus()
-            if (!viewUtil.isSoftKeyboardShown(parentLayout))
+            binding.editTextHidden.requestFocus()
+            if (!viewUtil.isSoftKeyboardShown(binding.parentLayout))
                 viewUtil.showKeyboard(getAppCompatActivity())
         }
     }
@@ -137,7 +135,7 @@ class NominateVerifyAccountFragment :
     }
 
     private fun initClickListener() {
-        btnResend.setOnClickListener {
+        binding.btnResend.setOnClickListener {
             viewUtil.dismissKeyboard(getAppCompatActivity())
             if (migrationMainActivity.getType() == MigrationMainActivity.TYPE_ECREDITING) {
                 viewModel.updateDetailsResendOTPMigration(
@@ -152,7 +150,7 @@ class NominateVerifyAccountFragment :
                 )
             }
         }
-        parentLayout.setOnClickListener {
+        binding.parentLayout.setOnClickListener {
             viewUtil.dismissKeyboard(getAppCompatActivity())
         }
     }
@@ -167,7 +165,7 @@ class NominateVerifyAccountFragment :
     }
 
     private fun updateScreen() {
-        tvVerifyAccountDesc.text = formatString(
+        binding.tvVerifyAccountDesc.text = formatString(
             R.string.desc_verify_account_sms,
             formatString(
                 R.string.param_color,
@@ -195,21 +193,21 @@ class NominateVerifyAccountFragment :
         pinCodeEditText =
             PincodeEditText(
                 getAppCompatActivity(),
-                parentLayout,
-                btnSubmit,
-                editTextHidden,
-                etPin1,
-                etPin2,
-                etPin3,
-                etPin4,
-                etPin5,
-                etPin6
+                binding.parentLayout,
+                binding.btnSubmit,
+                binding.editTextHidden,
+                binding.viewPinCode.etPin1,
+                binding.viewPinCode.etPin2,
+                binding.viewPinCode.etPin3,
+                binding.viewPinCode.etPin4,
+                binding.viewPinCode.etPin5,
+                binding.viewPinCode.etPin6
             )
         pinCodeEditText.setOnOTPCallback(this)
     }
 
     private fun initStartResendCodeCount(timer: Int) {
-        tvResend.text = formatString(
+        binding.tvResend.text = formatString(
             R.string.desc_resend_code_seconds,
             formatString(
                 R.string.param_color,
@@ -220,8 +218,8 @@ class NominateVerifyAccountFragment :
     }
 
     private fun initEnableResendButton(isEnabled: Boolean) {
-        btnResend.isEnabled = isEnabled
-        btnResend.alpha = if (isEnabled) 1.0F else 0.5F
+        binding.btnResend.isEnabled = isEnabled
+        binding.btnResend.alpha = if (isEnabled) 1.0F else 0.5F
     }
 
     private fun onSuccessResendOTP() {
@@ -251,4 +249,10 @@ class NominateVerifyAccountFragment :
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_nominate_verify_account
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }

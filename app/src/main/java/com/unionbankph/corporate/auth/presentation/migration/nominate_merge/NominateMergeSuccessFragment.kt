@@ -13,9 +13,10 @@ import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.auth.presentation.migration.MigrationViewModel
 import com.unionbankph.corporate.auth.presentation.migration.migration_merge.MigrationMergeActivity
 import com.unionbankph.corporate.auth.presentation.migration.migration_selection.MigrationSelectionActivity
-import kotlinx.android.synthetic.main.fragment_nominate_email_taken_success.*
+import com.unionbankph.corporate.databinding.FragmentNominateEmailTakenSuccessBinding
 
-class NominateMergeSuccessFragment : BaseFragment<MigrationViewModel>(R.layout.fragment_nominate_email_taken_success) {
+class NominateMergeSuccessFragment :
+    BaseFragment<FragmentNominateEmailTakenSuccessBinding, MigrationViewModel>() {
 
     private val migrationMergeActivity by lazyFast { (activity as MigrationMergeActivity) }
 
@@ -23,13 +24,13 @@ class NominateMergeSuccessFragment : BaseFragment<MigrationViewModel>(R.layout.f
         super.onViewsBound()
         val loginMigrationDto = migrationMergeActivity.getLoginMigrationMergeInfo()
         if (migrationMergeActivity.getType() == MigrationMergeActivity.TYPE_ECREDITING) {
-            textViewEmailTakenSuccessDesc.text = formatString(
+            binding.textViewEmailTakenSuccessDesc.text = formatString(
                 R.string.param_desc_ecred_email_address_taken_success,
                 loginMigrationDto.userId,
                 loginMigrationDto.emailAddress
             ).toHtmlSpan()
         } else {
-            textViewEmailTakenSuccessDesc.text = formatString(
+            binding.textViewEmailTakenSuccessDesc.text = formatString(
                 R.string.param_desc_email_address_taken_success,
                 loginMigrationDto.corpId,
                 loginMigrationDto.userId,
@@ -40,7 +41,7 @@ class NominateMergeSuccessFragment : BaseFragment<MigrationViewModel>(R.layout.f
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonLogin.setOnClickListener {
+        binding.buttonLogin.setOnClickListener {
             navigator.navigate(
                 (activity as MigrationMergeActivity),
                 LoginActivity::class.java,
@@ -52,7 +53,7 @@ class NominateMergeSuccessFragment : BaseFragment<MigrationViewModel>(R.layout.f
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_RIGHT
             )
         }
-        buttonMergeAnotherAccount.setOnClickListener {
+        binding.buttonMergeAnotherAccount.setOnClickListener {
             navigator.navigateClearUpStack(
                 (activity as MigrationMergeActivity),
                 MigrationSelectionActivity::class.java,
@@ -75,4 +76,10 @@ class NominateMergeSuccessFragment : BaseFragment<MigrationViewModel>(R.layout.f
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_nominate_email_taken_success
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }

@@ -9,9 +9,10 @@ import com.unionbankph.corporate.app.common.extension.toHtmlSpan
 import com.unionbankph.corporate.auth.data.model.LoginMigrationDto
 import com.unionbankph.corporate.auth.presentation.migration.MigrationViewModel
 import com.unionbankph.corporate.auth.presentation.migration.migration_merge.MigrationMergeActivity
-import kotlinx.android.synthetic.main.fragment_nominate_email_taken.*
+import com.unionbankph.corporate.databinding.FragmentNominateEmailTakenBinding
 
-class NominateMergeEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fragment_nominate_email_taken) {
+class NominateMergeEmailFragment :
+    BaseFragment<FragmentNominateEmailTakenBinding, MigrationViewModel>() {
 
     private lateinit var migrationMergeActivity: MigrationMergeActivity
 
@@ -25,7 +26,7 @@ class NominateMergeEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fra
     }
 
     private fun initView(loginMigrationDto: LoginMigrationDto) {
-        textViewEmailTakenDesc.text =
+        binding.textViewEmailTakenDesc.text =
             if (migrationMergeActivity.getType() == MigrationMergeActivity.TYPE_ECREDITING) {
                 formatString(
                     R.string.param_desc_ecred_email_address_taken,
@@ -44,13 +45,13 @@ class NominateMergeEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fra
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonMerge.setOnClickListener {
+        binding.buttonMerge.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
             migrationMergeActivity.getViewPager().currentItem =
                 migrationMergeActivity.getViewPager().currentItem.plus(1)
         }
-        buttonNominateDifferentEmail.setOnClickListener {
+        binding.buttonNominateDifferentEmail.setOnClickListener {
             migrationMergeActivity.onBackPressed()
         }
     }
@@ -64,4 +65,10 @@ class NominateMergeEmailFragment : BaseFragment<MigrationViewModel>(R.layout.fra
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_nominate_email_taken
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
 }
