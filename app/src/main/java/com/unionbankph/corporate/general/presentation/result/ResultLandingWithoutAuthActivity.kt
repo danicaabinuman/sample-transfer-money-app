@@ -12,21 +12,20 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.data.model.ApiError
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityResultLandingPageBinding
 import com.unionbankph.corporate.settings.data.form.VerifyEmailAddressForm
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsChangeEmailSuccess
 import com.unionbankph.corporate.settings.presentation.ShowSettingsDismissLoading
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsLoading
-import kotlinx.android.synthetic.main.activity_result_landing_page.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 class ResultLandingWithoutAuthActivity :
-    BaseActivity<SettingsViewModel>(R.layout.activity_result_landing_page) {
+    BaseActivity<ActivityResultLandingPageBinding, SettingsViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -37,13 +36,12 @@ class ResultLandingWithoutAuthActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        buttonClose.text = getString(R.string.title_login)
+        binding.buttonClose.text = getString(R.string.title_login)
         initVerifyEmail()
     }
 
     private fun initSettingsViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[SettingsViewModel::class.java]
+
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSettingsLoading -> {
@@ -53,9 +51,9 @@ class ResultLandingWithoutAuthActivity :
                     dismissInitialLoading()
                 }
                 is ShowSettingsChangeEmailSuccess -> {
-                    textViewTitle.text = it.message.message
-                    textViewDescription.text = it.message.description
-                    scrollView.visibility = View.VISIBLE
+                    binding.textViewTitle.text = it.message.message
+                    binding.textViewDescription.text = it.message.description
+                    binding.scrollView.visibility = View.VISIBLE
                 }
                 is ShowSettingsError -> {
                     showErrorResult(it.throwable)
@@ -70,18 +68,18 @@ class ResultLandingWithoutAuthActivity :
             val apiError = JsonHelper.fromJson<ApiError>(throwable.message)
             val errorMessage = apiError.errors[0].message ?: ""
             val errorDescription = apiError.errors[0].description ?: ""
-            textViewTitle.text = formatString(R.string.title_verification_link_expired)
-            textViewDescription.text = formatString(R.string.msg_verification_link_expired)
-            scrollView.visibility = View.VISIBLE
+            binding.textViewTitle.text = formatString(R.string.title_verification_link_expired)
+            binding.textViewDescription.text = formatString(R.string.msg_verification_link_expired)
+            binding.scrollView.visibility = View.VISIBLE
         } catch (e: Exception) {
-            scrollView.visibility = View.GONE
+            binding.scrollView.visibility = View.GONE
             handleOnError(throwable)
         }
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonClose.setOnClickListener {
+        binding.buttonClose.setOnClickListener {
             navigator.navigate(
                 this,
                 LoginActivity::class.java,
@@ -104,12 +102,12 @@ class ResultLandingWithoutAuthActivity :
     }
 
     private fun dismissInitialLoading() {
-        viewLoadingState.visibility = View.GONE
+        binding.viewLoadingState.root.visibility = View.GONE
     }
 
     private fun showInitialLoading() {
-        viewLoadingState.visibility = View.VISIBLE
-        scrollView.visibility = View.GONE
+        binding.viewLoadingState.root.visibility = View.VISIBLE
+        binding.scrollView.visibility = View.GONE
     }
 
     private fun initVerifyEmail() {
@@ -122,4 +120,10 @@ class ResultLandingWithoutAuthActivity :
             viewModel.verifyEmailAddress(VerifyEmailAddressForm(confirmationId))
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_result_landing_page
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
 }
