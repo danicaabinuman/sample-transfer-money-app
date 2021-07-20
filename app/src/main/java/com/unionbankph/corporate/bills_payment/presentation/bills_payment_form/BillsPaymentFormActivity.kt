@@ -58,21 +58,17 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTu
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.corporate.data.model.Channel
+import com.unionbankph.corporate.databinding.ActivityBillsPaymentFormBinding
 import com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer.ProposedTransferDateActivity
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_bills_payment_form.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_edit_text_payment_to.*
-import kotlinx.android.synthetic.main.widget_edit_text_proposed_date.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.*
 import java.util.regex.Pattern
 
 class BillsPaymentFormActivity :
-    BaseActivity<BillsPaymentFormViewModel>(R.layout.activity_bills_payment_form),
+    BaseActivity<ActivityBillsPaymentFormBinding, BillsPaymentFormViewModel>(),
     View.OnClickListener,
     OnTutorialListener,
     OnConfirmationPageCallBack, ImeOptionEditText.OnImeOptionListener {
@@ -121,7 +117,7 @@ class BillsPaymentFormActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
@@ -133,16 +129,15 @@ class BillsPaymentFormActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        et_amount.setEnableAmount(false)
+        binding.etAmount.setEnableAmount(false)
         initChannelView(channel)
         initBiller()
-        textInputEditTextProposedTransactionDate.setText(getString(R.string.title_immediately))
+        binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate
+            .setText(getString(R.string.title_immediately))
         tutorialEngineUtil.setOnTutorialListener(this)
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[BillsPaymentFormViewModel::class.java]
         viewModel.formState.observe(this, Observer {
             when (it) {
                 is ShowBillsPaymentFormLoading -> {
@@ -196,8 +191,8 @@ class BillsPaymentFormActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_pay_bills),
                         it.orgName
                     )
@@ -254,7 +249,7 @@ class BillsPaymentFormActivity :
             R.id.menu_help -> {
                 isClickedHelpTutorial = true
                 viewUtil.dismissKeyboard(this)
-                scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                 Handler().postDelayed(
                     {
                         startViewTutorial()
@@ -273,16 +268,16 @@ class BillsPaymentFormActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        textInputEditTextTransferFrom.setOnClickListener(this)
-        textInputEditTextPaymentTo.setOnClickListener(this)
-        imageViewFrequentBillerClose.setOnClickListener(this)
-        textInputEditTextProposedTransactionDate.setOnClickListener(null)
+        binding.textInputEditTextTransferFrom.setOnClickListener(this)
+        binding.viewPaymentTo.textInputEditTextPaymentTo.setOnClickListener(this)
+        binding.viewPaymentTo.imageViewFrequentBillerClose.setOnClickListener(this)
+        binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setOnClickListener(null)
         imeOptionEditText =
             ImeOptionEditText()
         if (isSSSChannel()) {
-            imeOptionEditText.addEditText(textInputEditTextRemarks)
+            imeOptionEditText.addEditText(binding.textInputEditTextRemarks)
         } else {
-            imeOptionEditText.addEditText(et_amount, textInputEditTextRemarks)
+            imeOptionEditText.addEditText(binding.etAmount, binding.textInputEditTextRemarks)
         }
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
@@ -363,8 +358,8 @@ class BillsPaymentFormActivity :
             selectedAccount = it
             permissionCollection = selectedAccount?.permissionCollection
             isEnableButton = true
-            et_amount.setCurrencySymbol(selectedAccount?.currency.notNullable(), true)
-            textInputEditTextTransferFrom.setText(
+            binding.etAmount.setCurrencySymbol(selectedAccount?.currency.notNullable(), true)
+            binding.textInputEditTextTransferFrom.setText(
                 (selectedAccount?.name + "\n" + selectedAccount?.accountNumber.formatAccountNumber())
             )
             if (frequentBiller != null) clearFrequentBiller()
@@ -379,16 +374,16 @@ class BillsPaymentFormActivity :
         destinationAccountNumber = frequentBiller?.accountNumber
         serviceId = frequentBiller?.serviceId
         billerId = frequentBiller?.code
-        linearLayoutBillerFields?.removeAllViews()
-        constraintLayoutFrequentBiller?.visibility = View.VISIBLE
-        textInputLayoutPaymentTo.visibility = View.GONE
-        textInputEditTextPaymentTo?.setText(frequentBiller?.billerName)
-        textViewFrequentBiller?.text = frequentBiller?.billerName
+        binding.viewPaymentTo.linearLayoutBillerFields.removeAllViews()
+        binding.viewPaymentTo.constraintLayoutFrequentBiller.visibility = View.VISIBLE
+        binding.viewPaymentTo.textInputLayoutPaymentTo.visibility = View.GONE
+        binding.viewPaymentTo.textInputEditTextPaymentTo.setText(frequentBiller?.billerName)
+        binding.viewPaymentTo.textViewFrequentBiller.text = frequentBiller?.billerName
         initFrequentBiller(frequentBiller?.fields)
     }
 
     private fun showBillerFields(it: BaseEvent<String>) {
-        linearLayoutBillerFields?.removeAllViews()
+        binding.viewPaymentTo.linearLayoutBillerFields?.removeAllViews()
         biller = JsonHelper.fromJson(it.payload)
         destinationAccountNumber = biller?.accountNumber
         serviceId = biller?.serviceId
@@ -438,18 +433,18 @@ class BillsPaymentFormActivity :
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
             setDefaultViewTutorial(false)
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.field_radius)
             when (view) {
-                viewTutorialTransferFrom -> {
+                binding.viewTutorialTransferFrom -> {
                     if (isBIRChannel() || isSSSChannel()) {
                         startTutorialPaymentTo()
                     } else {
-                        viewUtil.setFocusOnView(scrollView, viewTutorialPaymentTo)
+                        viewUtil.setFocusOnView(binding.scrollView, binding.viewPaymentTo.viewTutorialPaymentTo)
                         tutorialEngineUtil.startTutorial(
                             this,
-                            viewTutorialPaymentTo,
+                            binding.viewPaymentTo.viewTutorialPaymentTo,
                             R.layout.frame_tutorial_upper_left,
                             radius,
                             false,
@@ -459,24 +454,24 @@ class BillsPaymentFormActivity :
                         )
                     }
                 }
-                viewTutorialPaymentTo -> {
+                binding.viewPaymentTo.viewTutorialPaymentTo -> {
                     startTutorialPaymentTo()
                 }
-                viewTutorialBillerFields -> {
+                binding.viewPaymentTo.viewTutorialBillerFields -> {
                     if (isSSSChannel()) {
                         startTutorialProposedPaymentDate()
                     } else {
                         startTutorialAmount()
                     }
                 }
-                viewTutorialAmount -> {
+                binding.viewTutorialAmount -> {
                     startTutorialProposedPaymentDate()
                 }
-                viewTutorialProposedTransactionDate -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialRemarks)
+                binding.viewTutorialProposedTransactionDate -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialRemarks)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialRemarks,
+                        binding.viewTutorialRemarks,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -485,7 +480,7 @@ class BillsPaymentFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialRemarks -> {
+                binding.viewTutorialRemarks -> {
                     val buttonRadius = resources.getDimension(R.dimen.button_radius)
                     tutorialEngineUtil.startTutorial(
                         this,
@@ -500,7 +495,7 @@ class BillsPaymentFormActivity :
                 }
                 else -> {
                     setDefaultViewTutorial(false)
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.BILLS_PAYMENT_FORM, false)
                 }
             }
@@ -509,10 +504,10 @@ class BillsPaymentFormActivity :
 
     private fun startTutorialProposedPaymentDate() {
         val radius = resources.getDimension(R.dimen.field_radius)
-        viewUtil.setFocusOnView(scrollView, viewTutorialProposedTransactionDate)
+        viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialProposedTransactionDate)
         tutorialEngineUtil.startTutorial(
             this,
-            viewTutorialProposedTransactionDate,
+            binding.viewTutorialProposedTransactionDate,
             R.layout.frame_tutorial_lower_left,
             radius,
             false,
@@ -525,10 +520,10 @@ class BillsPaymentFormActivity :
     private fun startTutorialPaymentTo() {
         val radius = resources.getDimension(R.dimen.field_radius)
         if (billerFields != null && frequentBiller == null) {
-            viewUtil.setFocusOnView(scrollView, viewTutorialBillerFields)
+            viewUtil.setFocusOnView(binding.scrollView, binding.viewPaymentTo.viewTutorialBillerFields)
             tutorialEngineUtil.startTutorial(
                 this,
-                viewTutorialBillerFields,
+                binding.viewPaymentTo.viewTutorialBillerFields,
                 R.layout.frame_tutorial_lower_left,
                 radius,
                 false,
@@ -547,10 +542,10 @@ class BillsPaymentFormActivity :
 
     private fun startTutorialAmount() {
         val radius = resources.getDimension(R.dimen.field_radius)
-        viewUtil.setFocusOnView(scrollView, viewTutorialAmount)
+        viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialAmount)
         tutorialEngineUtil.startTutorial(
             this,
-            viewTutorialAmount,
+            binding.viewTutorialAmount,
             R.layout.frame_tutorial_lower_left,
             radius,
             false,
@@ -562,23 +557,23 @@ class BillsPaymentFormActivity :
 
     private fun setDefaultViewTutorial(isShown: Boolean) {
         if (!isShown && proposedTransferDate != null && proposedTransferDate?.immediately == false) {
-            textInputLayoutProposedTransactionDate.visibility = View.GONE
-            viewBorderProposedTransactionDate.visibility = View.GONE
-            imageViewProposedTransactionDate.visibility = View.GONE
-            constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
             if (proposedTransferDate?.frequency == getString(R.string.title_one_time)) {
-                textViewEndDateTitle.visibility = View.GONE
-                textViewEndDate.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.GONE
             } else {
-                textViewEndDateTitle.visibility = View.VISIBLE
-                textViewEndDate.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.VISIBLE
             }
         } else {
-            textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
-            textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
-            imageViewProposedTransactionDate.visibility = View.VISIBLE
-            viewBorderProposedTransactionDate.visibility = View.VISIBLE
-            constraintLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.GONE
         }
     }
 
@@ -590,19 +585,19 @@ class BillsPaymentFormActivity :
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field),
-            textInputEditTextTransferFrom
+            binding.textInputEditTextTransferFrom
         )
         val paymentToObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field),
-            textInputEditTextPaymentTo
+            binding.viewPaymentTo.textInputEditTextPaymentTo
         )
         val amountObservable = viewUtil.rxTextChangesAmount(
             true,
             isValueChanged,
-            et_amount,
+            binding.etAmount,
             RxValidator.PatternMatch(
                 formatString(R.string.error_input_valid_amount),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_VALID_AMOUNT)
@@ -654,7 +649,7 @@ class BillsPaymentFormActivity :
             ReferenceEditText(
                 transferFromObservable,
                 null,
-                textInputEditTextTransferFrom
+                binding.textInputEditTextTransferFrom
             )
         )
         if (channel.id != ChannelBankEnum.BIR.getChannelId() &&
@@ -664,7 +659,7 @@ class BillsPaymentFormActivity :
                 ReferenceEditText(
                     paymentToObservable,
                     null,
-                    textInputEditTextPaymentTo
+                    binding.viewPaymentTo.textInputEditTextPaymentTo
                 )
             )
         }
@@ -674,7 +669,7 @@ class BillsPaymentFormActivity :
                     amountObservable,
                     null,
                     null,
-                    et_amount
+                    binding.etAmount
                 )
             )
         }
@@ -725,34 +720,34 @@ class BillsPaymentFormActivity :
 
     private fun showProposedTransferDate(isShown: Boolean) {
         if (isShown) {
-            textInputLayoutProposedTransactionDate.visibility = View.GONE
-            imageViewProposedTransactionDate.visibility = View.GONE
-            constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
             if (proposedTransferDate?.frequency == getString(R.string.title_one_time)) {
-                textViewEndDateTitle.visibility = View.GONE
-                textViewEndDate.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.GONE
             } else {
-                textViewEndDateTitle.visibility = View.VISIBLE
-                textViewEndDate.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.VISIBLE
             }
-            textViewStartDate.text =
+            binding.viewProposedTransactionDate.textViewStartDate.text =
                 viewUtil.getDateFormatByDateString(
                     proposedTransferDate?.startDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
-            textViewFrequency.text = proposedTransferDate?.frequency
-            textViewEndDate.text =
+            binding.viewProposedTransactionDate.textViewFrequency.text = proposedTransferDate?.frequency
+            binding.viewProposedTransactionDate.textViewEndDate.text =
                 viewUtil.getDateFormatByDateString(
                     proposedTransferDate?.endDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DATE
                 )
         } else {
-            textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
-            textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
-            imageViewProposedTransactionDate.visibility = View.VISIBLE
-            constraintLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.GONE
         }
     }
 
@@ -832,45 +827,45 @@ class BillsPaymentFormActivity :
 
     private fun setupViews() {
         if (selectedAccount != null) {
-            textInputLayoutPaymentTo.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputEditTextProposedTransactionDate.setOnClickListener(this)
-            constraintLayoutProposedTransactionDate.setOnClickListener(this)
-            textInputEditTextPaymentTo.text?.clear()
-            textInputEditTextPaymentTo.isEnabled = true
-            et_amount.setEnableAmount(true)
-            textInputEditTextProposedTransactionDate.isEnabled = true
-            textInputEditTextRemarks.isEnabled = true
+            binding.viewPaymentTo.textInputLayoutPaymentTo.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setOnClickListener(this)
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.setOnClickListener(this)
+            binding.viewPaymentTo.textInputEditTextPaymentTo.text?.clear()
+            binding.viewPaymentTo.textInputEditTextPaymentTo.isEnabled = true
+            binding.etAmount.setEnableAmount(true)
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.isEnabled = true
+            binding.textInputEditTextRemarks.isEnabled = true
         } else {
-            constraintLayoutFrequentBiller.visibility = View.GONE
-            constraintLayoutProposedTransactionDate.visibility = View.GONE
-            linearLayoutBillerFields.removeAllViews()
-            textInputLayoutPaymentTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputEditTextProposedTransactionDate.setOnClickListener(null)
-            constraintLayoutProposedTransactionDate.setOnClickListener(null)
-            textInputEditTextPaymentTo.isEnabled = false
-            et_amount.setEnableAmount(false)
-            textInputEditTextProposedTransactionDate.isEnabled = false
-            textInputEditTextRemarks.isEnabled = false
-            textInputEditTextTransferFrom.text?.clear()
-            textInputEditTextPaymentTo.text?.clear()
-            et_amount.text?.clear()
-            textInputEditTextRemarks.text?.clear()
-            et_amount.clearFocus()
+            binding.viewPaymentTo.constraintLayoutFrequentBiller.visibility = View.GONE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewPaymentTo.linearLayoutBillerFields.removeAllViews()
+            binding.viewPaymentTo.textInputLayoutPaymentTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setOnClickListener(null)
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.setOnClickListener(null)
+            binding.viewPaymentTo.textInputEditTextPaymentTo.isEnabled = false
+            binding.etAmount.setEnableAmount(false)
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.isEnabled = false
+            binding.textInputEditTextRemarks.isEnabled = false
+            binding.textInputEditTextTransferFrom.text?.clear()
+            binding.viewPaymentTo.textInputEditTextPaymentTo.text?.clear()
+            binding.etAmount.text?.clear()
+            binding.textInputEditTextRemarks.text?.clear()
+            binding.etAmount.clearFocus()
             showProposedTransferDate(false)
         }
 
         if (permissionCollection?.hasAllowToCreateBillsPaymentAdhoc == true ||
             permissionCollection?.hasAllowToCreateBillsPaymentFrequent == true
         ) {
-            textInputLayoutPaymentTo.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputEditTextPaymentTo.isEnabled = true
+            binding.viewPaymentTo.textInputLayoutPaymentTo.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewPaymentTo.textInputEditTextPaymentTo.isEnabled = true
         } else {
-            textInputLayoutPaymentTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputEditTextPaymentTo.isEnabled = false
+            binding.viewPaymentTo.textInputLayoutPaymentTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.viewPaymentTo.textInputEditTextPaymentTo.isEnabled = false
         }
     }
 
@@ -880,31 +875,31 @@ class BillsPaymentFormActivity :
         destinationAccountNumber = null
         serviceId = null
         billerId = null
-        linearLayoutBillerFields.removeAllViews()
-        constraintLayoutFrequentBiller.visibility = View.GONE
-        textInputLayoutPaymentTo.visibility = View.VISIBLE
-        textInputEditTextPaymentTo.text?.clear()
+        binding.viewPaymentTo.linearLayoutBillerFields.removeAllViews()
+        binding.viewPaymentTo.constraintLayoutFrequentBiller.visibility = View.GONE
+        binding.viewPaymentTo.textInputLayoutPaymentTo.visibility = View.VISIBLE
+        binding.viewPaymentTo.textInputEditTextPaymentTo.text?.clear()
     }
 
     private fun initBillerFields(billerFields: MutableList<BillerField>?) {
         isValidForm = false
         invalidateOptionsMenu()
-        textInputEditTextPaymentTo.setText(biller?.name)
-        constraintLayoutFrequentBiller?.visibility = View.GONE
-        linearLayoutBillerFields.removeAllViews()
+        binding.viewPaymentTo.textInputEditTextPaymentTo.setText(biller?.name)
+        binding.viewPaymentTo.constraintLayoutFrequentBiller?.visibility = View.GONE
+        binding.viewPaymentTo.linearLayoutBillerFields.removeAllViews()
         imeOptionEditText.removeListener()
         billerFields
             ?.sortedWith(compareBy { it.index })
             ?.forEach {
-                initEditText(it, linearLayoutBillerFields)
+                initEditText(it, binding.viewPaymentTo.linearLayoutBillerFields)
             }
         if (isActivatedValidationForm) {
             validateForm(true)
         }
         if (isSSSChannel()) {
-            imeOptionEditText.addEditText(textInputEditTextRemarks)
+            imeOptionEditText.addEditText(binding.textInputEditTextRemarks)
         } else {
-            imeOptionEditText.addEditText(et_amount, textInputEditTextRemarks)
+            imeOptionEditText.addEditText(binding.etAmount, binding.textInputEditTextRemarks)
         }
         imeOptionEditText.startListener()
     }
@@ -1020,7 +1015,7 @@ class BillsPaymentFormActivity :
 
     private fun initFrequentBiller(frequentFields: MutableList<Field>?) {
         val inflater = layoutInflater
-        linearLayoutFrequentFields.removeAllViews()
+        binding.viewPaymentTo.linearLayoutFrequentFields.removeAllViews()
         frequentFields?.forEach {
             val view = inflater.inflate(R.layout.item_textview_frequent_biller, null)
             val textViewFrequencyTitle =
@@ -1028,7 +1023,7 @@ class BillsPaymentFormActivity :
             val textViewFrequentBiller = view.findViewById<TextView>(R.id.textViewFrequentBiller)
             textViewFrequencyTitle.text = it.name
             textViewFrequentBiller.text = it.value
-            linearLayoutFrequentFields.addView(view)
+            binding.viewPaymentTo.linearLayoutFrequentFields.addView(view)
         }
     }
 
@@ -1100,11 +1095,11 @@ class BillsPaymentFormActivity :
         frequentBiller = null
         rxValidationResultList.clear()
         billerFields?.clear()
-        constraintLayoutFrequentBiller.visibility = View.GONE
-        linearLayoutBillerFields.visibility = View.VISIBLE
-        textInputLayoutPaymentTo.visibility = View.VISIBLE
-        textInputEditTextPaymentTo.text?.clear()
-        linearLayoutBillerFields.removeAllViews()
+        binding.viewPaymentTo.constraintLayoutFrequentBiller.visibility = View.GONE
+        binding.viewPaymentTo.linearLayoutBillerFields.visibility = View.VISIBLE
+        binding.viewPaymentTo.textInputLayoutPaymentTo.visibility = View.VISIBLE
+        binding.viewPaymentTo.textInputEditTextPaymentTo.text?.clear()
+        binding.viewPaymentTo.linearLayoutBillerFields.removeAllViews()
     }
 
     private fun navigateProposedTransactionDate() {
@@ -1179,11 +1174,11 @@ class BillsPaymentFormActivity :
         billsPaymentForm.amount = if (isSSSChannel()) {
             null
         } else {
-            Amount(selectedAccount?.currency, et_amount.getNumericValue())
+            Amount(selectedAccount?.currency, binding.etAmount.getNumericValue())
         }
         billsPaymentForm.source = selectedAccount?.accountNumber
         billsPaymentForm.destination = destinationAccountNumber
-        billsPaymentForm.remarks = textInputEditTextRemarks.text.toString()
+        billsPaymentForm.remarks = binding.textInputEditTextRemarks.text.toString()
         billsPaymentForm.billerServiceId = serviceId
         billsPaymentForm.billerId = billerId
         billsPaymentForm.referenceNumber = viewModel.uuid.value
@@ -1192,10 +1187,10 @@ class BillsPaymentFormActivity :
             if (isBIRChannel() || isSSSChannel())
                 biller?.name
             else
-                textInputEditTextPaymentTo.text.toString()
+                binding.viewPaymentTo.textInputEditTextPaymentTo.text.toString()
         billsPaymentForm.frequency = proposedTransferDate?.frequency
         billsPaymentForm.references =
-            getReferences(constraintLayoutFrequentBiller?.visibility == View.VISIBLE)
+            getReferences(binding.viewPaymentTo.constraintLayoutFrequentBiller.visibility == View.VISIBLE)
         billsPaymentForm.paymentDate = proposedTransferDate?.startDate
         billsPaymentForm.occurrences =
             if (proposedTransferDate?.occurrences == 0) null
@@ -1246,7 +1241,7 @@ class BillsPaymentFormActivity :
         setDefaultViewTutorial(true)
         tutorialEngineUtil.startTutorial(
             this,
-            viewTutorialTransferFrom,
+            binding.viewTutorialTransferFrom,
             R.layout.frame_tutorial_upper_left,
             radius,
             false,
@@ -1257,7 +1252,7 @@ class BillsPaymentFormActivity :
     }
 
     private fun initChannelView(channel: Channel) {
-        imageViewChannel.setImageResource(
+        binding.viewChannelHeader.imageViewChannel.setImageResource(
             when {
                 channel.id == ChannelBankEnum.BILLS_PAYMENT.getChannelId() ->
                     R.drawable.ic_channel_bills_payment
@@ -1278,8 +1273,8 @@ class BillsPaymentFormActivity :
                 else -> R.drawable.ic_fund_transfer_other_banks_orange
             }
         )
-        textViewChannel.text = channel.contextChannel?.displayName
-        textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
+        binding.viewChannelHeader.textViewChannel.text = channel.contextChannel?.displayName
+        binding.viewChannelHeader.textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(EXTRA_SERVICE_FEE)
             )
@@ -1301,21 +1296,21 @@ class BillsPaymentFormActivity :
             destinationAccountNumber = biller?.accountNumber
             serviceId = biller?.serviceId
             billerId = biller?.code
-            textInputLayoutPaymentTo.visibility = View.GONE
-            textViewPaymentToBiller.visibility = View.VISIBLE
-            textViewPaymentToBiller.text = biller?.name
+            binding.viewPaymentTo.textInputLayoutPaymentTo.visibility = View.GONE
+            binding.viewPaymentTo.textViewPaymentToBiller.visibility = View.VISIBLE
+            binding.viewPaymentTo.textViewPaymentToBiller.text = biller?.name
             val constraintSet = ConstraintSet()
-            constraintSet.clone(viewPaymentTo as ConstraintLayout)
+            constraintSet.clone(binding.viewPaymentTo.root as ConstraintLayout)
             constraintSet.connect(
-                linearLayoutBillerFields.id,
+                binding.viewPaymentTo.linearLayoutBillerFields.id,
                 ConstraintSet.TOP,
-                textViewPaymentToBiller.id,
+                binding.viewPaymentTo.textViewPaymentToBiller.id,
                 ConstraintSet.BOTTOM
             )
-            constraintSet.applyTo(viewPaymentTo as ConstraintLayout)
+            constraintSet.applyTo(binding.viewPaymentTo.root as ConstraintLayout)
             if (isSSSChannel()) {
-                textViewAmount.visibility = View.GONE
-                til_amount.visibility = View.GONE
+                binding.textViewAmount.visibility = View.GONE
+                binding.tilAmount.visibility = View.GONE
             }
         }
     }
@@ -1404,8 +1399,8 @@ class BillsPaymentFormActivity :
     }
 
     private fun clearFormFocus() {
-        constraintLayoutParent.requestFocus()
-        constraintLayoutParent.isFocusableInTouchMode = true
+        binding.constraintLayoutParent.requestFocus()
+        binding.constraintLayoutParent.isFocusableInTouchMode = true
     }
 
     private fun isBIRChannel(): Boolean {
@@ -1426,4 +1421,10 @@ class BillsPaymentFormActivity :
 
         const val CURRENCY_USD = "USD"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_bills_payment_form
+
+    override val viewModelClassType: Class<BillsPaymentFormViewModel>
+        get() = BillsPaymentFormViewModel::class.java
 }
