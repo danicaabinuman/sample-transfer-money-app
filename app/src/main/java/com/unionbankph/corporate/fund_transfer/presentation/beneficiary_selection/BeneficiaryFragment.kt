@@ -18,17 +18,16 @@ import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.data.model.PermissionCollection
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentBeneficiaryBinding
 import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_beneficiary.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by herald25santos on 12/03/2019
  */
 class BeneficiaryFragment :
-    BaseFragment<BeneficiaryViewModel>(R.layout.fragment_beneficiary),
+    BaseFragment<FragmentBeneficiaryBinding, BeneficiaryViewModel>(),
     EpoxyAdapterCallback<Beneficiary> {
 
     private val controller by lazyFast { BeneficiaryController(applicationContext, viewUtil) }
@@ -44,22 +43,21 @@ class BeneficiaryFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[BeneficiaryViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowBeneficiaryLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutBeneficiary,
-                        recyclerViewBeneficiary,
-                        textViewState
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutBeneficiary,
+                        binding.recyclerViewBeneficiary,
+                        binding.textViewState
                     )
                 }
                 is ShowBeneficiaryDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutBeneficiary,
-                        recyclerViewBeneficiary
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutBeneficiary,
+                        binding.recyclerViewBeneficiary,
                     )
                 }
                 is ShowBeneficiaryEndlessLoading -> {
@@ -97,16 +95,16 @@ class BeneficiaryFragment :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initRxSearchEventListener()
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.requestFocus()
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.requestFocus()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        swipeRefreshLayoutBeneficiary.apply {
+        binding.swipeRefreshLayoutBeneficiary.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 fetchBeneficiaries(true)
@@ -134,8 +132,8 @@ class BeneficiaryFragment :
     private fun initRecyclerView() {
         controller.setEpoxyAdapterCallback(this)
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewBeneficiary.layoutManager = linearLayoutManager
-        recyclerViewBeneficiary.addOnScrollListener(
+        binding.recyclerViewBeneficiary.layoutManager = linearLayoutManager
+        binding.recyclerViewBeneficiary.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = pageable.totalPageCount
@@ -151,14 +149,14 @@ class BeneficiaryFragment :
                 }
             }
         )
-        recyclerViewBeneficiary.setController(controller)
+        binding.recyclerViewBeneficiary.setController(controller)
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(
             TextView.OnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    editTextSearch.clearFocus()
+                    binding.viewSearchLayout.editTextSearch.clearFocus()
                     viewUtil.dismissKeyboard(getAppCompatActivity())
                     fetchBeneficiaries(true)
                     return@OnEditorActionListener true
@@ -166,7 +164,7 @@ class BeneficiaryFragment :
                 false
             }
         )
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -174,7 +172,7 @@ class BeneficiaryFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     pageable.filter = filter.text().toString().nullable()
                     fetchBeneficiaries(true)
@@ -188,13 +186,14 @@ class BeneficiaryFragment :
                 (activity as BeneficiaryActivity).isInitialLoad = false
                 (activity as BeneficiaryActivity).setCurrentViewPager(0)
             }
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
             if ((activity as BeneficiaryActivity).isInitialLoad) {
                 (activity as BeneficiaryActivity).isInitialLoad = false
                 (activity as BeneficiaryActivity).setCurrentViewPager(1)
             }
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -219,9 +218,9 @@ class BeneficiaryFragment :
                     isInitialLoading = isInitialLoading
                 )
             } else {
-                textViewState.text = getString(R.string.title_no_feature_permission)
-                textViewState.visibility = View.VISIBLE
-                swipeRefreshLayoutBeneficiary.isEnabled = false
+                binding.textViewState.text = getString(R.string.title_no_feature_permission)
+                binding.textViewState.visibility = View.VISIBLE
+                binding.swipeRefreshLayoutBeneficiary.isEnabled = false
             }
         }
     }
@@ -239,4 +238,10 @@ class BeneficiaryFragment :
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_beneficiary
+
+    override val viewModelClassType: Class<BeneficiaryViewModel>
+        get() = BeneficiaryViewModel::class.java
 }
