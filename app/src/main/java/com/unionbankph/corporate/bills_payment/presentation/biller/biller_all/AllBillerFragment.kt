@@ -24,13 +24,12 @@ import com.unionbankph.corporate.common.data.model.PermissionCollection
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentAllBillersBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_all_billers.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
 import java.util.concurrent.TimeUnit
 
 class AllBillerFragment :
-    BaseFragment<AllBillerViewModel>(R.layout.fragment_all_billers),
+    BaseFragment<FragmentAllBillersBinding, AllBillerViewModel>(),
     EpoxyAdapterCallback<Biller>,
     OnConfirmationPageCallBack {
 
@@ -51,29 +50,28 @@ class AllBillerFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[AllBillerViewModel::class.java]
         viewModel.allBillerState.observe(this, Observer {
             when (it) {
                 is ShowAllBillerLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutAllBillers,
-                        recyclerViewAllBillers,
-                        textViewState
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutAllBillers,
+                        binding.recyclerViewAllBillers,
+                        binding.textViewState
                     )
                 }
                 is ShowAllBillerDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutAllBillers,
-                        recyclerViewAllBillers
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutAllBillers,
+                        binding.recyclerViewAllBillers
                     )
                 }
                 is ShowAllBillerSuccess -> {
                     billersHeaderResult = it.listHeader
                     billersResult = it.list
                     updateController()
-                    recyclerViewAllBillers?.visibility = View.VISIBLE
+                    binding.recyclerViewAllBillers.visibility = View.VISIBLE
                     showEmptyState(billersResult)
                 }
                 is ShowAllBillerError -> {
@@ -87,16 +85,16 @@ class AllBillerFragment :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initRxSearchEventListener()
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
 
-        swipeRefreshLayoutAllBillers.apply {
+        binding.swipeRefreshLayoutAllBillers.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getBillers()
@@ -139,21 +137,21 @@ class AllBillerFragment :
 
     private fun initRecyclerView() {
         controller.setEpoxyAdapterCallback(this)
-        recyclerViewAllBillers.setController(controller)
+        binding.recyclerViewAllBillers.setController(controller)
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(
             TextView.OnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    filterList(editTextSearch.text.toString())
-                    editTextSearch.clearFocus()
+                    filterList(binding.viewSearchLayout.editTextSearch.text.toString())
+                    binding.viewSearchLayout.editTextSearch.clearFocus()
                     viewUtil.dismissKeyboard(getAppCompatActivity())
                     return@OnEditorActionListener true
                 }
                 false
             })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -161,7 +159,7 @@ class AllBillerFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused && billersResult.isNotEmpty()) {
                     filterList(filter.text().toString())
                 }
@@ -186,11 +184,12 @@ class AllBillerFragment :
     }
 
     private fun showEmptyState(list: MutableList<Biller>) {
-        textViewState.text = getString(R.string.title_no_biller)
+        binding.textViewState.text = getString(R.string.title_no_biller)
         if (list.size > 0) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -202,9 +201,9 @@ class AllBillerFragment :
             if (permissionCollection.hasAllowToCreateBillsPaymentAdhoc) {
                 viewModel.getBillers(type)
             } else {
-                textViewState.text = getString(R.string.title_no_feature_permission)
-                textViewState.visibility = View.VISIBLE
-                swipeRefreshLayoutAllBillers.isEnabled = false
+                binding.textViewState.text = getString(R.string.title_no_feature_permission)
+                binding.textViewState.visibility = View.VISIBLE
+                binding.swipeRefreshLayoutAllBillers.isEnabled = false
             }
         } else {
             if (type != null) {
@@ -239,4 +238,10 @@ class AllBillerFragment :
 
         const val TYPE_BILLER = "biller"
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_all_billers
+
+    override val viewModelClassType: Class<AllBillerViewModel>
+        get() = AllBillerViewModel::class.java
 }

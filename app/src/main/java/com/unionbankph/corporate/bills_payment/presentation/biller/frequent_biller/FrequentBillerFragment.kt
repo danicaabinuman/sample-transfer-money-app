@@ -21,16 +21,12 @@ import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.data.model.PermissionCollection
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentFrequentBillersBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_organization_transfer.*
-import kotlinx.android.synthetic.main.fragment_frequent_billers.*
-import kotlinx.android.synthetic.main.fragment_frequent_billers.textViewState
-import kotlinx.android.synthetic.main.fragment_frequent_billers.viewLoadingState
-import kotlinx.android.synthetic.main.widget_search_layout.*
 import java.util.concurrent.TimeUnit
 
 class FrequentBillerFragment :
-    BaseFragment<FrequentBillerViewModel>(R.layout.fragment_frequent_billers),
+    BaseFragment<FragmentFrequentBillersBinding, FrequentBillerViewModel>(),
     EpoxyAdapterCallback<FrequentBiller> {
 
     private val controller by lazyFast { FrequentBillerController(applicationContext, viewUtil) }
@@ -44,26 +40,24 @@ class FrequentBillerFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[FrequentBillerViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowFrequentBillerLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutFrequentBillers,
-                        recyclerViewFrequentBillers,
-                        textViewState
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutFrequentBillers,
+                        binding.recyclerViewFrequentBillers,
+                        binding.textViewState
                     )
-                    if (viewLoadingState.visibility == View.VISIBLE) {
+                    if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                         updateController(mutableListOf())
                     }
                 }
                 is ShowFrequentBillerDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutFrequentBillers,
-                        recyclerViewFrequentBillers
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutFrequentBillers,
+                        binding.recyclerViewFrequentBillers,
                     )
                 }
                 is ShowFrequentBillerEndlessLoading -> {
@@ -99,11 +93,11 @@ class FrequentBillerFragment :
             } else {
                 (activity as BillerMainActivity).setCurrentViewPager(1)
                 (activity as BillerMainActivity).isInitialLoad = false
-                swipeRefreshLayoutFrequentBillers.isEnabled = false
-                textViewState?.visibility = View.VISIBLE
-                textViewState?.text = getString(R.string.title_no_feature_permission)
-                editTextSearch?.visibility = View.GONE
-                editTextSearch?.isEnabled = false
+                binding.swipeRefreshLayoutFrequentBillers.isEnabled = false
+                binding.textViewState.visibility = View.VISIBLE
+                binding.textViewState.text = getString(R.string.title_no_feature_permission)
+                binding.viewSearchLayout.editTextSearch.visibility = View.GONE
+                binding.viewSearchLayout.editTextSearch.isEnabled = false
             }
         }
     }
@@ -111,15 +105,15 @@ class FrequentBillerFragment :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initRxSearchEventListener()
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        swipeRefreshLayoutFrequentBillers.apply {
+        binding.swipeRefreshLayoutFrequentBillers.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getFrequentBillers(true)
@@ -157,16 +151,16 @@ class FrequentBillerFragment :
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(
             TextView.OnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    editTextSearch.clearFocus()
+                    binding.viewSearchLayout.editTextSearch.clearFocus()
                     viewUtil.dismissKeyboard(getAppCompatActivity())
                     return@OnEditorActionListener true
                 }
                 false
             })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -174,7 +168,7 @@ class FrequentBillerFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     pageable.filter = filter.text().toString().nullable()
                     getFrequentBillers(true)
@@ -183,27 +177,28 @@ class FrequentBillerFragment :
     }
 
     private fun showEmptyState(data: MutableList<FrequentBiller>) {
-        textViewState.text = getString(R.string.title_no_frequent_biller)
+        binding.textViewState.text = getString(R.string.title_no_frequent_biller)
         if (data.isNotEmpty()) {
             if ((activity as BillerMainActivity).isInitialLoad) {
                 (activity as BillerMainActivity).setCurrentViewPager(0)
                 (activity as BillerMainActivity).isInitialLoad = false
             }
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
             if ((activity as BillerMainActivity).isInitialLoad) {
                 (activity as BillerMainActivity).setCurrentViewPager(1)
                 (activity as BillerMainActivity).isInitialLoad = false
             }
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun initRecyclerView() {
         controller.setEpoxyAdapterCallback(this)
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewFrequentBillers.layoutManager = linearLayoutManager
-        recyclerViewFrequentBillers.addOnScrollListener(
+        binding.recyclerViewFrequentBillers.layoutManager = linearLayoutManager
+        binding.recyclerViewFrequentBillers.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = pageable.totalPageCount
@@ -219,12 +214,12 @@ class FrequentBillerFragment :
                 }
             }
         )
-        recyclerViewFrequentBillers.setController(controller)
+        binding.recyclerViewFrequentBillers.setController(controller)
     }
 
     private fun scrollToTop() {
-        recyclerViewFrequentBillers.post {
-            recyclerViewFrequentBillers.smoothScrollToPosition(0)
+        binding.recyclerViewFrequentBillers.post {
+            binding.recyclerViewFrequentBillers.smoothScrollToPosition(0)
         }
     }
 
@@ -256,4 +251,10 @@ class FrequentBillerFragment :
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_frequent_billers
+
+    override val viewModelClassType: Class<FrequentBillerViewModel>
+        get() = FrequentBillerViewModel::class.java
 }
