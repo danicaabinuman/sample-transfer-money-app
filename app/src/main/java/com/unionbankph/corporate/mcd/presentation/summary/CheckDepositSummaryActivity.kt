@@ -25,6 +25,7 @@ import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
+import com.unionbankph.corporate.databinding.ActivityCheckDepositSummaryBinding
 import com.unionbankph.corporate.mcd.data.form.CheckDepositForm
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositScreenEnum
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositStatusEnum
@@ -33,11 +34,6 @@ import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingActivity
 import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_check_deposit_summary.*
-import kotlinx.android.synthetic.main.widget_button_share_outline.*
-import kotlinx.android.synthetic.main.widget_header_transaction_summary.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.toolbar
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -45,7 +41,7 @@ import java.util.concurrent.TimeUnit
  * Created by herald25santos on 2019-10-23
  */
 class CheckDepositSummaryActivity :
-    BaseActivity<CheckDepositSummaryViewModel>(R.layout.activity_check_deposit_summary) {
+    BaseActivity<ActivityCheckDepositSummaryBinding, CheckDepositSummaryViewModel>() {
 
     private val checkDepositForm by lazyFast {
         JsonHelper.fromJson<CheckDepositForm>(intent.getStringExtra(EXTRA_FORM))
@@ -53,14 +49,12 @@ class CheckDepositSummaryActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[CheckDepositSummaryViewModel::class.java]
         initGeneralViewModel()
     }
 
@@ -71,21 +65,21 @@ class CheckDepositSummaryActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        imageViewFrontOfCheck.setOnClickListener {
+        binding.imageViewFrontOfCheck.setOnClickListener {
             navigateCheckDepositPreviewScreen(
                 CheckDepositTypeEnum.FRONT_OF_CHECK,
                 checkDepositForm.frontOfCheckFilePath.notNullable(),
-                imageViewFrontOfCheck
+                binding.imageViewFrontOfCheck
             )
         }
-        imageViewBackOfCheck.setOnClickListener {
+        binding.imageViewBackOfCheck.setOnClickListener {
             navigateCheckDepositPreviewScreen(
                 CheckDepositTypeEnum.BACK_OF_CHECK,
                 checkDepositForm.backOfCheckFilePath.notNullable(),
-                imageViewBackOfCheck
+                binding.imageViewBackOfCheck
             )
         }
-        buttonMakeAnotherDeposit.setOnClickListener {
+        binding.buttonMakeAnotherDeposit.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             viewModel.deleteFiles()
             val bundle = Bundle().apply {
@@ -105,7 +99,7 @@ class CheckDepositSummaryActivity :
                 BaseEvent(ActionSyncEvent.ACTION_UPDATE_CHECK_DEPOSIT_LIST)
             )
         }
-        buttonViewViewChecksInClearing.setOnClickListener {
+        binding.buttonViewViewChecksInClearing.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             viewModel.deleteFiles()
             navigator.navigateClearUpStack(
@@ -119,7 +113,7 @@ class CheckDepositSummaryActivity :
                 BaseEvent(ActionSyncEvent.ACTION_UPDATE_CHECK_DEPOSIT_LIST)
             )
         }
-        RxView.clicks(buttonShare)
+        RxView.clicks(binding.viewShareButton.buttonShare)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -158,8 +152,8 @@ class CheckDepositSummaryActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_check_deposit_summary),
                         it.orgName
                     )
@@ -180,27 +174,27 @@ class CheckDepositSummaryActivity :
                 intent.getStringExtra(EXTRA_REFERENCE_NUMBER)
             )
         )
-        textViewBankOfCheck.text = checkDepositForm.issuerName
-        textViewCheckAccountNumber.text = checkDepositForm.sourceAccount
-        textViewCheckNumber.text = checkDepositForm.checkNumber
-        textViewDateOnCheck.text = viewUtil.getDateFormatByDateString(
+        binding.textViewBankOfCheck.text = checkDepositForm.issuerName
+        binding.textViewCheckAccountNumber.text = checkDepositForm.sourceAccount
+        binding.textViewCheckNumber.text = checkDepositForm.checkNumber
+        binding.textViewDateOnCheck.text = viewUtil.getDateFormatByDateString(
             checkDepositForm.checkDate,
             DateFormatEnum.DATE_FORMAT_ISO_Z.value,
             DateFormatEnum.DATE_FORMAT_DATE.value
         )
-        textViewShareDateDownloaded.text = viewUtil.getCurrentDateString()
-        textViewShareCreatedBy.text = intent.getStringExtra(EXTRA_CREATED_BY)
-        textViewShareCreatedOn.text = viewUtil.getStringOrEmpty(
+        binding.textViewShareDateDownloaded.text = viewUtil.getCurrentDateString()
+        binding.textViewShareCreatedBy.text = intent.getStringExtra(EXTRA_CREATED_BY)
+        binding.textViewShareCreatedOn.text = viewUtil.getStringOrEmpty(
             viewUtil.getDateFormatByDateString(
                 intent.getStringExtra(EXTRA_CREATED_DATE),
                 DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
                 DateFormatEnum.DATE_FORMAT_DEFAULT.value
             )
         )
-        textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
+        binding.textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
             checkDepositForm.checkAmount, checkDepositForm.currency
         )
-        textViewServiceFee.text = if (checkDepositForm.serviceFee != null) {
+        binding.textViewServiceFee.text = if (checkDepositForm.serviceFee != null) {
             formatString(
                 R.string.value_service,
                 autoFormatUtil.formatWithTwoDecimalPlaces(
@@ -211,22 +205,22 @@ class CheckDepositSummaryActivity :
         } else {
             formatString(R.string.value_service_fee_free)
         }
-        textViewDepositTo.text = formatString(
+        binding.textViewDepositTo.text = formatString(
             R.string.params_account_detail,
             checkDepositForm.targetAccountName,
             viewUtil.getAccountNumberFormat(checkDepositForm.targetAccount),
             checkDepositForm.accountType.notEmpty()
         ).toHtmlSpan()
-        imageViewFrontOfCheck.loadImage(
+        binding.imageViewFrontOfCheck.loadImage(
             checkDepositForm.frontOfCheckFilePath.notNullable(),
             "front_${checkDepositForm.id}"
         )
-        imageViewBackOfCheck.loadImage(
+        binding.imageViewBackOfCheck.loadImage(
             checkDepositForm.backOfCheckFilePath.notNullable(),
             "back_${checkDepositForm.id}"
         )
-        textViewReferenceNumber.text = intent.getStringExtra(EXTRA_REFERENCE_NUMBER).notEmpty()
-        textViewRemarks.text = checkDepositForm.remarks.notEmpty()
+        binding.textViewReferenceNumber.text = intent.getStringExtra(EXTRA_REFERENCE_NUMBER).notEmpty()
+        binding.textViewRemarks.text = checkDepositForm.remarks.notEmpty()
         initShareStatus(intent.getStringExtra(EXTRA_REMARKS).notNullable())
     }
 
@@ -282,11 +276,11 @@ class CheckDepositSummaryActivity :
         headerTitle: String,
         headerContent: String
     ) {
-        viewHeader.setContextCompatBackground(background)
-        imageViewHeader.setImageResource(logo)
-        textViewHeader.text = headerTitle
-        textViewHeader.setContextCompatTextColor(headerTextColor)
-        textViewMsg.text = headerContent.toHtmlSpan()
+        binding.viewHeader.setContextCompatBackground(background)
+        binding.imageViewHeader.setImageResource(logo)
+        binding.textViewHeader.text = headerTitle
+        binding.textViewHeader.setContextCompatTextColor(headerTextColor)
+        binding.textViewMsg.text = headerContent.toHtmlSpan()
     }
 
     private fun navigateCheckDepositPreviewScreen(
@@ -376,44 +370,44 @@ class CheckDepositSummaryActivity :
             .doOnSubscribe { showProgressAlertDialog(CheckDepositSummaryActivity::class.java.simpleName) }
             .subscribe(
                 {
-                    imageViewQRCode.setImageBitmap(it.toBitmap())
-                    viewHeaderTransaction.visibility(true)
-                    viewBorderCreatedBy.visibility(true)
-                    textViewShareCreatedByTitle.visibility(true)
-                    textViewShareCreatedBy.visibility(true)
-                    textViewShareCreatedOnTitle.visibility(true)
-                    textViewShareCreatedOn.visibility(true)
-                    textViewShareDateDownloadedTitle.visibility(true)
-                    textViewShareDateDownloaded.visibility(true)
-                    viewShareButton.visibility(false)
-                    viewBorderReferenceNumber.visibility(false)
-                    textViewFrontOfCheckTitle.visibility(false)
-                    imageViewFrontOfCheck.visibility(false)
-                    viewBorderFrontOfCheck.visibility(false)
-                    textViewBackOfCheckTitle.visibility(false)
-                    imageViewBackOfCheck.visibility(false)
-                    buttonMakeAnotherDeposit.visibility(false)
-                    buttonViewViewChecksInClearing.visibility(false)
+                    binding.viewHeaderTransaction.imageViewQRCode.setImageBitmap(it.toBitmap())
+                    binding.viewHeaderTransaction.root.visibility(true)
+                    binding.viewBorderCreatedBy.visibility(true)
+                    binding.textViewShareCreatedByTitle.visibility(true)
+                    binding.textViewShareCreatedBy.visibility(true)
+                    binding.textViewShareCreatedOnTitle.visibility(true)
+                    binding.textViewShareCreatedOn.visibility(true)
+                    binding.textViewShareDateDownloadedTitle.visibility(true)
+                    binding.textViewShareDateDownloaded.visibility(true)
+                    binding.viewShareButton.root.visibility(false)
+                    binding.viewBorderReferenceNumber.visibility(false)
+                    binding.textViewFrontOfCheckTitle.visibility(false)
+                    binding.imageViewFrontOfCheck.visibility(false)
+                    binding.viewBorderFrontOfCheck.visibility(false)
+                    binding.textViewBackOfCheckTitle.visibility(false)
+                    binding.imageViewBackOfCheck.visibility(false)
+                    binding.buttonMakeAnotherDeposit.visibility(false)
+                    binding.buttonViewViewChecksInClearing.visibility(false)
                     Handler().postDelayed(
                         {
-                            val shareBitmap = viewUtil.getBitmapByView(constraintLayoutShare)
-                            viewHeaderTransaction.visibility(false)
-                            viewBorderCreatedBy.visibility(false)
-                            textViewShareCreatedByTitle.visibility(false)
-                            textViewShareCreatedBy.visibility(false)
-                            textViewShareCreatedOnTitle.visibility(false)
-                            textViewShareCreatedOn.visibility(false)
-                            textViewShareDateDownloadedTitle.visibility(false)
-                            textViewShareDateDownloaded.visibility(false)
-                            viewShareButton.visibility(true)
-                            viewBorderReferenceNumber.visibility(true)
-                            textViewFrontOfCheckTitle.visibility(true)
-                            imageViewFrontOfCheck.visibility(true)
-                            viewBorderFrontOfCheck.visibility(true)
-                            textViewBackOfCheckTitle.visibility(true)
-                            imageViewBackOfCheck.visibility(true)
-                            buttonMakeAnotherDeposit.visibility(true)
-                            buttonViewViewChecksInClearing.visibility(true)
+                            val shareBitmap = viewUtil.getBitmapByView(binding.constraintLayoutShare)
+                            binding.viewHeaderTransaction.root.visibility(false)
+                            binding.viewBorderCreatedBy.visibility(false)
+                            binding.textViewShareCreatedByTitle.visibility(false)
+                            binding.textViewShareCreatedBy.visibility(false)
+                            binding.textViewShareCreatedOnTitle.visibility(false)
+                            binding.textViewShareCreatedOn.visibility(false)
+                            binding.textViewShareDateDownloadedTitle.visibility(false)
+                            binding.textViewShareDateDownloaded.visibility(false)
+                            binding.viewShareButton.root.visibility(true)
+                            binding.viewBorderReferenceNumber.visibility(true)
+                            binding.textViewFrontOfCheckTitle.visibility(true)
+                            binding.imageViewFrontOfCheck.visibility(true)
+                            binding.viewBorderFrontOfCheck.visibility(true)
+                            binding.textViewBackOfCheckTitle.visibility(true)
+                            binding.imageViewBackOfCheck.visibility(true)
+                            binding.buttonMakeAnotherDeposit.visibility(true)
+                            binding.buttonViewViewChecksInClearing.visibility(true)
                             dismissProgressAlertDialog()
                             startShareMediaActivity(shareBitmap)
                         }, resources.getInteger(R.integer.time_delay_share_media).toLong()
@@ -435,4 +429,10 @@ class CheckDepositSummaryActivity :
         const val EXTRA_CREATED_BY = "created_by"
         const val EXTRA_CREATED_DATE = "created_date"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_check_deposit_summary
+
+    override val viewModelClassType: Class<CheckDepositSummaryViewModel>
+        get() = CheckDepositSummaryViewModel::class.java
 }
