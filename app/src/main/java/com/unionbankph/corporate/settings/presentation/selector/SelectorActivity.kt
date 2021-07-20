@@ -16,22 +16,21 @@ import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.common.data.model.StateData
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivitySelectorBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.form.SelectorData
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_selector.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 /**
  * Created by herald25santos on 2020-02-18
  */
 class SelectorActivity :
-    BaseActivity<SelectorViewModel>(R.layout.activity_selector),
+    BaseActivity<ActivitySelectorBinding, SelectorViewModel>(),
     EpoxyAdapterCallback<Selector> {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolBar)
+        initToolbar(binding.viewToolBar.toolbar, binding.viewToolBar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -42,23 +41,22 @@ class SelectorActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[SelectorViewModel::class.java]
         viewModel.uiState.observe(this, androidx.lifecycle.Observer {
             it.getContentIfNotHandled().let { event ->
                 when (event) {
                     is UiState.Loading -> {
                         showLoading(
-                            viewLoadingState,
-                            srl_selector,
-                            rv_selector,
-                            textViewState
+                            binding.viewLoadingState.root,
+                            binding.srlSelector,
+                            binding.rvSelector,
+                            binding.textViewState
                         )
                     }
                     is UiState.Complete -> {
                         dismissLoading(
-                            viewLoadingState,
-                            srl_selector,
-                            rv_selector,
+                            binding.viewLoadingState.root,
+                            binding.srlSelector,
+                            binding.rvSelector,
                             false
                         )
                     }
@@ -76,7 +74,7 @@ class SelectorActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonSelect.setOnClickListener {
+        binding.buttonSelect.setOnClickListener {
             viewModel.onClickedSelect()
         }
     }
@@ -130,12 +128,12 @@ class SelectorActivity :
         viewModel.selector
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                setToolbarTitle(tvToolbar, it.capitalize())
+                setToolbarTitle(binding.viewToolBar.tvToolbar, it.capitalize())
             }.addTo(disposables)
     }
 
     private fun updateController(data: MutableList<StateData<Selector>>) {
-        rv_selector.withModels {
+        binding.rvSelector.withModels {
             data.forEachIndexed { index, stateData ->
                 selectorItem {
                     id(stateData.data.id)
@@ -149,18 +147,18 @@ class SelectorActivity :
     }
 
     private fun initView(data: MutableList<StateData<Selector>>) {
-        buttonSelect.visibility(data.isNotEmpty())
+        binding.buttonSelect.visibility(data.isNotEmpty())
     }
 
     private fun updateButton(count: Int) {
         if (count > 0) {
-            buttonSelect.text = if (viewModel.selector.value == CHANNEL_SELECTOR) {
+            binding.buttonSelect.text = if (viewModel.selector.value == CHANNEL_SELECTOR) {
                 formatString(R.string.params_select_channels, count.toString())
             } else {
                 formatString(R.string.params_select_statuses, count.toString())
             }
         } else {
-            buttonSelect.text = formatString(R.string.action_clear_selection)
+            binding.buttonSelect.text = formatString(R.string.action_clear_selection)
         }
         invalidateOptionsMenu()
     }
@@ -176,4 +174,10 @@ class SelectorActivity :
         const val CHANNEL_SELECTOR = "channel"
         const val STATUS_SELECTOR = "status"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_selector
+
+    override val viewModelClassType: Class<SelectorViewModel>
+        get() = SelectorViewModel::class.java
 }
