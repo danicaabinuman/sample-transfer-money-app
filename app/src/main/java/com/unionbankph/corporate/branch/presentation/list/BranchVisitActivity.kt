@@ -29,16 +29,15 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrg
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.ActivityBranchVisitBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_branch_visit.*
-import kotlinx.android.synthetic.main.widget_table_view.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 /**
  * Created by herald25santos on 2019-11-05
  */
-class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity_branch_visit),
-                            EpoxyAdapterCallback<BranchVisit>, OnTutorialListener {
+class BranchVisitActivity :
+    BaseActivity<ActivityBranchVisitBinding, BranchVisitViewModel>(),
+    EpoxyAdapterCallback<BranchVisit>, OnTutorialListener {
 
     private val pageable by lazyFast { Pageable() }
 
@@ -50,7 +49,7 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -70,7 +69,7 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        fabCheckDeposit.setOnClickListener {
+        binding.fabCheckDeposit.setOnClickListener {
             navigator.navigate(
                 this,
                 BranchVisitChannelActivity::class.java,
@@ -150,9 +149,9 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
                     getFirstItemTutorial() -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            fabCheckDeposit,
+                            binding.fabCheckDeposit,
                             R.layout.frame_tutorial_lower_right,
-                            fabCheckDeposit.height.toFloat() -
+                            binding.fabCheckDeposit.height.toFloat() -
                                     resources.getDimension(R.dimen.grid_5_half),
                             true,
                             getString(R.string.msg_tutorial_beneficiary_fab),
@@ -160,7 +159,7 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    fabCheckDeposit -> {
+                    binding.fabCheckDeposit -> {
                         clearTutorial()
                     }
                 }
@@ -186,20 +185,19 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
     }
 
     private fun initCheckDepositViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[BranchVisitViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowBranchVisitLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView(),
-                        textViewState
+                        binding.textViewState
                     )
                 }
                 is ShowBranchVisitDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView()
                     )
@@ -256,8 +254,8 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_branch_transaction),
                         it.orgName
                     )
@@ -270,7 +268,7 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
     private fun initEventBus() {
         eventBus.actionSyncEvent.flowable.subscribe {
             if (it.eventType == ActionSyncEvent.ACTION_UPDATE_BRANCH_VISIT_LIST) {
-                if (viewLoadingState.visibility != View.VISIBLE) {
+                if (binding.viewLoadingState.root.visibility != View.VISIBLE) {
                     getSwipeRefreshLayout().isRefreshing = true
                 }
                 fetchBranchVisits(true)
@@ -309,7 +307,7 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
         if (!isInitial) {
             getRecyclerView().visibility(false)
             if (isTableView()) {
-                linearLayoutRow.visibility(true)
+                binding.viewTable.linearLayoutRow.visibility(true)
             }
             updateTutorialController()
             viewUtil.animateRecyclerView(getRecyclerViewTutorial(), true)
@@ -328,7 +326,7 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
         getRecyclerView().visibility(true)
         getRecyclerViewTutorial().visibility(false)
         getRecyclerViewTutorial().setController(tutorialController)
-        if (viewLoadingState.visibility != View.VISIBLE) {
+        if (binding.viewLoadingState.root.visibility != View.VISIBLE) {
             showEmptyState(viewModel.testBranchVisitsLiveData.value.notNullable())
         }
     }
@@ -339,7 +337,7 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        constraintLayout,
+                        binding.constraintLayout,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -372,12 +370,12 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
 
     private fun showEmptyState(data: MutableList<BranchVisit>) {
         if (isTableView()) {
-            linearLayoutRow.visibility(data.size > 0)
+            binding.viewTable.linearLayoutRow.visibility(data.size > 0)
         }
         if (data.size > 0) {
-            if (textViewState?.visibility == View.VISIBLE) textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -446,8 +444,8 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutBranchVisit.visibility(false)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutBranchVisit.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_branch_visit)
                     .toMutableList()
@@ -456,17 +454,23 @@ class BranchVisitActivity : BaseActivity<BranchVisitViewModel>(R.layout.activity
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewBranchVisit
+        if (isTableView()) binding.viewTable.recyclerViewTable else binding.recyclerViewBranchVisit
 
     private fun getRecyclerViewTutorial() =
-        if (isTableView()) recyclerViewTableTutorial else recyclerViewTutorial
+        if (isTableView()) binding.viewTable.recyclerViewTableTutorial else binding.recyclerViewTutorial
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutBranchVisit
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutBranchVisit
+
+    override val layoutId: Int
+        get() = R.layout.activity_branch_visit
+
+    override val viewModelClassType: Class<BranchVisitViewModel>
+        get() = BranchVisitViewModel::class.java
 }
