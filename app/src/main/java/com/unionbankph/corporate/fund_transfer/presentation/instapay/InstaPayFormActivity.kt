@@ -55,13 +55,6 @@ import com.unionbankph.corporate.fund_transfer.presentation.bank.BankActivity
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer.ProposedTransferDateActivity
 import io.reactivex.rxkotlin.addTo
-//import kotlinx.android.synthetic.main.activity_fund_transfer_form_pesonet.*
-//import kotlinx.android.synthetic.main.widget_channel_header.*
-//import kotlinx.android.synthetic.main.widget_edit_text_proposed_date.*
-//import kotlinx.android.synthetic.main.widget_edit_text_purpose.*
-//import kotlinx.android.synthetic.main.widget_edit_text_receiving_bank.*
-//import kotlinx.android.synthetic.main.widget_edit_text_transfer_to.*
-//import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import timber.log.Timber
 import java.util.regex.Pattern
 
