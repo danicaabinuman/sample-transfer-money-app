@@ -9,17 +9,16 @@ import com.unionbankph.corporate.app.common.platform.bus.event.BiometricSyncEven
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.databinding.ActivityBiometricBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_biometric.*
 import java.util.concurrent.TimeUnit
 
 class BiometricActivity :
-    BaseActivity<BiometricViewModel>(R.layout.activity_biometric),
+    BaseActivity<ActivityBiometricBinding, BiometricViewModel>(),
     FingerprintBottomSheet.OnFingerPrintListener {
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[BiometricViewModel::class.java]
 
         viewModel.state.observe(this, Observer {
             when (it) {
@@ -63,7 +62,7 @@ class BiometricActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(buttonLink)
+        RxView.clicks(binding.buttonLink)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -72,7 +71,7 @@ class BiometricActivity :
                 viewModel.setFingerPrint()
             }.addTo(disposables)
 
-        RxView.clicks(buttonNotNow)
+        RxView.clicks(binding.buttonNotNow)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -134,4 +133,10 @@ class BiometricActivity :
         const val PAGE_LOGIN = "login"
         const val PAGE_SETTINGS = "settings"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_biometric
+
+    override val viewModelClassType: Class<BiometricViewModel>
+        get() = BiometricViewModel::class.java
 }

@@ -9,19 +9,19 @@ import com.unionbankph.corporate.app.common.extension.enableButton
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidator
+import com.unionbankph.corporate.databinding.ActivityUpdateEmailBinding
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.password.PasswordActivity
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_update_email.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
-class UpdateEmailActivity : BaseActivity<SettingsViewModel>(R.layout.activity_update_email) {
+class UpdateEmailActivity :
+    BaseActivity<ActivityUpdateEmailBinding, SettingsViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -32,7 +32,7 @@ class UpdateEmailActivity : BaseActivity<SettingsViewModel>(R.layout.activity_up
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(btnSubmit)
+        RxView.clicks(binding.btnSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -45,7 +45,7 @@ class UpdateEmailActivity : BaseActivity<SettingsViewModel>(R.layout.activity_up
                 )
                 bundle.putString(
                     PasswordActivity.EXTRA_EMAIL,
-                    textInputEditTextEmailAddress.text.toString()
+                    binding.textInputEditTextEmailAddress.text.toString()
                 )
                 navigator.navigate(
                     this,
@@ -74,14 +74,14 @@ class UpdateEmailActivity : BaseActivity<SettingsViewModel>(R.layout.activity_up
     }
 
     private fun validateForm() {
-        val emailObservable = RxValidator.createFor(textInputEditTextEmailAddress)
+        val emailObservable = RxValidator.createFor(binding.textInputEditTextEmailAddress)
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
-                    textInputEditTextEmailAddress.hint
+                    binding.textInputEditTextEmailAddress.hint
                 )
             )
-            .email(textInputEditTextEmailAddress.context.getString(R.string.error_invalid_email_address))
+            .email(binding.textInputEditTextEmailAddress.context.getString(R.string.error_invalid_email_address))
             .onValueChanged()
             .toObservable()
             .debounce {
@@ -103,7 +103,13 @@ class UpdateEmailActivity : BaseActivity<SettingsViewModel>(R.layout.activity_up
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                btnSubmit.enableButton(it)
+                binding.btnSubmit.enableButton(it)
             }.addTo(disposables)
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_update_email
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
 }
