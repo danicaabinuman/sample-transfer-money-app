@@ -21,13 +21,12 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxValida
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityCheckDepositFilterBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.form.SelectorData
 import com.unionbankph.corporate.settings.presentation.selector.SelectorActivity
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_check_deposit_filter.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.*
 import java.util.regex.Pattern
 import javax.annotation.concurrent.ThreadSafe
@@ -36,7 +35,7 @@ import javax.annotation.concurrent.ThreadSafe
  * Created by herald25santos on 6/23/20
  */
 class CheckDepositFilterActivity :
-    BaseActivity<CheckDepositFilterViewModel>(R.layout.activity_check_deposit_filter),
+    BaseActivity<ActivityCheckDepositFilterBinding, CheckDepositFilterViewModel>(),
     ImeOptionEditText.OnImeOptionListener {
 
     private lateinit var tieCheckStartDate: TextInputEditText
@@ -46,17 +45,13 @@ class CheckDepositFilterActivity :
     private lateinit var tieEndDateCreated: TextInputEditText
 
     override fun afterLayout(savedInstanceState: Bundle?) {
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_filters))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_filters))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[CheckDepositFilterViewModel::class.java]
         viewModel.applyFilter.observe(this, EventObserver {
             onBackPressed()
             eventBus.actionSyncEvent.emmit(
@@ -113,11 +108,11 @@ class CheckDepositFilterActivity :
         intent.getStringExtra(EXTRA_CURRENT_FILTER)?.let {
             viewModel.loadInputs(it)
         }
-        tieCheckStartDate = view_start_check_date.findViewById(R.id.textInputEditTextStartDate)
-        tieCheckEndDate = view_end_check_date.findViewById(R.id.textInputEditTextStartDate)
+        tieCheckStartDate = binding.viewStartCheckDate.textInputEditTextStartDate
+        tieCheckEndDate = binding.viewEndCheckDate.textInputEditTextStartDate
 
-        tieStartDateCreated = view_start_date_created.findViewById(R.id.textInputEditTextStartDate)
-        tieEndDateCreated = view_end_date_created.findViewById(R.id.textInputEditTextStartDate)
+        tieStartDateCreated = binding.viewStartDateCreated.textInputEditTextStartDate
+        tieEndDateCreated = binding.viewEndDateCreated.textInputEditTextStartDate
 
         tieCheckStartDate.hint = formatString(R.string.title_start_date)
         tieCheckEndDate.hint = formatString(R.string.title_end_date)
@@ -131,14 +126,14 @@ class CheckDepositFilterActivity :
     private fun setupInputs() {
         viewModel.input.also { viewModel ->
             viewModel.checkNumber.subscribe {
-                tie_check_number.setText(it)
+                binding.tieCheckNumber.setText(it)
             }.addTo(disposables)
             viewModel.amount.subscribe {
                 if (it != "") {
                     val currency = viewModel.depositAccount.value?.currency ?: "PHP"
-                    et_amount.setText(("$currency $it"))
+                    binding.etAmount.setText(("$currency $it"))
                 } else {
-                    et_amount.clearText()
+                    binding.etAmount.clearText()
                 }
             }.addTo(disposables)
             viewModel.checkStartDate.subscribe {
@@ -156,14 +151,14 @@ class CheckDepositFilterActivity :
             }.addTo(disposables)
             viewModel.depositAccount.subscribe {
                 if (viewModel.hasDepositAccount.value.notNullable() && it.id != null) {
-                    tie_deposit_account.setText(("${it.name}\n${it.accountNumber.formatAccountNumber()}"))
+                    binding.tieDepositAccount.setText(("${it.name}\n${it.accountNumber.formatAccountNumber()}"))
                 } else {
-                    tie_deposit_account.text?.clear()
+                    binding.tieDepositAccount.text?.clear()
                 }
-                et_amount.setCurrencySymbol(it.currency ?: "PHP", true)
+                binding.etAmount.setCurrencySymbol(it.currency ?: "PHP", true)
             }.addTo(disposables)
             viewModel.status.subscribe {
-                tie_status.setText(it)
+                binding.tieStatus.setText(it)
             }.addTo(disposables)
             viewModel.startDateCreated.subscribe {
                 tieStartDateCreated.setText(
@@ -191,7 +186,7 @@ class CheckDepositFilterActivity :
         viewModel.input.statusToDisplay
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                tie_status.setText(it)
+                binding.tieStatus.setText(it)
             }.addTo(disposables)
     }
 
@@ -255,7 +250,7 @@ class CheckDepositFilterActivity :
                 }
             }
         }
-        tie_deposit_account.setOnClickListener {
+        binding.tieDepositAccount.setOnClickListener {
             viewModel.onClickedDepositAccount()
         }
         tieStartDateCreated.setOnClickListener {
@@ -297,27 +292,27 @@ class CheckDepositFilterActivity :
                 }
             }
         }
-        tie_status.setOnClickListener {
+        binding.tieStatus.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                 return@setOnClickListener
             }
             mLastClickTime = SystemClock.elapsedRealtime()
             viewModel.onClickedStatuses()
         }
-        btn_apply_filter.setOnClickListener {
+        binding.btnApplyFilter.setOnClickListener {
             if (!viewModel.input.isValidForm.value.notNullable() &&
-                et_amount.getNumericValue() != 0.0
+                binding.etAmount.getNumericValue() != 0.0
             ) {
-                et_amount.refresh()
+                binding.etAmount.refresh()
             } else {
                 viewModel.setFreeTextFields(
-                    tie_check_number.getTextNullable(),
-                    et_amount.getExactValue()
+                    binding.tieCheckNumber.getTextNullable(),
+                    binding.etAmount.getExactValue()
                 )
                 viewModel.onClickedApplyFilter()
             }
         }
-        btn_clear_filter.setOnClickListener {
+        binding.btnClearFilter.setOnClickListener {
             viewModel.onClickedClearFilter()
             clearFocus()
         }
@@ -326,8 +321,8 @@ class CheckDepositFilterActivity :
     private fun initImeOption() {
         val imeOptionEditText = ImeOptionEditText()
         imeOptionEditText.addEditText(
-            tie_check_number,
-            et_amount
+            binding.tieCheckNumber,
+            binding.etAmount
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
@@ -337,7 +332,7 @@ class CheckDepositFilterActivity :
         val amountObservable = viewUtil.rxTextChangesAmount(
             true,
             true,
-            et_amount,
+            binding.etAmount,
             RxValidator.PatternMatch(
                 formatString(R.string.error_input_valid_amount),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_AMOUNT_OPTIONAL)
@@ -352,7 +347,7 @@ class CheckDepositFilterActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .doOnNext {
-                if (et_amount.length() > 0) {
+                if (binding.etAmount.length() > 0) {
                     viewModel.input.isValidForm.onNext(it)
                 } else {
                     viewModel.input.isValidForm.onNext(true)
@@ -406,10 +401,10 @@ class CheckDepositFilterActivity :
     }
 
     private fun clearFocus() {
-        constraint_layout.post {
+        binding.constraintLayout.post {
             viewUtil.dismissKeyboard(this)
-            constraint_layout.requestFocus()
-            constraint_layout.isFocusableInTouchMode = true
+            binding.constraintLayout.requestFocus()
+            binding.constraintLayout.isFocusableInTouchMode = true
         }
     }
 
@@ -418,5 +413,11 @@ class CheckDepositFilterActivity :
         const val EXTRA_CURRENT_FILTER = "current_filter"
         const val STATUS_SELECTOR = "status"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_check_deposit_filter
+
+    override val viewModelClassType: Class<CheckDepositFilterViewModel>
+        get() = CheckDepositFilterViewModel::class.java
 
 }
