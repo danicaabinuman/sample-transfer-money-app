@@ -10,27 +10,24 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.branch.presentation.form.BranchVisitFormActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
-import kotlinx.android.synthetic.main.activity_branch_visit_channel.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
+import com.unionbankph.corporate.databinding.ActivityBranchVisitChannelBinding
 
 class BranchVisitChannelActivity :
-    BaseActivity<BranchVisitChannelViewModel>(R.layout.activity_branch_visit_channel) {
+    BaseActivity<ActivityBranchVisitChannelBinding, BranchVisitChannelViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[BranchVisitChannelViewModel::class.java]
         generalViewModel.state.observe(this, Observer {
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_new_branch_transaction),
                         it.orgName
                     )
@@ -42,7 +39,7 @@ class BranchVisitChannelActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        constraintLayoutCashDeposit.setOnClickListener {
+        binding.constraintLayoutCashDeposit.setOnClickListener {
             navigator.navigate(
                 this,
                 BranchVisitFormActivity::class.java,
@@ -65,4 +62,10 @@ class BranchVisitChannelActivity :
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_branch_visit_channel
+
+    override val viewModelClassType: Class<BranchVisitChannelViewModel>
+        get() = BranchVisitChannelViewModel::class.java
 }
