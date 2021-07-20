@@ -196,7 +196,6 @@ class UBPConfirmationActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[UBPViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowUBPLoading -> {

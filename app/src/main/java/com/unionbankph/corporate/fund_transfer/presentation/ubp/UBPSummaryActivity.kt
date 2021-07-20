@@ -39,19 +39,17 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity
+import com.unionbankph.corporate.databinding.ActivityFundTransferSummaryUbpBinding
 import com.unionbankph.corporate.fund_transfer.data.form.FundTransferUBPForm
 import com.unionbankph.corporate.fund_transfer.data.model.FundTransferVerify
 import com.unionbankph.corporate.fund_transfer.data.model.TransactionVerify
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_fund_transfer_summary_ubp.*
-import kotlinx.android.synthetic.main.widget_button_share_outline.*
-import kotlinx.android.synthetic.main.widget_header_transaction_summary.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_transfer_summary_ubp),
+class UBPSummaryActivity :
+    BaseActivity<ActivityFundTransferSummaryUbpBinding, UBPViewModel>(),
     OnTutorialListener {
 
     private val fundTransferVerify by lazyFast {
@@ -72,7 +70,7 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -107,8 +105,8 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_transfer_summary),
                         it.orgName
                     )
@@ -119,7 +117,6 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[UBPViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowUBPError -> {
@@ -152,7 +149,7 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
     override fun onInitializeListener() {
         super.onInitializeListener()
         tutorialEngineUtil.setOnTutorialListener(this)
-        RxView.clicks(buttonViewOrganizationTransactions)
+        RxView.clicks(binding.buttonViewOrganizationTransactions)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -160,7 +157,7 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
             .subscribe {
                 navigateFTDashboard()
             }.addTo(disposables)
-        RxView.clicks(buttonMakeAnotherTransfer)
+        RxView.clicks(binding.buttonMakeAnotherTransfer)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -170,7 +167,7 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
             }
             .addTo(disposables)
 
-        RxView.clicks(buttonShare)
+        RxView.clicks(binding.viewShareButton.buttonShare)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -220,15 +217,15 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.button_radius)
             when (view) {
-                buttonViewOrganizationTransactions -> {
-                    viewUtil.setFocusOnView(scrollView, buttonMakeAnotherTransfer)
+                binding.buttonViewOrganizationTransactions -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.buttonMakeAnotherTransfer)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        buttonMakeAnotherTransfer,
+                        binding.buttonMakeAnotherTransfer,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -238,7 +235,7 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
                     )
                 }
                 else -> {
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.UBP_SUMMARY, false)
                 }
             }
@@ -262,10 +259,10 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
                 selectedAccount
             )
         )
-        imageViewHeader.post {
-            imageViewHeader.layoutParams.width = imageViewHeader.measuredWidth
+        binding.imageViewHeader.post {
+            binding.imageViewHeader.layoutParams.width = binding.imageViewHeader.measuredWidth
         }
-        textViewTransferFrom.text = Html.fromHtml(
+        binding.textViewTransferFrom.text = Html.fromHtml(
             String.format(
                 getString(R.string.params_account_detail),
                 account.name,
@@ -273,7 +270,7 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
                 viewUtil.getStringOrEmpty(account.productCodeDesc)
             )
         )
-        textViewTransferTo.text = if (fundTransferUBPForm.beneficiaryMasterForm == null) {
+        binding.textViewTransferTo.text = if (fundTransferUBPForm.beneficiaryMasterForm == null) {
             viewUtil.getAccountNumberFormat(fundTransferUBPForm.receiverAccountNumber)
         } else {
             Html.fromHtml(
@@ -288,11 +285,11 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
             )
         }
 
-        textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
+        binding.textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
             fundTransferUBPForm.amount.toString(),
             account.currency
         )
-        textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
+        binding.textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(EXTRA_SERVICE_FEE)
             )
@@ -306,14 +303,14 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
         } else {
             getString(R.string.value_service_fee_free)
         }
-        textViewChannel.text = intent.getStringExtra(EXTRA_ACCOUNT_TYPE)
-        textViewRemarks.text = viewUtil.getStringOrEmpty(fundTransferUBPForm.remarks)
+        binding.textViewChannel.text = intent.getStringExtra(EXTRA_ACCOUNT_TYPE)
+        binding.textViewRemarks.text = viewUtil.getStringOrEmpty(fundTransferUBPForm.remarks)
         if (fundTransferUBPForm.remarks == null || fundTransferUBPForm.remarks == "") {
-            textViewRemarksTitle.visibility = View.GONE
-            textViewRemarks.visibility = View.GONE
-            view8.visibility = View.GONE
+            binding.textViewRemarksTitle.visibility = View.GONE
+            binding.textViewRemarks.visibility = View.GONE
+            binding.view8.visibility = View.GONE
         }
-        textViewProposedTransferDate.text =
+        binding.textViewProposedTransferDate.text =
             if (fundTransferUBPForm.immediate!!)
                 getString(R.string.title_immediately)
             else
@@ -323,20 +320,20 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
         if (fundTransferUBPForm.immediate!!) {
-            textViewStartDateTitle.visibility = View.GONE
-            textViewStartDate.visibility = View.GONE
-            view5.visibility = View.GONE
-            textViewFrequencyTitle.visibility = View.GONE
-            textViewFrequency.visibility = View.GONE
-            view6.visibility = View.GONE
-            textViewEndDateTitle.visibility = View.GONE
-            textViewEndDate.visibility = View.GONE
-            view7.visibility = View.GONE
-            textViewProposedTransferDateTitle.visibility = View.VISIBLE
-            textViewProposedTransferDate.visibility = View.VISIBLE
-            view4.visibility = View.VISIBLE
+            binding.textViewStartDateTitle.visibility = View.GONE
+            binding.textViewStartDate.visibility = View.GONE
+            binding.view5.visibility = View.GONE
+            binding.textViewFrequencyTitle.visibility = View.GONE
+            binding.textViewFrequency.visibility = View.GONE
+            binding.view6.visibility = View.GONE
+            binding.textViewEndDateTitle.visibility = View.GONE
+            binding.textViewEndDate.visibility = View.GONE
+            binding.view7.visibility = View.GONE
+            binding.textViewProposedTransferDateTitle.visibility = View.VISIBLE
+            binding.textViewProposedTransferDate.visibility = View.VISIBLE
+            binding.view4.visibility = View.VISIBLE
         } else {
-            textViewStartDate.text = viewUtil.getDateFormatByDateString(
+            binding.textViewStartDate.text = viewUtil.getDateFormatByDateString(
                 fundTransferUBPForm.transferDate,
                 ViewUtil.DATE_FORMAT_ISO,
                 ViewUtil.DATE_FORMAT_DEFAULT
@@ -347,34 +344,34 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DATE
                 )
-                textViewEndDate.text = ("${fundTransferUBPForm.occurrencesText}\n(Until $endDate)")
+                binding.textViewEndDate.text = ("${fundTransferUBPForm.occurrencesText}\n(Until $endDate)")
             } else {
-                textViewEndDate.text = fundTransferUBPForm.occurrencesText
+                binding.textViewEndDate.text = fundTransferUBPForm.occurrencesText
             }
-            textViewFrequency.text = fundTransferUBPForm.frequency
+            binding.textViewFrequency.text = fundTransferUBPForm.frequency
             if (fundTransferUBPForm.frequency == getString(R.string.title_one_time)) {
-                textViewEndDate.visibility = View.GONE
-                textViewEndDateTitle.visibility = View.GONE
-                view7.visibility = View.GONE
-                textViewFrequencyTitle.visibility = View.GONE
-                textViewFrequency.visibility = View.GONE
-                view6.visibility = View.GONE
-                textViewStartDateTitle.visibility = View.GONE
-                textViewStartDate.visibility = View.GONE
-                view5.visibility = View.GONE
+                binding.textViewEndDate.visibility = View.GONE
+                binding.textViewEndDateTitle.visibility = View.GONE
+                binding.view7.visibility = View.GONE
+                binding.textViewFrequencyTitle.visibility = View.GONE
+                binding.textViewFrequency.visibility = View.GONE
+                binding.view6.visibility = View.GONE
+                binding.textViewStartDateTitle.visibility = View.GONE
+                binding.textViewStartDate.visibility = View.GONE
+                binding.view5.visibility = View.GONE
             } else {
-                textViewProposedTransferDateTitle.visibility = View.GONE
-                textViewProposedTransferDate.visibility = View.GONE
-                view4.visibility = View.GONE
+                binding.textViewProposedTransferDateTitle.visibility = View.GONE
+                binding.textViewProposedTransferDate.visibility = View.GONE
+                binding.view4.visibility = View.GONE
             }
         }
-        textViewCreatedBy.text = fundTransferVerify.createdBy
-        textViewCreatedOn.text = viewUtil.getDateFormatByDateString(
+        binding.textViewCreatedBy.text = fundTransferVerify.createdBy
+        binding.textViewCreatedOn.text = viewUtil.getDateFormatByDateString(
             transaction.transferDate,
             DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
             DateFormatEnum.DATE_FORMAT_DEFAULT.value
         )
-        textViewDateDownloaded.text = viewUtil.getCurrentDateString()
+        binding.textViewDateDownloaded.text = viewUtil.getCurrentDateString()
 
         setTransactionStatus(contextualFeature, transaction)
     }
@@ -560,11 +557,11 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
         headerColor: Int,
         headerMsg: String?
     ) {
-        viewHeader.setContextCompatBackground(background)
-        imageViewHeader.setImageResource(icon)
-        textViewHeader.text = header.notEmpty().toHtmlSpan()
-        textViewHeader.setContextCompatTextColor(headerColor)
-        textViewMsg.text = headerMsg.notEmpty().toHtmlSpan()
+        binding.viewHeader.setContextCompatBackground(background)
+        binding.imageViewHeader.setImageResource(icon)
+        binding.textViewHeader.text = header.notEmpty().toHtmlSpan()
+        binding.textViewHeader.setContextCompatTextColor(headerColor)
+        binding.textViewMsg.text = headerMsg.notEmpty().toHtmlSpan()
     }
 
     private fun initPermission() {
@@ -645,11 +642,11 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
             .doOnSubscribe { showProgressAlertDialog(UBPSummaryActivity::class.java.simpleName) }
             .subscribe(
                 {
-                    imageViewQRCode.setImageBitmap(it.toBitmap())
+                    binding.viewHeaderTransaction.imageViewQRCode.setImageBitmap(it.toBitmap())
                     showShareContent(true)
                     Handler().postDelayed(
                         {
-                            val shareBitmap = viewUtil.getBitmapByView(constraintLayoutShare)
+                            val shareBitmap = viewUtil.getBitmapByView(binding.constraintLayoutShare)
                             dismissProgressAlertDialog()
                             showShareContent(false)
                             startShareMediaActivity(shareBitmap)
@@ -665,38 +662,38 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
 
     private fun showShareContent(isShown: Boolean) {
         if (isShown) {
-            viewHeaderTransaction.visibility(true)
-            viewShareButton.visibility(false)
-            viewBorderCreatedBy.visibility(true)
-            textViewCreatedByTitle.visibility(true)
-            textViewCreatedBy.visibility(true)
-            textViewCreatedOnTitle.visibility(true)
-            textViewCreatedOn.visibility(true)
-            textViewDateDownloadedTitle.visibility(true)
-            textViewDateDownloaded.visibility(true)
-            buttonMakeAnotherTransfer.visibility(false)
-            buttonViewOrganizationTransactions.visibility(false)
+            binding.viewHeaderTransaction.root.visibility(true)
+            binding.viewShareButton.root.visibility(false)
+            binding.viewBorderCreatedBy.visibility(true)
+            binding.textViewCreatedByTitle.visibility(true)
+            binding.textViewCreatedBy.visibility(true)
+            binding.textViewCreatedOnTitle.visibility(true)
+            binding.textViewCreatedOn.visibility(true)
+            binding.textViewDateDownloadedTitle.visibility(true)
+            binding.textViewDateDownloaded.visibility(true)
+            binding.buttonMakeAnotherTransfer.visibility(false)
+            binding.buttonViewOrganizationTransactions.visibility(false)
         } else {
-            viewHeaderTransaction.visibility(false)
-            viewShareButton.visibility(true)
-            viewBorderCreatedBy.visibility(false)
-            textViewCreatedByTitle.visibility(false)
-            textViewCreatedBy.visibility(false)
-            textViewCreatedOnTitle.visibility(false)
-            textViewCreatedOn.visibility(false)
-            textViewDateDownloadedTitle.visibility(false)
-            textViewDateDownloaded.visibility(false)
-            buttonMakeAnotherTransfer.visibility(true)
-            buttonViewOrganizationTransactions.visibility(true)
+            binding.viewHeaderTransaction.root.visibility(false)
+            binding.viewShareButton.root.visibility(true)
+            binding.viewBorderCreatedBy.visibility(false)
+            binding.textViewCreatedByTitle.visibility(false)
+            binding.textViewCreatedBy.visibility(false)
+            binding.textViewCreatedOnTitle.visibility(false)
+            binding.textViewCreatedOn.visibility(false)
+            binding.textViewDateDownloadedTitle.visibility(false)
+            binding.textViewDateDownloaded.visibility(false)
+            binding.buttonMakeAnotherTransfer.visibility(true)
+            binding.buttonViewOrganizationTransactions.visibility(true)
         }
     }
 
     private fun startViewTutorial() {
-        viewUtil.setFocusOnView(scrollView, buttonViewOrganizationTransactions)
+        viewUtil.setFocusOnView(binding.scrollView, binding.buttonViewOrganizationTransactions)
         val radius = resources.getDimension(R.dimen.button_radius)
         tutorialEngineUtil.startTutorial(
             this,
-            buttonViewOrganizationTransactions,
+            binding.buttonViewOrganizationTransactions,
             R.layout.frame_tutorial_lower_left,
             radius,
             false,
@@ -714,4 +711,10 @@ class UBPSummaryActivity : BaseActivity<UBPViewModel>(R.layout.activity_fund_tra
         const val EXTRA_ACCOUNT_TYPE = "account_type"
         const val EXTRA_SERVICE_FEE = "service_fee"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_fund_transfer_summary_ubp
+
+    override val viewModelClassType: Class<UBPViewModel>
+        get() = UBPViewModel::class.java
 }
