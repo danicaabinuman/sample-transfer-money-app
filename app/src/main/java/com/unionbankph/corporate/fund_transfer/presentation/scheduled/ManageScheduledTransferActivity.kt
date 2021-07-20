@@ -12,26 +12,22 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.platform.bus.event.InputSyncEvent
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
+import com.unionbankph.corporate.databinding.ActivityManageScheduledTransferBinding
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_manage_scheduled_transfer.*
-import kotlinx.android.synthetic.main.activity_manage_scheduled_transfer.shadow_toolbar
-import kotlinx.android.synthetic.main.activity_manage_scheduled_transfer.viewToolbar
-import kotlinx.android.synthetic.main.activity_privacy_policy.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 class ManageScheduledTransferActivity :
-    BaseActivity<ManageScheduledTransferViewModel>(R.layout.activity_manage_scheduled_transfer) {
+    BaseActivity<ActivityManageScheduledTransferBinding, ManageScheduledTransferViewModel>() {
 
     private var adapter: ViewPagerAdapter? = null
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         if (isSME) {
-            removeElevation(viewToolbar)
-            shadow_toolbar.isVisible = true
+            removeElevation(binding.viewToolbar.root)
+            binding.shadowToolbar.isVisible = true
         }
     }
 
@@ -77,8 +73,8 @@ class ManageScheduledTransferActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_manage_scheduled_transfers),
                         it.orgName
                     )
@@ -89,10 +85,6 @@ class ManageScheduledTransferActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[ManageScheduledTransferViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowManageScheduledTransferError -> {
@@ -108,18 +100,24 @@ class ManageScheduledTransferActivity :
         )
         adapter?.addFragment(ManageScheduledTransferOngoingFragment.newInstance(), FRAGMENT_ONGOING)
         adapter?.addFragment(ManageScheduledTransferDoneFragment.newInstance(), FRAGMENT_DONE)
-        viewPagerManageScheduledTransfers.adapter = adapter
-        viewPagerManageScheduledTransfers.offscreenPageLimit = 0
-        tabLayoutManageScheduledTransfers.setupWithViewPager(
-            viewPagerManageScheduledTransfers,
+        binding.viewPagerManageScheduledTransfers.adapter = adapter
+        binding.viewPagerManageScheduledTransfers.offscreenPageLimit = 0
+        binding.tabLayoutManageScheduledTransfers.setupWithViewPager(
+            binding.viewPagerManageScheduledTransfers,
             false
         )
     }
 
-    fun getViewPager(): ViewPager = viewPagerManageScheduledTransfers
+    fun getViewPager(): ViewPager = binding.viewPagerManageScheduledTransfers
 
     companion object {
         const val FRAGMENT_ONGOING = "On-Going"
         const val FRAGMENT_DONE = "Done"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_manage_scheduled_transfer
+
+    override val viewModelClassType: Class<ManageScheduledTransferViewModel>
+        get() = ManageScheduledTransferViewModel::class.java
 }
