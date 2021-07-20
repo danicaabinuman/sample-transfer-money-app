@@ -663,7 +663,7 @@ class PesoNetSummaryActivity :
             .doOnSubscribe { showProgressAlertDialog(PesoNetSummaryActivity::class.java.simpleName) }
             .subscribe(
                 {
-                    binding.imageViewQRCode.setImageBitmap(it.toBitmap())
+                    binding.viewHeaderTransaction.imageViewQRCode.setImageBitmap(it.toBitmap())
                     showShareContent(true)
                     Handler().postDelayed(
                         {
