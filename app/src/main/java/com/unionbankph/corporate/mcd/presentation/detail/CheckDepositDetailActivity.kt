@@ -19,6 +19,7 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.qrgenerator.RxQrCode
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
+import com.unionbankph.corporate.databinding.ActivityCheckDepositDetailBinding
 import com.unionbankph.corporate.mcd.data.model.CheckDeposit
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositScreenEnum
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositStatusEnum
@@ -26,11 +27,6 @@ import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositTypeEnum
 import com.unionbankph.corporate.mcd.presentation.log.CheckDepositActivityLogActivity
 import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_check_deposit_detail.*
-import kotlinx.android.synthetic.main.view_check_details_share.*
-import kotlinx.android.synthetic.main.widget_button_share_outline.*
-import kotlinx.android.synthetic.main.widget_header_transaction_summary.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -38,7 +34,7 @@ import java.util.concurrent.TimeUnit
  * Created by herald25santos on 2019-11-05
  */
 class CheckDepositDetailActivity :
-    BaseActivity<CheckDepositDetailViewModel>(R.layout.activity_check_deposit_detail) {
+    BaseActivity<ActivityCheckDepositDetailBinding, CheckDepositDetailViewModel>() {
 
     private val id by lazyFast { intent.getStringExtra(EXTRA_ID) }
 
@@ -46,9 +42,9 @@ class CheckDepositDetailActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setToolbarTitle(
-            tvToolbar,
+            binding.viewToolbar.tvToolbar,
             formatString(R.string.title_checks_deposit_details)
         )
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
@@ -61,10 +57,10 @@ class CheckDepositDetailActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonViewLogs.setOnClickListener {
+        binding.buttonViewLogs.setOnClickListener {
             navigateActivityLogScreen()
         }
-        RxView.clicks(buttonShare)
+        RxView.clicks(binding.viewShareButton.buttonShare)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -90,16 +86,14 @@ class CheckDepositDetailActivity :
     }
 
     private fun initCheckDepositViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[CheckDepositDetailViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowCheckDepositDetailLoading -> {
-                    constraintLayout.visibility(false)
-                    viewLoadingState.visibility(true)
+                    binding.constraintLayout.visibility(false)
+                    binding.viewLoadingState.root.visibility(true)
                 }
                 is ShowCheckDepositDetailDismissLoading -> {
-                    viewLoadingState.visibility(false)
+                    binding.viewLoadingState.root.visibility(false)
                 }
                 is ShowCheckDepositDetailGetCheckDeposit -> {
                     checkDeposit = it.data
@@ -114,11 +108,11 @@ class CheckDepositDetailActivity :
     }
 
     private fun initViews() {
-        constraintLayout.visibility(true)
-        textViewStatus.setContextCompatTextColor(
+        binding.constraintLayout.visibility(true)
+        binding.textViewStatus.setContextCompatTextColor(
             ConstantHelper.Color.getTextColor(checkDeposit.status)
         )
-        textViewStatus.text =
+        binding.textViewStatus.text =
             if (checkDeposit.status?.type == CheckDepositStatusEnum.REJECTED.name) {
                 formatString(
                     R.string.param_transaction_status,
@@ -128,53 +122,53 @@ class CheckDepositDetailActivity :
             } else {
                 "<b>${checkDeposit.status?.description}</b>".toHtmlSpan()
             }
-        textViewRemarks.text = checkDeposit.remarks.notEmpty()
-        textViewCreatedBy.text = checkDeposit.createdBy
-        textViewCreatedDate.text = viewUtil.getStringOrEmpty(
+        binding.textViewRemarks.text = checkDeposit.remarks.notEmpty()
+        binding.textViewCreatedBy.text = checkDeposit.createdBy
+        binding.textViewCreatedDate.text = viewUtil.getStringOrEmpty(
             viewUtil.getDateFormatByDateString(
                 checkDeposit.createdDate,
                 DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
                 DateFormatEnum.DATE_FORMAT_DEFAULT.value
             )
         )
-        textViewBankOfCheck.text = checkDeposit.issuer
-        textViewCheckAccountNumber.text = checkDeposit.sourceAccount
-        textViewCheckAccountName.text = checkDeposit.sourceAccountName
-        textViewCheckNumber.text = checkDeposit.checkNumber
-        textViewReferenceNumber.text = checkDeposit.referenceNumber
-        textViewDateOnCheck.text = viewUtil.getDateFormatByDateString(
+        binding.textViewBankOfCheck.text = checkDeposit.issuer
+        binding.textViewCheckAccountNumber.text = checkDeposit.sourceAccount
+        binding.textViewCheckAccountName.text = checkDeposit.sourceAccountName
+        binding.textViewCheckNumber.text = checkDeposit.checkNumber
+        binding.textViewReferenceNumber.text = checkDeposit.referenceNumber
+        binding.textViewDateOnCheck.text = viewUtil.getDateFormatByDateString(
             checkDeposit.checkDate,
             DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
             DateFormatEnum.DATE_FORMAT_DATE.value
         )
-        textViewAccount.text = formatString(
+        binding.textViewAccount.text = formatString(
             R.string.params_two_format,
             checkDeposit.targetAccountName,
             viewUtil.getAccountNumberFormat(checkDeposit.targetAccount)
         ).toHtmlSpan()
-        textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
+        binding.textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
             checkDeposit.checkAmount?.value.toString(),
             checkDeposit.checkAmount?.currency
         )
         if (checkDeposit.customServiceFee != null &&
             checkDeposit.serviceFee != null
         ) {
-            textViewServiceFee.text = formatString(
+            binding.textViewServiceFee.text = formatString(
                 R.string.value_service,
                 autoFormatUtil.formatWithTwoDecimalPlaces(
                     checkDeposit.customServiceFee?.value,
                     checkDeposit.customServiceFee?.currency
                 )
             )
-            textViewServiceDiscountFee.visibility(true)
-            viewBorderServiceDiscountFee.visibility(true)
+            binding.textViewServiceDiscountFee.visibility(true)
+            binding.viewBorderServiceDiscountFee.visibility(true)
         } else {
-            textViewServiceDiscountFee.visibility(false)
-            viewBorderServiceDiscountFee.visibility(false)
+            binding.textViewServiceDiscountFee.visibility(false)
+            binding.viewBorderServiceDiscountFee.visibility(false)
         }
         if (checkDeposit.serviceFee != null) {
             if (checkDeposit.customServiceFee != null) {
-                textViewServiceDiscountFee.text = formatString(
+                binding.textViewServiceDiscountFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         checkDeposit.serviceFee?.value,
@@ -182,7 +176,7 @@ class CheckDepositDetailActivity :
                     )
                 )
             } else {
-                textViewServiceFee.text = formatString(
+                binding.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         checkDeposit.serviceFee?.value,
@@ -191,20 +185,20 @@ class CheckDepositDetailActivity :
                 )
             }
         } else {
-            textViewServiceFee.text = getString(R.string.value_service_fee_free)
+            binding.textViewServiceFee.text = getString(R.string.value_service_fee_free)
         }
         if (checkDeposit.status?.type == CheckDepositStatusEnum.FOR_CLEARING.name) {
             val imageViewFrontOfCheck =
-                viewFrontOfCheck.findViewById<AppCompatImageView>(R.id.imageView)
+                binding.viewFrontOfCheck.root.findViewById<AppCompatImageView>(R.id.imageView)
             val imageViewBackOfCheck =
-                viewBackOfCheck.findViewById<AppCompatImageView>(R.id.imageView)
+                binding.viewBackOfCheck.root.findViewById<AppCompatImageView>(R.id.imageView)
             imageViewFrontOfCheck.loaderImagePreviewByUrl(
                 checkDeposit.frontPath.notNullable(),
-                viewFrontOfCheck
+                binding.viewFrontOfCheck.root
             )
             imageViewBackOfCheck.loaderImagePreviewByUrl(
                 checkDeposit.backPath.notNullable(),
-                viewBackOfCheck
+                binding.viewBackOfCheck.root
             )
             imageViewFrontOfCheck.setOnClickListener {
                 navigateCheckDepositPreviewScreen(
@@ -219,70 +213,70 @@ class CheckDepositDetailActivity :
                 )
             }
         } else {
-            viewBorderServiceFee.visibility(false)
-            textViewFrontOfCheckTitle.visibility(false)
-            viewFrontOfCheck.visibility(false)
-            viewBorderFrontOfCheck.visibility(false)
-            textViewBackOfCheckTitle.visibility(false)
-            viewBackOfCheck.visibility(false)
+            binding.viewBorderServiceFee.visibility(false)
+            binding.textViewFrontOfCheckTitle.visibility(false)
+            binding.viewFrontOfCheck.root.visibility(false)
+            binding.viewBorderFrontOfCheck.visibility(false)
+            binding.textViewBackOfCheckTitle.visibility(false)
+            binding.viewBackOfCheck.root.visibility(false)
         }
         initShareDetailStatus(checkDeposit)
     }
 
     private fun initShareDetailStatus(checkDeposit: CheckDeposit) {
-        textViewShareCreatedBy.text = checkDeposit.createdBy
-        textViewShareCreatedOn.text = viewUtil.getStringOrEmpty(
+        binding.viewShareDetails.textViewShareCreatedBy.text = checkDeposit.createdBy
+        binding.viewShareDetails.textViewShareCreatedOn.text = viewUtil.getStringOrEmpty(
             viewUtil.getDateFormatByDateString(
                 checkDeposit.createdDate,
                 DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
                 DateFormatEnum.DATE_FORMAT_DEFAULT.value
             )
         )
-        textViewShareDateDownloaded.text = viewUtil.getCurrentDateString()
-        textViewShareBankOfCheck.text = checkDeposit.issuer
-        textViewShareCheckAccountNumber.text = checkDeposit.sourceAccount
-        textViewShareCheckNumber.text = checkDeposit.checkNumber
-        textViewShareRemarks.text = checkDeposit.remarks.notEmpty()
+        binding.viewShareDetails.textViewShareDateDownloaded.text = viewUtil.getCurrentDateString()
+        binding.viewShareDetails.textViewShareBankOfCheck.text = checkDeposit.issuer
+        binding.viewShareDetails.textViewShareCheckAccountNumber.text = checkDeposit.sourceAccount
+        binding.viewShareDetails.textViewShareCheckNumber.text = checkDeposit.checkNumber
+        binding.viewShareDetails.textViewShareRemarks.text = checkDeposit.remarks.notEmpty()
         if (checkDeposit.referenceNumber != null) {
-            textViewShareReferenceNumber.text = checkDeposit.referenceNumber.notEmpty()
+            binding.viewShareDetails.textViewShareReferenceNumber.text = checkDeposit.referenceNumber.notEmpty()
         } else {
-            textViewShareReferenceNumberTitle.isVisible = false
-            textViewShareReferenceNumber.isVisible = false
-            viewBorderShareReferenceNumber.isVisible = false
+            binding.viewShareDetails.textViewShareReferenceNumberTitle.isVisible = false
+            binding.viewShareDetails.textViewShareReferenceNumber.isVisible = false
+            binding.viewShareDetails.viewBorderShareReferenceNumber.isVisible = false
         }
-        textViewShareDateOnCheck.text = viewUtil.getDateFormatByDateString(
+        binding.viewShareDetails.textViewShareDateOnCheck.text = viewUtil.getDateFormatByDateString(
             checkDeposit.checkDate,
             DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
             DateFormatEnum.DATE_FORMAT_DATE.value
         )
-        textViewShareDepositTo.text = formatString(
+        binding.viewShareDetails.textViewShareDepositTo.text = formatString(
             R.string.params_two_format,
             checkDeposit.targetAccountName,
             viewUtil.getAccountNumberFormat(checkDeposit.targetAccount)
         ).toHtmlSpan()
-        textViewShareAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
+        binding.viewShareDetails.textViewShareAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
             checkDeposit.checkAmount?.value.toString(),
             checkDeposit.checkAmount?.currency
         )
         if (checkDeposit.customServiceFee != null &&
             checkDeposit.serviceFee != null
         ) {
-            textViewShareServiceFee.text = formatString(
+            binding.viewShareDetails.textViewShareServiceFee.text = formatString(
                 R.string.value_service,
                 autoFormatUtil.formatWithTwoDecimalPlaces(
                     checkDeposit.customServiceFee?.value,
                     checkDeposit.customServiceFee?.currency
                 )
             )
-            textViewShareServiceDiscountFee.visibility(true)
-            viewBorderShareServiceDiscountFee.visibility(true)
+            binding.viewShareDetails.textViewShareServiceDiscountFee.visibility(true)
+            binding.viewShareDetails.viewBorderShareServiceDiscountFee.visibility(true)
         } else {
-            textViewShareServiceDiscountFee.visibility(false)
-            viewBorderShareServiceDiscountFee.visibility(false)
+            binding.viewShareDetails.textViewShareServiceDiscountFee.visibility(false)
+            binding.viewShareDetails.viewBorderShareServiceDiscountFee.visibility(false)
         }
         if (checkDeposit.serviceFee != null) {
             if (checkDeposit.customServiceFee != null) {
-                textViewShareServiceDiscountFee.text = formatString(
+                binding.viewShareDetails.textViewShareServiceDiscountFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         checkDeposit.serviceFee?.value,
@@ -290,7 +284,7 @@ class CheckDepositDetailActivity :
                     )
                 )
             } else {
-                textViewShareServiceFee.text = formatString(
+                binding.viewShareDetails.textViewShareServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         checkDeposit.serviceFee?.value,
@@ -299,7 +293,7 @@ class CheckDepositDetailActivity :
                 )
             }
         } else {
-            textViewShareServiceFee.text = getString(R.string.value_service_fee_free)
+            binding.viewShareDetails.textViewShareServiceFee.text = getString(R.string.value_service_fee_free)
         }
         initShareStatus(checkDeposit)
     }
@@ -356,11 +350,11 @@ class CheckDepositDetailActivity :
         headerTitle: String,
         headerContent: String
     ) {
-        linearLayoutHeaderStatus.setContextCompatBackground(background)
-        imageViewHeader.setImageResource(logo)
-        textViewHeader.text = headerTitle
-        textViewHeader.setContextCompatTextColor(headerTextColor)
-        textViewMsg.text = headerContent.toHtmlSpan()
+        binding.viewShareDetails.linearLayoutHeaderStatus.setContextCompatBackground(background)
+        binding.viewShareDetails.imageViewHeader.setImageResource(logo)
+        binding.viewShareDetails.textViewHeader.text = headerTitle
+        binding.viewShareDetails.textViewHeader.setContextCompatTextColor(headerTextColor)
+        binding.viewShareDetails.textViewMsg.text = headerContent.toHtmlSpan()
     }
 
     private fun navigateCheckDepositPreviewScreen(
@@ -460,12 +454,12 @@ class CheckDepositDetailActivity :
             }
             .subscribe(
                 {
-                    imageViewQRCode.setImageBitmap(it.toBitmap())
-                    scrollViewShare.visibility(true)
+                    binding.viewShareDetails.viewHeaderTransaction.imageViewQRCode
+                    binding.scrollViewShare.visibility(true)
                     Handler().postDelayed(
                         {
-                            val shareBitmap = viewUtil.getBitmapByView(viewShareDetails)
-                            scrollViewShare.visibility(false)
+                            val shareBitmap = viewUtil.getBitmapByView(binding.viewShareDetails.root)
+                            binding.scrollViewShare.visibility(false)
                             dismissProgressAlertDialog()
                             startShareMediaActivity(shareBitmap)
                         }, resources.getInteger(R.integer.time_delay_share_media).toLong()
@@ -481,4 +475,10 @@ class CheckDepositDetailActivity :
     companion object {
         const val EXTRA_ID = "id"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_check_deposit_detail
+
+    override val viewModelClassType: Class<CheckDepositDetailViewModel>
+        get() = CheckDepositDetailViewModel::class.java
 }
