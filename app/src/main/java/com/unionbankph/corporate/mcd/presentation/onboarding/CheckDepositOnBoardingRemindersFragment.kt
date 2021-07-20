@@ -11,26 +11,15 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.getAccentColor
 import com.unionbankph.corporate.app.common.extension.toHtmlSpan
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.databinding.FragmentCheckDepositOnboardingRemindersBinding
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraActivity
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositScreenEnum
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositTypeEnum
-import kotlinx.android.synthetic.main.fragment_check_deposit_onboarding_reminders.*
-import kotlinx.android.synthetic.main.widget_button_gray.*
-import kotlinx.android.synthetic.main.widget_button_orange.*
 import timber.log.Timber
 
 
 class CheckDepositOnBoardingRemindersFragment :
-    BaseFragment<CheckDepositOnBoardingViewModel>(R.layout.fragment_check_deposit_onboarding_reminders) {
-
-    override fun onViewModelBound() {
-        super.onViewModelBound()
-        super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[CheckDepositOnBoardingViewModel::class.java]
-    }
+    BaseFragment<FragmentCheckDepositOnboardingRemindersBinding, CheckDepositOnBoardingViewModel>() {
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -43,46 +32,48 @@ class CheckDepositOnBoardingRemindersFragment :
     }
 
     private fun init() {
-        buttonPrimary.text = formatString(R.string.action_deposit_check)
-        buttonSecondary.text = formatString(R.string.action_cancel)
-        textViewReminders1.text = formatString(R.string.desc_check_deposit_reminders_1).toHtmlSpan()
-        textViewReminders2.text = formatString(R.string.desc_check_deposit_reminders_2).toHtmlSpan()
-        textViewReminders3.text = formatString(R.string.desc_check_deposit_reminders_3).toHtmlSpan()
-        textViewReminders5.text = formatString(R.string.desc_check_deposit_reminders_5).toHtmlSpan()
-        textViewReminders5Sub.text =
+        binding.viewButtonNext.buttonPrimary.text = formatString(R.string.action_deposit_check)
+        binding.viewButtonCancel.buttonSecondary.text = formatString(R.string.action_cancel)
+        binding.textViewReminders1.text = formatString(R.string.desc_check_deposit_reminders_1).toHtmlSpan()
+        binding.textViewReminders2.text = formatString(R.string.desc_check_deposit_reminders_2).toHtmlSpan()
+        binding.textViewReminders3.text = formatString(R.string.desc_check_deposit_reminders_3).toHtmlSpan()
+        binding.textViewReminders5.text = formatString(R.string.desc_check_deposit_reminders_5).toHtmlSpan()
+        binding.textViewReminders5Sub.text =
             formatString(
                 R.string.desc_check_deposit_reminders_5_sub,
                 resources.getDimensionPixelSize(R.dimen.text_30),
                 convertColorResourceToHex(getAccentColor())
             ).toHtmlSpan()
-        textViewReminders6.text = formatString(R.string.desc_check_deposit_reminders_6).toHtmlSpan()
-        textViewReminders7.text = formatString(R.string.desc_check_deposit_reminders_7).toHtmlSpan()
-        textViewReminders8.text = formatString(R.string.desc_check_deposit_reminders_8).toHtmlSpan()
-        textViewReminders9.text = formatString(R.string.desc_check_deposit_reminders_9).toHtmlSpan()
+        binding.textViewReminders6.text = formatString(R.string.desc_check_deposit_reminders_6).toHtmlSpan()
+        binding.textViewReminders7.text = formatString(R.string.desc_check_deposit_reminders_7).toHtmlSpan()
+        binding.textViewReminders8.text = formatString(R.string.desc_check_deposit_reminders_8).toHtmlSpan()
+        binding.textViewReminders9.text = formatString(R.string.desc_check_deposit_reminders_9).toHtmlSpan()
     }
 
     private fun initListener() {
-        buttonPrimary.setOnClickListener {
+        binding.viewButtonNext.buttonPrimary.setOnClickListener {
             navigateCheckDepositCameraScreen()
         }
-        buttonSecondary.setOnClickListener {
+        binding.viewButtonCancel.buttonSecondary.setOnClickListener {
             getAppCompatActivity().onBackPressed()
         }
-        fab_arrow.setOnClickListener {
-            sv_reminders.post { sv_reminders.fullScroll(ScrollView.FOCUS_DOWN) }
+        binding.fabArrow.setOnClickListener {
+            binding.svReminders.post {
+                binding.svReminders.fullScroll(ScrollView.FOCUS_DOWN)
+            }
         }
-        sv_reminders.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY: Int = sv_reminders.scrollY // For ScrollView
-            val scrollX: Int = sv_reminders.scrollX // For HorizontalScrollView
+        binding.svReminders.viewTreeObserver.addOnScrollChangedListener {
+            val scrollY: Int = binding.svReminders.scrollY // For ScrollView
+            val scrollX: Int = binding.svReminders.scrollX // For HorizontalScrollView
             // DO SOMETHING WITH THE SCROLL COORDINATES
             Timber.d("scrollY: $scrollY")
-            if (sv_reminders.getChildAt(0).bottom <= (sv_reminders.height + scrollY)) {
-                if (cl_arrow.visibility == View.VISIBLE) {
-                    viewUtil.startAnimateView(false, cl_arrow, android.R.anim.fade_out)
+            if (binding.svReminders.getChildAt(0).bottom <= (binding.svReminders.height + scrollY)) {
+                if (binding.clArrow.visibility == View.VISIBLE) {
+                    viewUtil.startAnimateView(false, binding.clArrow, android.R.anim.fade_out)
                 }
             } else {
-                if (cl_arrow.visibility == View.GONE) {
-                    viewUtil.startAnimateView(true, cl_arrow, android.R.anim.fade_in)
+                if (binding.clArrow.visibility == View.GONE) {
+                    viewUtil.startAnimateView(true, binding.clArrow, android.R.anim.fade_in)
                 }
             }
         }
@@ -109,4 +100,10 @@ class CheckDepositOnBoardingRemindersFragment :
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_check_deposit_onboarding_reminders
+
+    override val viewModelClassType: Class<CheckDepositOnBoardingViewModel>
+        get() = CheckDepositOnBoardingViewModel::class.java
 }
