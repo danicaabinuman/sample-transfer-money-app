@@ -28,13 +28,14 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
+import com.unionbankph.corporate.databinding.FragmentDaoSignatureBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_signature.*
 import timber.log.Timber
 import java.io.File
 import javax.annotation.concurrent.ThreadSafe
 
-class DaoSignatureFragment : BaseFragment<DaoSignatureViewModel>(R.layout.fragment_dao_signature) {
+class DaoSignatureFragment :
+    BaseFragment<FragmentDaoSignatureBinding, DaoSignatureViewModel>() {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
 
@@ -61,9 +62,9 @@ class DaoSignatureFragment : BaseFragment<DaoSignatureViewModel>(R.layout.fragme
         viewModel.isFlashOn
             .subscribe {
                 if (it) {
-                    cameraView.flash = Flash.TORCH
+                    binding.cameraView.flash = Flash.TORCH
                 } else {
-                    cameraView.flash = Flash.OFF
+                    binding.cameraView.flash = Flash.OFF
                 }
                 getAppCompatActivity().invalidateOptionsMenu()
             }.addTo(disposables)
@@ -112,10 +113,6 @@ class DaoSignatureFragment : BaseFragment<DaoSignatureViewModel>(R.layout.fragme
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[DaoSignatureViewModel::class.java]
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -165,9 +162,9 @@ class DaoSignatureFragment : BaseFragment<DaoSignatureViewModel>(R.layout.fragme
     }
 
     private fun initClickListener() {
-        imageViewCapture.setOnClickListener {
+        binding.imageViewCapture.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
-            cameraView.takePicture()
+            binding.cameraView.takePicture()
         }
     }
 
@@ -181,13 +178,13 @@ class DaoSignatureFragment : BaseFragment<DaoSignatureViewModel>(R.layout.fragme
 
     private fun initCameraView() {
         CameraLogger.setLogLevel(CameraLogger.LEVEL_VERBOSE)
-        with(cameraView) {
+        with(binding.cameraView) {
             setLifecycleOwner(this@DaoSignatureFragment)
             addCameraListener(cameraViewListener)
-            frameProcessingMaxHeight = cameraView.height
-            frameProcessingMaxWidth = cameraView.width
+            frameProcessingMaxHeight = binding.cameraView.height
+            frameProcessingMaxWidth = binding.cameraView.width
         }
-        cameraView.frameProcessingMaxHeight
+        binding.cameraView.frameProcessingMaxHeight
     }
 
     private fun initPermission() {
@@ -195,7 +192,7 @@ class DaoSignatureFragment : BaseFragment<DaoSignatureViewModel>(R.layout.fragme
             .request(Manifest.permission.CAMERA)
             .subscribe { granted ->
                 if (granted) {
-                    cameraView.open()
+                    binding.cameraView.open()
                 } else {
                     initPermission()
                 }
@@ -244,4 +241,10 @@ class DaoSignatureFragment : BaseFragment<DaoSignatureViewModel>(R.layout.fragme
     companion object {
         const val EXTRA_IS_EDIT = "isEdit"
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_dao_signature
+
+    override val viewModelClassType: Class<DaoSignatureViewModel>
+        get() = DaoSignatureViewModel::class.java
 }
