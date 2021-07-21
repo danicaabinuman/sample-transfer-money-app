@@ -16,22 +16,20 @@ import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.branch.data.model.Branch
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityBranchBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_branch.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
 class BranchActivity :
-    BaseActivity<BranchViewModel>(R.layout.activity_branch),
+    BaseActivity<ActivityBranchBinding, BranchViewModel>(),
     EpoxyAdapterCallback<Branch> {
 
     private val controller by lazyFast { BranchController(this, viewUtil) }
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_select_branch))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_select_branch))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -43,7 +41,7 @@ class BranchActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initRxSearchEventListener()
-        swipeRefreshLayoutBranchTransaction.apply {
+        binding.swipeRefreshLayoutBranchTransaction.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getBranches()
@@ -77,22 +75,21 @@ class BranchActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[BranchViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowBranchLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutBranchTransaction,
-                        recyclerViewBranchTransaction,
-                        textViewState
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutBranchTransaction,
+                        binding.recyclerViewBranchTransaction,
+                        binding.textViewState
                     )
                 }
                 is ShowBranchDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutBranchTransaction,
-                        recyclerViewBranchTransaction
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutBranchTransaction,
+                        binding.recyclerViewBranchTransaction
                     )
                 }
                 is ShowBranchError -> {
@@ -113,34 +110,34 @@ class BranchActivity :
 
     private fun showEmptyState(data: MutableList<Branch>) {
         if (data.size > 0) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun initRecyclerView() {
         controller.setAdapterCallbacks(this)
-        recyclerViewBranchTransaction.setController(controller)
+        binding.recyclerViewBranchTransaction.setController(controller)
     }
 
     private fun initRxSearchEventListener() {
-        imageViewClearText.setOnClickListener {
-            editTextSearch.requestFocus()
-            editTextSearch.text?.clear()
+        binding.viewSearchLayout.imageViewClearText.setOnClickListener {
+            binding.viewSearchLayout.editTextSearch.requestFocus()
+            binding.viewSearchLayout.editTextSearch.text?.clear()
         }
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val filteredList = viewModel.filterList(editTextSearch.text.toString())
+                val filteredList = viewModel.filterList(binding.viewSearchLayout.editTextSearch.text.toString())
                 updateController(filteredList)
                 showEmptyState(filteredList)
-                editTextSearch.clearFocus()
+                binding.viewSearchLayout.editTextSearch.clearFocus()
                 viewUtil.dismissKeyboard(this)
                 return@OnEditorActionListener true
             }
             false
         })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -148,7 +145,7 @@ class BranchActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused && getBranchesLiveData().isNotEmpty()) {
                     val filteredList = viewModel.filterList(filter.text().toString())
                     updateController(filteredList)
@@ -165,4 +162,10 @@ class BranchActivity :
     private fun getBranches() {
         viewModel.getBranches()
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_branch
+
+    override val viewModelClassType: Class<BranchViewModel>
+        get() = BranchViewModel::class.java
 }
