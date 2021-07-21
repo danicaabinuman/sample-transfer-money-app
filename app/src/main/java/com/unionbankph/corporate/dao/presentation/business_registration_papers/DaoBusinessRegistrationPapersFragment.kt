@@ -29,16 +29,16 @@ import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
 import com.unionbankph.corporate.app.util.FileUtil
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.databinding.FragmentBusinessRegistrationPapersBinding
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_business_registration_papers.*
 import java.io.File
 import java.io.IOException
 import javax.annotation.concurrent.ThreadSafe
 import javax.inject.Inject
 
 class DaoBusinessRegistrationPapersFragment :
-    BaseFragment<DaoBusinessRegistrationPapersViewModel>(R.layout.fragment_business_registration_papers),
+    BaseFragment<FragmentBusinessRegistrationPapersBinding, DaoBusinessRegistrationPapersViewModel>(),
     DaoActivity.ActionEvent, FileManagerBottomSheet.FileManagerBottomSheetCallback {
 
     @Inject
@@ -73,11 +73,6 @@ class DaoBusinessRegistrationPapersFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[DaoBusinessRegistrationPapersViewModel::class.java]
     }
 
     override fun onViewsBound() {
@@ -88,13 +83,13 @@ class DaoBusinessRegistrationPapersFragment :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        view_original_application.setOnClickListener {
+        binding.viewOriginalApplication.root.setOnClickListener {
             initPermission(TAG_ORIGINAL_APPLICATION_DIALOG)
         }
-        view_certification_of_dti.setOnClickListener {
+        binding.viewCertificationOfDti.root.setOnClickListener {
             initPermission(TAG_CERTIFICATION_OF_DTI_DIALOG)
         }
-        view_mayors_permit.setOnClickListener {
+        binding.viewMayorsPermit.root.setOnClickListener {
             initPermission(TAG_MAYORS_PERMIT_DIALOG)
         }
     }
@@ -323,43 +318,43 @@ class DaoBusinessRegistrationPapersFragment :
 
     private fun init() {
         clOriginalApplication =
-            view_original_application.findViewById(R.id.cl_upload_file)
+            binding.viewOriginalApplication.clUploadFile
         clCertificationOfDti =
-            view_certification_of_dti.findViewById(R.id.cl_upload_file)
+            binding.viewCertificationOfDti.clUploadFile
         clMayorsPermit =
-            view_mayors_permit.findViewById(R.id.cl_upload_file)
+            binding.viewMayorsPermit.clUploadFile
 
         ivOriginalApplication =
-            view_original_application.findViewById(R.id.iv_upload_file)
+            binding.viewOriginalApplication.ivUploadFile
         ivCertificationOfDti =
-            view_certification_of_dti.findViewById(R.id.iv_upload_file)
+            binding.viewCertificationOfDti.ivUploadFile
         ivMayorsPermit =
-            view_mayors_permit.findViewById(R.id.iv_upload_file)
+            binding.viewMayorsPermit.ivUploadFile
 
         ivOriginalApplication.tag = TAG_ORIGINAL_APPLICATION_DIALOG
         ivCertificationOfDti.tag = TAG_CERTIFICATION_OF_DTI_DIALOG
         ivMayorsPermit.tag = TAG_MAYORS_PERMIT_DIALOG
 
         tvOriginalApplication =
-            view_original_application.findViewById(R.id.tv_upload_a_file)
+            binding.viewOriginalApplication.tvUploadAFile
         tvCertificationOfDti =
-            view_certification_of_dti.findViewById(R.id.tv_upload_a_file)
+            binding.viewCertificationOfDti.tvUploadAFile
         tvMayorsPermit =
-            view_mayors_permit.findViewById(R.id.tv_upload_a_file)
+            binding.viewMayorsPermit.tvUploadAFile
 
         ivPlusOriginalApplication =
-            view_original_application.findViewById(R.id.iv_plus)
+            binding.viewOriginalApplication.ivPlus
         ivPlusCertificationOfDti =
-            view_certification_of_dti.findViewById(R.id.iv_plus)
+            binding.viewCertificationOfDti.ivPlus
         ivPlusMayorsPermit =
-            view_mayors_permit.findViewById(R.id.iv_plus)
+            binding.viewMayorsPermit.ivPlus
 
         tvOriginalApplicationError =
-            view_original_application.findViewById(R.id.tv_upload_a_file_error)
+            binding.viewOriginalApplication.tvUploadAFileError
         tvCertificationOfDtiError =
-            view_certification_of_dti.findViewById(R.id.tv_upload_a_file_error)
+            binding.viewCertificationOfDti.tvUploadAFileError
         tvMayorsPermitError =
-            view_mayors_permit.findViewById(R.id.tv_upload_a_file_error)
+            binding.viewMayorsPermit.tvUploadAFileError
 
         tvOriginalApplicationError.text = formatString(R.string.error_this_field)
         tvCertificationOfDtiError.text = formatString(R.string.error_this_field)
@@ -517,4 +512,10 @@ class DaoBusinessRegistrationPapersFragment :
         const val MAYORS_PERMIT_PHOTO_REQUEST_CODE = 3
         val VALID_EXTENSIONS = mutableListOf("jpg", "png", "pdf")
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_business_registration_papers
+
+    override val viewModelClassType: Class<DaoBusinessRegistrationPapersViewModel>
+        get() = DaoBusinessRegistrationPapersViewModel::class.java
 }
