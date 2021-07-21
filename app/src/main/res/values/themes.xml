@@ -46,7 +46,7 @@
         <item name="colorText">@color/colorInfo</item>
         <item name="colorImage">@color/colorInfo</item>
         <item name="toolbarColor">@color/colorWhite</item>
-        <item name="appLogo">@drawable/logo_sme</item>
+        <item name="appLogo">@drawable/logo_msme</item>
         <item name="appShareLogo">@drawable/bg_corporate_sme</item>
         <item name="appBackground">@drawable/bg_corporate_sme</item>
         <item name="bottomSheetBackground">@color/colorLightBottomSheetBackground</item>
