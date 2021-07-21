@@ -3,13 +3,16 @@ package com.unionbankph.corporate.dao.presentation.home_default
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.room.Dao
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.databinding.FragmentDaoDefaultBinding
 
-class DaoDefaultFragment : BaseFragment<DaoDefaultViewModel>(R.layout.fragment_dao_default) {
+class DaoDefaultFragment :
+    BaseFragment<FragmentDaoDefaultBinding, DaoDefaultViewModel>() {
 
     override fun beforeLayout(savedInstanceState: Bundle?) {
         super.beforeLayout(savedInstanceState)
@@ -34,4 +37,10 @@ class DaoDefaultFragment : BaseFragment<DaoDefaultViewModel>(R.layout.fragment_d
         const val SCREEN_REFERENCE_NUMBER = "reference_number"
         const val SCREEN_PERSONAL_INFORMATION = "personal_information"
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_dao_default
+
+    override val viewModelClassType: Class<DaoDefaultViewModel>
+        get() = DaoDefaultViewModel::class.java
 }
