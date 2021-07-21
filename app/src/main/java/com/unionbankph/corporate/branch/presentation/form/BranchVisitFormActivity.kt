@@ -38,9 +38,6 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrg
 import com.unionbankph.corporate.databinding.ActivityBranchVisitFormBinding
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_branch_visit_form.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.*
 
 class BranchVisitFormActivity :

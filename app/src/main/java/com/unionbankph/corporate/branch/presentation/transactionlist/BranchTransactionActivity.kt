@@ -25,8 +25,6 @@ import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPage
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.ActivityBranchTransactionBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_branch_transaction.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 
 class BranchTransactionActivity :

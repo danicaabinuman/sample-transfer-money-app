@@ -13,17 +13,16 @@ import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.branch.presentation.constant.BranchVisitTypeEnum
 import com.unionbankph.corporate.branch.presentation.model.BranchTransactionForm
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
-import kotlinx.android.synthetic.main.activity_branch_transaction_detail.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import com.unionbankph.corporate.databinding.ActivityBranchTransactionDetailBinding
 
 
 class BranchTransactionDetailActivity :
-    BaseActivity<BranchTransactionDetailViewModel>(R.layout.activity_branch_transaction_detail) {
+    BaseActivity<ActivityBranchTransactionDetailBinding, BranchTransactionDetailViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_cash_or_check_deposit))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_cash_or_check_deposit))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -43,11 +42,6 @@ class BranchTransactionDetailActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[BranchTransactionDetailViewModel::class.java]
         viewModel.branchTransactionDetailLiveData.observe(this, Observer {
             when (it) {
                 is ShowBranchTransactionDetailLoading -> {
@@ -70,19 +64,19 @@ class BranchTransactionDetailActivity :
     }
 
     private fun initBranchTransactionDetail(branchTransactionForm: BranchTransactionForm) {
-        setToolbarTitle(tvToolbar, mapBranchType(branchTransactionForm.type))
-        textViewCheckAccountNumber.text = branchTransactionForm.accountNumber
-        textViewCheckNumber.text = branchTransactionForm.checkNumber
-        textViewCheckDate.text = viewUtil.getDateFormatByDateString(
+        setToolbarTitle(binding.viewToolbar.tvToolbar, mapBranchType(branchTransactionForm.type))
+        binding.textViewCheckAccountNumber.text = branchTransactionForm.accountNumber
+        binding.textViewCheckNumber.text = branchTransactionForm.checkNumber
+        binding.textViewCheckDate.text = viewUtil.getDateFormatByDateString(
             branchTransactionForm.checkDate,
             DateFormatEnum.DATE_FORMAT_ISO_DATE.value,
             DateFormatEnum.DATE_FORMAT_DATE.value
         )
-        textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
+        binding.textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
             branchTransactionForm.amount,
             branchTransactionForm.currency
         )
-        textViewRemarks.text = branchTransactionForm.remarks.notEmpty()
+        binding.textViewRemarks.text = branchTransactionForm.remarks.notEmpty()
         when (branchTransactionForm.type) {
             BranchVisitTypeEnum.CASH_DEPOSIT.value,
             BranchVisitTypeEnum.CASH_WITHDRAW.value -> {
@@ -98,27 +92,27 @@ class BranchTransactionDetailActivity :
     }
 
     private fun initCashDeposit() {
-        textViewCheckAccountNumberTitle.visibility(false)
-        textViewCheckAccountNumber.visibility(false)
-        viewBorderCheckAccountNumber.visibility(false)
-        textViewCheckNumberTitle.visibility(false)
-        textViewCheckNumber.visibility(false)
-        viewBorderCheckNumber.visibility(false)
-        textViewCheckDateTitle.visibility(false)
-        textViewCheckDate.visibility(false)
-        viewBorderCheckDate.visibility(false)
+        binding.textViewCheckAccountNumberTitle.visibility(false)
+        binding.textViewCheckAccountNumber.visibility(false)
+        binding.viewBorderCheckAccountNumber.visibility(false)
+        binding.textViewCheckNumberTitle.visibility(false)
+        binding.textViewCheckNumber.visibility(false)
+        binding.viewBorderCheckNumber.visibility(false)
+        binding.textViewCheckDateTitle.visibility(false)
+        binding.textViewCheckDate.visibility(false)
+        binding.viewBorderCheckDate.visibility(false)
     }
 
     private fun initCheckDeposit(isOnUs: Boolean) {
-        textViewCheckAccountNumberTitle.visibility(isOnUs)
-        textViewCheckAccountNumber.visibility(isOnUs)
-        viewBorderCheckAccountNumber.visibility(isOnUs)
-        textViewCheckNumberTitle.visibility(true)
-        textViewCheckNumber.visibility(true)
-        viewBorderCheckNumber.visibility(true)
-        textViewCheckDateTitle.visibility(isOnUs)
-        textViewCheckDate.visibility(isOnUs)
-        viewBorderCheckDate.visibility(isOnUs)
+        binding.textViewCheckAccountNumberTitle.visibility(isOnUs)
+        binding.textViewCheckAccountNumber.visibility(isOnUs)
+        binding.viewBorderCheckAccountNumber.visibility(isOnUs)
+        binding.textViewCheckNumberTitle.visibility(true)
+        binding.textViewCheckNumber.visibility(true)
+        binding.viewBorderCheckNumber.visibility(true)
+        binding.textViewCheckDateTitle.visibility(isOnUs)
+        binding.textViewCheckDate.visibility(isOnUs)
+        binding.viewBorderCheckDate.visibility(isOnUs)
     }
 
     private fun mapBranchType(type: String?): String {
@@ -146,5 +140,11 @@ class BranchTransactionDetailActivity :
     companion object {
         const val EXTRA_BRANCH_TRANSACTION_DETAIL = "branch_transaction_detail"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_branch_transaction_detail
+
+    override val viewModelClassType: Class<BranchTransactionDetailViewModel>
+        get() = BranchTransactionDetailViewModel::class.java
 
 }
