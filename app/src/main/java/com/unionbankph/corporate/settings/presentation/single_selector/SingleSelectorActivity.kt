@@ -24,7 +24,6 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivitySelectorBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import io.reactivex.rxkotlin.addTo
-import kotlinx.serialization.enumFromName
 import java.util.concurrent.TimeUnit
 import javax.annotation.concurrent.ThreadSafe
 
