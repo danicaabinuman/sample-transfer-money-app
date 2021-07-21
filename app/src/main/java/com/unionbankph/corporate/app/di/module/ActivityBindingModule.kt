@@ -98,6 +98,9 @@ import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_c
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.YesAcceptCardPaymentsActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
@@ -564,4 +567,16 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun cardAcceptanceOptionActivity(): CardAcceptanceOptionActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun yesAcceptCardPaymentsActivity(): YesAcceptCardPaymentsActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun cardAcceptanceUploadDocumentsActivity(): CardAcceptanceUploadDocumentsActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun notNowCardPaymentsActivity(): NotNowCardPaymentsActivity
 }

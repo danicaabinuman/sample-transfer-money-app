@@ -1,0 +1,8 @@
+package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents
+
+import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.YesAcceptCardPaymentsViewModel
+
+class CardAcceptanceUploadDocumentsActivity : BaseActivity<CardAcceptanceUploadDocumentsViewModel>(R.layout.activity_upload_documents) {
+}
