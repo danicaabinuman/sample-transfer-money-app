@@ -752,6 +752,7 @@
     <string name="title_congratulations">Congratulations!</string>
     <string name="title_verification_completed">Verification Completed</string>
     <string name="title_dao_result_skip">Thank you for applying for a UnionBank Account</string>
+    <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -2208,5 +2209,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="merchant_disabled_information">Unable to generate new link, your merchant is currently disabled.</string>
     <string name="text_okay">Okay</string>
     <string name="fee_calculator_details">Fees will change depending on the payment method selected by your customer. Select the cards below to see the Net Amount.</string>
-
+    <string name="hi">Hi %1$s!</string>
 </resources>
