@@ -1081,4 +1081,28 @@
         <item name="android:textColor">@color/dsColorCaption</item>
     </style>
 
+
+
+    <style name="BorderedBigButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/button_small_size</item>
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="cornerRadius">@dimen/button_radius_small</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="rippleColor">@color/colorRippleHover</item>
+    </style>
+
+        <style name="RoundedBigButtonBorderedLightOverLay" parent="BorderedBigButton">
+            <item name="backgroundTint">@color/colorWhite</item>
+            <item name="android:textSize">@dimen/text_14</item>
+            <item name="android:textStyle">bold</item>
+            <item name="strokeColor">@color/colorButtonGray</item>
+            <item name="android:textColor">@drawable/style_secondary_button_text</item>
+            <item name="android:paddingStart">@dimen/grid_3</item>
+            <item name="android:textAlignment">viewStart</item>
+
+    </style>
 </resources>

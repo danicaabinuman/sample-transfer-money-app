@@ -22,6 +22,7 @@ import com.unionbankph.corporate.auth.presentation.migration.nominate_verify.Nom
 import com.unionbankph.corporate.auth.presentation.migration.nominate_welcome.NominateWelcomeFragment
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyFragment
 import com.unionbankph.corporate.auth.presentation.policy.TermsAndConditionsFragment
+import com.unionbankph.corporate.auth.presentation.login_onboarding.LoginOnboardingFragment
 import com.unionbankph.corporate.bills_payment.presentation.biller.biller_all.AllBillerFragment
 import com.unionbankph.corporate.bills_payment.presentation.biller.frequent_biller.FrequentBillerFragment
 import com.unionbankph.corporate.dao.presentation.business_registration_papers.DaoBusinessRegistrationPapersFragment
@@ -70,6 +71,7 @@ import com.unionbankph.corporate.settings.presentation.security.otp.SecurityMana
 import com.unionbankph.corporate.settings.presentation.security.otp.SecurityReceiveOTPFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashEndFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashFragment
+import com.unionbankph.corporate.settings.presentation.splash.SplashOnboardingFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -357,5 +359,12 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun nominateSettlementAccountFragment(): NominateSettlementAccountFragment
 
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun splashOnboardingFragment(): SplashOnboardingFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun loginOnboardingFragment(): LoginOnboardingFragment
 
 }

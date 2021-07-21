@@ -2290,4 +2290,18 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="we_want_to_know_more_about_your_business">We want to know more about your business</string>
     <string name="save_and_exit">Save and Exit</string>
     <string name="indicate_0_if_less_than_1_year">Indicate 0 if less than 1 year</string>
+    <string name="title_register">REGISTER</string>
+    <string name="desc_unionbank">UnionBank of the Philippines is an entity regulated by the Bangko Sentral ng Pilipinas. You may contact the BSP – Financial Consumer Protection Department (FCPD) at (02) 708–7087 or consumeraffairs@bsp.gov.ph</string>
+    <string name="title_existing_unionbank_account">Do you have an existing UnionBank account?</string>
+    <string name="title_no_open_account">No, I want to open an account</string>
+    <string name="title_yes_existing_unionbank_account">Yes, I have an existing UnionBank account</string>
+    <string name="title_continue_existing_account_application">Continue existing account application</string>
+    <string name="title_view_accounts">View Accounts</string>
+    <string name="desc_view_accounts">See your business accounts in one place</string>
+    <string name="title_transfer_funds">Transfer Funds</string>
+    <string name="desc_transfer_funds">Enjoy real-time funds transfers to local and international banks.</string>
+    <string name="desc_pay_bills">Select from the most extensive list of billers.</string>
+    <string name="title_deposit_checks">Deposit Checks</string>
+    <string name="desc_deposit_checks">Deposit any bank check by taking photos of it via app.</string>
+
 </resources>
