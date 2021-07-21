@@ -11,9 +11,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityBillingDetailsBinding
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkByReferenceIdResponse
-import kotlinx.android.synthetic.main.activity_billing_details.*
-import kotlinx.android.synthetic.main.activity_link_details.*
 import timber.log.Timber
 import java.lang.NumberFormatException
 import java.text.DecimalFormat
@@ -21,22 +20,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class BillingDetailsActivity :
-        BaseActivity<BillingDetailsViewModel>(R.layout.activity_billing_details)
+        BaseActivity<ActivityBillingDetailsBinding, BillingDetailsViewModel>()
 {
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[BillingDetailsViewModel::class.java]
     }
 
     override fun onViewsBound() {
         super.onViewsBound()
 
 
-        btnViewMore.setOnClickListener{
+        binding.btnViewMore.setOnClickListener{
 //            val intent = Intent(this@BillingDetailsActivity, ActivityLogsActivity::class.java)
 //            startActivity(intent)
         }
@@ -51,7 +46,7 @@ class BillingDetailsActivity :
     }
 
     private fun backButton() {
-        btnBack.setOnClickListener(){
+        binding.btnBack.setOnClickListener(){
             finish()
         }
     }
@@ -59,7 +54,7 @@ class BillingDetailsActivity :
     private fun setupInputs() {
 
         val referenceNmber = intent.getStringExtra(EXTRA_REFERENCE_NUMBER).toString()
-        billingDetailsLoading.visibility = View.VISIBLE
+        binding.billingDetailsLoading.visibility = View.VISIBLE
         viewModel.initBundleData(
             referenceNmber
         )
@@ -68,7 +63,7 @@ class BillingDetailsActivity :
 
     private fun setupOutputs(){
         viewModel.paymentLinkDetailsResponse.observe(this, Observer {
-            billingDetailsLoading.visibility = View.GONE
+            binding.billingDetailsLoading.visibility = View.GONE
             updatePaymentLinkDetails(it)
         })
 
@@ -76,7 +71,7 @@ class BillingDetailsActivity :
             it.getContentIfNotHandled().let { event ->
                 when (event) {
                     is UiState.Error -> {
-                        billingDetailsLoading.visibility = View.GONE
+                        binding.billingDetailsLoading.visibility = View.GONE
                         handleOnError(event.throwable)
                     }
                 }
@@ -125,31 +120,31 @@ class BillingDetailsActivity :
             e.printStackTrace()
         }
 
-        tvGrossAmount.text = grossAmountString
-        tvFee.text = feeString
-        tvNetAmount.text = amountFormatFinal.format(netDouble)
+        binding.tvGrossAmount.text = grossAmountString
+        binding.tvFee.text = feeString
+        binding.tvNetAmount.text = amountFormatFinal.format(netDouble)
 
-        tvPayorName.text = response.payorDetails?.fullName
-        tvPayorEmail.text = response.payorDetails?.emailAddress
-        tvPayorContactNumber.text = response.payorDetails?.mobileNumber
+        binding.tvPayorName.text = response.payorDetails?.fullName
+        binding.tvPayorEmail.text = response.payorDetails?.emailAddress
+        binding.tvPayorContactNumber.text = response.payorDetails?.mobileNumber
         var paymentMethod = response.payorDetails?.paymentMethod
 
         if (paymentMethod == "INSTAPAY"){
-            instapayLogo.visibility = View.VISIBLE
-            ubLogo.visibility = View.GONE
+            binding.instapayLogo.visibility = View.VISIBLE
+            binding.ubLogo.visibility = View.GONE
         }else if (paymentMethod == "UB ONLINE"){
-            instapayLogo.visibility = View.GONE
-            ubLogo.visibility = View.VISIBLE
+            binding.instapayLogo.visibility = View.GONE
+            binding.ubLogo.visibility = View.VISIBLE
         } else {
             Toast.makeText(this, "no payment method present", Toast.LENGTH_SHORT).show()
         }
 
-        tvRefNumber.text = response.paymentDetails?.referenceNo
-        tvReferenceNumberTitle.text = response.paymentDetails?.referenceNo
-        tvAmount.text = grossAmountString
-        tvDescription.text = response.paymentDetails?.paymentFor
-        tvRemarks.text = response.paymentDetails?.description
-        tvLinkUrl.text = response.paymentDetails?.paymentLink
+        binding.tvRefNumber.text = response.paymentDetails?.referenceNo
+        binding.tvReferenceNumberTitle.text = response.paymentDetails?.referenceNo
+        binding.tvAmount.text = grossAmountString
+        binding.tvDescription.text = response.paymentDetails?.paymentFor
+        binding.tvRemarks.text = response.paymentDetails?.description
+        binding.tvLinkUrl.text = response.paymentDetails?.paymentLink
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
         parser.timeZone = TimeZone.getTimeZone("UTC")
@@ -186,16 +181,16 @@ class BillingDetailsActivity :
         if(settlementDateLocal!=null){
             val elapsedTimeSinceSettlementDate = settlementDateLocal!!.time - localDate.time
             if(elapsedTimeSinceSettlementDate>0){
-                tvExpiryInformation.text = "Payment will be eligible for payout on " + settlementDateString
+                binding.tvExpiryInformation.text = "Payment will be eligible for payout on " + settlementDateString
             }else{
-                tvExpiryInformation.text = "Payment has been eligible for payout since " + settlementDateString
+                binding.tvExpiryInformation.text = "Payment has been eligible for payout since " + settlementDateString
             }
         }else{
-            tvExpiryInformation.text = "Payment settlement date not available"
+            binding.tvExpiryInformation.text = "Payment settlement date not available"
         }
 
 
-        tvBillingDetailsDateSettled.text = settledDateString
+        binding.tvBillingDetailsDateSettled.text = settledDateString
 
         var expiryDateString = "UNAVAILABLE"
         response.expiry?.let {
@@ -206,7 +201,7 @@ class BillingDetailsActivity :
                 Timber.e(e.toString()) // this never gets called either
             }
         }
-        tvLinkExpiry.text = expiryDateString
+        binding.tvLinkExpiry.text = expiryDateString
 
     }
 
@@ -216,8 +211,8 @@ class BillingDetailsActivity :
     }
 
     private fun copyLink(){
-        ivCopyButton.setOnClickListener{
-            val copiedUrl = tvLinkUrl.text
+        binding.ivCopyButton.setOnClickListener{
+            val copiedUrl = binding.tvLinkUrl.text
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
 
@@ -230,12 +225,18 @@ class BillingDetailsActivity :
     }
 
     private fun shareLink() {
-        ivShareButton.setOnClickListener {
+        binding.ivShareButton.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
+            intent.putExtra(Intent.EXTRA_TEXT, binding.tvLinkUrl.text.toString())
             intent.type = "text/plain"
             startActivity(Intent.createChooser(intent, "Share To:"))
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_billing_details
+
+    override val viewModelClassType: Class<BillingDetailsViewModel>
+        get() = BillingDetailsViewModel::class.java
 }
