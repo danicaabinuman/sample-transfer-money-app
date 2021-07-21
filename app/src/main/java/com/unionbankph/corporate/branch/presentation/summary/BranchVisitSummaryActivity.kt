@@ -22,11 +22,10 @@ import com.unionbankph.corporate.branch.presentation.model.BranchVisitConfirmati
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
-import kotlinx.android.synthetic.main.activity_branch_visit_summary.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
+import com.unionbankph.corporate.databinding.ActivityBranchVisitSummaryBinding
 
 class BranchVisitSummaryActivity :
-    BaseActivity<BranchVisitSummaryViewModel>(R.layout.activity_branch_visit_summary) {
+    BaseActivity<ActivityBranchVisitSummaryBinding, BranchVisitSummaryViewModel>() {
 
     private val branchVisitConfirmationForm by lazyFast {
         JsonHelper.fromJson<BranchVisitConfirmationForm>(
@@ -42,7 +41,7 @@ class BranchVisitSummaryActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewsBound() {
@@ -58,7 +57,7 @@ class BranchVisitSummaryActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonMakeAnotherBranchTransaction.setOnClickListener {
+        binding.buttonMakeAnotherBranchTransaction.setOnClickListener {
             navigator.navigateClearUpStack(
                 this,
                 BranchVisitChannelActivity::class.java,
@@ -67,7 +66,7 @@ class BranchVisitSummaryActivity :
                 isAnimated = true
             )
         }
-        buttonViewBranchTransaction.setOnClickListener {
+        binding.buttonViewBranchTransaction.setOnClickListener {
             navigator.navigateClearUpStack(
                 this,
                 BranchVisitActivity::class.java,
@@ -89,11 +88,6 @@ class BranchVisitSummaryActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[BranchVisitSummaryViewModel::class.java]
         viewModel.summaryState.observe(this, Observer {
             when (it) {
                 is ShowBranchVisitSummaryLoading -> {
@@ -114,8 +108,8 @@ class BranchVisitSummaryActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_cash_or_check_deposit),
                         it.orgName
                     )
@@ -137,18 +131,18 @@ class BranchVisitSummaryActivity :
                 branchVisitSubmitDto.referenceId
             ).toHtmlSpan()
         )
-        textViewTransactionDate.text = viewUtil.getDateFormatByDateString(
+        binding.textViewTransactionDate.text = viewUtil.getDateFormatByDateString(
             branchVisitConfirmationForm.transactionDate,
             DateFormatEnum.DATE_FORMAT_ISO_DATE.value,
             DateFormatEnum.DATE_FORMAT_DATE.value
         )
-        textViewCheckBranchName.text = branchVisitConfirmationForm.branchName
-        textViewCheckBranchAddress.text = branchVisitConfirmationForm.branchAddress
-        textViewDepositTo.text = branchVisitConfirmationForm.depositTo
+        binding.textViewCheckBranchName.text = branchVisitConfirmationForm.branchName
+        binding.textViewCheckBranchAddress.text = branchVisitConfirmationForm.branchAddress
+        binding.textViewDepositTo.text = branchVisitConfirmationForm.depositTo
 
-        textViewTotalDepositsTitle.visibility(branchVisitConfirmationForm.isBatch)
-        textViewTotalDeposits.visibility(branchVisitConfirmationForm.isBatch)
-        viewBorderTotalDeposits.visibility(branchVisitConfirmationForm.isBatch)
+        binding.textViewTotalDepositsTitle.visibility(branchVisitConfirmationForm.isBatch)
+        binding.textViewTotalDeposits.visibility(branchVisitConfirmationForm.isBatch)
+        binding.viewBorderTotalDeposits.visibility(branchVisitConfirmationForm.isBatch)
 
         val cashDepositTitle = formatString(
             if (branchVisitConfirmationForm.cashDepositSize > 1)
@@ -208,18 +202,18 @@ class BranchVisitSummaryActivity :
         stringBuffer.append(cashDepositText)
         stringBuffer.append(checkDepositOnUsText)
         stringBuffer.append(checkDepositOffUsText)
-        textViewTotalDeposits.text = stringBuffer.toString().toHtmlSpan()
-        textViewAmountTitle.text = formatString(
+        binding.textViewTotalDeposits.text = stringBuffer.toString().toHtmlSpan()
+        binding.textViewAmountTitle.text = formatString(
             if (branchVisitConfirmationForm.isBatch)
                 R.string.title_total_amount
             else
                 R.string.title_amount
         )
-        textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
+        binding.textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
             branchVisitConfirmationForm.totalAmount.toString(),
             branchVisitConfirmationForm.currency
         )
-        textViewServiceFee.text = if (branchVisitConfirmationForm.serviceFee != null) {
+        binding.textViewServiceFee.text = if (branchVisitConfirmationForm.serviceFee != null) {
             formatString(
                 R.string.value_service,
                 autoFormatUtil.formatWithTwoDecimalPlaces(
@@ -230,8 +224,8 @@ class BranchVisitSummaryActivity :
         } else {
             formatString(R.string.value_service_fee_free)
         }
-        textViewChannel.text = branchVisitConfirmationForm.channel
-        textViewRemarks.text = branchVisitConfirmationForm.remarks.notEmpty()
+        binding.textViewChannel.text = branchVisitConfirmationForm.channel
+        binding.textViewRemarks.text = branchVisitConfirmationForm.remarks.notEmpty()
     }
 
     private fun initTransactionStatus(
@@ -241,11 +235,11 @@ class BranchVisitSummaryActivity :
         headerColor: Int,
         headerMsg: Spanned
     ) {
-        viewHeader.setContextCompatBackground(background)
-        imageViewHeader.setImageResource(icon)
-        textViewHeader.text = formatString(header)
-        textViewHeader.setContextCompatTextColor(headerColor)
-        textViewMsg.text = headerMsg
+        binding.viewHeader.setContextCompatBackground(background)
+        binding.imageViewHeader.setImageResource(icon)
+        binding.textViewHeader.text = formatString(header)
+        binding.textViewHeader.setContextCompatTextColor(headerColor)
+        binding.textViewMsg.text = headerMsg
     }
 
     companion object {
@@ -253,4 +247,10 @@ class BranchVisitSummaryActivity :
         const val EXTRA_CONFIRMATION_FORM = "confirmation_form"
         const val EXTRA_BRANCH_VISIT_SUBMIT_DTO = "branch_visit_submit_dto"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_branch_visit_summary
+
+    override val viewModelClassType: Class<BranchVisitSummaryViewModel>
+        get() = BranchVisitSummaryViewModel::class.java
 }

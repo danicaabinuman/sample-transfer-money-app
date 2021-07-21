@@ -22,11 +22,10 @@ import com.unionbankph.corporate.branch.presentation.summary.BranchVisitSummaryA
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
-import kotlinx.android.synthetic.main.activity_branch_visit_confirmation.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
+import com.unionbankph.corporate.databinding.ActivityBranchVisitConfirmationBinding
 
 class BranchVisitConfirmationActivity :
-    BaseActivity<BranchVisitConfirmationViewModel>(R.layout.activity_branch_visit_confirmation) {
+    BaseActivity<ActivityBranchVisitConfirmationBinding, BranchVisitConfirmationViewModel>() {
 
     private val branchTransactionsForm by lazyFast {
         JsonHelper.fromListJson<BranchTransactionForm>(intent.getStringExtra(EXTRA_TRANSACTION_LIST))
@@ -38,7 +37,7 @@ class BranchVisitConfirmationActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewsBound() {
@@ -54,10 +53,10 @@ class BranchVisitConfirmationActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonEdit.setOnClickListener {
+        binding.buttonEdit.setOnClickListener {
             onBackPressed()
         }
-        buttonSubmit.setOnClickListener {
+        binding.buttonSubmit.setOnClickListener {
             viewModel.submitBranchTransaction()
         }
     }
@@ -73,11 +72,6 @@ class BranchVisitConfirmationActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[BranchVisitConfirmationViewModel::class.java]
         viewModel.confirmationState.observe(this, Observer {
             when (it) {
                 is ShowBranchVisitConfirmationLoading -> {
@@ -106,8 +100,8 @@ class BranchVisitConfirmationActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_new_branch_transaction),
                         it.orgName
                     )
@@ -118,18 +112,18 @@ class BranchVisitConfirmationActivity :
     }
 
     private fun initConfirmationDetails() {
-        textViewTransactionDate.text = viewUtil.getDateFormatByDateString(
+        binding.textViewTransactionDate.text = viewUtil.getDateFormatByDateString(
             branchVisitConfirmationForm.transactionDate,
             DateFormatEnum.DATE_FORMAT_ISO_DATE.value,
             DateFormatEnum.DATE_FORMAT_DATE.value
         )
-        textViewCheckBranchName.text = branchVisitConfirmationForm.branchName
-        textViewCheckBranchAddress.text = branchVisitConfirmationForm.branchAddress
-        textViewDepositTo.text = branchVisitConfirmationForm.depositTo
+        binding.textViewCheckBranchName.text = branchVisitConfirmationForm.branchName
+        binding.textViewCheckBranchAddress.text = branchVisitConfirmationForm.branchAddress
+        binding.textViewDepositTo.text = branchVisitConfirmationForm.depositTo
 
-        textViewTotalDepositsTitle.visibility(branchVisitConfirmationForm.isBatch)
-        textViewTotalDeposits.visibility(branchVisitConfirmationForm.isBatch)
-        viewBorderTotalDeposits.visibility(branchVisitConfirmationForm.isBatch)
+        binding.textViewTotalDepositsTitle.visibility(branchVisitConfirmationForm.isBatch)
+        binding.textViewTotalDeposits.visibility(branchVisitConfirmationForm.isBatch)
+        binding.viewBorderTotalDeposits.visibility(branchVisitConfirmationForm.isBatch)
 
         val cashDepositTitle = formatString(
             if (branchVisitConfirmationForm.cashDepositSize > 1)
@@ -189,18 +183,18 @@ class BranchVisitConfirmationActivity :
         stringBuffer.append(cashDepositText)
         stringBuffer.append(checkDepositOnUsText)
         stringBuffer.append(checkDepositOffUsText)
-        textViewTotalDeposits.text = stringBuffer.toString().toHtmlSpan()
-        textViewAmountTitle.text = formatString(
+        binding.textViewTotalDeposits.text = stringBuffer.toString().toHtmlSpan()
+        binding.textViewAmountTitle.text = formatString(
             if (branchVisitConfirmationForm.isBatch)
                 R.string.title_total_amount
             else
                 R.string.title_amount
         )
-        textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
+        binding.textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
             branchVisitConfirmationForm.totalAmount.toString(),
             branchVisitConfirmationForm.currency
         )
-        textViewServiceFee.text = if (branchVisitConfirmationForm.serviceFee != null) {
+        binding.textViewServiceFee.text = if (branchVisitConfirmationForm.serviceFee != null) {
             formatString(
                 R.string.value_service,
                 autoFormatUtil.formatWithTwoDecimalPlaces(
@@ -211,8 +205,8 @@ class BranchVisitConfirmationActivity :
         } else {
             formatString(R.string.value_service_fee_free)
         }
-        textViewChannel.text = branchVisitConfirmationForm.channel
-        textViewRemarks.text = branchVisitConfirmationForm.remarks.notEmpty()
+        binding.textViewChannel.text = branchVisitConfirmationForm.channel
+        binding.textViewRemarks.text = branchVisitConfirmationForm.remarks.notEmpty()
     }
 
     private fun navigateBranchVisitSummaryScreen(branchVisitSubmitDto: BranchVisitSubmitDto) {
@@ -243,4 +237,10 @@ class BranchVisitConfirmationActivity :
         const val EXTRA_TRANSACTION_LIST = "transaction_list"
         const val EXTRA_CONFIRMATION_FORM = "confirmation_form"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_branch_visit_confirmation
+
+    override val viewModelClassType: Class<BranchVisitConfirmationViewModel>
+        get() = BranchVisitConfirmationViewModel::class.java
 }
