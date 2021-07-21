@@ -9,19 +9,18 @@ import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityNominateSettlementBinding
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
-import kotlinx.android.synthetic.main.activity_billing_details.*
-import kotlinx.android.synthetic.main.activity_nominate_settlement.*
 
 class NominateSettlementActivity :
-        BaseActivity<NominateSettlementViewModel>(R.layout.activity_nominate_settlement),
+        BaseActivity<ActivityNominateSettlementBinding, NominateSettlementViewModel>(),
         AccountAdapterCallback
 {
     override fun onViewsBound() {
         super.onViewsBound()
 
         setupInputs()
-        btnClose.setOnClickListener{
+        binding.btnClose.setOnClickListener{
             finish()
         }
     }
@@ -29,10 +28,6 @@ class NominateSettlementActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-                this,
-                viewModelFactory
-        )[NominateSettlementViewModel::class.java]
 
         viewModel.accountsBalances.observe(this, Observer {
             it?.let {
@@ -43,7 +38,7 @@ class NominateSettlementActivity :
 
     private fun updateRecyclerView(accounts: MutableList<Account>){
         val accountsAdapter = NominateSettlementAccountsAdapter(accounts)
-        rvNominateSettlementAccounts.adapter = accountsAdapter
+        binding.rvNominateSettlementAccounts.adapter = accountsAdapter
         accountsAdapter.onItemClick = {
             passAccountAsResult(it)
         }
@@ -71,4 +66,10 @@ class NominateSettlementActivity :
         const val RESULT_DATA = "RESULT_DATA"
         const val EXTRA_ACCOUNTS_ARRAY = "EXTRA_ACCOUNTS_ARRAY"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_nominate_settlement
+
+    override val viewModelClassType: Class<NominateSettlementViewModel>
+        get() = NominateSettlementViewModel::class.java
 }
