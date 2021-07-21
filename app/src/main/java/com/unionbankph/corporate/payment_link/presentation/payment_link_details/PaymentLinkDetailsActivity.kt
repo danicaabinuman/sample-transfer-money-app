@@ -14,30 +14,21 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityLinkDetailsBinding
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
-import kotlinx.android.synthetic.main.activity_archive_success.*
-import kotlinx.android.synthetic.main.activity_link_details.*
 import timber.log.Timber
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity_link_details) {
-
+class LinkDetailsActivity :
+    BaseActivity<ActivityLinkDetailsBinding, LinkDetailsViewModel>() {
 
     var mCurrentLinkDetails: GeneratePaymentLinkResponse? = null
     private var fromWhatTab : String? = null
-
-    override fun onViewModelBound() {
-        super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[LinkDetailsViewModel::class.java]
-    }
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -55,19 +46,19 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
     private fun initViews(){
 
-        ivBackButton.setOnClickListener{
+        binding.ivBackButton.setOnClickListener{
             finish()
         }
 
-        imgBtnShare.setOnClickListener{
+        binding.imgBtnShare.setOnClickListener{
             shareLink()
         }
 
-        ibURLcopy.setOnClickListener{
+        binding.ibURLcopy.setOnClickListener{
             copyLink()
         }
 
-        btnGenerateAnotherLink.setOnClickListener{
+        binding.btnGenerateAnotherLink.setOnClickListener{
             when(fromWhatTab){
                 DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON -> {
                     finish()
@@ -80,11 +71,11 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             }
         }
 
-        btnArchive.setOnClickListener{
+        binding.btnArchive.setOnClickListener{
 
-            when(btnArchive.text){
+            when(binding.btnArchive.text){
                 "ARCHIVE" -> {
-                    flLoading.visibility = View.VISIBLE
+                    binding.flLoading.visibility = View.VISIBLE
                     mCurrentLinkDetails?.let {
                         viewModel.getPaymentLinkDetailsThenPut(
                             it.referenceNumber!!,
@@ -94,7 +85,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
                 }
 
                 "MARK AS UNPAID" -> {
-                    flLoading.visibility = View.VISIBLE
+                    binding.flLoading.visibility = View.VISIBLE
                     mCurrentLinkDetails?.let {
                         viewModel.getPaymentLinkDetailsThenPut(
                             it.referenceNumber!!,
@@ -104,7 +95,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
                 }
 
                 "VIEW MORE DETAILS" -> {
-                    flLoading.visibility = View.GONE
+                    binding.flLoading.visibility = View.GONE
                     val intent = Intent(this@LinkDetailsActivity, BillingDetailsActivity::class.java)
                     mCurrentLinkDetails?.let {
                         intent.putExtra(BillingDetailsActivity.EXTRA_REFERENCE_NUMBER,it.referenceNumber!!)
@@ -114,8 +105,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             }
         }
 
-        btnOkay.setOnClickListener {
-            archiveSuccess.visibility = View.GONE
+        binding.viewArchiveSuccess.btnOkay.setOnClickListener {
+            binding.archiveSuccess.visibility = View.GONE
             generateNewPaymentLinkAsResult()
         }
 
@@ -129,16 +120,15 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     private fun setupOutputs() {
 
         viewModel.putPaymentLinkStatusResponse.observe(this, Observer {
-            flLoading.visibility = View.INVISIBLE
-            archiveSuccess.visibility = View.VISIBLE
-
+            binding.flLoading.visibility = View.INVISIBLE
+            binding.archiveSuccess.visibility = View.VISIBLE
         })
 
         viewModel.uiState.observe(this, Observer {
             it.getContentIfNotHandled().let { event ->
                 when (event) {
                     is UiState.Error -> {
-                        flLoading.visibility = View.INVISIBLE
+                        binding.flLoading.visibility = View.INVISIBLE
                         handleOnError(event.throwable)
                     }
                 }
@@ -148,101 +138,101 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
 
 
     private fun updateArchivedView(){
-        tvStatus.text = "ARCHIVED"
-        tvStatus.setTextColor(Color.parseColor("#4A4A4A"))
-        tvStatus.background = getDrawable(R.drawable.bg_status_card_archived)
-        clCyberSure.visibility = View.GONE
-        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
-        btnArchive.text = "MARK AS UNPAID"
-        imgBtnShare.isEnabled = false
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        ibURLcopy.isEnabled = false
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
-        btnArchive.isEnabled = true
-        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
-        tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
-        linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
-        tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
-        linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.tvStatus.text = "ARCHIVED"
+        binding.tvStatus.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_archived)
+        binding.clCyberSure.visibility = View.GONE
+        binding.btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        binding.btnArchive.text = "MARK AS UNPAID"
+        binding.imgBtnShare.isEnabled = false
+        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
+        binding.ibURLcopy.isEnabled = false
+        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        binding.btnArchive.isEnabled = true
+        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+        binding.tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
 
     }
 
     private fun updatePendingView(){
-        tvStatus.text = "PENDING"
-        tvStatus.setTextColor(Color.parseColor("#FF8200"))
-        tvStatus.background = getDrawable(R.drawable.bg_status_card_pending)
-        clCyberSure.visibility = View.GONE
-        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
-        btnArchive.visibility = View.GONE
-        btnArchive.text = "ARCHIVE"
-        imgBtnShare.isEnabled = false
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        ibURLcopy.isEnabled = false
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
-        btnArchive.isEnabled = false
-        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
-        tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
-        linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
-        tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
-        linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.tvStatus.text = "PENDING"
+        binding.tvStatus.setTextColor(Color.parseColor("#FF8200"))
+        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_pending)
+        binding.clCyberSure.visibility = View.GONE
+        binding.btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        binding.btnArchive.visibility = View.GONE
+        binding.btnArchive.text = "ARCHIVE"
+        binding.imgBtnShare.isEnabled = false
+        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
+        binding.ibURLcopy.isEnabled = false
+        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        binding.btnArchive.isEnabled = false
+        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+        binding.tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
     }
 
     private fun updateUnpaidView(){
-        tvStatus.text = "UNPAID"
-        tvStatus.setTextColor(Color.parseColor("#F6B000"))
-        tvStatus.background = getDrawable(R.drawable.bg_status_card_unpaid)
-        clCyberSure.visibility = View.VISIBLE
-        btnGenerateAnotherLink.text = "GENERATE ANOTHER LINK"
-        btnArchive.text = "ARCHIVE"
-        imgBtnShare.isEnabled = true
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_orange)
-        ibURLcopy.isEnabled = true
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_orange)
-        btnArchive.isEnabled = true
-        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
-        tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
-        linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
-        tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
-        linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.tvStatus.text = "UNPAID"
+        binding.tvStatus.setTextColor(Color.parseColor("#F6B000"))
+        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_unpaid)
+        binding.clCyberSure.visibility = View.VISIBLE
+        binding.btnGenerateAnotherLink.text = "GENERATE ANOTHER LINK"
+        binding.btnArchive.text = "ARCHIVE"
+        binding.imgBtnShare.isEnabled = true
+        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_orange)
+        binding.ibURLcopy.isEnabled = true
+        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_orange)
+        binding.btnArchive.isEnabled = true
+        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+        binding.tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
     }
 
     private fun updateExpiredView(){
-        tvStatus.text = "EXPIRED"
-        tvStatus.setTextColor(Color.parseColor("#E83C18"))
-        tvStatus.background = getDrawable(R.drawable.bg_status_card_expired)
-        clCyberSure.visibility = View.GONE
-        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
-        btnArchive.visibility = View.GONE
-        btnArchive.text = "ARCHIVE"
-        imgBtnShare.isEnabled = false
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        ibURLcopy.isEnabled = false
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
-        btnArchive.isEnabled = false
-        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
-        tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
-        linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
-        tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
-        linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.tvStatus.text = "EXPIRED"
+        binding.tvStatus.setTextColor(Color.parseColor("#E83C18"))
+        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_expired)
+        binding.clCyberSure.visibility = View.GONE
+        binding.btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        binding.btnArchive.visibility = View.GONE
+        binding.btnArchive.text = "ARCHIVE"
+        binding.imgBtnShare.isEnabled = false
+        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
+        binding.ibURLcopy.isEnabled = false
+        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        binding.btnArchive.isEnabled = false
+        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+        binding.tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
     }
 
     private fun updatePaidView(){
-        tvStatus.text = "PAID"
-        tvStatus.setTextColor(Color.parseColor("#5CA500"))
-        tvStatus.background = getDrawable(R.drawable.bg_status_card_paid)
-        clCyberSure.visibility = View.VISIBLE
-        btnGenerateAnotherLink.text = "GENERATE NEW LINK"
-        btnArchive.text = "VIEW MORE DETAILS"
-        imgBtnShare.isEnabled = false
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        ibURLcopy.isEnabled = false
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
-        btnArchive.isEnabled = true
-        tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_orange)
-        tvReferenceNo.setTextColor(Color.parseColor("#FFFFFF"))
-        linkDetailsRefNo.setTextColor(Color.parseColor("#FFFFFF"))
-        tvDateCreated.setTextColor(Color.parseColor("#FFFFFF"))
-        linkDetailsCreatedDate.setTextColor(Color.parseColor("#FFFFFF"))
+        binding.tvStatus.text = "PAID"
+        binding.tvStatus.setTextColor(Color.parseColor("#5CA500"))
+        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_paid)
+        binding.clCyberSure.visibility = View.VISIBLE
+        binding.btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+        binding.btnArchive.text = "VIEW MORE DETAILS"
+        binding.imgBtnShare.isEnabled = false
+        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
+        binding.ibURLcopy.isEnabled = false
+        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        binding.btnArchive.isEnabled = true
+        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_orange)
+        binding.tvReferenceNo.setTextColor(Color.parseColor("#FFFFFF"))
+        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#FFFFFF"))
+        binding.tvDateCreated.setTextColor(Color.parseColor("#FFFFFF"))
+        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#FFFFFF"))
     }
 
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
@@ -270,7 +260,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             }
         }
 
-        linkDetailsCreatedDate.text = createdDateString
+        binding.linkDetailsCreatedDate.text = createdDateString
 
         var expiryDateString = "UNAVAILABLE"
         linkDetailsResponse.expireDate?.let {
@@ -288,19 +278,19 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
             }
 
         }
-        tv_link_details_expiry.text = expiryDateString
+        binding.tvLinkDetailsExpiry.text = expiryDateString
 
         val amountParse = DecimalFormat("####.##")
         val amountFormat = DecimalFormat("#,###.00")
         val finalAmount = amountFormat.format(amountParse.parse(linkDetailsResponse.amount))
 
-        linkDetailsRefNo.text = linkDetailsResponse.referenceNumber.toString()
+        binding.linkDetailsRefNo.text = linkDetailsResponse.referenceNumber.toString()
 
-        linkDetailsAmount.text = finalAmount
-        linkDetailsDescription.text = linkDetailsResponse.paymentFor
-        linkDetailsNotes.text = linkDetailsResponse.description
+        binding.linkDetailsAmount.text = finalAmount
+        binding.linkDetailsDescription.text = linkDetailsResponse.paymentFor
+        binding.linkDetailsNotes.text = linkDetailsResponse.description
 
-        linkDetailsPaymentLink.text = linkDetailsResponse.link
+        binding.linkDetailsPaymentLink.text = linkDetailsResponse.link
 
         if(linkDetailsResponse.status?.contains("ARCHIVE",true) == true){
             updateArchivedView()
@@ -317,8 +307,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     }
 
     private fun copyLink(){
-        ibURLcopy.setOnClickListener{
-            val copiedUrl = linkDetailsPaymentLink.text
+        binding.ibURLcopy.setOnClickListener{
+            val copiedUrl = binding.linkDetailsPaymentLink.text
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
 
@@ -331,10 +321,10 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
     }
 
     private fun shareLink(){
-        imgBtnShare.setOnClickListener {
+        binding.imgBtnShare.setOnClickListener {
             val intent = Intent()
             intent.action= Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, linkDetailsPaymentLink.text.toString())
+            intent.putExtra(Intent.EXTRA_TEXT, binding.linkDetailsPaymentLink.text.toString())
             intent.type="text/plain"
             startActivity(Intent.createChooser(intent, "Share To:"))
         }
@@ -353,6 +343,12 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
         const val EXTRA_GENERATE_PAYMENT_LINK_RESPONSE = "extra_generate_payment_link_response"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_link_details
+
+    override val viewModelClassType: Class<LinkDetailsViewModel>
+        get() = LinkDetailsViewModel::class.java
 
 }
 
