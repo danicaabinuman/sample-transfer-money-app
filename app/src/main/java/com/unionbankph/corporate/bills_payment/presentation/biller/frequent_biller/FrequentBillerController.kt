@@ -11,13 +11,11 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.airbnb.epoxy.Typed2EpoxyController
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.bills_payment.data.model.FrequentBiller
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
-import kotlinx.android.synthetic.main.item_frequent_biller.view.*
+import com.unionbankph.corporate.databinding.ItemFrequentBillerBinding
 
 class FrequentBillerController
 constructor(
@@ -26,12 +24,6 @@ constructor(
 ) : Typed2EpoxyController<MutableList<FrequentBiller>, Pageable>() {
 
     private lateinit var callbacks: EpoxyAdapterCallback<FrequentBiller>
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var errorFooterModel: ErrorFooterModel_
 
     init {
         if (BuildConfig.DEBUG) {
@@ -82,7 +74,7 @@ abstract class FrequentBillerItemModel : EpoxyModelWithHolder<FrequentBillerItem
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.apply {
+        holder.binding.apply {
             textViewBillerAlias.text = frequentBiller.name
             textViewBillerName.text = frequentBiller.billerName
             cardViewFrequentBiller.setOnClickListener {
@@ -92,14 +84,11 @@ abstract class FrequentBillerItemModel : EpoxyModelWithHolder<FrequentBillerItem
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var cardViewFrequentBiller: androidx.cardview.widget.CardView
-        lateinit var textViewBillerAlias: TextView
-        lateinit var textViewBillerName: TextView
+
+        lateinit var binding : ItemFrequentBillerBinding
 
         override fun bindView(itemView: View) {
-            cardViewFrequentBiller = itemView.cardViewFrequentBiller
-            textViewBillerAlias = itemView.textViewBillerAlias
-            textViewBillerName = itemView.textViewBillerName
+            binding = ItemFrequentBillerBinding.bind(itemView)
         }
     }
 }

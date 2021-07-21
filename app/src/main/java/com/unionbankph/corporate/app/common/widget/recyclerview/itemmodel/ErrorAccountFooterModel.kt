@@ -11,11 +11,8 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.databinding.FooterErrorBinding
 
+@EpoxyModelClass(layout = R.layout.footer_error)
 abstract class ErrorAccountFooterModel : EpoxyModelWithHolder<ErrorAccountFooterModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.footer_error
-    }
 
     @EpoxyAttribute
     lateinit var title: String

@@ -15,23 +15,16 @@ import com.airbnb.epoxy.TypedEpoxyController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.HeaderTitleModel_
 import com.unionbankph.corporate.common.presentation.constant.Constant
+import com.unionbankph.corporate.databinding.HeaderSwitchBinding
+import com.unionbankph.corporate.databinding.ItemNotificationBinding
 import com.unionbankph.corporate.notification.data.model.Notification
 import com.unionbankph.corporate.notification.data.model.NotificationDto
-import kotlinx.android.synthetic.main.header_switch.view.*
-import kotlinx.android.synthetic.main.item_notification.view.*
 
 class NotificationController
 constructor(
     private val context: Context
 ) : TypedEpoxyController<NotificationDto>() {
-
-    @AutoModel
-    lateinit var headerTitleModel: HeaderTitleModel_
-
-    @AutoModel
-    lateinit var notificationHeaderModel: NotificationHeaderModel_
 
     private lateinit var callbacks: AdapterCallbacks
 
@@ -98,29 +91,28 @@ abstract class NotificationHeaderModel : EpoxyModelWithHolder<NotificationHeader
     @SuppressLint("ClickableViewAccessibility")
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.textViewSwitch.text = title
-        holder.switchCompat.tag = NotificationController::class.java.simpleName
-        holder.switchCompat.isChecked = notificationDto?.receiveAllNotifications ?: false
-        holder.switchCompat.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (holder.switchCompat.tag != null) {
-                holder.switchCompat.tag = null
+        holder.binding.textViewSwitch.text = title
+        holder.binding.switchCompat.tag = NotificationController::class.java.simpleName
+        holder.binding.switchCompat.isChecked = notificationDto?.receiveAllNotifications ?: false
+        holder.binding.switchCompat.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (holder.binding.switchCompat.tag != null) {
+                holder.binding.switchCompat.tag = null
                 return@setOnCheckedChangeListener
             }
-            callbacks.onSlideSwitchCompat(holder.switchCompat, isChecked)
+            callbacks.onSlideSwitchCompat(holder.binding.switchCompat, isChecked)
         }
-        holder.switchCompat.setOnTouchListener { view, motionEvent ->
-            holder.switchCompat.tag = null
+        holder.binding.switchCompat.setOnTouchListener { view, motionEvent ->
+            holder.binding.switchCompat.tag = null
             return@setOnTouchListener false
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewSwitch: TextView
-        lateinit var switchCompat: SwitchMaterial
+
+        lateinit var binding : HeaderSwitchBinding
 
         override fun bindView(itemView: View) {
-            textViewSwitch = itemView.textViewSwitch
-            switchCompat = itemView.switchCompat
+            binding = HeaderSwitchBinding.bind(itemView)
         }
     }
 }
@@ -146,19 +138,19 @@ abstract class NotificationItemModel : EpoxyModelWithHolder<NotificationItemMode
     override fun bind(holder: Holder) {
         super.bind(holder)
         if (hasFirst == true) {
-            holder.viewBorder1.visibility = View.VISIBLE
+            holder.binding.viewBorder1.visibility = View.VISIBLE
         } else {
-            holder.viewBorder1.visibility = View.GONE
+            holder.binding.viewBorder1.visibility = View.GONE
         }
         if (receiveAllNotifications == true) {
-            holder.constraintLayoutItemNotification.isEnabled = true
-            holder.constraintLayoutItemNotification.alpha = 1f
+            holder.binding.constraintLayoutItemNotification.isEnabled = true
+            holder.binding.constraintLayoutItemNotification.alpha = 1f
         } else {
-            holder.constraintLayoutItemNotification.isEnabled = false
-            holder.constraintLayoutItemNotification.alpha = 0.5f
+            holder.binding.constraintLayoutItemNotification.isEnabled = false
+            holder.binding.constraintLayoutItemNotification.alpha = 0.5f
         }
 
-        holder.textViewNotificationTitle.text =
+        holder.binding.textViewNotificationTitle.text =
             when (notification?.notificationId) {
                 NotificationLogCodeEnum.CREATE_NOTIFICATION.value -> {
                     context?.getString(R.string.title_notification_1001)
@@ -191,28 +183,24 @@ abstract class NotificationItemModel : EpoxyModelWithHolder<NotificationItemMode
                 stringBuilder.append(", Email")
             }
         }
-        holder.textViewNotification.text = if (stringBuilder.toString().isEmpty() ||
+        holder.binding.textViewNotification.text = if (stringBuilder.toString().isEmpty() ||
             notification?.receiveNotifications == false) {
             context?.getString(R.string.title_no_notification)
         } else {
             stringBuilder.toString()
         }
 
-        holder.constraintLayoutItemNotification.setOnClickListener {
+        holder.binding.constraintLayoutItemNotification.setOnClickListener {
             callbacks.onClickItem(notification?.notificationId)
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutItemNotification: ConstraintLayout
-        lateinit var viewBorder1: View
-        lateinit var textViewNotificationTitle: TextView
-        lateinit var textViewNotification: TextView
+
+        lateinit var binding : ItemNotificationBinding
+
         override fun bindView(itemView: View) {
-            constraintLayoutItemNotification = itemView.constraintLayoutItemNotification
-            viewBorder1 = itemView.viewBorder1
-            textViewNotificationTitle = itemView.textViewNotificationTitle
-            textViewNotification = itemView.textViewNotification
+            binding = ItemNotificationBinding.bind(itemView)
         }
     }
 }

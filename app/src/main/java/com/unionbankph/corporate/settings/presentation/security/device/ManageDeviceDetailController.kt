@@ -21,43 +21,20 @@ import com.unionbankph.corporate.app.common.extension.DEVICE_STATUS_UNTRUSTED
 import com.unionbankph.corporate.app.common.extension.DEVICE_TABLET
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.visibility
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.HeaderTitleModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ItemStateModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.data.model.ItemState
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
+import com.unionbankph.corporate.databinding.HeaderManageDeviceDetailBinding
+import com.unionbankph.corporate.databinding.ItemManageDeviceDetailBinding
 import com.unionbankph.corporate.settings.data.model.Device
 import com.unionbankph.corporate.settings.data.model.LastAccessed
-import kotlinx.android.synthetic.main.header_manage_device_detail.view.*
-import kotlinx.android.synthetic.main.item_manage_device_detail.view.*
-import kotlinx.android.synthetic.main.widget_device_card_view.view.*
 
 class ManageDeviceDetailController
 constructor(
     private val context: Context,
     private val viewUtil: ViewUtil
 ) : Typed4EpoxyController<Device, MutableList<LastAccessed>, ItemState, Pageable>() {
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var errorFooterModel: ErrorFooterModel_
-
-    @AutoModel
-    lateinit var headerTitleModel: HeaderTitleModel_
-
-    @AutoModel
-    lateinit var itemStateModel: ItemStateModel_
-
-    @AutoModel
-    lateinit var lastAccessHeaderTitleModel: HeaderTitleModel_
-
-    @AutoModel
-    lateinit var manageDevicesDetailHeaderModel: ManageDevicesDetailHeaderModel_
 
     private lateinit var callbacks: AdapterCallback
 
@@ -143,7 +120,7 @@ abstract class ManageDevicesDetailHeaderModel :
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             textViewDevice.text = device.userAgent
             textViewDeviceUpdate.text = device.loginDate
             imageViewDevice.setImageResource(
@@ -188,18 +165,10 @@ abstract class ManageDevicesDetailHeaderModel :
 
     class Holder : EpoxyHolder() {
 
-        lateinit var imageViewDevice: ImageView
-        lateinit var textViewDevice: TextView
-        lateinit var textViewDeviceUpdate: TextView
-        lateinit var buttonTrustedDevice: Button
-        lateinit var buttonForgetDevice: Button
+        lateinit var binding: HeaderManageDeviceDetailBinding
 
         override fun bindView(itemView: View) {
-            imageViewDevice = itemView.imageViewDevice
-            textViewDevice = itemView.textViewDevice
-            textViewDeviceUpdate = itemView.textViewDeviceUpdate
-            buttonTrustedDevice = itemView.buttonTrustedDevice
-            buttonForgetDevice = itemView.buttonForgetDevice
+            binding = HeaderManageDeviceDetailBinding.bind(itemView)
         }
     }
 }
@@ -217,7 +186,7 @@ abstract class ManageDevicesDetailItemModel :
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             textViewDate.text = lastAccessed.loginDate
             textViewLocation.text = lastAccessed.location
@@ -227,18 +196,10 @@ abstract class ManageDevicesDetailItemModel :
 
     class Holder : EpoxyHolder() {
 
-        lateinit var viewBorderTop: View
-        lateinit var viewBorderBottom: View
-        lateinit var textViewDate: TextView
-        lateinit var textViewLocation: TextView
-        lateinit var textViewStatus: TextView
+        lateinit var binding: ItemManageDeviceDetailBinding
 
         override fun bindView(itemView: View) {
-            viewBorderTop = itemView.viewBorderTop
-            viewBorderBottom = itemView.viewBorderBottom
-            textViewDate = itemView.textViewDate
-            textViewLocation = itemView.textViewLocation
-            textViewStatus = itemView.textViewStatus
+            binding = ItemManageDeviceDetailBinding.bind(itemView)
         }
     }
 }

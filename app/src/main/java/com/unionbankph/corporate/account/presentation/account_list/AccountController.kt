@@ -13,17 +13,15 @@ import com.unionbankph.corporate.app.common.extension.ACCOUNT_TYPE_ODA
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.visibility
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorAccountFooterModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ItemAccountBinding
+import com.unionbankph.corporate.databinding.RowAccountBinding
 import io.supercharge.shimmerlayout.ShimmerLayout
-import kotlinx.android.synthetic.main.item_account.view.*
-import kotlinx.android.synthetic.main.row_account.view.*
 
 class AccountsController
 constructor(
@@ -31,13 +29,6 @@ constructor(
     private val viewUtil: ViewUtil,
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed3EpoxyController<MutableList<Account>, Pageable, Boolean>() {
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var errorAccountFooterModel: ErrorAccountFooterModel_
-
 
     private lateinit var accountAdapterCallback: AccountAdapterCallback
 
@@ -100,8 +91,11 @@ constructor(
 
 }
 
-@EpoxyModelClass(layout = R.layout.item_account)
 abstract class AccountItemModel : EpoxyModelWithHolder<AccountItemModel.Holder>() {
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.item_account
+    }
 
     @EpoxyAttribute
     lateinit var context: Context
@@ -134,120 +128,64 @@ abstract class AccountItemModel : EpoxyModelWithHolder<AccountItemModel.Holder>(
         super.bind(holder)
         val account = JsonHelper.fromJson<Account>(accountString)
 
-        holder.corporateName.text = viewUtil.getStringOrDefaultString(
-            account.name,
-            context.getString(R.string.title_account_name)
-        )
-        holder.accountNumber.text = viewUtil.getStringOrEmpty(
-            viewUtil.getAccountNumberFormat(account.accountNumber)
-        )
-        holder.accountType.text = viewUtil.getStringOrEmpty(account.productCodeDesc)
-
-        if (account.productType.equals(ACCOUNT_TYPE_ODA)) {
-            val availableCredit = autoFormatUtil.getBalance(
-                AccountBalanceTypeEnum.AVAILABLE_CREDIT.value,
-                account.headers
+        holder.binding.apply {
+            textViewCorporateName.text = viewUtil.getStringOrDefaultString(
+                account.name,
+                context.getString(R.string.title_account_name)
             )
-            holder.textViewAvailableBalanceTitle.text = availableCredit?.display
-            holder.textViewAvailableBalance.text = availableCredit?.value ?: Constant.EMPTY
-            holder.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_orange)
-        } else {
-            val availableBalance = autoFormatUtil.getBalance(
-                AccountBalanceTypeEnum.AVAILABLE.value,
-                account.headers
+            textViewAccountNumber.text = viewUtil.getStringOrEmpty(
+                viewUtil.getAccountNumberFormat(account.accountNumber)
             )
-            holder.textViewAvailableBalanceTitle.text = availableBalance?.display
-            holder.textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
-            holder.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
-        }
+            textViewProductType.text = viewUtil.getStringOrEmpty(account.productCodeDesc)
 
-        holder.cardViewAccount.setOnClickListener {
-            if (account.permissionCollection.hasAllowToBTRViewTransaction &&
-                account.permissionCollection.hasAllowToBTRViewBalance &&
-                !errorBool
-            ) {
-                callbacks.onClickItem(accountString, position)
-            }
-        }
-
-        if (loadingAccount) {
-            //callbacks.onRequestAccountDetail(account.id.toString(), position)
-            holder.shimmerLayoutAmount.post {
-                holder.shimmerLayoutAmount.startShimmerAnimation()
-            }
-            holder.viewShimmer.visibility = View.VISIBLE
-            holder.textViewAvailableBalanceTitle.visibility = View.VISIBLE
-            holder.textViewAvailableBalance.visibility = View.INVISIBLE
-            holder.textViewAvailableBalance.text =
-                context.formatString(R.string.value_default_zero_balance)
-            if (holder.viewError.visibility == View.VISIBLE) {
-                holder.viewError.visibility = View.GONE
-            }
-        } else {
-            holder.shimmerLayoutAmount.post {
-                holder.shimmerLayoutAmount.stopShimmerAnimation()
-            }
-            holder.viewShimmer.visibility = View.GONE
-            if (account.permissionCollection.hasAllowToBTRViewBalance) {
-                holder.textViewAvailableBalanceTitle.visibility = View.VISIBLE
-                holder.textViewAvailableBalance.visibility = View.VISIBLE
+            if (account.productType.equals(ACCOUNT_TYPE_ODA)) {
+                val availableCredit = autoFormatUtil.getBalance(
+                    AccountBalanceTypeEnum.AVAILABLE_CREDIT.value,
+                    account.headers
+                )
+                textViewAvailableBalanceTitle.text = availableCredit?.display
+                textViewAvailableBalance.text = availableCredit?.value ?: Constant.EMPTY
+                cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_orange)
             } else {
-                holder.textViewAvailableBalanceTitle.visibility = View.INVISIBLE
-                holder.textViewAvailableBalance.visibility = View.INVISIBLE
+                val availableBalance = autoFormatUtil.getBalance(
+                    AccountBalanceTypeEnum.AVAILABLE.value,
+                    account.headers
+                )
+                textViewAvailableBalanceTitle.text = availableBalance?.display
+                textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
+                cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
             }
-        }
-        if (errorBool) {
-            holder.viewError.visibility = View.VISIBLE
-            holder.textViewAvailableBalanceTitle.visibility = View.INVISIBLE
-            holder.textViewAvailableBalance.visibility = View.INVISIBLE
-            holder.viewError.setOnClickListener {
-                callbacks.onTapErrorRetry(account.id.toString(), position)
-            }
-        } else {
-            holder.viewError.visibility = View.GONE
         }
     }
 
     override fun onViewAttachedToWindow(holder: Holder) {
         if (loadingAccount) {
-            holder.shimmerLayoutAmount.post {
-                holder.shimmerLayoutAmount.startShimmerAnimation()
+            holder.binding.shimmerLayoutAmount.post {
+                holder.binding.shimmerLayoutAmount.startShimmerAnimation()
             }
         } else {
-            holder.shimmerLayoutAmount.post {
-                holder.shimmerLayoutAmount.stopShimmerAnimation()
+            holder.binding.shimmerLayoutAmount.post {
+                holder.binding.shimmerLayoutAmount.stopShimmerAnimation()
             }
         }
         super.onViewAttachedToWindow(holder)
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var corporateName: TextView
-        lateinit var accountNumber: TextView
-        lateinit var textViewAvailableBalance: TextView
-        lateinit var textViewAvailableBalanceTitle: TextView
-        lateinit var accountType: TextView
-        lateinit var cardViewAccount: CardView
-        lateinit var shimmerLayoutAmount: ShimmerLayout
-        lateinit var viewShimmer: View
-        lateinit var viewError: View
+
+        lateinit var binding: ItemAccountBinding
 
         override fun bindView(itemView: View) {
-            corporateName = itemView.textViewCorporateName
-            accountNumber = itemView.textViewAccountNumber
-            textViewAvailableBalance = itemView.textViewAvailableBalance
-            textViewAvailableBalanceTitle = itemView.textViewAvailableBalanceTitle
-            accountType = itemView.textViewProductType
-            cardViewAccount = itemView.card_view_account
-            shimmerLayoutAmount = itemView.shimmerLayoutAmount
-            viewShimmer = itemView.viewShimmer
-            viewError = itemView.viewError
+            binding = ItemAccountBinding.bind(itemView)
         }
     }
 }
 
-@EpoxyModelClass(layout = R.layout.row_account)
 abstract class AccountRowModel : EpoxyModelWithHolder<AccountRowModel.Holder>() {
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.row_account
+    }
 
     @EpoxyAttribute
     lateinit var context: Context
@@ -277,7 +215,7 @@ abstract class AccountRowModel : EpoxyModelWithHolder<AccountRowModel.Holder>() 
         super.bind(holder)
         val account = JsonHelper.fromJson<Account>(accountString)
 
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             textViewRowAccountName.text = viewUtil.getStringOrDefaultString(
                 account.name,
@@ -300,7 +238,7 @@ abstract class AccountRowModel : EpoxyModelWithHolder<AccountRowModel.Holder>() 
                 textViewRowAvailableBalance.text = availableBalance?.value.notNullable()
             }
 
-            holder.itemView.setOnClickListener {
+            holder.binding.root.setOnClickListener {
                 if (account.permissionCollection.hasAllowToBTRViewTransaction &&
                     account.permissionCollection.hasAllowToBTRViewBalance &&
                     !errorBool
@@ -311,70 +249,57 @@ abstract class AccountRowModel : EpoxyModelWithHolder<AccountRowModel.Holder>() 
 
             if (loadingAccount) {
                 //callbacks.onRequestAccountDetail(account.id.toString(), position)
-                holder.shimmerLayoutRowAmount.post {
-                    holder.shimmerLayoutRowAmount.startShimmerAnimation()
+                shimmerLayoutRowAmount.post {
+                    shimmerLayoutRowAmount.startShimmerAnimation()
                 }
-                holder.viewRowShimmer.visibility = View.VISIBLE
-                holder.textViewRowAvailableBalance.visibility = View.INVISIBLE
-                holder.textViewRowAvailableBalance.text =
+                viewRowShimmer.visibility = View.VISIBLE
+                textViewRowAvailableBalance.visibility = View.INVISIBLE
+                textViewRowAvailableBalance.text =
                     context.formatString(R.string.value_default_zero_balance)
-                if (holder.viewRowError.visibility == View.VISIBLE) {
-                    holder.viewRowError.visibility = View.GONE
+                if (viewRowError.root.visibility == View.VISIBLE) {
+                    viewRowError.root.visibility = View.GONE
                 }
             } else {
-                holder.shimmerLayoutRowAmount.post {
-                    holder.shimmerLayoutRowAmount.stopShimmerAnimation()
+                shimmerLayoutRowAmount.post {
+                    shimmerLayoutRowAmount.stopShimmerAnimation()
                 }
-                holder.viewRowShimmer.visibility = View.GONE
+                viewRowShimmer.visibility = View.GONE
                 if (account.permissionCollection.hasAllowToBTRViewBalance) {
-                    holder.textViewRowAvailableBalance.visibility = View.VISIBLE
+                    textViewRowAvailableBalance.visibility = View.VISIBLE
                 } else {
-                    holder.textViewRowAvailableBalance.visibility = View.INVISIBLE
+                    textViewRowAvailableBalance.visibility = View.INVISIBLE
                 }
             }
             if (errorBool) {
-                holder.viewRowError.visibility = View.VISIBLE
-                holder.viewRowError.setOnClickListener {
+                viewRowError.root.visibility = View.VISIBLE
+                viewRowError.root.setOnClickListener {
                     callbacks.onTapErrorRetry(account.id.toString(), position)
                 }
             } else {
-                holder.viewRowError.visibility = View.GONE
+                viewRowError.root.visibility = View.GONE
             }
         }
     }
 
     override fun onViewAttachedToWindow(holder: Holder) {
         if (loadingAccount) {
-            holder.shimmerLayoutRowAmount.post {
-                holder.shimmerLayoutRowAmount.startShimmerAnimation()
+            holder.binding.shimmerLayoutRowAmount.post {
+                holder.binding.shimmerLayoutRowAmount.startShimmerAnimation()
             }
         } else {
-            holder.shimmerLayoutRowAmount.post {
-                holder.shimmerLayoutRowAmount.stopShimmerAnimation()
+            holder.binding.shimmerLayoutRowAmount.post {
+                holder.binding.shimmerLayoutRowAmount.stopShimmerAnimation()
             }
         }
         super.onViewAttachedToWindow(holder)
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewRowAccountName: TextView
-        lateinit var textViewRowAccountNumber: TextView
-        lateinit var textViewRowAvailableBalance: TextView
-        lateinit var shimmerLayoutRowAmount: ShimmerLayout
-        lateinit var viewRowShimmer: View
-        lateinit var viewRowError: View
-        lateinit var viewBorderTop: View
-        lateinit var itemView: View
+
+        lateinit var binding: RowAccountBinding
 
         override fun bindView(itemView: View) {
-            textViewRowAccountName = itemView.textViewRowAccountName
-            textViewRowAccountNumber = itemView.textViewRowAccountNumber
-            textViewRowAvailableBalance = itemView.textViewRowAvailableBalance
-            shimmerLayoutRowAmount = itemView.shimmerLayoutRowAmount
-            viewRowShimmer = itemView.viewRowShimmer
-            viewRowError = itemView.viewRowError
-            viewBorderTop = itemView.viewBorderTop
-            this.itemView = itemView
+            binding = RowAccountBinding.bind(itemView)
         }
     }
 }

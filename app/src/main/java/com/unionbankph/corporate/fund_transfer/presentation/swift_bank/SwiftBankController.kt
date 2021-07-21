@@ -12,14 +12,12 @@ import com.airbnb.epoxy.Typed2EpoxyController
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.notNullable
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.Constant
+import com.unionbankph.corporate.databinding.ItemSwiftBankBinding
 import com.unionbankph.corporate.fund_transfer.data.model.SwiftBank
-import kotlinx.android.synthetic.main.item_swift_bank.view.*
 
 class SwiftBankController
 constructor(
@@ -28,12 +26,6 @@ constructor(
 ) : Typed2EpoxyController<MutableList<SwiftBank>, Pageable>() {
 
     private lateinit var callbacks: EpoxyAdapterCallback<SwiftBank>
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var errorFooterModel: ErrorFooterModel_
 
     init {
         if (BuildConfig.DEBUG) {
@@ -87,7 +79,7 @@ abstract class SwiftBankItemModel : EpoxyModelWithHolder<SwiftBankItemModel.Hold
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.apply {
+        holder.binding.apply {
             textViewSwiftCode.text = swiftBank.swiftBicCode
             textViewName.text = swiftBank.bankName
             textViewAddress.text = swiftBank.let {
@@ -97,24 +89,19 @@ abstract class SwiftBankItemModel : EpoxyModelWithHolder<SwiftBankItemModel.Hold
                     it.address1.notNullable() + it.address2.notNullable()
                 }
             }
-            itemView.setOnClickListener {
-                callbacks.onClickItem(itemView, swiftBank, position)
+            root.setOnClickListener {
+                callbacks.onClickItem(root, swiftBank, position)
             }
         }
 
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewSwiftCode: TextView
-        lateinit var textViewName: TextView
-        lateinit var textViewAddress: TextView
-        lateinit var itemView: View
+
+        lateinit var binding: ItemSwiftBankBinding
 
         override fun bindView(itemView: View) {
-            textViewSwiftCode = itemView.textViewSwiftCode
-            textViewName = itemView.textViewName
-            textViewAddress = itemView.textViewAddress
-            this.itemView = itemView
+            binding = ItemSwiftBankBinding.bind(itemView)
         }
     }
 

@@ -13,17 +13,13 @@ import com.airbnb.epoxy.Typed2EpoxyController
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.visibility
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
+import com.unionbankph.corporate.databinding.ItemBatchTransactionBinding
 import com.unionbankph.corporate.fund_transfer.data.model.Batch
-import kotlinx.android.synthetic.main.item_batch_transaction.view.*
-import kotlinx.android.synthetic.main.item_cwt.view.viewBorderBottom
-import kotlinx.android.synthetic.main.item_cwt.view.viewBorderTop
 
 class BatchTransferController
 constructor(
@@ -33,12 +29,6 @@ constructor(
 ) : Typed2EpoxyController<MutableList<Batch>, Pageable>() {
 
     private lateinit var callbacks: EpoxyAdapterCallback<Batch>
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var errorFooterModel: ErrorFooterModel_
 
     init {
         if (BuildConfig.DEBUG) {
@@ -101,7 +91,7 @@ abstract class BatchTransferItemModel : EpoxyModelWithHolder<BatchTransferItemMo
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.apply {
+        holder.binding.apply {
             imageViewStatus.setImageResource(
                 ConstantHelper.Drawable.getBatchIconStatus(batch.status)
             )
@@ -111,30 +101,19 @@ abstract class BatchTransferItemModel : EpoxyModelWithHolder<BatchTransferItemMo
                 viewUtil.getAccountNumberFormat(batch.receiverAccountNumber)
             textViewAmount.text =
                 autoFormatUtil.formatWithTwoDecimalPlaces(batch.amount.toString(), batch.currency)
-            itemView.setOnClickListener {
-                callbacks.onClickItem(itemView, batch, position)
+            root.setOnClickListener {
+                callbacks.onClickItem(root, batch, position)
             }
         }
 
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var imageViewStatus: ImageView
-        lateinit var textViewAccountName: TextView
-        lateinit var textViewAccountNumber: TextView
-        lateinit var textViewAmount: TextView
-        lateinit var viewBorderTop: View
-        lateinit var viewBorderBottom: View
-        lateinit var itemView: View
+
+        lateinit var binding: ItemBatchTransactionBinding
 
         override fun bindView(itemView: View) {
-            imageViewStatus = itemView.imageViewStatus
-            textViewAccountName = itemView.textViewAccountName
-            textViewAccountNumber = itemView.textViewAccountNumber
-            textViewAmount = itemView.textViewAmount
-            viewBorderTop = itemView.viewBorderTop
-            viewBorderBottom = itemView.viewBorderBottom
-            this.itemView = itemView
+            binding = ItemBatchTransactionBinding.bind(itemView)
         }
     }
 }

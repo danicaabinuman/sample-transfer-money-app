@@ -20,8 +20,6 @@ import com.unionbankph.corporate.account.presentation.constant.AccountBalanceTyp
 import com.unionbankph.corporate.app.common.extension.ACCOUNT_TYPE_ODA
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.visibility
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ItemStateModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.constant.Constant
@@ -37,12 +35,6 @@ constructor(
     private val viewUtil: ViewUtil,
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed3EpoxyController<MutableList<Record>, Account, Boolean>() {
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var itemStateModel: ItemStateModel_
 
     private lateinit var callbacks: AdapterCallbacks
 
@@ -103,12 +95,9 @@ constructor(
     }
 }
 
+@EpoxyModelClass(layout = R.layout.header_account_details)
 abstract class AccountDetailHeaderModel :
     EpoxyModelWithHolder<AccountDetailHeaderModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.header_account_details
-    }
 
     @EpoxyAttribute
     lateinit var context: Context

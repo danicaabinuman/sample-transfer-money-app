@@ -14,15 +14,13 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.setContextCompatTextColor
 import com.unionbankph.corporate.app.common.extension.visibility
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.data.model.StateData
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.NotificationLogTypeEnum
+import com.unionbankph.corporate.databinding.ItemNotificationLogBinding
 import com.unionbankph.corporate.notification.data.model.NotificationLogDto
-import kotlinx.android.synthetic.main.item_notification_log.view.*
 
 class NotificationLogController
 constructor(
@@ -31,12 +29,6 @@ constructor(
 ) : Typed2EpoxyController<MutableList<StateData<NotificationLogDto>>, Pageable>() {
 
     private lateinit var callbacks: EpoxyAdapterCallback<NotificationLogDto>
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var errorFooterModel: ErrorFooterModel_
 
     init {
         if (BuildConfig.DEBUG) {
@@ -100,7 +92,7 @@ abstract class NotificationLogItemModel : EpoxyModelWithHolder<NotificationLogIt
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             textViewNotificationLogTitle.text = notificationLogDto.title
             textViewNotificationLogDesc.text = notificationLogDto.message
@@ -131,9 +123,9 @@ abstract class NotificationLogItemModel : EpoxyModelWithHolder<NotificationLogIt
                 }
             }
             viewReadStatus.visibility(!hasRead)
-            itemView.setOnClickListener {
+            root.setOnClickListener {
                 callbacks.onClickItem(
-                    itemView,
+                    root,
                     notificationLogDto,
                     position
                 )
@@ -142,6 +134,9 @@ abstract class NotificationLogItemModel : EpoxyModelWithHolder<NotificationLogIt
     }
 
     class Holder : EpoxyHolder() {
+
+        lateinit var binding : ItemNotificationLogBinding
+
         lateinit var imageViewNotificationLog: AppCompatImageView
         lateinit var textViewNotificationLogTitle: TextView
         lateinit var textViewNotificationLogDesc: TextView
@@ -151,13 +146,7 @@ abstract class NotificationLogItemModel : EpoxyModelWithHolder<NotificationLogIt
         lateinit var itemView: View
 
         override fun bindView(itemView: View) {
-            this.itemView = itemView
-            imageViewNotificationLog = itemView.imageViewNotificationLog
-            textViewNotificationLogTitle = itemView.textViewNotificationLogTitle
-            textViewNotificationLogDesc = itemView.textViewNotificationLogDesc
-            textViewNotificationLogCreatedDate = itemView.textViewNotificationLogCreatedDate
-            viewBorderTop = itemView.viewBorderTop
-            viewReadStatus = itemView.viewReadStatus
+            binding = ItemNotificationLogBinding.bind(itemView)
         }
     }
 }

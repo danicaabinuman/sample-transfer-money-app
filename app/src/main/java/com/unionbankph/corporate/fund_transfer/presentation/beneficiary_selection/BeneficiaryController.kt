@@ -11,26 +11,18 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.airbnb.epoxy.Typed2EpoxyController
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
+import com.unionbankph.corporate.databinding.ItemBeneficiaryBinding
 import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
-import kotlinx.android.synthetic.main.item_beneficiary.view.*
 
 class BeneficiaryController
 constructor(
     private val context: Context,
     private val viewUtil: ViewUtil
 ) : Typed2EpoxyController<MutableList<Beneficiary>, Pageable>() {
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var errorFooterModel: ErrorFooterModel_
 
     private lateinit var callbacks: EpoxyAdapterCallback<Beneficiary>
 
@@ -88,7 +80,7 @@ abstract class BeneficiaryItemModel : EpoxyModelWithHolder<BeneficiaryItemModel.
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             textViewTitle.text = beneficiary.name
             textViewCode.text = beneficiary.code
             textViewName.text =
@@ -103,25 +95,18 @@ abstract class BeneficiaryItemModel : EpoxyModelWithHolder<BeneficiaryItemModel.
             textViewAccountNumber.text =
                 viewUtil.getAccountNumberFormat(beneficiary.accountNumber)
 
-            itemViewHolder.setOnClickListener {
-                callbacks.onClickItem(itemViewHolder, beneficiary, position)
+            root.setOnClickListener {
+                callbacks.onClickItem(root, beneficiary, position)
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewTitle: TextView
-        lateinit var textViewCode: TextView
-        lateinit var textViewName: TextView
-        lateinit var textViewAccountNumber: TextView
-        lateinit var itemViewHolder: View
+
+        lateinit var binding: ItemBeneficiaryBinding
 
         override fun bindView(itemView: View) {
-            textViewTitle = itemView.textViewTitle
-            textViewCode = itemView.textViewCode
-            textViewName = itemView.textViewName
-            textViewAccountNumber = itemView.textViewAccountNumber
-            itemViewHolder = itemView
+            binding = ItemBeneficiaryBinding.bind(itemView)
         }
     }
 }

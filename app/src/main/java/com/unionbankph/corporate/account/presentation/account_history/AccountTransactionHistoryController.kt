@@ -18,8 +18,6 @@ import com.unionbankph.corporate.app.common.extension.convertDateToDesireFormat
 import com.unionbankph.corporate.app.common.extension.formatAmount
 import com.unionbankph.corporate.app.common.extension.notEmpty
 import com.unionbankph.corporate.app.common.extension.notNullable
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
@@ -29,12 +27,6 @@ import com.unionbankph.corporate.databinding.ItemTransactionHistoryBinding
 
 class AccountTransactionHistoryController :
     Typed2EpoxyController<MutableList<SectionedAccountTransactionHistory>, Pageable>() {
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var errorFooterModel: ErrorFooterModel_
 
     private lateinit var callbacks: EpoxyAdapterCallback<Record>
 

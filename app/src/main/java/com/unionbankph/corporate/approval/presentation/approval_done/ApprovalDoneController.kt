@@ -10,8 +10,6 @@ import com.airbnb.epoxy.*
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.*
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.approval.data.model.Transaction
@@ -22,8 +20,8 @@ import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
-import kotlinx.android.synthetic.main.item_done_approval.view.*
-import kotlinx.android.synthetic.main.row_approvals_done.view.*
+import com.unionbankph.corporate.databinding.ItemDoneApprovalBinding
+import com.unionbankph.corporate.databinding.RowApprovalsDoneBinding
 
 class ApprovalDoneController
 constructor(
@@ -31,12 +29,6 @@ constructor(
     private val viewUtil: ViewUtil,
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed3EpoxyController<MutableList<Transaction>, Pageable, Boolean>() {
-
-    @AutoModel
-    lateinit var loadingFooterModel: LoadingFooterModel_
-
-    @AutoModel
-    lateinit var errorFooterModel: ErrorFooterModel_
 
     private lateinit var callbacks: EpoxyAdapterCallback<Transaction>
 
@@ -116,8 +108,8 @@ abstract class DoneApprovalItemModel : EpoxyModelWithHolder<DoneApprovalItemMode
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
-            cardViewBatch.visibility =
+        holder.binding.apply {
+            cardViewBatch.root.visibility =
                 if (transaction.batchType == Constant.TYPE_BATCH) View.VISIBLE
                 else View.GONE
 
@@ -239,9 +231,9 @@ abstract class DoneApprovalItemModel : EpoxyModelWithHolder<DoneApprovalItemMode
                 ConstantHelper.Color.getTextColor(transaction.transactionStatus)
             )
             textViewStatus.text = transaction.transactionStatus?.description
-            itemViewHolder.setOnClickListener {
+            root.setOnClickListener {
                 callbacks.onClickItem(
-                    itemViewHolder,
+                    root,
                     transaction,
                     position
                 )
@@ -257,40 +249,11 @@ abstract class DoneApprovalItemModel : EpoxyModelWithHolder<DoneApprovalItemMode
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutApprovalContent: ConstraintLayout
-        lateinit var cardViewBatch: View
-        lateinit var cardViewContent: androidx.cardview.widget.CardView
-        lateinit var imageViewIcon: ImageView
-        lateinit var textViewRemarks: TextView
-        lateinit var textViewCreatedBy: TextView
-        lateinit var textViewChannelTitle: TextView
-        lateinit var textViewChannel: TextView
-        lateinit var textViewTotalTransactionTitle: TextView
-        lateinit var textViewProposedDateTitle: TextView
-        lateinit var textViewProposedDate: TextView
-        lateinit var textViewTotalTransaction: TextView
-        lateinit var textViewTransferTo: TextView
-        lateinit var textViewTransferToTitle: TextView
-        lateinit var textViewStatus: TextView
-        lateinit var itemViewHolder: View
+
+        lateinit var binding : ItemDoneApprovalBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutApprovalContent = itemView.constraintLayoutApprovalContent
-            cardViewBatch = itemView.cardViewBatch
-            cardViewContent = itemView.cardViewContent
-            imageViewIcon = itemView.imageViewIcon
-            textViewRemarks = itemView.textViewRemarks
-            textViewCreatedBy = itemView.textViewCreatedBy
-            textViewChannelTitle = itemView.textViewChannelTitle
-            textViewChannel = itemView.textViewChannel
-            textViewTotalTransactionTitle = itemView.textViewTotalTransactionTitle
-            textViewProposedDate = itemView.textViewProposedDate
-            textViewProposedDateTitle = itemView.textViewProposedDateTitle
-            textViewTotalTransaction = itemView.textViewTotalTransaction
-            textViewTransferTo = itemView.textViewTransferTo
-            textViewTransferToTitle = itemView.textViewTransferToTitle
-            textViewStatus = itemView.textViewStatus
-            itemViewHolder = itemView
+            binding = ItemDoneApprovalBinding.bind(itemView)
         }
     }
 }
@@ -319,7 +282,7 @@ abstract class ApprovalsDoneRowModel : EpoxyModelWithHolder<ApprovalsDoneRowMode
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             imageViewRowIcon.setImageResource(
                 when {
@@ -390,8 +353,8 @@ abstract class ApprovalsDoneRowModel : EpoxyModelWithHolder<ApprovalsDoneRowMode
                         )
                     }
                     textViewRowChannel.text = transaction.channel
-                    itemView.setOnClickListener {
-                        callbacks.onClickItem(itemView, transaction, position)
+                    root.setOnClickListener {
+                        callbacks.onClickItem(root, transaction, position)
                     }
                 }
             }
@@ -410,30 +373,11 @@ abstract class ApprovalsDoneRowModel : EpoxyModelWithHolder<ApprovalsDoneRowMode
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var linearLayoutRow: LinearLayout
-        lateinit var viewBackgroundRow: View
-        lateinit var imageViewRowIcon: ImageView
-        lateinit var textViewRowRemarks: TextView
-        lateinit var textViewRowTransferTo: TextView
-        lateinit var textViewRowAmount: TextView
-        lateinit var textViewRowTransferDate: TextView
-        lateinit var textViewRowChannel: TextView
-        lateinit var textViewRowStatus: TextView
-        lateinit var viewBorderTop: View
-        lateinit var itemView: View
+
+        lateinit var binding: RowApprovalsDoneBinding
 
         override fun bindView(itemView: View) {
-            linearLayoutRow = itemView.linearLayoutRow
-            viewBackgroundRow = itemView.viewBackgroundRow
-            imageViewRowIcon = itemView.imageViewRowIcon
-            textViewRowRemarks = itemView.textViewRowRemarks
-            textViewRowTransferTo = itemView.textViewRowTransferTo
-            textViewRowAmount = itemView.textViewRowAmount
-            textViewRowTransferDate = itemView.textViewRowTransferDate
-            textViewRowChannel = itemView.textViewRowChannel
-            textViewRowStatus = itemView.textViewRowStatus
-            viewBorderTop = itemView.viewBorderTop
-            this.itemView = itemView
+            binding = RowApprovalsDoneBinding.bind(itemView)
         }
     }
 }
