@@ -11,22 +11,17 @@ import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.databinding.FragmentDaoCheckingAccountTypeBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_checking_account_type.*
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoCheckingAccountTypeFragment :
-    BaseFragment<DaoCheckingAccountTypeViewModel>(R.layout.fragment_dao_checking_account_type) {
+    BaseFragment<FragmentDaoCheckingAccountTypeBinding, DaoCheckingAccountTypeViewModel>() {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[DaoCheckingAccountTypeViewModel::class.java]
         viewModel.uiState.observe(this, Observer {
             it.getContentIfNotHandled().let { event ->
                 when (event) {
@@ -72,17 +67,17 @@ class DaoCheckingAccountTypeFragment :
         daoActivity.showProgress(true)
         daoActivity.setProgressValue(1)
         daoActivity.setToolBarDesc(formatString(R.string.title_checking_account_type))
-        btn_edit.setOnClickListener {
+        binding.btnEdit.setOnClickListener {
             findNavController().navigate(R.id.action_welcome_fragment_enter)
         }
     }
 
     private fun initListener() {
-        cv_business_starter.setOnClickListener {
+        binding.cvBusinessStarter.setOnClickListener {
             viewModel.checkingAccountType.onNext(BUSINESS_STARTER)
             navigatePrivacyPolicyScreen()
         }
-        cv_business_check.setOnClickListener {
+        binding.cvBusinessCheck.setOnClickListener {
             viewModel.checkingAccountType.onNext(BUSINESS_CHECK)
             navigatePrivacyPolicyScreen()
         }
@@ -101,4 +96,10 @@ class DaoCheckingAccountTypeFragment :
         const val BUSINESS_STARTER = "BUSINESS_STARTER"
         const val BUSINESS_CHECK = "BUSINESS_CHECK"
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_dao_checking_account_type
+
+    override val viewModelClassType: Class<DaoCheckingAccountTypeViewModel>
+        get() = DaoCheckingAccountTypeViewModel::class.java
 }
