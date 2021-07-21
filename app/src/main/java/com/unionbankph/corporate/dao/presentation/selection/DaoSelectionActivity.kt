@@ -8,31 +8,30 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.common.presentation.constant.URLDataEnum
 import com.unionbankph.corporate.dao.presentation.DaoActivity
-import kotlinx.android.synthetic.main.activity_dao_selection.*
-import kotlinx.android.synthetic.main.activity_organization_transfer.viewToolbar
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import com.unionbankph.corporate.databinding.ActivityDaoSelectionBinding
 
 /**
  * Created by herald on 1/27/21
  */
-class DaoSelectionActivity : BaseActivity<DaoSelectionViewModel>(R.layout.activity_dao_selection) {
+class DaoSelectionActivity :
+    BaseActivity<ActivityDaoSelectionBinding, DaoSelectionViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_open_a_business_account))
+        setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_open_a_business_account))
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        cl_open_business_account.setOnClickListener {
+        binding.clOpenBusinessAccount.setOnClickListener {
             navigator.navigateBrowser(
                 this,
                 URLDataEnum.ACCOUNT_OPENING_LINK
             )
         }
-        cl_existing_application.setOnClickListener {
+        binding.clExistingApplication.setOnClickListener {
             navigateDaoScreen()
         }
     }
@@ -57,5 +56,11 @@ class DaoSelectionActivity : BaseActivity<DaoSelectionViewModel>(R.layout.activi
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_dao_selection
+
+    override val viewModelClassType: Class<DaoSelectionViewModel>
+        get() = DaoSelectionViewModel::class.java
 
 }
