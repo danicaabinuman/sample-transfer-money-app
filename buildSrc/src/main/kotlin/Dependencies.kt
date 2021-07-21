@@ -101,7 +101,7 @@ object Libraries {
         const val circularProgress = "1.3.0"
         const val aeroGear = "1.0.0"
         const val cameraView = "2.6.3"
-        const val compressor = "3.0.1"
+        const val compressor = "2.1.0"
         const val smartCropper = "v2.1.3"
         const val paris = "1.5.0"
         const val stv = "1.0.0"

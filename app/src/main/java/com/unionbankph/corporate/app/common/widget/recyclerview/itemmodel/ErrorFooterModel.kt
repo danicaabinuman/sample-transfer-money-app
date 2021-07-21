@@ -15,11 +15,8 @@ import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallba
 import com.unionbankph.corporate.databinding.FooterErrorBinding
 import com.unionbankph.corporate.databinding.FooterProgressBarBinding
 
+@EpoxyModelClass(layout = R.layout.footer_error)
 abstract class ErrorFooterModel : EpoxyModelWithHolder<ErrorFooterModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.footer_error
-    }
 
     @EpoxyAttribute
     lateinit var title: String
@@ -30,7 +27,6 @@ abstract class ErrorFooterModel : EpoxyModelWithHolder<ErrorFooterModel.Holder>(
     override fun bind(holder: Holder) {
         super.bind(holder)
         holder.binding.apply {
-
             tvTitle.text = title
             clError.setOnClickListener {
                 callbacks.onTapToRetry()

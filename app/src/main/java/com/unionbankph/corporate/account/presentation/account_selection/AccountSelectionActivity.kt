@@ -73,12 +73,12 @@ class AccountSelectionActivity :
                         updateController()
                     } else {
                         showLoading(
-                            binding.viewLoadingState.viewProgress,
+                            binding.viewLoadingState.root,
                             binding.swipeRefreshLayoutAccounts,
                             binding.recyclerViewAccounts,
                             binding.textViewState
                         )
-                        if (binding.viewLoadingState.viewProgress.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     }
@@ -88,7 +88,7 @@ class AccountSelectionActivity :
                         updateController()
                     } else {
                         dismissLoading(
-                            binding.viewLoadingState.viewProgress,
+                            binding.viewLoadingState.root,
                             binding.swipeRefreshLayoutAccounts,
                             binding.recyclerViewAccounts
                         )

@@ -15,6 +15,7 @@ import com.airbnb.epoxy.TypedEpoxyController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.HeaderTitleModel_
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.databinding.HeaderSwitchBinding
 import com.unionbankph.corporate.databinding.ItemNotificationBinding
@@ -25,6 +26,12 @@ class NotificationController
 constructor(
     private val context: Context
 ) : TypedEpoxyController<NotificationDto>() {
+
+    @AutoModel
+    lateinit var headerTitleModel: HeaderTitleModel_
+
+    @AutoModel
+    lateinit var notificationHeaderModel: NotificationHeaderModel_
 
     private lateinit var callbacks: AdapterCallbacks
 
@@ -59,8 +66,8 @@ constructor(
                 hasFirst(index == 0)
                 notification(notification)
                 receiveAllNotifications(notificationDto.receiveAllNotifications)
-                callbacks(callbacks)
-                context(context)
+                callbacks(this@NotificationController.callbacks)
+                context(this@NotificationController.context)
             }
         }
     }

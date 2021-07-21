@@ -7,7 +7,7 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
-import kotlinx.android.synthetic.main.header_activity_log.view.*
+import com.unionbankph.corporate.databinding.HeaderActivityLogBinding
 
 @EpoxyModelClass(layout = R.layout.header_activity_log)
 abstract class CheckDepositActivityLogHeaderModel : EpoxyModelWithHolder<CheckDepositActivityLogHeaderModel.Holder>() {
@@ -23,17 +23,15 @@ abstract class CheckDepositActivityLogHeaderModel : EpoxyModelWithHolder<CheckDe
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.textViewTitle.text = header
-        if (position == 0) holder.viewBorder.visibility = View.INVISIBLE
+        holder.binding.textViewTitle.text = header
+        if (position == 0) holder.binding.viewBorder.visibility = View.INVISIBLE
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewTitle: TextView
-        lateinit var viewBorder: View
+        lateinit var binding: HeaderActivityLogBinding
 
         override fun bindView(itemView: View) {
-            textViewTitle = itemView.textViewTitle
-            viewBorder = itemView.viewBorder
+            binding = HeaderActivityLogBinding.bind(itemView)
         }
     }
 }

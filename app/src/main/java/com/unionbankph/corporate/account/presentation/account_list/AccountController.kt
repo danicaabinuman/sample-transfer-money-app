@@ -13,6 +13,8 @@ import com.unionbankph.corporate.app.common.extension.ACCOUNT_TYPE_ODA
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorAccountFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -29,6 +31,12 @@ constructor(
     private val viewUtil: ViewUtil,
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed3EpoxyController<MutableList<Account>, Pageable, Boolean>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorAccountFooterModel: ErrorAccountFooterModel_
 
     private lateinit var accountAdapterCallback: AccountAdapterCallback
 
@@ -51,10 +59,10 @@ constructor(
                     loadingAccount(account.isLoading)
                     errorBool(account.isError)
                     position(position)
-                    callbacks(accountAdapterCallback)
-                    viewUtil(viewUtil)
-                    context(context)
-                    autoFormatUtil(autoFormatUtil)
+                    callbacks(this@AccountsController.accountAdapterCallback)
+                    viewUtil(this@AccountsController.viewUtil)
+                    context(this@AccountsController.context)
+                    autoFormatUtil(this@AccountsController.autoFormatUtil)
                 }
             } else {
                 accountItem {
@@ -64,10 +72,10 @@ constructor(
                     errorBool(account.isError)
                     balanceViewable(account.isViewableBalance)
                     position(position)
-                    callbacks(accountAdapterCallback)
-                    viewUtil(viewUtil)
-                    context(context)
-                    autoFormatUtil(autoFormatUtil)
+                    callbacks(this@AccountsController.accountAdapterCallback)
+                    viewUtil(this@AccountsController.viewUtil)
+                    context(this@AccountsController.context)
+                    autoFormatUtil(this@AccountsController.autoFormatUtil)
                 }
             }
         }
@@ -91,11 +99,8 @@ constructor(
 
 }
 
+@EpoxyModelClass(layout = R.layout.item_account)
 abstract class AccountItemModel : EpoxyModelWithHolder<AccountItemModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.item_account
-    }
 
     @EpoxyAttribute
     lateinit var context: Context
@@ -181,11 +186,8 @@ abstract class AccountItemModel : EpoxyModelWithHolder<AccountItemModel.Holder>(
     }
 }
 
+@EpoxyModelClass(layout = R.layout.row_account)
 abstract class AccountRowModel : EpoxyModelWithHolder<AccountRowModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.row_account
-    }
 
     @EpoxyAttribute
     lateinit var context: Context

@@ -13,6 +13,8 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
@@ -27,6 +29,12 @@ constructor(
 
     private lateinit var callbacks: EpoxyAdapterCallback<CWTItem>
 
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
     init {
         if (BuildConfig.DEBUG) {
             isDebugLoggingEnabled = true
@@ -39,7 +47,7 @@ constructor(
                 id("${cwtItem.title}_$position")
                 cwtItem(cwtItem)
                 position(position)
-                callbacks(callbacks)
+                callbacks(this@BatchCWTController.callbacks)
             }
         }
         loadingFooterModel.loading(pageable.isLoadingPagination)

@@ -11,6 +11,8 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.extension.setContextCompatBackgroundColor
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorAccountFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
@@ -23,6 +25,13 @@ constructor(
     private val context: Context,
     private val viewUtil: ViewUtil
 ) : Typed2EpoxyController<MutableList<Account>, Pageable>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorAccountFooterModel: ErrorAccountFooterModel_
+
 
     private lateinit var accountAdapterCallback: AccountAdapterCallback
 
@@ -39,9 +48,9 @@ constructor(
                 position(index)
                 accountString(JsonHelper.toJson(account))
                 hasSelected(account.isSelected)
-                callbacks(accountAdapterCallback)
-                viewUtil(viewUtil)
-                context(context)
+                callbacks(this@SourceAccountController.accountAdapterCallback)
+                viewUtil(this@SourceAccountController.viewUtil)
+                context(this@SourceAccountController.context)
             }
         }
 

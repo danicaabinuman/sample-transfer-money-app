@@ -14,6 +14,8 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.setContextCompatTextColor
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.data.model.StateData
@@ -30,6 +32,12 @@ constructor(
 
     private lateinit var callbacks: EpoxyAdapterCallback<NotificationLogDto>
 
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
     init {
         if (BuildConfig.DEBUG) {
             isDebugLoggingEnabled = true
@@ -43,11 +51,11 @@ constructor(
         data.forEachIndexed { index, stateData ->
             notificationLogItem {
                 id(stateData.data.id)
-                context(context)
-                viewUtil(viewUtil)
+                context(this@NotificationLogController.context)
+                viewUtil(this@NotificationLogController.viewUtil)
                 hasRead(stateData.state)
                 notificationLogDto(stateData.data)
-                callbacks(callbacks)
+                callbacks(this@NotificationLogController.callbacks)
                 position(index)
             }
         }
@@ -136,14 +144,6 @@ abstract class NotificationLogItemModel : EpoxyModelWithHolder<NotificationLogIt
     class Holder : EpoxyHolder() {
 
         lateinit var binding : ItemNotificationLogBinding
-
-        lateinit var imageViewNotificationLog: AppCompatImageView
-        lateinit var textViewNotificationLogTitle: TextView
-        lateinit var textViewNotificationLogDesc: TextView
-        lateinit var textViewNotificationLogCreatedDate: TextView
-        lateinit var viewBorderTop: View
-        lateinit var viewReadStatus: View
-        lateinit var itemView: View
 
         override fun bindView(itemView: View) {
             binding = ItemNotificationLogBinding.bind(itemView)

@@ -17,11 +17,8 @@ import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallba
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.databinding.RowBranchVisitBinding
 
+@EpoxyModelClass(layout = R.layout.row_branch_visit)
 abstract class BranchVisitRowModel : EpoxyModelWithHolder<BranchVisitRowModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.row_branch_visit
-    }
 
     @EpoxyAttribute
     lateinit var branchVisit: BranchVisit
@@ -66,15 +63,6 @@ abstract class BranchVisitRowModel : EpoxyModelWithHolder<BranchVisitRowModel.Ho
     class Holder : EpoxyHolder() {
 
         lateinit var binding: RowBranchVisitBinding
-
-        lateinit var imageViewRowIcon: ImageView
-        lateinit var textViewRowRemarks: AppCompatTextView
-        lateinit var textViewRowDepositTo: AppCompatTextView
-        lateinit var textViewRowAmount: AppCompatTextView
-        lateinit var textViewRowTransactionDate: AppCompatTextView
-        lateinit var textViewRowChannel: AppCompatTextView
-        lateinit var textViewRowStatus: AppCompatTextView
-        lateinit var itemView: View
 
         override fun bindView(itemView: View) {
             binding = RowBranchVisitBinding.bind(itemView)

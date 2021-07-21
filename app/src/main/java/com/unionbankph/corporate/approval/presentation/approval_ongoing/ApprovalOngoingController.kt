@@ -13,6 +13,8 @@ import com.airbnb.epoxy.*
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.*
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.approval.data.model.Transaction
@@ -34,6 +36,12 @@ constructor(
     private val viewUtil: ViewUtil,
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed4EpoxyController<MutableList<Transaction>, Boolean, Pageable, Boolean>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
 
     private lateinit var callbacks: AdapterCallbacks
 
@@ -64,24 +72,24 @@ constructor(
                     id(transaction.id)
                     hasSelected(transaction.hasSelected)
                     hasSelection(isSelection)
-                    transactionJsonString(getTransactionJsonString(transaction))
+                    transactionJsonString(this@ApprovalOngoingController.getTransactionJsonString(transaction))
                     position(position)
-                    autoFormatUtil(autoFormatUtil)
-                    viewUtil(viewUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    autoFormatUtil(this@ApprovalOngoingController.autoFormatUtil)
+                    viewUtil(this@ApprovalOngoingController.viewUtil)
+                    context(this@ApprovalOngoingController.context)
+                    callbacks(this@ApprovalOngoingController.callbacks)
                 }
             } else {
                 ongoingApprovalItem {
                     id(transaction.id)
                     hasSelected(transaction.hasSelected)
                     hasSelection(isSelection)
-                    transactionJsonString(getTransactionJsonString(transaction))
+                    transactionJsonString(this@ApprovalOngoingController.getTransactionJsonString(transaction))
                     position(position)
-                    autoFormatUtil(autoFormatUtil)
-                    viewUtil(viewUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    autoFormatUtil(this@ApprovalOngoingController.autoFormatUtil)
+                    viewUtil(this@ApprovalOngoingController.viewUtil)
+                    context(this@ApprovalOngoingController.context)
+                    callbacks(this@ApprovalOngoingController.callbacks)
                 }
             }
         }

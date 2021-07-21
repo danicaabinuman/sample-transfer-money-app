@@ -21,6 +21,10 @@ import com.unionbankph.corporate.app.common.extension.DEVICE_STATUS_UNTRUSTED
 import com.unionbankph.corporate.app.common.extension.DEVICE_TABLET
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.HeaderTitleModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ItemStateModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.data.model.ItemState
@@ -35,6 +39,24 @@ constructor(
     private val context: Context,
     private val viewUtil: ViewUtil
 ) : Typed4EpoxyController<Device, MutableList<LastAccessed>, ItemState, Pageable>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
+    @AutoModel
+    lateinit var headerTitleModel: HeaderTitleModel_
+
+    @AutoModel
+    lateinit var itemStateModel: ItemStateModel_
+
+    @AutoModel
+    lateinit var lastAccessHeaderTitleModel: HeaderTitleModel_
+
+    @AutoModel
+    lateinit var manageDevicesDetailHeaderModel: ManageDevicesDetailHeaderModel_
 
     private lateinit var callbacks: AdapterCallback
 
@@ -121,9 +143,9 @@ abstract class ManageDevicesDetailHeaderModel :
     override fun bind(holder: Holder) {
         super.bind(holder)
         holder.binding.apply {
-            textViewDevice.text = device.userAgent
-            textViewDeviceUpdate.text = device.loginDate
-            imageViewDevice.setImageResource(
+            cardViewDevice.textViewDevice.text = device.userAgent
+            cardViewDevice.textViewDeviceUpdate.text = device.loginDate
+            cardViewDevice.imageViewDevice.setImageResource(
                 when (device.devicePlatform) {
                     DEVICE_ANDROID -> {
                         R.drawable.ic_device_android

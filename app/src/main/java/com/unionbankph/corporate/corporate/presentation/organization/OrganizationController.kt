@@ -15,6 +15,8 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.notEmpty
 import com.unionbankph.corporate.app.common.extension.notNullable
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.HeaderTitleModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.auth.data.model.UserDetails
 import com.unionbankph.corporate.corporate.data.model.CorporateUsers
@@ -27,6 +29,18 @@ constructor(
     private val callbacks: AdapterCallbacks,
     private val viewUtil: ViewUtil
 ) : Typed3EpoxyController<MutableList<CorporateUsers>, UserDetails, Boolean>() {
+
+    @AutoModel
+    lateinit var headerActiveTitleModel: HeaderTitleModel_
+
+    @AutoModel
+    lateinit var headerSwitchTitleModel: HeaderTitleModel_
+
+    @AutoModel
+    lateinit var organizationHeaderModel: OrganizationHeaderModel_
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
 
     interface AdapterCallbacks {
         fun onClickItem(id: String)

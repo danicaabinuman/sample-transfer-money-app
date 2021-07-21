@@ -18,11 +18,8 @@ import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallba
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.databinding.ItemBranchVisitBinding
 
+@EpoxyModelClass(layout = R.layout.item_branch_visit)
 abstract class BranchVisitItemModel : EpoxyModelWithHolder<BranchVisitItemModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.item_branch_visit
-    }
 
     @EpoxyAttribute
     lateinit var branchVisit: BranchVisit

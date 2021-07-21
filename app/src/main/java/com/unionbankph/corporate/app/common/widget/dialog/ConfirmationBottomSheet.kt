@@ -7,10 +7,11 @@ import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
 import com.unionbankph.corporate.app.common.extension.setContextCompatBackground
 import com.unionbankph.corporate.app.common.extension.toHtmlSpan
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
+import com.unionbankph.corporate.databinding.BottomSheetConfirmationBinding
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
-import kotlinx.android.synthetic.main.bottom_sheet_confirmation.*
 
-class ConfirmationBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout.bottom_sheet_confirmation) {
+class ConfirmationBottomSheet :
+    BaseBottomSheetDialog<BottomSheetConfirmationBinding, SettingsViewModel>() {
 
     private var callback: OnConfirmationPageCallBack? = null
 
@@ -20,48 +21,48 @@ class ConfirmationBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layou
     }
 
     private fun init() {
-        arguments?.getInt(EXTRA_ICON)?.let { imageViewIcon.setImageResource(it) }
+        arguments?.getInt(EXTRA_ICON)?.let { binding.imageViewIcon.setImageResource(it) }
         arguments?.getInt(EXTRA_DRAWABLE_CIRCLE)?.let {
-            viewCicleIcon.setContextCompatBackground(it)
+            binding.viewCicleIcon.setContextCompatBackground(it)
         }
         if (arguments?.getString(EXTRA_TITLE) == null) {
-            textViewTitle.visibility = View.GONE
+            binding.textViewTitle.visibility = View.GONE
         } else {
-            textViewTitle.text = arguments?.getString(EXTRA_TITLE)
+            binding.textViewTitle.text = arguments?.getString(EXTRA_TITLE)
         }
         if (arguments?.getString(EXTRA_DESC) == null) {
-            textViewDescription.visibility = View.GONE
+            binding.textViewDescription.visibility = View.GONE
         } else {
-            textViewDescription.text = arguments?.getString(EXTRA_DESC)?.toHtmlSpan()
+            binding.textViewDescription.text = arguments?.getString(EXTRA_DESC)?.toHtmlSpan()
         }
         if (arguments?.getString(EXTRA_ACTION_POSITIVE) == null) {
-            buttonPositive.visibility = View.GONE
+            binding.buttonPositive.visibility = View.GONE
         } else {
-            buttonPositive.visibility = View.VISIBLE
-            buttonPositive.text = arguments?.getString(EXTRA_ACTION_POSITIVE)
+            binding.buttonPositive.visibility = View.VISIBLE
+            binding.buttonPositive.text = arguments?.getString(EXTRA_ACTION_POSITIVE)
         }
         if (arguments?.getString(EXTRA_ACTION_NEGATIVE) == null) {
-            buttonNegative.visibility = View.GONE
+            binding.buttonNegative.visibility = View.GONE
         } else {
-            buttonNegative.visibility = View.VISIBLE
-            buttonNegative.text = arguments?.getString(EXTRA_ACTION_NEGATIVE)
+            binding.buttonNegative.visibility = View.VISIBLE
+            binding.buttonNegative.text = arguments?.getString(EXTRA_ACTION_NEGATIVE)
         }
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonNegative.setOnClickListener {
+        binding.buttonNegative.setOnClickListener {
             callback?.onClickNegativeButtonDialog(arguments?.getString(EXTRA_DATA), this.tag)
         }
-        buttonPositive.setOnClickListener {
+        binding.buttonPositive.setOnClickListener {
             callback?.onClickPositiveButtonDialog(arguments?.getString(EXTRA_DATA), this.tag)
         }
-        linearLayoutDynamicFields.visibility = View.VISIBLE
+        binding.linearLayoutDynamicFields.visibility = View.VISIBLE
         callback?.onDataSetDialog(
             this.tag,
-            linearLayoutDynamicFields,
-            buttonPositive,
-            buttonNegative,
+            binding.linearLayoutDynamicFields,
+            binding.buttonPositive,
+            binding.buttonNegative,
             arguments?.getString(EXTRA_DATA),
             arguments?.getString(EXTRA_DYNAMIC_DATA)
         )
@@ -107,4 +108,10 @@ class ConfirmationBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layou
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_confirmation
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
 }

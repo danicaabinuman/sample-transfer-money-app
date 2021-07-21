@@ -18,6 +18,8 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.setContextCompatTextColor
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.approval.data.model.Transaction
@@ -35,6 +37,13 @@ constructor(
     private val viewUtil: ViewUtil,
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed3EpoxyController<MutableList<Transaction>, Pageable, Boolean>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
 
     private lateinit var callbacks: EpoxyAdapterCallback<Transaction>
 
@@ -55,20 +64,20 @@ constructor(
                     id(transaction.id)
                     transaction(transaction)
                     position(position)
-                    autoFormatUtil(autoFormatUtil)
-                    viewUtil(viewUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    autoFormatUtil(this@OrganizationTransferController.autoFormatUtil)
+                    viewUtil(this@OrganizationTransferController.viewUtil)
+                    context(this@OrganizationTransferController.context)
+                    callbacks(this@OrganizationTransferController.callbacks)
                 }
             } else {
                 organizationTransferItem {
                     id(transaction.id)
                     transaction(transaction)
                     position(position)
-                    autoFormatUtil(autoFormatUtil)
-                    viewUtil(viewUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    autoFormatUtil(this@OrganizationTransferController.autoFormatUtil)
+                    viewUtil(this@OrganizationTransferController.viewUtil)
+                    context(this@OrganizationTransferController.context)
+                    callbacks(this@OrganizationTransferController.callbacks)
                 }
             }
         }

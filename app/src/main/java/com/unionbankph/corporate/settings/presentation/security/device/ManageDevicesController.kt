@@ -18,6 +18,7 @@ import com.unionbankph.corporate.app.common.extension.DEVICE_BROWSER
 import com.unionbankph.corporate.app.common.extension.DEVICE_IOS
 import com.unionbankph.corporate.app.common.extension.DEVICE_TABLET
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.HeaderTitleModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.databinding.ItemManageDeviceBinding
@@ -31,13 +32,13 @@ constructor(
 ) : TypedEpoxyController<ManageDevicesDto>() {
 
 //    @AutoModel
-//    lateinit var headerTrustedTitleModel: HeaderTitleModel_
-//
-//    @AutoModel
-//    lateinit var headerUnTrustedTitleModel: HeaderTitleModel_
-//
-//    @AutoModel
-//    lateinit var headerBrowserTitleModel: HeaderTitleModel_
+    lateinit var headerTrustedTitleModel: HeaderTitleModel_
+
+    @AutoModel
+    lateinit var headerUnTrustedTitleModel: HeaderTitleModel_
+
+    @AutoModel
+    lateinit var headerBrowserTitleModel: HeaderTitleModel_
 
     private lateinit var callbacks: EpoxyAdapterCallback<Device>
 
@@ -55,7 +56,7 @@ constructor(
                 id("trusted_devices_${device.id}")
                 device(device)
                 position(index)
-                callbacks(callbacks)
+                callbacks(this@ManageDevicesController.callbacks)
             }
         }
         headerUnTrustedTitleModel.title(context.getString(R.string.title_untrusted_devices))
@@ -65,7 +66,7 @@ constructor(
                 id("untrusted_devices_${device.id}")
                 device(device)
                 position(index)
-                callbacks(callbacks)
+                callbacks(this@ManageDevicesController.callbacks)
             }
         }
         headerBrowserTitleModel.title(context.getString(R.string.title_browser_access))
@@ -75,7 +76,7 @@ constructor(
                 id("browser_access_${device.id}")
                 device(device)
                 position(index)
-                callbacks(callbacks)
+                callbacks(this@ManageDevicesController.callbacks)
             }
         }
     }

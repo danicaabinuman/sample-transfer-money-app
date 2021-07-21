@@ -14,6 +14,8 @@ import com.airbnb.epoxy.Typed3EpoxyController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.notEmpty
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -37,6 +39,13 @@ constructor(
 
     private lateinit var callbacks: EpoxyAdapterCallback<Beneficiary>
 
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
+
     override fun buildModels(
         data: MutableList<Beneficiary>,
         pageable: Pageable,
@@ -47,20 +56,20 @@ constructor(
                 manageBeneficiaryRow {
                     id(beneficiary.id)
                     beneficiary(beneficiary)
-                    context(context)
-                    callbacks(callbacks)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
+                    context(this@ManageBeneficiaryController.context)
+                    callbacks(this@ManageBeneficiaryController.callbacks)
+                    viewUtil(this@ManageBeneficiaryController.viewUtil)
+                    autoFormatUtil(this@ManageBeneficiaryController.autoFormatUtil)
                     position(index)
                 }
             } else {
                 manageBeneficiaryItem {
                     id(beneficiary.id)
                     beneficiary(beneficiary)
-                    context(context)
-                    callbacks(callbacks)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
+                    context(this@ManageBeneficiaryController.context)
+                    callbacks(this@ManageBeneficiaryController.callbacks)
+                    viewUtil(this@ManageBeneficiaryController.viewUtil)
+                    autoFormatUtil(this@ManageBeneficiaryController.autoFormatUtil)
                     position(index)
                 }
             }

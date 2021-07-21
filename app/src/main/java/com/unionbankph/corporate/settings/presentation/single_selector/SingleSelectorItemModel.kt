@@ -9,8 +9,8 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
+import com.unionbankph.corporate.databinding.ItemSingleSelectorBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
-import kotlinx.android.synthetic.main.item_single_selector.view.*
 
 @EpoxyModelClass(layout = R.layout.item_single_selector)
 abstract class SingleSelectorItemModel : EpoxyModelWithHolder<SingleSelectorItemModel.Holder>() {
@@ -26,26 +26,21 @@ abstract class SingleSelectorItemModel : EpoxyModelWithHolder<SingleSelectorItem
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
-            textView.text = item.value
-            itemView.setOnClickListener {
+            tvReferenceNo.text = item.value
+            root.setOnClickListener {
                 callbacks.onClickItem(it, item, position)
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textView: AppCompatTextView
-        lateinit var viewBorderTop: View
-        lateinit var viewItemState: View
-        lateinit var itemView: View
+
+        lateinit var binding: ItemSingleSelectorBinding
 
         override fun bindView(itemView: View) {
-            textView = itemView.tvReferenceNo
-            viewBorderTop = itemView.viewBorderTop
-            viewItemState = itemView.viewItemState
-            this.itemView = itemView
+            binding = ItemSingleSelectorBinding.bind(itemView)
         }
     }
 }

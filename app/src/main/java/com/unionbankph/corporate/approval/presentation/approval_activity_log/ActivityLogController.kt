@@ -18,9 +18,9 @@ import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
+import com.unionbankph.corporate.databinding.HeaderActivityLogBinding
+import com.unionbankph.corporate.databinding.ItemActivityLogBinding
 import com.unionbankph.corporate.fund_transfer.data.model.ActivityLogDto
-import kotlinx.android.synthetic.main.header_activity_log.view.*
-import kotlinx.android.synthetic.main.item_activity_log.view.*
 
 class ActivityLogController
 constructor(
@@ -107,23 +107,22 @@ abstract class ActivityLogHeaderModel : EpoxyModelWithHolder<ActivityLogHeaderMo
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.textViewTitle.text = viewUtil.getStringOrEmpty(
+        holder.binding.textViewTitle.text = viewUtil.getStringOrEmpty(
             viewUtil.getDateFormatByDateString(
                 activityLogDto.createdDate,
                 ViewUtil.DATE_FORMAT_ISO_WITHOUT_T,
                 ViewUtil.DATE_FORMAT_WITHOUT_TIME
             )
         )
-        if (position == 0) holder.viewBorder.visibility = View.INVISIBLE
+        if (position == 0) holder.binding.viewBorder.visibility = View.INVISIBLE
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewTitle: TextView
-        lateinit var viewBorder: View
+
+        lateinit var binding: HeaderActivityLogBinding
 
         override fun bindView(itemView: View) {
-            textViewTitle = itemView.textViewTitle
-            viewBorder = itemView.viewBorder
+            binding = HeaderActivityLogBinding.bind(itemView)
         }
     }
 
@@ -153,13 +152,13 @@ abstract class ActivityLogItemModel : EpoxyModelWithHolder<ActivityLogItemModel.
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        if (hasStart) holder.viewBorderItem1.visibility =
-            View.INVISIBLE else holder.viewBorderItem1.visibility = View.VISIBLE
+        if (hasStart) holder.binding.viewBorderItem1.visibility =
+            View.INVISIBLE else holder.binding.viewBorderItem1.visibility = View.VISIBLE
 
         if (hasEnd) {
-            holder.viewBorderItem2.visibility = View.INVISIBLE
+            holder.binding.viewBorderItem2.visibility = View.INVISIBLE
         }
-        holder.textViewTime.text = viewUtil.getStringOrEmpty(
+        holder.binding.textViewTime.text = viewUtil.getStringOrEmpty(
             viewUtil.getDateFormatByDateString(
                 activityLogDto.createdDate,
                 ViewUtil.DATE_FORMAT_ISO_WITHOUT_T,
@@ -167,25 +166,25 @@ abstract class ActivityLogItemModel : EpoxyModelWithHolder<ActivityLogItemModel.
             )
         )
         if (activityLogDto.status != null) {
-            holder.textViewRemarks.setContextCompatTextColor(
+            holder.binding.textViewRemarks.setContextCompatTextColor(
                 ConstantHelper.Color.getTextColor(activityLogDto.status)
             )
-            holder.imageViewPresence.setImageResource(
+            holder.binding.imageViewPresence.setImageResource(
                 ConstantHelper.Drawable.getActivityLogBadge(
                     activityLogDto.status
                 )
             )
-            holder.textViewRemarks.text =
+            holder.binding.textViewRemarks.text =
                 viewUtil.getStringOrEmpty(activityLogDto.status?.description)
         } else {
-            holder.textViewRemarks.text =
+            holder.binding.textViewRemarks.text =
                 viewUtil.getStringOrEmpty(activityLogDto.description)
         }
 
-        holder.textViewNoteTitle.setContextCompatTextColor(
+        holder.binding.textViewNoteTitle.setContextCompatTextColor(
             ConstantHelper.Color.getTextColor(activityLogDto.status)
         )
-        holder.textViewNote.setContextCompatTextColor(
+        holder.binding.textViewNote.setContextCompatTextColor(
             ConstantHelper.Color.getTextColor(activityLogDto.status)
         )
 
@@ -195,47 +194,34 @@ abstract class ActivityLogItemModel : EpoxyModelWithHolder<ActivityLogItemModel.
             Constant.STATUS_CANCELLED,
             Constant.STATUS_REVERSAL_FAILED,
             Constant.STATUS_REVERSED -> {
-                holder.textViewNote.visibility(true)
-                holder.textViewNote.text = activityLogDto.status?.remarks?.replace("|", "\n").notEmpty()
+                holder.binding.textViewNote.visibility(true)
+                holder.binding.textViewNote.text = activityLogDto.status?.remarks?.replace("|", "\n").notEmpty()
             }
             Constant.STATUS_RELEASED,
             Constant.STATUS_SUCCESSFUL,
             Constant.STATUS_APPROVED,
             Constant.STATUS_REMOVED -> {
-                holder.textViewNote.visibility(activityLogDto.status?.remarks != null)
-                holder.textViewNoteTitle.text = activityLogDto.status?.description.notEmpty()
-                holder.textViewNote.text = activityLogDto.status?.remarks?.replace("|", "\n").notEmpty()
+                holder.binding.textViewNote.visibility(activityLogDto.status?.remarks != null)
+                holder.binding.textViewNoteTitle.text = activityLogDto.status?.description.notEmpty()
+                holder.binding.textViewNote.text = activityLogDto.status?.remarks?.replace("|", "\n").notEmpty()
             }
             else -> {
-                holder.textViewNote.visibility(false)
+                holder.binding.textViewNote.visibility(false)
             }
         }
 
-        holder.constraintLayoutItemRecent.setOnClickListener {
+        holder.binding.constraintLayoutItemRecent.setOnClickListener {
             callbacks.onClickItem(activityLogDto)
         }
 
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutItemRecent: ConstraintLayout
-        lateinit var textViewTime: TextView
-        lateinit var textViewRemarks: TextView
-        lateinit var textViewNoteTitle: TextView
-        lateinit var textViewNote: TextView
-        lateinit var imageViewPresence: ImageView
-        lateinit var viewBorderItem1: View
-        lateinit var viewBorderItem2: View
+
+        lateinit var binding: ItemActivityLogBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutItemRecent = itemView.constraintLayoutItemRecent
-            textViewTime = itemView.textViewTime
-            textViewRemarks = itemView.textViewRemarks
-            textViewNoteTitle = itemView.textViewNoteTitle
-            textViewNote = itemView.textViewNote
-            imageViewPresence = itemView.imageViewPresence
-            viewBorderItem1 = itemView.viewBorderItem1
-            viewBorderItem2 = itemView.viewBorderItem2
+            binding = ItemActivityLogBinding.bind(itemView)
         }
     }
 }

@@ -10,6 +10,8 @@ import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.account.presentation.constant.AccountBalanceTypeEnum
 import com.unionbankph.corporate.app.common.extension.ACCOUNT_TYPE_ODA
 import com.unionbankph.corporate.app.common.extension.formatString
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorAccountFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -26,6 +28,13 @@ constructor(
 ) : Typed2EpoxyController<MutableList<Account>, Pageable>() {
 
     private lateinit var accountAdapterCallback: AccountAdapterCallback
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorAccountFooterModel: ErrorAccountFooterModel_
+
 
     init {
         if (BuildConfig.DEBUG) {

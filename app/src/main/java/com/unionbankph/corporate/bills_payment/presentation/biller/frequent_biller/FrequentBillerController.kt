@@ -11,6 +11,8 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.airbnb.epoxy.Typed2EpoxyController
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.bills_payment.data.model.FrequentBiller
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -25,6 +27,12 @@ constructor(
 
     private lateinit var callbacks: EpoxyAdapterCallback<FrequentBiller>
 
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
     init {
         if (BuildConfig.DEBUG) {
             isDebugLoggingEnabled = true
@@ -37,7 +45,7 @@ constructor(
                 id(frequentBiller.id)
                 frequentBiller(frequentBiller)
                 position(position)
-                callbacks(callbacks)
+                callbacks(this@FrequentBillerController.callbacks)
             }
         }
 

@@ -13,11 +13,8 @@ import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallba
 import com.unionbankph.corporate.databinding.ItemSelectorBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 
+@EpoxyModelClass(layout = R.layout.item_selector)
 abstract class SelectorItemModel : EpoxyModelWithHolder<SelectorItemModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.item_selector
-    }
 
     @EpoxyAttribute
     lateinit var item: Selector
@@ -51,10 +48,10 @@ abstract class SelectorItemModel : EpoxyModelWithHolder<SelectorItemModel.Holder
     }
 
     class Holder : EpoxyHolder() {
+
         lateinit var binding : ItemSelectorBinding
 
         override fun bindView(itemView: View) {
-
             binding = ItemSelectorBinding.bind(itemView)
         }
     }

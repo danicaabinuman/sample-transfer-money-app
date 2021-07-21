@@ -13,6 +13,8 @@ import com.airbnb.epoxy.Typed2EpoxyController
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -28,6 +30,12 @@ constructor(
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed2EpoxyController<MutableList<Batch>, Pageable>() {
 
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
     private lateinit var callbacks: EpoxyAdapterCallback<Batch>
 
     init {
@@ -41,11 +49,11 @@ constructor(
             batchTransferItem {
                 id("${batch.referenceId}_$position")
                 batch(batch)
-                context(context)
-                viewUtil(viewUtil)
-                autoFormatUtil(autoFormatUtil)
+                context(this@BatchTransferController.context)
+                viewUtil(this@BatchTransferController.viewUtil)
+                autoFormatUtil(this@BatchTransferController.autoFormatUtil)
                 position(position)
-                callbacks(callbacks)
+                callbacks(this@BatchTransferController.callbacks)
             }
         }
         loadingFooterModel.loading(pageable.isLoadingPagination)

@@ -17,6 +17,8 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.setContextCompatTextColor
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.approval.data.model.Transaction
@@ -37,6 +39,12 @@ constructor(
 
     private lateinit var callbacks: EpoxyAdapterCallback<Transaction>
 
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
     init {
         if (BuildConfig.DEBUG) {
             isDebugLoggingEnabled = true
@@ -54,20 +62,20 @@ constructor(
                     id(transaction.id)
                     transaction(transaction)
                     position(position)
-                    autoFormatUtil(autoFormatUtil)
-                    viewUtil(viewUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    autoFormatUtil(this@OrganizationPaymentController.autoFormatUtil)
+                    viewUtil(this@OrganizationPaymentController.viewUtil)
+                    context(this@OrganizationPaymentController.context)
+                    callbacks(this@OrganizationPaymentController.callbacks)
                 }
             } else {
                 organizationPaymentItem {
                     id(transaction.id)
                     transaction(transaction)
                     position(position)
-                    autoFormatUtil(autoFormatUtil)
-                    viewUtil(viewUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    autoFormatUtil(this@OrganizationPaymentController.autoFormatUtil)
+                    viewUtil(this@OrganizationPaymentController.viewUtil)
+                    context(this@OrganizationPaymentController.context)
+                    callbacks(this@OrganizationPaymentController.callbacks)
                 }
             }
         }

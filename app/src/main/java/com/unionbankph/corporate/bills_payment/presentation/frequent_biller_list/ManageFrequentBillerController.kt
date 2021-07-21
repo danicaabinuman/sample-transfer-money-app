@@ -15,6 +15,8 @@ import com.airbnb.epoxy.Typed3EpoxyController
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.bills_payment.data.model.FrequentBiller
@@ -33,6 +35,13 @@ constructor(
 
     private lateinit var callbacks: EpoxyAdapterCallback<FrequentBiller>
 
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
+
     init {
         if (BuildConfig.DEBUG) {
             isDebugLoggingEnabled = true
@@ -50,20 +59,20 @@ constructor(
                     id(frequentBiller.id)
                     frequentBiller(frequentBiller)
                     position(position)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@ManageFrequentBillerController.viewUtil)
+                    autoFormatUtil(this@ManageFrequentBillerController.autoFormatUtil)
+                    context(this@ManageFrequentBillerController.context)
+                    callbacks(this@ManageFrequentBillerController.callbacks)
                 }
             } else {
                 manageFrequentBillerItem {
                     id(frequentBiller.id)
                     frequentBiller(frequentBiller)
                     position(position)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@ManageFrequentBillerController.viewUtil)
+                    autoFormatUtil(this@ManageFrequentBillerController.autoFormatUtil)
+                    context(this@ManageFrequentBillerController.context)
+                    callbacks(this@ManageFrequentBillerController.callbacks)
                 }
             }
         }

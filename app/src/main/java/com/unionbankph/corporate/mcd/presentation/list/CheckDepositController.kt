@@ -14,6 +14,8 @@ import com.unionbankph.corporate.app.common.extension.formatAccountNumber
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.setContextCompatTextColor
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -30,6 +32,12 @@ constructor(
     private val viewUtil: ViewUtil,
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed3EpoxyController<MutableList<CheckDeposit>, Pageable, Boolean>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
 
     private lateinit var callbacks: EpoxyAdapterCallback<CheckDeposit>
 
@@ -49,20 +57,20 @@ constructor(
                 checkDepositRow {
                     id(checkDeposit.id)
                     checkDeposit(checkDeposit)
-                    callbacks(callbacks)
-                    context(context)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
+                    callbacks(this@CheckDepositController.callbacks)
+                    context(this@CheckDepositController.context)
+                    viewUtil(this@CheckDepositController.viewUtil)
+                    autoFormatUtil(this@CheckDepositController.autoFormatUtil)
                     position(position)
                 }
             } else {
                 checkDepositItem {
                     id(checkDeposit.id)
                     checkDeposit(checkDeposit)
-                    callbacks(callbacks)
-                    context(context)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
+                    callbacks(this@CheckDepositController.callbacks)
+                    context(this@CheckDepositController.context)
+                    viewUtil(this@CheckDepositController.viewUtil)
+                    autoFormatUtil(this@CheckDepositController.autoFormatUtil)
                     position(position)
                 }
             }

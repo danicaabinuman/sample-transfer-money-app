@@ -12,6 +12,8 @@ import com.airbnb.epoxy.Typed2EpoxyController
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.notNullable
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
@@ -24,6 +26,12 @@ constructor(
     private val context: Context,
     private val viewUtil: ViewUtil
 ) : Typed2EpoxyController<MutableList<SwiftBank>, Pageable>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
 
     private lateinit var callbacks: EpoxyAdapterCallback<SwiftBank>
 
@@ -38,8 +46,8 @@ constructor(
             swiftBankItem {
                 id("${swiftBank.swiftBicCode}_$position")
                 swiftBank(swiftBank)
-                callbacks(callbacks)
-                context(context)
+                callbacks(this@SwiftBankController.callbacks)
+                context(this@SwiftBankController.context)
             }
         }
         loadingFooterModel.loading(pageable.isLoadingPagination)

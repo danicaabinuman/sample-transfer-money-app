@@ -12,9 +12,9 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.common.data.model.SectionedData
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.HeaderTitleInitialBinding
+import com.unionbankph.corporate.databinding.ItemTitleBinding
 import com.unionbankph.corporate.fund_transfer.data.model.Bank
-import kotlinx.android.synthetic.main.header_title_initial.view.*
-import kotlinx.android.synthetic.main.item_title.view.*
 
 class BankController
 constructor(
@@ -66,14 +66,14 @@ abstract class PesoNetBankHeaderModel : EpoxyModelWithHolder<PesoNetBankHeaderMo
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.textViewHeaderTitle.text = title?.get(0).toString()
+        holder.binding.textViewHeaderTitle.text = title?.get(0).toString()
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewHeaderTitle: TextView
+        lateinit var binding : HeaderTitleInitialBinding
 
         override fun bindView(itemView: View) {
-            textViewHeaderTitle = itemView.textViewHeaderTitle
+            binding = HeaderTitleInitialBinding.bind(itemView)
         }
     }
 }
@@ -91,21 +91,18 @@ abstract class PesoNetBankItemModel : EpoxyModelWithHolder<PesoNetBankItemModel.
     lateinit var callbacks: BankController.AdapterCallbacks
 
     override fun bind(holder: Holder) {
-        holder.textViewItemTitle.text = title
-        holder.constraintLayoutItemTitle.setOnClickListener {
+        holder.binding.textViewItemTitle.text = title
+        holder.binding.constraintLayoutItemTitle.setOnClickListener {
             callbacks.onClickItem(bank)
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var viewBorder: View
-        lateinit var constraintLayoutItemTitle: ConstraintLayout
-        lateinit var textViewItemTitle: TextView
+
+        lateinit var binding: ItemTitleBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutItemTitle = itemView.constraintLayoutItemTitle
-            textViewItemTitle = itemView.textViewItemTitle
-            viewBorder = itemView.viewBorder
+            binding = ItemTitleBinding.bind(itemView)
         }
     }
 }

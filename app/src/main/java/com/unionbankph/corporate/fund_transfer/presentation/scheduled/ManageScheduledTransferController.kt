@@ -17,6 +17,8 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.setContextCompatBackgroundColor
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.approval.data.model.Transaction
@@ -36,6 +38,12 @@ constructor(
     private val viewUtil: ViewUtil,
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed4EpoxyController<MutableList<Transaction>, Boolean, Pageable, Boolean>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
 
     private lateinit var callbacks: EpoxyAdapterCallback<Transaction>
 
@@ -60,10 +68,10 @@ constructor(
                     )
                     hasSelected(transaction.hasSelected)
                     position(position)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@ManageScheduledTransferController.viewUtil)
+                    autoFormatUtil(this@ManageScheduledTransferController.autoFormatUtil)
+                    context(this@ManageScheduledTransferController.context)
+                    callbacks(this@ManageScheduledTransferController.callbacks)
                 }
             } else {
                 manageScheduledTransferItem {
@@ -71,10 +79,10 @@ constructor(
                     transactionJsonString(JsonHelper.toJson(transaction))
                     hasSelected(transaction.hasSelected)
                     position(position)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@ManageScheduledTransferController.viewUtil)
+                    autoFormatUtil(this@ManageScheduledTransferController.autoFormatUtil)
+                    context(this@ManageScheduledTransferController.context)
+                    callbacks(this@ManageScheduledTransferController.callbacks)
                 }
             }
         }

@@ -18,15 +18,25 @@ import com.unionbankph.corporate.app.common.extension.convertDateToDesireFormat
 import com.unionbankph.corporate.app.common.extension.formatAmount
 import com.unionbankph.corporate.app.common.extension.notEmpty
 import com.unionbankph.corporate.app.common.extension.notNullable
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
+import com.unionbankph.corporate.dao.presentation.checking_account.DaoCheckingAccountTypeFragmentDirections
 import com.unionbankph.corporate.databinding.HeaderTitleOrangeBinding
 import com.unionbankph.corporate.databinding.ItemTransactionHistoryBinding
 
 class AccountTransactionHistoryController :
     Typed2EpoxyController<MutableList<SectionedAccountTransactionHistory>, Pageable>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var errorFooterModel: ErrorFooterModel_
+
 
     private lateinit var callbacks: EpoxyAdapterCallback<Record>
 
@@ -55,7 +65,7 @@ class AccountTransactionHistoryController :
                     hasFirstPosition(isFirstPosition && positionRecord == 0)
                     record(record)
                     position(positionRecord)
-                    callbacks(callbacks)
+                    callbacks(this@AccountTransactionHistoryController.callbacks)
                 }
                 if (isFirstPosition) isFirstPosition = false
             }
@@ -80,12 +90,9 @@ class AccountTransactionHistoryController :
     }
 }
 
+@EpoxyModelClass(layout = R.layout.header_title_orange)
 abstract class TransactionHistoryHeaderModel :
     EpoxyModelWithHolder<TransactionHistoryHeaderModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.header_title_orange
-    }
 
     @EpoxyAttribute
     lateinit var date: String
@@ -106,12 +113,9 @@ abstract class TransactionHistoryHeaderModel :
     }
 }
 
+@EpoxyModelClass(layout = R.layout.item_transaction_history)
 abstract class TransactionHistoryItemModel :
     EpoxyModelWithHolder<TransactionHistoryItemModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.item_transaction_history
-    }
 
     @EpoxyAttribute
     lateinit var record: Record

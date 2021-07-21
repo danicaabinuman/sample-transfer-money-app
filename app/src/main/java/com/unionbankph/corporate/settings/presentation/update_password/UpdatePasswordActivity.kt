@@ -164,7 +164,7 @@ class UpdatePasswordActivity :
                         ChangePasswordForm(
                             oldPassword = binding.etOldPassword.text.toString(),
                             newPassword = binding.etPassword.text.toString().trim(),
-                            confirmNewPassword = binding.vetCPassword.text.toString().trim()
+                            confirmNewPassword = binding.etCPassword.text.toString().trim()
                         )
                     )
                     PAGE_RESET_PASSWORD -> viewModel.resetPasswordNew(
@@ -308,25 +308,25 @@ class UpdatePasswordActivity :
         passwordLimitObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPasswrd1) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword1) }
             .addTo(disposables)
 
         passwordAlphaObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPasswrd2) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword2) }
             .addTo(disposables)
 
         passwordNumberObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPasswrd3) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword3) }
             .addTo(disposables)
 
         passwordSymbolObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPasswrd4) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword4) }
             .addTo(disposables)
 
         (if (page == PAGE_UPDATE_PASSWORD)

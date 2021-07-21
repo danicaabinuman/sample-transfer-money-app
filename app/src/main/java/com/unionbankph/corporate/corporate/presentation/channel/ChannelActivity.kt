@@ -69,7 +69,6 @@ class ChannelActivity :
 
     private fun initViewModel() {
         generalViewModel.getOrgName()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[ChannelViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {

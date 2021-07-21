@@ -9,10 +9,11 @@ import com.unionbankph.corporate.app.common.extension.convertColorResourceToHex
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.getAccentColor
 import com.unionbankph.corporate.app.common.extension.toHtmlSpan
+import com.unionbankph.corporate.databinding.BottomSheetSessionTimeOutBinding
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
-import kotlinx.android.synthetic.main.bottom_sheet_session_time_out.*
 
-class SessionTimeOutBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout.bottom_sheet_session_time_out) {
+class SessionTimeOutBottomSheet :
+    BaseBottomSheetDialog<BottomSheetSessionTimeOutBinding, SettingsViewModel>() {
 
     private lateinit var onBottomSheetSessionTimeOutListener: OnBottomSheetSessionTimeOutListener
 
@@ -20,7 +21,7 @@ class SessionTimeOutBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.lay
         super.onViewsBound()
         isCancelable = false
         setSessionTimerDesc(arguments?.getLong(EXTRA_INITIAL_SECOND))
-        buttonSessionTimeOut.setOnClickListener {
+        binding.buttonSessionTimeOut.setOnClickListener {
             onBottomSheetSessionTimeOutListener.onClickBottomSheetAction()
         }
     }
@@ -38,7 +39,7 @@ class SessionTimeOutBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.lay
 
     fun setSessionTimerDesc(timePeriod: Long?) {
         activity?.runOnUiThread {
-            textViewSessionTimeOutDesc?.text = formatString(
+            binding.textViewSessionTimeOutDesc.text = formatString(
                 R.string.params_session_time_out,
                 formatString(
                     R.string.param_color,
@@ -76,4 +77,10 @@ class SessionTimeOutBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.lay
             return fragment
         }
     }
+
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_session_time_out
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
 }

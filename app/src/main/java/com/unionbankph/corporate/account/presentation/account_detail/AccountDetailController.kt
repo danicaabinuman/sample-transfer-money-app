@@ -20,6 +20,8 @@ import com.unionbankph.corporate.account.presentation.constant.AccountBalanceTyp
 import com.unionbankph.corporate.app.common.extension.ACCOUNT_TYPE_ODA
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ItemStateModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.constant.Constant
@@ -35,6 +37,12 @@ constructor(
     private val viewUtil: ViewUtil,
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed3EpoxyController<MutableList<Record>, Account, Boolean>() {
+
+    @AutoModel
+    lateinit var loadingFooterModel: LoadingFooterModel_
+
+    @AutoModel
+    lateinit var itemStateModel: ItemStateModel_
 
     private lateinit var callbacks: AdapterCallbacks
 
@@ -55,10 +63,10 @@ constructor(
             id(account.id)
             loadingAccount(account.isLoading)
             account(account)
-            viewUtil(viewUtil)
-            autoFormatUtil(autoFormatUtil)
-            context(context)
-            callbacks(callbacks)
+            viewUtil(this@AccountDetailController.viewUtil)
+            autoFormatUtil(this@AccountDetailController.autoFormatUtil)
+            context(this@AccountDetailController.context)
+            callbacks(this@AccountDetailController.callbacks)
         }
         records
             .take(3)
@@ -68,10 +76,10 @@ constructor(
                     position(position)
                     size(records.take(3).size)
                     record(record)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@AccountDetailController.viewUtil)
+                    autoFormatUtil(this@AccountDetailController.autoFormatUtil)
+                    context(this@AccountDetailController.context)
+                    callbacks(this@AccountDetailController.callbacks)
                 }
             }
 
@@ -99,22 +107,22 @@ constructor(
 abstract class AccountDetailHeaderModel :
     EpoxyModelWithHolder<AccountDetailHeaderModel.Holder>() {
 
-    @EpoxyAttribute
+    @field:EpoxyAttribute
     lateinit var context: Context
 
-    @EpoxyAttribute
+    @field:EpoxyAttribute
     lateinit var viewUtil: ViewUtil
 
-    @EpoxyAttribute
+    @field:EpoxyAttribute
     lateinit var autoFormatUtil: AutoFormatUtil
 
-    @EpoxyAttribute
+    @field:EpoxyAttribute
     lateinit var account: Account
 
-    @EpoxyAttribute
+    @field:EpoxyAttribute
     var loadingAccount: Boolean? = null
 
-    @EpoxyAttribute
+    @field:EpoxyAttribute
     lateinit var callbacks: AccountDetailController.AdapterCallbacks
 
     override fun bind(holder: Holder) {
@@ -224,13 +232,9 @@ abstract class AccountDetailHeaderModel :
     }
 }
 
+@EpoxyModelClass(layout = R.layout.item_recent_transaction)
 abstract class RecentTransactionItemModel :
     EpoxyModelWithHolder<RecentTransactionItemModel.Holder>() {
-
-    override fun getDefaultLayout(): Int {
-        return R.layout.item_recent_transaction
-    }
-
 
     @EpoxyAttribute
     lateinit var context: Context

@@ -147,7 +147,7 @@ class DaoActivity :
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.dao_navigation)
         if (intent.getBooleanExtra(EXTRA_PRIVACY_POLICY, false)) {
-            graph.startDestination = R.id.dao_personal_information_step_one_fragment
+            graph.setStartDestination(R.id.dao_personal_information_step_one_fragment)
             navHostFragment.navController.graph = graph
             viewModel.getSignatoryDetailsFromCache()
         }
