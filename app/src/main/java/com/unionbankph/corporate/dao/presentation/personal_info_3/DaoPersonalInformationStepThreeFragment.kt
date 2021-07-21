@@ -17,14 +17,14 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
+import com.unionbankph.corporate.databinding.FragmentDaoPersonalInformationStep3Binding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_personal_information_step_3.*
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoPersonalInformationStepThreeFragment :
-    BaseFragment<DaoPersonalInformationStepThreeViewModel>(R.layout.fragment_dao_personal_information_step_3),
+    BaseFragment<FragmentDaoPersonalInformationStep3Binding, DaoPersonalInformationStepThreeViewModel>(),
     DaoActivity.ActionEvent, ImeOptionEditText.OnImeOptionListener {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
@@ -60,48 +60,48 @@ class DaoPersonalInformationStepThreeFragment :
             }.addTo(disposables)
         viewModel.input.homeAddressInput
             .subscribe {
-                tie_home_address.setTextNullable(it)
+                binding.tieHomeAddress.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.streetNameInput
             .subscribe {
-                tie_street_name.setTextNullable(it)
+                binding.tieStreetName.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.villageBarangayInput
             .subscribe {
-                tie_village_brgy.setTextNullable(it)
+                binding.tieVillageBrgy.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.provinceInput
             .subscribe {
                 if (it.value != null) {
-                    tie_city.setEnableView(it != null)
-                    tie_province.setText(it.value)
+                    binding.tieCity.setEnableView(it != null)
+                    binding.tieProvince.setText(it.value)
                 }
             }.addTo(disposables)
         viewModel.input.cityInput
             .subscribe {
-                tie_city.setText(it.value)
+                binding.tieCity.setText(it.value)
             }.addTo(disposables)
         viewModel.input.zipCodeInput
             .subscribe {
-                tie_zip_code.setTextNullable(it)
+                binding.tieZipCode.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.countryInput
             .subscribe {
-                tie_country.setText(it.value)
+                binding.tieCountry.setText(it.value)
                 if (it.id != Constant.getDefaultCountryDao().id) {
-                    tie_province.setStyle(EditTextStyleEnum.FREE_TEXT)
-                    tie_city.setStyle(EditTextStyleEnum.FREE_TEXT)
-                    tie_city.setEnableView(true)
-                    tie_province.setOnClickListener(null)
-                    tie_city.setOnClickListener(null)
+                    binding.tieProvince.setStyle(EditTextStyleEnum.FREE_TEXT)
+                    binding.tieCity.setStyle(EditTextStyleEnum.FREE_TEXT)
+                    binding.tieCity.setEnableView(true)
+                    binding.tieProvince.setOnClickListener(null)
+                    binding.tieCity.setOnClickListener(null)
                 } else {
-                    tie_province.setStyle(EditTextStyleEnum.DROP_DOWN)
-                    tie_city.setStyle(EditTextStyleEnum.DROP_DOWN)
-                    tie_city.setEnableView(viewModel.input.provinceInput.hasValue())
-                    tie_province.setOnClickListener {
+                    binding.tieProvince.setStyle(EditTextStyleEnum.DROP_DOWN)
+                    binding.tieCity.setStyle(EditTextStyleEnum.DROP_DOWN)
+                    binding.tieCity.setEnableView(viewModel.input.provinceInput.hasValue())
+                    binding.tieProvince.setOnClickListener {
                         navigateSingleSelector(SingleSelectorTypeEnum.PROVINCE.name, hasSearch = true)
                     }
-                    tie_city.setOnClickListener {
+                    binding.tieCity.setOnClickListener {
                         navigateSingleSelector(
                             SingleSelectorTypeEnum.CITY.name,
                             hasSearch = true,
@@ -112,48 +112,48 @@ class DaoPersonalInformationStepThreeFragment :
             }.addTo(disposables)
         viewModel.input.homeAddressPermanentInput
             .subscribe {
-                tie_permanent_home_address.setTextNullable(it)
+                binding.tiePermanentHomeAddress.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.streetNamePermanentInput
             .subscribe {
-                tie_permanent_street_name.setTextNullable(it)
+                binding.tiePermanentStreetName.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.villageBarangayPermanentInput
             .subscribe {
-                tie_permanent_village_brgy.setTextNullable(it)
+                binding.tiePermanentVillageBrgy.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.provincePermanentInput
             .subscribe {
                 if (it.value != null) {
-                    tie_permanent_city.setEnableView(it != null)
-                    tie_permanent_province.setText(it.value)
+                    binding.tiePermanentCity.setEnableView(it != null)
+                    binding.tiePermanentProvince.setText(it.value)
                 }
             }.addTo(disposables)
         viewModel.input.cityPermanentInput
             .subscribe {
-                tie_permanent_city.setText(it.value)
+                binding.tiePermanentCity.setText(it.value)
             }.addTo(disposables)
         viewModel.input.zipCodePermanentInput
             .subscribe {
-                tie_permanent_zip_code.setTextNullable(it)
+                binding.tiePermanentZipCode.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.countryPermanentInput
             .subscribe {
-                tie_permanent_country.setText(it.value)
+                binding.tiePermanentCountry.setText(it.value)
                 if (it.id != Constant.getDefaultCountryDao().id) {
-                    tie_permanent_province.setStyle(EditTextStyleEnum.FREE_TEXT)
-                    tie_permanent_city.setStyle(EditTextStyleEnum.FREE_TEXT)
-                    tie_permanent_city.setEnableView(true)
-                    tie_permanent_province.setOnClickListener(null)
-                    tie_permanent_city.setOnClickListener(null)
+                    binding.tiePermanentProvince.setStyle(EditTextStyleEnum.FREE_TEXT)
+                    binding.tiePermanentCity.setStyle(EditTextStyleEnum.FREE_TEXT)
+                    binding.tiePermanentCity.setEnableView(true)
+                    binding.tiePermanentProvince.setOnClickListener(null)
+                    binding.tiePermanentCity.setOnClickListener(null)
                 } else {
-                    tie_permanent_province.setStyle(EditTextStyleEnum.DROP_DOWN)
-                    tie_permanent_city.setStyle(EditTextStyleEnum.DROP_DOWN)
-                    tie_permanent_city.setEnableView(viewModel.input.provincePermanentInput.hasValue())
-                    tie_permanent_province.setOnClickListener {
+                    binding.tiePermanentProvince.setStyle(EditTextStyleEnum.DROP_DOWN)
+                    binding.tiePermanentCity.setStyle(EditTextStyleEnum.DROP_DOWN)
+                    binding.tiePermanentCity.setEnableView(viewModel.input.provincePermanentInput.hasValue())
+                    binding.tiePermanentProvince.setOnClickListener {
                         navigateSingleSelector(SingleSelectorTypeEnum.PROVINCE_PERMANENT.name, hasSearch = true)
                     }
-                    tie_permanent_city.setOnClickListener {
+                    binding.tiePermanentCity.setOnClickListener {
                         navigateSingleSelector(
                             SingleSelectorTypeEnum.CITY_PERMANENT.name,
                             hasSearch = true,
@@ -171,33 +171,29 @@ class DaoPersonalInformationStepThreeFragment :
     }
 
     private fun permanentAddressInput(isChecked: Boolean) {
-        cb_permanent_address.isChecked = isChecked
-        cl_permanent_address.visibility(!isChecked)
+        binding.cbPermanentAddress.isChecked = isChecked
+        binding.clPermanentAddress.visibility(!isChecked)
         if (isChecked) {
-            tie_permanent_country.setText(Constant.EMPTY)
-            tie_permanent_home_address.setText(Constant.EMPTY)
-            tie_permanent_street_name.setText(Constant.EMPTY)
-            tie_permanent_village_brgy.setText(Constant.EMPTY)
-            tie_permanent_province.setText(Constant.EMPTY)
-            tie_permanent_city.setText(Constant.EMPTY)
-            tie_permanent_zip_code.setText(Constant.EMPTY)
+            binding.tiePermanentCountry.setText(Constant.EMPTY)
+            binding.tiePermanentHomeAddress.setText(Constant.EMPTY)
+            binding.tiePermanentStreetName.setText(Constant.EMPTY)
+            binding.tiePermanentVillageBrgy.setText(Constant.EMPTY)
+            binding.tiePermanentProvince.setText(Constant.EMPTY)
+            binding.tiePermanentCity.setText(Constant.EMPTY)
+            binding.tiePermanentZipCode.setText(Constant.EMPTY)
         } else {
-            tie_permanent_country.clear()
-            tie_permanent_home_address.clear()
-            tie_permanent_street_name.clear()
-            tie_permanent_village_brgy.clear()
-            tie_permanent_province.clear()
-            tie_permanent_city.clear()
-            tie_permanent_zip_code.clear()
+            binding.tiePermanentCountry.clear()
+            binding.tiePermanentHomeAddress.clear()
+            binding.tiePermanentStreetName.clear()
+            binding.tiePermanentVillageBrgy.clear()
+            binding.tiePermanentProvince.clear()
+            binding.tiePermanentCity.clear()
+            binding.tiePermanentZipCode.clear()
             viewModel.input.countryPermanentInput.onNext(Constant.getDefaultCountryDao())
         }
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[DaoPersonalInformationStepThreeViewModel::class.java]
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -248,42 +244,42 @@ class DaoPersonalInformationStepThreeFragment :
 
     private fun showFieldProgressBar(singleSelectorTypeEnum: SingleSelectorTypeEnum, isLoading: Boolean) {
         if (singleSelectorTypeEnum == SingleSelectorTypeEnum.PROVINCE) {
-            viewLoadingProvince.visibility(isLoading)
-            tie_province.setEnableView(!isLoading)
+            binding.viewLoadingProvince.root.visibility(isLoading)
+            binding.tieProvince.setEnableView(!isLoading)
         } else if (singleSelectorTypeEnum == SingleSelectorTypeEnum.CITY) {
-            viewLoadingCity.visibility(isLoading)
-            tie_city.setEnableView(!isLoading)
+            binding.viewLoadingCity.root.visibility(isLoading)
+            binding.tieCity.setEnableView(!isLoading)
         } else if (singleSelectorTypeEnum == SingleSelectorTypeEnum.PROVINCE_PERMANENT) {
-            viewLoadingPermanentProvince.visibility(isLoading)
-            tie_permanent_province.setEnableView(!isLoading)
+            binding.viewLoadingPermanentProvince.root.visibility(isLoading)
+            binding.tiePermanentProvince.setEnableView(!isLoading)
         } else if (singleSelectorTypeEnum == SingleSelectorTypeEnum.CITY_PERMANENT) {
-            viewLoadingPermanentCity.visibility(isLoading)
-            tie_permanent_city.setEnableView(!isLoading)
+            binding.viewLoadingPermanentCity.root.visibility(isLoading)
+            binding.tiePermanentCity.setEnableView(!isLoading)
         }
     }
 
     private fun init() {
         initImeOption()
-        tie_city.setEnableView(false)
-        tie_permanent_city.setEnableView(false)
+        binding.tieCity.setEnableView(false)
+        binding.tiePermanentCity.setEnableView(false)
         validateForm()
     }
 
     private fun initImeOption() {
         val imeOptionEditText = ImeOptionEditText()
         imeOptionEditText.addEditText(
-            tie_province,
-            tie_city,
-            tie_zip_code,
-            tie_village_brgy,
-            tie_street_name,
-            tie_home_address,
-            tie_permanent_province,
-            tie_permanent_city,
-            tie_permanent_zip_code,
-            tie_permanent_village_brgy,
-            tie_permanent_street_name,
-            tie_permanent_home_address
+            binding.tieProvince,
+            binding.tieCity,
+            binding.tieZipCode,
+            binding.tieVillageBrgy,
+            binding.tieStreetName,
+            binding.tieHomeAddress,
+            binding.tiePermanentProvince,
+            binding.tiePermanentCity,
+            binding.tiePermanentZipCode,
+            binding.tiePermanentVillageBrgy,
+            binding.tiePermanentStreetName,
+            binding.tiePermanentHomeAddress
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
@@ -293,7 +289,7 @@ class DaoPersonalInformationStepThreeFragment :
         eventBus.inputSyncEvent.flowable.subscribe {
             when (it.eventType) {
                 SingleSelectorTypeEnum.PROVINCE.name -> {
-                    tie_city.clear()
+                    binding.tieCity.clear()
                     val selector = JsonHelper.fromJson<Selector>(it.payload)
                     viewModel.input.provinceInput.onNext(selector)
                 }
@@ -302,13 +298,13 @@ class DaoPersonalInformationStepThreeFragment :
                     viewModel.input.cityInput.onNext(selector)
                 }
                 SingleSelectorTypeEnum.COUNTRY.name -> {
-                    tie_province.clear()
-                    tie_city.clear()
+                    binding.tieProvince.clear()
+                    binding.tieCity.clear()
                     val selector = JsonHelper.fromJson<Selector>(it.payload)
                     viewModel.input.countryInput.onNext(selector)
                 }
                 SingleSelectorTypeEnum.PROVINCE_PERMANENT.name -> {
-                    tie_permanent_city.clear()
+                    binding.tiePermanentCity.clear()
                     val selector = JsonHelper.fromJson<Selector>(it.payload)
                     viewModel.input.provincePermanentInput.onNext(selector)
                 }
@@ -317,8 +313,8 @@ class DaoPersonalInformationStepThreeFragment :
                     viewModel.input.cityPermanentInput.onNext(selector)
                 }
                 SingleSelectorTypeEnum.COUNTRY_PERMANENT.name -> {
-                    tie_permanent_province.clear()
-                    tie_permanent_city.clear()
+                    binding.tiePermanentProvince.clear()
+                    binding.tiePermanentCity.clear()
                     val selector = JsonHelper.fromJson<Selector>(it.payload)
                     viewModel.input.countryPermanentInput.onNext(selector)
                 }
@@ -327,17 +323,17 @@ class DaoPersonalInformationStepThreeFragment :
     }
 
     private fun initClickListener() {
-        tie_country.setOnClickListener {
+        binding.tieCountry.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.COUNTRY.name, true)
         }
 
-        tie_permanent_country.setOnClickListener {
+        binding.tiePermanentCountry.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.COUNTRY_PERMANENT.name, true)
         }
     }
 
     private fun initCheckListener() {
-        cb_permanent_address.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbPermanentAddress.setOnCheckedChangeListener { _, isChecked ->
             viewModel.input.permanentAddressInput.onNext(isChecked)
         }
     }
@@ -361,20 +357,20 @@ class DaoPersonalInformationStepThreeFragment :
     }
 
     private fun refreshFields() {
-        tie_country.refresh()
-        tie_home_address.refresh()
-        tie_street_name.refresh()
-        tie_village_brgy.refresh()
-        tie_province.refresh()
-        tie_city.refresh()
-        tie_zip_code.refresh()
-        tie_permanent_home_address.refresh()
-        tie_permanent_street_name.refresh()
-        tie_permanent_village_brgy.refresh()
-        tie_permanent_province.refresh()
-        tie_permanent_city.refresh()
-        tie_permanent_zip_code.refresh()
-        tie_permanent_country.refresh()
+        binding.tieCountry.refresh()
+        binding.tieHomeAddress.refresh()
+        binding.tieStreetName.refresh()
+        binding.tieVillageBrgy.refresh()
+        binding.tieProvince.refresh()
+        binding.tieCity.refresh()
+        binding.tieZipCode.refresh()
+        binding.tiePermanentHomeAddress.refresh()
+        binding.tiePermanentStreetName.refresh()
+        binding.tiePermanentVillageBrgy.refresh()
+        binding.tiePermanentProvince.refresh()
+        binding.tiePermanentCity.refresh()
+        binding.tiePermanentZipCode.refresh()
+        binding.tiePermanentCountry.refresh()
     }
 
     private fun validateForm() {
@@ -383,98 +379,98 @@ class DaoPersonalInformationStepThreeFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_home_address
+            editText = binding.tieHomeAddress
         )
         val streetNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_street_name
+            editText = binding.tieStreetName
         )
         val villageBrgyObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_village_brgy
+            editText = binding.tieVillageBrgy
         )
         val provinceObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_province
+            editText = binding.tieProvince
         )
         val cityObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_city
+            editText = binding.tieCity
         )
         val zipCodeObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_zip_code_length),
-            editText = tie_zip_code
+            editText = binding.tieZipCode
         )
         val countryObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_country
+            editText = binding.tieCountry
         )
         val homeAddressPermanentObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_permanent_home_address
+            editText = binding.tiePermanentHomeAddress
         )
         val streetNamePermanentObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_permanent_street_name
+            editText = binding.tiePermanentStreetName
         )
         val villageBrgyPermanentObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_permanent_village_brgy
+            editText = binding.tiePermanentVillageBrgy
         )
         val provincePermanentObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_permanent_province
+            editText = binding.tiePermanentProvince
         )
         val cityPermanentObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_permanent_city
+            editText = binding.tiePermanentCity
         )
         val zipPermanentCodeObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_zip_code_length),
-            editText = tie_permanent_zip_code
+            editText = binding.tiePermanentZipCode
         )
         val countryPermanentObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_permanent_country
+            editText = binding.tiePermanentCountry
         )
         initSetError(homeAddressObservable)
         initSetError(streetNameObservable)
@@ -546,10 +542,10 @@ class DaoPersonalInformationStepThreeFragment :
     }
 
     private fun clearFormFocus() {
-        constraint_layout.post {
+        binding.constraintLayout.post {
             viewUtil.dismissKeyboard(getAppCompatActivity())
-            constraint_layout.requestFocus()
-            constraint_layout.isFocusableInTouchMode = true
+            binding.constraintLayout.requestFocus()
+            binding.constraintLayout.isFocusableInTouchMode = true
         }
     }
 
@@ -566,18 +562,18 @@ class DaoPersonalInformationStepThreeFragment :
 
     private fun updateFreeTextFields() {
         viewModel.setPreTextValues(
-            tie_province.getTextNullable(),
-            tie_city.getTextNullable(),
-            tie_home_address.getTextNullable(),
-            tie_street_name.getTextNullable(),
-            tie_village_brgy.getTextNullable(),
-            tie_zip_code.getTextNullable(),
-            tie_permanent_province.getTextNullable(),
-            tie_permanent_city.getTextNullable(),
-            tie_permanent_home_address.getTextNullable(),
-            tie_permanent_street_name.getTextNullable(),
-            tie_permanent_village_brgy.getTextNullable(),
-            tie_permanent_zip_code.getTextNullable()
+            binding.tieProvince.getTextNullable(),
+            binding.tieCity.getTextNullable(),
+            binding.tieHomeAddress.getTextNullable(),
+            binding.tieStreetName.getTextNullable(),
+            binding.tieVillageBrgy.getTextNullable(),
+            binding.tieZipCode.getTextNullable(),
+            binding.tiePermanentProvince.getTextNullable(),
+            binding.tiePermanentCity.getTextNullable(),
+            binding.tiePermanentHomeAddress.getTextNullable(),
+            binding.tiePermanentStreetName.getTextNullable(),
+            binding.tiePermanentVillageBrgy.getTextNullable(),
+            binding.tiePermanentZipCode.getTextNullable()
         )
     }
 
@@ -585,4 +581,10 @@ class DaoPersonalInformationStepThreeFragment :
     companion object {
         const val EXTRA_IS_EDIT = "isEdit"
     }
+
+    override val layoutId: Int
+        get() = R.layout.fragment_dao_personal_information_step_3
+
+    override val viewModelClassType: Class<DaoPersonalInformationStepThreeViewModel>
+        get() = DaoPersonalInformationStepThreeViewModel::class.java
 }
