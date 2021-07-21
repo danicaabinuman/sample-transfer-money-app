@@ -16,20 +16,19 @@ import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityEbillingConfirmationBinding
 import com.unionbankph.corporate.ebilling.domain.form.EBillingForm
 import com.unionbankph.corporate.ebilling.presentation.generate.EBillingGenerateActivity
-import kotlinx.android.synthetic.main.activity_ebilling_confirmation.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 /**
  * Created by herald on 10/28/20
  */
 class EBillingConfirmationActivity :
-    BaseActivity<EBillingConfirmationViewModel>(R.layout.activity_ebilling_confirmation) {
+    BaseActivity<ActivityEbillingConfirmationBinding, EBillingConfirmationViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
@@ -46,10 +45,10 @@ class EBillingConfirmationActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        btn_generate.setOnClickListener {
+        binding.btnGenerate.setOnClickListener {
             viewModel.generateQRCode()
         }
-        btn_edit.setOnClickListener {
+        binding.btnEdit.setOnClickListener {
             onBackPressed()
         }
     }
@@ -65,8 +64,6 @@ class EBillingConfirmationActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[EBillingConfirmationViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Error -> {
@@ -88,8 +85,8 @@ class EBillingConfirmationActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_generate_qr),
                         it.orgName
                     )
@@ -100,20 +97,20 @@ class EBillingConfirmationActivity :
     }
 
     private fun setupViews(eBillingForm: EBillingForm) {
-        tv_deposit_to.text = formatString(
+        binding.tvDepositTo.text = formatString(
             R.string.params_account_detail,
             eBillingForm.depositTo?.name,
             eBillingForm.depositTo?.accountNumber.formatAccountNumber(),
             eBillingForm.depositTo?.productCodeDesc.notNullable()
         ).toHtmlSpan()
-        tv_amount.text = eBillingForm.amount.toString().formatAmount(eBillingForm.currency)
+        binding.tvAmount.text = eBillingForm.amount.toString().formatAmount(eBillingForm.currency)
     }
 
     private fun setupBindings() {}
 
     private fun initViews() {
-        tv_reminders_title.isVisible = false
-        tv_reminders.isVisible = false
+        binding.tvRemindersTitle.isVisible = false
+        binding.tvReminders.isVisible = false
 //        val reminders = JsonHelper.fromListJson<String>(
 //            intent.getStringExtra(
 //                EXTRA_REMINDERS
@@ -151,5 +148,11 @@ class EBillingConfirmationActivity :
         const val EXTRA_REMINDERS = "reminders"
 
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_ebilling_confirmation
+
+    override val viewModelClassType: Class<EBillingConfirmationViewModel>
+        get() = EBillingConfirmationViewModel::class.java
 
 }
