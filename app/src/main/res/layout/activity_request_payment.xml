@@ -301,7 +301,9 @@
         android:visibility="gone"
         android:focusable="true">
 
-        <include layout="@layout/dialog_failed_merchant_diasbled"/>
+        <include
+            android:id="@+id/viewErrorMerchant"
+            layout="@layout/dialog_failed_merchant_diasbled"/>
     </FrameLayout>
 
 </FrameLayout>
