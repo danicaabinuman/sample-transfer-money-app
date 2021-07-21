@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayout"
+    style="@style/MatchParent"
+    android:background="@color/colorWhite"
+    >
+
+    <androidx.appcompat.widget.AppCompatImageView
+       style="@style/MatchParent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/iv_bg_light_orange"
+        android:background="@color/dsColorLightOrange"
+        />
+
+    <androidx.viewpager.widget.ViewPager
+
+        android:id="@+id/onboarding_viewPager"
+        style="@style/MatchConstraint"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/onboarding_indicator"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/grid_8"
+        app:ci_drawable="@drawable/circle_gradient_orange"
+        app:ci_drawable_unselected="@drawable/circle_gray_ci"
+        app:ci_height="@dimen/ci_size"
+        app:ci_margin="@dimen/ci_margin"
+        app:ci_width="@dimen/ci_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewOnboardingSkip"
+        style="@style/TextViewThemeLarge"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/text_view_padding"
+        android:text="@string/action_skip"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewOnboardingBack"
+        android:layout_width="@dimen/image_view_icon_large_size"
+        android:layout_height="@dimen/image_view_icon_large_size"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="@dimen/image_view_icon_padding"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewOnboardingSkip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewOnboardingSkip"
+        app:srcCompat="@drawable/ic_back_orange" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
