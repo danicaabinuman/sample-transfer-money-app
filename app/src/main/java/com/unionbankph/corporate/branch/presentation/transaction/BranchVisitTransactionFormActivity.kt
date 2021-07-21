@@ -28,17 +28,15 @@ import com.unionbankph.corporate.branch.presentation.model.BranchTransactionForm
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityBranchVisitTransactionFormBinding
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_branch_visit_transaction_form.*
-import kotlinx.android.synthetic.main.widget_edit_text_start_date.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.text.DecimalFormat
 import java.util.*
 import java.util.regex.Pattern
 
 class BranchVisitTransactionFormActivity :
-    BaseActivity<BranchVisitTransactionFormViewModel>(R.layout.activity_branch_visit_transaction_form),
+    BaseActivity<ActivityBranchVisitTransactionFormBinding, BranchVisitTransactionFormViewModel>(),
     ImeOptionEditText.OnImeOptionListener {
 
     private lateinit var textInputEditTextCheckAccountNumber: TextInputEditText
@@ -57,17 +55,12 @@ class BranchVisitTransactionFormActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_add_a_transaction))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_add_a_transaction))
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[BranchVisitTransactionFormViewModel::class.java]
         viewModel.transactionFormState.observe(this, androidx.lifecycle.Observer {
             when (it) {
                 is ShowBranchVisitTransactionEdit -> {
@@ -91,17 +84,17 @@ class BranchVisitTransactionFormActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        radioGroupTypeOfDeposit.setOnCheckedChangeListener { _, checkedId ->
+        binding.radioGroupTypeOfDeposit.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radioButtonCash -> {
                     initCash()
                 }
                 R.id.radioButtonCheck -> {
-                    initCheck(radioButtonUnionBank.isChecked)
+                    initCheck(binding.radioButtonUnionBank.isChecked)
                 }
             }
         }
-        radioGroupCheckType.setOnCheckedChangeListener { _, checkedId ->
+        binding.radioGroupCheckType.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.radioButtonUnionBank -> {
                     initCheck(true)
@@ -111,7 +104,7 @@ class BranchVisitTransactionFormActivity :
                 }
             }
         }
-        textInputEditTextStartDate.setOnClickListener {
+        binding.viewCheckDateCheck.textInputEditTextStartDate.setOnClickListener {
             showDateOnClickDialog()
         }
     }
@@ -152,13 +145,13 @@ class BranchVisitTransactionFormActivity :
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initTransactionForm() {
-        textInputLayoutRemarks.setContextCompatBackground(R.color.colorTransparent)
-        textInputEditTextRemarks.isEnabled = true
+        binding.textInputLayoutRemarks.setContextCompatBackground(R.color.colorTransparent)
+        binding.textInputEditTextRemarks.isEnabled = true
         val textInputLayoutCheckAccountNumber =
-            viewCheckAccountNumber.findViewById<TextInputLayout>(R.id.textInputLayout)
+            binding.viewCheckAccountNumber.textInputLayout
         textInputLayoutCheckAccountNumber.hint = formatString(R.string.hint_check_account_number)
         textInputEditTextCheckAccountNumber =
-            viewCheckAccountNumber.findViewById(R.id.textInputEditText)
+            binding.viewCheckAccountNumber.textInputEditText
         textInputEditTextCheckAccountNumber.id = R.id.textInputEditTextCheckAccountNumber
         viewUtil.setInputType(textInputEditTextCheckAccountNumber, "number")
         viewUtil.setEditTextMaxLength(
@@ -188,10 +181,10 @@ class BranchVisitTransactionFormActivity :
             false
         })
         val textInputLayoutCheckNumber =
-            viewCheckNumber.findViewById<TextInputLayout>(R.id.textInputLayout)
+            binding.viewCheckNumber.textInputLayout
         textInputLayoutCheckNumber.hint = formatString(R.string.hint_check_number)
         textInputEditTextCheckNumber =
-            viewCheckNumber.findViewById(R.id.textInputEditText)
+            binding.viewCheckNumber.textInputEditText
         textInputEditTextCheckNumber.id = R.id.textInputEditTextCheckNumber
         viewUtil.setInputType(textInputEditTextCheckNumber, "number")
         viewUtil.setEditTextMaxLength(
@@ -220,7 +213,7 @@ class BranchVisitTransactionFormActivity :
             }
             false
         })
-        textInputLayoutStartDate.hint = formatString(R.string.hint_date_front_of_check)
+        binding.viewCheckDateCheck.textInputLayoutStartDate.hint = formatString(R.string.hint_date_front_of_check)
     }
 
     private fun validateForm(isValueChanged: Boolean) {
@@ -244,12 +237,12 @@ class BranchVisitTransactionFormActivity :
             isValueChanged = isValueChanged,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = textInputEditTextStartDate
+            editText = binding.viewCheckDateCheck.textInputEditTextStartDate
         )
         val amountObservable = viewUtil.rxTextChangesAmount(
             true,
             isValueChanged,
-            et_amount,
+            binding.etAmount,
             RxValidator.PatternMatch(
                 formatString(R.string.error_input_valid_amount),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_VALID_AMOUNT)
@@ -300,8 +293,8 @@ class BranchVisitTransactionFormActivity :
     private fun initEditTextDefaultValue() {
         setDefaultValue(textInputEditTextCheckAccountNumber)
         setDefaultValue(textInputEditTextCheckNumber)
-        setDefaultValue(textInputEditTextStartDate)
-        setDefaultValue(et_amount)
+        setDefaultValue(binding.viewCheckDateCheck.textInputEditTextStartDate)
+        setDefaultValue(binding.etAmount)
     }
 
     private fun setDefaultValue(textInputEditText: EditText) {
@@ -317,8 +310,8 @@ class BranchVisitTransactionFormActivity :
     }
 
     private fun showDateOnClickDialog() {
-        val calendar = if (textInputEditTextStartDate.length() > 0) {
-            textInputEditTextStartDate.tag.toString().convertToCalendar()
+        val calendar = if (binding.viewCheckDateCheck.textInputEditTextStartDate.length() > 0) {
+            binding.viewCheckDateCheck.textInputEditTextStartDate.tag.toString().convertToCalendar()
         } else {
             Calendar.getInstance()
         }
@@ -329,11 +322,11 @@ class BranchVisitTransactionFormActivity :
             callback = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 val selectedDate = Calendar.getInstance()
                 selectedDate.set(year, monthOfYear, dayOfMonth)
-                textInputEditTextStartDate.tag = viewUtil.getDateFormatByCalendar(
+                binding.viewCheckDateCheck.textInputEditTextStartDate.tag = viewUtil.getDateFormatByCalendar(
                     selectedDate,
                     DateFormatEnum.DATE_FORMAT_ISO_DATE.value
                 )
-                textInputEditTextStartDate.setText(
+                binding.viewCheckDateCheck.textInputEditTextStartDate.setText(
                     viewUtil.getDateFormatByCalendar(
                         selectedDate,
                         DateFormatEnum.DATE_FORMAT_DATE.value
@@ -349,52 +342,52 @@ class BranchVisitTransactionFormActivity :
         imeOptionEditText.addEditText(
             textInputEditTextCheckAccountNumber,
             textInputEditTextCheckNumber,
-            et_amount,
-            textInputEditTextRemarks
+            binding.etAmount,
+            binding.textInputEditTextRemarks
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
     }
 
     private fun initCash() {
-        textViewCheckType.visibility(false)
-        radioGroupCheckType.visibility(false)
-        textViewCheckAccountNumber.visibility(false)
-        viewCheckAccountNumber.visibility(false)
-        textViewCheckNumber.visibility(false)
-        viewCheckNumber.visibility(false)
-        textViewCheckDate.visibility(false)
-        viewCheckDateCheck.visibility(false)
+        binding.textViewCheckType.visibility(false)
+        binding.radioGroupCheckType.visibility(false)
+        binding.textViewCheckAccountNumber.visibility(false)
+        binding.viewCheckAccountNumber.root.visibility(false)
+        binding.textViewCheckNumber.visibility(false)
+        binding.viewCheckNumber.root.visibility(false)
+        binding.textViewCheckDate.visibility(false)
+        binding.viewCheckDateCheck.root.visibility(false)
         textInputEditTextCheckAccountNumber.setText(EMPTY_VALUE)
         textInputEditTextCheckNumber.setText(EMPTY_VALUE)
-        textInputEditTextStartDate.setText(EMPTY_VALUE)
+        binding.viewCheckDateCheck.textInputEditTextStartDate.setText(EMPTY_VALUE)
     }
 
     private fun initCheck(onUs: Boolean) {
-        textViewCheckType.visibility(true)
-        radioGroupCheckType.visibility(true)
-        textViewCheckAccountNumber.visibility(onUs)
-        viewCheckAccountNumber.visibility(onUs)
-        textViewCheckNumber.visibility(true)
-        viewCheckNumber.visibility(true)
-        textViewCheckDate.visibility(onUs)
-        viewCheckDateCheck.visibility(onUs)
+        binding.textViewCheckType.visibility(true)
+        binding.radioGroupCheckType.visibility(true)
+        binding.textViewCheckAccountNumber.visibility(onUs)
+        binding.viewCheckAccountNumber.root.visibility(onUs)
+        binding.textViewCheckNumber.visibility(true)
+        binding.viewCheckNumber.root.visibility(true)
+        binding.textViewCheckDate.visibility(onUs)
+        binding.viewCheckDateCheck.root.visibility(onUs)
         if (onUs) {
             if (branchTransactionForm.type == BranchVisitTypeEnum.CHECK_DEPOSIT_ON_US.value && isEdit) {
                 textInputEditTextCheckAccountNumber.setText(branchTransactionForm.accountNumber)
                 textInputEditTextCheckNumber.setText(branchTransactionForm.checkNumber)
-                textInputEditTextStartDate.setText(
+                binding.viewCheckDateCheck.textInputEditTextStartDate.setText(
                     viewUtil.getDateFormatByDateString(
                         branchTransactionForm.checkDate,
                         DateFormatEnum.DATE_FORMAT_ISO_DATE.value,
                         DateFormatEnum.DATE_FORMAT_DATE.value
                     )
                 )
-                textInputEditTextStartDate.tag = branchTransactionForm.checkDate
+                binding.viewCheckDateCheck.textInputEditTextStartDate.tag = branchTransactionForm.checkDate
             } else {
                 textInputEditTextCheckAccountNumber.text?.clear()
                 textInputEditTextCheckNumber.text?.clear()
-                textInputEditTextStartDate.text?.clear()
+                binding.viewCheckDateCheck.textInputEditTextStartDate.text?.clear()
             }
         } else {
             if (branchTransactionForm.type == BranchVisitTypeEnum.CHECK_DEPOSIT_OFF_US.value && isEdit) {
@@ -403,13 +396,13 @@ class BranchVisitTransactionFormActivity :
                 textInputEditTextCheckNumber.text?.clear()
             }
             textInputEditTextCheckAccountNumber.setText(EMPTY_VALUE)
-            textInputEditTextStartDate.setText(EMPTY_VALUE)
+            binding.viewCheckDateCheck.textInputEditTextStartDate.setText(EMPTY_VALUE)
         }
     }
 
     private fun clearFormFocus() {
-        constraintLayoutParent.requestFocus()
-        constraintLayoutParent.isFocusableInTouchMode = true
+        binding.constraintLayoutParent.requestFocus()
+        binding.constraintLayoutParent.isFocusableInTouchMode = true
     }
 
     private fun clickAdd() {
@@ -429,18 +422,18 @@ class BranchVisitTransactionFormActivity :
     private fun addBranchTransaction() {
         val branchTransactionForm = BranchTransactionForm().apply {
             type = getType()
-            amount = DecimalFormat("####0.00").format(et_amount.getNumericValue())
+            amount = DecimalFormat("####0.00").format(binding.etAmount.getNumericValue())
             currency = "PHP"
-            textInputEditTextStartDate.tag?.let {
+            binding.viewCheckDateCheck.textInputEditTextStartDate.tag?.let {
                 checkDate = emptyToNullValue(it.toString())
             }
             checkNumber = emptyToNullValue(textInputEditTextCheckNumber.text.toString())
             accountNumber = emptyToNullValue(textInputEditTextCheckAccountNumber.text.toString())
             remarks =
-                if (textInputEditTextRemarks.text.toString() == "")
+                if (binding.textInputEditTextRemarks.text.toString() == "")
                     null
                 else
-                    textInputEditTextRemarks.text.toString()
+                    binding.textInputEditTextRemarks.text.toString()
         }
         if (isEdit) {
             viewModel.editBranchTransaction(
@@ -458,22 +451,22 @@ class BranchVisitTransactionFormActivity :
                 JsonHelper.fromJson(intent.getStringExtra(EXTRA_BRANCH_TRANSACTION))
             when (branchTransactionForm.type) {
                 BranchVisitTypeEnum.CHECK_DEPOSIT_ON_US.value -> {
-                    radioButtonUnionBank.isChecked = true
-                    radioButtonCheck.isChecked = true
+                    binding.radioButtonUnionBank.isChecked = true
+                    binding.radioButtonCheck.isChecked = true
                     initCheck(true)
                 }
                 BranchVisitTypeEnum.CHECK_DEPOSIT_OFF_US.value -> {
-                    radioButtonOtherBank.isChecked = true
-                    radioButtonCheck.isChecked = true
+                    binding.radioButtonOtherBank.isChecked = true
+                    binding.radioButtonCheck.isChecked = true
                     initCheck(false)
                 }
                 else -> {
-                    radioButtonCash.isEnabled = true
+                    binding.radioButtonCash.isEnabled = true
                     initCash()
                 }
             }
-            et_amount.setText(branchTransactionForm.amount)
-            textInputEditTextRemarks.setText(branchTransactionForm.remarks)
+            binding.etAmount.setText(branchTransactionForm.amount)
+            binding.textInputEditTextRemarks.setText(branchTransactionForm.remarks)
         } else {
             initCash()
         }
@@ -488,10 +481,10 @@ class BranchVisitTransactionFormActivity :
     }
 
     private fun getType(): String? {
-        return if (radioButtonCash.isChecked)
+        return if (binding.radioButtonCash.isChecked)
             BranchVisitTypeEnum.CASH_DEPOSIT.value
         else {
-            if (radioButtonUnionBank.isChecked)
+            if (binding.radioButtonUnionBank.isChecked)
                 BranchVisitTypeEnum.CHECK_DEPOSIT_ON_US.value
             else
                 BranchVisitTypeEnum.CHECK_DEPOSIT_OFF_US.value
@@ -505,4 +498,10 @@ class BranchVisitTransactionFormActivity :
         const val DRAWABLE_RIGHT = 2
         const val EMPTY_VALUE = "-"
     }
+
+    override val layoutId: Int
+        get() = R.layout.activity_branch_visit_transaction_form
+
+    override val viewModelClassType: Class<BranchVisitTransactionFormViewModel>
+        get() = BranchVisitTransactionFormViewModel::class.java
 }
