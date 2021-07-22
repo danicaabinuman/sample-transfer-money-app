@@ -175,7 +175,7 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
                     app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
-                    app:layout_constraintTop_toTopOf="@id/tv_years_in_business" />
+                    app:layout_constraintTop_toTopOf="@id/tv_business_years" />
 
                 <ImageView
                     android:id="@+id/btn_years_decrement_inactive"

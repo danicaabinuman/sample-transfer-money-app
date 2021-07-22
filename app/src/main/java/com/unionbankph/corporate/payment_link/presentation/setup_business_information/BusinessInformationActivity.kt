@@ -83,11 +83,9 @@ class BusinessInformationActivity :
         if (tv_years_counter.text == "0") {
             btn_years_decrement_active.visibility = View.GONE
             btn_years_decrement_inactive.visibility = View.VISIBLE
-            tv_years_counter.visibility = View.INVISIBLE
         } else {
             btn_years_decrement_active.visibility = View.VISIBLE
             btn_years_decrement_inactive.visibility = View.GONE
-            tv_years_counter.visibility = View.VISIBLE
         }
 
         if (tv_branch_counter.text == "1") {
