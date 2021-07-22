@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -14,13 +15,14 @@ import com.unionbankph.corporate.payment_link.presentation.onboarding.Onboarding
 import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
 import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
+import kotlinx.android.synthetic.main.spinner.*
 
 class BusinessInformationActivity :
     BaseActivity<BusinessInformationViewModel>(R.layout.activity_business_information),
     AdapterView.OnItemSelectedListener {
 
     var businessType =
-        arrayOf("Manufacturer", "Wholesaler", "Service", "Importer", "Exporter", "Retailer")
+        arrayOf("Select", "Manufacturer", "Wholesaler", "Service", "Importer", "Exporter", "Retailer")
     var business = "Wholesaler"
     var lazadaCounter = 0
     var shopeeCounter = 0
@@ -67,15 +69,25 @@ class BusinessInformationActivity :
     private fun natureOfBusiness() {
 
         var aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, businessType)
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        aa.setDropDownViewResource(R.layout.spinner)
 
         with(dropdownBusinessInformation) {
             adapter = aa
-            setSelection(1, false)
+            setSelection(0, false)
             onItemSelectedListener = this@BusinessInformationActivity
             prompt = "SAMPLE PROMPT MESSAGE"
             gravity = Gravity.CENTER
         }
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        if (position > 0){
+            business = parent?.getItemAtPosition(position).toString()
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        TODO("Not yet implemented")
     }
 
     private fun fromZeroCounter(){
@@ -131,14 +143,6 @@ class BusinessInformationActivity :
         tv_branch_counter.text = branchCounter.toString()
 
         fromZeroCounter()
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        business = parent?.getItemAtPosition(position).toString()
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 
     private fun btnLazadaClicked() {

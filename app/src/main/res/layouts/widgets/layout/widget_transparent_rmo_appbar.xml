@@ -43,6 +43,18 @@
                 android:textColor="#FF8200"
                 android:textSize="@dimen/text_14"
                 android:layout_marginEnd="@dimen/grid_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_delete"
+                android:textColor="#FF8200"
+                android:textSize="@dimen/text_14"
+                android:layout_marginEnd="@dimen/grid_2"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

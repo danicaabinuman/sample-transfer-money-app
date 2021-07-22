@@ -70,8 +70,6 @@ class OnboardingUploadPhotosFragment : BottomSheetDialogFragment() {
     companion object{
         const val TAG = "BottomSheetDialogUploadPhotos"
 
-//        fun newInstance() : OnboardingUploadPhotosFragment
-
         @JvmStatic
         fun newInstance() =
             OnboardingUploadPhotosFragment().apply {

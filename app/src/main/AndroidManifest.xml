@@ -625,6 +625,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name=".payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
         <!-- Others -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

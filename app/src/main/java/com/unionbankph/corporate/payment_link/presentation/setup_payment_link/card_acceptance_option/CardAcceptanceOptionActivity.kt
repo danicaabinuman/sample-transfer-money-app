@@ -1,11 +1,10 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import kotlinx.android.synthetic.main.activity_card_acceptance_option.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
@@ -22,6 +21,7 @@ class CardAcceptanceOptionActivity :
         super.onViewsBound()
 
         selectYesCardPayments()
+        selectNotNowCardPayments()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -36,8 +36,28 @@ class CardAcceptanceOptionActivity :
 
     private fun selectYesCardPayments(){
         btnYes.setOnClickListener {
-            val intent = Intent(this, YesAcceptCardPaymentsActivity::class.java)
-            startActivity(intent)
+            navigator.navigate(
+                this,
+                YesAcceptCardPaymentsActivity::class.java,
+                null,
+                isClear = false,
+                isAnimated = true,
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+            )
         }
     }
+
+    private fun selectNotNowCardPayments(){
+        btnNotNow.setOnClickListener {
+            navigator.navigate(
+                this,
+                NotNowCardPaymentsActivity::class.java,
+                null,
+                isClear = false,
+                isAnimated = true,
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+            )
+        }
+    }
+
 }
