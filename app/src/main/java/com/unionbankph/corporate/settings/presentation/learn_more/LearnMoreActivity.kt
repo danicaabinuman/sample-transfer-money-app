@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.learn_more
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -120,10 +121,10 @@ class LearnMoreActivity :
         controller.setData(data)
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_learn_more
-
     override val viewModelClassType: Class<LearnMoreViewModel>
         get() = LearnMoreViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityLearnMoreBinding
+        get() = ActivityLearnMoreBinding::inflate
 
 }

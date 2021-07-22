@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.branch.presentation.branch
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -163,9 +164,9 @@ class BranchActivity :
         viewModel.getBranches()
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch
-
     override val viewModelClassType: Class<BranchViewModel>
         get() = BranchViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchBinding
+        get() = ActivityBranchBinding::inflate
 }

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.approval.presentation.approval_activity_log
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -167,10 +168,10 @@ class ActivityLogActivity :
 
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_activity_log
-
     override val viewModelClassType: Class<ActivityLogViewModel>
         get() = ActivityLogViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityActivityLogBinding
+        get() = ActivityActivityLogBinding::inflate
 
 }

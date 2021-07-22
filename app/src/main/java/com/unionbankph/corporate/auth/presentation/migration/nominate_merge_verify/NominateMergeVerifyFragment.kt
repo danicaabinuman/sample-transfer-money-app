@@ -2,6 +2,8 @@ package com.unionbankph.corporate.auth.presentation.migration.nominate_merge_ver
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -148,9 +150,9 @@ class NominateMergeVerifyFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_nominate_email_taken_verify
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNominateEmailTakenVerifyBinding
+        get() = FragmentNominateEmailTakenVerifyBinding::inflate
 }

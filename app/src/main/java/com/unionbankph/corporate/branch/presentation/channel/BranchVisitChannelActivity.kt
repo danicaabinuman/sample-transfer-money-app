@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.branch.presentation.channel
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -63,9 +64,9 @@ class BranchVisitChannelActivity :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch_visit_channel
-
     override val viewModelClassType: Class<BranchVisitChannelViewModel>
         get() = BranchVisitChannelViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchVisitChannelBinding
+        get() = ActivityBranchVisitChannelBinding::inflate
 }

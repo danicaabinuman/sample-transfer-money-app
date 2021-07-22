@@ -2,6 +2,7 @@ package com.unionbankph.corporate.auth.presentation.migration.migration_form
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -259,9 +260,9 @@ class MigrationFormActivity :
         const val SCREEN_EBANKING = "ebanking"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_migration_form
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityMigrationFormBinding
+        get() = ActivityMigrationFormBinding::inflate
 }

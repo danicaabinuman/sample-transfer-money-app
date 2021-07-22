@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.branch.presentation.confirmation
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -238,9 +239,9 @@ class BranchVisitConfirmationActivity :
         const val EXTRA_CONFIRMATION_FORM = "confirmation_form"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch_visit_confirmation
-
     override val viewModelClassType: Class<BranchVisitConfirmationViewModel>
         get() = BranchVisitConfirmationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchVisitConfirmationBinding
+        get() = ActivityBranchVisitConfirmationBinding::inflate
 }

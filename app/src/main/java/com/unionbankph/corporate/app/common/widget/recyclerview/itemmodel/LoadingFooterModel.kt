@@ -11,8 +11,12 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.databinding.FooterProgressBarBinding
 
-@EpoxyModelClass(layout = R.layout.footer_progress_bar)
+@EpoxyModelClass
 abstract class LoadingFooterModel : EpoxyModelWithHolder<LoadingFooterModel.Holder>() {
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.footer_progress_bar
+    }
 
     @EpoxyAttribute
     var loading: Boolean = false

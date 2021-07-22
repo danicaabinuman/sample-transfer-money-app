@@ -2,6 +2,7 @@ package com.unionbankph.corporate.branch.presentation.summary
 
 import android.os.Bundle
 import android.text.Spanned
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -248,9 +249,9 @@ class BranchVisitSummaryActivity :
         const val EXTRA_BRANCH_VISIT_SUBMIT_DTO = "branch_visit_submit_dto"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch_visit_summary
-
     override val viewModelClassType: Class<BranchVisitSummaryViewModel>
         get() = BranchVisitSummaryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchVisitSummaryBinding
+        get() = ActivityBranchVisitSummaryBinding::inflate
 }

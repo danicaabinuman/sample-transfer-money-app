@@ -107,22 +107,22 @@ constructor(
 abstract class AccountDetailHeaderModel :
     EpoxyModelWithHolder<AccountDetailHeaderModel.Holder>() {
 
-    @field:EpoxyAttribute
+    @EpoxyAttribute
     lateinit var context: Context
 
-    @field:EpoxyAttribute
+    @EpoxyAttribute
     lateinit var viewUtil: ViewUtil
 
-    @field:EpoxyAttribute
+    @EpoxyAttribute
     lateinit var autoFormatUtil: AutoFormatUtil
 
-    @field:EpoxyAttribute
+    @EpoxyAttribute
     lateinit var account: Account
 
-    @field:EpoxyAttribute
+    @EpoxyAttribute
     var loadingAccount: Boolean? = null
 
-    @field:EpoxyAttribute
+    @EpoxyAttribute
     lateinit var callbacks: AccountDetailController.AdapterCallbacks
 
     override fun bind(holder: Holder) {

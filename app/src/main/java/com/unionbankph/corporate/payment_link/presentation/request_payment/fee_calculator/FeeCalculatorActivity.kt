@@ -2,6 +2,7 @@ package com.unionbankph.corporate.payment_link.presentation.request_payment.fee_
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
@@ -169,11 +170,11 @@ class FeeCalculatorActivity :
         const val FROM_WHAT_TAB = "from_what_tab"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fee_calculator
-
     override val viewModelClassType: Class<FeeCalculatorViewModel>
         get() = FeeCalculatorViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFeeCalculatorBinding
+        get() = ActivityFeeCalculatorBinding::inflate
 
 
 }

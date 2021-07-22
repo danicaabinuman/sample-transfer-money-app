@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.welcome_enter
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
@@ -186,9 +188,9 @@ class DaoWelcomeEnterFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_welcome_enter
-
     override val viewModelClassType: Class<DaoWelcomeEnterViewModel>
         get() = DaoWelcomeEnterViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoWelcomeEnterBinding
+        get() = FragmentDaoWelcomeEnterBinding::inflate
 }

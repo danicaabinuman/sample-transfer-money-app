@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
@@ -333,9 +335,9 @@ class DaoJumioVerificationFragment :
         const val EXTRA_IS_EDIT = "isEdit"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_jumio_verification
-
     override val viewModelClassType: Class<DaoJumioVerificationViewModel>
         get() = DaoJumioVerificationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoJumioVerificationBinding
+        get() = FragmentDaoJumioVerificationBinding::inflate
 }

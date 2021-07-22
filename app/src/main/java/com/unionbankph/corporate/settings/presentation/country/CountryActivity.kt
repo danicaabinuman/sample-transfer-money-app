@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.country
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -191,9 +192,9 @@ class CountryActivity :
         MIGRATION_SCREEN
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_countries
-
     override val viewModelClassType: Class<CountryViewModel>
         get() = CountryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCountriesBinding
+        get() = ActivityCountriesBinding::inflate
 }

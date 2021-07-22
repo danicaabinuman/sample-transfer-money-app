@@ -4,6 +4,7 @@ import android.Manifest
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
@@ -257,9 +258,9 @@ class CheckDepositCameraActivity :
         const val EXTRA_CHECK_DEPOSIT_UPLOAD = "check_deposit_upload"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_check_deposit_camera
-
     override val viewModelClassType: Class<CheckDepositCameraViewModel>
         get() = CheckDepositCameraViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositCameraBinding
+        get() = ActivityCheckDepositCameraBinding::inflate
 }

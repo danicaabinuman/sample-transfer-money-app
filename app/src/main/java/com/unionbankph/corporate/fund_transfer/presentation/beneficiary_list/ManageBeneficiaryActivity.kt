@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.fund_transfer.presentation.beneficiary_list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -525,10 +526,10 @@ class ManageBeneficiaryActivity :
     private fun getSwipeRefreshLayout() =
         if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutBeneficiary
 
-    override val layoutId: Int
-        get() = R.layout.activity_manage_beneficiary
-
     override val viewModelClassType: Class<ManageBeneficiaryViewModel>
         get() = ManageBeneficiaryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityManageBeneficiaryBinding
+        get() = ActivityManageBeneficiaryBinding::inflate
 
 }

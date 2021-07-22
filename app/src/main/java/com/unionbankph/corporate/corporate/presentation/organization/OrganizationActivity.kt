@@ -3,6 +3,7 @@ package com.unionbankph.corporate.corporate.presentation.organization
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -313,9 +314,9 @@ class OrganizationActivity :
         const val TUTORIAL_ORG_NAME = "ABC Company"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_organization
-
     override val viewModelClassType: Class<OrganizationViewModel>
         get() = OrganizationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOrganizationBinding
+        get() = ActivityOrganizationBinding::inflate
 }

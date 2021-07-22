@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.branch.presentation.list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -468,9 +469,9 @@ class BranchVisitActivity :
     private fun getSwipeRefreshLayout() =
         if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutBranchVisit
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch_visit
-
     override val viewModelClassType: Class<BranchVisitViewModel>
         get() = BranchVisitViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchVisitBinding
+        get() = ActivityBranchVisitBinding::inflate
 }

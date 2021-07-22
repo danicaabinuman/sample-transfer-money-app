@@ -308,9 +308,9 @@ class BranchVisitDetailActivity :
         const val EXTRA_ID = "id"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch_visit_detail
-
     override val viewModelClassType: Class<BranchVisitDetailViewModel>
         get() = BranchVisitDetailViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchVisitDetailBinding
+        get() = ActivityBranchVisitDetailBinding::inflate
 }

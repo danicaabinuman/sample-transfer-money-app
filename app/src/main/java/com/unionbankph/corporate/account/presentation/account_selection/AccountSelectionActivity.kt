@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.account.presentation.account_selection
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -299,8 +300,9 @@ class AccountSelectionActivity :
         const val EXTRA_EXCEPT_CURRENCY = "except_currency"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_account_selection
     override val viewModelClassType: Class<AccountSelectionViewModel>
         get() = AccountSelectionViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityAccountSelectionBinding
+        get() = ActivityAccountSelectionBinding::inflate
 }

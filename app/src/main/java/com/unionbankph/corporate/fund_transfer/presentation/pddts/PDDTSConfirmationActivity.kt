@@ -2,6 +2,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.pddts
 
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -516,9 +517,9 @@ class PDDTSConfirmationActivity :
         const val EXTRA_REMINDERS = "reminders"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fund_transfer_confirmation_pesonet
-
     override val viewModelClassType: Class<PDDTSViewModel>
         get() = PDDTSViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferConfirmationPesonetBinding
+        get() = ActivityFundTransferConfirmationPesonetBinding::inflate
 }

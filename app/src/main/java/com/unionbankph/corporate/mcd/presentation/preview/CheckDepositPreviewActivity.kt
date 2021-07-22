@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.Observer
@@ -343,9 +344,9 @@ class CheckDepositPreviewActivity :
         const val EXTRA_CHECK_DEPOSIT_UPLOAD = "check_deposit_upload"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_check_deposit_preview
-
     override val viewModelClassType: Class<CheckDepositPreviewViewModel>
         get() = CheckDepositPreviewViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositPreviewBinding
+        get() = ActivityCheckDepositPreviewBinding::inflate
 }

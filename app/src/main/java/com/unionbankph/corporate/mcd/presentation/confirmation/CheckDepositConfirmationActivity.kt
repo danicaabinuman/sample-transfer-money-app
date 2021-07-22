@@ -3,6 +3,7 @@ package com.unionbankph.corporate.mcd.presentation.confirmation
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.ImageView
 import androidx.lifecycle.Observer
@@ -241,9 +242,10 @@ class CheckDepositConfirmationActivity :
     companion object {
         const val EXTRA_FORM = "form"
     }
-
-    override val layoutId: Int
-        get() = R.layout.activity_check_deposit_confirmation
+    
     override val viewModelClassType: Class<CheckDepositConfirmationViewModel>
         get() = CheckDepositConfirmationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositConfirmationBinding
+        get() = ActivityCheckDepositConfirmationBinding::inflate
 }

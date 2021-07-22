@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.migration.migration_merge
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.viewpager.widget.ViewPager
 import com.unionbankph.corporate.R
@@ -141,9 +142,9 @@ class MigrationMergeActivity :
         const val FRAGMENT_MERGE_SUCCESS = "merge_success"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_migration_merge
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityMigrationMergeBinding
+        get() = ActivityMigrationMergeBinding::inflate
 }

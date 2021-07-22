@@ -2,6 +2,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.ubp
 
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -461,9 +462,9 @@ class UBPConfirmationActivity :
         const val EXTRA_REMINDERS = "reminders"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fund_transfer_confirmation_ubp
-
     override val viewModelClassType: Class<UBPViewModel>
         get() = UBPViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferConfirmationUbpBinding
+        get() = ActivityFundTransferConfirmationUbpBinding::inflate
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Html
 import android.text.Spanned
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -766,9 +767,9 @@ class InstaPaySummaryActivity :
         const val EXTRA_CUSTOM_SERVICE_FEE = "custom_service_fee"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fund_transfer_summary_instapay
-
     override val viewModelClassType: Class<InstaPayViewModel>
         get() = InstaPayViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferSummaryInstapayBinding
+        get() = ActivityFundTransferSummaryInstapayBinding::inflate
 }

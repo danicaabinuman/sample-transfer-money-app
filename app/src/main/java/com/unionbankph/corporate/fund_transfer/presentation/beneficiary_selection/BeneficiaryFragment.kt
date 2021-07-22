@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -239,9 +241,9 @@ class BeneficiaryFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_beneficiary
-
     override val viewModelClassType: Class<BeneficiaryViewModel>
         get() = BeneficiaryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentBeneficiaryBinding
+        get() = FragmentBeneficiaryBinding::inflate
 }

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.otp
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.widget.EditText
@@ -848,9 +849,9 @@ class OTPActivity :
         const val PAGE_BILLS_PAYMENT = "bills_payment"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_otp
-
     override val viewModelClassType: Class<OTPViewModel>
         get() = OTPViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOtpBinding
+        get() = ActivityOtpBinding::inflate
 }

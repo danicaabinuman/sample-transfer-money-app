@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.welcome
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
@@ -198,9 +200,9 @@ class DaoWelcomeFragment :
         binding.tieEmailAddress.refresh()
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_welcome
-
     override val viewModelClassType: Class<DaoWelcomeViewModel>
         get() = DaoWelcomeViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoWelcomeBinding
+        get() = FragmentDaoWelcomeBinding::inflate
 }

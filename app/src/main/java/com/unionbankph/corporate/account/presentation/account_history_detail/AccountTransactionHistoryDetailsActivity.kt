@@ -3,6 +3,7 @@ package com.unionbankph.corporate.account.presentation.account_history_detail
 import android.Manifest
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
@@ -295,10 +296,10 @@ class AccountTransactionHistoryDetailsActivity :
         const val EXTRA_ID = "id"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_account_transaction_history_details
-
     override val viewModelClassType: Class<AccountTransactionHistoryDetailsViewModel>
         get() = AccountTransactionHistoryDetailsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityAccountTransactionHistoryDetailsBinding
+        get() = ActivityAccountTransactionHistoryDetailsBinding::inflate
 
 }

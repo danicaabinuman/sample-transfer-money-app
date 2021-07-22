@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
@@ -116,9 +117,9 @@ class BeneficiaryActivity :
         const val PAGE_UBP_FORM = "ubp_form"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_beneficiary
-
     override val viewModelClassType: Class<BeneficiaryViewModel>
         get() = BeneficiaryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBeneficiaryBinding
+        get() = ActivityBeneficiaryBinding::inflate
 }

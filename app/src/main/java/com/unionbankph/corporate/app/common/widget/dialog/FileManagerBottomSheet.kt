@@ -1,5 +1,8 @@
 package com.unionbankph.corporate.app.common.widget.dialog
 
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
@@ -39,4 +42,7 @@ class FileManagerBottomSheet :
 
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingBinder: (View) -> BottomSheetFileManagerBinding
+        get() = BottomSheetFileManagerBinding::bind
 }

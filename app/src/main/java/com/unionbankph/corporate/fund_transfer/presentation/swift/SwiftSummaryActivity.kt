@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Html
 import android.text.Spanned
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -781,9 +782,8 @@ class SwiftSummaryActivity :
         const val EXTRA_CUSTOM_SERVICE_FEE = "custom_service_fee"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fund_transfer_summary_swift
-
     override val viewModelClassType: Class<SwiftViewModel>
         get() = SwiftViewModel::class.java
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferSummarySwiftBinding
+        get() = ActivityFundTransferSummarySwiftBinding::inflate
 }

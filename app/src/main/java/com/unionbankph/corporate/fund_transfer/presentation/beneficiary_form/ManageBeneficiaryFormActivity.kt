@@ -1122,9 +1122,9 @@ class ManageBeneficiaryFormActivity :
         const val DRAWABLE_RIGHT = 2
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_manage_beneficiary_form
-
     override val viewModelClassType: Class<ManageBeneficiaryFormViewModel>
         get() = ManageBeneficiaryFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityManageBeneficiaryFormBinding
+        get() = ActivityManageBeneficiaryFormBinding::inflate
 }

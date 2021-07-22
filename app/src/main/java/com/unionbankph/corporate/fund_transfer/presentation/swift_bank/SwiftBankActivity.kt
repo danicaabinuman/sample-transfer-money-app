@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.fund_transfer.presentation.swift_bank
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -223,10 +224,10 @@ class SwiftBankActivity :
         viewModel.getSwiftBanks(isInitialLoading)
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_swift_bank
-
     override val viewModelClassType: Class<SwiftBankViewModel>
         get() = SwiftBankViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySwiftBankBinding
+        get() = ActivitySwiftBankBinding::inflate
 
 }

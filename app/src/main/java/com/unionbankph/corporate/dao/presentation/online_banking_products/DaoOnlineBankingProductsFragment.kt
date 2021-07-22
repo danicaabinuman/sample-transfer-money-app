@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.online_banking_products
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -64,9 +66,9 @@ class DaoOnlineBankingProductsFragment :
     override fun onClickNext() {
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_online_banking_products
-
     override val viewModelClassType: Class<DaoOnlineBankingProductsViewModel>
         get() = DaoOnlineBankingProductsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoOnlineBankingProductsBinding
+        get() = FragmentDaoOnlineBankingProductsBinding::inflate
 }

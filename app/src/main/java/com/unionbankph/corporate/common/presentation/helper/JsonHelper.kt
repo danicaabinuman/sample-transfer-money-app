@@ -26,7 +26,6 @@ object JsonHelper {
         } catch (e: Exception) {
             throw JsonParseException()
         }
-
     }
 
     inline fun <reified T : Any> toJson(value: List<T>?): String {

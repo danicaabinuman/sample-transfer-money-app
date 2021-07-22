@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.presentation.notification
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Switch
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -215,9 +217,9 @@ class NotificationDetailFragment :
         const val EXTRA_ID = "id"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_notification_detail
-
     override val viewModelClassType: Class<NotificationViewModel>
         get() = NotificationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNotificationDetailBinding
+        get() = FragmentNotificationDetailBinding::inflate
 }

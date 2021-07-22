@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.company_info_1
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
@@ -315,9 +317,9 @@ class DaoCompanyInformationStepOneFragment :
         binding.constraintLayout.isFocusableInTouchMode = true
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_company_information_step_1
-
     override val viewModelClassType: Class<DaoCompanyInformationStepOneViewModel>
         get() = DaoCompanyInformationStepOneViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoCompanyInformationStep1Binding
+        get() = FragmentDaoCompanyInformationStep1Binding::inflate
 }

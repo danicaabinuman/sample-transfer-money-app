@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.notification.presentation.notification_log
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -105,9 +107,9 @@ class NotificationLogTabFragment :
         const val FRAGMENT_NOTIFICATION_LOG_DETAIL = "notification_log_detail"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_tab_notifications
-
     override val viewModelClassType: Class<NotificationLogViewModel>
         get() = NotificationLogViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTabNotificationsBinding
+        get() = FragmentTabNotificationsBinding::inflate
 }

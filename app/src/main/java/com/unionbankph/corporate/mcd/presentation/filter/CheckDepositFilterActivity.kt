@@ -2,6 +2,7 @@ package com.unionbankph.corporate.mcd.presentation.filter
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputEditText
@@ -414,10 +415,10 @@ class CheckDepositFilterActivity :
         const val STATUS_SELECTOR = "status"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_check_deposit_filter
-
     override val viewModelClassType: Class<CheckDepositFilterViewModel>
         get() = CheckDepositFilterViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositFilterBinding
+        get() = ActivityCheckDepositFilterBinding::inflate
 
 }

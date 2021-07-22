@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.splash
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
@@ -62,10 +64,10 @@ class SplashEndFragment :
         })
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_splash_screen_end
-
     override val viewModelClassType: Class<GeneralViewModel>
         get() = GeneralViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashScreenEndBinding
+        get() = FragmentSplashScreenEndBinding::inflate
 
 }

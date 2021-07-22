@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.splash
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -140,10 +141,10 @@ class SplashFrameActivity :
         const val SCREEN_LEARN_MORE = "learn_more"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_splash_frame_screen
-
     override val viewModelClassType: Class<GeneralViewModel>
         get() = GeneralViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySplashFrameScreenBinding
+        get() = ActivitySplashFrameScreenBinding::inflate
 
 }

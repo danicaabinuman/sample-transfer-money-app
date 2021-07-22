@@ -2,6 +2,7 @@ package com.unionbankph.corporate.mcd.presentation.list
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -561,9 +562,9 @@ class CheckDepositActivity :
     private fun getSwipeRefreshLayout() =
         if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutCheckDeposit
 
-    override val layoutId: Int
-        get() = R.layout.activity_check_deposit
-
     override val viewModelClassType: Class<CheckDepositViewModel>
         get() = CheckDepositViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositBinding
+        get() = ActivityCheckDepositBinding::inflate
 }

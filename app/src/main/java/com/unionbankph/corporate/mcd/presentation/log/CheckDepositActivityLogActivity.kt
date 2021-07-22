@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.mcd.presentation.log
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -112,9 +113,9 @@ class CheckDepositActivityLogActivity :
         const val EXTRA_ID = "id"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_check_deposit_logs
-
     override val viewModelClassType: Class<CheckDepositActivityLogViewModel>
         get() = CheckDepositActivityLogViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositLogsBinding
+        get() = ActivityCheckDepositLogsBinding::inflate
 }

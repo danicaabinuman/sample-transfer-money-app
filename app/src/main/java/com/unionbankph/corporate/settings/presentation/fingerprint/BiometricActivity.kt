@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.settings.presentation.fingerprint
 
+import android.view.LayoutInflater
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
@@ -134,9 +135,9 @@ class BiometricActivity :
         const val PAGE_SETTINGS = "settings"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_biometric
-
     override val viewModelClassType: Class<BiometricViewModel>
         get() = BiometricViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBiometricBinding
+        get() = ActivityBiometricBinding::inflate
 }

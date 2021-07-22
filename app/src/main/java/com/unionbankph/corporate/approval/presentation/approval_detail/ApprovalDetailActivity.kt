@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.SystemClock
 import android.text.Html
 import android.text.InputType
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -2009,10 +2010,10 @@ class ApprovalDetailActivity :
         const val SHOW_APRROVAL_ACTION = "approval_actions"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_approval_details
-
     override val viewModelClassType: Class<ApprovalDetailViewModel>
         get() = ApprovalDetailViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityApprovalDetailsBinding
+        get() = ActivityApprovalDetailsBinding::inflate
 
 }

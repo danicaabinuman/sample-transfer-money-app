@@ -2,6 +2,8 @@ package com.unionbankph.corporate.settings.presentation
 
 import android.os.Bundle
 import android.provider.Settings
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.platform.bus.event.FragmentSettingsSyncEvent
@@ -194,9 +196,9 @@ class SettingsFragment :
         const val FRAGMENT_NOTIFICATION_LOG = "notification_log"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_settings
-
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSettingsBinding
+        get() = FragmentSettingsBinding::inflate
 }

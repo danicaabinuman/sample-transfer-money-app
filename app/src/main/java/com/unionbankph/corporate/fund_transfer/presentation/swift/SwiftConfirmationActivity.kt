@@ -2,6 +2,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.swift
 
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -533,9 +534,9 @@ class SwiftConfirmationActivity :
         const val EXTRA_REMINDERS = "reminders"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fund_transfer_confirmation_swift
-
     override val viewModelClassType: Class<SwiftViewModel>
         get() = SwiftViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferConfirmationSwiftBinding
+        get() = ActivityFundTransferConfirmationSwiftBinding::inflate
 }

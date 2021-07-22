@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.presentation.profile
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
@@ -121,9 +123,9 @@ class ProfileSettingsFragment :
         )
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_profile_settings
-
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentProfileSettingsBinding
+        get() = FragmentProfileSettingsBinding::inflate
 }

@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.approval.presentation.approval_done
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
@@ -382,10 +384,10 @@ class ApprovalDoneFragment :
 
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_approval_done
-
     override val viewModelClassType: Class<ApprovalDoneViewModel>
         get() = ApprovalDoneViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentApprovalDoneBinding
+        get() = FragmentApprovalDoneBinding::inflate
 
 }

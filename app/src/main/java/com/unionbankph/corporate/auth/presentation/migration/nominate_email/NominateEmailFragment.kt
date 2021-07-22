@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.auth.presentation.migration.nominate_email
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -188,9 +190,9 @@ class NominateEmailFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_nominate_email
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNominateEmailBinding
+        get() = FragmentNominateEmailBinding::inflate
 }

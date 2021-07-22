@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.mcd.presentation.onboarding
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.formatString
@@ -71,9 +73,9 @@ class CheckDepositOnBoardingScreenFragment :
         IMPORTANT_SCREEN
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_splash_screen
-
     override val viewModelClassType: Class<CheckDepositOnBoardingViewModel>
         get() = CheckDepositOnBoardingViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashScreenBinding
+        get() = FragmentSplashScreenBinding::inflate
 }

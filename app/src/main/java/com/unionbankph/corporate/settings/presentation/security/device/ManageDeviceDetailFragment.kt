@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.settings.presentation.security.device
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -312,9 +314,9 @@ class ManageDeviceDetailFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_manage_device_detail
-
     override val viewModelClassType: Class<ManageDevicesViewModel>
         get() = ManageDevicesViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentManageDeviceDetailBinding
+        get() = FragmentManageDeviceDetailBinding::inflate
 }

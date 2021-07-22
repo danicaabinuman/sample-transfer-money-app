@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.bills_payment.presentation.biller
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
@@ -121,9 +122,9 @@ class BillerMainActivity :
         const val PAGE_BILLS_PAYMENT_FILTER = "bills_payment_filter"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_billers_main
-
     override val viewModelClassType: Class<BillerMainViewModel>
         get() = BillerMainViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBillersMainBinding
+        get() = ActivityBillersMainBinding::inflate
 }

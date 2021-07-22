@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.account.presentation.own_account
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -277,9 +279,9 @@ class OwnAccountFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_own_account
-
     override val viewModelClassType: Class<OwnAccountViewModel>
         get() = OwnAccountViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOwnAccountBinding
+        get() = FragmentOwnAccountBinding::inflate
 }

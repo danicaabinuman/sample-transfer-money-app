@@ -3,7 +3,9 @@ package com.unionbankph.corporate.settings.presentation.security
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
@@ -254,9 +256,9 @@ class SecurityFragment :
         )
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_security
-
     override val viewModelClassType: Class<GeneralSettingsViewModel>
         get() = GeneralSettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSecurityBinding
+        get() = FragmentSecurityBinding::inflate
 }

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account
 
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -67,9 +68,9 @@ class NominateSettlementActivity :
         const val EXTRA_ACCOUNTS_ARRAY = "EXTRA_ACCOUNTS_ARRAY"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_nominate_settlement
-
     override val viewModelClassType: Class<NominateSettlementViewModel>
         get() = NominateSettlementViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityNominateSettlementBinding
+        get() = ActivityNominateSettlementBinding::inflate
 }

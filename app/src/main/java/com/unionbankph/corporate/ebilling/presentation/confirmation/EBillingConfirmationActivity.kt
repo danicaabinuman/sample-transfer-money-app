@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.ebilling.presentation.confirmation
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -149,10 +150,10 @@ class EBillingConfirmationActivity :
 
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_ebilling_confirmation
-
     override val viewModelClassType: Class<EBillingConfirmationViewModel>
         get() = EBillingConfirmationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityEbillingConfirmationBinding
+        get() = ActivityEbillingConfirmationBinding::inflate
 
 }

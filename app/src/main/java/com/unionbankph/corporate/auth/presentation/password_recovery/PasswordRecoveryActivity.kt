@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.password_recovery
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.EditText
 import androidx.lifecycle.Observer
@@ -146,9 +147,9 @@ class PasswordRecoveryActivity :
         const val EXTRA_EMAIL = "email"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_password_recovery
-
     override val viewModelClassType: Class<PasswordRecoveryViewModel>
         get() = PasswordRecoveryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityPasswordRecoveryBinding
+        get() = ActivityPasswordRecoveryBinding::inflate
 }

@@ -2,9 +2,7 @@ package com.unionbankph.corporate.dao.presentation.type_of_business
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import androidx.appcompat.widget.AppCompatRadioButton
@@ -216,9 +214,9 @@ class DaoTypeOfBusinessFragment :
         const val EXTRA_REFERENCE_NUMBER = "referenceNumber"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_type_of_business
-
     override val viewModelClassType: Class<DaoTypeOfBusinessViewModel>
         get() = DaoTypeOfBusinessViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoTypeOfBusinessBinding
+        get() = FragmentDaoTypeOfBusinessBinding::inflate
 }

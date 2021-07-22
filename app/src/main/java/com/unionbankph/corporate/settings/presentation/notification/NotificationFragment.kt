@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.presentation.notification
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Switch
 import androidx.core.view.get
 import androidx.lifecycle.Observer
@@ -142,9 +144,9 @@ class NotificationFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_notification
-
     override val viewModelClassType: Class<NotificationViewModel>
         get() = NotificationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNotificationBinding
+        get() = FragmentNotificationBinding::inflate
 }

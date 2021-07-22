@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.fund_transfer.presentation.scheduled
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -115,9 +116,9 @@ class ManageScheduledTransferActivity :
         const val FRAGMENT_DONE = "Done"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_manage_scheduled_transfer
-
     override val viewModelClassType: Class<ManageScheduledTransferViewModel>
         get() = ManageScheduledTransferViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityManageScheduledTransferBinding
+        get() = ActivityManageScheduledTransferBinding::inflate
 }

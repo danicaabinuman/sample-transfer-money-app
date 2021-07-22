@@ -3,10 +3,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.pesonet
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -1168,9 +1165,9 @@ class PesoNetFormActivity :
         const val TAG_VALIDATE_TIME_ZONE_DIALOG = "validate_time_zone_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fund_transfer_form_pesonet
-
     override val viewModelClassType: Class<PesoNetViewModel>
         get() = PesoNetViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferFormPesonetBinding
+        get() = ActivityFundTransferFormPesonetBinding::inflate
 }

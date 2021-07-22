@@ -2,6 +2,7 @@ package com.unionbankph.corporate.dao.presentation
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -282,9 +283,9 @@ class DaoActivity :
         const val TAG_GO_BACK_DAO_DIALOG = "go_back_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_dao
-
     override val viewModelClassType: Class<DaoViewModel>
         get() = DaoViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityDaoBinding
+        get() = ActivityDaoBinding::inflate
 }

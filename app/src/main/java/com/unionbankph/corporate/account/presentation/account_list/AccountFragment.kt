@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.account.presentation.account_list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -540,9 +542,9 @@ class AccountFragment :
 
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_accounts
-
     override val viewModelClassType: Class<AccountViewModel>
         get() = AccountViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAccountsBinding
+        get() = FragmentAccountsBinding::inflate
 }

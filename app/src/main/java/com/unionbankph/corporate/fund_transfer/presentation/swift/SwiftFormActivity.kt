@@ -1353,9 +1353,9 @@ class SwiftFormActivity :
         const val DRAWABLE_RIGHT = 2
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fund_transfer_form_swift
-
     override val viewModelClassType: Class<SwiftViewModel>
         get() = SwiftViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferFormSwiftBinding
+        get() = ActivityFundTransferFormSwiftBinding::inflate
 }

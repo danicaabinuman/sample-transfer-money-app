@@ -4,6 +4,7 @@ import android.content.Intent
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -329,9 +330,9 @@ class SetupPaymentLinkActivity :
         const val REQUEST_CODE = 1216
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_setup_payment_links
-
     override val viewModelClassType: Class<SetupPaymentLinkViewModel>
         get() = SetupPaymentLinkViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySetupPaymentLinksBinding
+        get() = ActivitySetupPaymentLinksBinding::inflate
 }

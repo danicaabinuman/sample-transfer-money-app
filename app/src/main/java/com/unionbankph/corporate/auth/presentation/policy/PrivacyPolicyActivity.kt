@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.policy
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -273,9 +274,9 @@ class PrivacyPolicyActivity :
         const val PAGE_MCD_TERMS = "mcd_terms"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_privacy_policy
-
     override val viewModelClassType: Class<PrivacyPolicyViewModel>
         get() = PrivacyPolicyViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityPrivacyPolicyBinding
+        get() = ActivityPrivacyPolicyBinding::inflate
 }

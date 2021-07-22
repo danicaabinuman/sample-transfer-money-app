@@ -39,7 +39,7 @@ abstract class BranchVisitItemModel : EpoxyModelWithHolder<BranchVisitItemModel.
     override fun bind(holder: Holder) {
         super.bind(holder)
         holder.binding.apply {
-            cardViewBatch.root.visibility =
+            viewCardViewBatch.root.visibility =
                 if (branchVisit.numberOfTransactions > 1) View.VISIBLE
                 else View.GONE
             textViewRemarks.text = branchVisit.remarks

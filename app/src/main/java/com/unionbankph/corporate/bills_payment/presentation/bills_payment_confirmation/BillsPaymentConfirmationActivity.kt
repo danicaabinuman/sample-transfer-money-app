@@ -2,6 +2,7 @@ package com.unionbankph.corporate.bills_payment.presentation.bills_payment_confi
 
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -494,9 +495,9 @@ class BillsPaymentConfirmationActivity :
         const val EXTRA_REMINDERS = "reminders"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_bills_payment_confirmation
-
     override val viewModelClassType: Class<BillsPaymentConfirmationViewModel>
         get() = BillsPaymentConfirmationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBillsPaymentConfirmationBinding
+        get() = ActivityBillsPaymentConfirmationBinding::inflate
 }

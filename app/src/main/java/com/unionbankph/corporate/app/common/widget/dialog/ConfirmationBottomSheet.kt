@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.app.common.widget.dialog
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
 import com.unionbankph.corporate.app.common.extension.setContextCompatBackground
@@ -114,4 +116,7 @@ class ConfirmationBottomSheet :
 
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingBinder: (View) -> BottomSheetConfirmationBinding
+        get() = BottomSheetConfirmationBinding::bind
 }

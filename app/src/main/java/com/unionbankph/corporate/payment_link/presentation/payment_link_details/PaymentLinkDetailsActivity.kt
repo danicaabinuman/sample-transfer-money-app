@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -344,11 +345,11 @@ class LinkDetailsActivity :
         const val EXTRA_GENERATE_PAYMENT_LINK_RESPONSE = "extra_generate_payment_link_response"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_link_details
-
     override val viewModelClassType: Class<LinkDetailsViewModel>
         get() = LinkDetailsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityLinkDetailsBinding
+        get() = ActivityLinkDetailsBinding::inflate
 
 }
 

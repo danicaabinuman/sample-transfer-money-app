@@ -2,6 +2,9 @@ package com.unionbankph.corporate.app.common.widget.dialog
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
@@ -83,4 +86,7 @@ class SessionTimeOutBottomSheet :
 
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingBinder: (View) -> BottomSheetSessionTimeOutBinding
+        get() = BottomSheetSessionTimeOutBinding::bind
 }

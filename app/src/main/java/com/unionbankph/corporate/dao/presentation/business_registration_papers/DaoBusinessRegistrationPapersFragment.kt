@@ -7,6 +7,8 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -513,9 +515,9 @@ class DaoBusinessRegistrationPapersFragment :
         val VALID_EXTENSIONS = mutableListOf("jpg", "png", "pdf")
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_business_registration_papers
-
     override val viewModelClassType: Class<DaoBusinessRegistrationPapersViewModel>
         get() = DaoBusinessRegistrationPapersViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentBusinessRegistrationPapersBinding
+        get() = FragmentBusinessRegistrationPapersBinding::inflate
 }

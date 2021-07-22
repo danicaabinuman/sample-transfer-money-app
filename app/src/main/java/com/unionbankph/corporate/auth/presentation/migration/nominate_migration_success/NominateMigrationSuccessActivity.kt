@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.migration.nominate_migration_success
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -239,9 +240,9 @@ class NominateMigrationSuccessActivity :
         const val PARAM_CONFIRMATION_ID = "confirmationId"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_nominate_migration_success
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityNominateMigrationSuccessBinding
+        get() = ActivityNominateMigrationSuccessBinding::inflate
 }

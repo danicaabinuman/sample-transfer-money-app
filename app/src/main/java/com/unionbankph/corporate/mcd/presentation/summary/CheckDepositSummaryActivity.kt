@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.ImageView
 import androidx.core.view.isVisible
@@ -430,9 +431,9 @@ class CheckDepositSummaryActivity :
         const val EXTRA_CREATED_DATE = "created_date"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_check_deposit_summary
-
     override val viewModelClassType: Class<CheckDepositSummaryViewModel>
         get() = CheckDepositSummaryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositSummaryBinding
+        get() = ActivityCheckDepositSummaryBinding::inflate
 }

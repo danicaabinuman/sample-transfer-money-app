@@ -38,6 +38,7 @@ constructor(
     @AutoModel
     lateinit var errorAccountFooterModel: ErrorAccountFooterModel_
 
+
     private lateinit var accountAdapterCallback: AccountAdapterCallback
 
     init {
@@ -133,33 +134,77 @@ abstract class AccountItemModel : EpoxyModelWithHolder<AccountItemModel.Holder>(
         super.bind(holder)
         val account = JsonHelper.fromJson<Account>(accountString)
 
-        holder.binding.apply {
-            textViewCorporateName.text = viewUtil.getStringOrDefaultString(
-                account.name,
-                context.getString(R.string.title_account_name)
-            )
-            textViewAccountNumber.text = viewUtil.getStringOrEmpty(
-                viewUtil.getAccountNumberFormat(account.accountNumber)
-            )
-            textViewProductType.text = viewUtil.getStringOrEmpty(account.productCodeDesc)
+        holder.binding.textViewCorporateName.text = viewUtil.getStringOrDefaultString(
+            account.name,
+            context.getString(R.string.title_account_name)
+        )
+        holder.binding.textViewAccountNumber.text = viewUtil.getStringOrEmpty(
+            viewUtil.getAccountNumberFormat(account.accountNumber)
+        )
+        holder.binding.textViewProductType.text = viewUtil.getStringOrEmpty(account.productCodeDesc)
 
-            if (account.productType.equals(ACCOUNT_TYPE_ODA)) {
-                val availableCredit = autoFormatUtil.getBalance(
-                    AccountBalanceTypeEnum.AVAILABLE_CREDIT.value,
-                    account.headers
-                )
-                textViewAvailableBalanceTitle.text = availableCredit?.display
-                textViewAvailableBalance.text = availableCredit?.value ?: Constant.EMPTY
-                cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_orange)
-            } else {
-                val availableBalance = autoFormatUtil.getBalance(
-                    AccountBalanceTypeEnum.AVAILABLE.value,
-                    account.headers
-                )
-                textViewAvailableBalanceTitle.text = availableBalance?.display
-                textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
-                cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
+        if (account.productType.equals(ACCOUNT_TYPE_ODA)) {
+            val availableCredit = autoFormatUtil.getBalance(
+                AccountBalanceTypeEnum.AVAILABLE_CREDIT.value,
+                account.headers
+            )
+            holder.binding.textViewAvailableBalanceTitle.text = availableCredit?.display
+            holder.binding.textViewAvailableBalance.text = availableCredit?.value ?: Constant.EMPTY
+            holder.binding.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_orange)
+        } else {
+            val availableBalance = autoFormatUtil.getBalance(
+                AccountBalanceTypeEnum.AVAILABLE.value,
+                account.headers
+            )
+            holder.binding.textViewAvailableBalanceTitle.text = availableBalance?.display
+            holder.binding.textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
+            holder.binding.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
+        }
+
+        holder.binding.cardViewAccount.setOnClickListener {
+            if (account.permissionCollection.hasAllowToBTRViewTransaction &&
+                account.permissionCollection.hasAllowToBTRViewBalance &&
+                !errorBool
+            ) {
+                callbacks.onClickItem(accountString, position)
             }
+        }
+
+        if (loadingAccount) {
+            //callbacks.onRequestAccountDetail(account.id.toString(), position)
+            holder.binding.shimmerLayoutAmount.post {
+                holder.binding.shimmerLayoutAmount.startShimmerAnimation()
+            }
+            holder.binding.viewShimmer.visibility = View.VISIBLE
+            holder.binding.textViewAvailableBalanceTitle.visibility = View.VISIBLE
+            holder.binding.textViewAvailableBalance.visibility = View.INVISIBLE
+            holder.binding.textViewAvailableBalance.text =
+                context.formatString(R.string.value_default_zero_balance)
+            if (holder.binding.viewError.root.visibility == View.VISIBLE) {
+                holder.binding.viewError.root.visibility = View.GONE
+            }
+        } else {
+            holder.binding.shimmerLayoutAmount.post {
+                holder.binding.shimmerLayoutAmount.stopShimmerAnimation()
+            }
+            holder.binding.viewShimmer.visibility = View.GONE
+            if (account.permissionCollection.hasAllowToBTRViewBalance) {
+                holder.binding.textViewAvailableBalanceTitle.visibility = View.VISIBLE
+                holder.binding.textViewAvailableBalance.visibility = View.VISIBLE
+            } else {
+                holder.binding.textViewAvailableBalanceTitle.visibility = View.INVISIBLE
+                holder.binding.textViewAvailableBalance.visibility = View.INVISIBLE
+            }
+        }
+        if (errorBool) {
+            holder.binding.viewError.root.visibility = View.VISIBLE
+            holder.binding.textViewAvailableBalanceTitle.visibility = View.INVISIBLE
+            holder.binding.textViewAvailableBalance.visibility = View.INVISIBLE
+            holder.binding.viewError.root.setOnClickListener {
+                callbacks.onTapErrorRetry(account.id.toString(), position)
+            }
+        } else {
+            holder.binding.viewError.root.visibility = View.GONE
         }
     }
 
@@ -240,7 +285,7 @@ abstract class AccountRowModel : EpoxyModelWithHolder<AccountRowModel.Holder>() 
                 textViewRowAvailableBalance.text = availableBalance?.value.notNullable()
             }
 
-            holder.binding.root.setOnClickListener {
+            root.setOnClickListener {
                 if (account.permissionCollection.hasAllowToBTRViewTransaction &&
                     account.permissionCollection.hasAllowToBTRViewBalance &&
                     !errorBool

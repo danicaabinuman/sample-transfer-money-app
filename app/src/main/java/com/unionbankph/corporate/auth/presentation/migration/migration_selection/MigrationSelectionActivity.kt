@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.migration.migration_selection
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.room.migration.Migration
 import com.unionbankph.corporate.R
@@ -58,9 +59,9 @@ class MigrationSelectionActivity :
         )
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_migration_selection
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityMigrationSelectionBinding
+        get() = ActivityMigrationSelectionBinding::inflate
 }

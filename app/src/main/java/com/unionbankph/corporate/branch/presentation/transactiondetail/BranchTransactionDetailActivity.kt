@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.branch.presentation.transactiondetail
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -141,10 +142,10 @@ class BranchTransactionDetailActivity :
         const val EXTRA_BRANCH_TRANSACTION_DETAIL = "branch_transaction_detail"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch_transaction_detail
-
     override val viewModelClassType: Class<BranchTransactionDetailViewModel>
         get() = BranchTransactionDetailViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchTransactionDetailBinding
+        get() = ActivityBranchTransactionDetailBinding::inflate
 
 }

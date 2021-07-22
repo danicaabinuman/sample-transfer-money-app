@@ -2,10 +2,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled
 
 import android.os.Bundle
 import android.text.InputType
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
@@ -703,9 +700,9 @@ class ManageScheduledTransferOngoingFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_manage_scheduled_transfer_ongoing
-
     override val viewModelClassType: Class<ManageScheduledTransferViewModel>
         get() = ManageScheduledTransferViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentManageScheduledTransferOngoingBinding
+        get() = FragmentManageScheduledTransferOngoingBinding::inflate
 }

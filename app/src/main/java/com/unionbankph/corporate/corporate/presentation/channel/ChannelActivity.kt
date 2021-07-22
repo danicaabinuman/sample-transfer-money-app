@@ -3,6 +3,7 @@ package com.unionbankph.corporate.corporate.presentation.channel
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -636,9 +637,9 @@ class ChannelActivity :
         const val PAGE_BRANCH_VISIT = "branch_visit"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_channel
-
     override val viewModelClassType: Class<ChannelViewModel>
         get() = ChannelViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityChannelBinding
+        get() = ActivityChannelBinding::inflate
 }

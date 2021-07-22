@@ -37,7 +37,7 @@ import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
 
-abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>() : Fragment() {
+abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     lateinit var viewModel: VM
         private set
@@ -45,8 +45,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>() : Fragment() {
     lateinit var binding: VB
         private set
 
-    @get:LayoutRes
-    abstract val layoutId: Int
+    abstract val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
 
     protected abstract val viewModelClassType: Class<VM>
 
@@ -120,7 +119,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>() : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        initViewBinding(inflater, container)
+//        initViewBinding(inflater, container)
+        binding = bindingInflater.invoke(inflater, container, false)
         return binding.root
     }
 
@@ -160,7 +160,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel>() : Fragment() {
     }
 
     private fun initViewBinding(inflater: LayoutInflater, container: ViewGroup?) {
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
     }
 
     fun getLinearLayoutManager(): LinearLayoutManager {

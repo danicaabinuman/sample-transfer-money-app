@@ -122,7 +122,7 @@ abstract class OrganizationPaymentItemModel :
     override fun bind(holder: Holder) {
         super.bind(holder)
         holder.binding.apply {
-            cardViewBatch.root.visibility =
+            viewCardViewBatch.cardViewBatch.visibility =
                 if (transaction.batchType == Constant.TYPE_BATCH) View.VISIBLE
                 else View.GONE
 

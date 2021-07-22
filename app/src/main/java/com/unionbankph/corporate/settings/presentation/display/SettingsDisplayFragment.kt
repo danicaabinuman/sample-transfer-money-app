@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.settings.presentation.display
 
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -77,9 +79,9 @@ class SettingsDisplayFragment :
         binding.constraintLayoutListView.tag = LIST_VIEW_DISPLAY
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_settings_display
-
     override val viewModelClassType: Class<SettingsDisplayViewModel>
         get() = SettingsDisplayViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSettingsDisplayBinding
+        get() = FragmentSettingsDisplayBinding::inflate
 }

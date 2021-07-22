@@ -197,6 +197,7 @@ dependencies {
     implementation(Libraries.kotlinX)
     implementation(Libraries.kotlinXConverter)
     implementation(Libraries.extensionLifeCycle)
+    implementation(Libraries.commonJava8LifeCycle)
     implementation(Libraries.glide)
     implementation(Libraries.timber)
     kapt(Libraries.glideCompiler)

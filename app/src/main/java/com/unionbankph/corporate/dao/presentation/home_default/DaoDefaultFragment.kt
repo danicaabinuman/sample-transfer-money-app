@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.home_default
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.room.Dao
@@ -38,9 +40,9 @@ class DaoDefaultFragment :
         const val SCREEN_PERSONAL_INFORMATION = "personal_information"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_default
-
     override val viewModelClassType: Class<DaoDefaultViewModel>
         get() = DaoDefaultViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoDefaultBinding
+        get() = FragmentDaoDefaultBinding::inflate
 }

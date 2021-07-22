@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service
 
+import android.view.LayoutInflater
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 import com.unionbankph.corporate.R
@@ -70,10 +71,10 @@ class TermsOfServiceActivity : BaseActivity<ActivityTermsOfServiceBinding, Terms
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_terms_of_service
-
     override val viewModelClassType: Class<TermsOfServiceViewModel>
         get() = TermsOfServiceViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityTermsOfServiceBinding
+        get() = ActivityTermsOfServiceBinding::inflate
 
 }

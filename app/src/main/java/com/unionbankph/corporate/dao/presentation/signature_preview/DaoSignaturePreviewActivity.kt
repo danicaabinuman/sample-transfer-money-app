@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -147,9 +148,9 @@ class DaoSignaturePreviewActivity :
         const val EXTRA_DAO_FORM = "daoForm"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_dao_signature_result
-
     override val viewModelClassType: Class<DaoSignaturePreviewViewModel>
         get() = DaoSignaturePreviewViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityDaoSignatureResultBinding
+        get() = ActivityDaoSignatureResultBinding::inflate
 }

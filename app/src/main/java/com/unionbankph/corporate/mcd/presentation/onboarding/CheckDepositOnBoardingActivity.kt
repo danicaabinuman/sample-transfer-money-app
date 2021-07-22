@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.mcd.presentation.onboarding
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
@@ -194,9 +195,9 @@ class CheckDepositOnBoardingActivity :
         const val EXTRA_SCREEN = "screen"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_splash_frame_screen
-
     override val viewModelClassType: Class<CheckDepositOnBoardingViewModel>
         get() = CheckDepositOnBoardingViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySplashFrameScreenBinding
+        get() = ActivitySplashFrameScreenBinding::inflate
 }

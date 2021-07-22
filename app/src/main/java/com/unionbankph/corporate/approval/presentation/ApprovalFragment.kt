@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.approval.presentation
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -230,11 +232,11 @@ class ApprovalFragment :
         private var FRAGMENT_DONE = "done"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_approvals
-
     override val viewModelClassType: Class<TutorialViewModel>
         get() = TutorialViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentApprovalsBinding
+        get() = FragmentApprovalsBinding::inflate
 }
 
 

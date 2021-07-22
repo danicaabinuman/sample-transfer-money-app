@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.approval.presentation.approval_batch_detail
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
@@ -164,10 +165,10 @@ class BatchDetailActivity :
         const val EXTRA_SUPPORT_CWT = "support_cwt"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_batch_detail
-
     override val viewModelClassType: Class<BatchTransferViewModel>
         get() = BatchTransferViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBatchDetailBinding
+        get() = ActivityBatchDetailBinding::inflate
 
 }

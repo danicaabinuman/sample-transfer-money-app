@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -1271,9 +1272,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         const val TAG_LOGOUT_DIALOG = "logout_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_dashboard
-
     override val viewModelClassType: Class<DashboardViewModel>
         get() = DashboardViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityDashboardBinding
+        get() = ActivityDashboardBinding::inflate
 }

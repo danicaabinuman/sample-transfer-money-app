@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.single_selector
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -271,9 +272,9 @@ class SingleSelectorActivity :
         const val EXTRA_PARAM = "param"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_selector
-
     override val viewModelClassType: Class<SingleSelectorViewModel>
         get() = SingleSelectorViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySelectorBinding
+        get() = ActivitySelectorBinding::inflate
 }

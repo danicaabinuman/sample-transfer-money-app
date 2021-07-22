@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.reminders
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -36,9 +38,9 @@ class DaoRemindersFragment :
         findNavController().navigate(R.id.action_company_information_step_one)
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_reminders
-
     override val viewModelClassType: Class<DaoRemindersViewModel>
         get() = DaoRemindersViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoRemindersBinding
+        get() = FragmentDaoRemindersBinding::inflate
 }

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.login
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.unionbankph.corporate.R
@@ -80,9 +81,9 @@ class LoginActivity :
         const val EXTRA_SPLASH_SCREEN = "splash_screen"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_login
-
     override val viewModelClassType: Class<LoginViewModel>
         get() = LoginViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityLoginBinding
+        get() = ActivityLoginBinding::inflate
 }

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.branch.presentation.transactionlist
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -320,10 +321,10 @@ class BranchTransactionActivity :
         const val TAG_DELETE_TRANSACTION_DIALOG = "delete_transaction_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch_transaction
-
     override val viewModelClassType: Class<BranchTransactionViewModel>
         get() = BranchTransactionViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchTransactionBinding
+        get() = ActivityBranchTransactionBinding::inflate
 
 }

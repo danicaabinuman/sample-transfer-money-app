@@ -334,9 +334,9 @@ class ManageFrequentBillerDetailActivity :
         const val TAG_DELETE_FREQUENT_BILLER_DIALOG = "delete_frequent_biller_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_frequent_biller_detail
-
     override val viewModelClassType: Class<ManageFrequentBillerDetailViewModel>
         get() = ManageFrequentBillerDetailViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFrequentBillerDetailBinding
+        get() = ActivityFrequentBillerDetailBinding::inflate
 }

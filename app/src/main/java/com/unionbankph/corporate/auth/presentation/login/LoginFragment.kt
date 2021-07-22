@@ -7,10 +7,7 @@ import android.content.IntentSender
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.view.KeyEvent
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -375,7 +372,7 @@ class LoginFragment :
         binding.btnApplyLoan.setOnClickListener {
             showDisclaimerDialog()
         }
-        binding.btnApplyLoan.setOnClickListener {
+        binding.btnInitialLogin.setOnClickListener {
             loginViews()
         }
         binding.tvForgotPassword.setOnClickListener {
@@ -935,7 +932,7 @@ class LoginFragment :
         binding.imageViewLogo.root.getLocationOnScreen(location)
         val y = location[1]
         val objectAnimator =
-            ObjectAnimator.ofFloat(binding.imageViewLogoAnimate, "y", y.toFloat())
+            ObjectAnimator.ofFloat(binding.imageViewLogoAnimate.root, "y", y.toFloat())
         Timber.d("y axis:${y.toFloat()}")
         objectAnimator.duration = resources.getInteger(R.integer.anim_duration_medium).toLong()
         objectAnimator.start()
@@ -960,10 +957,9 @@ class LoginFragment :
         const val REQUEST_CODE_UPDATE = 1
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_login
-
     override val viewModelClassType: Class<LoginViewModel>
         get() = LoginViewModel::class.java
 
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLoginBinding
+        get() = FragmentLoginBinding::inflate
 }

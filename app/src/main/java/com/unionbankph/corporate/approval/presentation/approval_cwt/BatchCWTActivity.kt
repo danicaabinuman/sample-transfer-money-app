@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.approval.presentation.approval_cwt
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -266,10 +267,10 @@ class BatchCWTActivity :
         const val EXTRA_REFERENCE_ID = "reference_id"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_batch_cwt
-
     override val viewModelClassType: Class<BatchCWTViewModel>
         get() = BatchCWTViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBatchCwtBinding
+        get() = ActivityBatchCwtBinding::inflate
 
 }

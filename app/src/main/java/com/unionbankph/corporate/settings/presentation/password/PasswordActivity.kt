@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.password
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -202,9 +203,9 @@ class PasswordActivity :
         const val PAGE_EDIT_EMAIL_ADDERSS = "edit_email_address"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_password
-
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityPasswordBinding
+        get() = ActivityPasswordBinding::inflate
 }

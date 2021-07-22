@@ -152,7 +152,7 @@ abstract class OngoingApprovalItemModel : EpoxyModelWithHolder<OngoingApprovalIt
     override fun bind(holder: Holder) {
         super.bind(holder)
         holder.binding.apply {
-            cardViewBatch.root.visibility =
+            viewCardViewBatch.root.visibility =
                 if (transaction.batchType == Constant.TYPE_BATCH) View.VISIBLE
                 else View.GONE
 

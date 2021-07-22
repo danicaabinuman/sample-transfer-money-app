@@ -2,6 +2,8 @@ package com.unionbankph.corporate.auth.presentation.migration.nominate_welcome
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
@@ -46,9 +48,9 @@ class NominateWelcomeFragment : BaseFragment<FragmentNominateWelcomeBinding, Mig
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_nominate_welcome
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNominateWelcomeBinding
+        get() = FragmentNominateWelcomeBinding::inflate
 }

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.general.presentation.result
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -184,9 +185,9 @@ class ResultLandingPageActivity :
         const val PAGE_NOMINATE_PASSWORD = "nominate_password"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_result_landing_page
-
     override val viewModelClassType: Class<GeneralViewModel>
         get() = GeneralViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityResultLandingPageBinding
+        get() = ActivityResultLandingPageBinding::inflate
 }

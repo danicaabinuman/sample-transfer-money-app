@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.update_password
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -388,9 +389,9 @@ class UpdatePasswordActivity :
         const val PAGE_UPDATE_PASSWORD = "update_password"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_update_password
-
     override val viewModelClassType: Class<UpdatePasswordViewModel>
         get() = UpdatePasswordViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityUpdatePasswordBinding
+        get() = ActivityUpdatePasswordBinding::inflate
 }

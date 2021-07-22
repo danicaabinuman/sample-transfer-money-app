@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.email
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
@@ -107,9 +108,9 @@ class UpdateEmailActivity :
             }.addTo(disposables)
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_update_email
-
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityUpdateEmailBinding
+        get() = ActivityUpdateEmailBinding::inflate
 }

@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.auth.presentation.migration.nominate_mobile_number
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -185,9 +187,9 @@ class NominateMobileNumberFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_nominate_mobile_number
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNominateMobileNumberBinding
+        get() = FragmentNominateMobileNumberBinding::inflate
 }

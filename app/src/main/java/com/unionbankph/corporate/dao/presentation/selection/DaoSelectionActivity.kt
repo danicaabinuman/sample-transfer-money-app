@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.selection
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -57,10 +58,10 @@ class DaoSelectionActivity :
         )
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_dao_selection
-
     override val viewModelClassType: Class<DaoSelectionViewModel>
         get() = DaoSelectionViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityDaoSelectionBinding
+        get() = ActivityDaoSelectionBinding::inflate
 
 }

@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.personal_info_1
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
@@ -490,9 +492,9 @@ class DaoPersonalInformationStepOneFragment :
         const val TAG_CANCEL_DAO_DIALOG = "cancel_dao"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_personal_information_step_1
-
     override val viewModelClassType: Class<DaoPersonalInformationStepOneViewModel>
         get() = DaoPersonalInformationStepOneViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoPersonalInformationStep1Binding
+        get() = FragmentDaoPersonalInformationStep1Binding::inflate
 }

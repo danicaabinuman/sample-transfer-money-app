@@ -4,7 +4,9 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -581,9 +583,9 @@ class DaoConfirmationFragment :
         const val OTHERS_CODE = "NV"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_confirmation
-
     override val viewModelClassType: Class<DaoConfirmationViewModel>
         get() = DaoConfirmationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoConfirmationBinding
+        get() = FragmentDaoConfirmationBinding::inflate
 }

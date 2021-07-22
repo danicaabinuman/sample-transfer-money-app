@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.presentation.general
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
@@ -260,9 +262,9 @@ class GeneralSettingsFragment :
         binding.viewBorderDisplay.visibility(!App.isSME())
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_general_settings
-
     override val viewModelClassType: Class<GeneralSettingsViewModel>
         get() = GeneralSettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentGeneralSettingsBinding
+        get() = FragmentGeneralSettingsBinding::inflate
 }

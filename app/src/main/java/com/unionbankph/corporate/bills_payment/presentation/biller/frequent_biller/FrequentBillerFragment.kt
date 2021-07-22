@@ -1,8 +1,10 @@
 package com.unionbankph.corporate.bills_payment.presentation.biller.frequent_biller
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -252,9 +254,9 @@ class FrequentBillerFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_frequent_billers
-
     override val viewModelClassType: Class<FrequentBillerViewModel>
         get() = FrequentBillerViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentFrequentBillersBinding
+        get() = FragmentFrequentBillersBinding::inflate
 }

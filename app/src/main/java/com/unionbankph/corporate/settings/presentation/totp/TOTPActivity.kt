@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -176,9 +177,9 @@ class TOTPActivity :
         const val REQUEST_CODE_SETTINGS = 1
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_generate_totp
-
     override val viewModelClassType: Class<GeneralViewModel>
         get() = GeneralViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityGenerateTotpBinding
+        get() = ActivityGenerateTotpBinding::inflate
 }

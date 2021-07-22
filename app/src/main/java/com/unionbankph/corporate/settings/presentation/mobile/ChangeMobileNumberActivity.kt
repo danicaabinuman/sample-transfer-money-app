@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.mobile
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.EditText
 import androidx.lifecycle.Observer
@@ -235,9 +236,9 @@ class ChangeMobileNumberActivity :
         )
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_change_mobile_number
-
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityChangeMobileNumberBinding
+        get() = ActivityChangeMobileNumberBinding::inflate
 }

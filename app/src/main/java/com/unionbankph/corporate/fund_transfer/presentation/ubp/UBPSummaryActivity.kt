@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Html
 import android.text.Spanned
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -712,9 +713,9 @@ class UBPSummaryActivity :
         const val EXTRA_SERVICE_FEE = "service_fee"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fund_transfer_summary_ubp
-
     override val viewModelClassType: Class<UBPViewModel>
         get() = UBPViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferSummaryUbpBinding
+        get() = ActivityFundTransferSummaryUbpBinding::inflate
 }

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.bills_payment.presentation.frequent_biller_list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -505,9 +506,9 @@ class ManageFrequentBillerActivity :
     private fun getSwipeRefreshLayout() =
         if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutFrequentBiller
 
-    override val layoutId: Int
-        get() = R.layout.activity_manage_frequent_biller
-
     override val viewModelClassType: Class<FrequentBillerViewModel>
         get() = FrequentBillerViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityManageFrequentBillerBinding
+        get() = ActivityManageFrequentBillerBinding::inflate
 }

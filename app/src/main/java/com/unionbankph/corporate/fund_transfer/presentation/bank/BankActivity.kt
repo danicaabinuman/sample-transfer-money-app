@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.fund_transfer.presentation.bank
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -167,9 +168,9 @@ class BankActivity :
         const val CHANNEL_CHECK_DEPOSIT = "5"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_bank
-
     override val viewModelClassType: Class<BankViewModel>
         get() = BankViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBankBinding
+        get() = ActivityBankBinding::inflate
 }

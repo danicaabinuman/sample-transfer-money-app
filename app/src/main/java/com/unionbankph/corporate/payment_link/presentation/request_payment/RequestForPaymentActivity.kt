@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.core.content.ContextCompat
@@ -286,9 +287,9 @@ class RequestForPaymentActivity :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_request_payment
-
     override val viewModelClassType: Class<RequestForPaymentViewModel>
         get() = RequestForPaymentViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityRequestPaymentBinding
+        get() = ActivityRequestPaymentBinding::inflate
 }

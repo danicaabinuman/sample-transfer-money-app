@@ -6,6 +6,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -805,10 +806,10 @@ class OrganizationTransferActivity :
         )
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_organization_transfer
-
     override val viewModelClassType: Class<OrganizationTransferViewModel>
         get() = OrganizationTransferViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOrganizationTransferBinding
+        get() = ActivityOrganizationTransferBinding::inflate
 
 }

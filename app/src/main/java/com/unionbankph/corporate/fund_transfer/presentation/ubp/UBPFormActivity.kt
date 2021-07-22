@@ -3,10 +3,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.ubp
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -945,9 +942,9 @@ class UBPFormActivity :
         const val TAG_VALIDATE_TIME_ZONE_DIALOG = "validate_time_zone_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_fund_transfer_form_ubp
-
     override val viewModelClassType: Class<UBPViewModel>
         get() = UBPViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferFormUbpBinding
+        get() = ActivityFundTransferFormUbpBinding::inflate
 }

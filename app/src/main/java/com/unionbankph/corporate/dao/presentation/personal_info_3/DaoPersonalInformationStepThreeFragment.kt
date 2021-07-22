@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.personal_info_3
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -582,9 +584,9 @@ class DaoPersonalInformationStepThreeFragment :
         const val EXTRA_IS_EDIT = "isEdit"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_personal_information_step_3
-
     override val viewModelClassType: Class<DaoPersonalInformationStepThreeViewModel>
         get() = DaoPersonalInformationStepThreeViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoPersonalInformationStep3Binding
+        get() = FragmentDaoPersonalInformationStep3Binding::inflate
 }

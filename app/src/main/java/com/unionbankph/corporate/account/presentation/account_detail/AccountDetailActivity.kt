@@ -2,6 +2,7 @@ package com.unionbankph.corporate.account.presentation.account_detail
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -275,6 +276,6 @@ class AccountDetailActivity :
     override val viewModelClassType: Class<AccountDetailViewModel>
         get() = AccountDetailViewModel::class.java
 
-    override val layoutId: Int
-        get() = R.layout.activity_account_details
+    override val bindingInflater: (LayoutInflater) -> ActivityAccountDetailsBinding
+        get() = ActivityAccountDetailsBinding::inflate
 }

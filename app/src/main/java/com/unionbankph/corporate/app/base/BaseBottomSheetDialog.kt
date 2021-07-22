@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +14,7 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
+import com.unionbankph.corporate.app.common.extension.viewBinding
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.source.local.sharedpref.SharedPreferenceUtil
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
@@ -25,7 +25,7 @@ import javax.inject.Inject
 /**
  * Created by herald25santos on 09/05/2019
  */
-abstract class BaseBottomSheetDialog<VB : ViewBinding, VM : ViewModel>() :
+abstract class BaseBottomSheetDialog<VB : ViewBinding, VM : ViewModel> :
     BottomSheetDialogFragment() {
 
     @Inject
@@ -45,11 +45,12 @@ abstract class BaseBottomSheetDialog<VB : ViewBinding, VM : ViewModel>() :
 
     lateinit var viewModel: VM
 
-    lateinit var binding: VB
-        private set
+    abstract val bindingBinder: (View) -> VB
 
     @get:LayoutRes
     abstract val layoutId: Int
+
+    val binding by viewBinding(bindingBinder)
 
     protected abstract val viewModelClassType: Class<VM>
 
@@ -83,8 +84,7 @@ abstract class BaseBottomSheetDialog<VB : ViewBinding, VM : ViewModel>() :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        initViewBinding(inflater, container)
-        return binding.root
+        return inflater.inflate(layoutId, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,10 +93,6 @@ abstract class BaseBottomSheetDialog<VB : ViewBinding, VM : ViewModel>() :
         onViewModelBound()
         onViewsBound()
         onInitializeListener()
-    }
-
-    private fun initViewBinding(inflater: LayoutInflater, container: ViewGroup?) {
-        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
     }
 
     private fun initViewModel() {

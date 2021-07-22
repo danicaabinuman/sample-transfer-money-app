@@ -3,6 +3,7 @@ package com.unionbankph.corporate.bills_payment.presentation.frequent_biller_for
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -983,9 +984,9 @@ class ManageFrequentBillerFormActivity :
         const val TAG_SAVE_CHANGES_DIALOG = "save_changes_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_manage_frequent_biller_form
-
     override val viewModelClassType: Class<ManageFrequentBillerFormViewModel>
         get() = ManageFrequentBillerFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityManageFrequentBillerFormBinding
+        get() = ActivityManageFrequentBillerFormBinding::inflate
 }

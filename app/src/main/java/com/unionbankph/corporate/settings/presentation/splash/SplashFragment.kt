@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.presentation.splash
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -109,9 +111,9 @@ class SplashFragment :
         PAGE_LOGIN
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_splash_screen
-
     override val viewModelClassType: Class<GeneralViewModel>
         get() = GeneralViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashScreenBinding
+        get() = FragmentSplashScreenBinding::inflate
 }

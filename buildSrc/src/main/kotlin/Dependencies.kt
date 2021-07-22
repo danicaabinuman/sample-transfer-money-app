@@ -39,7 +39,7 @@ object Libraries {
 
         const val appCompat = "1.1.0"
         const val support = "1.0.0"
-        const val constraintLayout = "2.0.4"
+        const val constraintLayout = "1.1.3"
         const val material = "1.2.1"
         const val recyclerView = "1.0.0"
         const val cardView = "1.0.0"
@@ -101,7 +101,7 @@ object Libraries {
         const val circularProgress = "1.3.0"
         const val aeroGear = "1.0.0"
         const val cameraView = "2.6.3"
-        const val compressor = "2.1.0"
+        const val compressor = "2.1.1"
         const val smartCropper = "v2.1.3"
         const val paris = "1.5.0"
         const val stv = "1.0.0"
@@ -160,6 +160,7 @@ object Libraries {
     const val stethoOkhttp3 = "com.facebook.stetho:stetho-okhttp3:${Versions.stethoOkhttp3}"
     const val circleIndicator = "me.relex:circleindicator:${Versions.circleIndicator}"
     const val extensionLifeCycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifeCycle}"
+    const val commonJava8LifeCycle = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifeCycle}"
     const val securePreferences =
         "com.scottyab:secure-preferences-lib:${Versions.securePreferences}"
     const val materialDialog = "com.afollestad.material-dialogs:core:${Versions.materialDialog}"

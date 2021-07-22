@@ -394,9 +394,9 @@ class ManageBeneficiaryDetailActivity :
         const val TAG_DELETE_BENEFICIARY_DIALOG = "delete_beneficiary_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_beneficiary_detail
-
     override val viewModelClassType: Class<ManageBeneficiaryDetailViewModel>
         get() = ManageBeneficiaryDetailViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBeneficiaryDetailBinding
+        get() = ActivityBeneficiaryDetailBinding::inflate
 }

@@ -2,6 +2,7 @@ package com.unionbankph.corporate.notification.presentation.notification_log.not
 
 import android.graphics.Rect
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -431,10 +432,10 @@ class NotificationLogFragment :
         return viewModel.notifications.value ?: mutableListOf()
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_notification_log
-
     override val viewModelClassType: Class<NotificationLogViewModel>
         get() = NotificationLogViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNotificationLogBinding
+        get() = FragmentNotificationLogBinding::inflate
 
 }

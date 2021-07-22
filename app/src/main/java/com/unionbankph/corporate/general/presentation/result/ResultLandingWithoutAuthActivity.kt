@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.general.presentation.result
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -121,9 +122,9 @@ class ResultLandingWithoutAuthActivity :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_result_landing_page
-
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityResultLandingPageBinding
+        get() = ActivityResultLandingPageBinding::inflate
 }

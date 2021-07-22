@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.auth.presentation.migration.migration_merge
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
@@ -215,9 +217,9 @@ class NominateMergeVerifyAccountFragment :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_nominate_verify_account
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNominateVerifyAccountBinding
+        get() = FragmentNominateVerifyAccountBinding::inflate
 }

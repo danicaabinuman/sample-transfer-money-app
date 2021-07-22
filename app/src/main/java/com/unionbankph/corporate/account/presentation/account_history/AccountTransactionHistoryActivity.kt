@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.account.presentation.account_history
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -195,9 +196,9 @@ class AccountTransactionHistoryActivity :
         const val EXTRA_ID = "id"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_account_transaction_history
-
     override val viewModelClassType: Class<AccountTransactionHistoryViewModel>
         get() = AccountTransactionHistoryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityAccountTransactionHistoryBinding
+        get() = ActivityAccountTransactionHistoryBinding::inflate
 }

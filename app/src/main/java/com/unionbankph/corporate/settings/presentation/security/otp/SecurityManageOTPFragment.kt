@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.presentation.security.otp
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
@@ -140,9 +142,9 @@ class SecurityManageOTPFragment :
         ).toHtmlSpan()
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_security_manage_otp
-
     override val viewModelClassType: Class<GeneralSettingsViewModel>
         get() = GeneralSettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSecurityManageOtpBinding
+        get() = FragmentSecurityManageOtpBinding::inflate
 }

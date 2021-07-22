@@ -3,6 +3,7 @@ package com.unionbankph.corporate.bills_payment.presentation.bills_payment_form
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -1422,9 +1423,9 @@ class BillsPaymentFormActivity :
         const val CURRENCY_USD = "USD"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_bills_payment_form
-
     override val viewModelClassType: Class<BillsPaymentFormViewModel>
         get() = BillsPaymentFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBillsPaymentFormBinding
+        get() = ActivityBillsPaymentFormBinding::inflate
 }

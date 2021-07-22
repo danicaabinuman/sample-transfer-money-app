@@ -4,6 +4,7 @@ import android.Manifest
 import android.os.Bundle
 import android.os.Handler
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -687,9 +688,9 @@ class BillsPaymentSummaryActivity :
         const val EXTRA_SERVICE_FEE = "service_fee"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_bills_payment_summary
-
     override val viewModelClassType: Class<BillsPaymentSummaryViewModel>
         get() = BillsPaymentSummaryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBillsPaymentSummaryBinding
+        get() = ActivityBillsPaymentSummaryBinding::inflate
 }

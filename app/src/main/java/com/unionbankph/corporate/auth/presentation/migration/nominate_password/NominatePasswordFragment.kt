@@ -2,6 +2,8 @@ package com.unionbankph.corporate.auth.presentation.migration.nominate_password
 
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -245,9 +247,9 @@ class NominatePasswordFragment : BaseFragment<FragmentNominatePasswordBinding, M
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_nominate_password
-
     override val viewModelClassType: Class<MigrationViewModel>
         get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNominatePasswordBinding
+        get() = FragmentNominatePasswordBinding::inflate
 }

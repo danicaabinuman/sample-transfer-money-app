@@ -6,6 +6,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -754,10 +755,10 @@ class OrganizationPaymentActivity :
         )
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_organization_payment
-
     override val viewModelClassType: Class<OrganizationPaymentViewModel>
         get() = OrganizationPaymentViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOrganizationPaymentBinding
+        get() = ActivityOrganizationPaymentBinding::inflate
 
 }

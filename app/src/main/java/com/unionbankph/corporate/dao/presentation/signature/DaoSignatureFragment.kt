@@ -3,9 +3,7 @@ package com.unionbankph.corporate.dao.presentation.signature
 import android.Manifest
 import android.os.Bundle
 import android.os.SystemClock
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.*
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.otaliastudios.cameraview.CameraException
@@ -242,9 +240,9 @@ class DaoSignatureFragment :
         const val EXTRA_IS_EDIT = "isEdit"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_signature
-
     override val viewModelClassType: Class<DaoSignatureViewModel>
         get() = DaoSignatureViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoSignatureBinding
+        get() = FragmentDaoSignatureBinding::inflate
 }

@@ -2,11 +2,7 @@ package com.unionbankph.corporate.mcd.presentation.form
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.view.View.OnTouchListener
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -579,9 +575,9 @@ class CheckDepositFormActivity :
         const val TAG_CANCEL_TRANSACTION_DIALOG = "cancel_transaction_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_check_deposit_form
-
     override val viewModelClassType: Class<CheckDepositFormViewModel>
         get() = CheckDepositFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositFormBinding
+        get() = ActivityCheckDepositFormBinding::inflate
 }

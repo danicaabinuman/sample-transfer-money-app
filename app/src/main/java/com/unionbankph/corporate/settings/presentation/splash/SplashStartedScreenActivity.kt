@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.splash
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -56,10 +57,10 @@ class SplashStartedScreenActivity :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_splash_started_screen
-
     override val viewModelClassType: Class<SplashStartedScreenViewModel>
         get() = SplashStartedScreenViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySplashStartedScreenBinding
+        get() = ActivitySplashStartedScreenBinding::inflate
 
 }

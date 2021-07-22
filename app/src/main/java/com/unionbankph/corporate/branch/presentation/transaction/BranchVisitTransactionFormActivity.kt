@@ -2,11 +2,7 @@ package com.unionbankph.corporate.branch.presentation.transaction
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProviders
@@ -499,9 +495,9 @@ class BranchVisitTransactionFormActivity :
         const val EMPTY_VALUE = "-"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch_visit_transaction_form
-
     override val viewModelClassType: Class<BranchVisitTransactionFormViewModel>
         get() = BranchVisitTransactionFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchVisitTransactionFormBinding
+        get() = ActivityBranchVisitTransactionFormBinding::inflate
 }

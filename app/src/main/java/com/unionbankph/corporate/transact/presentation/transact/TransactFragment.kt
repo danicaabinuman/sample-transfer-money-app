@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.transact.presentation.transact
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.takusemba.spotlight.Spotlight
@@ -411,9 +413,9 @@ class TransactFragment :
         const val FRAGMENT_REQUEST_PAYMENT = "request_payment"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_send_request
-
     override val viewModelClassType: Class<SettingsViewModel>
         get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSendRequestBinding
+        get() = FragmentSendRequestBinding::inflate
 }

@@ -31,7 +31,7 @@ constructor(
         private val viewUtil: ViewUtil
 ) : TypedEpoxyController<ManageDevicesDto>() {
 
-//    @AutoModel
+    @AutoModel
     lateinit var headerTrustedTitleModel: HeaderTitleModel_
 
     @AutoModel

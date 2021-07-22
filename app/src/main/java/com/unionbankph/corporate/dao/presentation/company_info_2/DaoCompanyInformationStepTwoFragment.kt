@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.company_info_2
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -358,9 +360,9 @@ class DaoCompanyInformationStepTwoFragment :
         const val OTHER = "Other"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_company_information_step_2
-
     override val viewModelClassType: Class<DaoCompanyInformationStepTwoViewModel>
         get() = DaoCompanyInformationStepTwoViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoCompanyInformationStep2Binding
+        get() = FragmentDaoCompanyInformationStep2Binding::inflate
 }

@@ -124,7 +124,7 @@ abstract class OrganizationTransferItemModel :
     override fun bind(holder: Holder) {
         super.bind(holder)
         holder.binding.apply {
-            cardViewBatch.root.visibility =
+            viewCardViewBatch.cardViewBatch.visibility =
                 if (transaction.batchType == Constant.TYPE_BATCH) View.VISIBLE
                 else View.GONE
 
@@ -311,7 +311,7 @@ abstract class OrganizationTransferRowModel :
                 ConstantHelper.Color.getTextColor(transaction.transactionStatus)
             )
             textViewRowStatus.text = transaction.transactionStatus?.description
-            holder.binding.root.setOnClickListener {
+            root.setOnClickListener {
                 callbacks.onClickItem(holder.binding.root, transaction, position)
             }
         }

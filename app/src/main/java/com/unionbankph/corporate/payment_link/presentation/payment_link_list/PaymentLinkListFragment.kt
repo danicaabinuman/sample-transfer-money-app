@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.payment_link.presentation.payment_link_list
 
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -171,10 +173,10 @@ class PaymentLinkListFragment :
         startActivity(intent)
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_payment_link_list
-
     override val viewModelClassType: Class<PaymentLinkListViewModel>
         get() = PaymentLinkListViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPaymentLinkListBinding
+        get() = FragmentPaymentLinkListBinding::inflate
 
 }

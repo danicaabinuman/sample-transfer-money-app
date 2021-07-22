@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -234,9 +235,9 @@ class BillingDetailsActivity :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_billing_details
-
     override val viewModelClassType: Class<BillingDetailsViewModel>
         get() = BillingDetailsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBillingDetailsBinding
+        get() = ActivityBillingDetailsBinding::inflate
 }

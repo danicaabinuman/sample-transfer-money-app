@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.general.presentation.transaction_filter
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -379,9 +380,9 @@ class TransactionFilterActivity :
         const val BILLS_PAYMENT_SCREEN = "bills_payment_screen"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_transaction_filter
-
     override val viewModelClassType: Class<TransactionFilterViewModel>
         get() = TransactionFilterViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityTransactionFilterBinding
+        get() = ActivityTransactionFilterBinding::inflate
 }

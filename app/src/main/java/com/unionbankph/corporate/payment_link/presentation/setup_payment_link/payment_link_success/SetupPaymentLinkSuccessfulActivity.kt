@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success
 
 import android.content.Intent
+import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -50,10 +51,10 @@ class SetupPaymentLinkSuccessfulActivity :
         }
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_setup_payment_link_success
-
     override val viewModelClassType: Class<SetupPaymentLinkSuccessfulViewModel>
         get() = SetupPaymentLinkSuccessfulViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySetupPaymentLinkSuccessBinding
+        get() = ActivitySetupPaymentLinkSuccessBinding::inflate
 }
 

@@ -2,6 +2,7 @@ package com.unionbankph.corporate.ebilling.presentation.form
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -400,10 +401,10 @@ class EBillingFormActivity :
         )
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_ebilling_form
-
     override val viewModelClassType: Class<EBillingFormViewModel>
         get() = EBillingFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityEbillingFormBinding
+        get() = ActivityEbillingFormBinding::inflate
 
 }

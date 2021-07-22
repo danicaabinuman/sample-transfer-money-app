@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.checking_account
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -97,9 +99,9 @@ class DaoCheckingAccountTypeFragment :
         const val BUSINESS_CHECK = "BUSINESS_CHECK"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_checking_account_type
-
     override val viewModelClassType: Class<DaoCheckingAccountTypeViewModel>
         get() = DaoCheckingAccountTypeViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoCheckingAccountTypeBinding
+        get() = FragmentDaoCheckingAccountTypeBinding::inflate
 }

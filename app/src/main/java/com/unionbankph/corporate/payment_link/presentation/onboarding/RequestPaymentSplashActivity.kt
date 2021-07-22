@@ -3,6 +3,7 @@ package com.unionbankph.corporate.payment_link.presentation.onboarding
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -159,10 +160,10 @@ class RequestPaymentSplashActivity :
         const val EXTRA_FROM_WHAT_TAB = "from_what_tab"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_request_payment_splash_frame_screen
-
     override val viewModelClassType: Class<RequestPaymentSplashViewModel>
         get() = RequestPaymentSplashViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityRequestPaymentSplashFrameScreenBinding
+        get() = ActivityRequestPaymentSplashFrameScreenBinding::inflate
 
 }

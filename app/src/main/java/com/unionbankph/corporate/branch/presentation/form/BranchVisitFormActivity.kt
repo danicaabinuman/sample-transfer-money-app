@@ -1,10 +1,7 @@
 package com.unionbankph.corporate.branch.presentation.form
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.lifecycle.Observer
@@ -553,9 +550,9 @@ class BranchVisitFormActivity :
         const val TAG_NO_BRANCH_TRANSACTION_DIALOG = "no_branch_transaction_dialog"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_branch_visit_form
-
     override val viewModelClassType: Class<BranchVisitFormViewModel>
         get() = BranchVisitFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchVisitFormBinding
+        get() = ActivityBranchVisitFormBinding::inflate
 }

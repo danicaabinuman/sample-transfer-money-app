@@ -14,10 +14,7 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.LayoutRes
@@ -94,8 +91,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
     lateinit var binding: VB
         private set
 
-    @get:LayoutRes
-    abstract val layoutId: Int
+    abstract val bindingInflater: (LayoutInflater) -> VB
 
     protected abstract val viewModelClassType: Class<VM>
 
@@ -162,7 +158,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
     val isSME = App.isSME()
 
     protected open fun beforeLayout(savedInstanceState: Bundle?) = Unit
-    protected open fun afterLayout(savedInstanceState: Bundle?) { initViewBinding() }
+    protected open fun afterLayout(savedInstanceState: Bundle?) = Unit
     protected open fun onViewsBound() = Unit
     protected open fun onInitializeListener() = Unit
     protected open fun onViewModelBound() {
@@ -176,6 +172,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
         super.onCreate(savedInstanceState)
         initCheckOrientationSupport()
         registerReceiver()
+        initViewBinding()
         afterLayout(savedInstanceState)
         onViewModelBound()
         onViewsBound()
@@ -270,7 +267,10 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
     }
 
     private fun initViewBinding() {
-        binding = DataBindingUtil.setContentView(this, layoutId)
+//        binding = DataBindingUtil.setContentView(this, layoutId)
+
+        binding = bindingInflater.invoke(layoutInflater)
+        setContentView(binding.root)
     }
 
     private fun initViewModel() {
@@ -455,7 +455,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
                     )
                 }
             )
-             negativeButton(
+            negativeButton(
                 res = R.string.action_no,
                 click = {
                     it.dismiss()

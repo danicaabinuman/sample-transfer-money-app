@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -126,9 +128,9 @@ class NotificationLogDetailFragment :
         const val EXTRA_IS_READ = "is_read"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_notification_log_detail
-
     override val viewModelClassType: Class<NotificationLogViewModel>
         get() = NotificationLogViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNotificationLogDetailBinding
+        get() = FragmentNotificationLogDetailBinding::inflate
 }

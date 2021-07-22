@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.migration
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.viewpager.widget.ViewPager
@@ -182,9 +183,9 @@ class MigrationMainActivity :
         const val FRAGMENT_NOMINATE_VERIFY_ACCOUNT_RESULT = "nominate_verify_account_result"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_migration_main
-
     override val viewModelClassType: Class<GeneralViewModel>
         get() = GeneralViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityMigrationMainBinding
+        get() = ActivityMigrationMainBinding::inflate
 }

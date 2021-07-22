@@ -2,6 +2,7 @@ package com.unionbankph.corporate.ebilling.presentation.generate
 
 import android.Manifest
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -183,10 +184,9 @@ class EBillingGenerateActivity :
 
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_ebilling_generate
-
     override val viewModelClassType: Class<EBillingGenerateViewModel>
         get() = EBillingGenerateViewModel::class.java
 
+    override val bindingInflater: (LayoutInflater) -> ActivityEbillingGenerateBinding
+        get() = ActivityEbillingGenerateBinding::inflate
 }

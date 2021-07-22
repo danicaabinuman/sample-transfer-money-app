@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.preferred_branch
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
@@ -151,9 +153,9 @@ class DaoPreferredBranchFragment :
 //        }
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_preferred_branch
-
     override val viewModelClassType: Class<DaoPreferredBranchViewModel>
         get() = DaoPreferredBranchViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoPreferredBranchBinding
+        get() = FragmentDaoPreferredBranchBinding::inflate
 }

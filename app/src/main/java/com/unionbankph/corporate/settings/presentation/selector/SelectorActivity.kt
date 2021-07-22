@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.selector
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -175,9 +176,9 @@ class SelectorActivity :
         const val STATUS_SELECTOR = "status"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_selector
-
     override val viewModelClassType: Class<SelectorViewModel>
         get() = SelectorViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySelectorBinding
+        get() = ActivitySelectorBinding::inflate
 }

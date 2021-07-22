@@ -1,8 +1,10 @@
 package com.unionbankph.corporate.bills_payment.presentation.biller.biller_all
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -239,9 +241,9 @@ class AllBillerFragment :
         const val TYPE_BILLER = "biller"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_all_billers
-
     override val viewModelClassType: Class<AllBillerViewModel>
         get() = AllBillerViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAllBillersBinding
+        get() = FragmentAllBillersBinding::inflate
 }

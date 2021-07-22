@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.account.presentation.source_account
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -357,9 +358,9 @@ class SourceAccountActivity :
         const val PAGE_FREQUENT_BILLER_DETAIL = "frequent_biller_detail"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_source_account_selection
-
     override val viewModelClassType: Class<SourceAccountViewModel>
         get() = SourceAccountViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySourceAccountSelectionBinding
+        get() = ActivitySourceAccountSelectionBinding::inflate
 }

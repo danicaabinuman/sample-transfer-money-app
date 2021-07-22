@@ -9,6 +9,7 @@ import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.data.form.DaoForm
 import com.unionbankph.corporate.dao.presentation.DaoViewModel
+import id.zelory.compressor.Compressor
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
 import timber.log.Timber

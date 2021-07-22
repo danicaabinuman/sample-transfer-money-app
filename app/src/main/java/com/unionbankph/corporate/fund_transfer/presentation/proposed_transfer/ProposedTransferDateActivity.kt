@@ -2,6 +2,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -553,9 +554,9 @@ class ProposedTransferDateActivity :
         const val OCCURRENCE_DEFAULT_VALUE = "After 2 occurrences"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_proposed_transfer_date
-
     override val viewModelClassType: Class<ProposedTransferDateViewModel>
         get() = ProposedTransferDateViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityProposedTransferDateBinding
+        get() = ActivityProposedTransferDateBinding::inflate
 }

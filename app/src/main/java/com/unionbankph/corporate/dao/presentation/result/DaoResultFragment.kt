@@ -2,6 +2,8 @@ package com.unionbankph.corporate.dao.presentation.result
 
 import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.activity.addCallback
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -115,10 +117,10 @@ class DaoResultFragment :
         const val TYPE_REACH_OUT_COMPLETED = "reach_out_completed"
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_dao_result
-
     override val viewModelClassType: Class<DaoResultViewModel>
         get() = DaoResultViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoResultBinding
+        get() = FragmentDaoResultBinding::inflate
 
 }

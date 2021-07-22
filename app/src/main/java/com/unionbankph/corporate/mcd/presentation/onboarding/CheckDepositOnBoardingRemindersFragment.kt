@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.mcd.presentation.onboarding
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ScrollView
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -101,9 +103,9 @@ class CheckDepositOnBoardingRemindersFragment :
         )
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_check_deposit_onboarding_reminders
-
     override val viewModelClassType: Class<CheckDepositOnBoardingViewModel>
         get() = CheckDepositOnBoardingViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCheckDepositOnboardingRemindersBinding
+        get() = FragmentCheckDepositOnboardingRemindersBinding::inflate
 }

@@ -3,6 +3,7 @@ package com.unionbankph.corporate.mcd.presentation.detail
 import android.Manifest
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.isVisible
@@ -476,9 +477,9 @@ class CheckDepositDetailActivity :
         const val EXTRA_ID = "id"
     }
 
-    override val layoutId: Int
-        get() = R.layout.activity_check_deposit_detail
-
     override val viewModelClassType: Class<CheckDepositDetailViewModel>
         get() = CheckDepositDetailViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositDetailBinding
+        get() = ActivityCheckDepositDetailBinding::inflate
 }

@@ -9,8 +9,12 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.databinding.ItemStateBinding
 
-@EpoxyModelClass(layout = R.layout.item_state)
+@EpoxyModelClass()
 abstract class ItemStateModel : EpoxyModelWithHolder<ItemStateModel.Holder>() {
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.item_state
+    }
 
     @EpoxyAttribute
     var message: String? = null

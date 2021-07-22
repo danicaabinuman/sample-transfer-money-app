@@ -2,7 +2,9 @@ package com.unionbankph.corporate.approval.presentation.approval_ongoing
 
 import android.os.Bundle
 import android.text.InputType
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
@@ -1065,10 +1067,10 @@ class ApprovalOngoingFragment :
 
     }
 
-    override val layoutId: Int
-        get() = R.layout.fragment_approval_ongoing
-
     override val viewModelClassType: Class<ApprovalOngoingViewModel>
         get() = ApprovalOngoingViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentApprovalOngoingBinding
+        get() = FragmentApprovalOngoingBinding::inflate
 
 }
