@@ -274,6 +274,7 @@ class BusinessInformationActivity :
 
         val businessType = business.toString()
         val storeProduct = et_product_of_services_offered.text.toString()
+        val infoStatus = "draft"
         val yearsInBusiness = tv_years_counter.text.toString().toInt()
         val numberOfBranches = tv_branch_counter.text.toString().toInt()
         val physicalStore = et_physical_store.text.toString()
@@ -282,18 +283,19 @@ class BusinessInformationActivity :
         val shopeeUrl = et_shopee.text.toString()
         val facebookUrl = et_facebook.text.toString()
         val instagramUrl = et_instagram.text.toString()
-        val imageUrl1 = "0"
-        val imageUrl2 = "0"
-        val imageUrl3 = "0"
-        val imageUrl4 = "0"
-        val imageUrl5 = "0"
-        val imageUrl6 = "0"
+        val imageUrl1 = "testimage.jpg"
+        val imageUrl2 = "testimage.jpg"
+        val imageUrl3 = "testimage.jpg"
+        val imageUrl4 = "testimage.jpg"
+        val imageUrl5 = "testimage.jpg"
+        val imageUrl6 = "testimage.jpg"
 
 
         viewModel.submitBusinessInformation(
             RMOBusinessInformationForm(
                 businessType!!,
                 storeProduct,
+                infoStatus,
                 yearsInBusiness,
                 numberOfBranches,
                 physicalStore,
