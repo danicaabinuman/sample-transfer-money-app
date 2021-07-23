@@ -2213,4 +2213,9 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="text_okay">Okay</string>
     <string name="fee_calculator_details">Fees will change depending on the payment method selected by your customer. Select the cards below to see the Net Amount.</string>
     <string name="hi">Hi %1$s!</string>
+
+    <!--FaceID-->
+    <string name="title_login_in_using_faceid">Log in with Face ID</string>
+    <string name="desc_look_directly_at_your_camera">Look directly at your font camera to\nuse Face ID</string>
+c
 </resources>
