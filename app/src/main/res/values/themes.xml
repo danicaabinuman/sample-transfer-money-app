@@ -146,16 +146,20 @@
         <item name="netverify_countryListCountryName">@color/jumio_grey900</item>
         <item name="netverify_countryListSeperator">@color/jumio_grey300</item>
 
-        <!--        <item name="netverify_nfc_dialog_theme">@style/Netverify.NFC.Dialog</item>-->
-
-        <item name="materialButtonStyle">@style/CustomButtonStyleTextColor</item>
+        <item name="materialButtonStyle">@style/JumioPositiveButtonStyle</item>
+        <item name="materialButtonOutlinedStyle">@style/JumioNegativeButtonStyle</item>
 
         <item name="iproov_customization">@style/CustomIproov</item>
     </style>
 
-    <style name="CustomButtonStyleTextColor" parent="Netverify.Confirmation.MaterialButton">
-        <item name="android:textColor">@color/jumio_white</item>
-        <item name="backgroundTint">@color/colorButtonOrange</item>
+    <style name="JumioPositiveButtonStyle" parent="RoundedButtonOrangeTransparent">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:layout_height">@dimen/button_small_size</item>
+    </style>
+
+    <style name="JumioNegativeButtonStyle" parent="RoundedButtonBorderedLightOverLay">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:layout_height">@dimen/button_small_size</item>
     </style>
 
     <style name="CustomIproov" parent="Iproov.Customization">
