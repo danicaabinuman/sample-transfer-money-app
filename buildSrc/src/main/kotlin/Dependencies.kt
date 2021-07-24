@@ -65,6 +65,7 @@ object Libraries {
         const val kotlinX = "1.2.2"
         const val kotlinXConverter = "0.8.0"
         const val coreKtx = "1.3.2"
+        const val kotlinReflect = "1.5.20"
         const val multiDex = "2.0.0"
         const val stetho = "1.5.0"
         const val stethoOkhttp3 = "1.5.0"
@@ -100,7 +101,7 @@ object Libraries {
         const val fab = "1.6.4"
         const val circularProgress = "1.3.0"
         const val aeroGear = "1.0.0"
-        const val cameraView = "2.6.3"
+        const val cameraView = "2.7.1"
         const val compressor = "2.1.1"
         const val smartCropper = "v2.1.3"
         const val paris = "1.5.0"
@@ -112,7 +113,7 @@ object Libraries {
         const val roomRuntime = "2.2.5"
     }
 
-    const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
+    const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlinReflect}"
     const val multiDex = "androidx.multidex:multidex:${Versions.multiDex}"
 
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"

@@ -164,7 +164,7 @@ ktlint {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libraries.kotlinStdLib)
+    implementation(Libraries.kotlinReflect)
     implementation(Libraries.multiDex)
     /* View */
     implementation(Libraries.appCompat)
