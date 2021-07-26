@@ -37,38 +37,29 @@
 
     <TextView
         android:id="@+id/textViewDialogContent"
-        style="@style/TextAppearance.MaterialComponents.Body2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/SMEBody"
         android:layout_marginBottom="@dimen/grid_3"
         android:layout_marginStart="@dimen/grid_1"
         android:layout_marginEnd="@dimen/grid_1"
         android:gravity="center"
-        android:textColor="#4B4948"
+        android:lineSpacingExtra="5dp"
         tools:text="@string/desc_online_banking_products" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonPositive"
-        android:layout_width="match_parent"
+        style="@style/SMEPrimaryButtonLarge"
         android:layout_height="@dimen/button_small_size"
-        android:background="@drawable/bg_gradient_orange_radius4"
         android:layout_marginStart="@dimen/grid_1"
         android:layout_marginEnd="@dimen/grid_1"
         android:layout_marginBottom="@dimen/grid_1"
-        android:text="@string/action_next"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
+        android:text="@string/action_next" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonNegative"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="match_parent"
+        style="@style/SMETertiaryButtonLarge"
         android:layout_height="@dimen/button_small_size"
-        android:background="@drawable/bg_white_rounded_radius10"
         android:layout_marginStart="@dimen/grid_1"
         android:layout_marginEnd="@dimen/grid_1"
-        android:textColor="#4A4A4A"
-        android:textStyle="bold"
         tools:text="@string/action_not_now" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

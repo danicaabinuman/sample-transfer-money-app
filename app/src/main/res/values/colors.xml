@@ -192,6 +192,9 @@
     <color name="dsColorBody">@color/dsColorDarkGray</color>
     <color name="dsColorCaption">@color/dsColorDarkGray</color>
 
+    <!-- Rounded BottomSheet-->
+    <color name="dsColorRoundedTopBottomSheet">@color/colorWhite</color>
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->
