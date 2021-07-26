@@ -2260,7 +2260,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="no_set_up_or_annual_fees">No set-up or annual fees</string>
     <string name="we_ll_collect_3_php_10_per_transaction">We\'ll collect 3% + PHP 10 per transaction</string>
     <string name="_1"><![CDATA[<1]]></string>
-    <string name="products_offered_hint">What products or services are you offering and what kind of customers are you targeting?</string>
+    <string name="products_offered_hint">What products or services are you offering?</string>
     <string name="e_commerce_count_as_one_1_branch">E-commerce count as one (1) branch</string>
     <string name="default_number_1">1</string>
     <string name="how_many_branches_do_you_nhave">How many branches do you\nhave?</string>
