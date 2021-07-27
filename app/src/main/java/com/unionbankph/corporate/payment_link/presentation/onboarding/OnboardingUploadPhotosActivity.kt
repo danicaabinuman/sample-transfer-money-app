@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.google.android.material.snackbar.Snackbar
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
@@ -27,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_dao_signature.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
+import java.util.logging.Handler
 
 class OnboardingUploadPhotosActivity :
     BaseActivity<RequestPaymentSplashViewModel>(R.layout.activity_onboarding_upload_photos),
@@ -38,7 +40,6 @@ class OnboardingUploadPhotosActivity :
     val uriArrayList = arrayListOf<Uri>()
 
     private val CAPTURE_PHOTO = 1
-    private val CAPTURE_IMAGE_FILE_PROVIDER : String = "com.unionbankph.corporate.fileprovider"
 
     private var onboardingUploadFragment: OnboardingUploadPhotosFragment? = null
     private var onboardingDeletePhotosFragment: OnboardingDeletePhotosFragment? = null
@@ -70,15 +71,28 @@ class OnboardingUploadPhotosActivity :
     override fun onViewsBound() {
         super.onViewsBound()
 
+        addPhotos()
+        addMorePhotos()
+        navigateToPaymentChannels()
+    }
+    
+    private fun addPhotos(){
         btnAddPhotos.setOnClickListener {
             showbottomSheetDialog()
         }
+    }
 
+    private fun addMorePhotos(){
         btnAddPhotos2.setOnClickListener {
             showbottomSheetDialog()
         }
+    }
 
+    private fun navigateToPaymentChannels(){
         btnNext.setOnClickListener {
+            val snackUploading = Snackbar.make(it, "Uploading photo...", Snackbar.LENGTH_LONG)
+            snackUploading.show()
+
             val intent = Intent(this, PaymentLinkChannelsActivity::class.java)
             startActivity(intent)
         }
@@ -118,7 +132,11 @@ class OnboardingUploadPhotosActivity :
                                         clDeleteSelectedPhoto.visibility = View.VISIBLE
                                         btnDelete.visibility = View.VISIBLE
                                         ivFullscreenImage.setImageURI(itemUri)
-                                        removePhoto(position)
+
+                                        btnDelete.setOnClickListener {
+                                            uriArrayList.removeAt(position)
+                                            adapter.notifyDataSetChanged()
+                                        }
 
                                         if (uriArrayList.size < 6) {
                                             btnAddPhotos2.visibility = View.VISIBLE

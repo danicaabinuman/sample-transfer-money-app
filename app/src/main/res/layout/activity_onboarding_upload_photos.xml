@@ -89,14 +89,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tvMaximumFileSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maximum file size is 2MB. Accepted file types are .jpeg and .png"
+            app:layout_constraintTop_toBottomOf="@id/btnAddPhotos2"
+            app:layout_constraintStart_toStartOf="parent"/>
+
         <GridView
             android:id="@+id/gv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_3"
             android:numColumns="2"
-            app:layout_constraintTop_toBottomOf="@+id/btnAddPhotos2" />
+            app:layout_constraintTop_toBottomOf="@+id/tvMaximumFileSize" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

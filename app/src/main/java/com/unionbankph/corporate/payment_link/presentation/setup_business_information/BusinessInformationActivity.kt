@@ -2,11 +2,12 @@ package com.unionbankph.corporate.payment_link.presentation.setup_business_infor
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Bundle
 import android.view.Gravity
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -14,8 +15,11 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
 import kotlinx.android.synthetic.main.activity_business_information.*
+import kotlinx.android.synthetic.main.activity_business_information.viewToolbar
+import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.spinner.*
+import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 class BusinessInformationActivity :
     BaseActivity<BusinessInformationViewModel>(R.layout.activity_business_information),
@@ -31,6 +35,26 @@ class BusinessInformationActivity :
     var instagramCounter = 0
     var websiteCounter = 0
     var otherCounter = 0
+
+    override fun afterLayout(savedInstanceState: Bundle?) {
+        super.afterLayout(savedInstanceState)
+        initToolbar(toolbar, viewToolbar)
+        setDrawableBackButton(
+            R.drawable.ic_msme_back_button_orange,
+            R.color.colorSMEMediumOrange,
+            true
+        )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -49,6 +73,7 @@ class BusinessInformationActivity :
     }
 
     private fun initViews() {
+        disableNextButton()
 
         btn_lazada.setOnClickListener{btnLazadaClicked()}
         btn_shopee.setOnClickListener{btnShopeeClicked()}
@@ -62,7 +87,8 @@ class BusinessInformationActivity :
         btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
         btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
         btn_next.setOnClickListener {
-            btnNextClicked()
+//            btnNextClicked()
+            validateForm()
         }
     }
 
@@ -326,4 +352,24 @@ class BusinessInformationActivity :
         startActivityForResult(intent, OnboardingUploadPhotosActivity.REQUEST_CODE)
     }
 
+    private fun disableNextButton(){
+        btn_next?.isEnabled = false
+    }
+
+    private fun enableNextButton(){
+        btn_next.isEnabled
+        btnNextClicked()
+
+    }
+
+    private fun validateForm(){
+        val productsOrServicesOffered = et_product_of_services_offered.text.toString()
+        val numberOfBranches = tv_branch_counter.text
+
+        if (productsOrServicesOffered.isEmpty()){
+            disableNextButton()
+        } else {
+            enableNextButton()
+        }
+    }
 }
