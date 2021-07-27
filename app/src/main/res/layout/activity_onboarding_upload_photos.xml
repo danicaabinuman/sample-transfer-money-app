@@ -91,8 +91,11 @@
 
         <TextView
             android:id="@+id/tvMaximumFileSize"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_2"
             android:text="Maximum file size is 2MB. Accepted file types are .jpeg and .png"
             app:layout_constraintTop_toBottomOf="@id/btnAddPhotos2"
             app:layout_constraintStart_toStartOf="parent"/>

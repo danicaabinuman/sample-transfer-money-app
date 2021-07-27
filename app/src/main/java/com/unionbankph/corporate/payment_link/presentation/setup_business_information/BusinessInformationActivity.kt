@@ -3,6 +3,8 @@ package com.unionbankph.corporate.payment_link.presentation.setup_business_infor
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
@@ -74,6 +76,7 @@ class BusinessInformationActivity :
 
     private fun initViews() {
         disableNextButton()
+        requiredFields()
 
         btn_lazada.setOnClickListener{btnLazadaClicked()}
         btn_shopee.setOnClickListener{btnShopeeClicked()}
@@ -87,8 +90,8 @@ class BusinessInformationActivity :
         btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
         btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
         btn_next.setOnClickListener {
-//            btnNextClicked()
-            validateForm()
+            btnNextClicked()
+//            validateForm()
         }
     }
 
@@ -357,19 +360,34 @@ class BusinessInformationActivity :
     }
 
     private fun enableNextButton(){
-        btn_next.isEnabled
-        btnNextClicked()
-
+        btn_next?.isEnabled = true
     }
 
     private fun validateForm(){
         val productsOrServicesOffered = et_product_of_services_offered.text.toString()
         val numberOfBranches = tv_branch_counter.text
 
-        if (productsOrServicesOffered.isEmpty()){
-            disableNextButton()
-        } else {
+        if (productsOrServicesOffered.isNotEmpty()){
             enableNextButton()
+        } else {
+            disableNextButton()
         }
+    }
+
+    private fun requiredFields(){
+        et_product_of_services_offered.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateForm()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
     }
 }

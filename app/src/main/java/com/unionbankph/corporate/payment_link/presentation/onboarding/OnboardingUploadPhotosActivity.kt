@@ -134,8 +134,13 @@ class OnboardingUploadPhotosActivity :
                                         ivFullscreenImage.setImageURI(itemUri)
 
                                         btnDelete.setOnClickListener {
-                                            uriArrayList.removeAt(position)
+                                            uriArrayList.remove(itemUri)
                                             adapter.notifyDataSetChanged()
+                                            clDeleteSelectedPhoto.visibility = View.GONE
+                                            btnDelete.visibility = View.GONE
+                                            clSelectedPhotos.visibility = View.VISIBLE
+                                            btnNext.visibility = View.VISIBLE
+                                            btnSaveAndExit.visibility = View.VISIBLE
                                         }
 
                                         if (uriArrayList.size < 6) {
