@@ -4,6 +4,7 @@ import com.unionbankph.corporate.account.presentation.account_list.AccountFragme
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
+import com.unionbankph.corporate.app.common.widget.dialog.NegPosBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.SessionTimeOutBottomSheet
 import com.unionbankph.corporate.app.di.scope.PerActivity
 import com.unionbankph.corporate.approval.presentation.ApprovalFragment
@@ -52,6 +53,7 @@ import com.unionbankph.corporate.notification.presentation.notification_log.Noti
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsFragment
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
@@ -351,4 +353,12 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun paymentLinkChannelsFeesAndChargesFragment(): FeesAndChargesFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun nominateSettlementAccountFragment(): NominateSettlementAccountFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun negPosBottomSheet(): NegPosBottomSheet
 }

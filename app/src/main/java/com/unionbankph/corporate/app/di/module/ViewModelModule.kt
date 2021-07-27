@@ -43,6 +43,7 @@ import com.unionbankph.corporate.branch.presentation.transaction.BranchVisitTran
 import com.unionbankph.corporate.branch.presentation.transactiondetail.BranchTransactionDetailViewModel
 import com.unionbankph.corporate.branch.presentation.transactionlist.BranchTransactionViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
+import com.unionbankph.corporate.common.presentation.viewmodel.NegPosBottomSheetViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelViewModel
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationViewModel
@@ -798,5 +799,12 @@ abstract class ViewModelModule {
     @ViewModelKey(NotNowCardPaymentsViewModel::class)
     abstract fun notNowCardPaymentsViewModel(
         viewModel: NotNowCardPaymentsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NegPosBottomSheetViewModel::class)
+    abstract fun negPosBottomSheetViewModel(
+        viewModel: NegPosBottomSheetViewModel
     ): ViewModel
 }

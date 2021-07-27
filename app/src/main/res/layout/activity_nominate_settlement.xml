@@ -20,15 +20,15 @@
         <LinearLayout
             android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/content_spacing_xl"
             android:orientation="horizontal">
             <ImageView
                 android:id="@+id/btnClose"
-                android:layout_width="20dp"
+                android:layout_width="@dimen/grid_5_half"
                 android:layout_gravity="center_vertical"
                 android:layout_height="match_parent"
                 android:padding="5dp"
-                android:src="@drawable/ic_close_form_gray"
+                android:src="@drawable/ic_nominate_settlement_close_btn"
                 android:adjustViewBounds="true"/>
 
             <TextView

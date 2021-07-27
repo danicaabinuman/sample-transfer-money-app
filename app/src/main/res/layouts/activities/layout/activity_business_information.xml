@@ -1,40 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_rmo_appbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/llBusinessInformationFields"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <include
-            android:id="@+id/viewToolbar"
-            layout="@layout/widget_transparent_rmo_appbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_below="@id/viewToolbar"
+        android:layout_above="@id/btn_next">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="40dp">
+            android:paddingTop="@dimen/grid_2"
+            android:paddingBottom="@dimen/grid_2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp">
+                android:paddingStart="@dimen/grid_2"
+                android:paddingEnd="@dimen/grid_2"
+                android:paddingBottom="@dimen/grid_2">
 
                 <TextView
                     android:id="@+id/tv_about_your_business_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="We want to know more about your business"
+                    android:text="@string/we_want_to_know_more_about_your_business"
                     android:textColor="#4A4A4A"
                     android:textSize="24sp"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -44,7 +52,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:text="Nature of Business"
+                    android:text="@string/nature_of_business"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -85,22 +93,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:text="Products or Services Offered"
+                    android:text="@string/products_of_services_offered"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/til_status" />
-
-                <TextView
-                    android:id="@+id/tv_product_of_services_offered_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="What products or services are you offering and what kind of
-customers are you targeting?"
-                    android:textColor="#9B9B9B"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_product_of_services_offered" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_product_of_services_offered"
@@ -108,12 +105,12 @@ customers are you targeting?"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
                     app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_product_of_services_offered_details">
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_of_services_offered">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_product_of_services_offered"
                         style="@style/TextInputEditTextFormCounter"
-                        android:hint="Placeholder text"
+                        android:hint="@string/products_offered_hint"
                         android:paddingBottom="40dp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -131,20 +128,31 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="How long have you been in\nbusiness?"
+                    android:text="@string/how_long_have_you_been_in_nbusiness"
                     android:textColor="#4A4A4A"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider1" />
 
+                <TextView
+                    android:id="@+id/tv_years_in_business"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:text="@string/indicate_0_if_less_than_1_year"
+                    android:textColor="@color/dsColorMediumGray"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_business_years" />
+
                 <ImageView
                     android:id="@+id/btn_years_decrement_active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:visibility="gone"
                     android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
                     app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
                     app:layout_constraintTop_toTopOf="@id/tv_business_years" />
@@ -154,8 +162,8 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:visibility="visible"
                     android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
                     app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
                     app:layout_constraintTop_toTopOf="@id/tv_business_years" />
@@ -166,8 +174,9 @@ customers are you targeting?"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@string/default_number_0"
                     android:textSize="16sp"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
                     app:layout_constraintEnd_toStartOf="@id/btn_increment"
                     app:layout_constraintTop_toTopOf="@id/tv_business_years" />
@@ -188,14 +197,14 @@ customers are you targeting?"
                     android:layout_height="3dp"
                     android:layout_marginTop="15dp"
                     android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/tv_business_years" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_years_in_business" />
 
                 <TextView
                     android:id="@+id/tv_where_do_you_sell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="Where do you sell?"
+                    android:text="@string/where_do_you_sell"
                     android:textColor="#4A4A4A"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -206,7 +215,7 @@ customers are you targeting?"
                     android:id="@+id/tv_where_do_you_sell_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select all that apply."
+                    android:text="@string/select_all_that_apply"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -234,7 +243,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Lazada" />
+                        android:text="@string/lazada" />
 
                     <TextView
                         android:id="@+id/btn_shopee"
@@ -246,7 +255,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Shopee" />
+                        android:text="@string/shopee" />
 
                     <TextView
                         android:id="@+id/btn_website"
@@ -258,7 +267,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Website" />
+                        android:text="@string/website" />
 
                 </LinearLayout>
 
@@ -282,7 +291,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Physical Store" />
+                        android:text="@string/physical_store" />
 
                     <TextView
                         android:id="@+id/btn_facebook"
@@ -294,7 +303,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Facebook" />
+                        android:text="@string/facebook" />
 
                     <TextView
                         android:id="@+id/btn_instagram"
@@ -306,7 +315,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Instagram" />
+                        android:text="@string/instagram" />
 
                 </LinearLayout>
 
@@ -330,7 +339,7 @@ customers are you targeting?"
                         android:paddingTop="6dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
-                        android:text="Others" />
+                        android:text="@string/others" />
 
                 </LinearLayout>
 
@@ -340,6 +349,7 @@ customers are you targeting?"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_marginTop="25dp"
+                    android:visibility="gone"
                     android:src="@drawable/view_dashed"
                     app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
 
@@ -348,9 +358,10 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Input store name / link"
+                    android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 
@@ -359,7 +370,7 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Lazada"
+                    android:text="@string/lazada"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     android:visibility="gone"
@@ -379,7 +390,7 @@ customers are you targeting?"
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_lazada"
                         style="@style/TextInputEditTextFormCounter"
-                        android:hint="lazada link" />
+                        android:hint="@string/hint_lazada_com_ph_shop_shopname" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -388,7 +399,7 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Shopee"
+                    android:text="@string/shopee"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     android:visibility="gone"
@@ -408,7 +419,7 @@ customers are you targeting?"
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_shopee"
                         style="@style/TextInputEditTextFormCounter"
-                        android:hint="shopee link" />
+                        android:hint="@string/hint_shopee_ph_shopname" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -417,7 +428,7 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Website"
+                    android:text="@string/website"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     android:visibility="gone"
@@ -437,7 +448,7 @@ customers are you targeting?"
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_website"
                         style="@style/TextInputEditTextFormCounter"
-                        android:hint="www.storename.com" />
+                        android:hint="@string/hint_www_storename_com" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -446,7 +457,7 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Physical Store"
+                    android:text="@string/physical_store"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     android:visibility="gone"
@@ -466,7 +477,7 @@ customers are you targeting?"
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_physical_store"
                         style="@style/TextInputEditTextFormCounter"
-                        android:hint="address" />
+                        android:hint="@string/hint_address" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -475,7 +486,7 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Facebook"
+                    android:text="@string/facebook"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     android:visibility="gone"
@@ -495,7 +506,7 @@ customers are you targeting?"
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_facebook"
                         style="@style/TextInputEditTextFormCounter"
-                        android:hint="/storename" />
+                        android:hint="@string/hint_facebook_com_shopname" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -504,7 +515,7 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Instagram"
+                    android:text="@string/instagram"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     android:visibility="gone"
@@ -524,7 +535,7 @@ customers are you targeting?"
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_instagram"
                         style="@style/TextInputEditTextFormCounter"
-                        android:hint="/@storename" />
+                        android:hint="@string/hint_instagram_com_shopname" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -533,7 +544,7 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="Others"
+                    android:text="@string/others"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     android:visibility="gone"
@@ -553,7 +564,7 @@ customers are you targeting?"
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_others"
                         style="@style/TextInputEditTextFormCounter"
-                        android:hint="/@storename" />
+                        android:hint="@string/additional_online_stores" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -570,7 +581,7 @@ customers are you targeting?"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="How many branches do you\nhave?"
+                    android:text="@string/how_many_branches_do_you_nhave"
                     android:textColor="#4A4A4A"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -604,7 +615,7 @@ customers are you targeting?"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="0"
+                    android:text="@string/default_number_1"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
                     app:layout_constraintEnd_toStartOf="@id/btn_increment_branch_number"
@@ -620,6 +631,15 @@ customers are you targeting?"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
 
+                <TextView
+                    android:id="@+id/tv_number_of_branches"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/e_commerce_count_as_one_1_branch"
+                    android:textColor="@color/dsColorMediumGray"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_of_branch" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -629,10 +649,10 @@ customers are you targeting?"
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/grid_3_half"
-        android:layout_marginTop="@dimen/grid_4"
-        android:layout_marginBottom="@dimen/grid_3"
-        android:layout_marginEnd="@dimen/grid_3_half"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginBottom="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
         android:background="@drawable/ds_bg_primary_button"
         android:paddingTop="11dp"
         android:paddingBottom="11dp"
@@ -641,6 +661,7 @@ customers are you targeting?"
         android:textColor="#fff"
         android:textSize="@dimen/text_14"
         android:textStyle="bold"
+        android:layout_alignParentBottom="true"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -26,6 +26,7 @@ constructor(
             RMOBusinessInformationForm(
                 params!!.businessType,
                 params.storeProduct,
+                params.infoStatus,
                 params.yearsInBusiness,
                 params.numberOfBranches,
                 params.physicalStore,

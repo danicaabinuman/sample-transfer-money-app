@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/content_spacing_xl"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/btnClose"
+                android:layout_width="@dimen/grid_5_half"
+                android:layout_gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:src="@drawable/ic_nominate_settlement_close_btn"
+                android:adjustViewBounds="true"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:paddingStart="20dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:gravity="center_vertical|left"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:text="@string/nominate_settlement_account"/>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/rvNominateSettlementAccounts"
+            android:layout_width="match_parent"
+            android:padding="@dimen/grid_2"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
