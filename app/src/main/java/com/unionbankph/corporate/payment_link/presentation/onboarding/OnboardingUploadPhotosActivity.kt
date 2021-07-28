@@ -167,11 +167,27 @@ class OnboardingUploadPhotosActivity :
                             uriArrayList.add(imageUri)
                             val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
                             gridView.adapter = adapter
-//                            gridView.onItemClickListener =
-//                                AdapterView.OnItemClickListener { parent, view, position, id ->
-//                                    adapter.removeItem(position)
-//                                    adapter.notifyDataSetChanged()
-//                                }
+                            gridView.onItemClickListener =
+                                AdapterView.OnItemClickListener { parent, view, position, id ->
+                                    val itemUri = uriArrayList[position]
+                                    clUploadPhotosIntro.visibility = View.GONE
+                                    clSelectedPhotos.visibility = View.GONE
+                                    btnSaveAndExit.visibility = View.GONE
+                                    btnNext.visibility = View.GONE
+                                    clDeleteSelectedPhoto.visibility = View.VISIBLE
+                                    btnDelete.visibility = View.VISIBLE
+                                    ivFullscreenImage.setImageURI(itemUri)
+
+                                    btnDelete.setOnClickListener {
+                                        uriArrayList.remove(itemUri)
+                                        adapter.notifyDataSetChanged()
+                                        clDeleteSelectedPhoto.visibility = View.GONE
+                                        btnDelete.visibility = View.GONE
+                                        clSelectedPhotos.visibility = View.VISIBLE
+                                        btnNext.visibility = View.VISIBLE
+                                        btnSaveAndExit.visibility = View.VISIBLE
+                                    }
+                                }
                             if (uriArrayList.size == 6) {
                                 btnAddPhotos2.visibility = View.GONE
                                 return
@@ -195,15 +211,6 @@ class OnboardingUploadPhotosActivity :
         }
 
         onboardingUploadFragment!!.show(supportFragmentManager, OnboardingUploadPhotosFragment.TAG)
-    }
-
-    fun removePhoto(position: Int){
-        btnDelete.setOnClickListener {
-            val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
-            uriArrayList.removeAt(position)
-            adapter.notifyDataSetChanged()
-        }
-
     }
 
     private fun openGalleryForImages() {

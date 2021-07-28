@@ -16,6 +16,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_not_now_accept_card_payments.*
+import kotlinx.android.synthetic.main.item_nominate_account.*
 import java.text.DecimalFormat
 
 class NotNowCardPaymentsActivity : BaseActivity<NotNowCardPaymentsViewModel>(R.layout.activity_not_now_accept_card_payments) {

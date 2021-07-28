@@ -28,7 +28,7 @@ class BusinessInformationActivity :
     AdapterView.OnItemSelectedListener {
 
     var businessType =
-        arrayOf("Select", "Manufacturer", "Wholesaler", "Service", "Importer", "Exporter", "Retailer")
+        arrayOf("Select", "Manufacturer", "Wholesaler", "Service", "Importer", "Exporter", "Retailer", "Others")
     var business = "Wholesaler"
     var lazadaCounter = 0
     var shopeeCounter = 0
@@ -113,6 +113,12 @@ class BusinessInformationActivity :
         if (position > 0){
             business = parent?.getItemAtPosition(position).toString()
         }
+
+        if (position == 7){
+            til_others_pls_specify.visibility = View.VISIBLE
+        } else {
+            til_others_pls_specify.visibility = View.GONE
+        }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -180,6 +186,8 @@ class BusinessInformationActivity :
         if (stateChecker  == 1) {
             btn_lazada.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_lazada.setTextColor(Color.parseColor("#FF8200"))
+            tv_input_store_name.visibility = View.VISIBLE
+            divider_dashed.visibility = View.VISIBLE
             tv_lazada_title.visibility = View.VISIBLE
             til_lazada.visibility = View.VISIBLE
             et_lazada.visibility = View.VISIBLE
@@ -199,6 +207,8 @@ class BusinessInformationActivity :
         if (stateChecker  == 1) {
             btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_shopee.setTextColor(Color.parseColor("#FF8200"))
+            tv_input_store_name.visibility = View.VISIBLE
+            divider_dashed.visibility = View.VISIBLE
             tv_shopee_title.visibility = View.VISIBLE
             til_shopee.visibility = View.VISIBLE
             et_shopee.visibility = View.VISIBLE
@@ -217,6 +227,8 @@ class BusinessInformationActivity :
         if (stateChecker  == 1) {
             btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_facebook.setTextColor(Color.parseColor("#FF8200"))
+            tv_input_store_name.visibility = View.VISIBLE
+            divider_dashed.visibility = View.VISIBLE
             tv_facebook_title.visibility = View.VISIBLE
             til_facebook.visibility = View.VISIBLE
             et_facebook.visibility = View.VISIBLE
@@ -235,6 +247,8 @@ class BusinessInformationActivity :
         if (stateChecker  == 1) {
             btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_physical_store.setTextColor(Color.parseColor("#FF8200"))
+            tv_input_store_name.visibility = View.VISIBLE
+            divider_dashed.visibility = View.VISIBLE
             tv_physical_store.visibility = View.VISIBLE
             til_physical_store.visibility = View.VISIBLE
             et_physical_store.visibility = View.VISIBLE
@@ -253,6 +267,8 @@ class BusinessInformationActivity :
         if (stateChecker  == 1) {
             btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_instagram.setTextColor(Color.parseColor("#FF8200"))
+            tv_input_store_name.visibility = View.VISIBLE
+            divider_dashed.visibility = View.VISIBLE
             tv_instagram_title.visibility = View.VISIBLE
             til_instagram.visibility = View.VISIBLE
             et_instagram.visibility = View.VISIBLE
@@ -271,6 +287,8 @@ class BusinessInformationActivity :
         if (stateChecker  == 1) {
             btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_website.setTextColor(Color.parseColor("#FF8200"))
+            tv_input_store_name.visibility = View.VISIBLE
+            divider_dashed.visibility = View.VISIBLE
             tv_website_title.visibility = View.VISIBLE
             til_website.visibility = View.VISIBLE
             til_website.visibility = View.VISIBLE
@@ -289,14 +307,14 @@ class BusinessInformationActivity :
         if (stateChecker  == 1){
             btn_others.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_others.setTextColor(Color.parseColor("#FF8200"))
-
+            tv_input_store_name.visibility = View.VISIBLE
+            divider_dashed.visibility = View.VISIBLE
             tv_others_title.visibility = View.VISIBLE
             til_others.visibility = View.VISIBLE
             et_others.visibility = View.VISIBLE
         } else if (stateChecker  == 0) {
             btn_others.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_others.setTextColor(Color.parseColor("#4A4A4A"))
-
             tv_others_title.visibility = View.GONE
             til_others.visibility = View.GONE
             et_others.visibility = View.GONE
