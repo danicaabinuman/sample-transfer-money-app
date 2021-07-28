@@ -110,23 +110,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/til_status" />
 
-                <TextView
-                    android:id="@+id/tv_product_of_services_offered_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/details_products_offered"
-                    android:textColor="#9B9B9B"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_product_of_services_offered" />
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_product_of_services_offered"
                     style="@style/TextInputLayoutForm"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/grid_1_half"
                     app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_product_of_services_offered_details">
+                    app:layout_constraintTop_toBottomOf="@id/tv_product_of_services_offered">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_product_of_services_offered"
@@ -175,7 +165,7 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
                     app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
-                    app:layout_constraintTop_toTopOf="@id/tv_years_in_business" />
+                    app:layout_constraintTop_toTopOf="@id/tv_business_years" />
 
                 <ImageView
                     android:id="@+id/btn_years_decrement_inactive"

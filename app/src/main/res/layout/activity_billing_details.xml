@@ -218,6 +218,20 @@
                         android:visibility="gone"/>
 
                     <ImageView
+                        android:id="@+id/gcashLogo"
+                        android:layout_width="60dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_gcash"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/grabpayLogo"
+                        android:layout_width="60dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_grabpay"
+                        android:visibility="gone"/>
+
+                    <ImageView
                         android:id="@+id/bayadCenterLogo"
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
@@ -251,6 +265,14 @@
                         android:layout_height="16dp"
                         android:src="@drawable/cebuana_logo"
                         android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/paymentMethodText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="UB ONLINE"
+                        android:visibility="gone"/>
+
                 </LinearLayout>
 
                 <TextView

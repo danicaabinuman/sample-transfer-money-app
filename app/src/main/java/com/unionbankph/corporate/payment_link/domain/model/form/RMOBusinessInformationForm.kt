@@ -13,6 +13,8 @@ data class RMOBusinessInformationForm(
     var businessType: String,
     @SerialName("product")
     var storeProduct: String,
+    @SerialName("status")
+    var infoStatus: String,
     @SerialName("yearsInBusiness")
     var yearsInBusiness: Int,
     @SerialName("numberOfBranches")

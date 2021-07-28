@@ -2224,7 +2224,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="g_cash">GCash</string>
     <string name="grabpay">GrabPay</string>
     <string name="over_the_counter">Over the Counter</string>
-    <string name="_7_11">7-11</string>
+    <string name="_7_eleven">7-Eleven</string>
     <string name="bayad_center">Bayad Center</string>
     <string name="cebuana">Cebuana</string>
     <string name="ecpay">ECPay</string>
@@ -2260,11 +2260,11 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="no_set_up_or_annual_fees">No set-up or annual fees</string>
     <string name="we_ll_collect_3_php_10_per_transaction">We\'ll collect 3% + PHP 10 per transaction</string>
     <string name="_1"><![CDATA[<1]]></string>
-    <string name="products_offered_hint">What products or services are you offering and what kind of customers are you targeting?</string>
+    <string name="products_offered_hint">What products or services are you offering?</string>
     <string name="e_commerce_count_as_one_1_branch">E-commerce count as one (1) branch</string>
     <string name="default_number_1">1</string>
     <string name="how_many_branches_do_you_nhave">How many branches do you\nhave?</string>
-    <string name="additional_online_stores">Additional online stores</string>
+    <string name="additional_online_stores">Other online stores. Use comma to separate links.</string>
     <string name="others">Others</string>
     <string name="hint_instagram_com_shopname">instagram.com/shopname</string>
     <string name="instagram">Instagram</string>
@@ -2272,7 +2272,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="facebook">Facebook</string>
     <string name="hint_address">Indicate store address or registered address for e-commerce</string>
     <string name="physical_store">Physical Store</string>
-    <string name="hint_www_storename_com">www.storename.com</string>
+    <string name="hint_www_storename_com">www.shopname.com</string>
     <string name="website">Website</string>
     <string name="hint_shopee_ph_shopname">shopee.ph/shopname</string>
     <string name="shopee">Shopee</string>
