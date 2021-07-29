@@ -34,9 +34,10 @@
             app:srcCompat="@drawable/bg_ic_user_creation_reminder"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/grid_3"
-            android:layout_marginBottom="@dimen/grid_3"/>
+            android:layout_marginBottom="@dimen/grid_4"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDesc"
             style="@style/MatchWrapParent"
             android:text="@string/user_creation_title_reminder"
             android:textColor="@color/dsColorDarkGray"
@@ -50,22 +51,105 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/grid_7"
-            android:layout_marginEnd="@dimen/grid_7"
-            android:padding="@dimen/grid_3">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvReminders_userCreation"
-                android:textColor="@color/dsColorDarkGray"
-               style="@style/WrapContent"
-                android:layout_marginTop="@dimen/content_spacing_small"
-                android:gravity="start"
-                android:lineSpacingExtra="@dimen/text_view_spacing"
-                android:maxLines="10"
-                android:textSize="@dimen/text_14"
+            android:layout_marginTop="@dimen/grid_7_half"
+            android:layout_marginStart="@dimen/grid_7">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutItems"
+                style="@style/MatchWrapParent"
+                android:layout_width="0dp"
+                android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/grid_3"
+                    android:layout_marginEnd="@dimen/grid_3">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/ci_size"
+                        android:layout_height="@dimen/ci_size"
+                        android:background="@drawable/bg_white_circle"
+                        android:backgroundTint="@color/dsColorMediumOrange"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/grid_1"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewThemeLarge"
+                        android:text="@string/title_first_name"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/grid_3"
+                    android:layout_marginEnd="@dimen/grid_3">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/ci_size"
+                        android:layout_height="@dimen/ci_size"
+                        android:background="@drawable/bg_white_circle"
+                        android:backgroundTint="@color/dsColorMediumOrange"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/grid_1"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewThemeLarge"
+                        android:text="@string/title_middle_name_if_applicable"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/grid_3"
+                    android:layout_marginEnd="@dimen/grid_3">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/ci_size"
+                        android:layout_height="@dimen/ci_size"
+                        android:background="@drawable/bg_white_circle"
+                        android:backgroundTint="@color/dsColorMediumOrange"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/grid_1"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/TextViewThemeLarge"
+                        android:text="@string/title_last_name"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/grid_3"
+                    android:layout_marginEnd="@dimen/grid_3">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/ci_size"
+                        android:layout_height="@dimen/ci_size"
+                        android:background="@drawable/bg_white_circle"
+                        android:backgroundTint="@color/dsColorMediumOrange"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/grid_1"/>
+
+                    <TextView
+                        style="@style/TextViewThemeLarge"
+                        android:text="@string/title_date_of_birth"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
