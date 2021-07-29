@@ -2303,5 +2303,16 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="desc_pay_bills">Select from the most extensive list of billers.</string>
     <string name="title_deposit_checks">Deposit Checks</string>
     <string name="desc_deposit_checks">Deposit any bank check by taking photos of it via app.</string>
+    <string name="user_creation_title_reminder">Before we begin, please ensure that the\nfollowing details in your application matches\nwith details in your ID:</string>
+    <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
+    <string name="desc_user_creation_reminders">
+        <![CDATA[
+        <font size="%1$s" color="%2$s"><b>\u2022</b></font>  First Name".<br>
+        <font size="%1$s" color="%2$s"><b>\u2022</b></font>  Middle Name, if applicable<br>
+        <font size="%1$s" color="%2$s"><b>\u2022</b></font>  Last Name<br>
+        <font size="%1$s" color="%2$s"><b>\u2022</b></font>  Date of Birth<br>
+        ]]>
+    </string>
+
 
 </resources>
