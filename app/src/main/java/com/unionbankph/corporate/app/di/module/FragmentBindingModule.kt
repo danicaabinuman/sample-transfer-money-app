@@ -74,6 +74,9 @@ import com.unionbankph.corporate.settings.presentation.splash.SplashEndFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashOnboardingFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
+import com.unionbankph.corporate.user_creation.presentation.enter_name.OAEnterNameFragment
+import com.unionbankph.corporate.user_creation.presentation.reminder.OAReminderFragment
+import com.unionbankph.corporate.user_creation.presentation.select_account.OAAccountSelection
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -371,4 +374,16 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun negPosBottomSheet(): NegPosBottomSheet
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun oaReminderFragment(): OAReminderFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun oaEnterNameFragment(): OAEnterNameFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun accountSelectionFragment(): OAAccountSelection
 }

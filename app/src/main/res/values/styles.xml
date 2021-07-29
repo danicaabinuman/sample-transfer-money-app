@@ -600,6 +600,11 @@
         <item name="errorIconDrawable">@null</item>
     </style>
 
+    <style name="TextInputLayoutFormThin" parent="TextInputLayoutForm">
+        <item name="boxStrokeWidth">@dimen/circular_border_stroke_width</item>
+        <item name="boxStrokeWidthFocused">@dimen/circular_border_stroke_width</item>
+    </style>
+
     <style name="TextInputLayoutUnderlineForm" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="android:layout_width">@dimen/match_constraint</item>
         <item name="android:layout_height">wrap_content</item>
