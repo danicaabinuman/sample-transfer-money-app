@@ -69,13 +69,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
     </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
     </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_proceed"
         style="@style/SMEPrimaryButtonLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
