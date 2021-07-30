@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
+import android.widget.TextView
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.google.android.material.snackbar.Snackbar
 import com.unionbankph.corporate.R
@@ -28,7 +29,9 @@ import kotlinx.android.synthetic.main.fragment_dao_signature.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
+import java.util.*
 import java.util.logging.Handler
+import kotlin.concurrent.timerTask
 
 class OnboardingUploadPhotosActivity :
     BaseActivity<RequestPaymentSplashViewModel>(R.layout.activity_onboarding_upload_photos),
@@ -89,12 +92,16 @@ class OnboardingUploadPhotosActivity :
     }
 
     private fun navigateToPaymentChannels(){
+        val snackbarView = findViewById<TextView>(R.id.snackbar)
         btnNext.setOnClickListener {
-            val snackUploading = Snackbar.make(it, "Uploading photo...", Snackbar.LENGTH_LONG)
+            val snackUploading = Snackbar.make(snackbarView, "Uploading photo...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext)
             snackUploading.show()
-
             val intent = Intent(this, PaymentLinkChannelsActivity::class.java)
-            startActivity(intent)
+
+            Timer().schedule(timerTask {
+                startActivity(intent)
+            }, 1000)
+
         }
     }
 

@@ -2256,7 +2256,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="you_can_add_card_acceptance_to_the_list_of_payment_channels">You can add card acceptance to the list of payment channels. We just need additional information. Do you want to apply?</string>
     <string name="yes_i_want">Yes, I want</string>
     <string name="don_t_ask_me_again">Don\'t ask me again</string>
-    <string name="allow_customers_to_pay_you_using_their_debit_or_debit_card">Allow customers to pay you using their debit or debit card</string>
+    <string name="allow_customers_to_pay_you_using_their_debit_or_debit_card">Allow customers to pay you using their credit or debit card</string>
     <string name="no_set_up_or_annual_fees">No set-up or annual fees</string>
     <string name="we_ll_collect_3_php_10_per_transaction">We\'ll collect 3% + PHP 10 per transaction</string>
     <string name="upload_photos_intro">Upload photos of your products or photos that best describe the services offered</string>

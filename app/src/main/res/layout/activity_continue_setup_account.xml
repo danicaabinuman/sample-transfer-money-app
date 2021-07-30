@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_rmo_appbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar">
+
+        <TextView
+            android:id="@+id/tvContinueSetupAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
+            android:text="Let's continue setting up your account"
+            android:textSize="@dimen/text_24"
+            android:textStyle="bold"
+            android:textColor="@color/colorDarkGray4B4948"
+            android:lineSpacingExtra="@dimen/grid_1_half"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnBusinessInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_4"
+            android:background="@drawable/bg_border_rectangle"
+            android:text="  Business Information"
+            android:textAllCaps="false"
+            android:gravity="start"
+            android:drawableStart="@drawable/ds_business_information"
+            android:padding="@dimen/grid_2"
+            app:layout_constraintTop_toBottomOf="@id/tvContinueSetupAccount"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnProductsServices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1"
+            android:background="@drawable/bg_border_rectangle"
+            android:text="  Products / Services"
+            android:textAllCaps="false"
+            android:gravity="start"
+            android:drawableStart="@drawable/ic_basket"
+            android:padding="@dimen/grid_2"
+            app:layout_constraintTop_toBottomOf="@id/btnBusinessInfo"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPaymentMethod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1"
+            android:background="@drawable/bg_border_rectangle"
+            android:text="  Payment Method"
+            android:textAllCaps="false"
+            android:gravity="start"
+            android:drawableStart="@drawable/ic_payment"
+            android:padding="@dimen/grid_2"
+            app:layout_constraintTop_toBottomOf="@id/btnProductsServices"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnTransactionInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1"
+            android:background="@drawable/bg_border_rectangle"
+            android:text="  Transaction Information"
+            android:textAllCaps="false"
+            android:gravity="start"
+            android:drawableStart="@drawable/ic_transaction_info"
+            android:padding="@dimen/grid_2"
+            app:layout_constraintTop_toBottomOf="@id/btnPaymentMethod"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -377,7 +377,79 @@
                     android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
-                    android:visibility="gone"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+                <TextView
+                    android:id="@+id/tv_input_store_name_shopee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/input_store_name_link"
+                    android:textColor="#9B9B9B"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+                <TextView
+                    android:id="@+id/tv_input_store_name_website"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/input_store_name_link"
+                    android:textColor="#9B9B9B"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+                <TextView
+                    android:id="@+id/tv_input_store_name_physical_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/input_store_name_link"
+                    android:textColor="#9B9B9B"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+                <TextView
+                    android:id="@+id/tv_input_store_name_facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/input_store_name_link"
+                    android:textColor="#9B9B9B"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+                <TextView
+                    android:id="@+id/tv_input_store_name_instagram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/input_store_name_link"
+                    android:textColor="#9B9B9B"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+                <TextView
+                    android:id="@+id/tv_input_store_name_others"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/input_store_name_link"
+                    android:textColor="#9B9B9B"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 
