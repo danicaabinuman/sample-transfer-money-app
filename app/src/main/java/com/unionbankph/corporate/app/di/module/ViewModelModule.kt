@@ -128,6 +128,8 @@ import com.unionbankph.corporate.settings.presentation.selector.SelectorViewMode
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorViewModel
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenViewModel
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordViewModel
+import com.unionbankph.corporate.user_creation.presentation.OpenAccountViewModel
+import com.unionbankph.corporate.user_creation.presentation.enter_name.OAEnterNameViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -814,5 +816,19 @@ abstract class ViewModelModule {
     @ViewModelKey(NegPosBottomSheetViewModel::class)
     abstract fun negPosBottomSheetViewModel(
         viewModel: NegPosBottomSheetViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OpenAccountViewModel::class)
+    abstract fun userCreationViewModel(
+        viewModel: OpenAccountViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OAEnterNameViewModel::class)
+    abstract fun ucEnterNameViewModel(
+        viewModel: OAEnterNameViewModel
     ): ViewModel
 }

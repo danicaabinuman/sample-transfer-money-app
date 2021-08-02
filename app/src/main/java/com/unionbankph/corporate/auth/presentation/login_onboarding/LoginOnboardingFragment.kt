@@ -11,6 +11,7 @@ import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.onboarding_register.OnboardingRegisterActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
 import kotlinx.android.synthetic.main.activity_onboarding_signup.*
 import timber.log.Timber
 
@@ -51,7 +52,7 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
             viewModel.onClickedStartLaunch()
             navigator.navigate(
                 getAppCompatActivity(),
-                OnboardingRegisterActivity::class.java,
+                OpenAccountActivity::class.java,
                 null,
                 isClear = false,
                 isAnimated = true,

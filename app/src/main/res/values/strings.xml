@@ -2308,6 +2308,9 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="desc_pay_bills">Select from the most extensive list of billers.</string>
     <string name="title_deposit_checks">Deposit Checks</string>
     <string name="desc_deposit_checks">Deposit any bank check by taking photos of it via app.</string>
+    <string name="hello_what_is_your_name">Hello, what is your name?</string>
+    <string name="user_creation_input_reminder">Before we begin, please ensure that the following details in your application matches with details in your ID:</string>
+
     <string name="user_creation_title_reminder">Before we begin, please ensure that the\nfollowing details in your application matches\nwith details in your ID:</string>
     <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
     <string name="desc_user_creation_reminders">
