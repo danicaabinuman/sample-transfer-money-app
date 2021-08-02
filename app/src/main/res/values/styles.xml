@@ -299,16 +299,13 @@
         <item name="android:lines">1</item>
         <item name="android:maxLength">1</item>
         <item name="android:longClickable">false</item>
-        <item name="android:background">@drawable/bg_edittext_underline_normal</item>
+        <item name="android:background">@drawable/bg_edittext_otp_normal</item>
         <item name="android:cursorVisible">false</item>
         <item name="android:focusable">false</item>
         <item name="android:textSize">@dimen/text_44</item>
         <item name="android:inputType">number</item>
         <item name="android:gravity">center</item>
-        <item name="android:theme">@style/EditTextTheme</item>
-        <item name="android:backgroundTint" tools:targetApi="lollipop">?colorHighlight</item>
-        <item name="android:textColorHint">?colorHighlight</item>
-        <item name="android:textColor">?colorHighlight</item>
+        <item name="android:textAppearance">@style/SMEHeadlineH1</item>
     </style>
 
     <style name="PinCodeEditText.Dark">

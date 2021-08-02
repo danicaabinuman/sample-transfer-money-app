@@ -9,7 +9,7 @@
         android:id="@+id/etPin1"
         style="@style/PinCodeEditText"
         android:layout_marginEnd="@dimen/content_spacing_half"
-        android:background="@drawable/bg_edittext_underline_selected"
+        android:background="@drawable/bg_edittext_otp_selected"
         android:imeOptions="actionNext" />
 
     <androidx.appcompat.widget.AppCompatEditText

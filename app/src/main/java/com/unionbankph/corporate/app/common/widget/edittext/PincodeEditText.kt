@@ -121,12 +121,12 @@ class PincodeEditText(
             if (et.text.isEmpty() && index == editTextHidden.text.length) {
                 etPins[index].background = ContextCompat.getDrawable(
                     activity,
-                    R.drawable.bg_edittext_underline_selected
+                    R.drawable.bg_edittext_otp_selected
                 )
             } else {
                 etPins[index].background = ContextCompat.getDrawable(
                     activity,
-                    R.drawable.bg_edittext_underline_normal
+                    R.drawable.bg_edittext_otp_normal
                 )
             }
         }

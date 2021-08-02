@@ -1,13 +1,20 @@
 package com.unionbankph.corporate.auth.presentation.otp
 
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.MotionEvent
+import android.view.View
 import android.widget.EditText
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.google.android.gms.auth.api.phone.SmsRetriever
+import com.google.android.material.appbar.AppBarLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -17,13 +24,9 @@ import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.edittext.PincodeEditText
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.app.receiver.SMSReceiver
 import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
-import com.unionbankph.corporate.auth.data.form.LoginOTPForm
-import com.unionbankph.corporate.auth.data.form.NominatePasswordOTPForm
-import com.unionbankph.corporate.auth.data.form.NominatePasswordResendOTPForm
-import com.unionbankph.corporate.auth.data.form.ResendOTPForm
-import com.unionbankph.corporate.auth.data.form.ResetPasswordOTPForm
-import com.unionbankph.corporate.auth.data.form.ResetPasswordResendOTPForm
+import com.unionbankph.corporate.auth.data.form.*
 import com.unionbankph.corporate.auth.data.model.Auth
 import com.unionbankph.corporate.auth.data.model.ECredLoginDto
 import com.unionbankph.corporate.auth.data.model.ECredLoginOTPDto
@@ -45,6 +48,9 @@ import kotlinx.android.synthetic.main.widget_pin_code.*
 import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
 
 /**
  * Created by Herald Santos
@@ -61,9 +67,17 @@ class OTPActivity :
 
     private var accountType: String? = null
 
+    private var smsBroadcastReceiver: SMSReceiver? = null
+
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initToolbar(toolbar, viewToolbar)
+        setDrawableBackButton(
+            R.drawable.ic_msme_back_button_orange,
+            R.color.colorSMEMediumOrange,
+            true
+        )
+        (viewToolbar as AppBarLayout).isLiftOnScroll = true
     }
 
     override fun onViewModelBound() {
@@ -127,6 +141,16 @@ class OTPActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
+
+        startSMSUserConsent()
+
+        RxView.clicks(buttonGenerateOTP)
+            .throttleFirst(
+                resources.getInteger(R.integer.time_button_debounce).toLong(),
+                TimeUnit.MILLISECONDS
+            ).subscribe {
+                onClickedResendOTP()
+            }.addTo(disposables)
         RxView.clicks(btnSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
@@ -143,6 +167,64 @@ class OTPActivity :
             .subscribe {
                 onClickedResendOTP()
             }.addTo(disposables)
+    }
+
+    private fun startSMSUserConsent() {
+        val client = SmsRetriever.getClient(this)
+        client.startSmsUserConsent(null).addOnSuccessListener {
+            Timber.d("Initialize SMS Consent Retriever")
+        }.addOnFailureListener {
+            Timber.d("Failed SMS Consent Retriever initialization ${it.message}")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initSMSReceiver()
+    }
+
+    private fun initSMSReceiver() {
+        smsBroadcastReceiver = SMSReceiver()
+        smsBroadcastReceiver?.smsBroadcastReceiverListener =
+            object : SMSReceiver.SmsBroadcastReceiverListener {
+                override fun onSuccess(intent: Intent?) {
+                    startActivityForResult(intent, REQ_USER_CONSENT)
+                }
+
+                override fun onFailure() {
+
+                }
+            }
+        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+        registerReceiver(smsBroadcastReceiver, intentFilter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(smsBroadcastReceiver)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQ_USER_CONSENT) {
+            if (resultCode == RESULT_OK && data != null) {
+                viewUtil.dismissKeyboard(this)
+                val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
+                Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+                getOTPFromMessage(message)
+            }
+        }
+    }
+
+    private fun getOTPFromMessage(message: String?) {
+        // This will match any 6 digit number in the message
+        // This will match any 6 digit number in the message
+        val pattern: Pattern = Pattern.compile("(|^)\\d{6}")
+        val matcher: Matcher = pattern.matcher(message)
+        if (matcher.find()) {
+            editTextHidden.setText(matcher.group(0))
+        }
     }
 
     override fun onSubmitOTP(otpCode: String) {
@@ -660,6 +742,12 @@ class OTPActivity :
             auth = it.auth
             initEnableResendButton(false)
             pinCodeEditText.clearPinCode()
+            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_30))
+            initEnableResendButton(false)
+            viewModel.countDownTimer(
+                resources.getInteger(R.integer.resend_otp_code_period).toLong(),
+                resources.getInteger(R.integer.resend_otp_code_count_30).toLong()
+            )
             MaterialDialog(this).show {
                 lifecycleOwner(this@OTPActivity)
                 title(R.string.title_code_resent)
@@ -672,6 +760,9 @@ class OTPActivity :
                 )
             }
         }
+
+        btnResend.visibility = View.VISIBLE
+        buttonGenerateOTP.visibility = View.GONE
     }
 
     private fun submitTransaction() {
@@ -736,20 +827,21 @@ class OTPActivity :
         }
     }
 
-    private fun initStartResendCodeCount(timer: Int) {
-        tvResend.text = formatString(
-            R.string.desc_resend_code_seconds,
-            formatString(
-                R.string.param_color,
-                convertColorResourceToHex(if (isSME) getAccentColor() else R.color.colorWhite),
-                "$timer seconds"
-            )
-        ).toHtmlSpan()
+    private fun initStartResendCodeCount(seconds: Int) {
+        val minutesDisplay = (seconds / 60).toString().padStart(2, '0')
+        val secondsDisplay = (seconds % 60).toString().padStart(2, '0')
+
+        tvResendTimer.text = "$minutesDisplay:$secondsDisplay"
     }
 
     private fun initEnableResendButton(isEnabled: Boolean) {
         btnResend.isEnabled = isEnabled
-        btnResend.alpha = if (isEnabled) 1.0F else 0.5F
+        btnResend.setTextColor(
+            if (isEnabled)
+                ContextCompat.getColor(this, R.color.dsColorMediumOrange)
+            else
+                ContextCompat.getColor(this, R.color.dsColorMediumGray)
+        )
     }
 
     private fun navigateDashboardScreen() {
@@ -793,30 +885,21 @@ class OTPActivity :
         viewModel.otpType.onNext(auth.otpType ?: LOGIN_TYPE_SMS)
         if (isTOTPScreen(loginType)) {
             initEnableResendButton(true)
-            tvVerifyAccountDesc.text = formatString(R.string.desc_verify_account_totp)
             textViewDidNotReceived.text = formatString(R.string.desc_cannot_generate_code)
             textViewDidNotReceived.visibility(true)
-            tvResend.visibility(false)
+            tvResendTimer.visibility(false)
             btnResend.text = formatString(R.string.action_receive_via_otp)
         } else {
-            tvVerifyAccountDesc.text = formatString(
-                R.string.desc_verify_account_sms,
-                formatString(
-                    R.string.param_color,
-                    convertColorResourceToHex(if (isSME) getAccentColor() else R.color.colorWhite),
-                    auth.mobileNumber?.substring(auth.mobileNumber?.length?.minus(4) ?: 0)
-                )
-            ).toHtmlSpan()
-            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count))
+            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_30))
             initEnableResendButton(false)
             viewModel.countDownTimer(
                 resources.getInteger(R.integer.resend_otp_code_period).toLong(),
-                resources.getInteger(R.integer.resend_otp_code_count).toLong()
+                resources.getInteger(R.integer.resend_otp_code_count_30).toLong()
             )
             textViewDidNotReceived.text = formatString(R.string.desc_did_not_receive_code)
-            btnResend.text = formatString(R.string.action_resend_code)
+            btnResend.text = formatString(R.string.action_resend)
             textViewDidNotReceived.visibility(true)
-            tvResend.visibility(true)
+            tvResendTimer.visibility(true)
             btnResend.visibility(true)
         }
     }
@@ -849,5 +932,7 @@ class OTPActivity :
         const val PAGE_FUND_TRANSFER_PDDTS = "fund_transfer_pddts"
         const val PAGE_FUND_TRANSFER_SWIFT = "fund_transfer_swift"
         const val PAGE_BILLS_PAYMENT = "bills_payment"
+
+        const val REQ_USER_CONSENT = 100
     }
 }

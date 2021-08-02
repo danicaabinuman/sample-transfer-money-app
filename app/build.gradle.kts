@@ -227,6 +227,8 @@ dependencies {
     implementation(Libraries.compressor)
     implementation(Libraries.smartCropper)
     implementation(Libraries.stv)
+    implementation(Libraries.playServicesAuth)
+    implementation(Libraries.playServicesAuthPhone)
     kapt(Libraries.epoxyProcessor)
 
     // Third party SDK

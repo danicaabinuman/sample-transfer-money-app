@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parentLayout"
-    style="@style/MatchParent">
+    style="@style/MatchParent"
+    android:background="@color/colorWhite">
 
     <ScrollView
-        style="@style/MatchWrapParent"
+        style="@style/MatchConstraint"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.constraintlayout.widget.ConstraintLayout style="@style/MatchParent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchParent"
+            android:padding="@dimen/grid_1">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSubmit"
@@ -23,87 +29,113 @@
                 android:alpha="0.5"
                 android:text="@string/action_submit"
                 android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/textViewDidNotReceived"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayoutResend"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewPinCode"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnResend"
-                style="@style/RoundedButtonLightOverlay"
-                android:layout_width="wrap_content"
-                android:layout_marginStart="@dimen/content_margin"
-                android:layout_marginTop="@dimen/content_spacing"
-                android:layout_marginEnd="@dimen/content_margin"
-                android:layout_marginBottom="@dimen/content_spacing"
-                android:alpha="0.3"
-                android:enabled="false"
-                android:paddingStart="@dimen/content_spacing_xl"
-                android:paddingEnd="@dimen/content_spacing_xl"
-                android:text="@string/action_resend_code"
-                android:textColor="@color/colorBlack75"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonGenerateOTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SMEPrimaryButtonLarge"
+                android:layout_marginTop="@dimen/grid_2"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:layout_marginBottom="@dimen/grid_1"
+                android:text="@string/action_receive_via_otp"
+                app:layout_constraintVertical_bias="1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvResend"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageViewHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_otp"
+                android:layout_marginStart="@dimen/grid_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvHeader"
+                app:layout_constraintTop_toTopOf="@id/tvHeader"
+                app:layout_constraintBottom_toBottomOf="@id/tvHeader"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvHeader"
-                style="@style/TextHeaderLight"
+                style="@style/SMEHeadlineH2"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginStart="@dimen/content_margin"
+                android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginTop="@dimen/content_spacing"
-                android:layout_marginEnd="@dimen/content_margin"
-                android:gravity="center"
+                android:layout_marginEnd="@dimen/grid_1"
                 android:text="@string/title_verify_account"
+                app:layout_constraintVertical_bias="0"
                 app:layout_constraintBottom_toTopOf="@+id/tvVerifyAccountDesc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageViewHeader"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewDidNotReceived"
+                android:id="@+id/tvResendTimer"
                 style="@style/TextViewThemeLarge"
+                android:text="@string/desc_resend_code_seconds_default"
                 android:layout_marginTop="@dimen/content_spacing_xl"
-                android:text="@string/desc_did_not_receive_code"
-                app:layout_constraintBottom_toTopOf="@+id/tvResend"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintVertical_bias="0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewPinCode"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvResend"
-                style="@style/TextViewThemeLarge"
-                android:layout_marginTop="@dimen/content_spacing_half"
-                android:text="@string/desc_resend_code_seconds_default"
-                app:layout_constraintBottom_toTopOf="@+id/btnResend"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/grid_1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDidNotReceived"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintTop_toBottomOf="@+id/tvResendTimer"
+                app:layout_constraintBottom_toTopOf="@id/buttonGenerateOTP"
+                app:layout_constraintVertical_bias="0"
+                android:layout_marginBottom="@dimen/grid_5">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewDidNotReceived"
+                    style="@style/SMEBody"
+                    android:textStyle="bold"
+                    android:text="@string/desc_didnt_receive_code"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/btnResend"
+                    style="@style/SMEBodyMediumGray"
+                    android:layout_width="wrap_content"
+                    android:textStyle="bold"
+                    android:enabled="false"
+                    android:visibility="gone"
+                    android:text="@string/action_resend"
+                    android:layout_marginStart="@dimen/grid_1"
+                    app:layout_constraintBottom_toBottomOf="@id/textViewDidNotReceived"
+                    app:layout_constraintStart_toEndOf="@id/textViewDidNotReceived"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/textViewDidNotReceived"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:visibility="visible"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvVerifyAccountDesc"
-                style="@style/TextViewThemeLarge"
+                style="@style/SMEBodyMediumGray"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginLeft="@dimen/content_margin"
+                android:layout_marginLeft="@dimen/grid_1"
                 android:layout_marginTop="@dimen/content_spacing"
-                android:layout_marginRight="@dimen/content_margin"
-                android:gravity="center"
-                android:lineSpacingExtra="@dimen/text_view_spacing"
-                android:text="@string/desc_verify_account_sms"
+                android:layout_marginRight="@dimen/grid_1"
+                android:text="@string/desc_verify_otp_generic"
                 app:layout_constraintBottom_toTopOf="@+id/viewPinCode"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvHeader"
                 app:layout_constraintVertical_chainStyle="packed" />
@@ -113,8 +145,8 @@
                 layout="@layout/widget_pin_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_spacing_large"
-                app:layout_constraintBottom_toTopOf="@+id/textViewDidNotReceived"
+                android:layout_marginTop="@dimen/grid_5"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayoutResend"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
