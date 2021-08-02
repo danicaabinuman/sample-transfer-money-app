@@ -5,6 +5,7 @@ import com.unionbankph.corporate.payment_link.data.source.api.PaymentLinkApiClie
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
+import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import io.reactivex.Single
 import retrofit2.Response
@@ -40,6 +41,19 @@ class PaymentLinkRemoteImpl
             BuildConfig.MSME_CLIENT_SECRET,
             BuildConfig.MSME_CLIENT_API_VERSION,
             createMerchantForm
+        )
+    }
+
+    override fun putBusinessInformation(
+        accessToken: String,
+        rmoBusinessInformationForm: RMOBusinessInformationForm
+    ): Single<Response<RMOBusinessInformationResponse>> {
+        return paymentLinkApiClient.putBusinessInformation(
+            accessToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            rmoBusinessInformationForm
         )
     }
 
@@ -114,4 +128,6 @@ class PaymentLinkRemoteImpl
             BuildConfig.MSME_CLIENT_API_VERSION
         )
     }
+
+
 }
