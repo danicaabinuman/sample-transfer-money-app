@@ -101,16 +101,11 @@ import com.unionbankph.corporate.notification.presentation.notification_log.Noti
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsViewModel
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceViewModel
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
@@ -757,38 +752,4 @@ abstract class ViewModelModule {
         viewModel: FeeCalculatorViewModel
     ): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(BusinessInformationViewModel::class)
-    abstract fun businessInformationViewModel(
-        viewModel: BusinessInformationViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(PaymentLinkChannelsViewModel::class)
-    abstract fun paymentLinkChannelsViewModel(
-        viewModel: PaymentLinkChannelsViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(CardAcceptanceOptionViewModel::class)
-    abstract fun cardAcceptanceOptionViewModel(
-        viewModel: CardAcceptanceOptionViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(FeesAndChargesViewModel::class)
-    abstract fun feesAndChargesViewModel(
-        viewModel: FeesAndChargesViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(PaymentMethodsViewModel::class)
-    abstract fun paymentMethodsViewModel(
-        viewModel: PaymentMethodsViewModel
-    ): ViewModel
 }

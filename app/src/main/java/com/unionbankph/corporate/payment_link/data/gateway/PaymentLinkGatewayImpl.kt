@@ -3,14 +3,12 @@ package com.unionbankph.corporate.payment_link.data.gateway
 import com.unionbankph.corporate.auth.data.model.CorporateUser
 import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
-import com.unionbankph.corporate.common.domain.provider.ResponseProvider
 import com.unionbankph.corporate.common.domain.provider.SMEResponseProvider
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemote
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
-import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import com.unionbankph.corporate.settings.data.source.local.SettingsCache
 import io.reactivex.Single
@@ -149,15 +147,4 @@ class PaymentLinkGatewayImpl
 
     }
 
-    override fun submitBusinessInformation(rmoBusinessInformation: RMOBusinessInformationForm): Single<RMOBusinessInformationResponse> {
-
-        return settingsCache.getAccessToken()
-            .flatMap {
-                paymentLinkRemote.putBusinessInformation(
-                    it,
-                    rmoBusinessInformation
-                )
-            }
-            .flatMap { smeResponseProvider.executeResponseSingle(it) }
-    }
 }
