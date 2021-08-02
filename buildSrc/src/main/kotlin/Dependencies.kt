@@ -189,8 +189,8 @@ object Libraries {
     const val smartCropper = "com.github.pqpo:SmartCropper:${Versions.smartCropper}"
     const val paris = "com.airbnb.android:paris:${Versions.paris}"
     const val stv = "com.milaptank:stv:${Versions.stv}"
-
-
+    const val playServicesAuth = "com.google.android.gms:play-services-auth:17.0.0"
+    const val playServicesAuthPhone = "com.google.android.gms:play-services-auth-api-phone:17.4.0"
 
     // Jumio
     const val jumioCore = "com.jumio.android:core:${Versions.jumio}"

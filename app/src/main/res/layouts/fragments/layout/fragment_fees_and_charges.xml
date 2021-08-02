@@ -27,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/fees_and_charges"
                     android:textSize="24sp"
-                    style="@style/TextAppearance.AppCompat.Headline"
+                    style="@style/SMESubtitle2"
                     android:textColor="#4B4948" />
 
                 <TextView
