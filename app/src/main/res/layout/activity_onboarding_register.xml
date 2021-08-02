@@ -38,7 +38,7 @@
                     android:text="@string/title_existing_unionbank_account"
                     android:textColor="@color/colorInfo"
                     android:lineSpacingMultiplier="1.3"
-                    style="@style/TextAppearance.AppCompat.Headline"/>
+                    style="@style/SMEHeadlineH2"/>
                 
                 <androidx.appcompat.widget.AppCompatImageView
                     style="@style/WrapContent"
@@ -56,27 +56,28 @@
                     android:layout_marginTop="@dimen/grid_11"
                     />
 
-                <com.google.android.material.button.MaterialButton
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_existing_ub_account"
-                    style="@style/RoundedBigButtonBorderedLightOverLay"
+                    style="@style/SMESecondaryButtonBig"
                     android:text="@string/title_yes_existing_unionbank_account"
                     android:textAllCaps="false"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="18dp"
                     android:layout_marginTop="18dp"
                     android:layout_width="match_parent"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:layout_height="@dimen/button_large_size"/>
+                    android:textAppearance="@style/SMEBody"
 
-                <com.google.android.material.button.MaterialButton
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_continue_existing_account_application"
-                    style="@style/RoundedBigButtonBorderedLightOverLay"
+                    style="@style/SMESecondaryButtonBig"
                     android:textAllCaps="false"
                     android:layout_margin="18dp"
                     android:text="@string/title_continue_existing_account_application"
                     android:layout_width="match_parent"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:layout_height="@dimen/button_large_size"/>
+                    android:textAppearance="@style/SMEBody"
+                   />
 
 
 
