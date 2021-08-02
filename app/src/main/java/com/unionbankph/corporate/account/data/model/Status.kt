@@ -5,6 +5,9 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.*
 import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.buildClassSerialDescriptor
+import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.CompositeDecoder
 import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.encoding.Decoder
@@ -26,6 +29,12 @@ data class Status(
 ) : Parcelable {
     @Serializer(forClass = Status::class)
     companion object : KSerializer<Status> {
+
+        override val descriptor: SerialDescriptor = buildClassSerialDescriptor(this.toString()) {
+            element<String>("type", isOptional = true)
+            element<String>("description", isOptional = true)
+            element<String>("color", isOptional = true)
+        }
 
         override fun serialize(encoder: Encoder, value: Status) {
             val compositeOutput: CompositeEncoder = encoder.beginStructure(descriptor)

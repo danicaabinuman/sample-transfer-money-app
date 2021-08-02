@@ -1,12 +1,11 @@
 package com.unionbankph.corporate.common.data.model
 
-import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.Serializer
+import kotlinx.serialization.*
 import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.buildClassSerialDescriptor
+import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.CompositeDecoder
 import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.encoding.Decoder
@@ -36,8 +35,19 @@ data class ContextualClassStatus(
     @SerialName("message")
     val message: String? = null
 ) {
+    @OptIn(ExperimentalSerializationApi::class)
     @Serializer(forClass = ContextualClassStatus::class)
     companion object : KSerializer<ContextualClassStatus> {
+
+        override val descriptor: SerialDescriptor = buildClassSerialDescriptor(this.toString()) {
+            element<String>("type", isOptional = true)
+            element<String>("description", isOptional = true)
+            element<String>("detailed_description", isOptional = true)
+            element<String>("remarks", isOptional = true)
+            element<String>("contextual_class", isOptional = true)
+            element<String>("title", isOptional = true)
+            element<String>("message", isOptional = true)
+        }
 
         override fun serialize(encoder: Encoder, value: ContextualClassStatus) {
             val compositeOutput: CompositeEncoder = encoder.beginStructure(descriptor)
@@ -59,7 +69,7 @@ data class ContextualClassStatus(
             compositeOutput.encodeNullableSerializableElement(
                 descriptor,
                 index,
-                String.serializer(),
+                String.serializer().nullable,
                 value
             )
         }

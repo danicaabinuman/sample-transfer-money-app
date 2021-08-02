@@ -81,12 +81,11 @@ abstract class BillerHeaderModel : EpoxyModelWithHolder<BillerHeaderModel.Holder
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.textViewHeaderTitle.text = title.get(0).toString()
+        holder.binding.textViewHeaderTitle.text = title.get(0).toString()
     }
 
     class Holder : EpoxyHolder() {
         lateinit var binding: HeaderAllBillerBinding
-        lateinit var textViewHeaderTitle: TextView
 
         override fun bindView(itemView: View) {
             binding = HeaderAllBillerBinding.bind(itemView)
@@ -131,9 +130,6 @@ abstract class BillerItemModel : EpoxyModelWithHolder<BillerItemModel.Holder>() 
 
     class Holder : EpoxyHolder() {
         lateinit var binding: ItemAllBillerBinding
-        lateinit var viewBorder: View
-        lateinit var constraintLayoutItemTitle: ConstraintLayout
-        lateinit var textViewItemTitle: TextView
 
         override fun bindView(itemView: View) {
             binding = ItemAllBillerBinding.bind(itemView)

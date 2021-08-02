@@ -311,21 +311,15 @@ class TransactFragment :
             BaseEvent(SettingsSyncEvent.ACTION_DISABLE_NAVIGATION_BOTTOM)
         )
         tutorialViewModel.hasTutorial(TutorialScreenEnum.TRANSACT)
+    }
 
-
-        eventBus.transactSyncEvent.flowable.subscribe {
-            when (it.eventType) {
-                TransactSyncEvent.ACTION_REDIRECT_TO_PAYMENT_LINK_LIST -> {
-                    navigator.addFragmentWithAnimation(
-                        R.id.frameLayoutTransact,
-                        PaymentLinkListFragment(),
-                        null,
-                        childFragmentManager,
-                        TransactFragment.FRAGMENT_REQUEST_PAYMENT
-                    )
-                }
-            }
-        }.addTo(disposables)
+    fun navigateToPaymentLinkFragment() {
+        navigator.addFragmentWithAnimation(
+            R.id.frameLayoutTransact,
+            PaymentLinkListFragment(),
+            null,
+            childFragmentManager,
+            TransactFragment.FRAGMENT_REQUEST_PAYMENT)
     }
 
     private fun setCheckDepositClickListener() {

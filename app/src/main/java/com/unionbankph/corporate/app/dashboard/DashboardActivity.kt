@@ -47,6 +47,7 @@ import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
@@ -103,6 +104,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     private var isBackButtonFragmentSettings: Boolean = false
 
     private var isBackButtonFragmentAlerts: Boolean = false
+
+    private var isBackButtonPaymentList: Boolean = false
+
+    private lateinit var transactFragment: TransactFragment
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -357,24 +362,30 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             Timber.e(it, "actionSyncEvent")
         }.addTo(disposables)
 
-        eventBus.transactSyncEvent.flowable.subscribe {
+        eventBus.transactSyncEvent.flowable.subscribe({
             when (it.eventType) {
                 TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST -> {
                     viewModel.validateMerchant(DashboardViewModel.FROM_TRANSACT_TAB)
                 }
                 TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST -> {
+                    isBackButtonPaymentList = true
                     binding.viewPagerBTR.currentItem = bottomNavigationItems[FRAGMENT_TRANSACT]!!
-                    eventBus.transactSyncEvent.emmit(
-                        BaseEvent(TransactSyncEvent.ACTION_REDIRECT_TO_PAYMENT_LINK_LIST)
-                    )
+
                     setToolbarTitle(
-                            getString(R.string.title_payment_links),
-                            hasBackButton = false,
-                            hasMenuItem = true
+                        getString(R.string.title_payment_links),
+                        hasBackButton = true,
+                        hasMenuItem = true
                     )
+
                     binding.viewToolbar.btnRequestPayment.visibility = View.VISIBLE
+
+                    runPostDelayed({
+                        transactFragment.navigateToPaymentLinkFragment()
+                    }, 100)
                 }
             }
+        }) {
+            Timber.e(it, "transactSyncEvent error: ${it.message}")
         }.addTo(disposables)
     }
 
@@ -554,6 +565,25 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         }
     }
 
+    private fun popBackStackTransact() {
+        val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
+        val fragmentManager = transactTabFragment.childFragmentManager
+        val fragmentTag = transactTabFragment
+            .childFragmentManager
+            .getBackStackEntryAt(fragmentManager.backStackEntryCount - 1)
+            .name
+        if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT,true)) {
+            transactTabFragment.childFragmentManager.popBackStackImmediate()
+            isBackButtonPaymentList = false
+            setToolbarTitle(
+                getString(R.string.title_dashboard_header_transact),
+                hasBackButton = false,
+                hasMenuItem = true
+            )
+            binding.viewToolbar.btnRequestPayment.visibility = View.GONE
+        }
+    }
+
     override fun onBackPressed() {
         if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
             val settingsFragment =
@@ -585,26 +615,12 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
             if (transactTabFragment.isAdded) {
 
-                binding.viewToolbar.btnRequestPayment.visibility = View.GONE
                 val count = transactTabFragment.childFragmentManager.backStackEntryCount
                 if (count == 0 || binding.viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_TRANSACT]){
                     showLogoutBottomSheet()
                 } else {
-                    val fragmentManager = transactTabFragment.childFragmentManager
-                    val fragmentTag = transactTabFragment
-                        .childFragmentManager
-                        .getBackStackEntryAt(fragmentManager.backStackEntryCount - 1)
-                        .name
-                    if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT,true)) {
-                        transactTabFragment.childFragmentManager.popBackStackImmediate()
-                        setToolbarTitle(
-                            getString(R.string.title_dashboard_header_transact),
-                            hasBackButton = true,
-                            hasMenuItem = true
-                        )
-                    }
+                    popBackStackTransact()
                 }
-
             }
         } else {
             if (binding.viewApprovalsNavigation.viewApprovalsNavigationLayout.visibility == View.VISIBLE) {
@@ -623,21 +639,26 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             if ((isBackButtonFragmentSettings &&
                         position == bottomNavigationItems[FRAGMENT_SETTINGS]) ||
                 (isBackButtonFragmentAlerts &&
-                        position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS])
+                        position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) ||
+                isBackButtonPaymentList && position == bottomNavigationItems[FRAGMENT_TRANSACT]
             ) {
                 binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility(false)
                 binding.viewToolbar.imageViewLogout.visibility(false)
                 binding.viewToolbar.imageViewMarkAllAsRead.visibility(false)
-                binding.viewToolbar.btnRequestPayment.visibility(false)
+                binding.viewToolbar.btnRequestPayment.visibility(
+                    when (binding.viewPagerBTR.currentItem) {
+                        bottomNavigationItems[FRAGMENT_TRANSACT] -> true
+                        else -> false
+                    }
+                )
                 binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
                 if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
                 binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
                 binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener {
-                    if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
-                        popStackFragmentSettings()
-                    } else if (
-                        binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
-                        popStackFragmentNotifications()
+                    when (binding.viewPagerBTR.currentItem) {
+                        bottomNavigationItems[FRAGMENT_SETTINGS] -> popStackFragmentSettings()
+                        bottomNavigationItems[FRAGMENT_NOTIFICATIONS] -> popStackFragmentNotifications()
+                        bottomNavigationItems[FRAGMENT_TRANSACT] -> popBackStackTransact()
                     }
                 }
                 binding.viewToolbar.textViewTitle.text = stackTitle
@@ -684,7 +705,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             )
 
             binding.viewToolbar.btnRequestPayment.visibility(
-                position == bottomNavigationItems[FRAGMENT_ACCOUNTS]
+                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
+                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
             )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
@@ -982,11 +1004,14 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     private fun initViewPager() {
+
+        transactFragment = TransactFragment()
+
         adapter = ViewPagerAdapter(
             supportFragmentManager
         )
         adapter?.addFragment(AccountFragment(), FRAGMENT_ACCOUNTS)
-        adapter?.addFragment(TransactFragment(), FRAGMENT_TRANSACT)
+        adapter?.addFragment(transactFragment, FRAGMENT_TRANSACT)
         adapter?.addFragment(ApprovalFragment(), FRAGMENT_APPROVALS)
         adapter?.addFragment(NotificationLogTabFragment(), FRAGMENT_NOTIFICATIONS)
         adapter?.addFragment(SettingsFragment(), FRAGMENT_SETTINGS)
@@ -1214,10 +1239,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
             if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
             binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener {
-                if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
-                    popStackFragmentSettings()
-                } else if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
-                    popStackFragmentNotifications()
+                when (binding.viewPagerBTR.currentItem) {
+                    bottomNavigationItems[FRAGMENT_SETTINGS] -> popStackFragmentSettings()
+                    bottomNavigationItems[FRAGMENT_NOTIFICATIONS] -> popStackFragmentNotifications()
+                    bottomNavigationItems[FRAGMENT_TRANSACT] -> popBackStackTransact()
                 }
             }
             binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
