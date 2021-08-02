@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
 import kotlinx.android.synthetic.main.spinner.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
+import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
+import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
 
 class BusinessInformationActivity :
     BaseActivity<BusinessInformationViewModel>(R.layout.activity_business_information),
@@ -99,8 +101,11 @@ class BusinessInformationActivity :
         btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
         btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
         btn_next.setOnClickListener {
+            retrieveInformationFromFields()
             btnNextClicked()
-//            validateForm()
+        }
+        btnSaveAndExit.setOnClickListener {
+            retrieveInformationFromFields()
         }
     }
 
@@ -344,8 +349,7 @@ class BusinessInformationActivity :
         }
     }
 
-    private fun btnNextClicked() {
-
+    private fun retrieveInformationFromFields(){
         val businessType = business.toString()
         val storeProduct = et_product_of_services_offered.text.toString()
         val infoStatus = "draft"
@@ -386,7 +390,8 @@ class BusinessInformationActivity :
                 imageUrl6
             )
         )
-
+    }
+    private fun btnNextClicked() {
         val intent = Intent(this, OnboardingUploadPhotosActivity::class.java)
         startActivity(intent)
     }

@@ -138,12 +138,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUploadBIRDocs"
             style="@style/MatchWrapParent"
             android:layout_marginTop="@dimen/grid_2"
             android:text="   BIR Certificate"
             android:gravity="start|center"
             android:drawableStart="@drawable/ic_bir_certificate"
+            android:drawableEnd="@drawable/ic_arrow_orange_right"
             android:background="@drawable/a_spinner_outline"
+            android:padding="@dimen/grid_2"
             app:layout_constraintTop_toBottomOf="@id/clReminders"
             app:layout_constraintStart_toStartOf="parent"/>
 
