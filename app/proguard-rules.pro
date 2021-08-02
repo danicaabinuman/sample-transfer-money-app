@@ -197,9 +197,8 @@
 -keep class jumio.** { *; }
 -keep class com.microblink.** { *; }
 -keep class com.microblink.**$* { *; }
--keep class com.facetec.zoom.** { *; }
+-keep public class com.iproov.sdk.IProov {public *; }
 
--keep class net.sf.scuba.smartcards.IsoDepCardService {*;}
 -keep class org.jmrtd.** { *; }
 -keep class net.sf.scuba.** {*;}
 -keep class org.bouncycastle.** {*;}
