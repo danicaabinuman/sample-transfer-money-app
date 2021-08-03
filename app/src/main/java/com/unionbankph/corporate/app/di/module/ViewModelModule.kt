@@ -109,6 +109,7 @@ import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_c
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsViewModel
@@ -791,6 +792,13 @@ abstract class ViewModelModule {
     @ViewModelKey(PaymentMethodsViewModel::class)
     abstract fun paymentMethodsViewModel(
         viewModel: PaymentMethodsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NotNowCardPaymentsViewModel::class)
+    abstract fun notNowCardPaymentsViewModel(
+        viewModel: NotNowCardPaymentsViewModel
     ): ViewModel
 
     @Binds

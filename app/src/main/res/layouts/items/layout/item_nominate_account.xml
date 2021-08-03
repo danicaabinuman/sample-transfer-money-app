@@ -8,6 +8,7 @@
     app:cardCornerRadius="@dimen/card_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNominateAccountCard"
         android:layout_width="match_parent"
         android:background="@drawable/bg_cardview_dark_orange"
         android:layout_height="wrap_content">

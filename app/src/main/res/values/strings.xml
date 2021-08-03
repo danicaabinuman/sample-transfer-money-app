@@ -2256,9 +2256,14 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="you_can_add_card_acceptance_to_the_list_of_payment_channels">You can add card acceptance to the list of payment channels. We just need additional information. Do you want to apply?</string>
     <string name="yes_i_want">Yes, I want</string>
     <string name="don_t_ask_me_again">Don\'t ask me again</string>
-    <string name="allow_customers_to_pay_you_using_their_debit_or_debit_card">Allow customers to pay you using their debit or debit card</string>
+    <string name="allow_customers_to_pay_you_using_their_debit_or_debit_card">Allow customers to pay you using their credit or debit card</string>
     <string name="no_set_up_or_annual_fees">No set-up or annual fees</string>
     <string name="we_ll_collect_3_php_10_per_transaction">We\'ll collect 3% + PHP 10 per transaction</string>
+    <string name="upload_photos_intro">Upload photos of your products or photos that best describe the services offered</string>
+    <string name="maximum_of_6_photos_only">(Maximum of 6 photos only)</string>
+    <string name="add_photos">Add Photos</string>
+    <string name="add_photos_2">+ Add Photos</string>
+    <string name="save_and_exit">Save and Exit</string>
     <string name="_1"><![CDATA[<1]]></string>
     <string name="products_offered_hint">What products or services are you offering?</string>
     <string name="e_commerce_count_as_one_1_branch">E-commerce count as one (1) branch</string>
@@ -2285,9 +2290,8 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="years_in_business">Years in business</string>
     <string name="how_long_have_you_been_in_nbusiness">How long have you been in\nbusiness?</string>
     <string name="details_products_offered">What products or services are you offering and what kind of customers are you targeting?</string>
-    <string name="products_of_services_offered">Products of Services Offered</string>
+    <string name="products_of_services_offered">Products or Services Offered</string>
     <string name="nature_of_business">Nature of Business</string>
     <string name="we_want_to_know_more_about_your_business">We want to know more about your business</string>
-    <string name="save_and_exit">Save and Exit</string>
     <string name="indicate_0_if_less_than_1_year">Indicate 0 if less than 1 year</string>
 </resources>
