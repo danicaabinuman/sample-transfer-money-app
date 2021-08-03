@@ -39,7 +39,6 @@ interface PaymentLinkApiClient {
         createMerchantForm: CreateMerchantForm
     ): Single<Response<CreateMerchantResponse>>
 
-
     @GET("msme/api/{api_version}/payment-links")
     fun getPaymentLinkListPaginated(
         @Header("Authorization")
@@ -74,8 +73,6 @@ interface PaymentLinkApiClient {
             referenceNumber: String
     ): Single<Response<GetPaymentLinkListPaginatedResponse>>
 
-
-
     @GET("msme/api/{api_version}/payment-link/{reference_id}")
     fun getPaymentLinkByReferenceId(
         @Header("Authorization")
@@ -89,7 +86,6 @@ interface PaymentLinkApiClient {
         @Path("reference_id")
         referenceId: String
     ): Single<Response<GetPaymentLinkByReferenceIdResponse>>
-
 
     @PUT("msme/api/{api_version}/payment/{transaction_id}/status")
     fun putPaymentLinkStatus(
@@ -118,4 +114,5 @@ interface PaymentLinkApiClient {
         @Path("api_version")
         apiVersion: String
     ): Single<Response<ValidateMerchantByOrganizationResponse>>
+
 }

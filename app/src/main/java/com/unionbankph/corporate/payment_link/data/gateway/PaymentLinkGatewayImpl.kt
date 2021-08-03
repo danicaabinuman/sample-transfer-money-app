@@ -3,7 +3,6 @@ package com.unionbankph.corporate.payment_link.data.gateway
 import com.unionbankph.corporate.auth.data.model.CorporateUser
 import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
-import com.unionbankph.corporate.common.domain.provider.ResponseProvider
 import com.unionbankph.corporate.common.domain.provider.SMEResponseProvider
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemote
@@ -59,6 +58,8 @@ class PaymentLinkGatewayImpl
             .flatMap { smeResponseProvider.executeResponseSingle(it) }
 
     }
+
+
 
     override fun getPaymentLinkListPaginated(
             page: String,
@@ -145,4 +146,5 @@ class PaymentLinkGatewayImpl
         return Single.fromCallable { ValidateApproverResponse(isApprover) }
 
     }
+
 }

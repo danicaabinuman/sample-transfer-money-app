@@ -22,4 +22,5 @@ interface PaymentLinkRemote {
     fun putPaymentLinkStatus(accessToken: String, transactionId: String, putPaymentLinkStatusForm: PutPaymentLinkStatusForm) : Single<Response<PutPaymentLinkStatusResponse>>
 
     fun validateMerchantByOrganization(accessToken: String) : Single<Response<ValidateMerchantByOrganizationResponse>>
+
 }

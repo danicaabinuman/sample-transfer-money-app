@@ -82,18 +82,16 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         btnSetupBusinessLink.setOnClickListener {
 
             setupPaymentLinkLoading.visibility = View.VISIBLE
-            til_business_name.error = null
 
             val role = cacheManager.getObject(CacheManager.ROLE) as? Role
             val orgName = role?.organizationName
-            val businessName = et_business_name.text.toString()
             val businessWebsite = et_business_websites.text.toString()
             val businessProductsOffered = et_business_products_offered.text.toString()
 
             viewModel.createMerchant(
                     CreateMerchantForm(
                             orgName!!,
-                            businessName,
+                            "",
                             include1.findViewById<TextView>(R.id.textViewAccountNumber).text.toString(),
                             include1.findViewById<TextView>(R.id.textViewCorporateName).text.toString(),
                             businessWebsite,
@@ -172,22 +170,6 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     }
 
     private fun requiredFields(){
-        et_business_name.setOnFocusChangeListener { _, b -> til_business_name.error = null }
-        et_business_name.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                validateForm()
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
-
         et_business_products_offered.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -263,10 +245,6 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
                     noAvailableAccounts.visibility = View.VISIBLE
                 }
 
-                is ShowHandleNotAvailable -> {
-                    til_business_name.error = "This handle is no longer available. Please try another one."
-                }
-
                 is ShowApproverPermissionRequired -> {
                     approverPermissionRequired.visibility = View.VISIBLE
                 }
@@ -300,12 +278,10 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     }
 
     private fun validateForm(){
-        val businessName = et_business_name.text.toString()
         val businessProductsOffered = et_business_products_offered.text.toString()
         val isChecked = cb_fnc_tnc.isChecked
 
         if (
-            businessName.isNotEmpty() &&
             businessProductsOffered.isNotEmpty() &&
             llSettlementAccount.visibility == View.VISIBLE
             && isChecked

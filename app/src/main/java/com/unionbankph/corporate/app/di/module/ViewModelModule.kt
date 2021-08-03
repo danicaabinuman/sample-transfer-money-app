@@ -103,6 +103,7 @@ import com.unionbankph.corporate.payment_link.presentation.billing_details.Billi
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
+import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulViewModel
@@ -699,14 +700,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TermsOfServiceViewModel::class)
     abstract fun termsOfServiceViewModel(
-            viewModel: TermsOfServiceViewModel
+        viewModel: TermsOfServiceViewModel
     ): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(NominateSettlementViewModel::class)
     abstract fun nominateSettlementViewModel(
-            viewModel: NominateSettlementViewModel
+        viewModel: NominateSettlementViewModel
     ): ViewModel
 
     @Binds
@@ -727,7 +728,7 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PaymentLinkListViewModel::class)
     abstract fun paymentLinkListViewModel(
-            viewModel: PaymentLinkListViewModel
+        viewModel: PaymentLinkListViewModel
     ): ViewModel
 
     @Binds
@@ -742,6 +743,13 @@ abstract class ViewModelModule {
     @ViewModelKey(SetupPaymentLinkSuccessfulViewModel::class)
     abstract fun setupPaymentLinkSuccessfulViewModel(
         viewModel: SetupPaymentLinkSuccessfulViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FeeCalculatorViewModel::class)
+    abstract fun feeCalculatorViewModel(
+        viewModel: FeeCalculatorViewModel
     ): ViewModel
 
 }

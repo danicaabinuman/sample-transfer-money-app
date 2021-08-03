@@ -4,9 +4,8 @@
         android:color="@color/colorGrey"
         android:width="1dp"/>
 
-    <solid
-        android:color="@color/colorWhite"
-        />
+    <solid android:color="@color/jumio_white"/>
+
     <corners
         android:radius="@dimen/grid_1_half"/>
 </shape>

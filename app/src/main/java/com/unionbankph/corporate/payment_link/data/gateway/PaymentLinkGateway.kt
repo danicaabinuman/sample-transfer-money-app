@@ -5,7 +5,6 @@ import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentL
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import io.reactivex.Single
-import retrofit2.Response
 
 interface PaymentLinkGateway {
 
@@ -24,4 +23,5 @@ interface PaymentLinkGateway {
     fun validateMerchantByOrganization() : Single<ValidateMerchantByOrganizationResponse>
 
     fun validateApprover() : Single<ValidateApproverResponse>
+
 }
