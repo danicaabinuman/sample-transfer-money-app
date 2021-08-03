@@ -41,8 +41,37 @@
         android:label="enter_name_fragment"
         tools:layout="@layout/fragment_oa_enter_name">
 
+        <action
+            android:id="@+id/action_enter_name_to_tnc_reminder"
+            app:destination="@id/tnc_reminder_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
 
+
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/tnc_reminder_fragment"
+        android:name="com.unionbankph.corporate.user_creation.presentation.tnc_reminder.TNCReminderFragment"
+        android:label="tnc_reminder_fragment"
+        tools:layout="@layout/fragment_terms_and_condition_reminder">
+
+    <action
+        android:id="@+id/action_tnc_reminder_to_tnc"
+        app:destination="@id/tnc_fragment"
+        app:enterAnim="@anim/anim_enter_from_right"
+        app:exitAnim="@anim/anim_exit_to_left"
+        app:popEnterAnim="@anim/anim_enter_from_left"
+        app:popExitAnim="@anim/anim_exit_to_right"/>
 
     </fragment>
+
+    <fragment
+        android:id="@+id/tnc_fragment"
+        android:name="com.unionbankph.corporate.user_creation.presentation.tnc.TNCFragment"
+        android:label="tnc_fragment"
+        tools:layout="@layout/fragment_terms_and_condition"/>
 
 </navigation>

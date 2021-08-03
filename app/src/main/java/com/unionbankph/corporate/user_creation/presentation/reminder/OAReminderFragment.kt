@@ -26,7 +26,7 @@ class OAReminderFragment :
     override fun onViewsBound() {
         super.onViewsBound()
 
-        RxView.clicks(buttonNext)
+        RxView.clicks(btn_oa_reminder_next)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
