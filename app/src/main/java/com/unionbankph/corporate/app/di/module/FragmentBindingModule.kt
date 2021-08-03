@@ -54,6 +54,7 @@ import com.unionbankph.corporate.notification.presentation.notification_log.noti
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
+import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsFragment
 import com.unionbankph.corporate.settings.presentation.notification.NotificationDetailFragment
@@ -341,5 +342,9 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun paymentLinkListFragment(): PaymentLinkListFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun faceIDBottomSheet(): FaceIDBottomSheet
 
 }

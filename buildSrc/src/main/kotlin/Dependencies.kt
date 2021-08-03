@@ -68,6 +68,7 @@ object Libraries {
         const val multiDex = "2.0.0"
         const val stetho = "1.5.0"
         const val stethoOkhttp3 = "1.5.0"
+        const val biometric = "1.1.0"
 
         // Google
         const val firebase = "16.0.1"
@@ -189,6 +190,7 @@ object Libraries {
     const val smartCropper = "com.github.pqpo:SmartCropper:${Versions.smartCropper}"
     const val paris = "com.airbnb.android:paris:${Versions.paris}"
     const val stv = "com.milaptank:stv:${Versions.stv}"
+    const val biometric = "androidx.biometric:biometric:${Versions.biometric}"
 
 
 

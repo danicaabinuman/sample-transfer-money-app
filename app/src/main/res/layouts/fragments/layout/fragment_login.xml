@@ -319,6 +319,20 @@
                     app:srcCompat="@drawable/ic_fingerprint_white_48dp"
                     app:tint="?colorImage" />
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgFaceID"
+                    style="@style/WrapContent"
+                    android:layout_width="@dimen/image_view_login_fingerprint_size"
+                    android:layout_height="@dimen/image_view_login_fingerprint_size"
+                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_sign_up"
+                    app:srcCompat="@drawable/face_id_white"
+                    app:tint="?colorImage" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>

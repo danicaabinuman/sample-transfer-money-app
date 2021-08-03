@@ -6,7 +6,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageViewThePortal"
         style="@style/ImageViewLogo"
-        android:layout_width="@dimen/grid_42"
+        android:layout_width="@dimen/grid_40"
         android:layout_height="@dimen/grid_16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
