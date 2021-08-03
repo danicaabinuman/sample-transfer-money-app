@@ -265,30 +265,31 @@
                                 android:layout_marginTop="@dimen/grid_1"
                                 android:layout_marginEnd="@dimen/grid_2"
                                 android:layout_marginBottom="@dimen/grid_1"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                app:layout_constraintEnd_toStartOf="@id/imgBtnShare"
                                 app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/tvPaymentLink" />
 
-                            <ImageButton
+                            <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/imgBtnShare"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="@dimen/grid_3"
-                                android:background="@drawable/ic_share_orange"
-                                app:layout_constraintEnd_toStartOf="@+id/ibURLcopy"
-                                app:layout_constraintTop_toTopOf="@+id/linkDetailsPaymentLink" />
+                                style="@style/SMESecondaryButtonSmall"
+                                android:text="SHARE LINK"
+                                app:layout_constraintTop_toBottomOf="@+id/linkDetailsPaymentLink"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:layout_marginTop="5dp"
+                                />
 
-                            <ImageButton
+                            <androidx.appcompat.widget.AppCompatButton
                                 android:id="@+id/ibURLcopy"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/grid_1"
-                                android:layout_marginEnd="@dimen/grid_1"
-                                android:background="@drawable/ic_content_copy_orange"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/linkDetailsPaymentLink" />
+                                android:layout_marginStart="10dp"
+                                style="@style/SMESecondaryButtonSmall"
+                                android:text="COPY LINK"
+                                app:layout_constraintTop_toBottomOf="@+id/linkDetailsPaymentLink"
+                                app:layout_constraintStart_toEndOf="@+id/imgBtnShare"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="5dp"
+                                />
+
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 

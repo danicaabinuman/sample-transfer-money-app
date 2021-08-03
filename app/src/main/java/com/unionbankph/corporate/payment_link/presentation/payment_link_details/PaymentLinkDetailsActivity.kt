@@ -155,9 +155,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         btnGenerateAnotherLink.text = "GENERATE NEW LINK"
         btnArchive.text = "MARK AS UNPAID"
         imgBtnShare.isEnabled = false
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
         ibURLcopy.isEnabled = false
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
         btnArchive.isEnabled = true
         tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
         tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
@@ -175,10 +173,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         btnGenerateAnotherLink.text = "GENERATE NEW LINK"
         btnArchive.visibility = View.GONE
         btnArchive.text = "ARCHIVE"
-        imgBtnShare.isEnabled = false
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        ibURLcopy.isEnabled = false
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        imgBtnShare.visibility = View.INVISIBLE
+        ibURLcopy.visibility = View.INVISIBLE
         btnArchive.isEnabled = false
         tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
         tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
@@ -195,9 +191,7 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         btnGenerateAnotherLink.text = "GENERATE ANOTHER LINK"
         btnArchive.text = "ARCHIVE"
         imgBtnShare.isEnabled = true
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_orange)
         ibURLcopy.isEnabled = true
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_orange)
         btnArchive.isEnabled = true
         tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
         tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
@@ -214,10 +208,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         btnGenerateAnotherLink.text = "GENERATE NEW LINK"
         btnArchive.visibility = View.GONE
         btnArchive.text = "ARCHIVE"
-        imgBtnShare.isEnabled = false
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        ibURLcopy.isEnabled = false
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        imgBtnShare.visibility = View.INVISIBLE
+        ibURLcopy.visibility = View.INVISIBLE
         btnArchive.isEnabled = false
         tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
         tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
@@ -233,10 +225,8 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         clCyberSure.visibility = View.VISIBLE
         btnGenerateAnotherLink.text = "GENERATE NEW LINK"
         btnArchive.text = "VIEW MORE DETAILS"
-        imgBtnShare.isEnabled = false
-        imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        ibURLcopy.isEnabled = false
-        ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
+        imgBtnShare.visibility = View.INVISIBLE
+        ibURLcopy.visibility = View.INVISIBLE
         btnArchive.isEnabled = true
         tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_orange)
         tvReferenceNo.setTextColor(Color.parseColor("#FFFFFF"))
