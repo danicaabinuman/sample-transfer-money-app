@@ -4,10 +4,13 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
@@ -45,6 +48,7 @@ import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -134,7 +138,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     initNotificationBadgeAlerts(it)
                 }
                 is ShowBiometricDialog -> {
-                    if (it.hasNotBiometric && RxFingerprint.isAvailable(this)) {
+                    if (it.hasNotBiometric) {
                         showFingerprintBottomSheet()
                     } else {
                         viewModel.isReadMCDTerms()
@@ -409,16 +413,23 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     }
 
     private fun initEncryptedBiometric(token: String) {
-        val fingerprintBottomSheet = FingerprintBottomSheet.newInstance(
-            token,
-            FingerprintBottomSheet.ENCRYPT_TYPE
-        )
-        fingerprintBottomSheet.setOnFingerPrintListener(this)
-        fingerprintBottomSheet.encrypt(
-            this,
-            FingerprintBottomSheet.EXTRA_TOKEN,
-            token
-        )
+        if(RxFingerprint.isAvailable(this)){
+            val fingerprintBottomSheet = FingerprintBottomSheet.newInstance(
+                token,
+                FingerprintBottomSheet.ENCRYPT_TYPE
+            )
+            fingerprintBottomSheet.setOnFingerPrintListener(this)
+            fingerprintBottomSheet.encrypt(
+                this,
+                FingerprintBottomSheet.EXTRA_TOKEN,
+                token
+            )
+        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS){
+            viewModel.setTokenFingerPrint(token)
+        }
+
+
     }
 
     private fun initDashboardViews(role: Role) {
@@ -554,6 +565,44 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     hasMenuItem = true
                 )
             }
+        }
+    }
+
+
+
+    fun faceIDPrompt(toEncrypt: String) {
+        if (BiometricManager.from(applicationContext).canAuthenticate() != BiometricManager
+                .BIOMETRIC_SUCCESS) return
+
+        if (TextUtils.isEmpty(toEncrypt)) return
+        if (BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS) {
+            val executor = ContextCompat.getMainExecutor(applicationContext)
+            val biometricPrompt = BiometricPrompt(
+                this, executor,
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+
+                    }
+                    override fun onAuthenticationError(errorCode: Int,
+                                                       errString: CharSequence) {
+
+                        if(errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+
+                        }
+                    }
+                    override fun onAuthenticationFailed() {
+                    }
+                })
+
+           val promptInfo =  BiometricPrompt.PromptInfo.Builder()
+                .setTitle(getString(R.string.title_login_in_using_faceid))
+                .setSubtitle(getString(R.string.confirm_fingerprint_description))
+                .setNegativeButtonText(getString(R.string.btn_cancel))
+                .setNegativeButtonText(getString(R.string.action_cancel))
+                .setConfirmationRequired(false)
+                .build()
+            biometricPrompt.authenticate(promptInfo)
         }
     }
 
@@ -1018,13 +1067,25 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     }
 
     fun showFingerprintBottomSheet() {
-        fingerprintBottomSheet = ConfirmationBottomSheet.newInstance(
-            R.drawable.ic_fingerprint_white_48dp,
-            getString(R.string.title_enable_fingerprint),
-            getString(R.string.desc_fingerprint),
-            getString(R.string.action_link),
-            getString(R.string.action_not_now)
-        )
+        if(RxFingerprint.isAvailable(this)){
+            fingerprintBottomSheet = ConfirmationBottomSheet.newInstance(
+                R.drawable.ic_fingerprint_white_48dp,
+                getString(R.string.title_enable_fingerprint),
+                getString(R.string.desc_fingerprint),
+                getString(R.string.action_link),
+                getString(R.string.action_not_now)
+            )
+        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS){
+            fingerprintBottomSheet = ConfirmationBottomSheet.newInstance(
+                R.drawable.ic_fingerprint_white_48dp,
+                getString(R.string.title_enable_face_id),
+                getString(R.string.desc_face_id),
+                getString(R.string.action_link),
+                getString(R.string.action_not_now)
+            )
+        }
+
         fingerprintBottomSheet?.isCancelable = false
         fingerprintBottomSheet?.setOnConfirmationPageCallBack(this)
         fingerprintBottomSheet?.show(

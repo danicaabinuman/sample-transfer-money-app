@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import androidx.biometric.BiometricManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
@@ -101,7 +102,15 @@ class SecurityFragment :
             viewModel.getTokenFingerPrint()
             constraintLayoutBiometric.visibility(true)
             viewBorderFingerPrint.visibility(true)
-        } else {
+        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS){
+            viewModel.getTokenFingerPrint()
+            constraintLayoutBiometric.visibility(true)
+            text_view_biometric_title.text = getString(R.string.title_face_id)
+            text_view_biometric.text = getString(R.string.msg_face_id)
+            viewBorderFingerPrint.visibility(true)
+        }
+        else {
             constraintLayoutBiometric.visibility(false)
             viewBorderFingerPrint.visibility(false)
         }
@@ -191,7 +200,8 @@ class SecurityFragment :
                 return@setOnCheckedChangeListener
             }
             if (isChecked) {
-                if (RxFingerprint.hasEnrolledFingerprints(activity!!)) {
+                if (RxFingerprint.hasEnrolledFingerprints(activity!!) || BiometricManager.from(requireActivity()).canAuthenticate() == BiometricManager
+                        .BIOMETRIC_SUCCESS) {
                     (activity as DashboardActivity).showFingerprintBottomSheet()
                 } else {
                     MaterialDialog(getAppCompatActivity()).show {

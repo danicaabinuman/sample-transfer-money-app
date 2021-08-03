@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
+import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -14,6 +15,7 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.biometric.BiometricManager
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
@@ -57,6 +59,7 @@ import com.unionbankph.corporate.common.presentation.constant.URLDataEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.selection.DaoSelectionActivity
+import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
@@ -73,13 +76,16 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     FingerprintBottomSheet.OnFingerPrintListener,
     InstallStateUpdatedListener,
     OnSuccessListener<AppUpdateInfo>,
-    ImeOptionEditText.OnImeOptionListener {
+    ImeOptionEditText.OnImeOptionListener,
+    FaceIDBottomSheet.OnFaceIdListener{
 
     private lateinit var imeOptionEditText: ImeOptionEditText
 
     private var appUpdateManager: AppUpdateManager? = null
 
     private var fingerprintBottomSheet: FingerprintBottomSheet? = null
+
+    private var faceIDBottomSheet: FaceIDBottomSheet? = null
 
     private var isShownInitialFingerprint: Boolean = false
 
@@ -106,7 +112,9 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             }.addTo(disposables)
         viewModel.token
             .subscribe {
-                showFingerprintImageView(it != "")
+                if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "")
+                }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                        .BIOMETRIC_SUCCESS) { showFaceIDImageView(it !="") }
             }.addTo(disposables)
         viewModel.fullName
             .subscribe {
@@ -237,6 +245,27 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
         }
     }
 
+
+    override fun onCompleteFaceID(token: String) {
+        viewModel.userLoginFingerPrint(
+            LoginFingerprintForm(fingerprintToken = token, udid = settingsUtil.getUdId())
+        )
+    }
+
+    override fun onErrorFaceID() {
+        showFaceIDImageView(false)
+        viewModel.token.onNext("")
+    }
+
+    override fun onDismissFaceIDialog() {
+        if ((BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS) &&
+            sharedPreferenceUtil.fingerPrintTokenSharedPref().get() != ""
+        ) {
+            showFaceIDImageView(true)
+        }
+    }
+
     override fun onCompleteFingerprint(token: String) {
         viewModel.userLoginFingerPrint(
             LoginFingerprintForm(fingerprintToken = token, udid = settingsUtil.getUdId())
@@ -348,6 +377,7 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     private fun initListener() {
         initClickButtonLogin()
         initClickImgFingerPrint()
+        initClickImgFaceID()
         initClickTextViewFullname()
         initClickTextViewLearnMore()
         initClickButtonGenerateTOTP()
@@ -652,6 +682,19 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
                 childFragmentManager,
                 LoginActivity::class.java.simpleName
             )
+        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS
+            && !isShownInUpdateApp
+            && App.isActivityVisible()){
+            faceIDBottomSheet = FaceIDBottomSheet.newInstance(
+                token,
+                FaceIDBottomSheet.DECRYPT_TYPE
+            )
+            faceIDBottomSheet?.setOnFaceIdListener(this)
+            faceIDBottomSheet?.show(
+                childFragmentManager,
+                LoginActivity::class.java.simpleName
+            )
         }
     }
 
@@ -825,6 +868,18 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             }.addTo(disposables)
     }
 
+    private fun initClickImgFaceID() {
+        RxView.clicks(imgFaceID)
+            .throttleFirst(
+                resources.getInteger(R.integer.time_button_debounce).toLong(),
+                TimeUnit.MILLISECONDS
+            )
+            .subscribe {
+                viewUtil.dismissKeyboard(getAppCompatActivity())
+                fingerprintViews(viewModel.token.value.notNullable())
+            }.addTo(disposables)
+    }
+
     private fun initLoginSuccess(it: ShowLoginSuccess) {
         getEditTextUsername().clearFocus()
         getEditTextPassword().clearFocus()
@@ -895,6 +950,19 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             .observeOn(schedulerProvider.ui())
             .subscribe {
                 imgFingerPrint.visibility(it)
+            }.addTo(disposables)
+    }
+
+    private fun showFaceIDImageView(isShow: Boolean) {
+        Observable.just(isShow)
+            .delay(
+                resources.getInteger(R.integer.time_delay_fingerprint).toLong(),
+                TimeUnit.MILLISECONDS
+            )
+            .subscribeOn(schedulerProvider.computation())
+            .observeOn(schedulerProvider.ui())
+            .subscribe {
+                imgFaceID.visibility(it)
             }.addTo(disposables)
     }
 

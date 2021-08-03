@@ -4,7 +4,7 @@
     style="@style/MatchWrapParent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintFingerprint"
+        android:id="@+id/constraintFaceId"
         style="@style/BottomSheetBackground"
         android:padding="@dimen/grid_1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewFingerprintTitle"
+            android:id="@+id/textViewFaceIdTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewFingerprintDesc"
+            android:id="@+id/textViewFaceIdDesc"
             style="@style/TextViewThemeLarge"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/content_spacing_half"
@@ -39,7 +39,7 @@
             android:text="@string/confirm_fingerprint_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFingerprintTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewFaceIdTitle" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewIcon"
@@ -47,13 +47,13 @@
             android:layout_width="@dimen/circle_icon_size"
             android:layout_marginTop="@dimen/grid_3"
             android:scaleType="centerInside"
-            app:layout_constraintTop_toBottomOf="@id/textViewFingerprintDesc"
+            app:layout_constraintTop_toBottomOf="@id/textViewFaceIdDesc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_face_id" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewFingerprintDesc2"
+            android:id="@+id/textViewFaceIdDesc2"
             style="@style/TextViewThemeLarge"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/grid_2"
@@ -82,7 +82,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFingerprintDesc2" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewFaceIdDesc2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
