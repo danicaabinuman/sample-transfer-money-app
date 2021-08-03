@@ -5,19 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite">
 
-
-    <include
-        android:id="@+id/viewToolbar"
-        layout="@layout/widget_transparent_appbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/match_constraint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewToolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
     <ScrollView
@@ -73,7 +65,7 @@
     </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_proceed"
+        android:id="@+id/btn_tnc_reminder_next"
         style="@style/SMEPrimaryButtonLarge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

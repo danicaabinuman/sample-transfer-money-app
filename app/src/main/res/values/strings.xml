@@ -2321,6 +2321,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
         <font size="%1$s" color="%2$s"><b>\u2022</b></font>  Date of Birth<br>
         ]]>
     </string>
+    <string name="welcome_reminder">Welcome, %1$s!</string>
     <string name="msg_before_we_begin">Before we begin,</string>
     <string name="msg_here_are_few_terms">Here are few terms for your privacy and security.\nClicking NEXT means you agree to our Terms of\nService and Privacy.</string>
     <string name="title_unionbank_terms_and_condition">UnionBank Business Banking Terms and Conditions</string>

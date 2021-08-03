@@ -1,10 +1,10 @@
 package com.unionbankph.corporate.user_creation.presentation.enter_name
 
 import android.os.Bundle
-import android.os.Handler
 import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.getTextNullable
@@ -81,6 +81,7 @@ class OAEnterNameFragment :
 
         viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
             openAccountActivity.setNameInput(it)
+            findNavController().navigate(R.id.action_enter_name_to_tnc_reminder)
         })
 
         val hasValue = openAccountActivity.viewModel.hasNameInput.hasValue()
