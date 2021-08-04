@@ -2290,4 +2290,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="we_want_to_know_more_about_your_business">We want to know more about your business</string>
     <string name="save_and_exit">Save and Exit</string>
     <string name="indicate_0_if_less_than_1_year">Indicate 0 if less than 1 year</string>
+    <string name="merchant_rejected_details">We couldn’t process your application at this time. You may reach out to us at [email]@unionbankph.com should you need further assistance.</string>
+    <string name="oops_try_again">Oops! Try again!</string>
+    <string name="try_again">TRY AGAIN</string>
 </resources>
