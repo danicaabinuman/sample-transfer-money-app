@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
@@ -13,226 +15,105 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollViewMain"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/viewToolbar">
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar"
+        app:layout_constraintBottom_toTopOf="@id/shadow_bottom">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/grid_1"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/grid_2"
                 app:layout_constraintTop_toBottomOf="@id/viewToolbar">
 
                 <TextView
                     android:id="@+id/tvOneLastThing"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="One last thing..."
-                    android:textStyle="bold"
-                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:text="@string/one_last_thing"
+                    style="@style/SMEHeadlineH2"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
 
                 <TextView
                     android:id="@+id/tvAverageMonthlyVolume"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_3"
-                    android:text="What's your average monthly volume?"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/what_s_your_average_monthly_volume"
+                    style="@style/SMECaption"
                     app:layout_constraintTop_toBottomOf="@id/tvOneLastThing"
                     app:layout_constraintStart_toStartOf="parent"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clMonthlyVolumeSlider"
-                    android:layout_width="match_parent"
+                <include
+                    android:id="@+id/viewMonthlyVolume"
+                    layout="@layout/widget_amount_slider"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@drawable/bg_border_rectangle"
-                    android:paddingBottom="@dimen/grid_1"
-                    app:layout_constraintTop_toBottomOf="@id/tvAverageMonthlyVolume">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilMonthlyVolume"
-                        style="@style/TextInputLayoutForm"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="@dimen/grid_3"
-                        android:layout_marginStart="@dimen/grid_9"
-                        android:layout_marginEnd="@dimen/grid_9"
-                        android:hint="PHP"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etMonthlyVolume"
-                            style="@style/EditTextAmount" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        android:id="@+id/tvForSliderMonthly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_5"
-                        android:layout_marginStart="@dimen/grid_11"
-                        android:layout_marginEnd="@dimen/grid_11"
-                        android:background="@color/colorWhite"
-                        android:visibility="gone"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/sliderMonthlyVolume"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_2"
-                        android:layout_marginStart="@dimen/grid_2"
-                        android:layout_marginEnd="@dimen/grid_2"
-                        android:valueFrom="10000"
-                        android:valueTo="3000000"
-                        android:value="250000"
-                        android:stepSize="10000"
-                        app:thumbColor="#ED5635"
-                        app:thumbRadius="@dimen/grid_3_half"
-                        app:haloColor="@color/colorWhite"
-                        app:trackColor="#ED5635"
-                        app:trackHeight="@dimen/grid_2"
-                        app:layout_constraintTop_toBottomOf="@id/tilMonthlyVolume"/>
-
-                    <TextView
-                        android:id="@+id/tvBelow10K"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Below 10K"
-                        android:layout_marginStart="@dimen/grid_3"
-                        android:textSize="@dimen/text_12"
-                        app:layout_constraintTop_toBottomOf="@+id/sliderMonthlyVolume"
-                        app:layout_constraintStart_toStartOf="parent"/>
-
-                    <TextView
-                        android:id="@+id/tvAbove5M"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/grid_3"
-                        android:text="Above 5M"
-                        android:layout_marginStart="@dimen/grid_3"
-                        android:textSize="@dimen/text_12"
-                        app:layout_constraintTop_toBottomOf="@+id/sliderMonthlyVolume"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_margin="@dimen/grid_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvAverageMonthlyVolume"/>
 
                 <TextView
                     android:id="@+id/tvAverageTransactionAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_3"
-                    android:text="What's your average transaction amount?"
-                    app:layout_constraintTop_toBottomOf="@id/clMonthlyVolumeSlider"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    android:layout_marginTop="@dimen/grid_4"
+                    android:text="@string/what_s_your_average_transaction_amount"
+                    style="@style/SMECaption"
+                    android:layout_marginStart="@dimen/grid_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewMonthlyVolume"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clTransactionAmountSlider"
-                    android:layout_width="match_parent"
+                <include
+                    android:id="@+id/viewTransactionAmount"
+                    layout="@layout/widget_amount_slider"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@drawable/bg_border_rectangle"
-                    android:paddingBottom="@dimen/grid_1"
-                    app:layout_constraintTop_toBottomOf="@id/tvAverageTransactionAmount">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilTransactionAmount"
-                        style="@style/TextInputLayoutForm"
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="@dimen/grid_3"
-                        android:layout_marginStart="@dimen/grid_9"
-                        android:layout_marginEnd="@dimen/grid_9"
-                        android:hint="PHP"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etTransactionAmount"
-                            style="@style/EditTextAmount" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        android:id="@+id/tvForSliderTransaction"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_5"
-                        android:layout_marginStart="@dimen/grid_11"
-                        android:layout_marginEnd="@dimen/grid_11"
-                        android:background="@color/colorWhite"
-                        android:visibility="gone"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-                    <com.google.android.material.slider.Slider
-                        android:id="@+id/sliderTransactionAmount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_2"
-                        android:layout_marginStart="@dimen/grid_2"
-                        android:layout_marginEnd="@dimen/grid_2"
-                        android:valueFrom="10000"
-                        android:valueTo="3000000"
-                        android:value="250000"
-                        android:stepSize="10000"
-                        app:thumbColor="#ED5635"
-                        app:thumbRadius="@dimen/grid_3_half"
-                        app:haloColor="@color/colorWhite"
-                        app:trackColor="#ED5635"
-                        app:trackHeight="@dimen/grid_2"
-                        app:layout_constraintTop_toBottomOf="@id/tilTransactionAmount"/>
-
-                    <TextView
-                        android:id="@+id/tvBelow10K2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Below 10K"
-                        android:layout_marginStart="@dimen/grid_3"
-                        android:textSize="@dimen/text_12"
-                        app:layout_constraintTop_toBottomOf="@+id/sliderTransactionAmount"
-                        app:layout_constraintStart_toStartOf="parent"/>
-
-                    <TextView
-                        android:id="@+id/tvAbove5M2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/grid_3"
-                        android:text="Above 5M"
-                        android:layout_marginStart="@dimen/grid_3"
-                        android:textSize="@dimen/text_12"
-                        app:layout_constraintTop_toBottomOf="@+id/sliderTransactionAmount"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_margin="@dimen/grid_1"
+                    app:layout_constraintTop_toBottomOf="@id/tvAverageTransactionAmount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@id/clTransactionAmountSlider">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:paddingBottom="@dimen/grid_6"
+                    app:layout_constraintTop_toBottomOf="@id/viewTransactionAmount">
+
                     <TextView
                         android:id="@+id/tvNominateAccount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
                         android:layout_marginTop="@dimen/grid_3"
+                        style="@style/SMECaption"
                         android:text="Nominate Settlement Account" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnSelectAccount"
+                        android:id="@+id/buttonSelectAccount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"
                         android:paddingStart="@dimen/grid_2"
                         android:paddingEnd="@dimen/grid_2"
-                        android:text="Select account"
+                        android:text="@string/action_select_account"
                         android:textColor="#BFBFBF"
                         android:textAllCaps="false"
                         android:gravity="start|center"
@@ -241,49 +122,43 @@
 
                     <include
                         android:id="@+id/include_settlement_account"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginBottom="@dimen/grid_6"
                         layout="@layout/item_nominate_account"/>
+
+
                 </LinearLayout>
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/grid_11"
-                android:layout_marginStart="@dimen/grid_2"
-                android:layout_marginEnd="@dimen/grid_2"
-                android:layout_marginBottom="@dimen/grid_2"
-                android:text="REVIEW DETAILS"
-                android:textColor="#BFBFBF"
-                android:backgroundTint="@color/dsColorExtraLightGray"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
 
         </LinearLayout>
 
     </ScrollView>
-    <FrameLayout
-        android:id="@+id/noOtherAvailableAccounts"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#88000000"
-        android:clickable="true"
-        android:visibility="gone"
-        android:focusable="true">
-        <include layout="@layout/activity_no_available_accounts"/>
-    </FrameLayout>
-    <FrameLayout
-        android:id="@+id/cardPaymentsLoading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#88000000"
-        android:visibility="gone">
 
-        <ProgressBar
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center" />
-    </FrameLayout>
+    <View
+        android:id="@+id/shadow_bottom"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/border_shadow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonSubmit"
+        android:layout_marginBottom="@dimen/grid_1"
+        android:background="@drawable/bg_shadow"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSubmit"
+        style="@style/SMEPrimaryButtonLarge"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:layout_marginBottom="@dimen/grid_2"
+        android:text="@string/action_review_details"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

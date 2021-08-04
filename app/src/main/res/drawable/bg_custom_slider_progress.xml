@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/dsColorLightGray30"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip android:drawable="@drawable/bg_primary_button_default_radius30" />
+    </item>
+</layer-list>

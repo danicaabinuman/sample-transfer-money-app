@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@drawable/bg_white_rounded_radius10"
+    android:background="@drawable/bg_gradient_white_radius4"
     android:gravity="center"
     android:minWidth="@dimen/dialog_width"
     android:orientation="vertical"
@@ -42,7 +42,7 @@
         android:layout_marginStart="@dimen/grid_1"
         android:layout_marginEnd="@dimen/grid_1"
         android:gravity="center"
-        android:lineSpacingExtra="5dp"
+        android:lineSpacingMultiplier="1.5"
         tools:text="@string/desc_online_banking_products" />
 
     <androidx.appcompat.widget.AppCompatButton
