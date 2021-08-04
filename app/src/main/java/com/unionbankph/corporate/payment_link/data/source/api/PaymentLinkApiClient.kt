@@ -73,7 +73,7 @@ interface PaymentLinkApiClient {
             referenceNumber: String
     ): Single<Response<GetPaymentLinkListPaginatedResponse>>
 
-    @GET("msme/api/{api_version}/payment-link/{reference_id}")
+    @GET("msme-staging/api/{api_version}/payment-link/{reference_id}")
     fun getPaymentLinkByReferenceId(
         @Header("Authorization")
         accessToken: String,
