@@ -133,7 +133,6 @@ class BillingDetailsActivity :
         tvPayorEmail.text = response.payorDetails?.emailAddress
         tvPayorContactNumber.text = response.payorDetails?.mobileNumber
         var paymentMethod = response.payorDetails?.paymentMethod
-        paymentMethodText.text = paymentMethod.toString()
 
         if (paymentMethod == "INSTAPAY"){
             instapayLogo.visibility = View.VISIBLE
@@ -241,6 +240,16 @@ class BillingDetailsActivity :
             cebuanaLogo.visibility = View.GONE
             gcashLogo.visibility = View.GONE
             grabpayLogo.visibility = View.GONE
+            
+            if (paymentMethod.toString() == "ECPY") {
+                paymentMethodText.text = "EcPay"
+            } else if (paymentMethod.toString() == "BAYD") {
+                paymentMethodText.text = "Bayad Center"
+            } else if (paymentMethod.toString() == "PLWN") {
+                paymentMethodText.text = "Palawan"
+            } else if (paymentMethod.toString() == "CEBL") {
+                paymentMethodText.text = "Cebuana"
+            }
             paymentMethodText.visibility = View.VISIBLE
         }
 
