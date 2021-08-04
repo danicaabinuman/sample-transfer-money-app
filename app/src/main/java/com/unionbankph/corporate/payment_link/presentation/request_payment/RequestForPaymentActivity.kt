@@ -98,6 +98,10 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                         linkExpiry,
                         mobileNumber
                     )
+
+                    viewModel.prepareSettlement(
+                        accountNo = null
+                    )
                 }
             }else{
                 requestPaymentLoading.visibility = View.VISIBLE
