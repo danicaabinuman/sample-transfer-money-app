@@ -2264,6 +2264,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="we_ll_collect_3_php_10_per_transaction">We\'ll collect 3% + PHP 10 per transaction</string>
     <string name="upload_photos_intro">Upload photos of your products or photos that best describe the services offered</string>
     <string name="maximum_of_6_photos_only">(Maximum of 6 photos only)</string>
+    <string name="msg_maximum_of_6_photos_only">Maximum of 6 photos only!</string>
     <string name="add_photos">Add Photos</string>
     <string name="add_photos_2">+ Add Photos</string>
     <string name="save_and_exit">Save and Exit</string>
