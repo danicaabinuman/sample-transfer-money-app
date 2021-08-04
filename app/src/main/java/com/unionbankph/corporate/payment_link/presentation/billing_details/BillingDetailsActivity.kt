@@ -44,9 +44,6 @@ class BillingDetailsActivity :
         backButton()
         setupInputs()
         setupOutputs()
-        copyLink()
-        shareLink()
-
 
     }
 
@@ -324,27 +321,27 @@ class BillingDetailsActivity :
         const val EXTRA_REFERENCE_NUMBER = "extra_reference_number"
     }
 
-    private fun copyLink(){
-        ivCopyButton.setOnClickListener{
-            val copiedUrl = tvLinkUrl.text
-            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
-
-            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
-
-            clipboard.setPrimaryClip(clip)
-
-//            showToast("Copied to clipboard")
-        }
-    }
-
-    private fun shareLink() {
-        ivShareButton.setOnClickListener {
-            val intent = Intent()
-            intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
-            intent.type = "text/plain"
-            startActivity(Intent.createChooser(intent, "Share To:"))
-        }
-    }
+//    private fun copyLink(){
+//        ivCopyButton.setOnClickListener{
+//            val copiedUrl = tvLinkUrl.text
+//            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//            val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
+//
+//            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+//
+//            clipboard.setPrimaryClip(clip)
+//
+////            showToast("Copied to clipboard")
+//        }
+//    }
+//
+//    private fun shareLink() {
+//        ivShareButton.setOnClickListener {
+//            val intent = Intent()
+//            intent.action = Intent.ACTION_SEND
+//            intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
+//            intent.type = "text/plain"
+//            startActivity(Intent.createChooser(intent, "Share To:"))
+//        }
+//    }
 }
