@@ -11,6 +11,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsBalanceUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsUseCase
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.subjects.BehaviorSubject
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -21,36 +22,25 @@ class NotNowCardPaymentsViewModel @Inject constructor(
 
 ) : BaseViewModel() {
 
-    val _linkDetailsState = MutableLiveData<RequestForPaymentLinkState>()
+    private val _eligibleAccount = MutableLiveData<AccountState>()
+    val eligibleAccount: LiveData<AccountState> = _eligibleAccount
 
-    private val _accounts = MutableLiveData<MutableList<Account>>()
-    val accounts: LiveData<MutableList<Account>> = _accounts
-
-    private val _soleAccount = MutableLiveData<Account>()
-    val soleAccount: LiveData<Account> = _soleAccount
-
-    private val _accountsBalances = MutableLiveData<MutableList<Account>>()
-    val accountsBalances: LiveData<MutableList<Account>> = _accountsBalances
+    private val _accountWithBalance = MutableLiveData<Account>()
+    val accountWithBalance: LiveData<Account> = _accountWithBalance
 
     fun getAccounts() {
         getAccountsUseCase.execute(
-            getDisposableSingleObserver(
-                {
-                    if(it.results.size == 1){
-                        _soleAccount.value = it.results.first()
-                        val tempList = mutableListOf<Account>()
-                        tempList.add(it.results.first())
-                        getAccountBalances(tempList)
-                    }else if(it.results.size > 1){
-                        _accounts.value = it.results
-                    }else{
-                        _linkDetailsState.value = ShowNoOtherAvailableAccounts
-                    }
-                }, {
-                    Timber.e(it, "getAccounts")
-                    _uiState.value = Event(UiState.Error(it))
+            getDisposableSingleObserver({
+                if (it.results.size == 1) {
+                    getAccountBalance(it.results.first())
+                } else if (it.results.size > 1) {
+                    _eligibleAccount.value = ShowHasMultipleAccount(it.results)
+                } else {
+                    _eligibleAccount.value = ShowNoEligibleAccounts
                 }
-            ),
+            }, {
+                _uiState.value = Event(UiState.Error(it))
+            }),
             doOnSubscribeEvent = {
                 _uiState.value = Event(UiState.Loading)
             },
@@ -61,19 +51,15 @@ class NotNowCardPaymentsViewModel @Inject constructor(
         ).addTo(disposables)
     }
 
-    private fun getAccountBalances(accounts: MutableList<Account>) {
-        var accountNumberList : MutableList<Int> = arrayListOf()
-        accounts.forEach{
-            it.id?.let {
-                    it1 -> accountNumberList.add(it1)
-            }
-        }
+    private fun getAccountBalance(account: Account) {
+        val accountNumberList : MutableList<Int> = arrayListOf()
+        accountNumberList.add(account.id!!)
+
         getAccountsBalanceUseCase.execute(
             getDisposableSingleObserver(
                 {
-                    _accountsBalances.value = it
+                    _eligibleAccount.value = ShowHasSoleAccount(it.first())
                 }, {
-                    Timber.e(it, "getAccounts Balances")
                     _uiState.value = Event(UiState.Error(it))
                 }
             ),
@@ -88,8 +74,12 @@ class NotNowCardPaymentsViewModel @Inject constructor(
             )
         ).addTo(disposables)
     }
-
 }
-sealed class RequestForPaymentLinkState
 
-object ShowNoOtherAvailableAccounts : RequestForPaymentLinkState()
+sealed class AccountState
+
+data class ShowHasSoleAccount(val account: Account) : AccountState()
+
+data class ShowHasMultipleAccount(val accounts: MutableList<Account>) : AccountState()
+
+object ShowNoEligibleAccounts : AccountState()

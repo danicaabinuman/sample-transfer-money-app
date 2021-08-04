@@ -23,7 +23,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaym
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_no_available_accounts.*
@@ -37,13 +37,13 @@ import timber.log.Timber
 
 class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.layout.activity_request_payment),
     AdapterView.OnItemSelectedListener,
-    NominateSettlementAccountFragment.OnNominateSettlementAccountListener{
+    NominateSettlementAccountBottomSheet.OnNominateSettlementAccountListener{
 
     private var accounts = mutableListOf<Account>()
     var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     val NEW_SPINNER_ID = 1
     var linkExpiry = "12 hours"
-    private var nominateSettlementAccountFragment: NominateSettlementAccountFragment? = null
+    private var nominateSettlementAccountBottomSheet: NominateSettlementAccountBottomSheet? = null
 
 
     override fun onViewModelBound() {
@@ -335,9 +335,9 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun openNominateAccounts(){
         if(accounts.size>1){
-            nominateSettlementAccountFragment = NominateSettlementAccountFragment.newInstance(JsonHelper.toJson(accounts))
-            nominateSettlementAccountFragment?.setOnNominateSettlementAccountListener(this)
-            nominateSettlementAccountFragment?.show(
+            nominateSettlementAccountBottomSheet = NominateSettlementAccountBottomSheet.newInstance(JsonHelper.toJson(accounts))
+            nominateSettlementAccountBottomSheet?.setOnNominateSettlementAccountListener(this)
+            nominateSettlementAccountBottomSheet?.show(
                 supportFragmentManager,
                 RequestForPaymentActivity::class.java.simpleName
             )

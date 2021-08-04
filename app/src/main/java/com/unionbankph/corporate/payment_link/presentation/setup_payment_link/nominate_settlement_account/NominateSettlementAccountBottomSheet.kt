@@ -8,10 +8,10 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import kotlinx.android.synthetic.main.fragment_nominate_settlement_account.*
 
-class NominateSettlementAccountFragment : BaseBottomSheetDialog<NominateSettlementViewModel>(R.layout.fragment_nominate_settlement_account)
-{
-         private var callback: OnNominateSettlementAccountListener? = null
+class NominateSettlementAccountBottomSheet :
+    BaseBottomSheetDialog<NominateSettlementViewModel>(R.layout.fragment_nominate_settlement_account) {
 
+         private var callback: OnNominateSettlementAccountListener? = null
 
          override fun onViewsBound() {
              super.onViewsBound()
@@ -68,9 +68,9 @@ class NominateSettlementAccountFragment : BaseBottomSheetDialog<NominateSettleme
 
         fun newInstance(
             accountsArray: String? = null
-        ): NominateSettlementAccountFragment {
+        ): NominateSettlementAccountBottomSheet {
             val fragment =
-                NominateSettlementAccountFragment()
+                NominateSettlementAccountBottomSheet()
             val bundle = Bundle()
             bundle.putString(EXTRA_ACCOUNTS_ARRAY, accountsArray)
             fragment.arguments = bundle

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Pressed-->
+    <item android:drawable="@drawable/bg_settlement_account_item_button_pressed_radius4"
+        android:state_pressed="true" />
+
+    <!-- Disabled-->
+    <item android:drawable="@drawable/bg_button_disabled"
+        android:state_enabled="false"/>
+
+    <!-- Default-->
+    <item android:drawable="@drawable/bg_settlement_account_item_button_default_radius4"  />
+</selector>

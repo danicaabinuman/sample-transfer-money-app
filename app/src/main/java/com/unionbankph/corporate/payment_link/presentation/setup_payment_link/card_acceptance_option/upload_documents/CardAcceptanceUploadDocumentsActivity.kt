@@ -59,7 +59,7 @@ class CardAcceptanceUploadDocumentsActivity :
         onboardingUploadFragment!!.show(supportFragmentManager, OnboardingUploadPhotosFragment.TAG)
         if (onboardingUploadFragment!!.isVisible){
             clUploadPhotoOption.visibility = View.GONE
-            clUploadBIROption.visibility = View.VISIBLE
+//            clUploadBIROption.visibility = View.VISIBLE
         }
 
     }

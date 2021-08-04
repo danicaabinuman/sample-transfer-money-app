@@ -1091,6 +1091,9 @@
     <string name="action_retake_id">Retake ID</string>
     <string name="action_try_again">Try Again</string>
     <string name="action_okay">Okay</string>
+    <string name="action_enter">Enter</string>
+    <string name="action_select_account">Select account</string>
+    <string name="action_save_and_exit">Save and Exit</string>
 
 
     <string name="error_message">Error message from resources</string>
@@ -2294,4 +2297,13 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="nature_of_business">Nature of Business</string>
     <string name="we_want_to_know_more_about_your_business">We want to know more about your business</string>
     <string name="indicate_0_if_less_than_1_year">Indicate 0 if less than 1 year</string>
+    <string name="one_last_thing">One last thing...</string>
+    <string name="what_s_your_average_monthly_volume">What\'s your average monthly volume?</string>
+    <string name="below_10k">Below 10K</string>
+    <string name="above_5m">Above 5M</string>
+    <string name="what_s_your_average_transaction_amount">What\'s your average transaction amount?</string>
+    <string name="label_php">PHP</string>
+    <string name="action_review_details">Review Details</string>
+    <string name="message_no_account_eligible">Seems like your accounts are not eligible for this feature. You may open an account by clicking this button.</string>
+    <string name="title_no_available_accounts">No Available Accounts</string>
 </resources>
