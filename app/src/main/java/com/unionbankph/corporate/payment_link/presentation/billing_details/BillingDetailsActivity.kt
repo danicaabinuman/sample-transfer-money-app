@@ -36,10 +36,10 @@ class BillingDetailsActivity :
         super.onViewsBound()
 
 
-        btnViewMore.setOnClickListener{
+//        btnViewMore.setOnClickListener{
 //            val intent = Intent(this@BillingDetailsActivity, ActivityLogsActivity::class.java)
 //            startActivity(intent)
-        }
+//        }
 
         backButton()
         setupInputs()
