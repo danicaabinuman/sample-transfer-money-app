@@ -6,38 +6,50 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        style="@style/SMEHeadlineH2"
-        android:id="@+id/title_tnc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:elevation="@dimen/grid_1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/fl_tnc"
-        android:text="@string/title_unionbank_terms_and_condition"
-        android:paddingTop="5dp"
-        android:paddingStart="18dp"
-        android:paddingEnd="18dp"
-        android:paddingBottom="27dp"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/SMEHeadlineH2"
+            android:id="@+id/title_tnc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fl_tnc"
+            android:elevation="@dimen/grid_3"
+            android:text="@string/title_unionbank_terms_and_condition"
+            android:paddingTop="@dimen/grid_1"
+            android:paddingStart="@dimen/grid_2"
+            android:paddingEnd="@dimen/grid_2"
+            android:paddingBottom="@dimen/grid_2"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <FrameLayout
         android:id="@+id/fl_tnc"
         android:layout_width="match_parent"
         android:layout_height="@dimen/match_constraint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_tnc"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/constraint_layout"
         >
 
         <ScrollView
             style="@style/MatchParent"
+            android:fillViewport="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewToolbar">
+            app:layout_constraintTop_toBottomOf="@+id/viewToolbar"
+            android:clipToPadding="false">
+
         <androidx.appcompat.widget.LinearLayoutCompat
             style="@style/MatchParent"
             android:orientation="vertical">
@@ -45,7 +57,7 @@
                 style="@style/SMESubtitle1"
                 android:text="@string/title_introduction"
                 android:textAllCaps="true"
-
+                android:layout_marginTop="@dimen/grid_2"
                 android:layout_marginStart="18dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginBottom="@dimen/grid_1"/>
@@ -118,19 +130,19 @@
                     android:text="@string/desc_the_portal_by_unionbank"
                     android:layout_marginTop="18dp"
                     android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp" />
+                    android:layout_marginEnd="18dp"/>
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 style="@style/MatchWrapParent"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
+
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/SMEBody"
                     android:text="@string/numbering_b"
                     android:layout_marginTop="@dimen/grid_2"
-                    android:layout_marginStart="60dp"
-                    />
+                    android:layout_marginStart="60dp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/SMEBody"
@@ -1528,26 +1540,35 @@
 
 
     </FrameLayout>
-    
-    
+
+    <View
+        android:id="@+id/shadow_bottom"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/border_shadow"
+        app:layout_constraintTop_toBottomOf="@+id/fl_tnc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_shadow"/>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/constraint_layout"
         style="@style/MatchWrapParent"
+        android:paddingTop="@dimen/grid_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
         >
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_proceed"
             style="@style/SMEPrimaryButtonLarge"
             android:text="@string/action_next"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="@dimen/grid_4"
-            android:layout_marginTop="26dp"/>
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginBottom="@dimen/grid_3"
+            android:layout_marginTop="@dimen/grid_2"/>
+
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

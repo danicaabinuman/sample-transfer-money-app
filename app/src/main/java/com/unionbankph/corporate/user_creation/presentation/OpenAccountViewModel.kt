@@ -32,4 +32,9 @@ class OpenAccountViewModel @Inject constructor() : BaseViewModel() {
         input.lastNameInput.value?.let { nameInput.lastNameInput.onNext(it) }
         hasNameInput.onNext(true)
     }
+
+    fun clearCache() {
+        nameInput = Input()
+        hasNameInput.onNext(false)
+    }
 }

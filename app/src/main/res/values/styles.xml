@@ -1072,7 +1072,7 @@
         <item name="android:textSize">@dimen/text_30</item>
         <item name="android:textColor">@color/dsColorHeadlineH1</item>
         <item name="android:fontFamily">@string/font_family_medium</item>
-        <item name="android:lineSpacingMultiplier">1.4</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
 
     <style name="SMEHeadlineH2" parent="TextAppearance.AppCompat.Headline">
@@ -1081,7 +1081,7 @@
         <item name="android:textSize">@dimen/text_24</item>
         <item name="android:textColor">@color/dsColorHeadlineH2</item>
         <item name="android:fontFamily">@string/font_family_medium</item>
-        <item name="android:lineSpacingMultiplier">1.4</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
     </style>
 
     <style name="SMESubtitle1" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
@@ -1090,7 +1090,7 @@
         <item name="android:textSize">@dimen/text_18</item>
         <item name="android:textColor">@color/dsColorSubtitle1</item>
         <item name="android:fontFamily">@string/font_family_medium</item>
-        <item name="android:lineSpacingMultiplier">1.4</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
 
     <style name="SMESubtitle2" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
@@ -1099,7 +1099,7 @@
         <item name="android:textSize">@dimen/text_16</item>
         <item name="android:textColor">@color/dsColorSubtitle2</item>
         <item name="android:fontFamily">@string/font_family_medium</item>
-        <item name="android:lineSpacingMultiplier">1.4</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
 
     <style name="SMEBody" parent="TextAppearance.AppCompat.Body1">
@@ -1108,7 +1108,7 @@
         <item name="android:textSize">@dimen/text_14</item>
         <item name="android:textColor">@color/dsColorBody</item>
         <item name="android:fontFamily">@string/font_family_regular</item>
-        <item name="android:lineSpacingMultiplier">1.4</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
 
     <style name="SMEBodyMediumGray" parent="SMEBody">
@@ -1121,7 +1121,7 @@
         <item name="android:textSize">@dimen/text_12</item>
         <item name="android:textColor">@color/dsColorCaption</item>
         <item name="android:fontFamily">@string/font_family_regular</item>
-        <item name="android:lineSpacingMultiplier">1.4</item>
+        <item name="android:lineSpacingMultiplier">@dimen/ds_line_height_multiplier</item>
     </style>
 
 
