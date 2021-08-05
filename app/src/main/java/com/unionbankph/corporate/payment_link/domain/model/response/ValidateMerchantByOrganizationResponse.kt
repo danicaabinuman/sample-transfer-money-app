@@ -8,18 +8,18 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ValidateMerchantByOrganizationResponse(
     @SerialName("merchantExists")
-    var merchantExists: String,
+    var merchantExists: String? = null,
 
     @SerialName("merchantDetails")
-    var merchantDetails: PaymentLinkMerchantDetailsModel,
+    var merchantDetails: PaymentLinkMerchantDetailsModel? = null,
 
     @SerialName("merchantDraft")
     var merchantDraft: Boolean = false,
 
     @SerialName("draftCreatedBy")
-    var draftCreatedBy: PaymentLinkDraftCreatedBy,
+    var draftCreatedBy: PaymentLinkDraftCreatedBy? = null,
 
     @SerialName("merchantStatus")
-    var merchantStatus: Boolean = false
+    var merchantStatus: String? = null
 
 )

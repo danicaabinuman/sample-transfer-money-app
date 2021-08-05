@@ -12,6 +12,7 @@ import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.common.data.model.BadgeCount
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
+import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.corporate.data.model.CorporateUsers
 import com.unionbankph.corporate.corporate.domain.gateway.CorporateGateway
@@ -395,6 +396,21 @@ class DashboardViewModel @Inject constructor(
 
     }
 
+    fun validateMerchantStatus(){
+
+        validateMerchantUseCase.execute(
+            getDisposableSingleObserver(
+                {
+                    val merchantStatus = it.merchantStatus
+
+                    if (merchantStatus.equals(Constant.PENDING, true)) {
+
+                    }
+                }
+            )
+        )
+    }
+
     companion object{
         const val FROM_REQUEST_PAYMENT_BUTTON = "from_accounts_tab"
         const val FROM_TRANSACT_TAB = "from_transact_tab"
@@ -447,3 +463,5 @@ data class Error(val throwable: Throwable) : DashboardState()
 
 object SuccessCompletable : DashboardState()
 object ShowSuccessBiometric : DashboardState()
+object ShowMerchantStatusPendingScreen : DashboardState()
+object ShowMerchantStatusRejectedScreen : DashboardState()

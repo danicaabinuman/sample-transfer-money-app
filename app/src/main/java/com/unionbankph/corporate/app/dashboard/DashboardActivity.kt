@@ -256,6 +256,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
 
         btnRequestPayment.setOnClickListener{
             viewModel.validateMerchant(DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
+
         }
 
         RxView.clicks(viewBadge)
