@@ -86,6 +86,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             val paymentFor = et_paymentFor.text.toString()
             val notes = et_notes.text.toString()
             val mobileNumber = textInputEditTextMobileNumber.text.toString()
+            val accountNo = include1.findViewById<TextView>(R.id.textViewAccountNumber).text.toString()
             if(mobileNumber.isNotEmpty()){
                 if(mobileNumber.length<10){
                     Toast.makeText(this@RequestForPaymentActivity, "Mobile Number length is invalid",Toast.LENGTH_SHORT).show()
@@ -100,7 +101,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                     )
 
                     viewModel.prepareSettlement(
-                        accountNo = null
+                        accountNo
                     )
                 }
             }else{

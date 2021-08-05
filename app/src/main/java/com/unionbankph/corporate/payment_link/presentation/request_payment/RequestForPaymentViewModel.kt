@@ -175,10 +175,10 @@ class RequestForPaymentViewModel
         ).addTo(disposables)
     }
 
-    fun prepareSettlement(accountNo: String?){
+    fun prepareSettlement(accountNo: String){
         updateSettlementOnRequestPayment(
             UpdateSettlementOnRequestPaymentForm(
-                accountNo = null
+                accountNo
             )
         )
     }
