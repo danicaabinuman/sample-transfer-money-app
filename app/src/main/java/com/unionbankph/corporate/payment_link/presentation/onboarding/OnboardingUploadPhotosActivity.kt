@@ -2,8 +2,6 @@ package com.unionbankph.corporate.payment_link.presentation.onboarding
 
 import android.Manifest
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -11,40 +9,40 @@ import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.GridView
-import android.widget.TextView
-import com.tbruyelle.rxpermissions2.RxPermissions
+import android.widget.*
+import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
+import com.tbruyelle.rxpermissions2.RxPermissions
+import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.extension.notNullable
+import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.util.FileUtil
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_card_acceptance_option.*
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.viewToolbar
-import kotlinx.android.synthetic.main.bottom_sheet_upload_photos.*
-import kotlinx.android.synthetic.main.fragment_dao_signature.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
+import java.io.File
+import java.io.IOException
 import java.util.*
-import java.util.logging.Handler
+import javax.annotation.concurrent.ThreadSafe
+import javax.inject.Inject
 import kotlin.concurrent.timerTask
 
 class OnboardingUploadPhotosActivity :
     BaseActivity<RequestPaymentSplashViewModel>(R.layout.activity_onboarding_upload_photos),
     OnboardingUploadPhotosFragment.OnOnboardingUploadPhotosFragmentInteraction {
 
-    private var imageUri: Uri? = null
+    @Inject
+    lateinit var fileUtil: FileUtil
     val REQUEST_CODE = 200
-    lateinit var gridView: GridView
     val uriArrayList = arrayListOf<Uri>()
-
-    private val CAPTURE_PHOTO = 1
-
-    private var onboardingUploadFragment: OnboardingUploadPhotosFragment? = null
+    var adapter : BaseAdapter? = null
+        private var onboardingUploadFragment: OnboardingUploadPhotosFragment? = null
     private var onboardingDeletePhotosFragment: OnboardingDeletePhotosFragment? = null
 
     override fun afterLayout(savedInstanceState: Bundle?) {
@@ -55,6 +53,14 @@ class OnboardingUploadPhotosActivity :
             R.color.colorSMEMediumOrange,
             true
         )
+    }
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        viewModel =
+            ViewModelProviders.of(
+                this,
+                viewModelFactory
+            )[RequestPaymentSplashViewModel::class.java]
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -73,151 +79,131 @@ class OnboardingUploadPhotosActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
+        initBinding()
+        initOnClicks()
 
-        addPhotos()
-        addMorePhotos()
-        navigateToPaymentChannels()
     }
     
-    private fun addPhotos(){
+    private fun initOnClicks(){
         btnAddPhotos.setOnClickListener {
             showbottomSheetDialog()
         }
-    }
-
-    private fun addMorePhotos(){
         btnAddPhotos2.setOnClickListener {
             showbottomSheetDialog()
         }
+        btnNext.setOnClickListener {
+            showSnackbar()
+        }
     }
 
-    private fun navigateToPaymentChannels(){
-        val snackbarView = findViewById<TextView>(R.id.snackbar)
-        btnNext.setOnClickListener {
-            val snackUploading = Snackbar.make(snackbarView, "Uploading photo...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext)
-            snackUploading.show()
-            val intent = Intent(this, PaymentLinkChannelsActivity::class.java)
+    private fun initBinding(){
+        viewModel.originalApplicationFileInput
+            .filter {
+                        viewModel.originalApplicationFileInput.hasValue()
+            }
+            .subscribe {
+                uriArrayList.add(Uri.parse(it.absolutePath))
+                buttonsVisibility()
+                imageBtnsListener()
+            }.addTo(disposables)
+        viewModel.originalApplicationUriInput
+            .filter {
+                viewModel.originalApplicationUriInput.hasValue()
+            }
+            .subscribe {
+                uriArrayList.add(it)
+                buttonsVisibility()
+                imageBtnsListener()
+            }.addTo(disposables)
+    }
 
-            Timer().schedule(timerTask {
-                startActivity(intent)
-            }, 1000)
+    private fun imageBtnsListener(){
+        adapter = UploadPhotosCustomAdapter(this, uriArrayList)
+        gv.adapter = adapter
+        if (uriArrayList.size < 6) {
+            gv.setOnItemClickListener { parent, view, position, id ->
+                val itemUri = uriArrayList[position]
+                ivFullscreenImage.setImageURI(itemUri)
+                clUploadPhotosIntro.visibility(false)
+                clSelectedPhotos.visibility(false)
+                btnSaveAndExit.visibility(false)
+                btnNext.visibility(false)
+                clDeleteSelectedPhoto.visibility(true)
+                btnDelete.visibility(true)
 
+                btnDelete.setOnClickListener {
+                    uriArrayList.remove(itemUri)
+                    adapter?.notifyDataSetChanged()
+                    clDeleteSelectedPhoto.visibility(false)
+                    btnDelete.visibility(false)
+                    clSelectedPhotos.visibility(true)
+                    btnNext.visibility(true)
+                    btnSaveAndExit.visibility(true)
+                    btnAddPhotos2.visibility(true)
+                }
+
+                if (uriArrayList.size == 6) {
+                    btnAddPhotos2.visibility(false)
+                }
+            }
+        }else{
+            btnAddPhotos2.visibility(false)
         }
+    }
+
+    private fun buttonsVisibility(){
+        clUploadPhotosIntro.visibility(false)
+        clSelectedPhotos.visibility(true)
+        btnNext.visibility(true)
+        btnSaveAndExit.visibility(true)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        gridView = findViewById(R.id.gv)
-        when (requestCode) {
-            REQUEST_CODE ->
-                if (resultCode == RESULT_OK) {
-
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE -> {
                     if (data?.clipData != null) {
-                        clUploadPhotosIntro.visibility = View.GONE
-                        clSelectedPhotos.visibility = View.VISIBLE
-                        btnNext.visibility = View.VISIBLE
-                        btnSaveAndExit.visibility = View.VISIBLE
-
                         val uri = data.clipData
-                        var count = uri!!.itemCount
-                        if (uriArrayList.size < 6) {
+                        val count = uri!!.itemCount
+                        if(count + uriArrayList.size <= 6 ){
+                            buttonsVisibility()
                             for (i in 0 until count) {
-
-                                btnAddPhotos2.visibility = View.VISIBLE
                                 val imageUri = data.clipData!!.getItemAt(i).uri
                                 uriArrayList.add(imageUri)
-                                val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
-
-                                gridView.adapter = adapter
-                                gridView.onItemClickListener =
-                                    AdapterView.OnItemClickListener { parent, view, position, id ->
-                                        val itemUri = uriArrayList[position]
-                                        clUploadPhotosIntro.visibility = View.GONE
-                                        clSelectedPhotos.visibility = View.GONE
-                                        btnSaveAndExit.visibility = View.GONE
-                                        btnNext.visibility = View.GONE
-                                        clDeleteSelectedPhoto.visibility = View.VISIBLE
-                                        btnDelete.visibility = View.VISIBLE
-                                        ivFullscreenImage.setImageURI(itemUri)
-
-                                        btnDelete.setOnClickListener {
-                                            uriArrayList.remove(itemUri)
-                                            adapter.notifyDataSetChanged()
-                                            clDeleteSelectedPhoto.visibility = View.GONE
-                                            btnDelete.visibility = View.GONE
-                                            clSelectedPhotos.visibility = View.VISIBLE
-                                            btnNext.visibility = View.VISIBLE
-                                            btnSaveAndExit.visibility = View.VISIBLE
-                                        }
-
-                                        if (uriArrayList.size < 6) {
-                                            btnAddPhotos2.visibility = View.VISIBLE
-                                        }
-                                    }
-
-                                if (uriArrayList.size == 6) {
-                                    btnAddPhotos2.visibility = View.GONE
-                                    return
-                                }
-
+                                imageBtnsListener()
                             }
-                        }
+                        }else{
+                            showMaterialDialogError(message = getString(R.string.msg_maximum_of_6_photos_only))
+                            }
 
                     } else if (data?.data != null) {
-                        clUploadPhotosIntro.visibility = View.GONE
-                        clSelectedPhotos.visibility = View.VISIBLE
-                        btnNext.visibility = View.VISIBLE
-                        btnSaveAndExit.visibility = View.VISIBLE
-
-                        if (uriArrayList.size < 6) {
-                            val imageUri = data.data!!
-                            uriArrayList.add(imageUri)
-                            val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
-                            gridView.adapter = adapter
-                            gridView.onItemClickListener =
-                                AdapterView.OnItemClickListener { parent, view, position, id ->
-                                    val itemUri = uriArrayList[position]
-                                    clUploadPhotosIntro.visibility = View.GONE
-                                    clSelectedPhotos.visibility = View.GONE
-                                    btnSaveAndExit.visibility = View.GONE
-                                    btnNext.visibility = View.GONE
-                                    clDeleteSelectedPhoto.visibility = View.VISIBLE
-                                    btnDelete.visibility = View.VISIBLE
-                                    ivFullscreenImage.setImageURI(itemUri)
-
-                                    btnDelete.setOnClickListener {
-                                        uriArrayList.remove(itemUri)
-                                        adapter.notifyDataSetChanged()
-                                        clDeleteSelectedPhoto.visibility = View.GONE
-                                        btnDelete.visibility = View.GONE
-                                        clSelectedPhotos.visibility = View.VISIBLE
-                                        btnNext.visibility = View.VISIBLE
-                                        btnSaveAndExit.visibility = View.VISIBLE
-                                    }
-                                }
-                            if (uriArrayList.size == 6) {
-                                btnAddPhotos2.visibility = View.GONE
-                                return
-                            }
-                        }
+                        viewModel.originalApplicationUriInput.onNext(data.data!!)
+                    }
+                }
+                CAPTURE_PHOTO -> {
+                    viewModel.currentFile.value?.let {
+                        viewModel.originalApplicationFileInput.onNext(it)
                     }
                 }
 
-            CAPTURE_PHOTO -> {
-                    val photo : Bitmap = data?.extras?.get("data") as Bitmap
-                    val adapter = UploadPhotosCustomAdapter(this, uriArrayList)
-                    gridView.adapter = adapter
-                }
+            }
         }
     }
 
     private fun showbottomSheetDialog() {
-
         if (onboardingUploadFragment == null) {
             onboardingUploadFragment = OnboardingUploadPhotosFragment.newInstance()
         }
-
         onboardingUploadFragment!!.show(supportFragmentManager, OnboardingUploadPhotosFragment.TAG)
+    }
+
+    private fun showSnackbar(){
+        Snackbar.make(snackbar, "Uploading photo...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext).show()
+        val intent = Intent(this, PaymentLinkChannelsActivity::class.java)
+        Timer().schedule(timerTask {
+            startActivity(intent)
+        }, 1000)
     }
 
     private fun openGalleryForImages() {
@@ -236,13 +222,9 @@ class OnboardingUploadPhotosActivity :
         }
     }
 
-    private fun openCameraForImages() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, CAPTURE_PHOTO)
-
-    }
-
+    @ThreadSafe
     companion object {
+        const val CAPTURE_PHOTO = 1
         const val REQUEST_CODE = 1209
         const val RESULT_SHOULD_GENERATE_NEW_LINK = "result_should_generate_new_link"
         const val EXTRA_SETUP_MERCHANT_DETAILS = "extra_setup_merchant_details"
@@ -264,8 +246,28 @@ class OnboardingUploadPhotosActivity :
             .subscribe { granted ->
                 if (granted) {
 //                    cameraView.open()
-                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    startActivityForResult(intent, CAPTURE_PHOTO)
+                    Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                        takePictureIntent.resolveActivity(packageManager)?.also {
+                            val photoFile: File? = try {
+                                fileUtil.createCaptureImageFile()
+                            } catch (ex: IOException) {
+                                showMaterialDialogError(message = ex.message.notNullable())
+                                null
+                            }
+                            photoFile?.let {
+                                viewModel.currentFile.onNext(it)
+                                it.also {
+                                    val photoURI: Uri = FileProvider.getUriForFile(
+                                        this,
+                                        "${BuildConfig.APPLICATION_ID}.fileprovider",
+                                        it
+                                    )
+                                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                                    startActivityForResult(takePictureIntent, CAPTURE_PHOTO)
+                                }
+                            }
+                        }
+                    }
                 } else {
                     initPermission()
                 }
@@ -274,7 +276,6 @@ class OnboardingUploadPhotosActivity :
 
     override fun onBackPressed() {
 //        super.onBackPressed()
-
         if (clDeleteSelectedPhoto.isShown){
             clDeleteSelectedPhoto.visibility = View.GONE
             clSelectedPhotos.visibility = View.VISIBLE

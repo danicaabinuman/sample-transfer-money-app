@@ -1064,6 +1064,11 @@
         <item name="android:button">@null</item>
     </style>
 
+    <style name="SMESettlementAccountItem" parent="SMELargeButton">
+        <item name="android:background">@drawable/style_settlement_account_item</item>
+        <item name="android:textColor">@drawable/style_primary_button_text</item>
+    </style>
+
     <style name="SMEHeadlineH1" parent="TextAppearance.AppCompat.Headline">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -1120,6 +1125,12 @@
         <item name="android:textColor">@color/dsColorCaption</item>
         <item name="android:fontFamily">@string/font_family_regular</item>
         <item name="android:lineSpacingMultiplier">1.4</item>
+    </style>
+
+    <style name="SliderTick">
+        <item name="android:layout_height">3dp</item>
+        <item name="android:layout_width">2dp</item>
+        <item name="android:src">@drawable/circle_light_gray_ci</item>
     </style>
 
 </resources>

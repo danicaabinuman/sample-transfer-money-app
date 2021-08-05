@@ -133,6 +133,7 @@
     <color name="dsColorPrimaryDarkGradientEnd">@color/dsColorDarkOrange</color>
 
     <color name="dsColorLightGray50">#80BFBFBF</color>
+    <color name="dsColorLightGray30">#4DBFBFBF</color>
 
     <color name="sd_chip_font_color_active">#FF8200</color>
     <color name="dsColorLightGray">#BFBFBF</color>
@@ -152,6 +153,9 @@
     <color name="dsColorPaidBackground">#009783</color>
     <color name="dsColorExpiredBackground">@color/dsColorDarkOrange</color>
     <color name="dsColorArchivedBackground">#4A4A4A</color>
+
+    <color name="dsColorBlackGradientStart">#474A55</color>
+    <color name="dsColorBlackGradientEnd">#2A2D31</color>
 
     <!-- Button Primary-->
     <color name="dsColorPrimaryButtonGradientStartDefault">@color/colorSMEMediumOrange</color>
@@ -191,6 +195,15 @@
     <color name="dsColorSubtitle2">@color/dsColorDarkGray</color>
     <color name="dsColorBody">@color/dsColorDarkGray</color>
     <color name="dsColorCaption">@color/dsColorDarkGray</color>
+
+    <!-- Settlement Account Item-->
+    <color name="dsColorSAIButtonGradientStartDefault">@color/dsColorBlackGradientStart</color>
+    <color name="dsColorSAIButtonGradientEndDefault">@color/dsColorBlackGradientEnd</color>
+    <color name="dsColorSAIButtonGradientStartPressed">@color/dsColorBlackGradientEnd</color>
+    <color name="dsColorSAIButtonGradientEndPressed">@color/dsColorBlackGradientStart</color>
+    <color name="dsColorSAIButtonDisabled">@color/dsColorExtraLightGray</color>
+    <color name="dsColorSAIButtonTextDisabled">@color/dsColorLightGray</color>
+    <color name="dsColorSAIButtonTextDefault">@color/colorWhite</color>
 
     <!-- Rounded BottomSheet-->
     <color name="dsColorRoundedTopBottomSheet">@color/colorWhite</color>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tick1"
+        style="@style/SliderTick"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tick2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tick2"
+        style="@style/SliderTick"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tick1"
+        app:layout_constraintEnd_toStartOf="@id/tick3"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tick3"
+        style="@style/SliderTick"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tick2"
+        app:layout_constraintEnd_toStartOf="@id/tick4"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tick4"
+        style="@style/SliderTick"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tick3"
+        app:layout_constraintEnd_toStartOf="@id/tick5"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tick5"
+        style="@style/SliderTick"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tick4"
+        app:layout_constraintEnd_toStartOf="@id/tick6"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tick6"
+        style="@style/SliderTick"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tick5"
+        app:layout_constraintEnd_toStartOf="@id/tick7"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tick7"
+        style="@style/SliderTick"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tick6"
+        app:layout_constraintEnd_toStartOf="@id/tick8"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tick8"
+        style="@style/SliderTick"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tick7"
+        app:layout_constraintEnd_toStartOf="@id/tick9"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/tick9"
+        style="@style/SliderTick"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tick8"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
