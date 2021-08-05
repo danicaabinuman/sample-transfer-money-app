@@ -33,6 +33,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="@dimen/grid_9_half"
                 android:id="@+id/constraint_layout"
                 style="@style/MatchWrapParent"
                 android:layout_gravity="center"
@@ -241,7 +242,7 @@
                     android:id="@+id/btn_open_business_account"
                     style="@style/RoundedButtonOrange"
                     android:layout_marginLeft="@dimen/content_margin"
-                    android:layout_marginTop="@dimen/content_spacing_large"
+                    android:layout_marginTop="100dp"
                     android:layout_marginRight="@dimen/content_margin"
                     android:text="@string/action_open_a_business_account"
                     android:visibility="gone"
