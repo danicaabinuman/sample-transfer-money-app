@@ -74,12 +74,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLayoutLastName"
         style="@style/TextInputLayoutFormThin"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/grid_1"
         android:layout_marginStart="@dimen/grid_1"
         android:layout_marginEnd="@dimen/grid_1"
-
         app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +85,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextLastName"
-            style="@style/TextInputEditTextForm"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:inputType="textPersonName|textCapWords"

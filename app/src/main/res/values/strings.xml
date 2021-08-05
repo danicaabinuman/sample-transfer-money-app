@@ -754,6 +754,7 @@
     <string name="title_dao_result_skip">Thank you for applying for a UnionBank Account</string>
     <string name="title_payment_methods">Payment Methods</string>
     <string name="fees_and_charges">Fees &amp; Charges</string>
+    <string name="title_one_time_password">One-Time-Password</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>

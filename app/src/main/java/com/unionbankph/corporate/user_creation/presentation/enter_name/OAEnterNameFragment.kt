@@ -2,7 +2,9 @@ package com.unionbankph.corporate.user_creation.presentation.enter_name
 
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
@@ -120,8 +122,8 @@ class OAEnterNameFragment :
             maxLength = resources.getInteger(R.integer.max_length_field_100),
             editText = editTextLastName
         )
-        initError(firstNameObservable)
-        initError(lastNameObservable)
+        initError(firstNameObservable, textViewFirstNameLabel)
+        initError(lastNameObservable, textViewLastName)
         RxCombineValidator(
             firstNameObservable,
             lastNameObservable
@@ -160,13 +162,18 @@ class OAEnterNameFragment :
     }
 
     private fun initError(
-        textInputEditTextObservable: Observable<RxValidationResult<EditText>>
+        textInputEditTextObservable: Observable<RxValidationResult<EditText>>,
+        textView: TextView
     ) {
         textInputEditTextObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
                 viewUtil.setError(it)
+                textView.setTextColor(when (it.isProper) {
+                    true -> ContextCompat.getColor(context!!, R.color.dsColorDarkGray)
+                    else -> ContextCompat.getColor(context!!, R.color.colorErrorColor)
+                })
             }.addTo(formDisposable)
     }
 
