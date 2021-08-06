@@ -28,6 +28,7 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
             when (it) {
                 is UiState.Success -> {
 
+
                 }
                 is UiState.Loading -> {
                     showProgressAlertDialog(this::class.java.simpleName)
@@ -42,12 +43,12 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
     override fun onViewsBound() {
         super.onViewsBound()
         initViews()
+        initAnimationLogo()
+        initFreshLogin()
     }
 
 
     fun initViews(){
-        initAnimationLogo()
-
         btn_onboarding_register.setOnClickListener {
             viewModel.onClickedStartLaunch()
             navigator.navigate(
@@ -58,6 +59,7 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
                 isAnimated = true,
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
+
         }
 
         btn_onboarding_login.setOnClickListener {
@@ -67,14 +69,60 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
     }
 
     private fun initFreshLogin(){
-        bg_signup_illustration.visibility(true)
-        btn_onboarding_register.visibility(true)
-        btn_onboarding_login.visibility(true)
-        tv_ub_caption.visibility(true)
-        fl_signup.visibility(true)
+        runPostDelayed(
+            {
+                bg_signup_illustration.visibility(true)
+                btn_onboarding_register.visibility(true)
+                btn_onboarding_login.visibility(true)
+                tv_ub_caption.visibility(true)
+                fl_signup.visibility(true)
+            }, 100
+        )
+
     }
 
     private fun initAnimationLogo() {
+        imageViewLogoOnboarding.viewTreeObserver.addOnGlobalLayoutListener(
+            object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    imageViewLogoOnboarding.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    runPostDelayed(
+                        {
+                            animateContent()
+                        }, 1000
+                    )
+                }
+            }
+        )
+    }
+
+    private fun animateContent() {
+        runPostDelayed(
+            {
+                viewUtil.startAnimateView(true, constraintLayout, android.R.anim.fade_in)
+            }, 250
+        )
+        val location = IntArray(2)
+        imageViewLogoOnboarding.getLocationOnScreen(location)
+        val y = location[1]
+        val objectAnimator =
+            ObjectAnimator.ofFloat(imageViewLogoAnimateOnboarding, "y", y.toFloat())
+        Timber.d("y axis:${y.toFloat()}")
+        objectAnimator.duration = resources.getInteger(R.integer.anim_duration_medium).toLong()
+        objectAnimator.start()
+        runPostDelayed(
+            {
+                imageViewLogoOnboarding.visibility(true)
+                runPostDelayed(
+                    {
+                        imageViewLogoAnimateOnboarding.visibility(false)
+                    }, 50
+                )
+            }, 550
+        )
+    }
+
+    /*private fun initAnimationLogo() {
         imageViewLogoOnboarding.viewTreeObserver.addOnGlobalLayoutListener(
             object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
@@ -110,6 +158,10 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
                 )
             }, 600
         )
+    }*/
+
+    companion object {
+
     }
 
 }
