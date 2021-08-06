@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     style="@style/MatchParent"
     android:background="@color/colorWhite"
     >
 
     <androidx.appcompat.widget.AppCompatImageView
-       style="@style/MatchParent"
+        android:id="@+id/iv_bg_light_orange"
+        style="@style/MatchParent"
+        android:background="@color/dsColorLightOrange"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/iv_bg_light_orange"
-        android:background="@color/dsColorLightOrange"
-        />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.viewpager.widget.ViewPager
 
@@ -27,20 +27,24 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+
     <me.relex.circleindicator.CircleIndicator
         android:id="@+id/onboarding_indicator"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/grid_8"
-        app:ci_drawable="@drawable/circle_gradient_orange"
+        app:ci_drawable="@drawable/circle_solid_orange"
         app:ci_drawable_unselected="@drawable/circle_gray_ci"
         app:ci_height="@dimen/ci_size"
         app:ci_margin="@dimen/ci_margin"
         app:ci_width="@dimen/ci_size"
+        app:ci_animator="@anim/anim_circle_same_radius_alpha"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:textColor="@color/dsColorMediumGray"
+        android:textStyle="bold"
         android:id="@+id/textViewOnboardingSkip"
         style="@style/TextViewThemeLarge"
         android:layout_marginTop="@dimen/content_spacing"
