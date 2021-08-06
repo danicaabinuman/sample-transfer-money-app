@@ -294,6 +294,7 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun populateNominatedSettlementAccount(accountData: Account) {
+        buttonSelectAccount.visibility = View.GONE
         include_settlement_account.visibility = View.VISIBLE
         val tvCorporateName: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewCorporateName)
         val tvAccountName: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAccountName)
@@ -324,7 +325,7 @@ class NotNowCardPaymentsActivity :
         var TAG = this::class.java.simpleName
 
         const val SLIDER_TEP = 1
-        const val SLIDER_MAX_STEP = 499
+        const val SLIDER_MAX_STEP = 299
         const val SLIDER_DEFAULT_STEP = 24
         const val SLIDER_MIN_VALUE = 10000
         const val REQUEST_CODE = 200
