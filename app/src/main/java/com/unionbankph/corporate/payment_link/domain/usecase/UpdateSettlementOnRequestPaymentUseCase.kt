@@ -19,11 +19,11 @@ constructor(threadExecutor: ThreadExecutor,
     postExecutionThread
 ){
     override fun buildUseCaseObservable(
-        updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm?
+        params: UpdateSettlementOnRequestPaymentForm?
     ): Single<UpdateSettlementOnRequestPaymentResponse> {
         return paymentLinkGateway.updateSettlementOnRequestPayment(
             UpdateSettlementOnRequestPaymentForm(
-                updateSettlementOnRequestPaymentForm!!.accountNo
+                params!!.accountNumber
             )
         )
     }

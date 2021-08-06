@@ -6,5 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ValidateMerchantByOrganizationResponse(
     @SerialName("merchantExists")
-    var merchantExists: String
+    var merchantExists: String,
+    @SerialName("merchantDetails")
+    var merchantDetails: MerchantDetails? = null
 )

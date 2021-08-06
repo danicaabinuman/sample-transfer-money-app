@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UpdateSettlementOnRequestPaymentForm(
 
-    @SerialName("accountNo")
-    var accountNo: String
+    @SerialName("accountNumber")
+    var accountNumber: String
 
 ): Parcelable
