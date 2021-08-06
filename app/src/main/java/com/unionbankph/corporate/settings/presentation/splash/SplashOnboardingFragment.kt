@@ -33,7 +33,7 @@ class SplashOnboardingFragment : BaseFragment<GeneralViewModel>(R.layout.fragmen
             }
             SplashScreenPage.PAGE_PAYMENT_LINK -> {
                 addPaddingLargeImageView()
-                imageView.setImageResource(R.drawable.bg_splash_pay_bills_msme)
+                imageView.setImageResource(R.drawable.bg_splash_payment_link_msme)
                 textViewHeader.text = getString(R.string.title_create_unique_payment_links)
                 textViewDesc.text = getString(R.string.desc_create_unique_payment_links)
             }
