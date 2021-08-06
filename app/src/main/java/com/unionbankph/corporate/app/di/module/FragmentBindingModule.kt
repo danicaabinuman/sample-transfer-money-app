@@ -77,8 +77,8 @@ import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_name.OAEnterNameFragment
 import com.unionbankph.corporate.user_creation.presentation.reminder.OAReminderFragment
 import com.unionbankph.corporate.user_creation.presentation.select_account.OAAccountSelection
-import com.unionbankph.corporate.user_creation.presentation.tnc.TNCFragment
-import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.TNCReminderFragment
+import com.unionbankph.corporate.user_creation.presentation.tnc.OATNCFragment
+import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.OATNCReminderFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -391,9 +391,9 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun tncReminderFragment(): TNCReminderFragment
+    abstract fun tncReminderFragment(): OATNCReminderFragment
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun tncFragment(): TNCFragment
+    abstract fun tncFragment(): OATNCFragment
 }

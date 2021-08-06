@@ -54,9 +54,9 @@
     </fragment>
     <fragment
         android:id="@+id/tnc_reminder_fragment"
-        android:name="com.unionbankph.corporate.user_creation.presentation.tnc_reminder.TNCReminderFragment"
+        android:name="com.unionbankph.corporate.user_creation.presentation.tnc_reminder.OATNCReminderFragment"
         android:label="tnc_reminder_fragment"
-        tools:layout="@layout/fragment_terms_and_condition_reminder">
+        tools:layout="@layout/fragment_oa_tnc_reminder">
 
     <action
         android:id="@+id/action_tnc_reminder_to_tnc"
@@ -70,8 +70,8 @@
 
     <fragment
         android:id="@+id/tnc_fragment"
-        android:name="com.unionbankph.corporate.user_creation.presentation.tnc.TNCFragment"
+        android:name="com.unionbankph.corporate.user_creation.presentation.tnc.OATNCFragment"
         android:label="tnc_fragment"
-        tools:layout="@layout/fragment_terms_and_condition"/>
+        tools:layout="@layout/fragment_oa_terms_and_condition"/>
 
 </navigation>

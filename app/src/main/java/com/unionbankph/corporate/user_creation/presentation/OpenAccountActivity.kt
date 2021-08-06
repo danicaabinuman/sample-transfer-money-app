@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.material.appbar.AppBarLayout
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
@@ -16,7 +17,6 @@ import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomShee
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.user_creation.presentation.enter_name.OAEnterNameViewModel
 import kotlinx.android.synthetic.main.activity_open_account.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar_with_tab_layout.*
 
 class OpenAccountActivity :
     BaseActivity<OpenAccountViewModel>(R.layout.activity_open_account) {
@@ -25,8 +25,9 @@ class OpenAccountActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(toolbar, appBarLayout)
         setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorDarkOrange, true)
+        setIsScreenScrollable(false)
     }
 
     override fun onViewModelBound() {
@@ -93,10 +94,14 @@ class OpenAccountActivity :
     }
 
     fun setIsScreenScrollable(isScrollable: Boolean) {
-        viewToolbar?.elevation = when (isScrollable) {
-            true -> TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics)
+        val elevation = when (isScrollable) {
+            true -> TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics)
             else -> 0f
         }
+
+        supportActionBar?.elevation = elevation
+        appBarLayout.elevation = elevation
     }
 
     companion object {

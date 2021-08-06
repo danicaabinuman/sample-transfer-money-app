@@ -1563,7 +1563,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_proceed"
             style="@style/SMEPrimaryButtonLarge"
-            android:text="@string/action_next"
+            android:text="@string/action_accepnt_and_continue"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
             android:layout_marginBottom="@dimen/grid_3"

@@ -600,6 +600,11 @@
     <style name="TextInputLayoutFormThin" parent="TextInputLayoutForm">
         <item name="boxStrokeWidth">@dimen/circular_border_stroke_width</item>
         <item name="boxStrokeWidthFocused">@dimen/circular_border_stroke_width</item>
+        <item name="errorTextAppearance">@style/SMECaption</item>
+    </style>
+
+    <style name="TextInputLayoutFormThinEditText">
+        <item name="android:layout_marginBottom">@dimen/grid_1</item>
     </style>
 
     <style name="TextInputLayoutUnderlineForm" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
@@ -1037,10 +1042,14 @@
         <item name="android:textColor">@drawable/style_secondary_button_text</item>
     </style>
 
-    <style name="SMEBigButton" parent="SMELargeButton">
+    <style name="SMEBigButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/ds_sme_big_button</item>
         <item name="android:paddingStart">@dimen/grid_3</item>
         <item name="android:textAlignment">viewStart</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:elevation">0dp</item>
     </style>
 
     <style name="SMEPrimaryButtonBig" parent="SMEBigButton">
@@ -1049,7 +1058,7 @@
     </style>
 
     <style name="SMESecondaryButtonBig" parent="SMEBigButton">
-        <item name="android:background">@drawable/style_secondary_button_large</item>
+        <item name="android:background">@drawable/style_secondary_bordered</item>
         <item name="android:textColor">@drawable/style_secondary_button_text</item>
     </style>
 
@@ -1123,8 +1132,6 @@
         <item name="android:fontFamily">@string/font_family_regular</item>
         <item name="android:lineSpacingMultiplier">@dimen/ds_line_height_multiplier</item>
     </style>
-
-
 
     <style name="BorderedBigButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">@dimen/match_constraint</item>

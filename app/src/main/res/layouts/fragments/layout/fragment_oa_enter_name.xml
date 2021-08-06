@@ -10,7 +10,6 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewWhatsYourNameLabel"
         android:layout_width="match_parent"
@@ -51,10 +50,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextFirstName"
+            style="@style/TextInputLayoutFormThinEditText"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:hint="@string/hint_first_name"
-            android:inputType="textPersonName|textCapWords" />
+            android:hint="@string/hint_first_name"            android:inputType="textPersonName|textCapWords" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,6 +86,7 @@
             android:id="@+id/editTextLastName"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            style="@style/TextInputLayoutFormThinEditText"
             android:inputType="textPersonName|textCapWords"
             android:hint="@string/hint_last_name"/>
 
@@ -101,6 +101,7 @@
         android:layout_marginStart="@dimen/grid_1"
         android:layout_marginEnd="@dimen/grid_1"
         android:layout_marginBottom="@dimen/grid_1"
+        android:enabled="false"
         android:text="@string/action_next"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

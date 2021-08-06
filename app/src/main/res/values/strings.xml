@@ -1095,6 +1095,7 @@
     <string name="action_retake_id">Retake ID</string>
     <string name="action_try_again">Try Again</string>
     <string name="action_okay">Okay</string>
+    <string name="action_accepnt_and_continue">Accept &amp; Continue</string>
 
 
     <string name="error_message">Error message from resources</string>

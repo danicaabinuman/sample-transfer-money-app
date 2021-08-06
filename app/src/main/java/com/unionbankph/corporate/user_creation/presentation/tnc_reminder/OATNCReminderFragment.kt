@@ -14,12 +14,11 @@ import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_terms_and_condition_reminder.*
-import timber.log.Timber
+import kotlinx.android.synthetic.main.fragment_oa_tnc_reminder.*
 import java.util.concurrent.TimeUnit
 
-class TNCReminderFragment :
-    BaseFragment<TNCReminderViewModel>(R.layout.fragment_terms_and_condition_reminder) {
+class OATNCReminderFragment :
+    BaseFragment<TNCReminderViewModel>(R.layout.fragment_oa_tnc_reminder) {
 
     private val openAccountActivity by lazyFast { getAppCompatActivity() as OpenAccountActivity }
 

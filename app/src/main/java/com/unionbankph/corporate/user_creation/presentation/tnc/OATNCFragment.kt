@@ -7,8 +7,8 @@ import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
 import com.unionbankph.corporate.user_creation.presentation.OpenAccountViewModel
 
-class TNCFragment :
-    BaseFragment<OpenAccountViewModel>(R.layout.fragment_terms_and_condition) {
+class OATNCFragment :
+    BaseFragment<OpenAccountViewModel>(R.layout.fragment_oa_terms_and_condition) {
 
     private val openAccountActivity by lazyFast { getAppCompatActivity() as OpenAccountActivity }
 

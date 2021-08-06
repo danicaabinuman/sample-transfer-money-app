@@ -134,6 +134,7 @@ class OAEnterNameFragment :
             .observeOn(schedulerProvider.ui())
             .doOnNext {
                 viewModel.input.isValidFormInput.onNext(it)
+                setSubmitButtonState(it)
             }
             .subscribe()
             .addTo(formDisposable)
@@ -177,6 +178,10 @@ class OAEnterNameFragment :
             }.addTo(formDisposable)
     }
 
+    private fun setSubmitButtonState(it: Boolean?) {
+        buttonNext.isEnabled = it!!
+    }
+
     private fun clearFormFocus() {
         constraintLayout1.post {
             viewUtil.dismissKeyboard(getAppCompatActivity())
@@ -190,6 +195,10 @@ class OAEnterNameFragment :
             if (!enableBackButton) return@addCallback
 
             enableBackButton = false
+
+            // Temporarily disabled the back press confirmation
+            openAccountActivity.popBackStack()
+            return@addCallback
 
             updatePreTextValues()
             if (viewModel.hasFormChanged()) {

@@ -628,6 +628,7 @@
         <activity
             android:name=".user_creation.presentation.OpenAccountActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:windowSoftInputMode="adjustResize"
             android:launchMode="standard" />
 
         <!-- Others -->

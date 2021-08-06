@@ -18,7 +18,7 @@ class OAAccountSelection :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        openAccountActivity.setIsScreenScrollable(true)
+        openAccountActivity.setIsScreenScrollable(false)
     }
 
     override fun onViewsBound() {

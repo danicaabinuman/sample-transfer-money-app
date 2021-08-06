@@ -5,12 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             style="@style/MatchParent"
             android:orientation="vertical"
             android:padding="@dimen/grid_1"
@@ -20,6 +15,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewHeader"
                 style="@style/SMEHeadlineH2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,44 +23,70 @@
                 android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_1"
                 android:text="@string/title_existing_unionbank_account"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:textColor="@color/colorInfo"/>
 
             <androidx.appcompat.widget.AppCompatImageView
-                style="@style/WrapContent"
+                android:id="@+id/imageViewContent"
+                style="@style/MatchConstraint"
+                android:layout_height="0dp"
+                android:layout_width="wrap_content"
                 android:layout_gravity="center"
+                android:scaleType="centerInside"
                 android:layout_marginTop="@dimen/grid_7"
-                app:srcCompat="@drawable/bg_onboarding_register_logo" />
+                app:layout_constraintTop_toBottomOf="@id/textViewHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/btn_open_account"
+                app:srcCompat="@drawable/bg_onboarding_register_logo"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_open_account"
                 style="@style/SMEPrimaryButtonBig"
                 android:layout_marginStart="@dimen/grid_1"
-                android:layout_marginTop="@dimen/grid_8"
                 android:layout_marginEnd="@dimen/grid_1"
                 android:text="@string/title_no_open_account"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/grid_8"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintTop_toBottomOf="@id/imageViewContent"
+                app:layout_constraintBottom_toTopOf="@id/btn_existing_ub_account"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="match_parent" />
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_existing_ub_account"
                 style="@style/SMESecondaryButtonBig"
                 android:layout_marginStart="@dimen/grid_1"
-                android:layout_marginTop="@dimen/grid_2"
+                android:layout_marginTop="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_1"
                 android:layout_marginBottom="@dimen/grid_1"
                 android:text="@string/title_yes_existing_unionbank_account"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintBottom_toTopOf="@id/btn_continue_existing_account_application"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_open_account"/>
 
-            <com.google.android.material.button.MaterialButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_continue_existing_account_application"
                 style="@style/SMESecondaryButtonBig"
-                android:layout_margin="@dimen/grid_1"
                 android:text="@string/title_continue_existing_account_application"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:layout_marginBottom="@dimen/grid_1"
                 android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_existing_ub_account"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

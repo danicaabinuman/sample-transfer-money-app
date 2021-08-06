@@ -10,6 +10,7 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.auth.presentation.login_onboarding.LoginOnboardingFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashFrameActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashFrameOnboardingActivity
+import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 
 class LoginActivity :
     BaseActivity<LoginViewModel>(R.layout.activity_login) {
@@ -21,12 +22,12 @@ class LoginActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        if (settingsUtil.isEmulator()) {
-            showErrorAndExit(
-                formatString(R.string.title_emulator_detected),
-                formatString(R.string.msg_emulator_not_supported)
-            )
-        } else {
+//        if (settingsUtil.isEmulator()) {
+//            showErrorAndExit(
+//                formatString(R.string.title_emulator_detected),
+//                formatString(R.string.msg_emulator_not_supported)
+//            )
+//        } else {
             if (!sharedPreferenceUtil.isLaunched().get()) {
                 if (isSME) {
                     navigator.navigate(
@@ -68,7 +69,7 @@ class LoginActivity :
 
 
             }
-        }
+//        }
     }
 
     private fun showErrorAndExit(
