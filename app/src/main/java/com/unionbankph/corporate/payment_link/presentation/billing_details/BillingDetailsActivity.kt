@@ -36,17 +36,14 @@ class BillingDetailsActivity :
         super.onViewsBound()
 
 
-        btnViewMore.setOnClickListener{
+//        btnViewMore.setOnClickListener{
 //            val intent = Intent(this@BillingDetailsActivity, ActivityLogsActivity::class.java)
 //            startActivity(intent)
-        }
+//        }
 
         backButton()
         setupInputs()
         setupOutputs()
-        copyLink()
-        shareLink()
-
 
     }
 
@@ -133,7 +130,6 @@ class BillingDetailsActivity :
         tvPayorEmail.text = response.payorDetails?.emailAddress
         tvPayorContactNumber.text = response.payorDetails?.mobileNumber
         var paymentMethod = response.payorDetails?.paymentMethod
-        paymentMethodText.text = paymentMethod.toString()
 
         if (paymentMethod == "INSTAPAY"){
             instapayLogo.visibility = View.VISIBLE
@@ -241,6 +237,16 @@ class BillingDetailsActivity :
             cebuanaLogo.visibility = View.GONE
             gcashLogo.visibility = View.GONE
             grabpayLogo.visibility = View.GONE
+            
+            if (paymentMethod.toString() == "ECPY") {
+                paymentMethodText.text = "EcPay"
+            } else if (paymentMethod.toString() == "BAYD") {
+                paymentMethodText.text = "Bayad Center"
+            } else if (paymentMethod.toString() == "PLWN") {
+                paymentMethodText.text = "Palawan"
+            } else if (paymentMethod.toString() == "CEBL") {
+                paymentMethodText.text = "Cebuana"
+            }
             paymentMethodText.visibility = View.VISIBLE
         }
 
@@ -315,27 +321,27 @@ class BillingDetailsActivity :
         const val EXTRA_REFERENCE_NUMBER = "extra_reference_number"
     }
 
-    private fun copyLink(){
-        ivCopyButton.setOnClickListener{
-            val copiedUrl = tvLinkUrl.text
-            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
-
-            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
-
-            clipboard.setPrimaryClip(clip)
-
-//            showToast("Copied to clipboard")
-        }
-    }
-
-    private fun shareLink() {
-        ivShareButton.setOnClickListener {
-            val intent = Intent()
-            intent.action = Intent.ACTION_SEND
-            intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
-            intent.type = "text/plain"
-            startActivity(Intent.createChooser(intent, "Share To:"))
-        }
-    }
+//    private fun copyLink(){
+//        ivCopyButton.setOnClickListener{
+//            val copiedUrl = tvLinkUrl.text
+//            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//            val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
+//
+//            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+//
+//            clipboard.setPrimaryClip(clip)
+//
+////            showToast("Copied to clipboard")
+//        }
+//    }
+//
+//    private fun shareLink() {
+//        ivShareButton.setOnClickListener {
+//            val intent = Intent()
+//            intent.action = Intent.ACTION_SEND
+//            intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
+//            intent.type = "text/plain"
+//            startActivity(Intent.createChooser(intent, "Share To:"))
+//        }
+//    }
 }
