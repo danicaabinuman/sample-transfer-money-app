@@ -3,6 +3,7 @@ package com.unionbankph.corporate.app.dashboard
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
@@ -380,7 +381,21 @@ class DashboardViewModel @Inject constructor(
             getDisposableSingleObserver(
                 {
                     val merchantExists = it.merchantExists.equals("true",false)
-                    _dashBoardState.value = ShowPaymentLinkOnBoarding(merchantExists,fromWhatTab)
+                    if (merchantExists){
+                        val merchantStatus = it.merchantStatus
+                        if (merchantStatus.equals(PENDING, true)){
+                            _dashBoardState.value = ShowMerchantStatusPendingScreen
+                        } else if (merchantStatus.equals(ACTIVE, true)) {
+                            _dashBoardState.value = ShowPaymentLinkOnBoarding(merchantExists,fromWhatTab)
+                        } else if (merchantStatus.equals(INACTIVE, true)) {
+                            _dashBoardState.value = ShowFeatureUnavailable
+                        }else {
+                            _dashBoardState.value = ShowPaymentLinkOnBoarding(merchantExists,fromWhatTab)
+                        }
+                    } else {
+                        _dashBoardState.value = ShowPaymentLinkOnBoarding(merchantExists,fromWhatTab)
+                    }
+                   
                 }, {
                     Timber.e(it, "validateMerchant")
                     _dashBoardState.value = Error(it)
@@ -396,24 +411,12 @@ class DashboardViewModel @Inject constructor(
 
     }
 
-    fun validateMerchantStatus(){
-
-        validateMerchantUseCase.execute(
-            getDisposableSingleObserver(
-                {
-                    val merchantStatus = it.merchantStatus
-
-                    if (merchantStatus.equals(Constant.PENDING, true)) {
-
-                    }
-                }
-            )
-        )
-    }
-
     companion object{
         const val FROM_REQUEST_PAYMENT_BUTTON = "from_accounts_tab"
         const val FROM_TRANSACT_TAB = "from_transact_tab"
+        const val PENDING = "PENDING"
+        const val INACTIVE = "INACTIVE"
+        const val ACTIVE = "ACTIVE"
     }
 }
 
@@ -461,7 +464,8 @@ data class ShowTutorialIntroduction(val hasTutorial: Boolean) : DashboardState()
 
 data class Error(val throwable: Throwable) : DashboardState()
 
+
+object ShowMerchantStatusPendingScreen : DashboardState()
+object ShowFeatureUnavailable : DashboardState()
 object SuccessCompletable : DashboardState()
 object ShowSuccessBiometric : DashboardState()
-object ShowMerchantStatusPendingScreen : DashboardState()
-object ShowMerchantStatusRejectedScreen : DashboardState()

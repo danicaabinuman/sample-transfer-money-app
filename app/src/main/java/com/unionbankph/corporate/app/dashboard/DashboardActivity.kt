@@ -29,6 +29,7 @@ import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
+import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.app.common.widget.tutorial.OnTutorialListener
 import com.unionbankph.corporate.approval.presentation.ApprovalFragment
@@ -41,6 +42,7 @@ import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEn
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
@@ -48,6 +50,10 @@ import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPay
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.activity_request_payment.*
+import kotlinx.android.synthetic.main.dialog_failed_merchant_diasbled.*
+import kotlinx.android.synthetic.main.dialog_failed_merchant_diasbled.btnErrorMerchantDisabled
+import kotlinx.android.synthetic.main.dialog_feature_unavailable2.*
 import kotlinx.android.synthetic.main.widget_badge_initial.*
 import kotlinx.android.synthetic.main.widget_badge_small.*
 import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
@@ -121,6 +127,13 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         viewModel = ViewModelProviders.of(this, viewModelFactory)[DashboardViewModel::class.java]
         viewModel.dashBoardState.observe(this, Observer {
             when (it) {
+
+                is ShowMerchantStatusPendingScreen ->{
+                    showMerchantStatusPendingScreen()
+                }
+                is ShowFeatureUnavailable ->{
+                    showFeatureUnavailable()
+                }
                 is ShowProgressLoading -> {
                     showProgressAlertDialog(DashboardActivity::class.java.simpleName)
                 }
@@ -256,7 +269,6 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
 
         btnRequestPayment.setOnClickListener{
             viewModel.validateMerchant(DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
-
         }
 
         RxView.clicks(viewBadge)
@@ -1193,6 +1205,26 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
     }
+
+    private fun showMerchantStatusPendingScreen(){
+        navigator.navigate(
+            this,
+            MerchantApplicationReceivedActivity::class.java,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
+    private fun showFeatureUnavailable(){
+
+        errorMerchantRejected.visibility = View.VISIBLE
+        btnFeatureUnavailableBackToDashboard.setOnClickListener{
+            errorMerchantRejected.visibility = View.GONE
+        }
+
+    }
+
 
     fun setToolbarTitle(title: String, hasBackButton: Boolean, hasMenuItem: Boolean = false) {
         textViewTitle?.text = title

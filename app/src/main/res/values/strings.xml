@@ -2293,4 +2293,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="merchant_rejected_details">We couldn’t process your application at this time. You may reach out to us at [email]@unionbankph.com should you need further assistance.</string>
     <string name="oops_try_again">Oops! Try again!</string>
     <string name="try_again">TRY AGAIN</string>
+    <string name="feature_unavailable_detail">Sorry, this feature is not available for your organization. Please Contact business@unionbankph.com for further assistance.</string>
+    <string name="okay_upper_case">OKAY</string>
 </resources>
