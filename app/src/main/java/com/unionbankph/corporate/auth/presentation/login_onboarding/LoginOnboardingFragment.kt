@@ -28,7 +28,6 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
             when (it) {
                 is UiState.Success -> {
 
-
                 }
                 is UiState.Loading -> {
                     showProgressAlertDialog(this::class.java.simpleName)
@@ -120,48 +119,6 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
                 )
             }, 550
         )
-    }
-
-    /*private fun initAnimationLogo() {
-        imageViewLogoOnboarding.viewTreeObserver.addOnGlobalLayoutListener(
-            object : ViewTreeObserver.OnGlobalLayoutListener {
-                override fun onGlobalLayout() {
-                    imageViewLogoOnboarding.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    runPostDelayed(
-                        {
-                            animateContent()
-                        }, 1000
-                    )
-                }
-            }
-        )
-    }
-
-    private fun animateContent() {
-        viewUtil.startAnimateView(true, imageViewLogoOnboarding, android.R.anim.fade_in)
-        val location = IntArray(2)
-        imageViewLogoOnboarding.getLocationOnScreen(location)
-        val y = location[1]
-        val objectAnimator =
-            ObjectAnimator.ofFloat(imageViewLogoAnimateOnboarding, "y", y.toFloat())
-        Timber.d("y axis:${y.toFloat()}")
-        objectAnimator.duration = resources.getInteger(R.integer.anim_duration_medium).toLong()
-        objectAnimator.start()
-        runPostDelayed(
-            {
-                imageViewLogoOnboarding.visibility(true)
-
-                runPostDelayed(
-                    {
-                        initFreshLogin()
-                    }, 100
-                )
-            }, 600
-        )
-    }*/
-
-    companion object {
-
     }
 
 }
