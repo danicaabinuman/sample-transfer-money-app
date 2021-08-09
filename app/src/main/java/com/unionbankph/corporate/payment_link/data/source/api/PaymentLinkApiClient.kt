@@ -3,6 +3,7 @@ package com.unionbankph.corporate.payment_link.data.source.api
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
+import com.unionbankph.corporate.payment_link.domain.model.form.UpdateSettlementOnRequestPaymentForm
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import io.reactivex.Single
 import retrofit2.Response
@@ -39,6 +40,20 @@ interface PaymentLinkApiClient {
         createMerchantForm: CreateMerchantForm
     ): Single<Response<CreateMerchantResponse>>
 
+    @PUT("msme/api/{api_version}/merchant/accounts")
+    fun updateSettlementOnRequestPayment(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm
+    ): Single<Response<UpdateSettlementOnRequestPaymentResponse>>
+
     @GET("msme/api/{api_version}/payment-links")
     fun getPaymentLinkListPaginated(
         @Header("Authorization")
@@ -73,7 +88,7 @@ interface PaymentLinkApiClient {
             referenceNumber: String
     ): Single<Response<GetPaymentLinkListPaginatedResponse>>
 
-    @GET("msme/api/{api_version}/payment-link/{reference_id}")
+    @GET("msme-staging/api/{api_version}/payment-link/{reference_id}")
     fun getPaymentLinkByReferenceId(
         @Header("Authorization")
         accessToken: String,

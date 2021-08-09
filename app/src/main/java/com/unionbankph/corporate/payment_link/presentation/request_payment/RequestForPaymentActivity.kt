@@ -40,11 +40,12 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     NominateSettlementAccountFragment.OnNominateSettlementAccountListener{
 
     private var accounts = mutableListOf<Account>()
-    var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
-    val NEW_SPINNER_ID = 1
-    var linkExpiry = "12 hours"
+    private var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
+    private val NEW_SPINNER_ID = 1
+    private var linkExpiry = "12 hours"
     private var nominateSettlementAccountFragment: NominateSettlementAccountFragment? = null
 
+    private var currentAccount: Account = Account()
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -52,6 +53,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             this,
             viewModelFactory
         )[RequestForPaymentViewModel::class.java]
+        setupOutputs()
     }
 
     override fun onViewsBound() {
@@ -59,14 +61,13 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         initViews()
 
         setupInputs()
-        setupOutputs()
+
         buttonDisable()
         buttonCalculatorDisabled()
 
         requiredFields()
         paymentLinkExpiry()
         finishRequestPayment()
-
     }
 
 
@@ -86,6 +87,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             val paymentFor = et_paymentFor.text.toString()
             val notes = et_notes.text.toString()
             val mobileNumber = textInputEditTextMobileNumber.text.toString()
+            val accountNo = include1.findViewById<TextView>(R.id.textViewAccountNumber).text.toString()
             if(mobileNumber.isNotEmpty()){
                 if(mobileNumber.length<10){
                     Toast.makeText(this@RequestForPaymentActivity, "Mobile Number length is invalid",Toast.LENGTH_SHORT).show()
@@ -136,7 +138,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     }
 
     private fun setupInputs(){
-        viewModel.getAccounts()
+        viewModel.getDefaultMerchantSettlementAccount()
     }
 
     private fun setupOutputs(){
@@ -149,7 +151,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             when(it){
                 is ErrorMerchantDisabled -> {
                     errorMerchantDisabled.visibility = View.VISIBLE
-                    btnErrorMerchantDisabled.setOnClickListener{
+                    btnErrorMerchantDisabled.setOnClickListener {
                         finish()
                     }
                 }
@@ -163,7 +165,14 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             }
         })
 
+        viewModel.defaultMerchantSA.observe(this, Observer {
+            currentAccount = it
+            populateNominatedSettlementAccount(it)
+        })
+
         viewModel.soleAccount.observe(this, Observer {
+            currentAccount = it
+
             requestPaymentLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it)
             accounts = mutableListOf()
@@ -180,6 +189,10 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         viewModel.accountsBalances.observe(this, Observer {
             requestPaymentLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it.first())
+        })
+
+        viewModel.updateSettlementOnRequestPaymentResponse.observe(this, Observer {
+            populateNominatedSettlementAccount(currentAccount)
         })
 
         viewModel.uiState.observe(this, Observer {
@@ -390,7 +403,10 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     }
 
     override fun onAccountSelected(account: Account) {
-        populateNominatedSettlementAccount(account)
+//        Timber.e()
+        currentAccount = account
+        // Call Put Merchant Here.
+        viewModel.updateDefaultSettlementAccount(account.accountNumber!!)
     }
 
 

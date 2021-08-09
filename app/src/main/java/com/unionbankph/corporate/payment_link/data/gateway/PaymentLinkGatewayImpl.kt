@@ -9,9 +9,11 @@ import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemo
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
+import com.unionbankph.corporate.payment_link.domain.model.form.UpdateSettlementOnRequestPaymentForm
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import com.unionbankph.corporate.settings.data.source.local.SettingsCache
 import io.reactivex.Single
+import retrofit2.Response
 import javax.inject.Inject
 
 class PaymentLinkGatewayImpl
@@ -57,6 +59,17 @@ class PaymentLinkGatewayImpl
             }
             .flatMap { smeResponseProvider.executeResponseSingle(it) }
 
+    }
+
+    override fun updateSettlementOnRequestPayment(updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm): Single<UpdateSettlementOnRequestPaymentResponse> {
+        return settingsCache.getAccessToken()
+            .flatMap {
+                paymentLinkRemote.updateSettlementOnRequestPayment(
+                    it,
+                    updateSettlementOnRequestPaymentForm
+                )
+            }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
 
@@ -124,13 +137,8 @@ class PaymentLinkGatewayImpl
     }
 
     override fun validateMerchantByOrganization(): Single<ValidateMerchantByOrganizationResponse> {
-
         return settingsCache.getAccessToken()
-            .flatMap {
-                paymentLinkRemote.validateMerchantByOrganization(
-                    it
-                )
-            }
+            .flatMap { paymentLinkRemote.validateMerchantByOrganization(it) }
             .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
@@ -146,5 +154,7 @@ class PaymentLinkGatewayImpl
         return Single.fromCallable { ValidateApproverResponse(isApprover) }
 
     }
+
+
 
 }
