@@ -430,7 +430,6 @@
         <item name="contentInsetLeft">@dimen/grid_0</item>
         <item name="contentInsetStart">@dimen/grid_0</item>
         <item name="contentInsetStartWithNavigation">@dimen/grid_0</item>
-        <item name="elevation">0dp</item>
     </style>
 
     <style name="ToolbarSME">
