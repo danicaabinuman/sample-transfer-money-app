@@ -21,6 +21,7 @@ import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
@@ -195,7 +196,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             setupPaymentLinkLoading.visibility = View.GONE
             if(it.message.equals("Success",true)){
 
-                val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
+                val intent = Intent(this, MerchantApplicationReceivedActivity::class.java)
                 intent.putExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB,fromWhatTab)
                 startActivity(intent)
                 finish()
