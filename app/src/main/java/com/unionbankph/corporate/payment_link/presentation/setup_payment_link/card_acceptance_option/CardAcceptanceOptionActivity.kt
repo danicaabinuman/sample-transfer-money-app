@@ -83,7 +83,7 @@ class CardAcceptanceOptionActivity :
     }
 
     private fun continueToNextScreen() {
-        val intentGoBackToDashboard = Intent(this, DashboardActivity::class.java)
+        val intentGoBackToDashboard = Intent(this, NotNowCardPaymentsActivity::class.java)
         startActivity(intentGoBackToDashboard)
     }
     companion object {
