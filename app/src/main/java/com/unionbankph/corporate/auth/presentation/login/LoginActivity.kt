@@ -32,7 +32,7 @@ class LoginActivity :
                 if (isSME) {
                     navigator.navigate(
                         this,
-                        SplashStartedScreenActivity::class.java,
+                        SplashFrameOnboardingActivity::class.java,
                         null,
                         isClear = true,
                         isAnimated = false
@@ -47,14 +47,27 @@ class LoginActivity :
                     )
                 }
             } else {
-                navigator.replaceFragment(
-                    R.id.fl_login,
-                    LoginFragment(),
-                    null,
-                    supportFragmentManager,
-                    "LoginFragment",
-                    false
-                )
+                if (App.isSME()) {
+                    navigator.replaceFragment(
+                        R.id.fl_login,
+                        LoginOnboardingFragment(),
+                        null,
+                        supportFragmentManager,
+                        "SignUpFragment",
+                        false
+                    )
+                } else {
+                    navigator.replaceFragment(
+                        R.id.fl_login,
+                        LoginFragment(),
+                        null,
+                        supportFragmentManager,
+                        "LoginFragment",
+                        false
+                    )
+                }
+
+
             }
         }
     }
