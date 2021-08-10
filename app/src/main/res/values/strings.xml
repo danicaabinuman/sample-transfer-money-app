@@ -2301,7 +2301,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="one_last_thing">One last thing...</string>
     <string name="what_s_your_average_monthly_volume">What\'s your average monthly volume?</string>
     <string name="below_10k">Below 10K</string>
-    <string name="above_5m">Above 5M</string>
+    <string name="above_3m">Above 3M</string>
     <string name="what_s_your_average_transaction_amount">What\'s your average transaction amount?</string>
     <string name="label_php">PHP</string>
     <string name="action_review_details">Review Details</string>
