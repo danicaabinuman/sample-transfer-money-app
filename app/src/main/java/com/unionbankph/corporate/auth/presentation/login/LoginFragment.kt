@@ -16,7 +16,9 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -76,16 +78,13 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     FingerprintBottomSheet.OnFingerPrintListener,
     InstallStateUpdatedListener,
     OnSuccessListener<AppUpdateInfo>,
-    ImeOptionEditText.OnImeOptionListener,
-    FaceIDBottomSheet.OnFaceIdListener{
+    ImeOptionEditText.OnImeOptionListener{
 
     private lateinit var imeOptionEditText: ImeOptionEditText
 
     private var appUpdateManager: AppUpdateManager? = null
 
     private var fingerprintBottomSheet: FingerprintBottomSheet? = null
-
-    private var faceIDBottomSheet: FaceIDBottomSheet? = null
 
     private var isShownInitialFingerprint: Boolean = false
 
@@ -245,26 +244,6 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
         }
     }
 
-
-    override fun onCompleteFaceID(token: String) {
-        viewModel.userLoginFingerPrint(
-            LoginFingerprintForm(fingerprintToken = token, udid = settingsUtil.getUdId())
-        )
-    }
-
-    override fun onErrorFaceID() {
-        showFaceIDImageView(false)
-        viewModel.token.onNext("")
-    }
-
-    override fun onDismissFaceIDialog() {
-        if ((BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
-                .BIOMETRIC_SUCCESS) &&
-            sharedPreferenceUtil.fingerPrintTokenSharedPref().get() != ""
-        ) {
-            showFaceIDImageView(true)
-        }
-    }
 
     override fun onCompleteFingerprint(token: String) {
         viewModel.userLoginFingerPrint(
@@ -686,15 +665,7 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
                 .BIOMETRIC_SUCCESS
             && !isShownInUpdateApp
             && App.isActivityVisible()){
-            faceIDBottomSheet = FaceIDBottomSheet.newInstance(
-                token,
-                FaceIDBottomSheet.DECRYPT_TYPE
-            )
-            faceIDBottomSheet?.setOnFaceIdListener(this)
-            faceIDBottomSheet?.show(
-                childFragmentManager,
-                LoginActivity::class.java.simpleName
-            )
+            biometricPrompt(token)
         }
     }
 
@@ -1018,6 +989,42 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             }, 550
         )
     }
+
+    private fun biometricPrompt(token: String){
+        if (BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS) {
+            val executor = ContextCompat.getMainExecutor(applicationContext)
+            val biometricPrompt =
+                BiometricPrompt(this, executor,
+                    object : BiometricPrompt.AuthenticationCallback() {
+                        override fun onAuthenticationError(errorCode: Int,
+                                                           errString: CharSequence) {
+                            if(errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+                                if ((BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                                        .BIOMETRIC_SUCCESS) &&
+                                    sharedPreferenceUtil.fingerPrintTokenSharedPref().get() != ""
+                                ) {
+                                    showFaceIDImageView(true)
+                                }
+                            }
+                        }
+                        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                            viewModel.userLoginFingerPrint(
+                                LoginFingerprintForm(fingerprintToken = token, udid = settingsUtil.getUdId())
+                            )
+                        }
+                    })
+
+            val promptInfo =  BiometricPrompt.PromptInfo.Builder()
+                .setTitle(applicationContext.getString(R.string.title_login_in_using_faceid))
+                .setSubtitle(applicationContext.getString(R.string.confirm_fingerprint_description))
+                .setNegativeButtonText(applicationContext.getString(R.string.action_use_password))
+                .setConfirmationRequired(false)
+                .build()
+            biometricPrompt.authenticate(promptInfo)
+        }
+    }
+
 
     private fun getEditTextUsername() = if (App.isSME()) etUsernameSME else etUsername
 
