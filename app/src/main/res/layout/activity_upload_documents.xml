@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
@@ -160,40 +161,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
+
         app:layout_constraintTop_toBottomOf="@id/viewToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/grid_50"
-            android:id="@+id/clPreview"
+            android:layout_height="500dp"
             android:padding="@dimen/grid_2"
-            android:background="@color/dsColorLightOrange"
+            android:background="@color/dsColorExtraLightGray"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:id="@+id/ivPreviewBIR"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/grid_38"
                 android:scaleType="fitCenter"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSubmitBIRDocs"
-            style="@style/MatchWrapParent"
-            android:layout_marginTop="@dimen/grid_2"
-            android:text="   BIR Certificate"
-            android:gravity="start|center"
-            android:drawableStart="@drawable/ic_bir_certificate"
-            android:drawableEnd="@drawable/ic_arrow_orange_right"
-            android:background="@drawable/a_spinner_outline"
-            android:padding="@dimen/grid_2"
-            app:layout_constraintTop_toBottomOf="@id/clPreview"
-            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

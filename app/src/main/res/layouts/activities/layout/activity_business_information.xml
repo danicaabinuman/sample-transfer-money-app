@@ -365,7 +365,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_marginTop="25dp"
-                    android:visibility="gone"
                     android:src="@drawable/view_dashed"
                     app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
 
@@ -377,7 +376,7 @@
                     android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 
@@ -389,7 +388,7 @@
                     android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 
@@ -401,7 +400,7 @@
                     android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 
@@ -413,7 +412,7 @@
                     android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 
@@ -425,7 +424,7 @@
                     android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 
@@ -437,7 +436,7 @@
                     android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 
@@ -449,7 +448,7 @@
                     android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
 

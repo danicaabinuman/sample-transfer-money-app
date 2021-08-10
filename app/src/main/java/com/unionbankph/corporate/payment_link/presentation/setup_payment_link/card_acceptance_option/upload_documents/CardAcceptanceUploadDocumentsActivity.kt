@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.viewToolbar
 import kotlinx.android.synthetic.main.activity_upload_documents.*
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
@@ -55,6 +56,23 @@ class CardAcceptanceUploadDocumentsActivity :
         btnUploadBIRDocs.setOnClickListener {
             showbottomSheetDialog()
         }
+        btnNext.setOnClickListener {
+            if (clPreviewBIR.isShown){
+                clPreviewBIR.visibility = View.GONE
+                clUploadBIRDocs.visibility = View.VISIBLE
+            } else {
+                val snackbarView = findViewById<TextView>(R.id.snackbar)
+                val snackUploading = Snackbar.make(snackbarView, "Uploading document...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext)
+                snackUploading.show()
+                val intent = Intent(this, NotNowCardPaymentsActivity::class.java)
+                val handler = Handler(Looper.getMainLooper())
+                handler.postDelayed({
+                    startActivity(intent)
+                }, 3000)
+
+            }
+
+        }
     }
 
     private fun showbottomSheetDialog() {
@@ -76,17 +94,22 @@ class CardAcceptanceUploadDocumentsActivity :
 //                        clUploadBIRDocs.visibility = View.GONE
 //                        clPreviewBIR.visibility = View.VISIBLE
 
-                        val fileUri = data.data!!.toString()
-                        val file = File(fileUri)
-                        clUploadBIRDocs.visibility = View.VISIBLE
-                        val snackbarView = findViewById<TextView>(R.id.snackbar)
-                        val snackUploading = Snackbar.make(snackbarView, "Uploading photo...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext)
-                        snackUploading.show()
+                        val fileUri = data.data!!
+//                        val file = File(fileUri)
+//                        val fileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
+                        val fileDescriptor : ParcelFileDescriptor = context.contentResolver.openFileDescriptor(fileUri,"r")!!
+                        val pdfRenderer = PdfRenderer(fileDescriptor)
+                        val rendererPage = pdfRenderer.openPage(0)
+                        val rendererPageWidth = rendererPage.width
+                        val rendererPageHeight = rendererPage.height
+                        val bitmap = Bitmap.createBitmap(rendererPageWidth, rendererPageHeight, Bitmap.Config.ARGB_8888)
+                        rendererPage.render(bitmap,null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                        imgView.setImageBitmap(bitmap)
+                        rendererPage.close()
+                        pdfRenderer.close()
+                        clPreviewBIR.visibility = View.VISIBLE
+                        btnNext.visibility = View.VISIBLE
 
-                        val handler = Handler(Looper.getMainLooper())
-                        handler.postDelayed({
-                            btnNext.visibility = View.VISIBLE
-                        }, 3000)
                     }
 //                        val fileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
 //                        val pdfRenderer = PdfRenderer(fileDescriptor)
