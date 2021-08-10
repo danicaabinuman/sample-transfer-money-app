@@ -31,6 +31,7 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.app.common.widget.tutorial.OnTutorialListener
+import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragment
 import com.unionbankph.corporate.approval.presentation.ApprovalFragment
 import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity
@@ -982,6 +983,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         adapter = ViewPagerAdapter(
             supportFragmentManager
         )
+//        adapter?.addFragment(DashboardFragment(), FRAGMENT_DASHBOARD)
         adapter?.addFragment(AccountFragment(), FRAGMENT_ACCOUNTS)
         adapter?.addFragment(TransactFragment(), FRAGMENT_TRANSACT)
         adapter?.addFragment(ApprovalFragment(), FRAGMENT_APPROVALS)
@@ -1255,6 +1257,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     }
 
     companion object {
+        const val FRAGMENT_DASHBOARD = "dashboard"
         const val FRAGMENT_ACCOUNTS = "accounts"
         const val FRAGMENT_TRANSACT = "transact"
         const val FRAGMENT_APPROVALS = "approvals"

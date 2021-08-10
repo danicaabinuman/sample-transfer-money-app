@@ -6,6 +6,7 @@ import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomShee
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.NegPosBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.SessionTimeOutBottomSheet
+import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragment
 import com.unionbankph.corporate.app.di.scope.PerActivity
 import com.unionbankph.corporate.approval.presentation.ApprovalFragment
 import com.unionbankph.corporate.approval.presentation.approval_done.ApprovalDoneFragment
@@ -396,4 +397,8 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun tncFragment(): OATNCFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun dashboardFragment(): DashboardFragment
 }

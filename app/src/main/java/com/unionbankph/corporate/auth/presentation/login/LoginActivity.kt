@@ -22,17 +22,17 @@ class LoginActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-//        if (settingsUtil.isEmulator()) {
-//            showErrorAndExit(
-//                formatString(R.string.title_emulator_detected),
-//                formatString(R.string.msg_emulator_not_supported)
-//            )
-//        } else {
+        if (settingsUtil.isEmulator()) {
+            showErrorAndExit(
+                formatString(R.string.title_emulator_detected),
+                formatString(R.string.msg_emulator_not_supported)
+            )
+        } else {
             if (!sharedPreferenceUtil.isLaunched().get()) {
                 if (isSME) {
                     navigator.navigate(
                         this,
-                        SplashFrameOnboardingActivity::class.java,
+                        SplashStartedScreenActivity::class.java,
                         null,
                         isClear = true,
                         isAnimated = false
@@ -47,29 +47,16 @@ class LoginActivity :
                     )
                 }
             } else {
-                if (App.isSME()) {
-                    navigator.replaceFragment(
-                        R.id.fl_login,
-                        LoginOnboardingFragment(),
-                        null,
-                        supportFragmentManager,
-                        "SignUpFragment",
-                        false
-                    )
-                } else {
-                    navigator.replaceFragment(
-                        R.id.fl_login,
-                        LoginFragment(),
-                        null,
-                        supportFragmentManager,
-                        "LoginFragment",
-                        false
-                    )
-                }
-
-
+                navigator.replaceFragment(
+                    R.id.fl_login,
+                    LoginFragment(),
+                    null,
+                    supportFragmentManager,
+                    "LoginFragment",
+                    false
+                )
             }
-//        }
+        }
     }
 
     private fun showErrorAndExit(

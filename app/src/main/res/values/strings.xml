@@ -1096,6 +1096,7 @@
     <string name="action_try_again">Try Again</string>
     <string name="action_okay">Okay</string>
     <string name="action_accepnt_and_continue">Accept &amp; Continue</string>
+    <string name="action_more">More</string>
 
 
     <string name="error_message">Error message from resources</string>
@@ -2312,7 +2313,8 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="desc_deposit_checks">Deposit any bank check by taking photos of it via app.</string>
     <string name="hello_what_is_your_name">Hello, what is your name?</string>
     <string name="user_creation_input_reminder">Before we begin, please ensure that the following details in your application matches with details in your ID:</string>
-
+    <string name="hello_name">Hello, %1$s</string>
+    
     <string name="user_creation_title_reminder">Before we begin, please ensure that the\nfollowing details in your application matches\nwith details in your ID:</string>
     <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
     <string name="desc_user_creation_reminders">

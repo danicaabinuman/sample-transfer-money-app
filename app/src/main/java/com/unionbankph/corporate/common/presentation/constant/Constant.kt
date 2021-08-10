@@ -55,6 +55,18 @@ class Constant {
 
         const val ACTION_SESSION_TIMEOUT = "session_timeout"
 
+        const val DASHBOARD_ACTION_REQUEST_PAYMENT = "request_payment"
+        const val DASHBOARD_ACTION_TRANSFER_FUNDS = "transfer_funds"
+        const val DASHBOARD_ACTION_PAY_BILLS = "pay_bills"
+        const val DASHBOARD_ACTION_DEPOSIT_CHECK = "deposit_check"
+        const val DASHBOARD_ACTION_APPLY_LOAN = "apply_loan"
+        const val DASHBOARD_ACTION_BRANCH_VISIT = "branch_visit"
+        const val DASHBOARD_ACTION_MANAGE_EXPENSES = "manage_expenses"
+        const val DASHBOARD_ACTION_MORE = "more"
+
+        const val DASHBOARD_ACTION_ADD_ACCOUNT = "add_account"
+        const val DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS = "view_all_account"
+
         fun getDefaultCountryCode() = CountryCode(175, "Philippines", "PH", 1, 1, "63")
 
         fun getDefaultCountryDao() = Selector(id = "204", value = "PHILIPPINES")
@@ -129,6 +141,18 @@ class Constant {
         companion object {
             const val BIR_SERVICE_ID = "7868"
             const val SSS_SERVICE_ID = "7779"
+        }
+    }
+
+    class SMETextViewStyle {
+        companion object {
+            const val H1 = "H1"
+            const val H2 = "H2"
+            const val SUBTITLE1 = "SUBTITLE1"
+            const val SUBTITLE2 = "SUBTITLE2"
+            const val BODY = "BODY"
+            const val BODY_GRAY = "BODY_GRAY"
+            const val CAPTION = "CAPTION"
         }
     }
 }

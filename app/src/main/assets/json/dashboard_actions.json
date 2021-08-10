@@ -1,0 +1,30 @@
+[
+  {
+    "id": "request_payment",
+    "label": "Request\nPayment"
+  },
+  {
+    "id": "transfer_funds",
+    "label": "Transfer\nFunds"
+  },
+  {
+    "id": "pay_bills",
+    "label": "Pay\nBills"
+  },
+  {
+    "id": "deposit_check",
+    "label": "Deposit\nCheck"
+  },
+  {
+    "id": "apply_loan",
+    "label": "Apply\nLoan"
+  },
+  {
+    "id": "branch_visit",
+    "label": "Branch\nVisit"
+  },
+  {
+    "id": "manage_expenses",
+    "label": "Manage\nExpenses"
+  }
+]
