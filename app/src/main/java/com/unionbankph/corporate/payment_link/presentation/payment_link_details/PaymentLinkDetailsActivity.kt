@@ -225,14 +225,14 @@ class LinkDetailsActivity : BaseActivity<LinkDetailsViewModel>(R.layout.activity
         clCyberSure.visibility = View.VISIBLE
         btnGenerateAnotherLink.text = "GENERATE NEW LINK"
         btnArchive.text = "VIEW MORE DETAILS"
-        imgBtnShare.visibility = View.INVISIBLE
-        ibURLcopy.visibility = View.INVISIBLE
+        btnHolder.visibility = View.GONE
         btnArchive.isEnabled = true
         tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_orange)
         tvReferenceNo.setTextColor(Color.parseColor("#FFFFFF"))
         linkDetailsRefNo.setTextColor(Color.parseColor("#FFFFFF"))
         tvDateCreated.setTextColor(Color.parseColor("#FFFFFF"))
         linkDetailsCreatedDate.setTextColor(Color.parseColor("#FFFFFF"))
+        clCyberSure.visibility = View.GONE
     }
 
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
