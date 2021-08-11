@@ -18,6 +18,7 @@ import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivityRequestPaymentBinding
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
@@ -28,9 +29,9 @@ import timber.log.Timber
 class RequestForPaymentActivity :
     BaseActivity<ActivityRequestPaymentBinding, RequestForPaymentViewModel>(), AdapterView.OnItemSelectedListener {
 
-    var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
-    val NEW_SPINNER_ID = 1
-    var linkExpiry = "12 hours"
+    private var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
+    private val NEW_SPINNER_ID = 1
+    private var linkExpiry = "12 hours"
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -42,7 +43,6 @@ class RequestForPaymentActivity :
 
         setupOutputs()
         buttonDisable()
-        buttonCalculatorDisabled()
 
         requiredFields()
         paymentLinkExpiry()
@@ -84,28 +84,6 @@ class RequestForPaymentActivity :
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
-
-        binding.btnCalculator.setOnClickListener{
-            val amountString = binding.etAmount.text.toString()
-            val amountChecker = amountString.replace("PHP","").replace(",","")
-
-            if (amountString.isEmpty()){
-
-            } else {
-                binding.btnCalculator.isEnabled
-            }
-            val bundle = Bundle()
-            bundle.putString(FeeCalculatorActivity.AMOUNT_VALUE, amountChecker)
-
-            navigator.navigate(
-                this,
-                FeeCalculatorActivity::class.java,
-                bundle,
-                isClear = false,
-                isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
-            )
-        }
     }
 
     private fun setupOutputs(){
@@ -124,43 +102,52 @@ class RequestForPaymentActivity :
                 }
             }
         })
+        viewModel.uiState.observe(this, Observer {
+            it.getContentIfNotHandled().let { event ->
+                when (event) {
+                    is UiState.Loading -> {
+
+                    }
+                    is UiState.Complete -> {
+                        binding.requestPaymentLoading.visibility = View.GONE
+                    }
+                    is UiState.Error -> {
+                        handleOnError(event.throwable)
+                    }
+                }
+            }
+        })
     }
 
     private fun validateForm(){
         val amountString = binding.etAmount.text.toString()
         val paymentForString = binding.etPaymentFor.text.toString()
 
-        val amountChecker = amountString.replace("PHP","").replace(" ","")
-
-        when (amountString) {
-            "PHP 0", "PHP 0.", "PHP 0.0", "PHP 0.00" -> {buttonDisable()}
-        }
-
-        if (amountChecker.isNotEmpty() && paymentForString.length in 1..100){
-            buttonEnable()
+        if (
+            (amountString.length) > 4 &&
+            (paymentForString.length in 1..255)
+        ){
+            if (amountString == "PHP 0"){buttonDisable()}
+            else if (amountString == "PHP 0."){buttonDisable()}
+            else if (amountString == "PHP 0.0"){buttonDisable()}
+            else if (amountString == "PHP 0.00"){buttonDisable()}
+            else{
+                buttonEnable()}
         } else {
             buttonDisable()
         }
     }
 
-    private fun buttonCalculatorDisabled(){
-        binding.btnCalculator?.isEnabled = false
-    }
-
-    private fun buttonCalculatorEnabled(){
-        binding.btnCalculator?.isEnabled = true
-    }
-
     private fun buttonDisable(){
-        binding.btnRequestPaymentGenerate?.isEnabled = false
-        binding.btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        binding.btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button_disabled)
+        binding.btnRequestPaymentGenerate.isEnabled = false
+        binding.btnRequestPaymentGenerate.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnRequestPaymentGenerate.setBackgroundResource(R.drawable.bg_splash_payment_request_button_disabled)
     }
 
     private fun buttonEnable(){
-        binding.btnRequestPaymentGenerate?.isEnabled = true
-        binding.btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        binding.btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
+        binding.btnRequestPaymentGenerate.isEnabled = true
+        binding.btnRequestPaymentGenerate.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnRequestPaymentGenerate.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
     }
 
     private fun requiredFields(){
@@ -172,22 +159,6 @@ class RequestForPaymentActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val cleanString = s.toString().replace("PHP","").replace(" ","")
-                    var amountDouble = 0.00
-                    try {
-                        amountDouble = cleanString.toDouble()
-                        if(amountDouble < 100.00){
-                            buttonCalculatorDisabled()
-                            binding.tilAmount.error = "Minimum amount is Php 100.00"
-                        } else {
-                            binding.tilAmount.error = ""
-                            buttonCalculatorEnabled()
-                        }
-                    }catch (e: NumberFormatException){
-                        Timber.e(e.message)
-                        e.printStackTrace()
-                    }
-
                 validateForm()
             }
         })
@@ -252,12 +223,6 @@ class RequestForPaymentActivity :
         intent.putExtra(LinkDetailsActivity.EXTRA_GENERATE_PAYMENT_LINK_RESPONSE,responseJson)
         intent.putExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB, DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
         startActivityForResult(intent, LinkDetailsActivity.REQUEST_CODE)
-    }
-
-    private fun navigateToFeeCalculator(){
-        val intent = Intent(this, FeeCalculatorActivity::class.java)
-        intent.putExtra(FeeCalculatorActivity.FROM_WHAT_TAB, DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
-        startActivity(intent)
     }
 
     private fun finishRequestPayment() {

@@ -74,11 +74,55 @@
                     android:text="@string/desc_set_up_your_business_link"/>
 
                 <LinearLayout
+                    android:id="@+id/LLUniqueStoreHandle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_3"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginEnd="25dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:text="@string/title_unique_store_handle"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/desc_personalize_your_store_handle"
+                        android:textColor="#C4C4C4"
+                        android:textSize="10sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_business_name"
+                        style="@style/TextInputLayoutForm"
+                        android:layout_width="match_parent"
+                        app:errorEnabled="true"
+                        app:errorTextColor="#ED5635"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_business_name"
+                            style="@style/TextInputEditTextForm3"
+                            android:layout_height="48dp"
+                            android:inputType="text"
+                            android:hint="@string/hint_storehandle"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/LLWebsiteOrSocialMediaPages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="@dimen/grid_2"
                     android:layout_marginEnd="25dp"
                     android:orientation="vertical">
 

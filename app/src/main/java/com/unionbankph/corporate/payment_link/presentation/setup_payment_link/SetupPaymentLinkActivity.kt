@@ -76,16 +76,18 @@ class SetupPaymentLinkActivity :
         binding.btnSetupBusinessLink.setOnClickListener {
 
             binding.setupPaymentLinkLoading.visibility = View.VISIBLE
+            binding.tilBusinessName.error = null
 
             val role = cacheManager.getObject(CacheManager.ROLE) as? Role
             val orgName = role?.organizationName
+            val businessName = binding.etBusinessName.text.toString()
             val businessWebsite = binding.etBusinessWebsites.text.toString()
             val businessProductsOffered = binding.etBusinessProductsOffered.text.toString()
 
             viewModel.createMerchant(
                     CreateMerchantForm(
                             orgName!!,
-                            "",
+                            businessName,
                             binding.include1.textViewAccountNumber.text.toString(),
                             binding.include1.textViewCorporateName.text.toString(),
                             businessWebsite,
@@ -164,6 +166,23 @@ class SetupPaymentLinkActivity :
     }
 
     private fun requiredFields(){
+        binding.etBusinessName.setOnFocusChangeListener { v, hasFocus ->
+            binding.tilBusinessName.error = null
+        }
+        binding.etBusinessName.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateForm()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
+
         binding.etBusinessProductsOffered.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -238,7 +257,9 @@ class SetupPaymentLinkActivity :
                 is ShowNoAvailableAccounts -> {
                     binding.noAvailableAccounts.visibility = View.VISIBLE
                 }
-
+                is ShowHandleNotAvailable -> {
+                    binding.tilBusinessName.error = "This handle is no longer available. Please try another one"
+                }
                 is ShowApproverPermissionRequired -> {
                     binding.approverPermissionRequired.visibility = View.VISIBLE
                 }
@@ -272,10 +293,12 @@ class SetupPaymentLinkActivity :
     }
 
     private fun validateForm(){
+        val businessName = binding.etBusinessName.text.toString()
         val businessProductsOffered = binding.etBusinessProductsOffered.text.toString()
         val isChecked = binding.cbFncTnc.isChecked
 
         if (
+            businessName.isNotEmpty() &&
             businessProductsOffered.isNotEmpty() &&
             binding.llSettlementAccount.visibility == View.VISIBLE
             && isChecked
