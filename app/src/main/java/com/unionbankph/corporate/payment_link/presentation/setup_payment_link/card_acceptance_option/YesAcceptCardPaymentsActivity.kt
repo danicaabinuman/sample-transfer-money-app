@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewModel>(R.layout.activity_yes_accept_card_payments) {
 
+    var counter = 0
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initToolbar(toolbar, viewToolbar)
@@ -28,9 +29,18 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
     }
 
     private fun showAffiliation1(){
+
         spAffiliation1.setOnClickListener {
-            layoutAffiliation1.visibility = View.VISIBLE
-            spAffiliation1.setBackgroundResource(R.drawable.bg_transparent_orange_border_radius_8dp)
+            counter++
+            val checker = counter % 2
+            if (checker == 1){
+                layoutAffiliation1.visibility = View.VISIBLE
+                spAffiliation1.setBackgroundResource(R.drawable.bg_transparent_orange_border_radius_8dp)
+            } else if (checker == 0){
+                layoutAffiliation1.visibility = View.GONE
+                spAffiliation1.setBackgroundResource(R.drawable.bg_rectangle_white)
+            }
+
         }
     }
 
@@ -40,8 +50,8 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
     }
 
     private fun hideAffiliations(){
-        spAffiliation1.visibility = View.GONE
-        btnAffiliation2.visibility = View.GONE
+        spAffiliation1.visibility = View.INVISIBLE
+        btnAffiliation2.visibility = View.INVISIBLE
     }
 
     private fun buttonNextEnable(){

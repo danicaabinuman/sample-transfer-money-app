@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
@@ -12,6 +13,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clUploadBIRDocs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/grid_2"
@@ -137,6 +139,7 @@
                 app:layout_constraintStart_toEndOf="@id/ivCheckIcon4"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUploadBIRDocs"
             style="@style/MatchWrapParent"
@@ -150,7 +153,62 @@
             app:layout_constraintTop_toBottomOf="@id/clReminders"
             app:layout_constraintStart_toStartOf="parent"/>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPreviewBIR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:padding="@dimen/grid_2"
+            android:background="@color/dsColorExtraLightGray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/ivPreviewBIR"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/grid_38"
+                android:scaleType="fitCenter"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/snackbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:padding="@dimen/grid_2"
+        android:layout_marginBottom="@dimen/grid_2"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:layout_marginBottom="@dimen/grid_2"
+        android:background="@drawable/ds_bg_primary_button"
+        android:padding="@dimen/grid_2"
+        android:text="@string/action_next"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
