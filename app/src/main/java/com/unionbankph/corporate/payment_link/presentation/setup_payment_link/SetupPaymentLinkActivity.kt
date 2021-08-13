@@ -190,6 +190,20 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
         })
 
+        et_business_websites.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateForm()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
         et_business_products_offered.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -304,11 +318,13 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     private fun validateForm(){
         val businessName = et_business_name.text.toString()
         val businessProductsOffered = et_business_products_offered.text.toString()
+        val businessWebsite = et_business_websites.text.toString()
         val isChecked = cb_fnc_tnc.isChecked
 
         if (
             businessName.isNotEmpty() &&
             businessProductsOffered.isNotEmpty() &&
+            businessWebsite.isNotEmpty()&&
             llSettlementAccount.visibility == View.VISIBLE
             && isChecked
         ){

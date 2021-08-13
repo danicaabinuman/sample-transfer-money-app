@@ -103,8 +103,7 @@
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
                         app:errorEnabled="true"
-                        app:hintEnabled="false"
-                        app:errorTextColor="#ED5635">
+                        app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/et_business_name"
@@ -122,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="@dimen/grid_5_half"
                     android:layout_marginEnd="25dp"
                     android:orientation="vertical">
 
