@@ -592,7 +592,7 @@
         <item name="android:textColorHint">@drawable/state_edit_text</item>
         <item name="hintTextColor">@drawable/state_edit_text</item>
         <item name="hintTextAppearance">@style/TextInputLayoutAppearance</item>
-        <item name="errorTextAppearance">@style/TextInputLayoutErrorAppearance</item>
+        <item name="errorTextAppearance">@style/error_appearance</item>
         <item name="android:theme">@style/TextInputEditTextAccent</item>
         <item name="boxStrokeColor">@drawable/state_edit_text</item>
         <item name="boxBackgroundColor">@color/jumio_white</item>
@@ -673,8 +673,6 @@
         <item name="android:inputType">textFilter</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
-        <item name="android:paddingStart">@dimen/content_spacing</item>
-        <item name="android:paddingEnd">@dimen/content_spacing</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/field_radius</item>
         <item name="boxCornerRadiusTopEnd">@dimen/field_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/field_radius</item>
@@ -1079,6 +1077,12 @@
     <style name="SMECaption" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textSize">@dimen/text_12</item>
         <item name="android:textColor">@color/dsColorCaption</item>
+    </style>
+
+    <style name="error_appearance" parent="android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">#ED5635</item>
+        <item name="android:paddingStart">@dimen/grid_0</item>
     </style>
 
 </resources>
