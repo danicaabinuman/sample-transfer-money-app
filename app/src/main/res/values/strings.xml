@@ -758,6 +758,8 @@
     <string name="title_payment_methods">Payment Methods</string>
     <string name="fees_and_charges">Fees &amp; Charges</string>
     <string name="title_one_time_password">One-Time-Password</string>
+    <string name="title_loans">Loans</string>
+    <string name="title_earnings">Earnings</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -1101,6 +1103,7 @@
     <string name="action_accepnt_and_continue">Accept &amp; Continue</string>
     <string name="action_more">More</string>
     <string name="action_view_all_account">View All Accounts</string>
+    <string name="action_continue_account_setup">Continue Account Setup</string>
 
 
     <string name="error_message">Error message from resources</string>
@@ -2439,4 +2442,12 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="other_terms_msg_four">The existing rules and regulations of the Philippine Clearing House Corporation (PCHC), the Bureau of Internal Revenue (BIR) and the Bangko Sentral ng Pilipinas (BSP), the General Banking Law, the Electronic Commerce Act, and all pertinent laws are deemed incorporated herein and in the attached Addendum hereof by reference.</string>
     <string name="title_entire_agreement">ENTIRE AGREEMENT</string>
     <string name="desc_entire_agreement">This Agreement, along with the Addendum hereto, constitutes the entire understanding and agreement of the parties with regard to the subject matter hereof. It may be varied, modified, altered, or amended after the date of execution hereof. Any variations, modifications, alteration, or amendments shall be communicated to the User through the System. All previous negotiations, undertakings, contracts, or agreements between the parties on the subject matter hereof are deemed superseded, cancelled, or revoked as of the date of execution hereof.</string>
+    <string name="no_account_desc">To enjoy full features, finish your account setup</string>
+    <string name="loans_card_title">Access credit up to PHP 5M</string>
+    <string name="loans_card_desc">Financing services made for business owners.</string>
+    <string name="loans_card_button">Apply for a loan</string>
+    <string name="earnings_card_title">Monitor your earnings</string>
+    <string name="earnings_card_desc">Collect payments by sending payment links to your buyers.</string>
+    <string name="earnings_card_button">Generate Payment Link</string>
+    <string name="total_earnings">Total Earnings</string>
 </resources>

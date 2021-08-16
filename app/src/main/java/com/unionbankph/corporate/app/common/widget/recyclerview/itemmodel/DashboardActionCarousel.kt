@@ -15,7 +15,6 @@ class DashboardActionCarousel @JvmOverloads constructor(
 ) : Carousel(context, attrs, defStyleAttr) {
 
     init {
-        setDefaultGlobalSnapHelperFactory(null)
         setDefaultItemSpacingDp(0)
         setPaddingDp(0)
     }

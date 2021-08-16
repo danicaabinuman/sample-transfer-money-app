@@ -10,12 +10,18 @@ import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.platform.bus.data.DataBus
 import com.unionbankph.corporate.app.common.platform.events.Event
+import com.unionbankph.corporate.app.dashboard.Error
+import com.unionbankph.corporate.app.dashboard.Success
 import com.unionbankph.corporate.common.data.form.Pageable
+import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.corporate.domain.gateway.CorporateGateway
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import com.unionbankph.corporate.settings.domain.constant.FeaturesEnum
+import com.unionbankph.corporate.settings.presentation.ShowSettingsError
+import com.unionbankph.corporate.settings.presentation.ShowSettingsGetCorporateUser
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,8 +34,10 @@ import javax.inject.Inject
 
 class DashboardFragmentViewModel
 @Inject constructor(
+    private val schedulerProvider: SchedulerProvider,
     private val accountGateway: AccountGateway,
     private val settingsGateway: SettingsGateway,
+    private val corporateGateway: CorporateGateway,
     private val dataBus: DataBus
 ) : BaseViewModel() {
 
@@ -247,11 +255,26 @@ class DashboardFragmentViewModel
             ).addTo(disposables)
     }
 
+    fun setDashboardName() {
+        corporateGateway.getCorporateUser()
+            .subscribeOn(schedulerProvider.newThread())
+            .observeOn(schedulerProvider.ui())
+            .subscribe(
+                { corpUser ->
+                    Timber.d(corpUser.toString())
+                    _dashboardViewState.value = _dashboardViewState.value?.also {
+                        it.name = corpUser.firstName
+                    }
+                }, {
+                    Timber.e(it)
+                }
+            ).addTo(disposables)
+    }
+
     fun setActionItems(dashboardActionItems: MutableList<ActionItem>) {
         initialDashboardActionList = dashboardActionItems
 
         _dashboardViewState.value = _dashboardViewState.value?.also {
-            it.name = "Palitan Pa"
             it.actionList = dashboardActionItems
         }
     }

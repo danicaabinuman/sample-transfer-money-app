@@ -141,6 +141,7 @@
     <dimen name="card_radius_small">@dimen/grid_1_half</dimen>
     <dimen name="card_radius_edit_text">@dimen/grid_5_half</dimen>
     <dimen name="card_radius">@dimen/grid_1</dimen>
+    <dimen name="card_radius_half">@dimen/grid_1_half</dimen>
     <dimen name="card_radius_x">@dimen/grid_3_half</dimen>
     <dimen name="card_radius_xx">@dimen/grid_2</dimen>
     <dimen name="card_corner">2dp</dimen>
@@ -312,7 +313,7 @@
     <dimen name="border_margin_top_form">4dp</dimen>
     <dimen name="border_margin_top_form_amount">5dp</dimen>
 
-    <dimen name="navigation_bottom_text_size_normal">10dp</dimen>
+    <dimen name="navigation_bottom_text_size_normal">9dp</dimen>
     <dimen name="navigation_bottom_text_size_active">11dp</dimen>
 
     <dimen name="circular_progress_bar_size">@dimen/grid_13</dimen>

@@ -67,7 +67,7 @@
                 android:textSize="@dimen/text_12"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewHelp"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"
+                app:layout_constraintEnd_toStartOf="@+id/viewNotificationBadge"
                 app:layout_constraintTop_toTopOf="@+id/imageViewHelp" />
 
             <include
@@ -111,7 +111,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:scaleType="center"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:tint="?colorImage"
                 app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
                 app:layout_constraintEnd_toStartOf="@+id/imageViewMarkAllAsRead"

@@ -4,11 +4,13 @@
     <item name="statusbarutil_translucent_view" type="id" />
 
     <item name="notificationLogout" type="id" />
+    <item name="tabDashboard" type="id" />
     <item name="tabAccounts" type="id" />
     <item name="tabTransact" type="id" />
     <item name="tabApprovals" type="id" />
     <item name="tabProfile" type="id" />
     <item name="tabSettings" type="id" />
+    <item name="tabPayBills" type="id" />
 
     <item name="imageViewMakeATransfer" type="id" />
     <item name="imageViewMakeAPayment" type="id" />

@@ -13,6 +13,9 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.*
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.DashboardAccountItemModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoansDashboardItemModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.EarningsDashboardItemModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.NoAccountItemModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.AccountItemErrorModel_
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
@@ -24,7 +27,6 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import kotlinx.android.synthetic.main.item_dashboard_action_group.view.*
 import kotlinx.android.synthetic.main.item_dashboard_actions.view.*
 import kotlinx.android.synthetic.main.item_dashboard_header.view.*
-import timber.log.Timber
 
 class DashboardFragmentController
 constructor(
@@ -45,6 +47,15 @@ constructor(
     @AutoModel
     lateinit var initialAccountErrorModel: AccountItemErrorModel_
 
+    @AutoModel
+    lateinit var noAccountModel: NoAccountItemModel_
+
+    @AutoModel
+    lateinit var loansModel: LoansDashboardItemModel_
+
+    @AutoModel
+    lateinit var earningsModel: EarningsDashboardItemModel_
+
     private lateinit var dashboardAdapterCallback: DashboardAdapterCallback
     private lateinit var accountAdapterCallback: AccountAdapterCallback
 
@@ -63,13 +74,19 @@ constructor(
         DashboardHeaderModel_()
             .id("dashboard-header")
             .context(context)
-            .helloName(dashboardViewState.name!!)
+            .helloName(dashboardViewState.name ?: "null")
             .buttonText(accountButtonText)
             .callbacks(dashboardAdapterCallback)
             .addTo(this)
 
         initialAccountLoadingModel
             .addIf(pageable.isInitialLoad && isRefreshed && !hasInitialFetchError, this)
+
+        noAccountModel
+            .callbacks(dashboardAdapterCallback)
+            .addIf(!isRefreshed &&
+                    !hasInitialFetchError &&
+                            accountSize == 0, this)
 
         dashboardViewState.accounts.forEachIndexed { position, account ->
             DashboardAccountItemModel_()
@@ -102,8 +119,26 @@ constructor(
             id("dashboard-action-group")
             dashboardItemsString(JsonHelper.toJson(dashboardViewState.actionList))
             callbacks(dashboardAdapterCallback)
-            spanSizeOverride { _, _, _ -> 2 }
         }
+
+        loansModel
+            .addTo(this)
+
+        earningsModel
+            .addTo(this)
+
+        val banners = mutableListOf<DashboardBannerItemModel>()
+        for (x in 0..4) {
+            banners.add(
+                DashboardBannerItemModel_().id(x)
+            )
+        }
+
+        CarouselIndicatorModel()
+            .id("dashboard-banners")
+            .numViewsToShowOnScreen(1f)
+            .models(banners)
+            .addTo(this)
     }
 
     override fun onExceptionSwallowed(exception: RuntimeException) {

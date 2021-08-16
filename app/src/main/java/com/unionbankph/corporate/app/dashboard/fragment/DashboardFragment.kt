@@ -166,6 +166,7 @@ class DashboardFragment :
 
         getAccounts(true)
 
+        viewModel.setDashboardName()
         setDashboardActionItems()
     }
 
@@ -259,8 +260,6 @@ class DashboardFragment :
     }
 
     override fun onDashboardActionEmit(actionId: String, isEnabled: Boolean) {
-        Timber.e("Dashboard Item Clicked $id isEnabled $isEnabled")
-
         when (actionId) {
             Constant.DASHBOARD_ACTION_TRANSFER_FUNDS -> {
                 if (isEnabled) {
@@ -363,6 +362,10 @@ class DashboardFragment :
 
     override fun onTapToRetry() {
         getAccounts(isInitialLoading = true, isTapToRetry = true)
+    }
+
+    override fun onContinueAccountSetup() {
+        Timber.e("onContinueAccountSetup clicked")
     }
 
     override fun onClickItem(account: String, position: Int) {

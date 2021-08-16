@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
@@ -46,11 +47,13 @@ import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.widget_badge_initial.*
 import kotlinx.android.synthetic.main.widget_badge_small.*
+import kotlinx.android.synthetic.main.widget_notification.*
 import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -232,11 +235,6 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                         BaseEvent(SettingsSyncEvent.ACTION_PUSH_TUTORIAL_ACCOUNT)
                     )
                 }
-                bottomNavigationItems[FRAGMENT_TRANSACT] -> {
-                    eventBus.settingsSyncEvent.emmit(
-                        BaseEvent(SettingsSyncEvent.ACTION_PUSH_TUTORIAL_TRANSACT)
-                    )
-                }
                 bottomNavigationItems[FRAGMENT_APPROVALS] -> {
                     eventBus.settingsSyncEvent.emmit(
                         BaseEvent(SettingsSyncEvent.ACTION_PUSH_TUTORIAL_APPROVAL)
@@ -266,6 +264,16 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             )
             .subscribe {
                 navigateOrganizationScreen()
+            }.addTo(disposables)
+
+        RxView.clicks(viewNotificationBadge)
+            .throttleFirst(
+                resources.getInteger(R.integer.time_button_debounce).toLong(),
+                TimeUnit.MILLISECONDS
+            )
+            .subscribe {
+                viewPagerBTR.setCurrentItem(5, true)
+                adapter?.notifyDataSetChanged()
             }.addTo(disposables)
     }
 
@@ -337,7 +345,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     }
                     ActionSyncEvent.ACTION_NAVIGATE_ALERTS_TAB -> {
                         bottomNavigationBTR.currentItem =
-                            bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 3
+                            bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 5
                         Handler().postDelayed(
                             {
                                 this.eventBus.actionSyncEvent.emmit(
@@ -392,6 +400,10 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             it.badgeCount.isColored,
             FRAGMENT_NOTIFICATIONS
         )
+    }
+
+    private fun navigateToNotificationsFragment() {
+
     }
 
     private fun initNotificationBadgeApprovals(it: NotificationSuccess) {
@@ -525,7 +537,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
 
     private fun popStackFragmentNotifications() {
         val notificationTabFragment =
-            adapter?.getItem(bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 3)!!
+            adapter?.getItem(bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 5)!!
         notificationTabFragment.childFragmentManager.popBackStackImmediate()
         val fragmentManager = notificationTabFragment.childFragmentManager
         val fragmentTag = notificationTabFragment
@@ -572,7 +584,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             }
         } else if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
             val notificationTabFragment =
-                adapter?.getItem(bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 3)!!
+                adapter?.getItem(bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 5)!!
             if (notificationTabFragment.isAdded) {
                 val count = notificationTabFragment.childFragmentManager.backStackEntryCount
                 if (count == 1 ||
@@ -679,8 +691,8 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                         allowMultipleSelectionApprovals
             )
             imageViewHelp.visibility(
+                position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
                 position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
-                        position == bottomNavigationItems[FRAGMENT_TRANSACT] ||
                         position == bottomNavigationItems[FRAGMENT_APPROVALS] ||
                         (position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] &&
                                 stackFlagNotification) ||
@@ -863,6 +875,15 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         if (fragment == FRAGMENT_APPROVALS) {
             this.badgeCount = badgeCount
         }
+
+        if (fragment == FRAGMENT_NOTIFICATIONS) {
+            imageViewNotificationBadgeIndicator.visibility = when (badgeCount > 0) {
+                true -> View.VISIBLE
+                else -> View.GONE
+            }
+            return
+        }
+
         setBottomNavigationBadge(
             badgeCount, bottomNavigationItems[fragment]!!,
             if (isColored) R.color.colorRedBadge else R.color.colorGrayBadge
@@ -908,10 +929,10 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     private fun initBottomNavigation() {
         bottomNavigationItems[FRAGMENT_DASHBOARD] = 0
         bottomNavigationItems[FRAGMENT_ACCOUNTS] = 1
-//        bottomNavigationItems[FRAGMENT_TRANSACT] = 1
         bottomNavigationItems[FRAGMENT_APPROVALS] = 2
-        bottomNavigationItems[FRAGMENT_NOTIFICATIONS] = 3
+        bottomNavigationItems[FRAGMENT_PAY_BILLS] = 3
         bottomNavigationItems[FRAGMENT_SETTINGS] = 4
+        bottomNavigationItems[FRAGMENT_NOTIFICATIONS] = 5
         val item1 = AHBottomNavigationItem(
             getString(R.string.title_tab_dashboard),
             R.drawable.ic_vector_dashboard_dashboard
@@ -935,7 +956,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         bottomNavigationBTR?.defaultBackgroundColor =
             ContextCompat.getColor(this, R.color.colorWhite)
         bottomNavigationBTR?.accentColor = getColorFromAttr(R.attr.colorAccent)
-        bottomNavigationBTR?.inactiveColor = ContextCompat.getColor(this, R.color.colorTextTab)
+        bottomNavigationBTR?.inactiveColor = ContextCompat.getColor(this, R.color.dsColorDarkGray)
         bottomNavigationBTR?.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
         bottomNavigationBTR?.setTitleTextSize(
             resources.getDimension(R.dimen.navigation_bottom_text_size_normal),
@@ -959,13 +980,15 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                 bottomNavigationBTR.getViewAtPosition(3) != null &&
                 bottomNavigationBTR.getViewAtPosition(4) != null
             ) {
-                bottomNavigationBTR.getViewAtPosition(0).id = R.id.tabAccounts
-                bottomNavigationBTR.getViewAtPosition(1).id = R.id.tabTransact
+                bottomNavigationBTR.getViewAtPosition(0).id = R.id.tabDashboard
+                bottomNavigationBTR.getViewAtPosition(1).id = R.id.tabAccounts
                 bottomNavigationBTR.getViewAtPosition(2).id = R.id.tabApprovals
-                bottomNavigationBTR.getViewAtPosition(3).id = R.id.tabProfile
+                bottomNavigationBTR.getViewAtPosition(3).id = R.id.tabPayBills
                 bottomNavigationBTR.getViewAtPosition(4).id = R.id.tabSettings
             }
         }
+
+        enableTabs(true) // Added this line temporarily for disabling PAY BILLS
     }
 
     private fun enableTabs(isEnable: Boolean) {
@@ -981,8 +1004,8 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             bottomNavigationBTR.getViewAtPosition(1).isClickable = isEnable
             bottomNavigationBTR.getViewAtPosition(2).isEnabled = isEnable
             bottomNavigationBTR.getViewAtPosition(2).isClickable = isEnable
-            bottomNavigationBTR.getViewAtPosition(3).isEnabled = isEnable
-            bottomNavigationBTR.getViewAtPosition(3).isClickable = isEnable
+            bottomNavigationBTR.getViewAtPosition(3).isEnabled = false
+            bottomNavigationBTR.getViewAtPosition(3).isClickable = false
             bottomNavigationBTR.getViewAtPosition(4).isEnabled = isEnable
             bottomNavigationBTR.getViewAtPosition(4).isClickable = isEnable
         }
@@ -995,11 +1018,12 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         adapter?.addFragment(DashboardFragment(), FRAGMENT_DASHBOARD)
         adapter?.addFragment(AccountFragment(), FRAGMENT_ACCOUNTS)
         adapter?.addFragment(ApprovalFragment(), FRAGMENT_APPROVALS)
-        adapter?.addFragment(NotificationLogTabFragment(), FRAGMENT_NOTIFICATIONS)
+        adapter?.addFragment(FeesAndChargesFragment(), FRAGMENT_PAY_BILLS)
         adapter?.addFragment(SettingsFragment(), FRAGMENT_SETTINGS)
+        adapter?.addFragment(NotificationLogTabFragment(), FRAGMENT_NOTIFICATIONS)
         // viewPagerBTR.setPageTransformer(false, FadePageTransformer())
         viewPagerBTR.setPagingEnabled(false)
-        viewPagerBTR.offscreenPageLimit = 4
+        viewPagerBTR.offscreenPageLimit = 5
         viewPagerBTR.adapter = adapter
     }
 
@@ -1257,6 +1281,10 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
 
     fun textViewEditApprovals(): AppCompatTextView = textViewEditApprovals
 
+    fun getRole() : Role? {
+        return  this.role
+    }
+
     fun allowMultipleSelectionApprovals(allowMultipleSelectionApprovals: Boolean) {
         this.allowMultipleSelectionApprovals = allowMultipleSelectionApprovals
         if (bottomNavigationBTR.currentItem == bottomNavigationItems[FRAGMENT_APPROVALS]) {
@@ -1271,6 +1299,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         const val FRAGMENT_APPROVALS = "approvals"
         const val FRAGMENT_SETTINGS = "settings"
         const val FRAGMENT_NOTIFICATIONS = "notifications"
+        const val FRAGMENT_PAY_BILLS = "notifications"
         const val EXTRA_SWITCH_ORG = "from_switch_org"
         const val TAG_NEW_USER_DETECTED_DIALOG = "new_user_detected_dialog"
         const val TAG_TRUSTED_DEVICE_DIALOG = "trusted_device_dialog"
