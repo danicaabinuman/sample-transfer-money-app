@@ -102,7 +102,6 @@
                         android:id="@+id/til_business_name"
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
-                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -113,6 +112,14 @@
                             android:hint="@string/hint_storehandle"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tvErrorMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        style="@style/error_appearance"
+                        android:text="This handle is no longer available. Please try another one."/>
 
                 </LinearLayout>
 

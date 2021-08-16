@@ -182,6 +182,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 validateForm()
+                tvErrorMessage.visibility = View.GONE
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -280,7 +281,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
                 }
 
                 is ShowHandleNotAvailable -> {
-                    til_business_name.error = "This handle is no longer available. Please try another one."
+                    tvErrorMessage.visibility = View.VISIBLE
                 }
 
                 is ShowApproverPermissionRequired -> {
