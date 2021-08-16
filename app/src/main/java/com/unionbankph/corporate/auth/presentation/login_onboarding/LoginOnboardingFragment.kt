@@ -42,12 +42,12 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
     override fun onViewsBound() {
         super.onViewsBound()
         initViews()
+        initAnimationLogo()
+        initFreshLogin()
     }
 
 
     fun initViews(){
-        initAnimationLogo()
-
         btn_onboarding_register.setOnClickListener {
             viewModel.onClickedStartLaunch()
             navigator.navigate(
@@ -58,6 +58,7 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
                 isAnimated = true,
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
+
         }
 
         btn_onboarding_login.setOnClickListener {
@@ -67,11 +68,16 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
     }
 
     private fun initFreshLogin(){
-        bg_signup_illustration.visibility(true)
-        btn_onboarding_register.visibility(true)
-        btn_onboarding_login.visibility(true)
-        tv_ub_caption.visibility(true)
-        fl_signup.visibility(true)
+        runPostDelayed(
+            {
+                bg_signup_illustration.visibility(true)
+                btn_onboarding_register.visibility(true)
+                btn_onboarding_login.visibility(true)
+                tv_ub_caption.visibility(true)
+                fl_signup.visibility(true)
+            }, 100
+        )
+
     }
 
     private fun initAnimationLogo() {
@@ -90,7 +96,11 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
     }
 
     private fun animateContent() {
-        viewUtil.startAnimateView(true, imageViewLogoOnboarding, android.R.anim.fade_in)
+        runPostDelayed(
+            {
+                viewUtil.startAnimateView(true, constraintLayout, android.R.anim.fade_in)
+            }, 250
+        )
         val location = IntArray(2)
         imageViewLogoOnboarding.getLocationOnScreen(location)
         val y = location[1]
@@ -102,13 +112,12 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
         runPostDelayed(
             {
                 imageViewLogoOnboarding.visibility(true)
-
                 runPostDelayed(
                     {
-                        initFreshLogin()
-                    }, 100
+                        imageViewLogoAnimateOnboarding.visibility(false)
+                    }, 50
                 )
-            }, 600
+            }, 550
         )
     }
 

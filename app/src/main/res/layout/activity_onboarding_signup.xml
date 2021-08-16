@@ -4,6 +4,15 @@
     style="@style/MatchParent"
     android:background="@color/colorWhite"
     android:id="@+id/cl_mainLayout">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        style="@style/MatchConstraint"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
     <FrameLayout
         android:id="@+id/fl_signup"
         android:layout_width="match_parent"
@@ -93,6 +102,7 @@
         android:visibility="invisible"/>
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <include
         android:id="@+id/imageViewLogoAnimateOnboarding"
         style="@style/ImageViewLogo"
@@ -102,5 +112,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cl_mainLayout" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
