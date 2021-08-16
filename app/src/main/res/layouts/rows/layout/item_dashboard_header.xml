@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/SMESubtitle1"
+        android:layout_marginStart="@dimen/grid_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -17,25 +18,32 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewAccountLabel"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/SMESubtitle2"
         android:text="@string/title_account"
-        app:layout_constraintEnd_toStartOf="@id/buttonAccountAction"
+        android:layout_marginStart="@dimen/grid_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/buttonAccountAction"
         app:layout_constraintBottom_toBottomOf="@id/buttonAccountAction"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonAccountAction"
+        android:layout_height="@dimen/dashboard_accounts_button"
         android:layout_width="wrap_content"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:text="@string/action_add"
-        style="@style/SMESecondaryBorderedButtonSmall"
-        android:layout_marginTop="@dimen/grid_1_half"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:paddingStart="@dimen/grid_2"
+        android:paddingEnd="@dimen/grid_2"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:visibility="gone"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/grid_1"
         app:layout_constraintTop_toBottomOf="@id/textViewHello"
+        android:layout_marginBottom="@dimen/grid_1"
+        style="@style/SMESecondaryBorderedButtonSmall"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

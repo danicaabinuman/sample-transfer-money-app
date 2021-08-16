@@ -26,13 +26,28 @@
                 android:textStyle="normal"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/textViewTitle"
                 app:layout_constraintEnd_toStartOf="@+id/btnRequestPayment"
                 app:layout_constraintStart_toEndOf="@+id/viewBadge"
                 app:layout_constraintTop_toTopOf="@+id/viewBadge"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewTitle"
+                style="@style/SMESubtitle2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/content_item_spacing"
+                android:gravity="top"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@+id/btnRequestPayment"
+                app:layout_constraintStart_toEndOf="@+id/viewBadge"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCorporationName"
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
                 android:id="@+id/btnRequestPayment"
@@ -47,29 +62,13 @@
                 android:text="@string/dashboard_appbar_request_payment"
                 android:textAllCaps="true"
                 android:maxLines="1"
+                android:visibility="gone"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_12"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/imageViewHelp"
                 app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"
                 app:layout_constraintTop_toTopOf="@+id/imageViewHelp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewTitle"
-                style="@style/TextViewThemeLarge"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/content_spacing"
-                android:layout_marginEnd="@dimen/content_item_spacing"
-                android:gravity="top"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
-                app:layout_constraintEnd_toStartOf="@+id/btnRequestPayment"
-                app:layout_constraintStart_toEndOf="@+id/viewBadge"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCorporationName"
-                app:layout_constraintVertical_chainStyle="packed" />
 
             <include
                 android:id="@+id/viewBadge"
@@ -92,6 +91,18 @@
                 app:layout_constraintStart_toEndOf="@+id/viewBadge"
                 app:layout_constraintTop_toTopOf="@+id/viewBadge" />
 
+            <include
+                android:id="@+id/viewNotificationBadge"
+                layout="@layout/widget_notification"
+                android:layout_width="@dimen/image_view_initial_org_size"
+                android:layout_height="@dimen/image_view_initial_org_size"
+                android:layout_margin="@dimen/content_spacing"
+                android:background="?selectableItemBackgroundBorderless"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge" />
+
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageViewHelp"
                 style="@style/ImageViewToolbarIcon"
@@ -100,7 +111,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:scaleType="center"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:tint="?colorImage"
                 app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
                 app:layout_constraintEnd_toStartOf="@+id/imageViewMarkAllAsRead"

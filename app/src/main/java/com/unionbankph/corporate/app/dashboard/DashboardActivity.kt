@@ -367,7 +367,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     viewModel.validateMerchant(DashboardViewModel.FROM_TRANSACT_TAB)
                 }
                 TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST -> {
-                    viewPagerBTR.currentItem = bottomNavigationItems[FRAGMENT_TRANSACT]!!
+                    viewPagerBTR.currentItem = bottomNavigationItems[FRAGMENT_DASHBOARD]!!
                     eventBus.transactSyncEvent.emmit(
                         BaseEvent(TransactSyncEvent.ACTION_REDIRECT_TO_PAYMENT_LINK_LIST)
                     )
@@ -431,9 +431,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             textViewCorporationName?.text = it.organizationName
             textViewInitial?.text =
                 viewUtil.getCorporateOrganizationInitial(it.organizationName)
-            textViewTitle?.text = getString(
-                R.string.title_dashboard_header_accounts
-            )
+            textViewTitle?.text = it.organizationName
             if (!it.hasApproval && !it.isApprover) {
                 bottomNavigationBTR.disableItemAtPosition(2)
             }
@@ -585,13 +583,13 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     popStackFragmentNotifications()
                 }
             }
-        } else if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_TRANSACT]) {
-            val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
+        } else if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD]) {
+            val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_DASHBOARD] ?: 1)!!
             if (transactTabFragment.isAdded) {
 
                 btnRequestPayment.visibility = View.GONE
                 val count = transactTabFragment.childFragmentManager.backStackEntryCount
-                if (count == 0 || viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_TRANSACT]){
+                if (count == 0 || viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_DASHBOARD]){
                     showLogoutBottomSheet()
                 } else {
                     val fragmentManager = transactTabFragment.childFragmentManager
@@ -659,12 +657,15 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                 imageViewMarkAllAsRead.visibility(
                     position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
                 )
-                imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
+                imageViewInitial.setImageResource(R.drawable.circle_medium_gradient_orange)
                 if (isSME) imageViewInitial.clearTheme()
                 textViewInitial.visibility = View.VISIBLE
                 setOrganizationBadge(organizationBadgeCount)
                 viewBadge.setOnClickListener { navigateOrganizationScreen() }
-                textViewTitle.text = headerDashboard[position]
+                textViewTitle.text = when (position == 0) {
+                    true -> role?.organizationName
+                    else -> headerDashboard[position]
+                }
             }
             if (isSME) {
                 if (position == bottomNavigationItems[FRAGMENT_APPROVALS]) {
@@ -905,31 +906,39 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     }
 
     private fun initBottomNavigation() {
-        bottomNavigationItems[FRAGMENT_ACCOUNTS] = 0
-        bottomNavigationItems[FRAGMENT_TRANSACT] = 1
+        bottomNavigationItems[FRAGMENT_DASHBOARD] = 0
+        bottomNavigationItems[FRAGMENT_ACCOUNTS] = 1
+//        bottomNavigationItems[FRAGMENT_TRANSACT] = 1
         bottomNavigationItems[FRAGMENT_APPROVALS] = 2
         bottomNavigationItems[FRAGMENT_NOTIFICATIONS] = 3
         bottomNavigationItems[FRAGMENT_SETTINGS] = 4
-        val item1 =
-            AHBottomNavigationItem(getString(R.string.title_tab_accounts), R.drawable.ic_accounts)
+        val item1 = AHBottomNavigationItem(
+            getString(R.string.title_tab_dashboard),
+            R.drawable.ic_vector_dashboard_dashboard
+        )
         val item2 = AHBottomNavigationItem(
-            getString(R.string.title_tab_transact), R.drawable.ic_send_request
+            getString(R.string.title_tab_accounts), R.drawable.ic_vector_dashboard_accounts
         )
-        val item3 =
-            AHBottomNavigationItem(getString(R.string.title_tab_approvals), R.drawable.ic_approval)
+        val item3 = AHBottomNavigationItem(
+            getString(R.string.title_tab_approvals),
+            R.drawable.ic_vector_dashboard_approvals
+        )
         val item4 = AHBottomNavigationItem(
-            getString(R.string.title_tab_notifications),
-            R.drawable.ic_notification
+            getString(R.string.title_tab_pay_bills),
+            R.drawable.ic_vector_dashboard_pay_bills
         )
-        val item5 =
-            AHBottomNavigationItem(getString(R.string.title_tab_settings), R.drawable.ic_settings)
+        val item5 = AHBottomNavigationItem(
+            getString(R.string.title_tab_settings),
+            R.drawable.ic_vector_dashboard_settings
+        )
+
         bottomNavigationBTR?.defaultBackgroundColor =
             ContextCompat.getColor(this, R.color.colorWhite)
         bottomNavigationBTR?.accentColor = getColorFromAttr(R.attr.colorAccent)
         bottomNavigationBTR?.inactiveColor = ContextCompat.getColor(this, R.color.colorTextTab)
         bottomNavigationBTR?.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
         bottomNavigationBTR?.setTitleTextSize(
-            resources.getDimension(R.dimen.navigation_bottom_text_size_active),
+            resources.getDimension(R.dimen.navigation_bottom_text_size_normal),
             resources.getDimension(R.dimen.navigation_bottom_text_size_normal)
         )
         bottomNavigationBTR?.addItem(item1)
@@ -983,9 +992,8 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         adapter = ViewPagerAdapter(
             supportFragmentManager
         )
-//        adapter?.addFragment(DashboardFragment(), FRAGMENT_DASHBOARD)
+        adapter?.addFragment(DashboardFragment(), FRAGMENT_DASHBOARD)
         adapter?.addFragment(AccountFragment(), FRAGMENT_ACCOUNTS)
-        adapter?.addFragment(TransactFragment(), FRAGMENT_TRANSACT)
         adapter?.addFragment(ApprovalFragment(), FRAGMENT_APPROVALS)
         adapter?.addFragment(NotificationLogTabFragment(), FRAGMENT_NOTIFICATIONS)
         adapter?.addFragment(SettingsFragment(), FRAGMENT_SETTINGS)
@@ -1202,7 +1210,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             imageViewLogout.visibility(
                 viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]
             )
-            imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
+            imageViewInitial.setImageResource(R.drawable.circle_medium_gradient_orange)
             if (isSME) imageViewInitial.clearTheme()
             viewBadge.setOnClickListener { navigateOrganizationScreen() }
             textViewInitial.visibility = View.VISIBLE

@@ -8,6 +8,10 @@ import kotlinx.serialization.Serializable
 data class DashboardViewState(
     var name: String? = null,
     var accountButtonText: String? = null,
+    var isScreenRefreshed: Boolean = true,
+    var hasInitialFetchError: Boolean = true,
+    var errorMessage: String? = null,
+
     var actionList: MutableList<ActionItem> = mutableListOf(),
     var accounts: MutableList<Account> = mutableListOf()
 )
@@ -15,5 +19,7 @@ data class DashboardViewState(
 @Serializable
 data class ActionItem(
     var id: String? = null,
-    var label: String? = null
+    var label: String? = null,
+    var isVisible: Boolean = false,
+    var isEnabled: Boolean = true
 )

@@ -62,6 +62,7 @@ class Constant {
         const val DASHBOARD_ACTION_APPLY_LOAN = "apply_loan"
         const val DASHBOARD_ACTION_BRANCH_VISIT = "branch_visit"
         const val DASHBOARD_ACTION_MANAGE_EXPENSES = "manage_expenses"
+        const val DASHBOARD_ACTION_E_BILLING = "e_billing"
         const val DASHBOARD_ACTION_MORE = "more"
 
         const val DASHBOARD_ACTION_ADD_ACCOUNT = "add_account"

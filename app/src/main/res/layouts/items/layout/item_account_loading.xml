@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_account"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/grid_1_half"
+    android:layout_marginStart="@dimen/grid_2"
+    android:layout_marginEnd="@dimen/grid_2"
+    android:layout_marginTop="@dimen/grid_1_half"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/grid_2">
+
+        <io.supercharge.shimmerlayout.ShimmerLayout
+            android:id="@+id/shimmerLayoutAccountType"
+            android:layout_height="wrap_content"
+            android:layout_width="@dimen/match_constraint"
+            app:shimmer_auto_start="true"
+            app:shimmer_color="@color/dsColorLightGray50"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                style="@style/SMECaption"
+                android:background="@color/dsColorExtraLightGray"
+                android:textColor="@color/dsColorExtraLightGray"
+                android:text="Retail Power Savings"/>
+
+        </io.supercharge.shimmerlayout.ShimmerLayout>
+
+        <io.supercharge.shimmerlayout.ShimmerLayout
+            android:id="@+id/shimmerLayoutAccountName"
+            android:layout_height="wrap_content"
+            android:layout_width="@dimen/match_constraint"
+            app:shimmer_auto_start="true"
+            app:shimmer_color="@color/dsColorLightGray50"
+            app:shimmer_mask_width="1"
+            android:layout_marginTop="@dimen/grid_1_half"
+            app:layout_constraintTop_toBottomOf="@id/shimmerLayoutAccountType"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                style="@style/SMESubtitle2"
+                android:background="@color/dsColorExtraLightGray"
+                android:textColor="@color/dsColorExtraLightGray"
+                android:text="ABC Sample CORPORATION"/>
+
+        </io.supercharge.shimmerlayout.ShimmerLayout>
+
+        <io.supercharge.shimmerlayout.ShimmerLayout
+            android:id="@+id/shimmerLayoutAccountNumber"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:shimmer_auto_start="true"
+            android:layout_marginTop="@dimen/grid_1_half"
+            app:shimmer_color="@color/dsColorLightGray50"
+            app:layout_constraintTop_toBottomOf="@id/shimmerLayoutAccountName"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                style="@style/SMECaption"
+                android:background="@color/dsColorExtraLightGray"
+                android:textColor="@color/dsColorExtraLightGray"
+                android:text="XXXX XXXX XXXX"/>
+
+        </io.supercharge.shimmerlayout.ShimmerLayout>
+
+        <io.supercharge.shimmerlayout.ShimmerLayout
+            android:id="@+id/shimmerLayoutAmount"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_goneMarginTop="@dimen/grid_1"
+            android:layout_marginTop="@dimen/content_spacing_small"
+            app:layout_constraintTop_toBottomOf="@id/shimmerLayoutAccountNumber"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shimmer_auto_start="true"
+            app:shimmer_color="@color/dsColorLightGray50"
+            app:shimmer_mask_width="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                style="@style/SMESubtitle2"
+                android:background="@color/dsColorExtraLightGray"
+                android:textColor="@color/dsColorExtraLightGray"
+                android:text="PHP X,XXX,XXX,XXX.XX"/>
+
+        </io.supercharge.shimmerlayout.ShimmerLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -129,8 +129,10 @@
     <string name="title_verify_account">Verify Account</string>
     <string name="title_code_resent">Code Resent!</string>
     <string name="title_password_changed">Password Changed!</string>
+    <string name="title_tab_dashboard">DASHBOARD</string>
     <string name="title_tab_accounts">ACCOUNTS</string>
     <string name="title_tab_transact">TRANSACT</string>
+    <string name="title_tab_pay_bills">PAY BILLS</string>
     <string name="title_tab_approvals">APPROVALS</string>
     <string name="title_tab_settings">SETTINGS</string>
     <string name="title_tab_user">PROFILE</string>
@@ -156,6 +158,7 @@
     <string name="title_different_time_zone">Different Time Zone</string>
     <string name="title_delete_beneficiary">Delete Beneficiary</string>
     <string name="title_delete_frequent_biller">Delete Frequent Biller</string>
+    <string name="title_dashboard_header_dashboard">Dashboard</string>
     <string name="title_dashboard_header_accounts">Accounts</string>
     <string name="title_dashboard_header_transact">Transact</string>
     <string name="title_dashboard_header_approvals">Approvals</string>
@@ -1097,6 +1100,7 @@
     <string name="action_okay">Okay</string>
     <string name="action_accepnt_and_continue">Accept &amp; Continue</string>
     <string name="action_more">More</string>
+    <string name="action_view_all_account">View All Accounts</string>
 
 
     <string name="error_message">Error message from resources</string>
@@ -1514,6 +1518,7 @@
     <string name="msg_check_deposit_unavailable">Check Deposit is currently unavailable at the moment. Please check back again later.</string>
     <string name="msg_e_billing_unavailable">Sorry Electronic Billing is currently unavailable at the moment. Please check back again later.</string>
     <string name="msg_apply_loan_disclaimer">You will be redirected to our loan application gateway powered by Seekcap.ph, no information about you, your company or your transactions will be released for your protection.</string>
+    <string name="msg_generic_feature_unavailable">Sorry this feature is unavailable at the moment. Please check back again later.</string>
 
     <string name="hint_account_number_format">[0000] [0000] [0000]</string>
     <string name="hint_other_bank_account_number_format">[0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [00]</string>
@@ -2313,7 +2318,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="desc_deposit_checks">Deposit any bank check by taking photos of it via app.</string>
     <string name="hello_what_is_your_name">Hello, what is your name?</string>
     <string name="user_creation_input_reminder">Before we begin, please ensure that the following details in your application matches with details in your ID:</string>
-    <string name="hello_name">Hello, %1$s</string>
+    <string name="hello_name">Hello, %1$s!</string>
     
     <string name="user_creation_title_reminder">Before we begin, please ensure that the\nfollowing details in your application matches\nwith details in your ID:</string>
     <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
