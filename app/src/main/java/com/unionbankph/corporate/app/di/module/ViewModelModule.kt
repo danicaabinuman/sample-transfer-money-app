@@ -129,6 +129,7 @@ import com.unionbankph.corporate.settings.presentation.single_selector.SingleSel
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenViewModel
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordViewModel
 import com.unionbankph.corporate.user_creation.presentation.OpenAccountViewModel
+import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.OAEnterContactInfoViewModel
 import com.unionbankph.corporate.user_creation.presentation.enter_name.OAEnterNameViewModel
 import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.TNCReminderViewModel
 import dagger.Binds
@@ -838,5 +839,12 @@ abstract class ViewModelModule {
     @ViewModelKey(TNCReminderViewModel::class)
     abstract fun tncReminderViewModel(
         viewModel: TNCReminderViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OAEnterContactInfoViewModel::class)
+    abstract fun oaEnterContactInfoViewModel(
+        viewModel: OAEnterContactInfoViewModel
     ): ViewModel
 }

@@ -7,5 +7,11 @@ import kotlinx.serialization.Serializable
 data class UserCreationForm(
 
     @SerialName("name")
-    var name: Name? = null
+    var name: Name? = null,
+    @SerialName("email")
+    var email: String? = null,
+    @SerialName("countryCode")
+    var countryCode: String? = null,
+    @SerialName("mobile")
+    var mobile: String? = null
 )
