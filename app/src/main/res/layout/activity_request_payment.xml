@@ -86,8 +86,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_calculator"
+                        android:padding="@dimen/grid_1"
                         android:layout_gravity="right|center_vertical"
-                        android:layout_marginEnd="20dp"/>
+                        android:layout_marginEnd="@dimen/grid_1"
+                        android:layout_marginBottom="@dimen/grid_1"/>
                 </FrameLayout>
 
 
@@ -261,11 +263,9 @@
                         android:textColor="@color/colorGrey"
                         android:text="@string/detail_tap_the_card_to_select_another_settlement_account"/>
 
-
                     <include
                         android:id="@+id/include_settlement_account"
                         layout="@layout/item_nominate_account"/>
-
 
                 </LinearLayout>
 
@@ -313,7 +313,9 @@
         android:visibility="gone"
 
         android:focusable="true">
-        <include layout="@layout/activity_no_available_accounts"/>
+        <include
+            android:id="@+id/viewNoAccounts"
+            layout="@layout/activity_no_available_accounts"/>
     </FrameLayout>
 
     <FrameLayout
@@ -337,7 +339,9 @@
         android:clickable="true"
         android:visibility="gone"
         android:focusable="true">
-        <include layout="@layout/dialog_failed_merchant_diasbled"/>
+        <include
+            android:id="@+id/viewMerchantDisabled"
+            layout="@layout/dialog_failed_merchant_diasbled"/>
     </FrameLayout>
     <FrameLayout
         android:id="@+id/theApproverPermissionRequired"

@@ -467,7 +467,9 @@
         android:visibility="gone"
         android:focusable="true">
 
-        <include layout="@layout/activity_archive_success"/>
+        <include
+            android:id="@+id/viewArchiveSuccess"
+            layout="@layout/activity_archive_success"/>
     </FrameLayout>
 
 </FrameLayout>

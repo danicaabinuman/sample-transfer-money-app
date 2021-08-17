@@ -1,9 +1,12 @@
 package com.unionbankph.corporate.dao.presentation.personal_info_4
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.room.Dao
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.unionbankph.corporate.R
@@ -20,14 +23,14 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
+import com.unionbankph.corporate.databinding.FragmentDaoPersonalInformationStep4Binding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_personal_information_step_4.*
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoPersonalInformationStepFourFragment :
-    BaseFragment<DaoPersonalInformationStepFourViewModel>(R.layout.fragment_dao_personal_information_step_4),
+    BaseFragment<FragmentDaoPersonalInformationStep4Binding, DaoPersonalInformationStepFourViewModel>(),
     DaoActivity.ActionEvent, ImeOptionEditText.OnImeOptionListener {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
@@ -39,10 +42,6 @@ class DaoPersonalInformationStepFourFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[DaoPersonalInformationStepFourViewModel::class.java]
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -97,22 +96,22 @@ class DaoPersonalInformationStepFourFragment :
             .subscribe {
                 setOtherTextInputEditText(
                     it.id,
-                    til_occupation_others,
-                    tie_occupation_others
+                    binding.tilOccupationOthers,
+                    binding.tieOccupationOthers
                 )
-                tie_occupation.setText(it.value)
+                binding.tieOccupation.setText(it.value)
             }.addTo(disposables)
         viewModel.input.otherOccupationInput
             .subscribe {
-                tie_occupation_others.setTextNullable(it)
+                binding.tieOccupationOthers.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.sourceOfFundsInput
             .subscribe {
-                tie_source_of_funds.setText(it.value)
+                binding.tieSourceOfFunds.setText(it.value)
             }.addTo(disposables)
         viewModel.input.percentOwnershipInput
             .subscribe {
-                tie_percent_ownership.setTextNullable(it)
+                binding.tiePercentOwnership.setTextNullable(it)
             }.addTo(disposables)
         viewModel.isEditMode
             .subscribe {
@@ -125,7 +124,7 @@ class DaoPersonalInformationStepFourFragment :
     private fun init() {
         validateForm()
         initImeOption()
-        tie_percent_ownership.filters = arrayOf(
+        binding.tiePercentOwnership.filters = arrayOf(
             PercentageInputFilter(
                 1f,
                 100f
@@ -137,8 +136,8 @@ class DaoPersonalInformationStepFourFragment :
     private fun initImeOption() {
         val imeOptionEditText = ImeOptionEditText()
         imeOptionEditText.addEditText(
-            tie_occupation_others,
-            tie_percent_ownership
+            binding.tieOccupationOthers,
+            binding.tiePercentOwnership
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
@@ -160,14 +159,14 @@ class DaoPersonalInformationStepFourFragment :
     }
 
     private fun initClickListener() {
-        tie_occupation.setOnClickListener {
+        binding.tieOccupation.setOnClickListener {
             navigateSingleSelector(
                 SingleSelectorTypeEnum.OCCUPATION.name,
                 hasSearch = true,
                 isPaginated = true
             )
         }
-        tie_source_of_funds.setOnClickListener {
+        binding.tieSourceOfFunds.setOnClickListener {
             navigateSingleSelector(
                 SingleSelectorTypeEnum.SOURCE_OF_FUNDS.name,
                 hasSearch = false,
@@ -195,10 +194,10 @@ class DaoPersonalInformationStepFourFragment :
     }
 
     private fun refreshFields() {
-        tie_occupation.refresh()
-        tie_occupation_others.refresh()
-        tie_source_of_funds.refresh()
-        tie_percent_ownership.refresh()
+        binding.tieOccupation.refresh()
+        binding.tieOccupationOthers.refresh()
+        binding.tieSourceOfFunds.refresh()
+        binding.tiePercentOwnership.refresh()
     }
 
     private fun validateForm() {
@@ -207,28 +206,28 @@ class DaoPersonalInformationStepFourFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_occupation
+            editText = binding.tieOccupation
         )
         val otherOccupationObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_occupation_others
+            editText = binding.tieOccupationOthers
         )
         val sourceOfFundsObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_source_of_funds
+            editText = binding.tieSourceOfFunds
         )
         val percentOwnershipObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_percent_ownership
+            editText = binding.tiePercentOwnership
         )
         initSetError(occupationObservable)
         initSetError(otherOccupationObservable)
@@ -298,10 +297,10 @@ class DaoPersonalInformationStepFourFragment :
     }
 
     private fun clearFormFocus() {
-        constraint_layout.post {
+        binding.constraintLayout.post {
             viewUtil.dismissKeyboard(getAppCompatActivity())
-            constraint_layout.requestFocus()
-            constraint_layout.isFocusableInTouchMode = true
+            binding.constraintLayout.requestFocus()
+            binding.constraintLayout.isFocusableInTouchMode = true
         }
     }
 
@@ -318,8 +317,8 @@ class DaoPersonalInformationStepFourFragment :
 
     private fun updateFreeTextFields() {
         viewModel.setPreTextValues(
-            tie_occupation_others.getTextNullable(),
-            tie_percent_ownership.getTextNullable()
+            binding.tieOccupationOthers.getTextNullable(),
+            binding.tiePercentOwnership.getTextNullable()
         )
     }
 
@@ -328,4 +327,10 @@ class DaoPersonalInformationStepFourFragment :
         const val OTHERS_CODE = "NV"
         const val EXTRA_IS_EDIT = "isEdit"
     }
+
+    override val viewModelClassType: Class<DaoPersonalInformationStepFourViewModel>
+        get() = DaoPersonalInformationStepFourViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoPersonalInformationStep4Binding
+        get() = FragmentDaoPersonalInformationStep4Binding::inflate
 }

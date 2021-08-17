@@ -7,9 +7,9 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.util.ViewUtil
+import com.unionbankph.corporate.branch.presentation.model.BranchVisit
 import com.unionbankph.corporate.branch.presentation.epoxymodel.branchVisitItem
 import com.unionbankph.corporate.branch.presentation.epoxymodel.branchVisitRow
-import com.unionbankph.corporate.branch.presentation.model.BranchVisit
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 
@@ -43,18 +43,18 @@ constructor(
                 branchVisitRow {
                     id(branchVisit.id)
                     branchVisit(branchVisit)
-                    callbacks(callbacks)
-                    context(context)
-                    viewUtil(viewUtil)
+                    callbacks(this@BranchVisitController.callbacks)
+                    context(this@BranchVisitController.context)
+                    viewUtil(this@BranchVisitController.viewUtil)
                     position(position)
                 }
             } else {
                 branchVisitItem {
                     id(branchVisit.id)
                     branchVisit(branchVisit)
-                    callbacks(callbacks)
-                    context(context)
-                    viewUtil(viewUtil)
+                    callbacks(this@BranchVisitController.callbacks)
+                    context(this@BranchVisitController.context)
+                    viewUtil(this@BranchVisitController.viewUtil)
                     position(position)
                 }
             }

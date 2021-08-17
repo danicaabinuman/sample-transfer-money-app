@@ -32,10 +32,10 @@ constructor(
                 branchTransactionFormString(JsonHelper.toJson(branchTransactionForm))
                 hasSelected(branchTransactionForm.isSelected)
                 hasSelection(isSelection)
-                callbacks(callbacks)
-                context(context)
-                autoFormatUtil(autoFormatUtil)
-                viewUtil(viewUtil)
+                callbacks(this@BranchTransactionController.callbacks)
+                context(this@BranchTransactionController.context)
+                autoFormatUtil(this@BranchTransactionController.autoFormatUtil)
+                viewUtil(this@BranchTransactionController.viewUtil)
                 position(position)
             }
         }

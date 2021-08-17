@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.account.presentation.account_list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -37,14 +39,13 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.FragmentAccountsBinding
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_accounts.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
 import java.util.concurrent.TimeUnit
 
 class AccountFragment :
-    BaseFragment<AccountViewModel>(R.layout.fragment_accounts),
+    BaseFragment<FragmentAccountsBinding, AccountViewModel>(),
     AccountAdapterCallback,
     OnTutorialListener {
 
@@ -73,7 +74,6 @@ class AccountFragment :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[AccountViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowAccountLoading -> {
@@ -81,13 +81,13 @@ class AccountFragment :
                         showEndlessProgressBar()
                     } else {
                         showLoading(
-                            viewLoadingState,
+                            binding.viewLoadingState.viewLoadingLayout,
                             getSwipeRefreshLayout(),
                             getRecyclerView(),
-                            textViewState,
-                            linearLayoutRow
+                            binding.textViewState,
+                            binding.linearLayoutRow
                         )
-                        if (viewLoadingState.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.viewLoadingLayout.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     }
@@ -97,7 +97,7 @@ class AccountFragment :
                         dismissEndlessProgressBar()
                     } else {
                         dismissLoading(
-                            viewLoadingState,
+                            binding.viewLoadingState.viewLoadingLayout,
                             getSwipeRefreshLayout(),
                             getRecyclerView()
                         )
@@ -232,24 +232,24 @@ class AccountFragment :
     }
 
     private fun initRxSearchEventListener() {
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                editTextSearch.clearFocus()
+                binding.viewSearchLayout.editTextSearch.clearFocus()
                 viewUtil.dismissKeyboard(getAppCompatActivity())
                 getAccounts(true)
                 return@OnEditorActionListener true
             }
             false
         })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -257,7 +257,7 @@ class AccountFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     viewModel.pageable.filter = filter.text().toString().nullable()
                     getAccounts(true)
@@ -351,12 +351,12 @@ class AccountFragment :
 
     private fun showEmptyState(data: MutableList<Account> = viewModel.getAccounts()) {
         if (isTableView()) {
-            linearLayoutRow.visibility(data.isNotEmpty())
+            binding.linearLayoutRow.visibility(data.isNotEmpty())
         }
         if (data.size > 0) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -371,7 +371,7 @@ class AccountFragment :
         getRecyclerView().visibility(true)
         tutorialDataAccounts.clear()
         updateTutorialController()
-        if (viewLoadingState.visibility != View.VISIBLE) {
+        if (binding.viewLoadingState.viewLoadingLayout.visibility != View.VISIBLE) {
             showEmptyState()
         }
     }
@@ -389,7 +389,7 @@ class AccountFragment :
                         PermissionCollection().getPermissionCollectionAllowAll()
                 }
                 if (isTableView()) {
-                    linearLayoutRow.visibility(true)
+                    binding.linearLayoutRow.visibility(true)
                 }
                 getRecyclerView().visibility(false)
                 updateTutorialController()
@@ -406,11 +406,11 @@ class AccountFragment :
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutBtr.visibility(false)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutBtr.visibility(false)
             val headers = resources.getStringArray(R.array.array_headers_accounts).toMutableList()
-            linearLayoutRow.removeAllViews()
-            linearLayoutRow.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
+            binding.linearLayoutRow.removeAllViews()
+            binding.linearLayoutRow.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
             headers.forEach {
                 val viewRowHeader = layoutInflater.inflate(R.layout.header_table_row, null)
                 val textViewHeader =
@@ -423,7 +423,7 @@ class AccountFragment :
                 linearLayoutHeaderRow.layoutParams = layoutParams
                 textViewHeader.layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
@@ -443,7 +443,7 @@ class AccountFragment :
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        constraintLayout,
+                        binding.constraintLayout,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -467,33 +467,33 @@ class AccountFragment :
 
     private fun clearRecyclerView() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutBtr.visibility(false)
-            recyclerViewBtr.clear()
-            recyclerViewBtr.clearPreloaders()
-            recyclerViewTutorialBtr.clear()
-            recyclerViewTutorialBtr.clearPreloaders()
-            recyclerViewBtr.adapter = null
-            recyclerViewTutorialBtr.adapter = null
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutBtr.visibility(false)
+            binding.recyclerViewBtr.clear()
+            binding.recyclerViewBtr.clearPreloaders()
+            binding.recyclerViewTutorialBtr.clear()
+            binding.recyclerViewTutorialBtr.clearPreloaders()
+            binding.recyclerViewBtr.adapter = null
+            binding.recyclerViewTutorialBtr.adapter = null
         } else {
-            swipeRefreshLayoutTable.visibility(false)
-            swipeRefreshLayoutBtr.visibility(true)
-            recyclerViewTable.clear()
-            recyclerViewTable.clearPreloaders()
-            recyclerViewTableTutorial.clear()
-            recyclerViewTableTutorial.clearPreloaders()
-            recyclerViewTable.adapter = null
-            recyclerViewTableTutorial.adapter = null
+            binding.swipeRefreshLayoutTable.visibility(false)
+            binding.swipeRefreshLayoutBtr.visibility(true)
+            binding.recyclerViewTable.clear()
+            binding.recyclerViewTable.clearPreloaders()
+            binding.recyclerViewTableTutorial.clear()
+            binding.recyclerViewTableTutorial.clearPreloaders()
+            binding.recyclerViewTable.adapter = null
+            binding.recyclerViewTableTutorial.adapter = null
         }
     }
 
-    private fun getRecyclerView() = if (isTableView()) recyclerViewTable else recyclerViewBtr
+    private fun getRecyclerView() = if (isTableView()) binding.recyclerViewTable else binding.recyclerViewBtr
 
     private fun getRecyclerViewTutorial() =
-        if (isTableView()) recyclerViewTableTutorial else recyclerViewTutorialBtr
+        if (isTableView()) binding.recyclerViewTableTutorial else binding.recyclerViewTutorialBtr
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutBtr
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutBtr
 
     private fun initRecyclerView() {
         initHeaderRow()
@@ -541,4 +541,10 @@ class AccountFragment :
         const val TEST_DATA_ACCOUNT: String = "accounts"
 
     }
+
+    override val viewModelClassType: Class<AccountViewModel>
+        get() = AccountViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAccountsBinding
+        get() = FragmentAccountsBinding::inflate
 }

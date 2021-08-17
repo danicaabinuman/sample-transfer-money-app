@@ -1,24 +1,28 @@
 package com.unionbankph.corporate.app.common.widget.dialog
 
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
+import com.unionbankph.corporate.databinding.BottomSheetFileManagerBinding
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
-import kotlinx.android.synthetic.main.bottom_sheet_file_manager.*
 
-class FileManagerBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout.bottom_sheet_file_manager) {
+class FileManagerBottomSheet :
+    BaseBottomSheetDialog<BottomSheetFileManagerBinding, SettingsViewModel>() {
 
     private var callback: FileManagerBottomSheetCallback? = null
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        btn_take_photo.setOnClickListener {
+        binding.btnTakePhoto.setOnClickListener {
             callback?.onClickTakePhoto(this)
         }
-        btn_open_file_manager.setOnClickListener {
+        binding.btnOpenFileManager.setOnClickListener {
             callback?.onClickOpenFileManager(this)
         }
-        btn_cancel.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
             callback?.onClickCancel(this)
         }
     }
@@ -32,4 +36,13 @@ class FileManagerBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout
         fun onClickOpenFileManager(dialog: BottomSheetDialogFragment?)
         fun onClickCancel(dialog: BottomSheetDialogFragment?)
     }
+
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_file_manager
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
+
+    override val bindingBinder: (View) -> BottomSheetFileManagerBinding
+        get() = BottomSheetFileManagerBinding::bind
 }

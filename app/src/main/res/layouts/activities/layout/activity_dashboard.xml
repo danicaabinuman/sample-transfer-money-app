@@ -62,7 +62,9 @@
         android:clickable="true"
         android:visibility="gone"
         android:focusable="true">
-        <include layout="@layout/dialog_feature_unavailable2"/>
+        <include
+            android:id="@+id/viewFeatureUnavailable"
+            layout="@layout/dialog_feature_unavailable2"/>
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

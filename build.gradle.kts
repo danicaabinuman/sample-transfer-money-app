@@ -3,7 +3,6 @@ import org.jlleitschuh.gradle.ktlint.KtlintExtension
 buildscript {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven(url = "https://jitpack.io")
         maven(url = "https://kotlin.bintray.com/kotlinx")
@@ -27,7 +26,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven(url = "https://jitpack.io")
         maven(url = "https://kotlin.bintray.com/kotlinx")

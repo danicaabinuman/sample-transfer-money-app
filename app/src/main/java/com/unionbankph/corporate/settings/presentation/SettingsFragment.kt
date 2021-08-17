@@ -1,12 +1,16 @@
 package com.unionbankph.corporate.settings.presentation
 
 import android.os.Bundle
+import android.provider.Settings
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.platform.bus.event.FragmentSettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.databinding.FragmentSettingsBinding
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsFragment
 import com.unionbankph.corporate.settings.presentation.notification.NotificationDetailFragment
@@ -22,7 +26,8 @@ import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 
-class SettingsFragment : BaseFragment<SettingsViewModel>(R.layout.fragment_settings) {
+class SettingsFragment :
+    BaseFragment<FragmentSettingsBinding, SettingsViewModel>() {
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -190,4 +195,10 @@ class SettingsFragment : BaseFragment<SettingsViewModel>(R.layout.fragment_setti
         const val FRAGMENT_MANAGE_DEVICE_DETAIL = "manage_device_detail"
         const val FRAGMENT_NOTIFICATION_LOG = "notification_log"
     }
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSettingsBinding
+        get() = FragmentSettingsBinding::inflate
 }

@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.company_info_1
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
@@ -14,16 +16,15 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxValida
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.databinding.FragmentDaoCompanyInformationStep1Binding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_company_information_step_1.*
-import kotlinx.android.synthetic.main.widget_country_code.*
 import java.util.concurrent.TimeUnit
 
 class DaoCompanyInformationStepOneFragment :
-    BaseFragment<DaoCompanyInformationStepOneViewModel>(R.layout.fragment_dao_company_information_step_1),
+    BaseFragment<FragmentDaoCompanyInformationStep1Binding, DaoCompanyInformationStepOneViewModel>(),
     DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
@@ -35,11 +36,6 @@ class DaoCompanyInformationStepOneFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[DaoCompanyInformationStepOneViewModel::class.java]
     }
 
     override fun onViewsBound() {
@@ -65,18 +61,18 @@ class DaoCompanyInformationStepOneFragment :
     }
 
     private fun refreshFields() {
-        tie_business_name.refresh()
-        tie_trade_name.refresh()
-        tie_government_type.refresh()
-        tie_government_id.refresh()
-        tie_mobile_number.refresh()
-        tie_business_address.refresh()
-        tie_barangay.refresh()
-        tie_city.refresh()
-        tie_province.refresh()
-        tie_zip_code.refresh()
-        tie_house_no.refresh()
-        tie_street.refresh()
+        binding.tieBusinessName.refresh()
+        binding.tieTradeName.refresh()
+        binding.tieGovernmentType.refresh()
+        binding.tieGovernmentId.refresh()
+        binding.tieMobileNumber.refresh()
+        binding.tieBusinessAddress.refresh()
+        binding.tieBarangay.refresh()
+        binding.tieCity.refresh()
+        binding.tieProvince.refresh()
+        binding.tieZipCode.refresh()
+        binding.tieHouseNo.refresh()
+        binding.tieStreet.refresh()
     }
 
     private fun initDaoActivity() {
@@ -88,10 +84,10 @@ class DaoCompanyInformationStepOneFragment :
     private fun initBinding() {
         viewModel.governmentIdTypeInput
             .subscribe {
-                tie_government_id.text?.clear()
-                tie_government_type.setText(it.value)
+                binding.tieGovernmentId.text?.clear()
+                binding.tieGovernmentType.setText(it.value)
                 viewUtil.setEditTextMaxLength(
-                    tie_government_type,
+                    binding.tieGovernmentType,
                     resources.getInteger(
                         if (it.value == formatString(R.string.title_sss)) {
                             R.integer.max_length_sss
@@ -103,15 +99,15 @@ class DaoCompanyInformationStepOneFragment :
             }.addTo(disposables)
         viewModel.cityInput
             .subscribe {
-                tie_city.setText(it.value)
+                binding.tieCity.setText(it.value)
             }.addTo(disposables)
         viewModel.provinceInput
             .subscribe {
-                tie_province.setText(it.value)
+                binding.tieProvince.setText(it.value)
             }.addTo(disposables)
         viewModel.barangayInput
             .subscribe {
-                tie_barangay.setText(it.value)
+                binding.tieBarangay.setText(it.value)
             }.addTo(disposables)
         viewModel.countryCodeInput
             .subscribe {
@@ -156,19 +152,19 @@ class DaoCompanyInformationStepOneFragment :
     }
 
     private fun initClickListener() {
-        tie_government_type.setOnClickListener {
+        binding.tieGovernmentType.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.GOVERNMENT_ID.name)
         }
-        tie_barangay.setOnClickListener {
+        binding.tieBarangay.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.BARANGAY.name)
         }
-        tie_city.setOnClickListener {
+        binding.tieCity.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.CITY.name)
         }
-        tie_province.setOnClickListener {
+        binding.tieProvince.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.PROVINCE.name)
         }
-        tie_country_code.setOnClickListener {
+        binding.viewCountryCode.tieCountryCode.setOnClickListener {
             findNavController().navigate(R.id.action_country_activity)
         }
     }
@@ -179,34 +175,34 @@ class DaoCompanyInformationStepOneFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_business_name
+            editText = binding.tieBusinessName
         )
         val tieTradeNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_trade_name
+            editText = binding.tieTradeName
         )
         val tieGovernmentIdObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_government_id
+            editText = binding.tieGovernmentId
         )
         val tieMobileNumberObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_mobile_number
+            editText = binding.tieMobileNumber
         )
-        val tieBusinessAddressObservable = RxValidator.createFor(tie_business_address)
+        val tieBusinessAddressObservable = RxValidator.createFor(binding.tieBusinessAddress)
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
-                    tie_business_address.hint
+                    binding.tieBusinessAddress.hint
                 )
             )
             .email(getString(R.string.error_invalid_email_address))
@@ -224,42 +220,42 @@ class DaoCompanyInformationStepOneFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_barangay
+            editText = binding.tieBarangay
         )
         val tieCityObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_city
+            editText = binding.tieCity
         )
         val tieProvinceObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_province
+            editText = binding.tieProvince
         )
         val tieZipCodeObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_zip_code
+            editText = binding.tieZipCode
         )
         val houseNoObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_house_no
+            editText = binding.tieHouseNo
         )
         val streetObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_street
+            editText = binding.tieStreet
         )
         initSetError(tieBusinessNameObservable)
         initSetError(tieTradeNameObservable)
@@ -297,8 +293,8 @@ class DaoCompanyInformationStepOneFragment :
     }
 
     private fun showCountryDetails(countryCode: CountryCode?) {
-        tie_country_code.setText(countryCode?.callingCode)
-        imageViewFlag.setImageResource(
+        binding.viewCountryCode.tieCountryCode.setText(countryCode?.callingCode)
+        binding.viewCountryCode.imageViewFlag.setImageResource(
             viewUtil.getDrawableById("ic_flag_${countryCode?.code?.toLowerCase()}")
         )
     }
@@ -317,7 +313,13 @@ class DaoCompanyInformationStepOneFragment :
 
     private fun clearFormFocus() {
         viewUtil.dismissKeyboard(getAppCompatActivity())
-        constraint_layout.requestFocus()
-        constraint_layout.isFocusableInTouchMode = true
+        binding.constraintLayout.requestFocus()
+        binding.constraintLayout.isFocusableInTouchMode = true
     }
+
+    override val viewModelClassType: Class<DaoCompanyInformationStepOneViewModel>
+        get() = DaoCompanyInformationStepOneViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoCompanyInformationStep1Binding
+        get() = FragmentDaoCompanyInformationStep1Binding::inflate
 }

@@ -360,7 +360,9 @@
         android:visibility="gone"
         android:focusable="true">
 
-        <include layout="@layout/activity_no_available_accounts"/>
+        <include
+            android:id="@+id/viewNoAvailableAccounts"
+            layout="@layout/activity_no_available_accounts"/>
     </FrameLayout>
     <FrameLayout
         android:id="@+id/approverPermissionRequired"
@@ -371,6 +373,8 @@
         android:visibility="gone"
         android:focusable="true">
 
-        <include layout="@layout/dialog_feature_unavailable"/>
+        <include
+            android:id="@+id/viewDialogFeatureUnavailable"
+            layout="@layout/dialog_feature_unavailable"/>
     </FrameLayout>
 </FrameLayout>

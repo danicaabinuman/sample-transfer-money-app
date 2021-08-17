@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.approval.presentation
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -25,12 +27,12 @@ import com.unionbankph.corporate.common.presentation.constant.TutorialScreenEnum
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.FragmentApprovalsBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_approvals.*
 
 
 class ApprovalFragment :
-    BaseFragment<TutorialViewModel>(R.layout.fragment_approvals),
+    BaseFragment<FragmentApprovalsBinding, TutorialViewModel>(),
     OnTutorialListener {
 
     private lateinit var adapter: ViewPagerAdapter
@@ -48,7 +50,7 @@ class ApprovalFragment :
     }
 
     private fun init() {
-        shadow_toolbar.isVisible = isSME
+        binding.shadowToolbar.isVisible = isSME
         setupViewPager()
     }
 
@@ -58,7 +60,6 @@ class ApprovalFragment :
     }
 
     private fun initTutorialViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[TutorialViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowTutorialHasTutorial -> {
@@ -89,12 +90,12 @@ class ApprovalFragment :
         eventBus.settingsSyncEvent.flowable.subscribe {
             when (it.eventType) {
                 SettingsSyncEvent.ACTION_RESET_TUTORIAL -> {
-                    tabLayoutAccount.setScrollPosition(0, 0f, true)
-                    viewPager.currentItem = 0
+                    binding.tabLayoutAccount.setScrollPosition(0, 0f, true)
+                    binding.viewPager.currentItem = 0
                 }
                 SettingsSyncEvent.ACTION_PUSH_TUTORIAL_APPROVAL -> {
                     isClickedHelpTutorial = true
-                    viewPager.currentItem = 0
+                    binding.viewPager.currentItem = 0
                     eventBus.settingsSyncEvent.emmit(
                         BaseEvent(SettingsSyncEvent.ACTION_DISABLE_NAVIGATION_BOTTOM)
                     )
@@ -138,7 +139,7 @@ class ApprovalFragment :
             )
         } else {
             if (view != null) {
-                if (view.id == tabLayoutAccount.id) {
+                if (view.id == binding.tabLayoutAccount.id) {
                     eventBus.settingsSyncEvent.emmit(
                         BaseEvent(SettingsSyncEvent.ACTION_TUTORIAL_APPROVAL_TAP)
                     )
@@ -148,7 +149,7 @@ class ApprovalFragment :
                     isClickedHelpTutorial = false
                     tutorialEngineUtil.startTutorial(
                         getAppCompatActivity(),
-                        tabLayoutAccount,
+                        binding.tabLayoutAccount,
                         R.layout.frame_tutorial_upper_left,
                         0f,
                         false,
@@ -195,10 +196,10 @@ class ApprovalFragment :
             ApprovalDoneFragment.newInstance(),
             FRAGMENT_DONE
         )
-        viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 0
-        tabLayoutAccount.setupWithViewPager(viewPager, false)
-        tabLayoutAccount.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.viewPager.adapter = adapter
+        binding.viewPager.offscreenPageLimit = 0
+        binding.tabLayoutAccount.setupWithViewPager(binding.viewPager, false)
+        binding.tabLayoutAccount.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 //onTabReselected
             }
@@ -208,14 +209,14 @@ class ApprovalFragment :
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (viewUtil.isSoftKeyboardShown(constraintLayoutApproval))
+                if (viewUtil.isSoftKeyboardShown(binding.constraintLayoutApproval))
                     viewUtil.dismissKeyboard(activity!!)
                 when (tab?.position) {
                     0 -> {
-                        viewPager.currentItem = 0
+                        binding.viewPager.currentItem = 0
                     }
                     1 -> {
-                        viewPager.currentItem = 1
+                        binding.viewPager.currentItem = 1
                         approvalOngoingFragment.clearSelection()
                     }
                 }
@@ -224,12 +225,18 @@ class ApprovalFragment :
         })
     }
 
-    fun viewPager(): ViewPager = viewPager
+    fun viewPager(): ViewPager = binding.viewPager
 
     companion object {
         private var FRAGMENT_ONGOING = "on-going"
         private var FRAGMENT_DONE = "done"
     }
+
+    override val viewModelClassType: Class<TutorialViewModel>
+        get() = TutorialViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentApprovalsBinding
+        get() = FragmentApprovalsBinding::inflate
 }
 
 

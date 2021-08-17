@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.splash
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
@@ -12,11 +14,12 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralDismis
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralLoading
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralSuccessSetUdid
+import com.unionbankph.corporate.databinding.FragmentSplashScreenEndBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_splash_screen_end.*
 import java.util.concurrent.TimeUnit
 
-class SplashEndFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splash_screen_end) {
+class SplashEndFragment :
+    BaseFragment<FragmentSplashScreenEndBinding, GeneralViewModel>() {
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -25,7 +28,7 @@ class SplashEndFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splas
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(buttonLogin)
+        RxView.clicks(binding.buttonLogin)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -36,8 +39,6 @@ class SplashEndFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splas
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[GeneralViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowGeneralLoading -> {
@@ -62,5 +63,11 @@ class SplashEndFragment : BaseFragment<GeneralViewModel>(R.layout.fragment_splas
             }
         })
     }
+
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashScreenEndBinding
+        get() = FragmentSplashScreenEndBinding::inflate
 
 }

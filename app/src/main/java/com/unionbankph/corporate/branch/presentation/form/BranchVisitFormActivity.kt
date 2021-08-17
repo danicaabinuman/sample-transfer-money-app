@@ -1,10 +1,7 @@
 package com.unionbankph.corporate.branch.presentation.form
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.lifecycle.Observer
@@ -35,15 +32,13 @@ import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPage
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
+import com.unionbankph.corporate.databinding.ActivityBranchVisitFormBinding
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_branch_visit_form.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.*
 
 class BranchVisitFormActivity :
-    BaseActivity<BranchVisitFormViewModel>(R.layout.activity_branch_visit_form),
+    BaseActivity<ActivityBranchVisitFormBinding, BranchVisitFormViewModel>(),
     ImeOptionEditText.OnImeOptionListener, OnConfirmationPageCallBack {
 
     private lateinit var imeOptionEditText: ImeOptionEditText
@@ -68,7 +63,7 @@ class BranchVisitFormActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewsBound() {
@@ -87,16 +82,16 @@ class BranchVisitFormActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        textInputEditTextBranch.setOnClickListener {
+        binding.textInputEditTextBranch.setOnClickListener {
             navigateBranchScreen()
         }
-        buttonAddTransaction.setOnClickListener {
+        binding.buttonAddTransaction.setOnClickListener {
             navigateBranchTransactionFormScreen()
         }
-        imageViewClose.setOnClickListener {
+        binding.imageViewClose.setOnClickListener {
             showClearTransactionsBottomSheet()
         }
-        textViewBranchTransaction.setOnClickListener {
+        binding.textViewBranchTransaction.setOnClickListener {
             navigateBranchTransactionScreen()
         }
     }
@@ -161,7 +156,7 @@ class BranchVisitFormActivity :
                 it.payload?.let {
                     val branch = JsonHelper.fromJson<Branch>(it)
                     viewModel.setBranch(branch)
-                    textInputEditTextBranch.setText(
+                    binding.textInputEditTextBranch.setText(
                         ("<b>${branch.name}</b><br>${branch.address.notEmpty()}").toHtmlSpan()
                     )
                 }
@@ -190,8 +185,6 @@ class BranchVisitFormActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[BranchVisitFormViewModel::class.java]
         viewModel.branchVisitFormState.observe(this, Observer {
             when (it) {
                 is ShowBranchVisitFormProceedToConfirmation -> {
@@ -206,10 +199,10 @@ class BranchVisitFormActivity :
 
     private fun showBranchTransaction(branchTransactionsForm: MutableList<BranchTransactionForm>) {
         val isShown = branchTransactionsForm.size > 0
-        textViewBranchTransactionState.setVisible(!isShown)
-        textViewBranchTransaction.setVisible(isShown)
-        imageViewClose.visibility(isShown)
-        textViewBranchTransaction.text =
+        binding.textViewBranchTransactionState.setVisible(!isShown)
+        binding.textViewBranchTransaction.setVisible(isShown)
+        binding.imageViewClose.visibility(isShown)
+        binding.textViewBranchTransaction.text =
             formatString(
                 if (branchTransactionsForm.size > 1)
                     R.string.param_deposit_transactions
@@ -228,8 +221,8 @@ class BranchVisitFormActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_cash_or_check_deposit),
                         it.orgName
                     )
@@ -240,22 +233,22 @@ class BranchVisitFormActivity :
     }
 
     private fun initChannelView() {
-        textViewChannel.visibility = View.GONE
-        imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        imageViewChannel.setImageResource(R.drawable.ic_channel_ubp)
-        textViewServiceFee.text = formatString(R.string.value_service_fee_free)
+        binding.viewChannelHeader.textViewChannel.visibility = View.GONE
+        binding.viewChannelHeader.imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.viewChannelHeader.imageViewChannel.setImageResource(R.drawable.ic_channel_ubp)
+        binding.viewChannelHeader.textViewServiceFee.text = formatString(R.string.value_service_fee_free)
     }
 
     private fun initCheckDepositForm() {
         textInputLayoutTransactionDate =
-            viewTransactionDate.findViewById(R.id.textInputLayoutStartDate)
+            binding.viewTransactionDate.textInputLayoutStartDate
         textInputLayoutTransactionDate.hint = formatString(R.string.hint_transaction_date)
         textInputEditTextTransactionDate =
-            viewTransactionDate.findViewById(R.id.textInputEditTextStartDate)
-        textInputLayoutDepositTo = viewDepositToForm.findViewById(R.id.textInputLayoutTransferTo)
+            binding.viewTransactionDate.textInputEditTextStartDate
+        textInputLayoutDepositTo = binding.viewDepositToForm.textInputLayoutTransferTo
         textInputLayoutDepositTo.hint = formatString(R.string.hint_deposit_to)
         textInputEditTextDepositTo =
-            viewDepositToForm.findViewById(R.id.textInputEditTextTransferTo)
+            binding.viewDepositToForm.textInputEditTextTransferTo
         textInputLayoutDepositTo.setContextCompatBackground(R.color.colorTransparent)
         textInputEditTextDepositTo.isEnabled = true
         viewUtil.setEditTextMaskListener(
@@ -266,7 +259,7 @@ class BranchVisitFormActivity :
             showTransactionDateDialog()
         }
         val imageViewTransferTo =
-            viewDepositToForm.findViewById<ImageView>(R.id.imageViewTransferTo)
+            binding.viewDepositToForm.imageViewTransferTo
         imageViewTransferTo.setOnClickListener {
             navigateAccountSelectionScreen()
         }
@@ -285,7 +278,7 @@ class BranchVisitFormActivity :
             isValueChanged = isValueChanged,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = textInputEditTextBranch
+            editText = binding.textInputEditTextBranch
         )
         val textInputEditTextDepositToObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
@@ -331,7 +324,7 @@ class BranchVisitFormActivity :
             ImeOptionEditText()
         imeOptionEditText.addEditText(
             textInputEditTextDepositTo,
-            textInputEditTextRemarks
+            binding.textInputEditTextRemarks
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
@@ -339,7 +332,7 @@ class BranchVisitFormActivity :
 
     private fun initEditTextDefaultValue() {
         setDefaultValue(textInputEditTextTransactionDate)
-        setDefaultValue(textInputEditTextBranch)
+        setDefaultValue(binding.textInputEditTextBranch)
         setDefaultValue(textInputEditTextDepositTo)
     }
 
@@ -398,8 +391,8 @@ class BranchVisitFormActivity :
     }
 
     private fun clearFormFocus() {
-        constraintLayoutParent.requestFocus()
-        constraintLayoutParent.isFocusableInTouchMode = true
+        binding.constraintLayoutParent.requestFocus()
+        binding.constraintLayoutParent.isFocusableInTouchMode = true
     }
 
     private fun showCancelTransactionBottomSheet() {
@@ -522,7 +515,7 @@ class BranchVisitFormActivity :
                 textInputEditTextTransactionDate.tag.toString(),
                 textInputEditTextDepositTo.text.toString(),
                 intent.getStringExtra(EXTRA_CHANNEL).notNullable(),
-                textInputEditTextRemarks.text.toString()
+                binding.textInputEditTextRemarks.text.toString()
             )
         } else {
             showNoBranchTransactionsBottomSheet()
@@ -556,4 +549,10 @@ class BranchVisitFormActivity :
         const val TAG_DELETE_TRANSACTION_DIALOG = "delete_transaction_dialog"
         const val TAG_NO_BRANCH_TRANSACTION_DIALOG = "no_branch_transaction_dialog"
     }
+
+    override val viewModelClassType: Class<BranchVisitFormViewModel>
+        get() = BranchVisitFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchVisitFormBinding
+        get() = ActivityBranchVisitFormBinding::inflate
 }

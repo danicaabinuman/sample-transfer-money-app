@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.settings.presentation.display
 
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -11,11 +13,11 @@ import com.unionbankph.corporate.app.common.extension.LIST_VIEW_DISPLAY
 import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.FragmentSettingsDisplayBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_settings_display.*
 
 class SettingsDisplayFragment :
-    BaseFragment<SettingsDisplayViewModel>(R.layout.fragment_settings_display),
+    BaseFragment<FragmentSettingsDisplayBinding, SettingsDisplayViewModel>(),
     View.OnClickListener {
 
     override fun onViewModelBound() {
@@ -24,8 +26,7 @@ class SettingsDisplayFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[SettingsDisplayViewModel::class.java]
+
         viewModel.uiState.observe(this, Observer {
             it.getContentIfNotHandled().let { event ->
                 when (event) {
@@ -39,8 +40,8 @@ class SettingsDisplayFragment :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        constraintLayoutCardView.setOnClickListener(this)
-        constraintLayoutListView.setOnClickListener(this)
+        binding.constraintLayoutCardView.setOnClickListener(this)
+        binding.constraintLayoutListView.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -52,11 +53,11 @@ class SettingsDisplayFragment :
     private fun initBinding() {
         viewModel.isTableView.subscribe {
             if (it) {
-                imageViewListView.setVisible(true)
-                imageViewCardView.setVisible(false)
+                binding.imageViewListView.setVisible(true)
+                binding.imageViewCardView.setVisible(false)
             } else {
-                imageViewListView.setVisible(false)
-                imageViewCardView.setVisible(true)
+                binding.imageViewListView.setVisible(false)
+                binding.imageViewCardView.setVisible(true)
             }
         }.addTo(disposables)
     }
@@ -74,7 +75,13 @@ class SettingsDisplayFragment :
             hasBackButton = true,
             hasMenuItem = false
         )
-        constraintLayoutCardView.tag = CARD_VIEW_DISPLAY
-        constraintLayoutListView.tag = LIST_VIEW_DISPLAY
+        binding.constraintLayoutCardView.tag = CARD_VIEW_DISPLAY
+        binding.constraintLayoutListView.tag = LIST_VIEW_DISPLAY
     }
+
+    override val viewModelClassType: Class<SettingsDisplayViewModel>
+        get() = SettingsDisplayViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSettingsDisplayBinding
+        get() = FragmentSettingsDisplayBinding::inflate
 }

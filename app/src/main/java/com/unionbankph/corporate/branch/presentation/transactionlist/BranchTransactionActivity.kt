@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.branch.presentation.transactionlist
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -23,13 +24,12 @@ import com.unionbankph.corporate.branch.presentation.transactiondetail.BranchTra
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityBranchTransactionBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_branch_transaction.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 
 class BranchTransactionActivity :
-    BaseActivity<BranchTransactionViewModel>(R.layout.activity_branch_transaction),
+    BaseActivity<ActivityBranchTransactionBinding, BranchTransactionViewModel>(),
     EpoxyAdapterCallback<BranchTransactionForm> {
 
     private val controller by lazyFast {
@@ -46,8 +46,8 @@ class BranchTransactionActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolBar)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_branch_transaction))
+        initToolbar(binding.viewToolBar.toolbar, binding.viewToolBar.appBarLayout)
+        setToolbarTitle(binding.viewToolBar.tvToolbar, formatString(R.string.title_branch_transaction))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -59,10 +59,10 @@ class BranchTransactionActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        buttonDelete.setOnClickListener {
+        binding.buttonDelete.setOnClickListener {
             showDeleteTransactionsBottomSheet()
         }
-        buttonSelectAll.setOnClickListener {
+        binding.buttonSelectAll.setOnClickListener {
             if (viewModel.isSelectedAll()) {
                 viewModel.deSelectAll()
             } else {
@@ -119,23 +119,21 @@ class BranchTransactionActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[BranchTransactionViewModel::class.java]
         viewModel.branchTransactionState.observe(this, Observer {
             when (it) {
                 is ShowBranchTransactionLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         null,
-                        recyclerViewBranchTransaction,
-                        textViewState
+                        binding.recyclerViewBranchTransaction,
+                        binding.textViewState
                     )
                 }
                 is ShowBranchTransactionDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         null,
-                        recyclerViewBranchTransaction
+                        binding.recyclerViewBranchTransaction
                     )
                 }
                 is ShowBranchTransactionEditedItem -> {
@@ -151,14 +149,14 @@ class BranchTransactionActivity :
             isShowMenuEdit = true
             updateController(it)
             if (viewModel.getSelection()) {
-                buttonDelete.text =
+                binding.buttonDelete.text =
                     formatString(R.string.params_delete, viewModel.getSelectedCount())
             }
             invalidateOptionsMenu()
         })
         viewModel.isSelection.observe(this, Observer {
-            buttonDelete.visibility(it)
-            buttonSelectAll.visibility(it)
+            binding.buttonDelete.visibility(it)
+            binding.buttonSelectAll.visibility(it)
         })
     }
 
@@ -210,20 +208,20 @@ class BranchTransactionActivity :
     }
 
     private fun updateButton() {
-        buttonDelete.text =
+        binding.buttonDelete.text =
             formatString(R.string.params_delete, viewModel.getSelectedCount())
-        buttonSelectAll.text = formatString(
+        binding.buttonSelectAll.text = formatString(
             if (viewModel.isSelectedAll())
                 R.string.action_deselect_all
             else
                 R.string.action_select_all
         )
-        buttonDelete.isEnabled = viewModel.getSelectedCount() > 0
+        binding.buttonDelete.isEnabled = viewModel.getSelectedCount() > 0
     }
 
     private fun initRecyclerView() {
         controller.setAdapterCallbacks(this)
-        recyclerViewBranchTransaction.setController(controller)
+        binding.recyclerViewBranchTransaction.setController(controller)
     }
 
     private fun showDeleteTransactionsBottomSheet(position: Int = 0) {
@@ -322,5 +320,11 @@ class BranchTransactionActivity :
         const val EXTRA_DISABLE_ACTION = "disable_action"
         const val TAG_DELETE_TRANSACTION_DIALOG = "delete_transaction_dialog"
     }
+
+    override val viewModelClassType: Class<BranchTransactionViewModel>
+        get() = BranchTransactionViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchTransactionBinding
+        get() = ActivityBranchTransactionBinding::inflate
 
 }

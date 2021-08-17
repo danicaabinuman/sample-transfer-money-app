@@ -29,11 +29,10 @@ import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.data.model.ItemState
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
+import com.unionbankph.corporate.databinding.HeaderManageDeviceDetailBinding
+import com.unionbankph.corporate.databinding.ItemManageDeviceDetailBinding
 import com.unionbankph.corporate.settings.data.model.Device
 import com.unionbankph.corporate.settings.data.model.LastAccessed
-import kotlinx.android.synthetic.main.header_manage_device_detail.view.*
-import kotlinx.android.synthetic.main.item_manage_device_detail.view.*
-import kotlinx.android.synthetic.main.widget_device_card_view.view.*
 
 class ManageDeviceDetailController
 constructor(
@@ -143,10 +142,10 @@ abstract class ManageDevicesDetailHeaderModel :
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
-            textViewDevice.text = device.userAgent
-            textViewDeviceUpdate.text = device.loginDate
-            imageViewDevice.setImageResource(
+        holder.binding.apply {
+            cardViewDevice.textViewDevice.text = device.userAgent
+            cardViewDevice.textViewDeviceUpdate.text = device.loginDate
+            cardViewDevice.imageViewDevice.setImageResource(
                 when (device.devicePlatform) {
                     DEVICE_ANDROID -> {
                         R.drawable.ic_device_android
@@ -188,18 +187,10 @@ abstract class ManageDevicesDetailHeaderModel :
 
     class Holder : EpoxyHolder() {
 
-        lateinit var imageViewDevice: ImageView
-        lateinit var textViewDevice: TextView
-        lateinit var textViewDeviceUpdate: TextView
-        lateinit var buttonTrustedDevice: Button
-        lateinit var buttonForgetDevice: Button
+        lateinit var binding: HeaderManageDeviceDetailBinding
 
         override fun bindView(itemView: View) {
-            imageViewDevice = itemView.imageViewDevice
-            textViewDevice = itemView.textViewDevice
-            textViewDeviceUpdate = itemView.textViewDeviceUpdate
-            buttonTrustedDevice = itemView.buttonTrustedDevice
-            buttonForgetDevice = itemView.buttonForgetDevice
+            binding = HeaderManageDeviceDetailBinding.bind(itemView)
         }
     }
 }
@@ -217,7 +208,7 @@ abstract class ManageDevicesDetailItemModel :
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             textViewDate.text = lastAccessed.loginDate
             textViewLocation.text = lastAccessed.location
@@ -227,18 +218,10 @@ abstract class ManageDevicesDetailItemModel :
 
     class Holder : EpoxyHolder() {
 
-        lateinit var viewBorderTop: View
-        lateinit var viewBorderBottom: View
-        lateinit var textViewDate: TextView
-        lateinit var textViewLocation: TextView
-        lateinit var textViewStatus: TextView
+        lateinit var binding: ItemManageDeviceDetailBinding
 
         override fun bindView(itemView: View) {
-            viewBorderTop = itemView.viewBorderTop
-            viewBorderBottom = itemView.viewBorderBottom
-            textViewDate = itemView.textViewDate
-            textViewLocation = itemView.textViewLocation
-            textViewStatus = itemView.textViewStatus
+            binding = ItemManageDeviceDetailBinding.bind(itemView)
         }
     }
 }

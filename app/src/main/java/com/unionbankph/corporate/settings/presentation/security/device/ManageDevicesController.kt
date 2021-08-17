@@ -21,9 +21,9 @@ import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.HeaderTitleModel_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
+import com.unionbankph.corporate.databinding.ItemManageDeviceBinding
 import com.unionbankph.corporate.settings.data.model.Device
 import com.unionbankph.corporate.settings.data.model.ManageDevicesDto
-import kotlinx.android.synthetic.main.item_manage_device.view.*
 
 class ManageDevicesController
 constructor(
@@ -56,7 +56,7 @@ constructor(
                 id("trusted_devices_${device.id}")
                 device(device)
                 position(index)
-                callbacks(callbacks)
+                callbacks(this@ManageDevicesController.callbacks)
             }
         }
         headerUnTrustedTitleModel.title(context.getString(R.string.title_untrusted_devices))
@@ -66,7 +66,7 @@ constructor(
                 id("untrusted_devices_${device.id}")
                 device(device)
                 position(index)
-                callbacks(callbacks)
+                callbacks(this@ManageDevicesController.callbacks)
             }
         }
         headerBrowserTitleModel.title(context.getString(R.string.title_browser_access))
@@ -76,7 +76,7 @@ constructor(
                 id("browser_access_${device.id}")
                 device(device)
                 position(index)
-                callbacks(callbacks)
+                callbacks(this@ManageDevicesController.callbacks)
             }
         }
     }
@@ -106,7 +106,7 @@ abstract class ManageDevicesItemModel : EpoxyModelWithHolder<ManageDevicesItemMo
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             textViewDevice.text = device.userAgent
             textViewDeviceUpdate.text = device.loginDate
@@ -130,27 +130,17 @@ abstract class ManageDevicesItemModel : EpoxyModelWithHolder<ManageDevicesItemMo
                     }
             )
             constraintLayoutItem.setOnClickListener {
-                callbacks.onClickItem(holder.constraintLayoutItem, device, position)
+                callbacks.onClickItem(constraintLayoutItem, device, position)
             }
         }
     }
 
     class Holder : EpoxyHolder() {
 
-        lateinit var constraintLayoutItem: ConstraintLayout
-        lateinit var viewBorderTop: View
-        lateinit var viewBorderBottom: View
-        lateinit var imageViewDevice: ImageView
-        lateinit var textViewDevice: TextView
-        lateinit var textViewDeviceUpdate: TextView
+        lateinit var binding: ItemManageDeviceBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutItem = itemView.constraintLayoutItem
-            imageViewDevice = itemView.imageViewDevice
-            viewBorderTop = itemView.viewBorderTop
-            viewBorderBottom = itemView.viewBorderBottom
-            textViewDevice = itemView.textViewDevice
-            textViewDeviceUpdate = itemView.textViewDeviceUpdate
+            binding = ItemManageDeviceBinding.bind(itemView)
         }
     }
 }

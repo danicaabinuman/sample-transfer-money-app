@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.presentation.notification
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Switch
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,13 +13,13 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.setEnableView
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.databinding.FragmentNotificationDetailBinding
 import com.unionbankph.corporate.notification.data.form.NotificationForm
 import com.unionbankph.corporate.notification.data.model.Notification
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_notification_detail.*
 
 class NotificationDetailFragment :
-    BaseFragment<NotificationViewModel>(R.layout.fragment_notification_detail) {
+    BaseFragment<FragmentNotificationDetailBinding, NotificationViewModel>() {
 
     private lateinit var notification: Notification
 
@@ -35,17 +37,15 @@ class NotificationDetailFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[NotificationViewModel::class.java]
 
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowNotificationLoading -> {
-                    viewLoadingState.visibility(true)
-                    constraintLayout.visibility(false)
+                    binding.viewLoadingState.viewLoadingLayout.visibility(true)
+                    binding.constraintLayout.visibility(false)
                 }
                 is ShowNotificationDismissLoading -> {
-                    viewLoadingState.visibility(false)
+                    binding.viewLoadingState.viewLoadingLayout.visibility(false)
                 }
                 is ShowNotificationLoadingSubmit -> {
                     showProgressAlertDialog(NotificationDetailFragment::class.java.simpleName)
@@ -54,7 +54,7 @@ class NotificationDetailFragment :
                     dismissProgressAlertDialog()
                 }
                 is ShowNotificationDetailData -> {
-                    constraintLayout.visibility(true)
+                    binding.constraintLayout.visibility(true)
                     setSwitchCompatData(it.data)
                 }
                 is ShowNotificationData -> {
@@ -86,95 +86,95 @@ class NotificationDetailFragment :
 //            }
         }.addTo(disposables)
 
-        switchCompat.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (switchCompat.tag != null) {
-                switchCompat.tag = null
+        binding.switchCompat.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (binding.switchCompat.tag != null) {
+                binding. switchCompat.tag = null
                 return@setOnCheckedChangeListener
             }
-            currentSwitch = switchCompat
+            currentSwitch = binding.switchCompat
             notification.receiveNotifications = isChecked
             viewModel.updateNotificationSettings(setNotificationForm())
         }
 
-        switchCompatPush.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (switchCompatPush.tag != null) {
-                switchCompatPush.tag = null
+        binding.switchCompatPush.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (binding.switchCompatPush.tag != null) {
+                binding.switchCompatPush.tag = null
                 return@setOnCheckedChangeListener
             }
-            currentSwitch = switchCompatPush
+            currentSwitch = binding.switchCompatPush
             notification.receivePush = isChecked
             viewModel.updateNotificationSettings(setNotificationForm())
         }
 
-        switchCompatSMS.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (switchCompatSMS.tag != null) {
-                switchCompatSMS.tag = null
+        binding.switchCompatSMS.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (binding.switchCompatSMS.tag != null) {
+                binding.switchCompatSMS.tag = null
                 return@setOnCheckedChangeListener
             }
-            currentSwitch = switchCompatSMS
+            currentSwitch = binding.switchCompatSMS
             notification.receiveSms = isChecked
             viewModel.updateNotificationSettings(setNotificationForm())
         }
 
-        switchCompatEmail.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (switchCompatEmail.tag != null) {
-                switchCompatEmail.tag = null
+        binding.switchCompatEmail.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (binding.switchCompatEmail.tag != null) {
+                binding.switchCompatEmail.tag = null
                 return@setOnCheckedChangeListener
             }
-            currentSwitch = switchCompatEmail
+            currentSwitch = binding.switchCompatEmail
             notification.receiveEmail = isChecked
             viewModel.updateNotificationSettings(setNotificationForm())
         }
 
-        switchCompat.setOnTouchListener { view, motionEvent ->
-            switchCompat.tag = null
+        binding.switchCompat.setOnTouchListener { view, motionEvent ->
+            binding.switchCompat.tag = null
             return@setOnTouchListener false
         }
 
-        switchCompatPush.setOnTouchListener { view, motionEvent ->
-            switchCompatPush.tag = null
+        binding.switchCompatPush.setOnTouchListener { view, motionEvent ->
+            binding.switchCompatPush.tag = null
             return@setOnTouchListener false
         }
 
-        switchCompatSMS.setOnTouchListener { view, motionEvent ->
-            switchCompatSMS.tag = null
+        binding.switchCompatSMS.setOnTouchListener { view, motionEvent ->
+            binding.switchCompatSMS.tag = null
             return@setOnTouchListener false
         }
 
-        switchCompatEmail.setOnTouchListener { view, motionEvent ->
-            switchCompatEmail.tag = null
+        binding.switchCompatEmail.setOnTouchListener { view, motionEvent ->
+            binding.switchCompatEmail.tag = null
             return@setOnTouchListener false
         }
     }
 
     private fun revertSwitch() {
         when (currentSwitch) {
-            switchCompat -> {
-                switchCompat.tag = NotificationDetailFragment::class.java.simpleName
-                switchCompat.isChecked = !switchCompat.isChecked
+            binding.switchCompat -> {
+                binding.switchCompat.tag = NotificationDetailFragment::class.java.simpleName
+                binding.switchCompat.isChecked = !binding.switchCompat.isChecked
             }
-            switchCompatPush -> {
-                switchCompatPush.tag = NotificationDetailFragment::class.java.simpleName
-                switchCompatPush.isChecked = !switchCompatPush.isChecked
+            binding.switchCompatPush -> {
+                binding.switchCompatPush.tag = NotificationDetailFragment::class.java.simpleName
+                binding.switchCompatPush.isChecked = !binding.switchCompatPush.isChecked
             }
-            switchCompatSMS -> {
-                switchCompatSMS.tag = NotificationDetailFragment::class.java.simpleName
-                switchCompatSMS.isChecked = !switchCompatSMS.isChecked
+            binding.switchCompatSMS -> {
+                binding.switchCompatSMS.tag = NotificationDetailFragment::class.java.simpleName
+                binding.switchCompatSMS.isChecked = !binding.switchCompatSMS.isChecked
             }
-            switchCompatEmail -> {
-                switchCompatEmail.tag = NotificationDetailFragment::class.java.simpleName
-                switchCompatEmail.isChecked = !switchCompatEmail.isChecked
+            binding.switchCompatEmail -> {
+                binding.switchCompatEmail.tag = NotificationDetailFragment::class.java.simpleName
+                binding.switchCompatEmail.isChecked = !binding.switchCompatEmail.isChecked
             }
         }
     }
 
     private fun setSwitchCompatData(data: Notification) {
         notification = data
-        switchCompat.tag = NotificationDetailFragment::class.java.simpleName
-        switchCompatPush.tag = NotificationDetailFragment::class.java.simpleName
-        switchCompatSMS.tag = NotificationDetailFragment::class.java.simpleName
-        switchCompatEmail.tag = NotificationDetailFragment::class.java.simpleName
-        textViewSwitch.text = when (notification.notificationId) {
+        binding.switchCompat.tag = NotificationDetailFragment::class.java.simpleName
+        binding.switchCompatPush.tag = NotificationDetailFragment::class.java.simpleName
+        binding.switchCompatSMS.tag = NotificationDetailFragment::class.java.simpleName
+        binding.switchCompatEmail.tag = NotificationDetailFragment::class.java.simpleName
+        binding.textViewSwitch.text = when (notification.notificationId) {
             NotificationLogCodeEnum.CREATE_NOTIFICATION.value -> {
                 formatString(R.string.desc_notification_1001)
             }
@@ -194,16 +194,16 @@ class NotificationDetailFragment :
                 formatString(R.string.desc_notification_1001)
             }
         }
-        constraintLayoutPush.setEnableView(notification.receiveNotifications)
-        constraintLayoutSMS.setEnableView(notification.receiveNotifications)
-        constraintLayoutEmail.setEnableView(notification.receiveNotifications)
-        switchCompat.isChecked = notification.receiveNotifications
-        switchCompatPush.isEnabled = notification.receiveNotifications
-        switchCompatPush.isChecked = notification.receivePush
-        switchCompatSMS.isEnabled = notification.receiveNotifications
-        switchCompatSMS.isChecked = notification.receiveSms
-        switchCompatEmail.isEnabled = notification.receiveNotifications
-        switchCompatEmail.isChecked = notification.receiveEmail
+        binding.constraintLayoutPush.setEnableView(notification.receiveNotifications)
+        binding.constraintLayoutSMS.setEnableView(notification.receiveNotifications)
+        binding.constraintLayoutEmail.setEnableView(notification.receiveNotifications)
+        binding.switchCompat.isChecked = notification.receiveNotifications
+        binding.switchCompatPush.isEnabled = notification.receiveNotifications
+        binding.switchCompatPush.isChecked = notification.receivePush
+        binding.switchCompatSMS.isEnabled = notification.receiveNotifications
+        binding.switchCompatSMS.isChecked = notification.receiveSms
+        binding.switchCompatEmail.isEnabled = notification.receiveNotifications
+        binding.switchCompatEmail.isChecked = notification.receiveEmail
     }
 
     private fun setNotificationForm(): NotificationForm {
@@ -216,4 +216,10 @@ class NotificationDetailFragment :
     companion object {
         const val EXTRA_ID = "id"
     }
+
+    override val viewModelClassType: Class<NotificationViewModel>
+        get() = NotificationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNotificationDetailBinding
+        get() = FragmentNotificationDetailBinding::inflate
 }

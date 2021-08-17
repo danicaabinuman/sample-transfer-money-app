@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
+import com.unionbankph.corporate.app.common.extension.viewBinding
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.source.local.sharedpref.SharedPreferenceUtil
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
@@ -21,7 +25,7 @@ import javax.inject.Inject
 /**
  * Created by herald25santos on 09/05/2019
  */
-abstract class BaseBottomSheetDialog<VM : ViewModel>(private val layoutId: Int) :
+abstract class BaseBottomSheetDialog<VB : ViewBinding, VM : ViewModel> :
     BottomSheetDialogFragment() {
 
     @Inject
@@ -41,11 +45,21 @@ abstract class BaseBottomSheetDialog<VM : ViewModel>(private val layoutId: Int) 
 
     lateinit var viewModel: VM
 
+    abstract val bindingBinder: (View) -> VB
+
+    @get:LayoutRes
+    abstract val layoutId: Int
+
+    val binding by viewBinding(bindingBinder)
+
+    protected abstract val viewModelClassType: Class<VM>
+
     protected open fun beforeLayout(savedInstanceState: Bundle?) {}
     protected open fun afterLayout(savedInstanceState: Bundle?) {}
 
     protected open fun onInitializeListener() {}
-    protected open fun onViewModelBound() {}
+    protected open fun onViewModelBound() { initViewModel() }
+
     protected open fun onViewsBound() {}
 
     val disposables = CompositeDisposable()
@@ -79,6 +93,10 @@ abstract class BaseBottomSheetDialog<VM : ViewModel>(private val layoutId: Int) 
         onViewModelBound()
         onViewsBound()
         onInitializeListener()
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[viewModelClassType]
     }
 
     override fun onDestroyView() {

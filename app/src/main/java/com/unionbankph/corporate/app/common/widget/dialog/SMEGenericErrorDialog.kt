@@ -1,32 +1,46 @@
 package com.unionbankph.corporate.app.common.widget.dialog
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.unionbankph.corporate.R
-import kotlinx.android.synthetic.main.dialog_oops_something_went_wrong.*
+import com.unionbankph.corporate.databinding.DialogOopsSomethingWentWrongBinding
 
 class SMEGenericErrorDialog : DialogFragment(){
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private var _binding: DialogOopsSomethingWentWrongBinding? = null
 
-        return inflater.inflate(R.layout.dialog_oops_something_went_wrong, container, false)
-    }
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
-    override fun onStart() {
-        super.onStart()
-        val width = (resources.displayMetrics.widthPixels * 0.85).toInt()
-        val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
-        dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
-    }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-    override fun onResume() {
-        super.onResume()
+        _binding = DialogOopsSomethingWentWrongBinding.inflate(LayoutInflater.from(context))
 
-        btnOopsSomethingWentWrongClose.setOnClickListener{
-            dismiss()
+
+        val dialog = activity?.let {
+            Dialog(it)
         }
+
+        if(dialog != null) {
+            val width = (resources.displayMetrics.widthPixels * 0.85).toInt()
+            val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
+            dialog.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+            dialog.setContentView(binding.root)
+
+            binding.btnOopsSomethingWentWrongClose.setOnClickListener{
+                dismiss()
+            }
+        }
+        return dialog!!
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

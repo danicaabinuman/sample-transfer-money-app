@@ -3,6 +3,7 @@ package com.unionbankph.corporate.corporate.presentation.channel
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -31,6 +32,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTu
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.corporate.data.model.Channel
+import com.unionbankph.corporate.databinding.ActivityChannelBinding
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_form.ManageBeneficiaryFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.instapay.InstaPayFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.pddts.PDDTSFormActivity
@@ -39,11 +41,9 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftFormActiv
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPFormActivity
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_channel.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 class ChannelActivity :
-    BaseActivity<ChannelViewModel>(R.layout.activity_channel),
+    BaseActivity<ActivityChannelBinding, ChannelViewModel>(),
     OnTutorialListener, EpoxyAdapterCallback<Channel> {
 
     private val controller = ChannelController(this)
@@ -52,7 +52,7 @@ class ChannelActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewsBound() {
@@ -70,22 +70,21 @@ class ChannelActivity :
 
     private fun initViewModel() {
         generalViewModel.getOrgName()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[ChannelViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutChannel,
-                        recyclerViewChannel,
-                        textViewState
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutChannel,
+                        binding.recyclerViewChannel,
+                        binding.textViewState
                     )
                 }
                 is UiState.Complete -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutChannel,
-                        recyclerViewChannel
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutChannel,
+                        binding.recyclerViewChannel
                     )
                 }
                 is UiState.Error -> {
@@ -106,8 +105,8 @@ class ChannelActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         if (intent.getStringExtra(EXTRA_PAGE) != null &&
                             intent.getStringExtra(EXTRA_PAGE) == PAGE_BENEFICIARY
                         ) {
@@ -146,7 +145,7 @@ class ChannelActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        swipeRefreshLayoutChannel.apply {
+        binding.swipeRefreshLayoutChannel.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getAccountChannels()
@@ -169,7 +168,7 @@ class ChannelActivity :
             }
             R.id.menu_help -> {
                 isClickedHelpTutorial = true
-                recyclerViewChannel.post { recyclerViewChannel.smoothScrollToPosition(0) }
+                binding.recyclerViewChannel.post { binding.recyclerViewChannel.smoothScrollToPosition(0) }
                 Handler().postDelayed(
                     {
                         startViewTutorial()
@@ -235,7 +234,7 @@ class ChannelActivity :
 
     private fun initRecyclerView() {
         controller.setAdapterCallbacks(this)
-        recyclerViewChannel.setController(controller)
+        binding.recyclerViewChannel.setController(controller)
     }
 
     private fun navigateInstapayFormScreen(
@@ -542,7 +541,7 @@ class ChannelActivity :
     }
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
-        if (!isSkipTutorial && view == recyclerViewChannel.findViewHolderForAdapterPosition(0)?.itemView) {
+        if (!isSkipTutorial && view == binding.recyclerViewChannel.findViewHolderForAdapterPosition(0)?.itemView) {
             val firstSectioned = viewModel.sectionedChannels.value
                 ?.filter { it.type == Constant.UNIONBANK_ONLY || it.type == Constant.BILLS_PAYMENT }
                 ?.get(0)?.data
@@ -551,9 +550,9 @@ class ChannelActivity :
                 ?.get(0)?.data
             val firstSectionedSize = firstSectioned?.size ?: 0
             val secondSectionedSize = secondSectioned?.size ?: 0
-            val cardViewTop = recyclerViewChannel
+            val cardViewTop = binding.recyclerViewChannel
                 .findViewHolderForAdapterPosition(firstSectionedSize.plus(1))?.itemView
-            val cardViewBottom = recyclerViewChannel
+            val cardViewBottom = binding.recyclerViewChannel
                 .findViewHolderForAdapterPosition(
                     firstSectionedSize + 1 + secondSectionedSize
                 )?.itemView
@@ -569,7 +568,7 @@ class ChannelActivity :
 
             secondSectioned?.forEachIndexed { index, channel ->
                 val rectIterate = Rect()
-                recyclerViewChannel
+                binding.recyclerViewChannel
                     .findViewHolderForAdapterPosition(
                         (firstSectionedSize + 1) + (index + 1)
                     )?.itemView?.getGlobalVisibleRect(rectIterate)
@@ -603,9 +602,9 @@ class ChannelActivity :
         val firstSectionedSize = viewModel.sectionedChannels.value
             ?.filter { it.type == Constant.UNIONBANK_ONLY || it.type == Constant.BILLS_PAYMENT }
             ?.get(0)?.data?.size ?: 0
-        val cardView = recyclerViewChannel
+        val cardView = binding.recyclerViewChannel
             .findViewHolderForAdapterPosition(0)?.itemView
-        val cardViewEnd = recyclerViewChannel
+        val cardViewEnd = binding.recyclerViewChannel
             .findViewHolderForAdapterPosition(firstSectionedSize)?.itemView
         if (cardView != null && cardViewEnd != null) {
             val totalHeight = cardView.height + (cardViewEnd.height * firstSectionedSize)
@@ -637,4 +636,10 @@ class ChannelActivity :
         const val PAGE_BENEFICIARY = "beneficiary"
         const val PAGE_BRANCH_VISIT = "branch_visit"
     }
+
+    override val viewModelClassType: Class<ChannelViewModel>
+        get() = ChannelViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityChannelBinding
+        get() = ActivityChannelBinding::inflate
 }

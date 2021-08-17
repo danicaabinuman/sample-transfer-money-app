@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.presentation.general
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
@@ -22,13 +24,13 @@ import com.unionbankph.corporate.common.presentation.constant.TutorialScreenEnum
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.FragmentGeneralSettingsBinding
 import com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_general_settings.*
 import java.util.concurrent.TimeUnit
 
 class GeneralSettingsFragment :
-    BaseFragment<GeneralSettingsViewModel>(R.layout.fragment_general_settings),
+    BaseFragment<FragmentGeneralSettingsBinding, GeneralSettingsViewModel>(),
     OnTutorialListener {
 
     override fun onViewModelBound() {
@@ -72,9 +74,6 @@ class GeneralSettingsFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[GeneralSettingsViewModel::class.java]
-
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowGeneralSettingsResetTutorial -> {
@@ -115,7 +114,7 @@ class GeneralSettingsFragment :
 
     private fun initListener() {
         tutorialEngineUtil.setOnTutorialListener(this)
-        RxView.clicks(constraintLayoutProfile)
+        RxView.clicks(binding.constraintLayoutProfile)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -125,7 +124,7 @@ class GeneralSettingsFragment :
                     BaseEvent(FragmentSettingsSyncEvent.ACTION_CLICK_PROFILE)
                 )
             }.addTo(disposables)
-        RxView.clicks(constraintLayoutSecurity)
+        RxView.clicks(binding.constraintLayoutSecurity)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -135,7 +134,7 @@ class GeneralSettingsFragment :
                     BaseEvent(FragmentSettingsSyncEvent.ACTION_CLICK_SECURITY)
                 )
             }.addTo(disposables)
-        RxView.clicks(constraintLayoutNotification)
+        RxView.clicks(binding.constraintLayoutNotification)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -145,7 +144,7 @@ class GeneralSettingsFragment :
                     BaseEvent(FragmentSettingsSyncEvent.ACTION_CLICK_NOTIFICATION)
                 )
             }.addTo(disposables)
-        RxView.clicks(constraintLayoutLearnMore)
+        RxView.clicks(binding.constraintLayoutLearnMore)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -160,7 +159,7 @@ class GeneralSettingsFragment :
                     transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
                 )
             }.addTo(disposables)
-        RxView.clicks(constraintLayoutDisplay)
+        RxView.clicks(binding.constraintLayoutDisplay)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -191,25 +190,25 @@ class GeneralSettingsFragment :
         if (!isSkipTutorial) {
             if (view != null) {
                 when (view) {
-                    constraintLayoutProfile -> {
+                    binding.constraintLayoutProfile -> {
                         startViewTutorial(
-                            constraintLayoutSecurity,
+                            binding.constraintLayoutSecurity,
                             R.string.msg_tutorial_setting_security
                         )
                     }
-                    constraintLayoutSecurity -> {
+                    binding.constraintLayoutSecurity -> {
                         startViewTutorial(
-                            constraintLayoutNotification,
+                            binding.constraintLayoutNotification,
                             R.string.msg_tutorial_setting_notification
                         )
                     }
-                    constraintLayoutNotification -> {
+                    binding.constraintLayoutNotification -> {
                         startViewTutorial(
-                            constraintLayoutLearnMore,
+                            binding.constraintLayoutLearnMore,
                             R.string.msg_tutorial_setting_learn_more
                         )
                     }
-                    constraintLayoutLearnMore -> {
+                    binding.constraintLayoutLearnMore -> {
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_TUTORIAL_SETTINGS_DONE)
                         )
@@ -219,7 +218,7 @@ class GeneralSettingsFragment :
                 if (isClickedHelpTutorial) {
                     isClickedHelpTutorial = false
                     startViewTutorial(
-                        constraintLayoutProfile,
+                        binding.constraintLayoutProfile,
                         R.string.msg_tutorial_setting_profile
                     )
                 } else {
@@ -259,7 +258,13 @@ class GeneralSettingsFragment :
     }
 
     private fun init() {
-        constraintLayoutDisplay.visibility(!App.isSME())
-        viewBorderDisplay.visibility(!App.isSME())
+        binding.constraintLayoutDisplay.visibility(!App.isSME())
+        binding.viewBorderDisplay.visibility(!App.isSME())
     }
+
+    override val viewModelClassType: Class<GeneralSettingsViewModel>
+        get() = GeneralSettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentGeneralSettingsBinding
+        get() = FragmentGeneralSettingsBinding::inflate
 }

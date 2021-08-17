@@ -26,8 +26,9 @@ import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import kotlinx.android.synthetic.main.item_ongoing_approval.view.*
-import kotlinx.android.synthetic.main.row_approvals_ongoing.view.*
+import com.unionbankph.corporate.databinding.ItemOngoingApprovalBinding
+import com.unionbankph.corporate.databinding.RowApprovalsDoneBinding
+import com.unionbankph.corporate.databinding.RowApprovalsOngoingBinding
 
 class ApprovalOngoingController
 constructor(
@@ -71,24 +72,24 @@ constructor(
                     id(transaction.id)
                     hasSelected(transaction.hasSelected)
                     hasSelection(isSelection)
-                    transactionJsonString(getTransactionJsonString(transaction))
+                    transactionJsonString(this@ApprovalOngoingController.getTransactionJsonString(transaction))
                     position(position)
-                    autoFormatUtil(autoFormatUtil)
-                    viewUtil(viewUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    autoFormatUtil(this@ApprovalOngoingController.autoFormatUtil)
+                    viewUtil(this@ApprovalOngoingController.viewUtil)
+                    context(this@ApprovalOngoingController.context)
+                    callbacks(this@ApprovalOngoingController.callbacks)
                 }
             } else {
                 ongoingApprovalItem {
                     id(transaction.id)
                     hasSelected(transaction.hasSelected)
                     hasSelection(isSelection)
-                    transactionJsonString(getTransactionJsonString(transaction))
+                    transactionJsonString(this@ApprovalOngoingController.getTransactionJsonString(transaction))
                     position(position)
-                    autoFormatUtil(autoFormatUtil)
-                    viewUtil(viewUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    autoFormatUtil(this@ApprovalOngoingController.autoFormatUtil)
+                    viewUtil(this@ApprovalOngoingController.viewUtil)
+                    context(this@ApprovalOngoingController.context)
+                    callbacks(this@ApprovalOngoingController.callbacks)
                 }
             }
         }
@@ -150,8 +151,8 @@ abstract class OngoingApprovalItemModel : EpoxyModelWithHolder<OngoingApprovalIt
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
-            cardViewBatch.visibility =
+        holder.binding.apply {
+            viewCardViewBatch.root.visibility =
                 if (transaction.batchType == Constant.TYPE_BATCH) View.VISIBLE
                 else View.GONE
 
@@ -284,14 +285,14 @@ abstract class OngoingApprovalItemModel : EpoxyModelWithHolder<OngoingApprovalIt
                         transaction.totalAmount.formatAmount(transaction.currency)
                 }
             }
-            itemViewHolder.setOnClickListener {
+            root.setOnClickListener {
                 callbacks.onClickItem(
                     transaction.id.toString(),
                     JsonHelper.toJson(transaction),
                     position
                 )
             }
-            itemViewHolder.setOnLongClickListener {
+            root.setOnLongClickListener {
                 callbacks.onLongClickItem(transaction.id.toString(), position)
                 true
             }
@@ -312,42 +313,11 @@ abstract class OngoingApprovalItemModel : EpoxyModelWithHolder<OngoingApprovalIt
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutApprovalContent: ConstraintLayout
-        lateinit var cardViewBatch: View
-        lateinit var cardViewContent: CardView
-        lateinit var imageViewIcon: ImageView
-        lateinit var textViewRemarks: TextView
-        lateinit var textViewCreatedBy: TextView
-        lateinit var textViewChannelTitle: TextView
-        lateinit var textViewChannel: TextView
-        lateinit var textViewTotalTransactionTitle: TextView
-        lateinit var textViewProposedDateTitle: TextView
-        lateinit var textViewProposedDate: TextView
-        lateinit var textViewTotalTransaction: TextView
-        lateinit var textViewTransferTo: TextView
-        lateinit var textViewTransferToTitle: TextView
-        lateinit var buttonApprove: Button
-        lateinit var buttonReject: Button
-        lateinit var itemViewHolder: View
+
+        lateinit var binding: ItemOngoingApprovalBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutApprovalContent = itemView.constraintLayoutApprovalContent
-            cardViewBatch = itemView.cardViewBatch
-            cardViewContent = itemView.cardViewContent
-            imageViewIcon = itemView.imageViewIcon
-            textViewRemarks = itemView.textViewRemarks
-            textViewCreatedBy = itemView.textViewCreatedBy
-            textViewChannelTitle = itemView.textViewChannelTitle
-            textViewChannel = itemView.textViewChannel
-            textViewTotalTransactionTitle = itemView.textViewTotalTransactionTitle
-            textViewProposedDate = itemView.textViewProposedDate
-            textViewProposedDateTitle = itemView.textViewProposedDateTitle
-            textViewTotalTransaction = itemView.textViewTotalTransaction
-            textViewTransferTo = itemView.textViewTransferTo
-            textViewTransferToTitle = itemView.textViewTransferToTitle
-            buttonApprove = itemView.buttonApprove
-            buttonReject = itemView.buttonReject
-            itemViewHolder = itemView
+            binding = ItemOngoingApprovalBinding.bind(itemView)
         }
     }
 }
@@ -384,7 +354,7 @@ abstract class ApprovalsOngoingRowModel : EpoxyModelWithHolder<ApprovalsOngoingR
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             imageViewRowIcon.setImageResource(
                 when {
@@ -464,14 +434,14 @@ abstract class ApprovalsOngoingRowModel : EpoxyModelWithHolder<ApprovalsOngoingR
                     R.color.colorTransparent
                 }
             )
-            itemView.setOnClickListener {
+            root.setOnClickListener {
                 callbacks.onClickItem(
                     transaction.id.toString(),
                     JsonHelper.toJson(transaction),
                     position
                 )
             }
-            itemView.setOnLongClickListener {
+            root.setOnLongClickListener {
                 callbacks.onLongClickItem(transaction.id.toString(), position)
                 true
             }
@@ -486,28 +456,11 @@ abstract class ApprovalsOngoingRowModel : EpoxyModelWithHolder<ApprovalsOngoingR
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var linearLayoutRow: LinearLayout
-        lateinit var viewBackgroundRow: View
-        lateinit var imageViewRowIcon: ImageView
-        lateinit var textViewRowRemarks: TextView
-        lateinit var textViewRowTransferTo: TextView
-        lateinit var textViewRowAmount: TextView
-        lateinit var textViewRowTransferDate: TextView
-        lateinit var textViewRowChannel: TextView
-        lateinit var viewBorderTop: View
-        lateinit var itemView: View
+
+        lateinit var binding : RowApprovalsOngoingBinding
 
         override fun bindView(itemView: View) {
-            linearLayoutRow = itemView.linearLayoutRow
-            viewBackgroundRow = itemView.viewBackgroundRow
-            imageViewRowIcon = itemView.imageViewRowIcon
-            textViewRowRemarks = itemView.textViewRowRemarks
-            textViewRowTransferTo = itemView.textViewRowTransferTo
-            textViewRowAmount = itemView.textViewRowAmount
-            textViewRowTransferDate = itemView.textViewRowTransferDate
-            textViewRowChannel = itemView.textViewRowChannel
-            viewBorderTop = itemView.viewBorderTop
-            this.itemView = itemView
+            binding = RowApprovalsOngoingBinding.bind(itemView)
         }
     }
 }

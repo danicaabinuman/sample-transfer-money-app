@@ -1,17 +1,25 @@
 package com.unionbankph.corporate.payment_link.presentation.create_merchant
 
+import android.view.LayoutInflater
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_merchant_applicaton_received.*
+import com.unionbankph.corporate.databinding.ActivityMerchantApplicatonReceivedBinding
+
 
 class MerchantApplicationReceivedActivity :
-    BaseActivity<MerchantApplicationReceivedViewModel>(R.layout.activity_merchant_applicaton_received) {
+    BaseActivity<ActivityMerchantApplicatonReceivedBinding, MerchantApplicationReceivedViewModel>() {
 
     override fun onViewsBound() {
         super.onViewsBound()
 
-        btn_back_to_dashboard.setOnClickListener(){
+        binding.btnBackToDashboard.setOnClickListener(){
             finish()
         }
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityMerchantApplicatonReceivedBinding
+        get() = ActivityMerchantApplicatonReceivedBinding::inflate
+
+    override val viewModelClassType: Class<MerchantApplicationReceivedViewModel>
+        get() = MerchantApplicationReceivedViewModel::class.java
 }

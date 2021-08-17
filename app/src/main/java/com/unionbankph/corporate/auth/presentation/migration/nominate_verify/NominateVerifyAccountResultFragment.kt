@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.auth.presentation.migration.nominate_verify
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
@@ -20,18 +22,18 @@ import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationError
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationLoading
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationResendEmailECred
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentNominateVerifyAccountResultBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_nominate_verify_account_result.*
 
 class NominateVerifyAccountResultFragment :
-    BaseFragment<MigrationViewModel>(R.layout.fragment_nominate_verify_account_result) {
+    BaseFragment<FragmentNominateVerifyAccountResultBinding, MigrationViewModel>() {
 
     private lateinit var emailAddress: String
 
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        btn_back_to_login.setOnClickListener {
+        binding.btnBackToLogin.setOnClickListener {
             navigator.navigateClearUpStack(
                 getAppCompatActivity(),
                 LoginActivity::class.java,
@@ -46,7 +48,6 @@ class NominateVerifyAccountResultFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MigrationViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowMigrationLoading -> {
@@ -79,15 +80,15 @@ class NominateVerifyAccountResultFragment :
                 }
                 ActionSyncEvent.ACTION_UPDATE_VERIFY_RESULT_MIGRATION -> {
                     val migrationSubmitDto = JsonHelper.fromJson<MigrationSubmitDto>(it.payload)
-                    tvHeader.text = migrationSubmitDto.message
-                    textViewVerifyAccountDesc.text = formatString(
+                    binding.tvHeader.text = migrationSubmitDto.message
+                    binding.textViewVerifyAccountDesc.text = formatString(
                         R.string.param_desc_nominate_verify_account,
                         emailAddress
                     ).toHtmlSpan()
                 }
                 ActionSyncEvent.ACTION_UPDATE_VERIFY_RESULT_ECRED_MIGRATION -> {
                     val eCredSubmitOTPDto = JsonHelper.fromJson<ECredSubmitOTPDto>(it.payload)
-                    textViewVerifyAccountDesc.text = formatString(
+                    binding.textViewVerifyAccountDesc.text = formatString(
                         R.string.param_desc_nominate_verify_account,
                         eCredSubmitOTPDto.emailAddress
                     ).toHtmlSpan()
@@ -105,4 +106,10 @@ class NominateVerifyAccountResultFragment :
             return fragment
         }
     }
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNominateVerifyAccountResultBinding
+        get() = FragmentNominateVerifyAccountResultBinding::inflate
 }

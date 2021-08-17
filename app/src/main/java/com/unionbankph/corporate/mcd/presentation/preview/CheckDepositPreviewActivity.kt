@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ import com.unionbankph.corporate.app.util.BitmapUtil
 import com.unionbankph.corporate.app.util.FileUtil
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityCheckDepositPreviewBinding
 import com.unionbankph.corporate.mcd.data.model.CheckDepositUpload
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraActivity
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationActivity
@@ -27,8 +29,6 @@ import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositScreenEnu
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositTypeEnum
 import com.unionbankph.corporate.mcd.presentation.form.CheckDepositFormActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_check_deposit_preview.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -38,7 +38,7 @@ import javax.inject.Inject
  * Created by herald25santos on 2019-10-23
  */
 class CheckDepositPreviewActivity :
-    BaseActivity<CheckDepositPreviewViewModel>(R.layout.activity_check_deposit_preview) {
+    BaseActivity<ActivityCheckDepositPreviewBinding, CheckDepositPreviewViewModel>() {
 
     @Inject
     lateinit var fileUtil: FileUtil
@@ -58,7 +58,7 @@ class CheckDepositPreviewActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         updateViews()
     }
 
@@ -115,8 +115,6 @@ class CheckDepositPreviewActivity :
     }
 
     private fun initCheckDepositViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[CheckDepositPreviewViewModel::class.java]
         viewModel.uiState.observe(this, Observer {
             it.getContentIfNotHandled().let { event ->
                 when (event) {
@@ -190,7 +188,7 @@ class CheckDepositPreviewActivity :
     }
 
     private fun initListener() {
-        RxView.clicks(buttonUseThis)
+        RxView.clicks(binding.buttonUseThis)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -205,13 +203,13 @@ class CheckDepositPreviewActivity :
                     }
                 }
             }.addTo(disposables)
-        buttonRetake.setOnClickListener {
+        binding.buttonRetake.setOnClickListener {
             onBackPressed()
         }
-        tv_done.setOnClickListener {
+        binding.tvDone.setOnClickListener {
             onClickedDone()
         }
-        tv_cancel.setOnClickListener {
+        binding.tvCancel.setOnClickListener {
             onClickedCancel()
         }
     }
@@ -221,8 +219,8 @@ class CheckDepositPreviewActivity :
     }
 
     private fun onClickedDone() {
-        if (imageViewCrop.canRightCrop()) {
-            currentCroppedBitmap = imageViewCrop.crop()
+        if (binding.imageViewCrop.canRightCrop()) {
+            currentCroppedBitmap = binding.imageViewCrop.crop()
             exitCroppingMode()
         }
     }
@@ -230,34 +228,34 @@ class CheckDepositPreviewActivity :
     private fun onCroppingMode() {
         isCroppedMode = true
         invalidateOptionsMenu()
-        viewUtil.startAnimateView(true, tv_cancel, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, tv_done, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, imageViewCrop, android.R.anim.fade_in)
-        viewUtil.startAnimateView(false, buttonUseThis, android.R.anim.fade_out)
-        viewUtil.startAnimateView(false, buttonRetake, android.R.anim.fade_out)
-        viewUtil.startAnimateView(false, iv_preview, android.R.anim.fade_out)
+        viewUtil.startAnimateView(true, binding.tvCancel, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.tvDone, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.imageViewCrop, android.R.anim.fade_in)
+        viewUtil.startAnimateView(false, binding.buttonUseThis, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.buttonRetake, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.ivPreview, android.R.anim.fade_out)
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.ARGB_8888
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFile(filePath, options)
         options.inJustDecodeBounds = false
         currentCroppedBitmap = BitmapFactory.decodeFile(filePath, options)
-        imageViewCrop.setImageToCrop(currentCroppedBitmap)
+        binding.imageViewCrop.setImageToCrop(currentCroppedBitmap)
     }
 
     private fun exitCroppingMode() {
         isCroppedMode = false
         invalidateOptionsMenu()
-        viewUtil.startAnimateView(false, tv_cancel, android.R.anim.fade_out)
-        viewUtil.startAnimateView(false, tv_done, android.R.anim.fade_out)
-        viewUtil.startAnimateView(false, imageViewCrop, android.R.anim.fade_out)
-        viewUtil.startAnimateView(true, buttonUseThis, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, buttonRetake, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, iv_preview, android.R.anim.fade_in)
-        iv_preview.loadImage(currentCroppedBitmap)
-        iv_preview.postDelayed(
+        viewUtil.startAnimateView(false, binding.tvCancel, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.tvDone, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.imageViewCrop, android.R.anim.fade_out)
+        viewUtil.startAnimateView(true, binding.buttonUseThis, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.buttonRetake, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.ivPreview, android.R.anim.fade_in)
+        binding.ivPreview.loadImage(currentCroppedBitmap)
+        binding.ivPreview.postDelayed(
             {
-                iv_preview.zoomOut()
+                binding.ivPreview.zoomOut()
             }, 100
         )
     }
@@ -278,18 +276,18 @@ class CheckDepositPreviewActivity :
         ) {
             onCroppingMode()
         } else if (screen == CheckDepositScreenEnum.DETAIL.name) {
-            iv_preview.loaderImageByUrl(filePath, progress_bar)
+            binding.ivPreview.loaderImageByUrl(filePath, binding.progressBar)
         } else {
-            iv_preview.loadImageByPath(filePath)
+            binding.ivPreview.loadImageByPath(filePath)
         }
         when (screen) {
             CheckDepositScreenEnum.CONFIRMATION.name,
             CheckDepositScreenEnum.SUMMARY.name,
             CheckDepositScreenEnum.DETAIL.name -> {
-                buttonUseThis.visibility(false)
-                buttonRetake.visibility(false)
-                tv_done.visibility(false)
-                tv_cancel.visibility(false)
+                binding.buttonUseThis.visibility(false)
+                binding.buttonRetake.visibility(false)
+                binding.tvDone.visibility(false)
+                binding.tvCancel.visibility(false)
             }
         }
     }
@@ -297,10 +295,10 @@ class CheckDepositPreviewActivity :
     private fun updateViews() {
         when (checkDepositType) {
             CheckDepositTypeEnum.FRONT_OF_CHECK.name -> {
-                setToolbarTitle(tvToolbar, formatString(R.string.title_front_of_check))
+                setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_front_of_check))
             }
             CheckDepositTypeEnum.BACK_OF_CHECK.name -> {
-                setToolbarTitle(tvToolbar, formatString(R.string.title_back_of_check))
+                setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_back_of_check))
             }
         }
     }
@@ -345,4 +343,10 @@ class CheckDepositPreviewActivity :
         const val BACK_CHECK = "back"
         const val EXTRA_CHECK_DEPOSIT_UPLOAD = "check_deposit_upload"
     }
+
+    override val viewModelClassType: Class<CheckDepositPreviewViewModel>
+        get() = CheckDepositPreviewViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositPreviewBinding
+        get() = ActivityCheckDepositPreviewBinding::inflate
 }

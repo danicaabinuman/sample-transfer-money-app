@@ -3,6 +3,7 @@ package com.unionbankph.corporate.payment_link.presentation.onboarding
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -14,22 +15,15 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.bus.event.TransactSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
+import com.unionbankph.corporate.databinding.ActivityRequestPaymentSplashFrameScreenBinding
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
-import kotlinx.android.synthetic.main.activity_request_payment_splash_frame_screen.*
 
-class RequestPaymentSplashActivity : BaseActivity<RequestPaymentSplashViewModel>(R.layout.activity_request_payment_splash_frame_screen) {
+class RequestPaymentSplashActivity :
+    BaseActivity<ActivityRequestPaymentSplashFrameScreenBinding, RequestPaymentSplashViewModel>() {
 
     private var merchantExists = false
     private var fromWhatTab : String? = null
-
-    override fun onViewModelBound() {
-        super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[RequestPaymentSplashViewModel::class.java]
-    }
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -55,39 +49,39 @@ class RequestPaymentSplashActivity : BaseActivity<RequestPaymentSplashViewModel>
             editor.apply()
         }
 
-        nextPageBtn.setOnClickListener{
-            viewPager2.currentItem = viewPager2.currentItem + 1
-            when (viewPager2.currentItem) {
+        binding.nextPageBtn.setOnClickListener{
+            binding.viewPager2.currentItem = binding.viewPager2.currentItem + 1
+            when (binding.viewPager2.currentItem) {
                 0,1 -> {
-                    llSkipAndNextBtn.visibility = View.VISIBLE
-                    btnGetStarted.visibility = View.GONE
+                    binding.llSkipAndNextBtn.visibility = View.VISIBLE
+                    binding.btnGetStarted.visibility = View.GONE
                 }
                 2 -> {
-                    llSkipAndNextBtn.visibility = View.GONE
-                    btnGetStarted.visibility = View.VISIBLE
+                    binding.llSkipAndNextBtn.visibility = View.GONE
+                    binding.btnGetStarted.visibility = View.VISIBLE
                 }
             }
         }
 
-        btnGetStarted.setOnClickListener{
+        binding.btnGetStarted.setOnClickListener{
             continueToNextScreen()
         }
-        skipBtn.setOnClickListener{
+        binding.skipBtn.setOnClickListener{
 //            continueToNextScreen()
-            when (viewPager2.currentItem) {
+            when (binding.viewPager2.currentItem) {
                 0 -> {
-                    viewPager2.currentItem = viewPager2.currentItem + 2
-                    llSkipAndNextBtn.visibility = View.GONE
-                    btnGetStarted.visibility = View.VISIBLE
+                    binding.viewPager2.currentItem = binding.viewPager2.currentItem + 2
+                    binding.llSkipAndNextBtn.visibility = View.GONE
+                    binding.btnGetStarted.visibility = View.VISIBLE
                 }
                 1 -> {
-                    viewPager2.currentItem = viewPager2.currentItem + 1
-                    llSkipAndNextBtn.visibility = View.GONE
-                    btnGetStarted.visibility = View.VISIBLE
+                    binding.viewPager2.currentItem = binding.viewPager2.currentItem + 1
+                    binding.llSkipAndNextBtn.visibility = View.GONE
+                    binding.btnGetStarted.visibility = View.VISIBLE
                 }
                 2 -> {
-                    llSkipAndNextBtn.visibility = View.GONE
-                    btnGetStarted.visibility = View.VISIBLE
+                    binding.llSkipAndNextBtn.visibility = View.GONE
+                    binding.btnGetStarted.visibility = View.VISIBLE
                 }
             }
         }
@@ -103,23 +97,23 @@ class RequestPaymentSplashActivity : BaseActivity<RequestPaymentSplashViewModel>
 
         val tabLayout = findViewById<TabLayout>(R.id.tlPageIndicator)
         val adapter = ViewPagerAdapter(fragments, this )
-        viewPager2.adapter = adapter
+        binding.viewPager2.adapter = adapter
 
-        TabLayoutMediator(tabLayout, viewPager2){
+        TabLayoutMediator(tabLayout, binding.viewPager2){
             tab, position ->
         }.attach()
 
-        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 when (position) {
                     0,1 -> {
-                        llSkipAndNextBtn.visibility = View.VISIBLE
-                        btnGetStarted.visibility = View.GONE
+                        binding.llSkipAndNextBtn.visibility = View.VISIBLE
+                        binding.btnGetStarted.visibility = View.GONE
                     }
                     2 -> {
-                        llSkipAndNextBtn.visibility = View.GONE
-                        btnGetStarted.visibility = View.VISIBLE
+                        binding.llSkipAndNextBtn.visibility = View.GONE
+                        binding.btnGetStarted.visibility = View.VISIBLE
                     }
                 }
             }
@@ -165,5 +159,11 @@ class RequestPaymentSplashActivity : BaseActivity<RequestPaymentSplashViewModel>
         const val EXTRA_MERCHANT_EXISTS = "extra_merchant_exists"
         const val EXTRA_FROM_WHAT_TAB = "from_what_tab"
     }
+
+    override val viewModelClassType: Class<RequestPaymentSplashViewModel>
+        get() = RequestPaymentSplashViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityRequestPaymentSplashFrameScreenBinding
+        get() = ActivityRequestPaymentSplashFrameScreenBinding::inflate
 
 }
