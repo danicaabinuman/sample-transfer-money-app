@@ -24,6 +24,14 @@ class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        btnTakeBIRPhoto.setOnClickListener {
+            listener?.openCamera()
+        }
+
+        btnAddBIRPhoto.setOnClickListener {
+            listener?.openGallery()
+        }
+
         btnAddDocument.setOnClickListener {
             listener?.openFileManager()
         }
@@ -38,6 +46,8 @@ class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
     }
 
     interface OnUploadBIRDocs{
+        fun openCamera()
+        fun openGallery()
         fun openFileManager()
     }
 

@@ -3,10 +3,12 @@ package com.unionbankph.corporate.payment_link.data.gateway
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
-import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.response.*
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationResponse
 import io.reactivex.Single
-import retrofit2.Response
 
 interface PaymentLinkGateway {
 
@@ -27,5 +29,7 @@ interface PaymentLinkGateway {
     fun validateApprover() : Single<ValidateApproverResponse>
 
     fun submitBusinessInformation(rmoBusinessInformation : RMOBusinessInformationForm) : Single<RMOBusinessInformationResponse>
+
+    fun getBusinessInformation(getRMOBusinessInformation : GetRMOBusinessInformationForm) : Single<GetRMOBusinessInformationResponse>
 
 }

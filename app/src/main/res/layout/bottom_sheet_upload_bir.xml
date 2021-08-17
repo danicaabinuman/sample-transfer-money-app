@@ -22,6 +22,7 @@
             android:padding="@dimen/grid_2"/>
 
         <TextView
+            android:id="@+id/btnTakeBIRPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/grid_2"
@@ -35,6 +36,7 @@
             android:background="@drawable/view_gray_bfbfbf_solid_line"/>
 
         <TextView
+            android:id="@+id/btnAddBIRPhoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=" Add a photo"

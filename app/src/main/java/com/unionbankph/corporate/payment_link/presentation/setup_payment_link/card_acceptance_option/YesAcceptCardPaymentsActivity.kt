@@ -2,6 +2,7 @@ package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.c
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import androidx.core.content.ContextCompat
@@ -19,6 +20,16 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
         super.afterLayout(savedInstanceState)
         initToolbar(toolbar, viewToolbar)
         setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorSMEMediumOrange, true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onViewsBound() {

@@ -19,6 +19,9 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
+import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.util.FileUtil
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import io.reactivex.rxkotlin.addTo
@@ -42,8 +45,7 @@ class OnboardingUploadPhotosActivity :
     val REQUEST_CODE = 200
     val uriArrayList = arrayListOf<Uri>()
     var adapter : BaseAdapter? = null
-        private var onboardingUploadFragment: OnboardingUploadPhotosFragment? = null
-    private var onboardingDeletePhotosFragment: OnboardingDeletePhotosFragment? = null
+    private var onboardingUploadFragment: OnboardingUploadPhotosFragment? = null
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -132,14 +134,23 @@ class OnboardingUploadPhotosActivity :
                 btnDelete.visibility(true)
 
                 btnDelete.setOnClickListener {
-                    uriArrayList.remove(itemUri)
-                    adapter?.notifyDataSetChanged()
-                    clDeleteSelectedPhoto.visibility(false)
-                    btnDelete.visibility(false)
-                    clSelectedPhotos.visibility(true)
-                    btnNext.visibility(true)
-                    btnSaveAndExit.visibility(true)
-                    btnAddPhotos2.visibility(true)
+                    DialogFactory().createSMEDialog(
+                        this,
+                        isNewDesign = false,
+                        description = "Are you sure you want to remove this photo?",
+                        positiveButtonText = "Yes, delete this photo",
+                        onPositiveButtonClicked = {
+                            uriArrayList.remove(itemUri)
+                            adapter?.notifyDataSetChanged()
+                            clDeleteSelectedPhoto.visibility(false)
+                            btnDelete.visibility(false)
+                            clSelectedPhotos.visibility(true)
+                            btnNext.visibility(true)
+                            btnSaveAndExit.visibility(true)
+                            btnAddPhotos2.visibility(true)
+                        }
+                    ).show()
+
                 }
 
                 if (uriArrayList.size == 6) {
@@ -211,7 +222,7 @@ class OnboardingUploadPhotosActivity :
             var intent = Intent()
             intent.type = "image/*"
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.action = Intent.ACTION_GET_CONTENT
+                intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(Intent.createChooser(intent, "Choose pictures"), REQUEST_CODE)
         } else {
             var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
@@ -275,13 +286,20 @@ class OnboardingUploadPhotosActivity :
     }
 
     override fun onBackPressed() {
-//        super.onBackPressed()
-        if (clDeleteSelectedPhoto.isShown){
-            clDeleteSelectedPhoto.visibility = View.GONE
-            clSelectedPhotos.visibility = View.VISIBLE
-            btnNext.visibility = View.VISIBLE
-        } else if (clSelectedPhotos.isShown || clUploadPhotosIntro.isShown){
-            super.onBackPressed()
+        when {
+            clDeleteSelectedPhoto.isShown -> {
+                clDeleteSelectedPhoto.visibility = View.GONE
+                clSelectedPhotos.visibility = View.VISIBLE
+                btnNext.visibility = View.VISIBLE
+            }
+            clSelectedPhotos.isShown -> {
+                clSelectedPhotos.visibility = View.GONE
+                clUploadPhotosIntro.visibility = View.VISIBLE
+            }
+            clUploadPhotosIntro.isShown -> {
+                super.onBackPressed()
+
+            }
         }
     }
 }

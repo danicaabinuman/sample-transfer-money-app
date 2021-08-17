@@ -3,8 +3,11 @@ package com.unionbankph.corporate.payment_link.data.source.api
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
-import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.response.*
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationResponse
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.*
@@ -53,6 +56,20 @@ interface PaymentLinkApiClient {
         @Body
         rmoBusinessInformationForm: RMOBusinessInformationForm
     ): Single<Response<RMOBusinessInformationResponse>>
+
+    @GET("msme/api/{api_version}/rmo/merchant")
+    fun getBusinessInformation(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        getRMOBusinessInformationForm: GetRMOBusinessInformationForm
+    ): Single<Response<GetRMOBusinessInformationResponse>>
 
 
     @GET("msme/api/{api_version}/payment-links")

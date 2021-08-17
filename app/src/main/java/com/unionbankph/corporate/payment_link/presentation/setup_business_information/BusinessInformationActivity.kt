@@ -14,14 +14,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.extension.isEmpty
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosActivity
-import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_business_information.viewToolbar
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
@@ -35,6 +35,7 @@ class BusinessInformationActivity :
     BaseActivity<BusinessInformationViewModel>(R.layout.activity_business_information),
     AdapterView.OnItemSelectedListener {
 
+    var rmoBusinessInformationResponse: RMOBusinessInformationForm? = null
     var businessType =
         arrayOf(
             "Select",
@@ -105,6 +106,7 @@ class BusinessInformationActivity :
     private fun initViews() {
         disableNextButton()
         requiredFields()
+        getBusinessInformation()
 
         btn_lazada.setOnClickListener { btnLazadaClicked() }
         btn_shopee.setOnClickListener { btnShopeeClicked() }
@@ -136,6 +138,31 @@ class BusinessInformationActivity :
         }
     }
 
+    private fun getBusinessInformation(){
+        rmoBusinessInformationResponse?.let {
+            viewModel.getBusinessInformation(
+                GetRMOBusinessInformationForm(
+                    it.businessType,
+                    it.storeProduct,
+                    it.infoStatus,
+                    it.yearsInBusiness,
+                    it.numberOfBranches,
+                    it.physicalStore,
+                    it.website,
+                    it.lazadaUrl,
+                    it.shopeeUrl,
+                    it.facebookUrl,
+                    it.instagramUrl,
+                    it.imageUrl1,
+                    it.imageUrl2,
+                    it.imageUrl3,
+                    it.imageUrl4,
+                    it.imageUrl5,
+                    it.imageUrl6
+                )
+            )
+        }
+    }
     private fun natureOfBusiness() {
 
         val aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, businessType)
@@ -153,6 +180,8 @@ class BusinessInformationActivity :
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (position > 0) {
             business = parent?.getItemAtPosition(position).toString()
+        } else if (position == 0){
+            disableNextButton()
         }
 
         if (position == 7) {
@@ -163,7 +192,7 @@ class BusinessInformationActivity :
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+        disableNextButton()
     }
 
     private fun fromZeroCounter() {
@@ -232,6 +261,7 @@ class BusinessInformationActivity :
             tv_lazada_title.visibility = View.VISIBLE
             til_lazada.visibility = View.VISIBLE
             et_lazada.visibility = View.VISIBLE
+            disableNextButton()
         } else if (stateChecker == 0) {
             btn_lazada.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_lazada.setTextColor(Color.parseColor("#4A4A4A"))
@@ -239,6 +269,7 @@ class BusinessInformationActivity :
             tv_lazada_title.visibility = View.GONE
             til_lazada.visibility = View.GONE
             et_lazada.visibility = View.GONE
+            disableNextButton()
         }
 
     }
@@ -254,6 +285,7 @@ class BusinessInformationActivity :
             tv_shopee_title.visibility = View.VISIBLE
             til_shopee.visibility = View.VISIBLE
             et_shopee.visibility = View.VISIBLE
+            disableNextButton()
         } else if (stateChecker == 0) {
             btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_shopee.setTextColor(Color.parseColor("#4A4A4A"))
@@ -261,6 +293,7 @@ class BusinessInformationActivity :
             tv_shopee_title.visibility = View.GONE
             til_shopee.visibility = View.GONE
             et_shopee.visibility = View.GONE
+            disableNextButton()
         }
     }
 
@@ -275,6 +308,7 @@ class BusinessInformationActivity :
             tv_facebook_title.visibility = View.VISIBLE
             til_facebook.visibility = View.VISIBLE
             et_facebook.visibility = View.VISIBLE
+            disableNextButton()
         } else if (stateChecker == 0) {
             btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_facebook.setTextColor(Color.parseColor("#4A4A4A"))
@@ -282,6 +316,7 @@ class BusinessInformationActivity :
             tv_facebook_title.visibility = View.GONE
             til_facebook.visibility = View.GONE
             et_facebook.visibility = View.GONE
+            disableNextButton()
         }
     }
 
@@ -291,18 +326,21 @@ class BusinessInformationActivity :
         if (stateChecker == 1) {
             btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_physical_store.setTextColor(Color.parseColor("#FF8200"))
+            tv_input_store_name.visibility = View.VISIBLE
             tv_input_store_name_physical_store.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
             tv_physical_store.visibility = View.VISIBLE
             til_physical_store.visibility = View.VISIBLE
             et_physical_store.visibility = View.VISIBLE
+            disableNextButton()
         } else if (stateChecker == 0) {
             btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_physical_store.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_physical_store.visibility = View.INVISIBLE
+            tv_input_store_name_physical_store.visibility = View.GONE
             tv_physical_store.visibility = View.GONE
             til_physical_store.visibility = View.GONE
             et_physical_store.visibility = View.GONE
+            disableNextButton()
         }
     }
 
@@ -317,6 +355,7 @@ class BusinessInformationActivity :
             tv_instagram_title.visibility = View.VISIBLE
             til_instagram.visibility = View.VISIBLE
             et_instagram.visibility = View.VISIBLE
+            disableNextButton()
         } else if (stateChecker == 0) {
             btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_instagram.setTextColor(Color.parseColor("#4A4A4A"))
@@ -324,6 +363,7 @@ class BusinessInformationActivity :
             tv_instagram_title.visibility = View.GONE
             til_instagram.visibility = View.GONE
             et_instagram.visibility = View.GONE
+            disableNextButton()
         }
     }
 
@@ -338,6 +378,7 @@ class BusinessInformationActivity :
             tv_website_title.visibility = View.VISIBLE
             til_website.visibility = View.VISIBLE
             til_website.visibility = View.VISIBLE
+            disableNextButton()
         } else if (stateChecker == 0) {
             btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_website.setTextColor(Color.parseColor("#4A4A4A"))
@@ -345,6 +386,7 @@ class BusinessInformationActivity :
             tv_website_title.visibility = View.GONE
             til_website.visibility = View.GONE
             et_website.visibility = View.GONE
+            disableNextButton()
         }
     }
 
@@ -359,6 +401,7 @@ class BusinessInformationActivity :
             tv_others_title.visibility = View.VISIBLE
             til_others.visibility = View.VISIBLE
             et_others.visibility = View.VISIBLE
+            disableNextButton()
         } else if (stateChecker == 0) {
             btn_others.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_others.setTextColor(Color.parseColor("#4A4A4A"))
@@ -366,6 +409,7 @@ class BusinessInformationActivity :
             tv_others_title.visibility = View.GONE
             til_others.visibility = View.GONE
             et_others.visibility = View.GONE
+            disableNextButton()
         }
     }
 
@@ -440,7 +484,12 @@ class BusinessInformationActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
+                val servicesOffered = s?.length
+                if (servicesOffered == 0){
+                    disableNextButton()
+                } else {
+                    enableNextButton()
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -453,10 +502,10 @@ class BusinessInformationActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val lazadaLink = et_lazada.text.toString()
-                if (til_lazada.isShown && lazadaLink.isEmpty()) {
+                val lazadaLink = s?.length
+                if (lazadaLink == 0) {
                     disableNextButton()
-                } else if (lazadaLink.isNotEmpty()) {
+                } else {
                     enableNextButton()
                 }
             }
@@ -472,10 +521,10 @@ class BusinessInformationActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val shopeeLink = et_shopee.text.toString()
-                if (til_shopee.isShown && shopeeLink.isEmpty()) {
+                val shopeeLink = s?.length
+                if (shopeeLink == 0) {
                     disableNextButton()
-                } else if (shopeeLink.isNotEmpty()) {
+                } else {
                     enableNextButton()
                 }
 
@@ -492,10 +541,10 @@ class BusinessInformationActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val facebookLink = et_facebook.text.toString()
-                if (til_facebook.isShown && facebookLink.isEmpty()) {
+                val facebookLink = s?.length
+                if (facebookLink == 0) {
                     disableNextButton()
-                } else if (facebookLink.isNotEmpty()) {
+                } else {
                     enableNextButton()
                 }
 
@@ -512,10 +561,10 @@ class BusinessInformationActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val instagramLink = et_instagram.text.toString()
-                if (til_instagram.isShown && instagramLink.isEmpty()) {
+                val instagramLink = s?.length
+                if (instagramLink == 0) {
                     disableNextButton()
-                } else if (instagramLink.isNotEmpty()) {
+                } else {
                     enableNextButton()
                 }
 
@@ -532,10 +581,10 @@ class BusinessInformationActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val physicalStore = et_physical_store.text.toString()
-                if (til_physical_store.isShown && physicalStore.isEmpty()) {
+                val physicalStore = s?.length
+                if (physicalStore == 0) {
                     disableNextButton()
-                } else if (physicalStore.isNotEmpty()) {
+                } else {
                     enableNextButton()
                 }
 
@@ -552,10 +601,10 @@ class BusinessInformationActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val websiteLink = et_website.text.toString()
-                if (til_website.isShown && websiteLink.isEmpty()) {
+                val websiteLink = s?.length
+                if (websiteLink == 0) {
                     disableNextButton()
-                } else if (websiteLink.isNotEmpty()) {
+                } else {
                     enableNextButton()
                 }
 
