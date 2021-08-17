@@ -14,14 +14,13 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
+import kotlinx.android.synthetic.main.fragment_nominate_password.*
 import kotlinx.android.synthetic.main.fragment_oa_nominate_password.*
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 class OaNominatePasswordFragment :
     BaseFragment<OaNominatePasswordViewModel>(R.layout.fragment_oa_nominate_password) {
-
-    private val placeholder = ""
 
     private val formDisposable = CompositeDisposable()
 
@@ -32,6 +31,19 @@ class OaNominatePasswordFragment :
 
     private fun validateForm() {
         formDisposable.clear()
+
+        val emptyObservable = RxValidator.createFor(editTextConfirmPassword)
+            .nonEmpty(getString(R.string.error_this_field))
+            .sameAs(editTextPassword, getString(R.string.error_compare_password))
+            .onValueChanged()
+            .toObservable()
+            .debounce {
+                Observable.timer(
+                    resources.getInteger(R.integer.time_edit_text_debounce_password).toLong(),
+                    TimeUnit.MILLISECONDS
+                )
+            }
+
         val lengthObservable = RxValidator.createFor(textInputEditTextPassword)
             .minLength(8)
             .maxLength(20)
@@ -85,32 +97,18 @@ class OaNominatePasswordFragment :
                 )
             }
 
-        val whiteSpaceObservable = RxValidator.createFor(textInputEditTextPassword)
-            .patternFind(
-                getString(R.string.error_password_validation_message),
-                Pattern.compile(ViewUtil.REGEX_FORMAT_HAVE_NO_WHITE_SPACE)
-            )
-            .onValueChanged()
-            .toObservable()
-            .debounce {
-                Observable.timer(
-                    resources.getInteger(R.integer.time_edit_text_debounce_password).toLong(),
-                    TimeUnit.MILLISECONDS
-                )
-            }
-
         initError(lengthObservable, imageViewBullet1)
         initError(upperCaseObservable, imageViewBullet2)
         initError(numberObservable, imageViewBullet3)
         initError(symbolObservable, imageViewBullet4)
-        initError(whiteSpaceObservable, imageViewBullet5)
+        initError(emptyObservable, imageViewBullet5)
 
         RxCombineValidator(
             lengthObservable,
             upperCaseObservable,
             numberObservable,
             symbolObservable,
-            whiteSpaceObservable
+            emptyObservable
         )
             .asObservable()
             .skip(1)
