@@ -114,7 +114,7 @@ import com.unionbankph.corporate.settings.presentation.splash.SplashFrameOnboard
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

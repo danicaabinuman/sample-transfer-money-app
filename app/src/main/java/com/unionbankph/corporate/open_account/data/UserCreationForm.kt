@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.user_creation.data
+package com.unionbankph.corporate.open_account.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

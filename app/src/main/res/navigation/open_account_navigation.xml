@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/account_selection_fragment"
-        android:name="com.unionbankph.corporate.user_creation.presentation.select_account.OAAccountSelection"
+        android:name="com.unionbankph.corporate.open_account.presentation.select_account.OAAccountSelection"
         tools:layout="@layout/fragment_oa_account_selection">
 
         <action
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/reminder_fragment"
-        android:name="com.unionbankph.corporate.user_creation.presentation.reminder.OAReminderFragment"
+        android:name="com.unionbankph.corporate.open_account.presentation.reminder.OAReminderFragment"
         tools:layout="@layout/fragment_oa_reminder">
 
         <action
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/enter_name_fragment"
-        android:name="com.unionbankph.corporate.user_creation.presentation.enter_name.OAEnterNameFragment"
+        android:name="com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameFragment"
         android:label="enter_name_fragment"
         tools:layout="@layout/fragment_oa_enter_name">
 
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/tnc_reminder_fragment"
-        android:name="com.unionbankph.corporate.user_creation.presentation.tnc_reminder.OATNCReminderFragment"
+        android:name="com.unionbankph.corporate.open_account.presentation.tnc_reminder.OATNCReminderFragment"
         android:label="tnc_reminder_fragment"
         tools:layout="@layout/fragment_oa_tnc_reminder">
 
@@ -70,8 +70,24 @@
 
     <fragment
         android:id="@+id/tnc_fragment"
-        android:name="com.unionbankph.corporate.user_creation.presentation.tnc.OATNCFragment"
+        android:name="com.unionbankph.corporate.open_account.presentation.tnc.OATNCFragment"
         android:label="tnc_fragment"
-        tools:layout="@layout/fragment_oa_terms_and_condition"/>
+        tools:layout="@layout/fragment_oa_terms_and_condition">
+
+        <action
+            android:id="@+id/action_tnc_to_nominate_password"
+            app:destination="@id/nominate_password"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nominate_password"
+        android:name="com.unionbankph.corporate.open_account.presentation.nominate_password.OaNominatePasswordFragment"
+        android:label="@string/header_user_creation_nominate_password"
+        tools:layout="@layout/fragment_oa_nominate_password"/>
 
 </navigation>

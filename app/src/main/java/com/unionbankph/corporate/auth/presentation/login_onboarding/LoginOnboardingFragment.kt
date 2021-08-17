@@ -9,9 +9,8 @@ import com.unionbankph.corporate.app.common.extension.runPostDelayed
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
-import com.unionbankph.corporate.auth.presentation.onboarding_register.OnboardingRegisterActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import kotlinx.android.synthetic.main.activity_onboarding_signup.*
 import timber.log.Timber
 

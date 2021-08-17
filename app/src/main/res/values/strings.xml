@@ -2432,4 +2432,13 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="other_terms_msg_four">The existing rules and regulations of the Philippine Clearing House Corporation (PCHC), the Bureau of Internal Revenue (BIR) and the Bangko Sentral ng Pilipinas (BSP), the General Banking Law, the Electronic Commerce Act, and all pertinent laws are deemed incorporated herein and in the attached Addendum hereof by reference.</string>
     <string name="title_entire_agreement">ENTIRE AGREEMENT</string>
     <string name="desc_entire_agreement">This Agreement, along with the Addendum hereto, constitutes the entire understanding and agreement of the parties with regard to the subject matter hereof. It may be varied, modified, altered, or amended after the date of execution hereof. Any variations, modifications, alteration, or amendments shall be communicated to the User through the System. All previous negotiations, undertakings, contracts, or agreements between the parties on the subject matter hereof are deemed superseded, cancelled, or revoked as of the date of execution hereof.</string>
+    <string name="header_user_creation_nominate_password">Create your password</string>
+    <string name="desc_user_creation_nominate_password">Please ensure your password aligns to the rules below.</string>
+    <string name="desc_user_creation_password_requirements_title">In order to protect your account, make sure your password:</string>
+    <string name="desc_user_creation_password_requirements_1">Should be 8–20 characters</string>
+    <string name="desc_user_creation_password_requirements_2">At least one capital letter</string>
+    <string name="desc_user_creation_password_requirements_3">At least one number</string>
+    <string name="desc_user_creation_password_requirements_4">At least one special character (!@#$%)</string>
+    <string name="desc_user_creation_password_requirements_5">No spaces</string>
+    <string name="error_password_validation_message">Password must contain:</string>
 </resources>

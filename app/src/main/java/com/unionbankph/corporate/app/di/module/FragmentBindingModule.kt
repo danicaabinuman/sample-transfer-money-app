@@ -74,11 +74,12 @@ import com.unionbankph.corporate.settings.presentation.splash.SplashEndFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashOnboardingFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
-import com.unionbankph.corporate.user_creation.presentation.enter_name.OAEnterNameFragment
-import com.unionbankph.corporate.user_creation.presentation.reminder.OAReminderFragment
-import com.unionbankph.corporate.user_creation.presentation.select_account.OAAccountSelection
-import com.unionbankph.corporate.user_creation.presentation.tnc.OATNCFragment
-import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.OATNCReminderFragment
+import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameFragment
+import com.unionbankph.corporate.open_account.presentation.nominate_password.OaNominatePasswordFragment
+import com.unionbankph.corporate.open_account.presentation.reminder.OAReminderFragment
+import com.unionbankph.corporate.open_account.presentation.select_account.OAAccountSelection
+import com.unionbankph.corporate.open_account.presentation.tnc.OATNCFragment
+import com.unionbankph.corporate.open_account.presentation.tnc_reminder.OATNCReminderFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -396,4 +397,8 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun tncFragment(): OATNCFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun oaNominatePasswordFragment(): OaNominatePasswordFragment
 }

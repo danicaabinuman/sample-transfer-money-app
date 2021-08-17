@@ -7,7 +7,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_onboarding_register.*
 import kotlinx.android.synthetic.main.widget_transparent_appbar.toolbar

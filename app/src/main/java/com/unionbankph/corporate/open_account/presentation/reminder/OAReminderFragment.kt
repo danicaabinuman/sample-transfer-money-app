@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.user_creation.presentation.reminder
+package com.unionbankph.corporate.open_account.presentation.reminder
 
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
@@ -6,8 +6,8 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountViewModel
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
+import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_oa_reminder.*
 import java.util.concurrent.TimeUnit
