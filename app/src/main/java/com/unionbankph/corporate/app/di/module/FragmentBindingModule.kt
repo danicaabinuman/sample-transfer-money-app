@@ -75,6 +75,7 @@ import com.unionbankph.corporate.settings.presentation.splash.SplashEndFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashOnboardingFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
+import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.OAEnterContactInfoFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_name.OAEnterNameFragment
 import com.unionbankph.corporate.user_creation.presentation.reminder.OAReminderFragment
 import com.unionbankph.corporate.user_creation.presentation.select_account.OAAccountSelection
@@ -401,4 +402,8 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun dashboardFragment(): DashboardFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun oaEnterContactInfoFragment(): OAEnterContactInfoFragment
 }

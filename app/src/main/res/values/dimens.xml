@@ -307,6 +307,7 @@
     <dimen name="fab_label_radius">@dimen/grid_1</dimen>
     <dimen name="fab_elevation">@dimen/grid_1</dimen>
 
+    <dimen  name="ci_size_large">@dimen/grid_5</dimen>
     <dimen name="ci_margin">@dimen/grid_1_half</dimen>
     <dimen name="ci_size">6dp</dimen>
     <dimen name="border_height_form">47dp</dimen>

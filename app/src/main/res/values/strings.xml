@@ -11,6 +11,8 @@
     <string name="digits_with_restriction">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_website">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-@.,?:\/]</string>
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
+    <string name="digits_alpha_numeric_symbols_email_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@.</string>
+    <string name="digits_country_code">1234567890+</string>
 
     <!--FingerPrint-->
     <string name="use_password">Use password</string>
@@ -2450,4 +2452,9 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="earnings_card_desc">Collect payments by sending payment links to your buyers.</string>
     <string name="earnings_card_button">Generate Payment Link</string>
     <string name="total_earnings">Total Earnings</string>
+    <string name="header_contact_info">Where can we reach you?</string>
+    <string name="title_contact_info">Contact Information</string>
+    <string name="hint_email_address_small_letter">Email address</string>
+    <string name="hint_e_g_9900008987">9900008987</string>
+    <string name="error_mobile_field">Must start with an 8 or 9.</string>
 </resources>
