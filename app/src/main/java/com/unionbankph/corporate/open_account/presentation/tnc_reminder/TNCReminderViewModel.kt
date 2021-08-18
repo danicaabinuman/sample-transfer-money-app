@@ -1,9 +1,8 @@
-package com.unionbankph.corporate.user_creation.presentation.tnc_reminder
+package com.unionbankph.corporate.open_account.presentation.tnc_reminder
 
 import com.unionbankph.corporate.app.base.BaseViewModel
-import com.unionbankph.corporate.dao.presentation.DaoViewModel
-import com.unionbankph.corporate.user_creation.data.UserCreationForm
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountViewModel
+import com.unionbankph.corporate.open_account.data.UserCreationForm
+import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.user_creation.presentation.tnc_reminder
+package com.unionbankph.corporate.open_account.presentation.tnc_reminder
 
 import android.os.Bundle
 import android.os.Handler
@@ -12,7 +12,7 @@ import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_oa_tnc_reminder.*
 import java.util.concurrent.TimeUnit

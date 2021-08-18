@@ -8,7 +8,7 @@
     <string name="digits_alpha_numeric_symbols">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
     <string name="digits_alpha_numeric_symbols_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
     <string name="digits_alpha_numeric_special_char_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
-    <string name="digits_with_restriction">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
+    <string name="digits_with_restriction">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_website">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-@.,?:\/]</string>
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_alpha_numeric_symbols_email_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@.</string>
@@ -2452,6 +2452,15 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="earnings_card_desc">Collect payments by sending payment links to your buyers.</string>
     <string name="earnings_card_button">Generate Payment Link</string>
     <string name="total_earnings">Total Earnings</string>
+    <string name="header_user_creation_nominate_password">Create your password</string>
+    <string name="desc_user_creation_nominate_password">Please ensure your password aligns to the rules below.</string>
+    <string name="desc_user_creation_password_requirements_title">In order to protect your account, make sure your password:</string>
+    <string name="desc_user_creation_password_requirements_1">Should be 8–20 characters</string>
+    <string name="desc_user_creation_password_requirements_2">At least one capital letter</string>
+    <string name="desc_user_creation_password_requirements_3">At least one number</string>
+    <string name="desc_user_creation_password_requirements_4">At least one special character (!@#$%)</string>
+    <string name="desc_user_creation_password_requirements_5">No spaces</string>
+    <string name="error_password_validation_message">Password must contain:</string>
     <string name="header_contact_info">Where can we reach you?</string>
     <string name="title_contact_info">Contact Information</string>
     <string name="hint_email_address_small_letter">Email address</string>

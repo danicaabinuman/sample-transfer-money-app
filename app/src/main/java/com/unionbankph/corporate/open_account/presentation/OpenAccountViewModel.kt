@@ -1,11 +1,11 @@
-package com.unionbankph.corporate.user_creation.presentation
+package com.unionbankph.corporate.open_account.presentation
 
 
 import com.unionbankph.corporate.app.base.BaseViewModel
-import com.unionbankph.corporate.user_creation.data.Name
-import com.unionbankph.corporate.user_creation.data.UserCreationForm
+import com.unionbankph.corporate.open_account.data.Name
+import com.unionbankph.corporate.open_account.data.UserCreationForm
+import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameViewModel
 import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.OAEnterContactInfoViewModel
-import com.unionbankph.corporate.user_creation.presentation.enter_name.OAEnterNameViewModel
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 

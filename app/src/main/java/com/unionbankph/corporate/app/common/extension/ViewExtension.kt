@@ -467,3 +467,8 @@ fun Context.getAccentColor(): Int {
         R.color.colorAccentPortal
     }
 }
+
+fun Int.convertToDP(context: Context) : Int {
+    val scale = context.resources.displayMetrics.density
+    return (this * scale + 0.5f).toInt()
+}

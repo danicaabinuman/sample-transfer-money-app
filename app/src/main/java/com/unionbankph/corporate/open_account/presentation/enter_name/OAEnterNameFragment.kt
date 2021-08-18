@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.user_creation.presentation.enter_name
+package com.unionbankph.corporate.open_account.presentation.enter_name
 
 import android.os.Bundle
 import android.widget.EditText
@@ -18,7 +18,7 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombin
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -196,7 +196,7 @@ class OAEnterNameFragment :
 
             enableBackButton = false
 
-            // Temporarily disabled the back press confirmation
+            // Temporary: Disable the back press confirmation
             openAccountActivity.popBackStack()
             return@addCallback
 

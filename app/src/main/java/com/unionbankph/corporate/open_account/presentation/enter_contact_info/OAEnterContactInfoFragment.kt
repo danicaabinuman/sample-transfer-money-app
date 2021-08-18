@@ -20,7 +20,7 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxValida
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable

@@ -357,4 +357,5 @@
     <dimen name="dashboard_accounts_button">28dp</dimen>
 
     <dimen name="ds_line_height_multiplier">1.3</dimen>
+    <dimen name="bullet_size">6dp</dimen>
 </resources>
