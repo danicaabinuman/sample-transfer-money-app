@@ -8,15 +8,16 @@ import androidx.core.content.ContextCompat
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.convertToDP
+import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidator
 import com.unionbankph.corporate.app.util.ViewUtil
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_oa_nominate_password.*
+import kotlinx.android.synthetic.main.fragment_oa_nominate_password.buttonNext
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
@@ -28,6 +29,13 @@ class OaNominatePasswordFragment :
     override fun onViewsBound() {
         super.onViewsBound()
         validateForm()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        buttonNext.setOnClickListener {
+            displaySuccessBottomSheet()
+        }
     }
 
     private fun validateForm() {
@@ -44,14 +52,17 @@ class OaNominatePasswordFragment :
                 )
             }
 
-        val lengthObservable = viewUtil.rxTextChanges(
-            isFocusChanged = true,
-            isValueChanged = true,
-            minLength = resources.getInteger(R.integer.min_length_nominate_password_field),
-            maxLength = resources.getInteger(R.integer.max_length_nominate_password_field),
-            editText = textInputEditTextPassword,
-            customErrorMessage = getString(R.string.error_password_validation_message)
-        )
+        val lengthObservable = RxValidator.createFor(textInputEditTextPassword)
+            .minLength(resources.getInteger(R.integer.min_length_nominate_password_field))
+            .maxLength(resources.getInteger(R.integer.max_length_nominate_password_field))
+            .onValueChanged()
+            .toObservable()
+            .debounce {
+                Observable.timer(
+                    resources.getInteger(R.integer.time_edit_text_debounce_password).toLong(),
+                    TimeUnit.MILLISECONDS
+                )
+            }
 
         val upperCaseObservable = RxValidator.createFor(textInputEditTextPassword)
             .patternMatches(
@@ -108,16 +119,13 @@ class OaNominatePasswordFragment :
             emptyObservable
         )
             .asObservable()
-            .skip(1)
             .distinctUntilChanged()
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { isProper ->
-                textViewPasswordRequirementLabel.visibility = View.GONE
-                textViewPasswordLabel.setTextColor(when (isProper) {
-                    true -> ContextCompat.getColor(context!!, R.color.dsColorDarkGray)
-                    else -> ContextCompat.getColor(context!!, R.color.colorErrorColor)
-                })
+                buttonNext.isEnabled = isProper
+
+                setErrorLabels(isProper)
             }
             .addTo(disposables)
     }
@@ -130,7 +138,6 @@ class OaNominatePasswordFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                viewUtil.setError(it)
 
                 imageView.requestLayout()
                 if (it.isProper) {
@@ -149,6 +156,34 @@ class OaNominatePasswordFragment :
                     }
                 }
             }.addTo(formDisposable)
+    }
+
+    private fun setErrorLabels(isProper: Boolean) {
+        if (isProper) {
+            inputLayoutPassword.isErrorEnabled = false
+            inputLayoutPassword.error = null
+        } else {
+            inputLayoutPassword.isErrorEnabled = false
+            inputLayoutPassword.error = getString(R.string.error_password_validation_message)
+        }
+
+        textViewPasswordRequirementLabel.visibility = View.GONE
+        textViewPasswordLabel.setTextColor(when (isProper) {
+            true -> ContextCompat.getColor(context!!, R.color.dsColorDarkGray)
+            else -> ContextCompat.getColor(context!!, R.color.colorErrorColor)
+        })
+    }
+
+    private fun displaySuccessBottomSheet() {
+        val bottomSheet = NewConfirmationBottomSheet.newInstance(
+            iconResource = R.drawable.bg_user_creation_success,
+            title = getString(R.string.user_creation_success_title),
+            description = getString(R.string.user_creation_success_desc),
+            positiveButtonText = getString(R.string.action_personalise_experience),
+            isCancelable = false,
+            gravity = NewConfirmationBottomSheet.GRAVITY_CENTER
+        )
+        bottomSheet.show(childFragmentManager, NewConfirmationBottomSheet.TAG)
     }
 
     companion object {

@@ -370,7 +370,6 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-<<<<<<< HEAD
     abstract fun splashOnboardingFragment(): SplashOnboardingFragment
 
     @PerActivity
@@ -379,7 +378,7 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun negPosBottomSheet(): NegPosBottomSheet
+    abstract fun newConfirmationBottomSheet(): NewConfirmationBottomSheet
 
     @PerActivity
     @ContributesAndroidInjector
@@ -412,7 +411,4 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun oaNominatePasswordFragment(): OaNominatePasswordFragment
-=======
-    abstract fun negPosBottomSheet(): NewConfirmationBottomSheet
->>>>>>> release/1.1.0
 }

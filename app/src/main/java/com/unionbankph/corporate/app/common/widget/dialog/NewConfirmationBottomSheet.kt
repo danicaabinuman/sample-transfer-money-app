@@ -139,14 +139,14 @@ class NewConfirmationBottomSheet :
         const val GRAVITY_CENTER = "center"
         const val GRAVITY_START = "start"
 
-        const val EXTRA_ICON = "extra_icon"
-        const val EXTRA_TITLE = "extra_title"
-        const val EXTRA_DESCRIPTION = "extra_description"
-        const val EXTRA_NEGATIVE_BUTTON_TEXT = "extra_negative_button_text"
-        const val EXTRA_POSITIVE_BUTTON_TEXT = "extra_positive_button_text"
-        const val EXTRA_GRAVITY = "extra_gravity"
-        const val EXTRA_IS_CANCELABLE = "extra_is_cancelable"
-        const val EXTRA_DISMISS_ON_ACTION_CLICKED = "extra_dismiss_on_action_clicked"
+        private const val EXTRA_ICON = "extra_icon"
+        private const val EXTRA_TITLE = "extra_title"
+        private const val EXTRA_DESCRIPTION = "extra_description"
+        private const val EXTRA_NEGATIVE_BUTTON_TEXT = "extra_negative_button_text"
+        private const val EXTRA_POSITIVE_BUTTON_TEXT = "extra_positive_button_text"
+        private const val EXTRA_GRAVITY = "extra_gravity"
+        private const val EXTRA_IS_CANCELABLE = "extra_is_cancelable"
+        private const val EXTRA_DISMISS_ON_ACTION_CLICKED = "extra_dismiss_on_action_clicked"
 
         @JvmStatic
         fun newInstance(
