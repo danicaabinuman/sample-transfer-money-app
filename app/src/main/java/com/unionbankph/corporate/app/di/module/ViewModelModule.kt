@@ -814,13 +814,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(NegPosBottomSheetViewModel::class)
-    abstract fun negPosBottomSheetViewModel(
-        viewModel: NegPosBottomSheetViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
     @ViewModelKey(OpenAccountViewModel::class)
     abstract fun userCreationViewModel(
         viewModel: OpenAccountViewModel
