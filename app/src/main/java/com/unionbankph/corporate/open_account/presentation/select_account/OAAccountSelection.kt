@@ -1,14 +1,13 @@
-package com.unionbankph.corporate.user_creation.presentation.select_account
+package com.unionbankph.corporate.open_account.presentation.select_account
 
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountActivity
-import com.unionbankph.corporate.user_creation.presentation.OpenAccountViewModel
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
+import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
 import kotlinx.android.synthetic.main.fragment_oa_account_selection.*
-import timber.log.Timber
 
 class OAAccountSelection :
     BaseFragment<OpenAccountViewModel>(R.layout.fragment_oa_account_selection) {

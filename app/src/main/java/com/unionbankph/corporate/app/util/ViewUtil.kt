@@ -71,6 +71,7 @@ class ViewUtil(private val mContext: Context) {
         const val REGEX_FORMAT_MOBILE_NUMBER_PH = "^9\\d+\$"
         const val REGEX_FORMAT_HAS_NUMBER = ".*\\d+.*"
         const val REGEX_FORMAT_HAS_ALPHA = ".*[A-Za-z].*"
+        const val REGEX_FORMAT_HAS_ALPHA_UPPERCASE = ".*[A-Z].*"
         const val REGEX_FORMAT_HAS_SYMBOL = ".*[^A-Za-z0-9].*"
         const val REGEX_FORMAT_ALPHA_NUMERIC = ".*^[a-zA-Z0-9].*"
         const val REGEX_FORMAT_VALID_AMOUNT = "^(.*[^.]\$)"

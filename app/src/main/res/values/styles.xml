@@ -603,6 +603,12 @@
         <item name="errorTextAppearance">@style/SMECaption</item>
     </style>
 
+    <style name="TextInputLayoutFormThin.Password" parent="TextInputLayoutFormThin">
+        <item name="passwordToggleEnabled">true</item>
+        <item name="passwordToggleTint">@color/dsColorMediumOrange</item>
+        <item name="passwordToggleDrawable">@drawable/selector_eye_password_sme</item>
+    </style>
+
     <style name="TextInputLayoutFormThinEditText">
         <item name="android:layout_marginBottom">@dimen/grid_1</item>
     </style>
