@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardViewTapToRetry"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/grid_1_half"
+    android:layout_marginStart="@dimen/grid_2"
+    android:layout_marginEnd="@dimen/grid_2"
+    android:layout_marginTop="@dimen/grid_1_half"
+    app:cardElevation="1dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_2">
+
+        <TextView
+            android:id="@+id/textViewErrorMessage"
+            android:layout_width="match_parent"
+            style="@style/SMESubtitle2"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/grid_2"
+            android:textColor="@color/colorLightGray"
+            tools:text="@string/error_something_went_wrong"/>
+
+        <TextView
+            android:id="@+id/textViewTapToRetry"
+            android:layout_width="match_parent"
+            style="@style/SMESubtitle2"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/grid_1"
+            android:textColor="@color/colorLightGray"
+            android:layout_marginBottom="@dimen/grid_2"
+            android:text="@string/error_tap_to_retry"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>

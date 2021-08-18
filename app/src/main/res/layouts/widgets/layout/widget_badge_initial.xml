@@ -11,16 +11,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/circle_gradient_orange" />
+        app:srcCompat="@drawable/circle_medium_gradient_orange"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewInitial"
-        style="@style/TextViewThemeLarge"
+        style="@style/SMEBody"
         android:text="SM"
-        android:textSize="@dimen/text_badge_initial"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewInitial"
         app:layout_constraintEnd_toEndOf="@+id/imageViewInitial"
         app:layout_constraintStart_toStartOf="@+id/imageViewInitial"

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "request_payment",
+    "label": "Request\nPayment",
+    "isVisible": true,
+    "isEnable": true
+  },
+  {
+    "id": "transfer_funds",
+    "label": "Transfer\nFunds",
+    "isVisible": false,
+    "isEnable": true
+  },
+  {
+    "id": "pay_bills",
+    "label": "Pay\nBills",
+    "isVisible": false,
+    "isEnable": true
+  },
+  {
+    "id": "deposit_check",
+    "label": "Deposit\nCheck",
+    "isVisible": false,
+    "isEnable": true
+  },
+  {
+    "id": "apply_loan",
+    "label": "Apply\nLoan",
+    "isVisible": true,
+    "isEnable": true
+  },
+  {
+    "id": "branch_visit",
+    "label": "Branch\nVisit",
+    "isVisible": true,
+    "isEnable": true
+  },
+  {
+    "id": "manage_expenses",
+    "label": "Manage\nExpenses",
+    "isVisible": true,
+    "isEnable": true
+  }
+]

@@ -141,6 +141,7 @@
     <dimen name="card_radius_small">@dimen/grid_1_half</dimen>
     <dimen name="card_radius_edit_text">@dimen/grid_5_half</dimen>
     <dimen name="card_radius">@dimen/grid_1</dimen>
+    <dimen name="card_radius_half">@dimen/grid_1_half</dimen>
     <dimen name="card_radius_x">@dimen/grid_3_half</dimen>
     <dimen name="card_radius_xx">@dimen/grid_2</dimen>
     <dimen name="card_corner">2dp</dimen>
@@ -223,7 +224,7 @@
     <dimen name="image_view_field_padding">@dimen/grid_3_half</dimen>
     <dimen name="image_view_initial_size">@dimen/grid_6</dimen>
     <dimen name="image_view_channel_size">@dimen/grid_5</dimen>
-    <dimen name="image_view_initial_org_size">@dimen/grid_5</dimen>
+    <dimen name="image_view_initial_org_size">@dimen/grid_4</dimen>
     <dimen name="image_view_transaction_icon_size">@dimen/grid_9_half</dimen>
     <dimen name="image_view_password_strength_size">@dimen/grid_2</dimen>
     <dimen name="image_view_x_padding">5dp</dimen>
@@ -313,7 +314,7 @@
     <dimen name="border_margin_top_form">4dp</dimen>
     <dimen name="border_margin_top_form_amount">5dp</dimen>
 
-    <dimen name="navigation_bottom_text_size_normal">10dp</dimen>
+    <dimen name="navigation_bottom_text_size_normal">9dp</dimen>
     <dimen name="navigation_bottom_text_size_active">11dp</dimen>
 
     <dimen name="circular_progress_bar_size">@dimen/grid_13</dimen>
@@ -353,6 +354,7 @@
     <dimen name="ds_sme_large_button_radius">4dp</dimen>
     <dimen name="ds_sme_small_button_radius">30dp</dimen>
     <dimen name="ds_sme_button_with_icon_radius">6dp</dimen>
+    <dimen name="dashboard_accounts_button">28dp</dimen>
 
     <dimen name="ds_line_height_multiplier">1.3</dimen>
     <dimen name="bullet_size">6dp</dimen>

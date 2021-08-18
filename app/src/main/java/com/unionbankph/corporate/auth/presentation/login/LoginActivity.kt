@@ -22,12 +22,12 @@ class LoginActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-//        if (settingsUtil.isEmulator()) {
-//            showErrorAndExit(
-//                formatString(R.string.title_emulator_detected),
-//                formatString(R.string.msg_emulator_not_supported)
-//            )
-//        } else {
+        if (settingsUtil.isEmulator()) {
+            showErrorAndExit(
+                formatString(R.string.title_emulator_detected),
+                formatString(R.string.msg_emulator_not_supported)
+            )
+        } else {
             if (!sharedPreferenceUtil.isLaunched().get()) {
                 if (isSME) {
                     navigator.navigate(
@@ -69,7 +69,7 @@ class LoginActivity :
 
 
             }
-//        }
+        }
     }
 
     private fun showErrorAndExit(

@@ -12,6 +12,7 @@ import com.unionbankph.corporate.auth.data.model.RoleAccountPermissions
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.data.model.PermissionCollection
 import com.unionbankph.corporate.common.presentation.constant.Constant
+import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -88,7 +89,9 @@ class AccountViewModel @Inject constructor(
             .subscribe(
                 {
                     accounts.forEach { account ->
-                        val permissionCollection = mapPermission(account.id, it)
+                        val permissionCollection = ConstantHelper.Object.getAccountPermission(
+                            account.id, it
+                        )
                         account.isLoading = false
                         account.isError = false
                         account.permissionCollection = permissionCollection
@@ -173,104 +176,6 @@ class AccountViewModel @Inject constructor(
         currentAccounts[position].isError = false
         currentAccounts[position].isLoading = true
         _accountState.value = ShowAccountLoadingAccountDetail
-    }
-
-    private fun mapPermission(
-        accountId: Int?,
-        roleAccountPermissions: MutableList<RoleAccountPermissions>
-    ): PermissionCollection {
-        val permissionCollection = PermissionCollection()
-        roleAccountPermissions
-            .filter { it.accountId == accountId }
-            .forEach {
-                it.productPermissions
-                    ?.filter { it.name == "Balance and Transaction Reporting" }
-                    ?.forEach { productPermission ->
-                        productPermission.permissions.forEach { permission ->
-                            when (permission.code) {
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS_UNIONBANK
-                                -> permissionCollection.hasAllowToCreateTransactionUBP =
-                                    true
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS_PESONET
-                                -> permissionCollection.hasAllowToCreateTransactionPesonet =
-                                    true
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS_PDDTS
-                                -> permissionCollection.hasAllowToCreateTransactionPDDTS =
-                                    true
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS_SWIFT
-                                -> permissionCollection.hasAllowToCreateTransactionSwift =
-                                    true
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS_INSTAPAY
-                                -> permissionCollection.hasAllowToCreateTransactionInstapay =
-                                    true
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS_EON
-                                -> permissionCollection.hasAllowToCreateTransactionEon =
-                                    true
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS_OWN
-                                -> permissionCollection.hasAllowToCreateTransactionOwn =
-                                    true
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS
-                                -> permissionCollection.hasAllowToCreateTransaction = true
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS_ADHOC
-                                -> permissionCollection.hasAllowToCreateTransactionAdhoc =
-                                    true
-                                Constant.Permissions.CODE_FT_CREATETRANSACTIONS_BENEFICIARYMASTER
-                                -> permissionCollection.hasAllowToCreateTransactionBeneficiaryMaster =
-                                    true
-                                Constant.Permissions.CODE_FT_VIEWTRANSACTIONS_VIEWDETAILS
-                                -> permissionCollection.hasAllowToViewTransactionViewDetails =
-                                    true
-                                Constant.Permissions.CODE_FT_VIEWTRANSACTIONS
-                                -> permissionCollection.hasAllowToViewTransaction = true
-                                Constant.Permissions.CODE_FT_SCHEDULEDTRANSACTIONS
-                                -> permissionCollection.hasAllowToCreateTransactionScheduled =
-                                    true
-                                Constant.Permissions.CODE_FT_DELETESCHEDULED
-                                -> permissionCollection.hasAllowToViewTransactionDeleteScheduled =
-                                    true
-                                Constant.Permissions.CODE_FT_CHANNELS
-                                -> permissionCollection.hasAllowToViewChannel = true
-                                Constant.Permissions.CODE_BM_CREATEBENEFICIARYMASTER
-                                -> permissionCollection.hasAllowToCreateBeneficiaryMaster =
-                                    true
-                                Constant.Permissions.CODE_BM_VIEWBENEFICIARYMASTER
-                                -> permissionCollection.hasAllowToViewBeneficiaryMaster =
-                                    true
-                                Constant.Permissions.CODE_BTR_VIEWTRANSACTIONS
-                                -> permissionCollection.hasAllowToBTRViewTransaction = true
-                                Constant.Permissions.CODE_BTR_VIEWBALANCES
-                                -> permissionCollection.hasAllowToBTRViewBalance = true
-                                Constant.Permissions.CODE_BP_CREATEBILLSPAYMENT_ADHOC
-                                -> permissionCollection.hasAllowToCreateBillsPaymentAdhoc =
-                                    true
-                                Constant.Permissions.CODE_BP_CREATEBILLSPAYMENT
-                                -> permissionCollection.hasAllowToCreateBillsPayment = true
-                                Constant.Permissions.CODE_BP_SCHEDULEDPAYMENTS
-                                -> permissionCollection.hasAllowToScheduledBillsPayment =
-                                    true
-                                Constant.Permissions.CODE_BP_DELETESCHEDULEDPAYMENTS
-                                -> permissionCollection.hasAllowToDeleteScheduledBillsPayment =
-                                    true
-                                Constant.Permissions.CODE_BP_VIEWBPHISTORY
-                                -> permissionCollection.hasAllowToViewBillsPaymentHistory =
-                                    true
-                                Constant.Permissions.CODE_BP_CREATEBILLSPAYMENT_FREQUENT
-                                -> permissionCollection.hasAllowToCreateBillsPaymentFrequent =
-                                    true
-                                Constant.Permissions.CODE_BP_VIEWBPHISTORY_DETAILS
-                                -> permissionCollection.hasAllowToViewBillsPaymentHistoryDetails =
-                                    true
-                                Constant.Permissions.CODE_BP_CREATEFREQUENTBILLER
-                                -> permissionCollection.hasAllowToCreateFrequentBiller =
-                                    true
-                                Constant.Permissions.CODE_BP_DELETEFREQUENTBILLER
-                                -> permissionCollection.hasAllowToDeleteFrequentBiller =
-                                    true
-                            }
-                        }
-                    }
-            }
-        return permissionCollection
     }
 
     private fun setErrorStateAllAccounts(accounts: MutableList<Account>) {

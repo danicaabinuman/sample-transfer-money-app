@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewSetupAccount"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/grid_1_half"
+    android:layout_marginStart="@dimen/grid_2"
+    android:layout_marginEnd="@dimen/grid_2"
+    android:layout_marginTop="@dimen/grid_1_half"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/constraintLayoutSetupAccount"
+        android:paddingBottom="@dimen/grid_2"
+        android:paddingTop="@dimen/grid_2"
+        android:background="@drawable/style_primary_button_large">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/no_account_desc"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            style="@style/SMEBody" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            style="@style/SMEBody"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            app:layout_constraintTop_toBottomOf="@id/textViewDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/grid_1"
+            android:clickable="false"
+            android:text="@string/action_continue_account_setup"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:layout_marginBottom="@dimen/grid_1_half"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

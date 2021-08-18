@@ -10,6 +10,8 @@ import com.unionbankph.corporate.account.presentation.account_selection.AccountS
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountViewModel
 import com.unionbankph.corporate.account.presentation.source_account.SourceAccountViewModel
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
+import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragment
+import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragmentViewModel
 import com.unionbankph.corporate.app.di.ViewModelFactory
 import com.unionbankph.corporate.app.di.ViewModelKey
 import com.unionbankph.corporate.approval.presentation.approval_activity_log.ActivityLogViewModel
@@ -833,6 +835,12 @@ abstract class ViewModelModule {
     abstract fun tncReminderViewModel(
         viewModel: TNCReminderViewModel
     ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DashboardFragmentViewModel::class)
+    abstract fun dashboardFragmentViewModel(
+        viewModel: DashboardFragmentViewModel): ViewModel
 
     @Binds
     @IntoMap

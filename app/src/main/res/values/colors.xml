@@ -195,6 +195,8 @@
     <!-- Rounded BottomSheet-->
     <color name="dsColorRoundedTopBottomSheet">@color/colorWhite</color>
 
+    <!-- Dashboard Screen-->
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->
