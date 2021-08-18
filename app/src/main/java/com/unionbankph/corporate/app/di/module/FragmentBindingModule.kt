@@ -4,7 +4,7 @@ import com.unionbankph.corporate.account.presentation.account_list.AccountFragme
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
-import com.unionbankph.corporate.app.common.widget.dialog.NegPosBottomSheet
+import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.SessionTimeOutBottomSheet
 import com.unionbankph.corporate.app.di.scope.PerActivity
 import com.unionbankph.corporate.approval.presentation.ApprovalFragment
@@ -360,5 +360,5 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun negPosBottomSheet(): NegPosBottomSheet
+    abstract fun negPosBottomSheet(): NewConfirmationBottomSheet
 }
