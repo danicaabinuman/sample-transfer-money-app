@@ -53,6 +53,7 @@ import com.unionbankph.corporate.notification.presentation.notification_log.noti
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.FeeCharges
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
@@ -347,5 +348,7 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun nominateSettlementAccountFragment(): NominateSettlementAccountFragment
 
-
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun feeCharges(): FeeCharges
 }

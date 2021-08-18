@@ -100,7 +100,8 @@ class RequestForPaymentViewModel
                     if (it.message.equals("Unable to generate new link, your merchant is currently disabled.", true)){
                         _linkDetailsState.value = ErrorMerchantDisabled(it)
                     } else {
-                        _linkDetailsState.value = ShouldContinueGenerate(true)
+//                        _linkDetailsState.value = ShouldContinueGenerate(true)
+                        _uiState.value = Event(UiState.Error(it))
                     }
 
                 }
@@ -182,9 +183,15 @@ class RequestForPaymentViewModel
                     if (it.size == 1) {
                         _defaultMerchantSA.value = it.first()
                         _soleAccount.value = it.first()
+                        val tempList = mutableListOf<Account>()
+                        tempList.add(it.first())
+                        getAccountBalances(tempList)
                     } else if (it.size > 1) {
                         _defaultMerchantSA.value = it.first()
                         _accounts.value = it
+//                        val tempList = mutableListOf<Account>()
+//                        tempList.addAl
+                        getAccountBalances(it)
                     } else {
                         _linkDetailsState.value = ShowNoOtherAvailableAccounts
                     }

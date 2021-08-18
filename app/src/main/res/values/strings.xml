@@ -8,7 +8,7 @@
     <string name="digits_alpha_numeric_symbols">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
     <string name="digits_alpha_numeric_symbols_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
     <string name="digits_alpha_numeric_special_char_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
-    <string name="digits_with_restriction">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
+    <string name="digits_with_restriction">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_website">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-@.,?:\/]</string>
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
 
