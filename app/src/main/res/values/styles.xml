@@ -1097,6 +1097,7 @@
         <item name="android:textColor">@color/dsColorHeadlineH2</item>
         <item name="android:fontFamily">@string/font_family_medium</item>
         <item name="android:lineSpacingMultiplier">1.1</item>
+        <item name="fontWeight">500</item>
     </style>
 
     <style name="SMESubtitle1" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
@@ -1115,6 +1116,8 @@
         <item name="android:textColor">@color/dsColorSubtitle2</item>
         <item name="android:fontFamily">@string/font_family_medium</item>
         <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="fontWeight">500</item>
+
     </style>
 
     <style name="SMEBody" parent="TextAppearance.AppCompat.Body1">

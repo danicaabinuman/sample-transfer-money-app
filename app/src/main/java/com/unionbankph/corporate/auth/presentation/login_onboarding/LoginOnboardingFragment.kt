@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.login_onboarding
 
 import android.animation.ObjectAnimator
+import android.view.View
 import android.view.ViewTreeObserver
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -12,6 +13,7 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import kotlinx.android.synthetic.main.activity_onboarding_signup.*
+import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 import timber.log.Timber
 
 class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.activity_onboarding_signup) {
@@ -69,11 +71,11 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
     private fun initFreshLogin(){
         runPostDelayed(
             {
-                bg_signup_illustration.visibility(true)
-                btn_onboarding_register.visibility(true)
-                btn_onboarding_login.visibility(true)
-                tv_ub_caption.visibility(true)
-                fl_signup.visibility(true)
+                bg_signup_illustration.visibility = View.VISIBLE
+                btn_onboarding_register.visibility = View.VISIBLE
+                btn_onboarding_login.visibility = View.VISIBLE
+                tv_ub_caption.visibility = View.VISIBLE
+                fl_signup.visibility = View.VISIBLE
             }, 100
         )
 

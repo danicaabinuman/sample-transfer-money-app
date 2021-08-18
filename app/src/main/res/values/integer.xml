@@ -33,6 +33,7 @@
     <integer name="min_camera_width">2112</integer>
 
     <integer name="snack_bar_max_line">3</integer>
+    <integer name="max_length_country_code">3</integer>
 
     <integer name="min_length_field">1</integer>
 

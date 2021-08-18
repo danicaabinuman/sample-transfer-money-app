@@ -80,6 +80,7 @@ import com.unionbankph.corporate.open_account.presentation.reminder.OAReminderFr
 import com.unionbankph.corporate.open_account.presentation.select_account.OAAccountSelection
 import com.unionbankph.corporate.open_account.presentation.tnc.OATNCFragment
 import com.unionbankph.corporate.open_account.presentation.tnc_reminder.OATNCReminderFragment
+import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.OAEnterContactInfoFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -397,6 +398,10 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun tncFragment(): OATNCFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun oaEnterContactInfoFragment(): OAEnterContactInfoFragment
 
     @PerActivity
     @ContributesAndroidInjector

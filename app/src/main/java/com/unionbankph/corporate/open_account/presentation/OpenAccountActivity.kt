@@ -13,7 +13,9 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameViewModel
+import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.OAEnterContactInfoViewModel
 import kotlinx.android.synthetic.main.activity_open_account.*
+
 
 class OpenAccountActivity :
     BaseActivity<OpenAccountViewModel>(R.layout.activity_open_account) {
@@ -88,6 +90,10 @@ class OpenAccountActivity :
 
     fun setNameInput(input: OAEnterNameViewModel.Input) {
         viewModel.setNameInput(input)
+    }
+
+    fun setContactInput(input: OAEnterContactInfoViewModel.Input){
+        viewModel.setContactInfo(input)
     }
 
     fun setIsScreenScrollable(isScrollable: Boolean) {
