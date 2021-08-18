@@ -234,7 +234,7 @@ class RequestForPaymentActivity :
 
     private fun buttonDisable() {
         binding.btnRequestPaymentGenerate?.isEnabled = false
-        binding.btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.dsColorLightGray))
+        binding.btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
         binding.btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button_disabled)
     }
 

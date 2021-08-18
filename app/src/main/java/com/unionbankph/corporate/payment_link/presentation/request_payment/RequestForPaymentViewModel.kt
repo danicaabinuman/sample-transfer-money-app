@@ -159,8 +159,8 @@ class RequestForPaymentViewModel
                 {
                     _accountsBalances.value = it
                 }, {
-                    Timber.e(it, "getAccounts Balances")
-                    _uiState.value = Event(UiState.Error(it))
+                    _uiState.value = Event(UiState.Complete)
+
                 }
             ),
             doOnSubscribeEvent = {
@@ -215,7 +215,6 @@ class RequestForPaymentViewModel
                 {
                     _updateSettlementOnRequestPaymentResponse.value = it
                 },{
-                    Timber.e(it, "update Settlement Failed")
                     _uiState.value = Event(UiState.Error(it))
                 }
             ),
