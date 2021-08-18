@@ -6,7 +6,7 @@
     <corners android:radius="@dimen/grid_1_half" />
     <gradient
         android:startColor="#ff9800"
-        android:endColor="#fe8452"
+        android:endColor="#ed5635"
         android:angle="180"
         />
 

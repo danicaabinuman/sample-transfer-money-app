@@ -28,6 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/grid_1"
                 android:text="@string/start_accepting_card_payments"
+                android:textSize="@dimen/text_24"
+                android:textStyle="bold"
                 android:textColor="#4B4948"
                 style="@style/TextAppearance.AppCompat.Headline"/>
 
@@ -36,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_1"
+                android:lineSpacingExtra="2dp"
                 android:text="@string/you_can_add_card_acceptance_to_the_list_of_payment_channels"
                 android:textColor="#9B9B9B" />
 

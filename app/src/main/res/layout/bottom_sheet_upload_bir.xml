@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_bottom_sheet_top_rounded"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/clUploadBIROption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Upload Document"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold"
+            android:textColor="@color/colorDarkGray4B4948"
+            android:drawableStart="@drawable/ic_close_orange"
+            android:padding="@dimen/grid_2"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
+            android:text=" Take a photo"
+            android:drawableStart="@drawable/ic_photo_camera_black"
+            android:padding="@dimen/grid_2"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/view_gray_bfbfbf_solid_line"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Add a photo"
+            android:drawableStart="@drawable/ic_outline_insert_photo_24"
+            android:padding="@dimen/grid_2"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/view_gray_bfbfbf_solid_line"/>
+
+        <TextView
+            android:id="@+id/btnAddDocument"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Add a document"
+            android:drawableStart="@drawable/ic_document_file"
+            android:padding="@dimen/grid_2"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

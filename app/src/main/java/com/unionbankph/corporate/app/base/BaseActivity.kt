@@ -612,12 +612,14 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
     }
 
     fun showProgressAlertDialog(tag: String) {
+        if (dialog != null) return
         dialog = ProgressBarDialog.newInstance()
         dialog?.show(supportFragmentManager, tag)
     }
 
     fun dismissProgressAlertDialog() {
         dialog?.dismiss()
+        dialog = null
     }
 
     fun getProgressAlertDialog() = dialog

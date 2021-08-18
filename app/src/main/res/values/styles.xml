@@ -584,7 +584,7 @@
     </style>
 
     <style name="TextInputLayoutForm" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColorHint">@drawable/state_edit_text</item>
         <item name="hintTextColor">@drawable/state_edit_text</item>
@@ -1092,6 +1092,11 @@
         <item name="android:button">@null</item>
     </style>
 
+    <style name="SMESettlementAccountItem" parent="SMELargeButton">
+        <item name="android:background">@drawable/style_settlement_account_item</item>
+        <item name="android:textColor">@drawable/style_primary_button_text</item>
+    </style>
+
     <style name="SMEHeadlineH1" parent="TextAppearance.AppCompat.Headline">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -1108,7 +1113,6 @@
         <item name="android:textColor">@color/dsColorHeadlineH2</item>
         <item name="android:fontFamily">@string/font_family_medium</item>
         <item name="android:lineSpacingMultiplier">1.1</item>
-        <item name="fontWeight">500</item>
     </style>
 
     <style name="SMESubtitle1" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
@@ -1127,8 +1131,6 @@
         <item name="android:textColor">@color/dsColorSubtitle2</item>
         <item name="android:fontFamily">@string/font_family_medium</item>
         <item name="android:lineSpacingMultiplier">1.2</item>
-        <item name="fontWeight">500</item>
-
     </style>
 
     <style name="SMEBody" parent="TextAppearance.AppCompat.Body1">
@@ -1137,7 +1139,7 @@
         <item name="android:textSize">@dimen/text_14</item>
         <item name="android:textColor">@color/dsColorBody</item>
         <item name="android:fontFamily">@string/font_family_regular</item>
-        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
     </style>
 
     <style name="SMEBodyMediumGray" parent="SMEBody">
@@ -1163,6 +1165,13 @@
         <item name="android:insetLeft">0dp</item>
         <item name="android:insetRight">0dp</item>
         <item name="rippleColor">@color/colorRippleHover</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+    </style>
+
+    <style name="SliderTick">
+        <item name="android:layout_height">3dp</item>
+        <item name="android:layout_width">2dp</item>
+        <item name="android:src">@drawable/circle_light_gray_ci</item>
     </style>
 
         <style name="RoundedBigButtonBorderedLightOverLay" parent="BorderedBigButton">

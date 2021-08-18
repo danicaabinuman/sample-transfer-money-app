@@ -7,4 +7,6 @@
         android:color="#E5E5E5"
         android:dashWidth="5dp"
         android:dashGap="5dp" />
+
+    <corners android:radius="@dimen/ds_sme_large_button_radius"/>
 </shape>

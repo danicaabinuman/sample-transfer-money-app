@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_rmo_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar"
+        app:layout_constraintBottom_toTopOf="@id/shadow_bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/grid_1"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/viewToolbar">
+
+                <TextView
+                    android:id="@+id/tvOneLastThing"
+                    android:layout_width="wrap_content"
+                    android:text="@string/one_last_thing"
+                    style="@style/SMEHeadlineH2"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tvAverageMonthlyVolume"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/grid_3"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/what_s_your_average_monthly_volume"
+                    style="@style/SMECaption"
+                    app:layout_constraintTop_toBottomOf="@id/tvOneLastThing"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <include
+                    android:id="@+id/viewMonthlyVolume"
+                    layout="@layout/widget_amount_slider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/grid_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvAverageMonthlyVolume"/>
+
+                <TextView
+                    android:id="@+id/tvAverageTransactionAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_4"
+                    android:text="@string/what_s_your_average_transaction_amount"
+                    style="@style/SMECaption"
+                    android:layout_marginStart="@dimen/grid_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewMonthlyVolume"/>
+
+                <include
+                    android:id="@+id/viewTransactionAmount"
+                    layout="@layout/widget_amount_slider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/grid_1"
+                    app:layout_constraintTop_toBottomOf="@id/tvAverageTransactionAmount"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:paddingBottom="@dimen/grid_6"
+                    app:layout_constraintTop_toBottomOf="@id/viewTransactionAmount">
+
+                    <TextView
+                        android:id="@+id/tvNominateAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginTop="@dimen/grid_3"
+                        style="@style/SMECaption"
+                        android:text="@string/nominate_settlement_account" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonSelectAccount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"
+                        android:paddingStart="@dimen/grid_2"
+                        android:paddingEnd="@dimen/grid_2"
+                        android:text="@string/action_select_account"
+                        android:textColor="#BFBFBF"
+                        android:textAllCaps="false"
+                        android:gravity="start|center"
+                        android:background="@drawable/bg_dashed"
+                        android:drawableEnd="@drawable/ic_add_sign" />
+
+                    <include
+                        android:id="@+id/include_settlement_account"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:visibility="gone"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginBottom="@dimen/grid_6"
+                        layout="@layout/item_nominate_account"/>
+
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/shadow_bottom"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/border_shadow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonSubmit"
+        android:layout_marginBottom="@dimen/grid_1"
+        android:background="@drawable/bg_shadow"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSubmit"
+        style="@style/SMEPrimaryButtonLarge"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:layout_marginBottom="@dimen/grid_2"
+        android:text="@string/action_review_details"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

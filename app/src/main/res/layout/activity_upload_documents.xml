@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_rmo_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clUploadBIRDocs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar">
+
+        <ImageView
+            android:id="@+id/ivUploadDocument"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_document"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1"
+            android:text="Upload Document"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:textSize="@dimen/text_32"
+            android:textColor="@color/colorDarkGray4B4948"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivUploadDocument"/>
+
+        <TextView
+            android:id="@+id/tvPleaseUploadMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
+            android:text="Please upload the following business documents"
+            android:textSize="@dimen/text_16"
+            app:layout_constraintTop_toBottomOf="@id/ivUploadDocument"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clReminders"
+            style="@style/MatchWrapParent"
+            android:layout_marginTop="@dimen/grid_3"
+            android:padding="@dimen/grid_2"
+            android:background="@color/dsColorLightOrange"
+            app:layout_constraintTop_toBottomOf="@id/tvPleaseUploadMessage"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tvReminders"
+                style="@style/WrapContent"
+                android:text="Reminders"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView
+                android:id="@+id/ivCheckIcon1"
+                style="@style/WrapContent"
+                android:src="@drawable/ds_check_icon"
+                android:layout_marginTop="@dimen/grid_2"
+                app:layout_constraintTop_toBottomOf="@id/tvReminders"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvReminder1"
+                style="@style/WrapContent"
+                android:layout_marginTop="@dimen/grid_2"
+                android:layout_marginStart="@dimen/grid_1"
+                android:text="Take a clear photo of your BIR certificate."
+                android:textColor="@color/colorDarkGray4B4948"
+                app:layout_constraintTop_toBottomOf="@id/tvReminders"
+                app:layout_constraintStart_toEndOf="@id/ivCheckIcon1"/>
+
+            <ImageView
+                android:id="@+id/ivCheckIcon2"
+                style="@style/WrapContent"
+                android:src="@drawable/ds_check_icon"
+                android:layout_marginTop="@dimen/grid_1"
+                app:layout_constraintTop_toBottomOf="@id/ivCheckIcon1"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvReminder2"
+                style="@style/WrapContent"
+                android:layout_marginTop="@dimen/grid_1"
+                android:layout_marginStart="@dimen/grid_1"
+                android:text="Make sure your document is not expired."
+                android:textColor="@color/colorDarkGray4B4948"
+                app:layout_constraintTop_toBottomOf="@id/tvReminder1"
+                app:layout_constraintStart_toEndOf="@id/ivCheckIcon2"/>
+
+            <ImageView
+                android:id="@+id/ivCheckIcon3"
+                style="@style/WrapContent"
+                android:src="@drawable/ds_check_icon"
+                android:layout_marginTop="@dimen/grid_1"
+                app:layout_constraintTop_toBottomOf="@id/ivCheckIcon2"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvReminder3"
+                style="@style/WrapContent"
+                android:layout_marginTop="@dimen/grid_1"
+                android:layout_marginStart="@dimen/grid_1"
+                android:text="Accepted file types are .jpeg, .png, .pdf."
+                android:textColor="@color/colorDarkGray4B4948"
+                app:layout_constraintTop_toBottomOf="@id/tvReminder2"
+                app:layout_constraintStart_toEndOf="@id/ivCheckIcon3"/>
+
+            <ImageView
+                android:id="@+id/ivCheckIcon4"
+                style="@style/WrapContent"
+                android:src="@drawable/ds_check_icon"
+                android:layout_marginTop="@dimen/grid_1"
+                app:layout_constraintTop_toBottomOf="@id/ivCheckIcon3"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvReminder4"
+                style="@style/WrapContent"
+                android:layout_marginTop="@dimen/grid_1"
+                android:layout_marginStart="@dimen/grid_1"
+                android:text="Maximum file size of 2MB."
+                android:textColor="@color/colorDarkGray4B4948"
+                app:layout_constraintTop_toBottomOf="@id/tvReminder3"
+                app:layout_constraintStart_toEndOf="@id/ivCheckIcon4"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUploadBIRDocs"
+            style="@style/MatchWrapParent"
+            android:layout_marginTop="@dimen/grid_2"
+            android:text="   BIR Certificate"
+            android:gravity="start|center"
+            android:drawableStart="@drawable/ic_bir_certificate"
+            android:drawableEnd="@drawable/ic_arrow_orange_right"
+            android:background="@drawable/a_spinner_outline"
+            android:padding="@dimen/grid_2"
+            app:layout_constraintTop_toBottomOf="@id/clReminders"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPreviewBIR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:padding="@dimen/grid_2"
+            android:background="@color/dsColorExtraLightGray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/ivPreviewBIR"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/grid_38"
+                android:scaleType="fitCenter"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/snackbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:padding="@dimen/grid_2"
+        android:layout_marginBottom="@dimen/grid_2"
+        app:layout_constraintBottom_toTopOf="@id/btnNext"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:layout_marginBottom="@dimen/grid_2"
+        android:background="@drawable/ds_bg_primary_button"
+        android:padding="@dimen/grid_2"
+        android:text="@string/action_next"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
