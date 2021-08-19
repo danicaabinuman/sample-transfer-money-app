@@ -30,7 +30,7 @@ class FeeCharges :
             val cardPercentageFeeValue = percentageFormat.format(feeCalculatorValueModel.cardPercentageFee)
             val eWalletFeeValue = feeFormat.format(feeCalculatorValueModel.eWallet)
             val eWalletPercentageFeeValue = percentageFormat.format(feeCalculatorValueModel.eWalletPercentageFee)
-            val otcFeeValue = feeFormat.format(feeCalculatorValueModel.instapay)
+            val otcFeeValue = feeFormat.format(feeCalculatorValueModel.otc)
 
             fncUnionBank.text = ubFeeValue
             fncInstapay.text = instapayFeeValue

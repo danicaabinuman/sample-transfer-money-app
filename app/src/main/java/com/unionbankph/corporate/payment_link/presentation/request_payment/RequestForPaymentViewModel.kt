@@ -50,20 +50,14 @@ class RequestForPaymentViewModel
     get() = _updateSettlementOnRequestPaymentResponse
 
     fun preparePaymentLinkGeneration(amount: String, paymentFor: String, notes: String?, selectedExpiry: String, mobileNumber: String?){
-        var expiry = 12
 
-        if(selectedExpiry.equals("6 hours",true)){
-            expiry = 6
-        }else if (selectedExpiry.equals("12 hours", true)){
-            expiry = 12
-        }else if (selectedExpiry.equals("1 day", true)){
-            expiry = 24
-        }else if (selectedExpiry.equals("2 days", true)){
-            expiry = 48
-        }else if (selectedExpiry.equals("3 days", true)){
-            expiry = 72
-        }else if (selectedExpiry.equals("7 days", true)){
-            expiry = 168
+        val expiry = when (selectedExpiry) {
+            "6 hours" -> 6
+            "1 day" -> 24
+            "2 days" -> 48
+            "3 days" -> 72
+            "7 days" -> 168
+            else -> 12
         }
 
         var finalMobileNumber : String? = null
@@ -78,15 +72,14 @@ class RequestForPaymentViewModel
         }
 
         generateLinkDetails(
-            GeneratePaymentLinkForm(
-                amount.replace("PHP","").replace(",","").trim().toDouble(),
-                paymentFor,
-                notes,
-                expiry,
-                finalMobileNumber,
-                null,
-                null
-            )
+
+            GeneratePaymentLinkForm().apply {
+                this.totalAmount = amount.replace("PHP","").replace(",","").trim().toDouble()
+                this.description = paymentFor
+                this.notes = notes
+                this.paymentLinkExpiry = expiry
+                this.mobileNumber = finalMobileNumber  ?: ""
+            }
         )
     }
     private fun generateLinkDetails(linkDetailsForm: GeneratePaymentLinkForm){
@@ -100,8 +93,7 @@ class RequestForPaymentViewModel
                     if (it.message.equals("Unable to generate new link, your merchant is currently disabled.", true)){
                         _linkDetailsState.value = ErrorMerchantDisabled(it)
                     } else {
-//                        _linkDetailsState.value = ShouldContinueGenerate(true)
-                        _uiState.value = Event(UiState.Error(it))
+                        _linkDetailsState.value = ShouldContinueGenerate(true)
                     }
 
                 }

@@ -27,13 +27,10 @@ class PaymentLinkGatewayImpl
     override fun generatePaymentLink(generatePaymentLinkForm: GeneratePaymentLinkForm): Single<GeneratePaymentLinkResponse> {
 
         val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgName = "Test Org 6247 2"
-        if(role?.organizationName != null){
-        }
-        generatePaymentLinkForm.organizationName = orgName
+        generatePaymentLinkForm.organizationName = role?.organizationName
 
-        var corporateUser = JsonHelper.fromJson<CorporateUser>(cacheManager.get(CacheManager.CORPORATE_USER))
-        if(corporateUser?.id != null){
+        val corporateUser = JsonHelper.fromJson<CorporateUser>(cacheManager.get(CacheManager.CORPORATE_USER))
+        if(corporateUser.id != null){
             generatePaymentLinkForm.corporateId = corporateUser.id
         }
 

@@ -45,7 +45,7 @@ class RequestForPaymentActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        setupOutputs()
+
     }
 
     override fun onViewsBound() {
@@ -53,7 +53,7 @@ class RequestForPaymentActivity :
         initViews()
 
         setupInputs()
-
+        setupOutputs()
         buttonDisable()
         buttonCalculatorDisabled()
 
