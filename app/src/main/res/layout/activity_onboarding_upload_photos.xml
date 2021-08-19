@@ -124,14 +124,19 @@
         app:layout_constraintTop_toBottomOf="@id/viewToolbar">
 
         <ImageView
+            android:layout_margin="@dimen/content_spacing"
             android:id="@+id/ivFullscreenImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/WrapContent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
+      <TextView
         android:id="@+id/snackbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

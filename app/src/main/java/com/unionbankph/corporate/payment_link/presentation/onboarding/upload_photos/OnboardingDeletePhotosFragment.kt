@@ -1,29 +1,40 @@
-package com.unionbankph.corporate.payment_link.presentation.onboarding
+package com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
+import kotlinx.android.synthetic.main.bottom_sheet_onboarding_delete_photo.*
 
-class OnboardingDeletePhotosFragment : Fragment() {
+class OnboardingDeletePhotosFragment : BottomSheetDialogFragment() {
 
     private var listener : OnboardingDeletePhotosInteraction? = null
-    private var fullscreenImage : String? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.activity_onboarding_delete_photos, container, false)
+        return inflater.inflate(R.layout.bottom_sheet_onboarding_delete_photo, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        fullscreenImage = arguments?.getString(FULLSCREEN_IMAGE)
+        btn_delete.setOnClickListener {
+            this.dismiss()
+            listener?.deletePhoto()
+        }
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnboardingDeletePhotosInteraction) {
+            listener = context
+        }
     }
 
     interface OnboardingDeletePhotosInteraction{
@@ -32,7 +43,6 @@ class OnboardingDeletePhotosFragment : Fragment() {
 
     companion object{
         const val TAG = "DeletePhotosFragment"
-        const val FULLSCREEN_IMAGE = "Image"
 
         @JvmStatic
         fun newInstance() =
@@ -41,6 +51,5 @@ class OnboardingDeletePhotosFragment : Fragment() {
 
                 }
             }
-
     }
 }
