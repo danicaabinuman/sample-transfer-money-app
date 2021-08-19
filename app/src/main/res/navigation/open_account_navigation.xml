@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainNavigation"
-    app:startDestination="@id/nominate_password">
+    app:startDestination="@id/account_selection_fragment">
 
     <fragment
         android:id="@+id/account_selection_fragment"
