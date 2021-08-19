@@ -118,7 +118,6 @@ class OnboardingUploadPhotosActivity :
             btnNext.visibility(false)
             clDeleteSelectedPhoto.visibility(true)
             btnDelete.visibility(true)
-            btnSaveCrop.visibility(false)
         }
         btnDelete.setOnClickListener {
             showDeletePhotoDialog()
@@ -135,7 +134,6 @@ class OnboardingUploadPhotosActivity :
         btnDelete.visibility(false)
         clSelectedPhotos.visibility(true)
         btnNext.visibility(true)
-        btnSaveCrop.visibility(false)
         btnSaveAndExit.visibility(true)
         btnAddPhotos2.visibility(true)
     }
