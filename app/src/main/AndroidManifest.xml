@@ -603,9 +603,10 @@
 
 
         <activity
-            android:name=".payment_link.presentation.onboarding.OnboardingUploadPhotosActivity"
+            android:name=".payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
+            android:launchMode="standard"
+            />
 
         <activity
             android:name=".payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity"
@@ -631,6 +632,17 @@
             android:name=".payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
+
+        <activity
+            android:name=".payment_link.presentation.onboarding.camera.OnboardingCameraActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".payment_link.presentation.onboarding.camera.OnboardingImagePreviewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
 
         <!-- Others -->
         <meta-data
