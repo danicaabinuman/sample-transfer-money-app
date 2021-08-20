@@ -110,6 +110,7 @@ import com.unionbankph.corporate.payment_link.presentation.setup_business_inform
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsViewModel
@@ -806,5 +807,12 @@ abstract class ViewModelModule {
     @ViewModelKey(NegPosBottomSheetViewModel::class)
     abstract fun negPosBottomSheetViewModel(
         viewModel: NegPosBottomSheetViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CardAcceptanceUploadDocumentsViewModel::class)
+    abstract fun cardAcceptanceUploadDocumentsViewModel(
+        viewModel: CardAcceptanceUploadDocumentsViewModel
     ): ViewModel
 }

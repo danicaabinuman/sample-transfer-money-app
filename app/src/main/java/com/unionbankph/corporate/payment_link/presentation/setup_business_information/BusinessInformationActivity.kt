@@ -120,21 +120,12 @@ class BusinessInformationActivity :
         btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
         btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
         btn_next.setOnClickListener {
-            retrieveInformationFromFields()
+//            retrieveInformationFromFields()
             btnNextClicked()
         }
         btnSaveAndExit.setOnClickListener {
             retrieveInformationFromFields()
-//            showDialogToDashboard()
-            navigator.navigate(
-                this,
-                DashboardActivity::class.java,
-                null,
-                isClear = false,
-                isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_RIGHT
-            )
-
+            showDialogToDashboard()
         }
     }
 
@@ -269,7 +260,10 @@ class BusinessInformationActivity :
             tv_lazada_title.visibility = View.GONE
             til_lazada.visibility = View.GONE
             et_lazada.visibility = View.GONE
-            disableNextButton()
+            if (et_lazada.text!!.isNotEmpty()){
+                et_lazada.text!!.clear()
+                enableNextButton()
+            }
         }
 
     }
@@ -293,7 +287,10 @@ class BusinessInformationActivity :
             tv_shopee_title.visibility = View.GONE
             til_shopee.visibility = View.GONE
             et_shopee.visibility = View.GONE
-            disableNextButton()
+            if (et_shopee.text!!.isNotEmpty()){
+                et_shopee.text!!.clear()
+                enableNextButton()
+            }
         }
     }
 
@@ -316,7 +313,10 @@ class BusinessInformationActivity :
             tv_facebook_title.visibility = View.GONE
             til_facebook.visibility = View.GONE
             et_facebook.visibility = View.GONE
-            disableNextButton()
+            if (et_facebook.text!!.isNotEmpty()){
+                et_facebook.text!!.clear()
+                enableNextButton()
+            }
         }
     }
 
@@ -340,7 +340,10 @@ class BusinessInformationActivity :
             tv_physical_store.visibility = View.GONE
             til_physical_store.visibility = View.GONE
             et_physical_store.visibility = View.GONE
-            disableNextButton()
+            if (et_physical_store.text!!.isNotEmpty()){
+                et_physical_store.text!!.clear()
+                enableNextButton()
+            }
         }
     }
 
@@ -363,7 +366,10 @@ class BusinessInformationActivity :
             tv_instagram_title.visibility = View.GONE
             til_instagram.visibility = View.GONE
             et_instagram.visibility = View.GONE
-            disableNextButton()
+            if (et_instagram.text!!.isNotEmpty()){
+                et_instagram.text!!.clear()
+                enableNextButton()
+            }
         }
     }
 
@@ -386,7 +392,10 @@ class BusinessInformationActivity :
             tv_website_title.visibility = View.GONE
             til_website.visibility = View.GONE
             et_website.visibility = View.GONE
-            disableNextButton()
+            if (et_website.text!!.isNotEmpty()){
+                et_website.text!!.clear()
+                enableNextButton()
+            }
         }
     }
 
@@ -409,7 +418,10 @@ class BusinessInformationActivity :
             tv_others_title.visibility = View.GONE
             til_others.visibility = View.GONE
             et_others.visibility = View.GONE
-            disableNextButton()
+            if (et_others.text!!.isNotEmpty()){
+                et_others.text!!.clear()
+                enableNextButton()
+            }
         }
     }
 
@@ -484,12 +496,12 @@ class BusinessInformationActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val servicesOffered = s?.length
-                if (servicesOffered == 0){
-                    disableNextButton()
-                } else {
-                    enableNextButton()
-                }
+//                val servicesOffered = s?.length
+//                if (servicesOffered == 0){
+//                    disableNextButton()
+//                } else {
+//                    enableNextButton()
+//                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -627,12 +639,13 @@ class BusinessInformationActivity :
             description = getString(R.string.progress_saved),
             positiveButtonText = getString(R.string.btn_back_to_dashboard),
             onPositiveButtonClicked = {
-                navigator.navigateClearStacks(
+                navigator.navigate(
                     this,
                     DashboardActivity::class.java,
                     null,
-                    true,
-                    Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_RIGHT
                 )
             }
         ).show()

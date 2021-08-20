@@ -155,37 +155,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clPreviewBIR"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-
-        app:layout_constraintTop_toBottomOf="@id/viewToolbar">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:padding="@dimen/grid_2"
-            android:background="@color/dsColorExtraLightGray"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:id="@+id/ivPreviewBIR"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/grid_38"
-                android:scaleType="fitCenter"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <TextView
         android:id="@+id/snackbar"
         android:layout_width="match_parent"
@@ -211,4 +180,14 @@
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/popupPreviewDocs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true">
+        <include layout="@layout/layout_preview_docs"/>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

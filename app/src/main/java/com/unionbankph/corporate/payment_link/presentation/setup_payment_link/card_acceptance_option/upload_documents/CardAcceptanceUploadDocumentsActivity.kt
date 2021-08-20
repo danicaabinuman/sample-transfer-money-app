@@ -25,18 +25,27 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ca
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.viewToolbar
 import kotlinx.android.synthetic.main.activity_upload_documents.*
+import kotlinx.android.synthetic.main.activity_upload_documents.btnNext
+import kotlinx.android.synthetic.main.layout_preview_docs.*
+import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
+import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.toolbar
 import java.io.File
 import java.io.IOException
 import javax.annotation.concurrent.ThreadSafe
+import javax.inject.Inject
 
 class CardAcceptanceUploadDocumentsActivity :
     BaseActivity<CardAcceptanceUploadDocumentsViewModel>(R.layout.activity_upload_documents),
     CardAcceptanceUploadDocumentFragment.OnUploadBIRDocs {
 
-    private var uploadBIRFragment: CardAcceptanceUploadDocumentFragment? = null
+    @Inject
     lateinit var fileUtil: FileUtil
+
+    private var uploadBIRFragment: CardAcceptanceUploadDocumentFragment? = null
     lateinit var imgView: ImageView
+    val uriArrayList = arrayListOf<Uri>()
+    val REQUEST_CODE = 200
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -102,6 +111,29 @@ class CardAcceptanceUploadDocumentsActivity :
         uploadBIRFragment!!.show(supportFragmentManager, CardAcceptanceUploadDocumentFragment.TAG)
     }
 
+
+    private fun layoutVisibility(){
+        viewToolbar.visibility = View.GONE
+        popupPreviewDocs.visibility = View.VISIBLE
+
+        ivBackButton.setOnClickListener {
+            popupPreviewDocs.visibility = View.GONE
+            viewToolbar.visibility = View.VISIBLE
+            clUploadBIRDocs.visibility = View.VISIBLE
+        }
+
+        btnEdit.setOnClickListener {
+            showbottomSheetDialog()
+        }
+
+        btnNavigateBackToUploadDocs.setOnClickListener {
+            popupPreviewDocs.visibility = View.GONE
+            viewToolbar.visibility = View.VISIBLE
+            clUploadBIRDocs.visibility = View.VISIBLE
+            btnNext.visibility = View.VISIBLE
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         imgView = findViewById(R.id.ivPreviewBIR)
@@ -121,17 +153,14 @@ class CardAcceptanceUploadDocumentsActivity :
                         imgView.setImageBitmap(bitmap)
                         rendererPage.close()
                         pdfRenderer.close()
-                        clPreviewBIR.visibility = View.VISIBLE
-                        btnNext.visibility = View.VISIBLE
-
+                        layoutVisibility()
                     }
                 }
             GALLERY_REQUEST_CODE ->
                 if (resultCode == RESULT_OK){
                     if (data?.data != null){
                         clUploadBIRDocs.visibility = View.GONE
-                        clPreviewBIR.visibility = View.VISIBLE
-                        btnNext.visibility = View.VISIBLE
+                        layoutVisibility()
 
                         val imageUri = data.data!!
                         imgView.setImageURI(imageUri)
@@ -140,9 +169,16 @@ class CardAcceptanceUploadDocumentsActivity :
 
                 }
             CAPTURE_PHOTO -> {
-                viewModel.currentFile.value?.let {
-                    viewModel.originalApplicationFileInput.onNext(it)
+                if (resultCode == RESULT_OK){
+                    if (data != null){
+                        layoutVisibility()
+                        imgView.setImageBitmap(data.extras?.get("data") as Bitmap)
+                    }
+
                 }
+//                viewModel.currentFile.value?.let {
+//                    viewModel.originalApplicationFileInput.onNext(it)
+//                }
             }
 
         }
@@ -156,13 +192,13 @@ class CardAcceptanceUploadDocumentsActivity :
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             startActivityForResult(
                 Intent.createChooser(intent, "Choose file"),
-                GALLERY_REQUEST_CODE
+                REQUEST_CODE
             )
         } else {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             intent.type = "application/pdf"
-            startActivityForResult(intent, GALLERY_REQUEST_CODE)
+            startActivityForResult(intent, REQUEST_CODE)
         }
 
     }
@@ -173,39 +209,41 @@ class CardAcceptanceUploadDocumentsActivity :
     }
 
     private fun takePhotoOfBIRDocs(){
-        RxPermissions(this)
-            .request(Manifest.permission.CAMERA)
-            .subscribe { granted ->
-                if (granted) {
-//                    cameraView.open()
-                    Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-                        takePictureIntent.resolveActivity(packageManager)?.also {
-                            val photoFile: File? = try {
-                                fileUtil.createCaptureImageFile()
-                            } catch (ex: IOException) {
-                                showMaterialDialogError(message = ex.message.notNullable())
-                                null
-                            }
-                            photoFile?.let {
-                                viewModel.currentFile.onNext(it)
-                                it.also {
-                                    val photoURI: Uri = FileProvider.getUriForFile(
-                                        this,
-                                        "${BuildConfig.APPLICATION_ID}.fileprovider",
-                                        it
-                                    )
-                                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                                    startActivityForResult(takePictureIntent, CAPTURE_PHOTO
-                                    )
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    takePhotoOfBIRDocs()
-                }
-            }.addTo(disposables)
+//        RxPermissions(this)
+//            .request(Manifest.permission.CAMERA)
+//            .subscribe { granted ->
+//                if (granted) {
+////                    cameraView.open()
+//                    Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+//                        takePictureIntent.resolveActivity(packageManager)?.also {
+//                            val photoFile: File? = try {
+//                                fileUtil.createCaptureImageFile()
+//                            } catch (ex: IOException) {
+//                                showMaterialDialogError(message = ex.message.notNullable())
+//                                null
+//                            }
+//                            photoFile?.let {
+//                                viewModel.currentFile.onNext(it)
+//                                it.also {
+//                                    val photoURI: Uri = FileProvider.getUriForFile(
+//                                        this,
+//                                        "${BuildConfig.APPLICATION_ID}.fileprovider",
+//                                        it
+//                                    )
+//                                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+//                                    startActivityForResult(takePictureIntent, CAPTURE_PHOTO
+//                                    )
+//                                }
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    takePhotoOfBIRDocs()
+//                }
+//            }.addTo(disposables)
 
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, CAPTURE_PHOTO)
     }
 
     override fun openCamera() {
@@ -235,7 +273,6 @@ class CardAcceptanceUploadDocumentsActivity :
 
     @ThreadSafe
     companion object{
-        const val REQUEST_CODE = 200
         const val GALLERY_REQUEST_CODE = 1
         const val CAPTURE_PHOTO = 2
 
