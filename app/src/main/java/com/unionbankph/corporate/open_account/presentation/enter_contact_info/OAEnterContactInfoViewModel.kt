@@ -1,10 +1,10 @@
-package com.unionbankph.corporate.user_creation.presentation.enter_contact_info
+package com.unionbankph.corporate.open_account.presentation.enter_contact_info
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.platform.events.Event
-import com.unionbankph.corporate.open_account.data.UserCreationForm
+import com.unionbankph.corporate.open_account.data.OpenAccountForm
 import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
@@ -14,7 +14,7 @@ class OAEnterContactInfoViewModel @Inject constructor() : BaseViewModel() {
 
     fun hasValidForm() = input.isValidFormInput.value ?: false
 
-    var userCreationForm = UserCreationForm()
+    var userCreationForm = OpenAccountForm()
 
     var input = Input()
 
@@ -43,7 +43,7 @@ class OAEnterContactInfoViewModel @Inject constructor() : BaseViewModel() {
         _navigateNextStep.value = Event(input)
     }
 
-    fun loadDefaultForm(defaultForm: UserCreationForm) {
+    fun loadDefaultForm(defaultForm: OpenAccountForm) {
         this.userCreationForm = defaultForm
     }
 

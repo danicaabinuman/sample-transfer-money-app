@@ -54,6 +54,7 @@ import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoard
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
+import com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
@@ -81,7 +82,7 @@ import com.unionbankph.corporate.open_account.presentation.reminder.OAReminderFr
 import com.unionbankph.corporate.open_account.presentation.select_account.OAAccountSelection
 import com.unionbankph.corporate.open_account.presentation.tnc.OATNCFragment
 import com.unionbankph.corporate.open_account.presentation.tnc_reminder.OATNCReminderFragment
-import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.OAEnterContactInfoFragment
+import com.unionbankph.corporate.open_account.presentation.otp.OaOTPFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -411,4 +412,8 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun oaNominatePasswordFragment(): OaNominatePasswordFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun oaOTPFragment(): OaOTPFragment
 }

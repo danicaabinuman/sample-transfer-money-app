@@ -4,10 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserCreationForm(
-
-    @SerialName("name")
-    var name: Name? = null,
+data class OpenAccountForm(
+    @SerialName("first_name")
+    var firstName: String? = null,
+    @SerialName("last_name")
+    var lastName: String? = null,
     @SerialName("email")
     var email: String? = null,
     @SerialName("countryCode")

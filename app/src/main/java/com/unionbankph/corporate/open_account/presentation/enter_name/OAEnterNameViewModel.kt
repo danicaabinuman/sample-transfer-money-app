@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.platform.events.Event
-import com.unionbankph.corporate.open_account.data.UserCreationForm
+import com.unionbankph.corporate.open_account.data.OpenAccountForm
 import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
@@ -15,7 +15,7 @@ class OAEnterNameViewModel @Inject constructor() : BaseViewModel() {
 
     fun hasValidForm() = input.isValidFormInput.value ?: false
 
-    var userCreationForm = UserCreationForm()
+    var openAccountForm = OpenAccountForm()
 
     var input = Input()
 
@@ -41,8 +41,8 @@ class OAEnterNameViewModel @Inject constructor() : BaseViewModel() {
         _navigateNextStep.value = Event(input)
     }
 
-    fun loadDefaultForm(defaultForm: UserCreationForm) {
-        this.userCreationForm = defaultForm
+    fun loadDefaultForm(defaultForm: OpenAccountForm) {
+        this.openAccountForm = defaultForm
     }
 
     fun setPreTextValues(firstNameInput: String?, lastNameInput: String?) {
