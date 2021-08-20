@@ -85,9 +85,35 @@
 
     <fragment
         android:id="@+id/enter_contact_info"
-        android:name="com.unionbankph.corporate.user_creation.presentation.enter_contact_info.OAEnterContactInfoFragment"
+        android:name="com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoFragment"
         android:label="enter_contact_info_fragment"
-        tools:layout="@layout/fragment_oa_enter_contact_info"/>
+        tools:layout="@layout/fragment_oa_enter_contact_info">
+
+        <action
+            android:id="@+id/action_enter_contact_to_otp"
+            app:destination="@id/otp_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/otp_fragment"
+        android:name="com.unionbankph.corporate.open_account.presentation.otp.OaOTPFragment"
+        android:label="@string/title_one_time_password"
+        tools:layout="@layout/fragment_oa_otp">
+
+        <action
+            android:id="@+id/action_otp_to_nominate_password"
+            app:destination="@id/nominate_password"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/nominate_password"

@@ -1,7 +1,7 @@
 package com.unionbankph.corporate.open_account.presentation.tnc_reminder
 
 import com.unionbankph.corporate.app.base.BaseViewModel
-import com.unionbankph.corporate.open_account.data.UserCreationForm
+import com.unionbankph.corporate.open_account.data.OpenAccountForm
 import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
@@ -10,10 +10,10 @@ class TNCReminderViewModel @Inject constructor() : BaseViewModel() {
     val isLoadedScreen = BehaviorSubject.create<Boolean>()
 
     var input: Input = Input()
-    var userCreationForm : UserCreationForm = UserCreationForm()
+    var openAccountForm : OpenAccountForm = OpenAccountForm()
 
-    fun loadName(userCreationForm: UserCreationForm) {
-        this.userCreationForm = userCreationForm
+    fun loadName(openAccountForm: OpenAccountForm) {
+        this.openAccountForm = openAccountForm
     }
 
     inner class Input {

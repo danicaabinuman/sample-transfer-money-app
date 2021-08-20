@@ -134,7 +134,9 @@ import com.unionbankph.corporate.settings.presentation.update_password.UpdatePas
 import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
 import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameViewModel
 import com.unionbankph.corporate.open_account.presentation.tnc_reminder.TNCReminderViewModel
-import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.OAEnterContactInfoViewModel
+import com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoViewModel
+import com.unionbankph.corporate.open_account.presentation.otp.OaOTPFragment
+import com.unionbankph.corporate.open_account.presentation.otp.OaOTPViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -860,5 +862,12 @@ abstract class ViewModelModule {
     @ViewModelKey(NegPosBottomSheetViewModel::class)
     abstract fun negPosBottomSheetViewModel(
         viewModel: NegPosBottomSheetViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OaOTPViewModel::class)
+    abstract fun oaOTPViewModel(
+        viewModel: OaOTPViewModel
     ): ViewModel
 }

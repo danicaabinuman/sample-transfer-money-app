@@ -3,13 +3,16 @@ package com.unionbankph.corporate.open_account.presentation
 
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.open_account.data.Name
-import com.unionbankph.corporate.open_account.data.UserCreationForm
+import com.unionbankph.corporate.open_account.data.OpenAccountForm
 import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameViewModel
-import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.OAEnterContactInfoViewModel
+import com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoViewModel
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 class OpenAccountViewModel @Inject constructor() : BaseViewModel() {
+
+    // Form
+    private var openAccountForm = OpenAccountForm()
 
     // Name
     var nameInput = Input()
@@ -30,16 +33,13 @@ class OpenAccountViewModel @Inject constructor() : BaseViewModel() {
         var mobileInput = BehaviorSubject.create<String>()
     }
 
-    fun defaultForm() : UserCreationForm {
-        return UserCreationForm().apply {
-            name = Name(
-                firstName = nameInput.firstNameInput.value,
-                lastName = nameInput.lastNameInput.value
-            )
+    fun defaultForm() : OpenAccountForm {
+        return OpenAccountForm().apply {
+            firstName = nameInput.firstNameInput.value
+            lastName = nameInput.lastNameInput.value
             email = contactInput.emailInput.value
             countryCode = contactInput.countryCodeInput.value
             mobile = contactInput.mobileInput.value
-
         }
     }
 

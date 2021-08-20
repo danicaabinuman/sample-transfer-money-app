@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.user_creation.presentation.enter_contact_info
+package com.unionbankph.corporate.open_account.presentation.enter_contact_info
 
 import android.os.Bundle
 import android.text.Editable
