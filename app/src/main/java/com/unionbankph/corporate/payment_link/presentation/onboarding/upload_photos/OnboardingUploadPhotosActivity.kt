@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.widget.BaseAdapter
@@ -15,19 +14,14 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
-import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
-import com.unionbankph.corporate.app.dashboard.DashboardActivity
-import com.unionbankph.corporate.app.util.FileUtil
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
-import java.io.File
 import java.util.*
 import javax.annotation.concurrent.ThreadSafe
-import javax.inject.Inject
 import kotlin.concurrent.timerTask
 
 class OnboardingUploadPhotosActivity :
@@ -96,6 +90,7 @@ class OnboardingUploadPhotosActivity :
         if (uriArrayList.size != 0) {
             buttonsVisibility()
             initListener()
+            btnNext?.isEnabled = true
         }
 
     }
@@ -115,59 +110,22 @@ class OnboardingUploadPhotosActivity :
     private fun initListener() {
         adapter = UploadPhotosCustomAdapter(this, uriArrayList)
         gv.adapter = adapter
-        if (uriArrayList.size < 6) {
-            gv.setOnItemClickListener { parent, view, position, id ->
-                val itemUri = uriArrayList[position]
-                ivFullscreenImage.setImageURI(itemUri)
-                clUploadPhotosIntro.visibility(false)
-                clSelectedPhotos.visibility(false)
-                btnSaveAndExit.visibility(false)
-                btnNext.visibility(false)
-                clDeleteSelectedPhoto.visibility(true)
-                btnDelete.visibility(true)
 
-                btnDelete.setOnClickListener {
-                    DialogFactory().createSMEDialog(
-                        this,
-                        isNewDesign = false,
-                        description = "Are you sure you want to remove this photo?",
-                        positiveButtonText = "Yes, delete this photo",
-                        onPositiveButtonClicked = {
-                            uriArrayList.remove(itemUri)
-                            adapter?.notifyDataSetChanged()
-                            clDeleteSelectedPhoto.visibility(false)
-                            btnDelete.visibility(false)
-                            clSelectedPhotos.visibility(true)
-                            btnNext.visibility(true)
-                            btnSaveAndExit.visibility(true)
-                            btnAddPhotos2.visibility(true)
-                        }
-                    ).show()
-
-                }
-
-                if (uriArrayList.size == 6) {
-                    btnAddPhotos2.visibility(false)
-                }
-            }
-        } else {
-            gv.setOnItemClickListener { parent, view, position, id ->
-                itemUri = uriArrayList[position]
-                ivFullscreenImage.setImageURI(itemUri)
-                clUploadPhotosIntro.visibility(false)
-                clSelectedPhotos.visibility(false)
-                btnSaveAndExit.visibility(false)
-                btnNext.visibility(false)
-                clDeleteSelectedPhoto.visibility(true)
-                btnDelete.visibility(true)
-            }
-            btnDelete.setOnClickListener {
-                showDeletePhotoDialog()
-            }
-            if (uriArrayList.size == 6) {
-                btnAddPhotos2.visibility(false)
-            }
-
+        gv.setOnItemClickListener { parent, view, position, id ->
+            itemUri = uriArrayList[position]
+            ivFullscreenImage.setImageURI(itemUri)
+            clUploadPhotosIntro.visibility(false)
+            clSelectedPhotos.visibility(false)
+            btnSaveAndExit.visibility(false)
+            btnNext.visibility(false)
+            clDeleteSelectedPhoto.visibility(true)
+            btnDelete.visibility(true)
+        }
+        btnDelete.setOnClickListener {
+            showDeletePhotoDialog()
+        }
+        if (uriArrayList.size == 6) {
+            btnAddPhotos2.visibility(false)
         }
     }
 
@@ -180,6 +138,7 @@ class OnboardingUploadPhotosActivity :
         btnNext.visibility(true)
         btnSaveAndExit.visibility(true)
         btnAddPhotos2.visibility(true)
+        btnNext?.isEnabled = false
     }
 
     private fun buttonsVisibility() {
@@ -187,6 +146,7 @@ class OnboardingUploadPhotosActivity :
         clSelectedPhotos.visibility(true)
         btnNext.visibility(true)
         btnSaveAndExit.visibility(true)
+        btnNext?.isEnabled = true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -305,6 +265,7 @@ class OnboardingUploadPhotosActivity :
         }
 
     }
+
     @ThreadSafe
     companion object {
         const val REQUEST_CODE = 1209
