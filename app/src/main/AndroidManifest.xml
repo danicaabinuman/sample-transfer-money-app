@@ -643,6 +643,15 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name=".payment_link.presentation.onboarding.camera.DocumentCameraActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".payment_link.presentation.onboarding.camera.DocumentImagePreviewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
 
         <!-- Others -->
         <meta-data

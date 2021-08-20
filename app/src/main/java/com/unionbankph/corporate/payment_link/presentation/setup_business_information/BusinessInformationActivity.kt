@@ -496,12 +496,12 @@ class BusinessInformationActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                val servicesOffered = s?.length
-//                if (servicesOffered == 0){
-//                    disableNextButton()
-//                } else {
-//                    enableNextButton()
-//                }
+                val servicesOffered = s?.length
+                if (servicesOffered == 0){
+                    disableNextButton()
+                } else {
+                    enableNextButton()
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {

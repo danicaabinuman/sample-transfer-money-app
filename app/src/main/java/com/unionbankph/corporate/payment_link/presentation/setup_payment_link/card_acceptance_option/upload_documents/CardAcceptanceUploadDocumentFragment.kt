@@ -25,6 +25,7 @@ class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
         super.onActivityCreated(savedInstanceState)
 
         btnTakeBIRPhoto.setOnClickListener {
+            dismiss()
             listener?.openCamera()
         }
 

@@ -91,6 +91,8 @@ import com.unionbankph.corporate.payment_link.presentation.activity_logs.Activit
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentImagePreviewActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingImagePreviewActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
@@ -588,4 +590,12 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun onboardingImagePreviewActivity(): OnboardingImagePreviewActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun documentCameraActivity(): DocumentCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun documentImagePreviewActivity(): DocumentImagePreviewActivity
 }

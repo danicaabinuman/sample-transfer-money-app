@@ -102,6 +102,7 @@ import com.unionbankph.corporate.notification.presentation.notification_log.Noti
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsViewModel
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashViewModel
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsViewModel
@@ -832,4 +833,10 @@ abstract class ViewModelModule {
         viewModel: OnboardingCameraViewModel
     ): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(DocumentCameraViewModel::class)
+    abstract fun documentCameraViewModel(
+        viewModel: DocumentCameraViewModel
+    ): ViewModel
 }

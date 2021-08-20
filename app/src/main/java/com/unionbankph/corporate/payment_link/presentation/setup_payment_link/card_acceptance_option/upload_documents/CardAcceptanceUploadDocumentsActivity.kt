@@ -9,6 +9,7 @@ import android.os.*
 import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
+import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.FileProvider
@@ -18,7 +19,11 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.notNullable
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.util.FileUtil
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.viewToolbar
@@ -30,6 +35,7 @@ import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.toolbar
 import java.io.File
 import java.io.IOException
+import java.util.ArrayList
 import javax.annotation.concurrent.ThreadSafe
 import javax.inject.Inject
 
@@ -42,7 +48,8 @@ class CardAcceptanceUploadDocumentsActivity :
 
     private var uploadBIRFragment: CardAcceptanceUploadDocumentFragment? = null
     lateinit var imgView: ImageView
-    val uriArrayList = arrayListOf<Uri>()
+    private var uriArrayList = arrayListOf<Uri>()
+    var adapter: BaseAdapter? = null
     val REQUEST_CODE = 200
 
     override fun afterLayout(savedInstanceState: Bundle?) {
@@ -76,6 +83,7 @@ class CardAcceptanceUploadDocumentsActivity :
     }
     override fun onViewsBound() {
         super.onViewsBound()
+        init()
 
         btnSaveAndExit.visibility = View.GONE
         btnUploadBIRDocs.setOnClickListener {
@@ -100,6 +108,14 @@ class CardAcceptanceUploadDocumentsActivity :
         }
     }
 
+    private fun init(){
+        uriArrayList = intent.getParcelableArrayListExtra<Uri>(OnboardingUploadPhotosActivity.LIST_OF_IMAGES_URI)
+            .notNullable() as ArrayList<Uri>
+        if (uriArrayList.size != 0){
+            layoutVisibility()
+            initAdapterListener()
+        }
+    }
     private fun showbottomSheetDialog() {
 
         if (uploadBIRFragment == null) {
@@ -132,6 +148,11 @@ class CardAcceptanceUploadDocumentsActivity :
         }
     }
 
+    private fun initAdapterListener(){
+        adapter = UploadDocumentsAdapter(this, uriArrayList)
+        gvDocs.adapter = adapter
+
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         imgView = findViewById(R.id.ivPreviewBIR)
@@ -166,18 +187,18 @@ class CardAcceptanceUploadDocumentsActivity :
 
 
                 }
-            CAPTURE_PHOTO -> {
-                if (resultCode == RESULT_OK){
-                    if (data != null){
-                        layoutVisibility()
-                        imgView.setImageBitmap(data.extras?.get("data") as Bitmap)
-                    }
-
-                }
-//                viewModel.currentFile.value?.let {
-//                    viewModel.originalApplicationFileInput.onNext(it)
+//            CAPTURE_PHOTO -> {
+//                if (resultCode == RESULT_OK){
+//                    if (data != null){
+//                        layoutVisibility()
+//                        imgView.setImageBitmap(data.extras?.get("data") as Bitmap)
+//                    }
+//
 //                }
-            }
+////                viewModel.currentFile.value?.let {
+////                    viewModel.originalApplicationFileInput.onNext(it)
+////                }
+//            }
 
         }
     }
@@ -207,46 +228,41 @@ class CardAcceptanceUploadDocumentsActivity :
     }
 
     private fun takePhotoOfBIRDocs(){
-//        RxPermissions(this)
-//            .request(Manifest.permission.CAMERA)
-//            .subscribe { granted ->
-//                if (granted) {
-////                    cameraView.open()
-//                    Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-//                        takePictureIntent.resolveActivity(packageManager)?.also {
-//                            val photoFile: File? = try {
-//                                fileUtil.createCaptureImageFile()
-//                            } catch (ex: IOException) {
-//                                showMaterialDialogError(message = ex.message.notNullable())
-//                                null
-//                            }
-//                            photoFile?.let {
-//                                viewModel.currentFile.onNext(it)
-//                                it.also {
-//                                    val photoURI: Uri = FileProvider.getUriForFile(
-//                                        this,
-//                                        "${BuildConfig.APPLICATION_ID}.fileprovider",
-//                                        it
-//                                    )
-//                                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-//                                    startActivityForResult(takePictureIntent, CAPTURE_PHOTO
-//                                    )
-//                                }
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    takePhotoOfBIRDocs()
-//                }
-//            }.addTo(disposables)
+//        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        startActivityForResult(cameraIntent, CAPTURE_PHOTO)
 
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, CAPTURE_PHOTO)
+        val bundle = Bundle().apply {
+            putParcelableArrayList(
+                LIST_OF_IMAGES_URI,
+                uriArrayList
+            )
+        }
+        navigator.navigate(
+            this,
+            DocumentCameraActivity::class.java,
+            bundle,
+            isClear = true,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     override fun openCamera() {
-        takePhotoOfBIRDocs()
-        uploadBIRFragment?.dismiss()
+//        takePhotoOfBIRDocs()
+        val bundle = Bundle().apply {
+            putParcelableArrayList(
+                LIST_OF_IMAGES_URI,
+                uriArrayList
+            )
+        }
+        navigator.navigate(
+            this,
+            DocumentCameraActivity::class.java,
+            bundle,
+            isClear = true,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     private fun addPhotoOfBIRDocs(){
@@ -273,6 +289,7 @@ class CardAcceptanceUploadDocumentsActivity :
     companion object{
         const val GALLERY_REQUEST_CODE = 1
         const val CAPTURE_PHOTO = 2
+        const val LIST_OF_IMAGES_URI = "list_of_image_uri"
 
     }
 }
