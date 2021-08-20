@@ -2308,4 +2308,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="message_no_account_eligible">Seems like your accounts are not eligible for this feature. You may open an account by clicking this button.</string>
     <string name="title_no_available_accounts">No Available Accounts</string>
     <string name="progress_saved">Progress saved</string>
+    <string name="title_use_photo">Use Photo</string>
+    <string name="title_delete_photo">Are you sure you want to remove this photo?</string>
+    <string name="btn_delete_this_photo">YES, DELETE THIS PHOTO</string>
 </resources>

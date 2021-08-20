@@ -20,8 +20,8 @@ import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
-import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_business_information.viewToolbar
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
