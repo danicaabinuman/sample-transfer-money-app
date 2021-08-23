@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/grid_1"
+    android:background="@color/colorWhite"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        style="@style/MatchConstraint"
+        app:layout_constraintBottom_toTopOf="@+id/buttonNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="@dimen/grid_2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutContent"
+            style="@style/MatchParent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitlePermission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="@dimen/grid_4"
+                android:layout_marginTop="@dimen/grid_1"
+                style="@style/SMEHeadlineH2"
+                android:text="@string/title_permission_settings"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDescPermission"
+                style="@style/SMEBodyMediumGray"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="@dimen/grid_1_half"
+                android:text="@string/desc_permission_settings"
+                app:layout_constraintBottom_toTopOf="@+id/tvTrustDevice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitlePermission"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SMESubtitle2"
+                android:layout_width="match_parent"
+                android:id="@+id/tvTrustDevice"
+                android:layout_marginTop="21dp"
+                android:layout_marginStart="18dp"
+                android:text="@string/action_trust_device"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDescPermission"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDescTrustDevice"
+                style="@style/SMEBodyMediumGray"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/desc_trust_device"
+                app:layout_constraintTop_toBottomOf="@+id/tvTrustDevice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scTrustDevice"
+                style="@style/SMECustomSwitch"
+                android:layout_marginEnd="@dimen/grid_5_half"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDescTrustDevice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTrustDevice"
+                android:checked="true"/>
+
+            <View
+                android:id="@+id/borderTrustDevice"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:background="@drawable/bg_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescTrustDevice" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SMESubtitle2"
+                android:layout_width="match_parent"
+                android:id="@+id/tvOTP"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:layout_marginStart="18dp"
+                android:text="@string/title_app_generated_otp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/borderTrustDevice" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDescOTP"
+                style="@style/SMEBodyMediumGray"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/desc_app_generated_otp"
+                app:layout_constraintTop_toBottomOf="@+id/tvOTP"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scOTP"
+                style="@style/SMECustomSwitch"
+                android:layout_marginEnd="@dimen/grid_5_half"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDescOTP"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvOTP"
+                android:checked="true" />
+
+            <View
+                android:id="@+id/borderOTP"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:background="@drawable/bg_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescOTP" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SMESubtitle2"
+                android:layout_width="match_parent"
+                android:id="@+id/tvNotif"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:layout_marginStart="18dp"
+                android:text="@string/title_notifications"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/borderOTP" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDescNotif"
+                style="@style/SMEBodyMediumGray"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/desc_notification_1006"
+                app:layout_constraintTop_toBottomOf="@+id/tvNotif"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scNotif"
+                style="@style/SMECustomSwitch"
+                android:layout_marginEnd="@dimen/grid_5_half"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDescNotif"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvNotif"
+                android:checked="true"  />
+
+            <View
+                android:id="@+id/borderNotif"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:background="@drawable/bg_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescNotif" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCameraOrGallery"
+                style="@style/SMESubtitle2"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:layout_marginStart="18dp"
+                android:text="@string/title_camera_and_photo_album"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/borderNotif" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDescCameraOrGallery"
+                style="@style/SMEBodyMediumGray"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/desc_camera_and_photo_album"
+                app:layout_constraintTop_toBottomOf="@+id/tvCameraOrGallery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scCameraOrGallery"
+                style="@style/SMECustomSwitch"
+                android:layout_marginEnd="@dimen/grid_5_half"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDescCameraOrGallery"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvCameraOrGallery"
+                android:checked="true" />
+
+            <View
+                android:id="@+id/borderCameraOrGallery"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:background="@drawable/bg_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescCameraOrGallery" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvLocation"
+                style="@style/SMESubtitle2"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:layout_marginStart="18dp"
+                android:text="@string/title_location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/borderCameraOrGallery" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDescLocation"
+                style="@style/SMEBodyMediumGray"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/desc_location"
+                app:layout_constraintTop_toBottomOf="@+id/tvLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scLocation"
+                style="@style/SMECustomSwitch"
+                android:layout_marginEnd="@dimen/grid_5_half"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDescLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvLocation"
+                android:checked="true" />
+
+            <View
+                android:id="@+id/borderLocation"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:background="@drawable/bg_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescLocation" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvContacts"
+                style="@style/SMESubtitle2"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:layout_marginStart="18dp"
+                android:text="@string/title_contacts"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/borderLocation" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDescContacts"
+                style="@style/SMEBodyMediumGray"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/desc_contacts"
+                app:layout_constraintTop_toBottomOf="@+id/tvContacts"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scContacts"
+                style="@style/SMECustomSwitch"
+                android:layout_marginEnd="@dimen/grid_5_half"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDescContacts"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvContacts"
+                android:checked="true" />
+
+            <View
+                android:id="@+id/borderContacts"
+                style="@style/BorderHorizontal"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:background="@drawable/bg_line"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescContacts" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonNext"
+        style="@style/SMEPrimaryButtonLarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="@dimen/msme_content_spacing"
+        android:layout_marginBottom="21dp"
+        android:layout_marginStart="@dimen/msme_content_spacing"
+
+        android:text="@string/action_save_settings"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

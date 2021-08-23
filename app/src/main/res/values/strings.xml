@@ -2487,4 +2487,21 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="progress_saved">Progress saved</string>
     <string name="user_creation_success_title">You\'re Logged in</string>
     <string name="user_creation_success_desc">Create a meaningful and powerful \n mobile banking experiences</string>
+    <string name="title_permission_settings">Let\'s personalise your banking experience seamless</string>
+    <string name="desc_permission_settings">Allow the following permissions now for a seamless experience. You can easily change this later on in\nSettings.</string>
+    <string name="action_save_settings">SAVE THESE SETTINGS</string>
+    <string name="desc_trust_device">Secure your access with this device</string>
+    <string name="title_app_generated_otp">App-Generated OTP</string>
+    <string name="desc_app_generated_otp">For a seamless OTP experience</string>
+    <string name="desc_notification_1006">Get alerts and confirmation</string>
+    <string name="title_camera_and_photo_album">Camera and Photo Album</string>
+    <string name="desc_camera_and_photo_album">For QR Scanning and Check Deposits</string>
+    <string name="title_location">Location</string>
+    <string name="desc_location">For branch visits and ATM locator</string>
+    <string name="title_contacts">Contacts</string>
+    <string name="desc_contacts">Allow access to your Contacts</string>
+    <string name="header_user_creation_permission_settings">Permission Settings</string>
+    <string name="desc_confirmation_message">You are taking the first step in growing your business.\nPlease continue setting up your account so you may\nenjoy using the app\'s key features.</string>
+    <string name="title_continue_dashboard">CONTINUE TO DASHBOARD</string>
+    <string name="header_user_creation_confirmation_page">Confirmation Page</string>
 </resources>

@@ -5,6 +5,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.convertToDP
@@ -183,6 +184,9 @@ class OaNominatePasswordFragment :
             isCancelable = false,
             gravity = NewConfirmationBottomSheet.GRAVITY_CENTER
         )
+        bottomSheet.setCallback( onPositiveClick = {
+            findNavController().navigate(R.id.action_nominate_to_permission_settings)
+        })
         bottomSheet.show(childFragmentManager, NewConfirmationBottomSheet.TAG)
     }
 
