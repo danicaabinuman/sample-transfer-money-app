@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         style="@style/SMESubtitle1"
         android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginTop="@dimen/grid_1_half"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

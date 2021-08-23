@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayoutRoot"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_rectangle_white">
+    android:background="@drawable/bg_rectangle_rounded_white">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageViewIcon"

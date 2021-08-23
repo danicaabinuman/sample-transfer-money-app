@@ -40,5 +40,11 @@
     "label": "Manage\nExpenses",
     "isVisible": true,
     "isEnable": true
+  },
+  {
+    "id": "more",
+    "label": "More",
+    "isVisible": true,
+    "isEnable": true
   }
 ]
