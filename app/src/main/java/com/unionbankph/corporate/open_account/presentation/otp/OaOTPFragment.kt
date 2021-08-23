@@ -78,6 +78,6 @@ class OaOTPFragment : BaseFragment<OaOTPViewModel>(R.layout.fragment_oa_otp),
     }
 
     override fun onSubmitOTP(otpCode: String) {
-
+        findNavController().navigate(R.id.action_otp_to_nominate_password)
     }
 }

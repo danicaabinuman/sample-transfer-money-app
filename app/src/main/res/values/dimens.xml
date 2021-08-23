@@ -92,7 +92,7 @@
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">6dp</dimen>
 
     <dimen name="text_badge_initial">15dp</dimen>
-
+    <dimen name="msme_content_spacing">18dp</dimen>
     <dimen name="content_form">@dimen/grid_5</dimen>
     <dimen name="content_vertical_spacing">@dimen/grid_3</dimen>
     <dimen name="content_group_spacing">@dimen/grid_3</dimen>

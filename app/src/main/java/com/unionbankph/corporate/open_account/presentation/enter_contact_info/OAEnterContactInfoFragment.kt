@@ -89,6 +89,7 @@ class OAEnterContactInfoFragment :
 
         viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
             openAccountActivity.setContactInput(it)
+            findNavController().navigate(R.id.action_enter_contact_to_otp)
 
         })
 
@@ -215,8 +216,8 @@ class OAEnterContactInfoFragment :
             .subscribe {
                 viewUtil.setError(it)
                 textView.setTextColor(when (it.isProper) {
-                    true -> ContextCompat.getColor(context!!, R.color.dsColorDarkGray)
-                    else -> ContextCompat.getColor(context!!, R.color.colorErrorColor)
+                    true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
+                    else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
                 })
             }.addTo(formDisposable)
     }
