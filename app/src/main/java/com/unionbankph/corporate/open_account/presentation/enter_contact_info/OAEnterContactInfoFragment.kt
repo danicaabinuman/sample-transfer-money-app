@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
@@ -154,7 +157,12 @@ class OAEnterContactInfoFragment :
             }
 
         initError(emailObservable, tv_email)
-        initError(mobileNumberObservable, tv_mobile)
+        initError(
+            mobileNumberObservable,
+            tv_mobile,
+            errorTextView = textViewMobileNumberError,
+            textInputLayout = textInputLayoutPrefix
+        )
 
         RxCombineValidator(
             emailObservable,
@@ -198,17 +206,35 @@ class OAEnterContactInfoFragment :
 
     private fun initError(
         textInputEditTextObservable: Observable<RxValidationResult<EditText>>,
-        textView: TextView
+        titleTextView: TextView,
+        errorTextView: TextView? = null,
+        textInputLayout: TextInputLayout? = null
     ) {
         textInputEditTextObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe {
-                viewUtil.setError(it)
-                textView.setTextColor(when (it.isProper) {
+            .subscribe { validation ->
+                viewUtil.setError(validation)
+
+                titleTextView.setTextColor(when (validation.isProper) {
                     true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
                     else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
                 })
+
+                errorTextView?.let {
+                    it.visibility = when (validation.isProper) {
+                        true -> View.GONE
+                        else -> View.VISIBLE
+                    }
+                    it.text = validation.message
+                }
+
+                textInputLayout?.let {
+                    it.error = when (validation.isProper) {
+                        true -> ""
+                        else -> " "
+                    }
+                }
             }.addTo(formDisposable)
     }
 
