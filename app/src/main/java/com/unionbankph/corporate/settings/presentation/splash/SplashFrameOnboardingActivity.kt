@@ -17,7 +17,7 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
         super.afterLayout(savedInstanceState)
         initTransparency()
         setMargins(
-            textViewOnboardingSkip,
+            textViewSkip,
             0,
             getStatusBarHeight() + resources.getDimension(R.dimen.content_spacing).toInt(),
             resources.getDimension(R.dimen.content_spacing).toInt(),
@@ -30,10 +30,10 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
     }
 
     override fun onInitializeListener() {
-        textViewOnboardingSkip.setOnClickListener {
-            onboarding_viewPager.currentItem = 5
+        textViewSkip.setOnClickListener {
+            viewPager.currentItem = 5
         }
-        imageViewOnboardingBack.setOnClickListener {
+        imageViewBack.setOnClickListener {
             onBackPressed()
         }
     }
@@ -63,8 +63,8 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
             SplashOnboardingFragment.SplashScreenPage.PAGE_DEPOSIT_CHECK.name
         )
         if (intent.getStringExtra(EXTRA_SCREEN) == SCREEN_LEARN_MORE) {
-            textViewOnboardingSkip.visibility = View.INVISIBLE
-            onboarding_viewPager?.offscreenPageLimit = 4
+            textViewSkip.visibility = View.INVISIBLE
+            viewPager?.offscreenPageLimit = 4
         } else {
             if (isSME) {
                 adapter.addFragment(
@@ -77,13 +77,13 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
                     SplashFragment.SplashScreenPage.PAGE_SUMMARY.name
                 )
             }
-            onboarding_viewPager?.offscreenPageLimit = 5
+            viewPager?.offscreenPageLimit = 5
         }
 
-        onboarding_viewPager?.adapter = adapter
+        viewPager?.adapter = adapter
 
-        onboarding_indicator?.setViewPager(onboarding_viewPager)
-        onboarding_viewPager?.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+        indicator?.setViewPager(viewPager)
+        viewPager?.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
@@ -93,11 +93,11 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
                 if (position == 4 && iv_bg_light_orange.visibility == View.VISIBLE) {
                     val defaultOffsetHide = 1f
                     val currentOffsetByAlpha = defaultOffsetHide - positionOffset
-                    textViewOnboardingSkip.alpha = currentOffsetByAlpha
+                    textViewSkip.alpha = currentOffsetByAlpha
                     iv_bg_light_orange.alpha = currentOffsetByAlpha
-                } else if (position == 4 && textViewOnboardingSkip.visibility == View.INVISIBLE) {
-                    textViewOnboardingSkip.visibility = View.VISIBLE
-                    textViewOnboardingSkip.alpha = positionOffset
+                } else if (position == 4 && textViewSkip.visibility == View.INVISIBLE) {
+                    textViewSkip.visibility = View.VISIBLE
+                    textViewSkip.alpha = positionOffset
                     iv_bg_light_orange.alpha = positionOffset
                 }
                 // onPageScrolled
@@ -120,9 +120,9 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
 
     private fun initViewVisibility(isVisible: Boolean){
         iv_bg_light_orange.visibility(isVisible)
-        textViewOnboardingSkip.visibility(isVisible)
-        onboarding_indicator.visibility(isVisible)
-        imageViewOnboardingBack.visibility(isVisible)
+        textViewSkip.visibility(isVisible)
+        indicator.visibility(isVisible)
+        imageViewBack.visibility(isVisible)
 
     }
 

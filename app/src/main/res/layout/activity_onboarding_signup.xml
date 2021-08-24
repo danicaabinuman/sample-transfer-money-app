@@ -5,6 +5,15 @@
     android:background="@color/colorWhite"
     android:id="@+id/cl_mainLayout">
 
+    <FrameLayout
+        style="@style/MatchParent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/frameLayoutSignup"
+        />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         style="@style/MatchConstraint"

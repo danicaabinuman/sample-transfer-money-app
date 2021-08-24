@@ -20,6 +20,7 @@ class OAConfirmationMessageFragment :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         openAccountActivity.setIsScreenScrollable(false)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
     }
 
     override fun onViewsBound() {
