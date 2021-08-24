@@ -10,9 +10,11 @@ import com.unionbankph.corporate.app.common.extension.runPostDelayed
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.auth.presentation.login.LoginFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import kotlinx.android.synthetic.main.activity_onboarding_signup.*
+import kotlinx.android.synthetic.main.fragment_check_deposit_onboarding_reminders.*
 import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 import timber.log.Timber
 
@@ -64,6 +66,15 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
 
         btn_onboarding_login.setOnClickListener {
             viewModel.onClickedStartLaunch()
+            viewUtil.startAnimateView(false, constraintLayout, android.R.anim.fade_out)
+            navigator.replaceFragment(
+                R.id.frameLayoutSignup,
+                LoginFragment(),
+                null,
+                childFragmentManager,
+                "LoginFragment",
+                false
+            )
         }
 
     }

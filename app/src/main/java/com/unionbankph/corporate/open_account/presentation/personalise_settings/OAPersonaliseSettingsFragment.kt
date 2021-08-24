@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.open_account.presentation.personalise_settings
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
@@ -12,6 +13,7 @@ import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_oa_personalise_settings.*
 import java.util.concurrent.TimeUnit
 
+
 class OAPersonaliseSettingsFragment : BaseFragment<OAPersonaliseSettingsViewModel>(R.layout.fragment_oa_personalise_settings)  {
     private val formDisposable = CompositeDisposable()
 
@@ -19,7 +21,7 @@ class OAPersonaliseSettingsFragment : BaseFragment<OAPersonaliseSettingsViewMode
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         openAccountActivity.setIsScreenScrollable(false)
     }
 
