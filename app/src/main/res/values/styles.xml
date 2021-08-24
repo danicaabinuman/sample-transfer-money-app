@@ -1184,4 +1184,10 @@
             <item name="android:textAlignment">viewStart</item>
 
     </style>
+    <style name="SMECustomSwitch" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="android:thumb">@drawable/bg_toggle_thumb</item>
+        <item name="track">@drawable/bg_toggle_track</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
 </resources>

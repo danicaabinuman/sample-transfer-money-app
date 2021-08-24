@@ -18,7 +18,7 @@
 
     <androidx.viewpager.widget.ViewPager
 
-        android:id="@+id/onboarding_viewPager"
+        android:id="@+id/viewPager"
         style="@style/MatchConstraint"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,7 +29,7 @@
 
 
     <me.relex.circleindicator.CircleIndicator
-        android:id="@+id/onboarding_indicator"
+        android:id="@+id/indicator"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/grid_8"
         app:ci_drawable="@drawable/circle_solid_orange"
@@ -45,7 +45,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:textColor="@color/dsColorMediumGray"
         android:textStyle="bold"
-        android:id="@+id/textViewOnboardingSkip"
+        android:id="@+id/textViewSkip"
         style="@style/TextViewThemeLarge"
         android:layout_marginTop="@dimen/content_spacing"
         android:layout_marginEnd="@dimen/content_spacing"
@@ -57,16 +57,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageViewOnboardingBack"
+        android:id="@+id/imageViewBack"
         android:layout_width="@dimen/image_view_icon_large_size"
         android:layout_height="@dimen/image_view_icon_large_size"
         android:layout_marginStart="@dimen/content_spacing"
         android:background="?selectableItemBackgroundBorderless"
         android:padding="@dimen/image_view_icon_padding"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewOnboardingSkip"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewSkip"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewOnboardingSkip"
+        app:layout_constraintTop_toTopOf="@+id/textViewSkip"
         app:srcCompat="@drawable/ic_back_orange" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

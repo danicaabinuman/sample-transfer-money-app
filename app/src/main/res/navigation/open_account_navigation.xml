@@ -119,6 +119,35 @@
         android:id="@+id/nominate_password"
         android:name="com.unionbankph.corporate.open_account.presentation.nominate_password.OaNominatePasswordFragment"
         android:label="@string/header_user_creation_nominate_password"
-        tools:layout="@layout/fragment_oa_nominate_password"/>
+        tools:layout="@layout/fragment_oa_nominate_password">
+    <action
+        android:id="@+id/action_nominate_to_permission_settings"
+        app:destination="@id/permission_settings_fragment"
+        app:enterAnim="@anim/anim_enter_from_right"
+        app:exitAnim="@anim/anim_exit_to_left"
+        app:popEnterAnim="@anim/anim_enter_from_left"
+        app:popExitAnim="@anim/anim_exit_to_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/permission_settings_fragment"
+        android:name="com.unionbankph.corporate.open_account.presentation.personalise_settings.OAPersonaliseSettingsFragment"
+        android:label="@string/header_user_creation_permission_settings"
+        tools:layout="@layout/fragment_oa_personalise_settings">
+
+        <action
+            android:id="@+id/action_permission_settings_to_confirmation_message"
+            app:destination="@id/confirmation_message_fragment"
+            app:enterAnim="@anim/anim_slide_up"
+            app:exitAnim="@anim/anim_dialog_slide_down"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/confirmation_message_fragment"
+        android:name="com.unionbankph.corporate.open_account.presentation.confirmation_message.OAConfirmationMessageFragment"
+        android:label="@string/header_user_creation_confirmation_page"
+        tools:layout="@layout/fragment_oa_confirmation_page"/>
 
 </navigation>

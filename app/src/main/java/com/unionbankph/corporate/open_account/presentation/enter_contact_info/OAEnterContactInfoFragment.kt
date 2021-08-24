@@ -89,6 +89,7 @@ class OAEnterContactInfoFragment :
 
         viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
             openAccountActivity.setContactInput(it)
+            findNavController().navigate(R.id.action_enter_contact_to_otp)
 
         })
 
@@ -126,14 +127,6 @@ class OAEnterContactInfoFragment :
             editText = et_email
         )
 
-        val countryCodeObservable = viewUtil.rxTextChanges(
-            isFocusChanged = true,
-            isValueChanged = true,
-            minLength = resources.getInteger(R.integer.max_length_country_code),
-            maxLength = resources.getInteger(R.integer.max_length_country_code),
-            editText = et_country_code
-        )
-
         val mobileNumberObservable = RxValidator.createFor(et_mobile)
             .nonEmpty(
                 String.format(
@@ -161,12 +154,10 @@ class OAEnterContactInfoFragment :
             }
 
         initError(emailObservable, tv_email)
-        initError(countryCodeObservable, tv_mobile)
         initError(mobileNumberObservable, tv_mobile)
 
         RxCombineValidator(
             emailObservable,
-            countryCodeObservable,
             mobileNumberObservable
         )
             .asObservable()
@@ -215,8 +206,8 @@ class OAEnterContactInfoFragment :
             .subscribe {
                 viewUtil.setError(it)
                 textView.setTextColor(when (it.isProper) {
-                    true -> ContextCompat.getColor(context!!, R.color.dsColorDarkGray)
-                    else -> ContextCompat.getColor(context!!, R.color.colorErrorColor)
+                    true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
+                    else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
                 })
             }.addTo(formDisposable)
     }
