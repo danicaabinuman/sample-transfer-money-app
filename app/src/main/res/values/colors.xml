@@ -106,6 +106,7 @@
     <color name="colorTableHeaderBackground">@color/colorWhite</color>
     <color name="colorTableBodyBackground">@color/colorWhite</color>
     <color name="colorWhiteRippleEffect">@color/colorBlack50</color>
+    <color name="colorDashboardWhiteRippleEffect">#FFF3E5</color>
     <color name="colorOrangeRippleEffect">@color/colorAccent50</color>
     <color name="colorCheckDepositOverlay">@color/colorBlack50</color>
     <color name="colorCheckDepositPreviewOverlay">@color/colorBlack50</color>

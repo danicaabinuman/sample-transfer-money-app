@@ -5,12 +5,12 @@
     android:id="@+id/constraintLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/grid_1"
     android:background="@color/colorWhite"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
     <ScrollView
+        android:id="@+id/scrollView"
         style="@style/MatchConstraint"
         app:layout_constraintBottom_toTopOf="@+id/buttonNext"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,14 +20,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutContent"
+            android:padding="@dimen/grid_1"
             style="@style/MatchParent">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTitlePermission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="@dimen/grid_4"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
                 android:layout_marginTop="@dimen/grid_1"
                 style="@style/SMEHeadlineH2"
                 android:text="@string/title_permission_settings"
@@ -40,7 +41,7 @@
                 android:id="@+id/tvDescPermission"
                 style="@style/SMEBodyMediumGray"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginTop="@dimen/grid_1_half"
                 android:text="@string/desc_permission_settings"
                 app:layout_constraintBottom_toTopOf="@+id/tvTrustDevice"
@@ -55,8 +56,8 @@
                 style="@style/SMESubtitle2"
                 android:layout_width="match_parent"
                 android:id="@+id/tvTrustDevice"
-                android:layout_marginTop="21dp"
-                android:layout_marginStart="18dp"
+                android:layout_marginTop="@dimen/grid_3"
+                android:layout_marginStart="@dimen/grid_1"
                 android:text="@string/action_trust_device"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvDescPermission"
@@ -66,7 +67,7 @@
                 android:id="@+id/tvDescTrustDevice"
                 style="@style/SMEBodyMediumGray"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginTop="2dp"
                 android:text="@string/desc_trust_device"
                 app:layout_constraintTop_toBottomOf="@+id/tvTrustDevice"
@@ -88,8 +89,8 @@
                 style="@style/BorderHorizontal"
                 android:layout_marginTop="@dimen/grid_5_half"
                 android:background="@drawable/bg_line"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDescTrustDevice" />
@@ -100,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/tvOTP"
                 android:layout_marginTop="@dimen/grid_5_half"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:text="@string/title_app_generated_otp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/borderTrustDevice" />
@@ -109,7 +110,7 @@
                 android:id="@+id/tvDescOTP"
                 style="@style/SMEBodyMediumGray"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginTop="2dp"
                 android:text="@string/desc_app_generated_otp"
                 app:layout_constraintTop_toBottomOf="@+id/tvOTP"
@@ -132,8 +133,8 @@
                 style="@style/BorderHorizontal"
                 android:layout_marginTop="@dimen/grid_5_half"
                 android:background="@drawable/bg_line"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDescOTP" />
@@ -143,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/tvNotif"
                 android:layout_marginTop="@dimen/grid_5_half"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:text="@string/title_notifications"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/borderOTP" />
@@ -152,7 +153,7 @@
                 android:id="@+id/tvDescNotif"
                 style="@style/SMEBodyMediumGray"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginTop="2dp"
                 android:text="@string/desc_notification_1006"
                 app:layout_constraintTop_toBottomOf="@+id/tvNotif"
@@ -174,8 +175,8 @@
                 style="@style/BorderHorizontal"
                 android:layout_marginTop="@dimen/grid_5_half"
                 android:background="@drawable/bg_line"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDescNotif" />
@@ -186,7 +187,7 @@
                 style="@style/SMESubtitle2"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/grid_5_half"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:text="@string/title_camera_and_photo_album"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/borderNotif" />
@@ -195,7 +196,7 @@
                 android:id="@+id/tvDescCameraOrGallery"
                 style="@style/SMEBodyMediumGray"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginTop="2dp"
                 android:text="@string/desc_camera_and_photo_album"
                 app:layout_constraintTop_toBottomOf="@+id/tvCameraOrGallery"
@@ -217,8 +218,8 @@
                 style="@style/BorderHorizontal"
                 android:layout_marginTop="@dimen/grid_5_half"
                 android:background="@drawable/bg_line"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDescCameraOrGallery" />
@@ -229,7 +230,7 @@
                 style="@style/SMESubtitle2"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/grid_5_half"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:text="@string/title_location"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/borderCameraOrGallery" />
@@ -238,7 +239,7 @@
                 android:id="@+id/tvDescLocation"
                 style="@style/SMEBodyMediumGray"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginTop="2dp"
                 android:text="@string/desc_location"
                 app:layout_constraintTop_toBottomOf="@+id/tvLocation"
@@ -260,8 +261,8 @@
                 style="@style/BorderHorizontal"
                 android:layout_marginTop="@dimen/grid_5_half"
                 android:background="@drawable/bg_line"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDescLocation" />
@@ -271,7 +272,7 @@
                 style="@style/SMESubtitle2"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/grid_5_half"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:text="@string/title_contacts"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/borderLocation" />
@@ -280,7 +281,7 @@
                 android:id="@+id/tvDescContacts"
                 style="@style/SMEBodyMediumGray"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginStart="18dp"
+                android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginTop="2dp"
                 android:text="@string/desc_contacts"
                 app:layout_constraintTop_toBottomOf="@+id/tvContacts"
@@ -302,13 +303,24 @@
                 style="@style/BorderHorizontal"
                 android:layout_marginTop="@dimen/grid_5_half"
                 android:background="@drawable/bg_line"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDescContacts" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
+
+    <View
+        android:id="@+id/shadow_bottom"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/border_shadow"
+        app:layout_constraintTop_toBottomOf="@id/scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_shadow"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonNext"
@@ -316,9 +328,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="@dimen/msme_content_spacing"
-        android:layout_marginBottom="21dp"
-        android:layout_marginStart="@dimen/msme_content_spacing"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:layout_marginBottom="@dimen/grid_3"
+        android:layout_marginStart="@dimen/grid_2"
 
         android:text="@string/action_save_settings"/>
 

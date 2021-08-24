@@ -584,7 +584,7 @@
     </style>
 
     <style name="TextInputLayoutForm" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">@dimen/match_constraint</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColorHint">@drawable/state_edit_text</item>
         <item name="hintTextColor">@drawable/state_edit_text</item>
@@ -1189,5 +1189,9 @@
         <item name="track">@drawable/bg_toggle_track</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="ZeroTextSizeAppearance">
+        <item name="android:textSize">0sp</item>
     </style>
 </resources>

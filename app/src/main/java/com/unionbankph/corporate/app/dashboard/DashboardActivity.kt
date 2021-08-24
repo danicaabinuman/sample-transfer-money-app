@@ -18,6 +18,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification
+import com.google.android.material.appbar.AppBarLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.mtramin.rxfingerprint.RxFingerprint
 import com.takusemba.spotlight.Spotlight
@@ -436,9 +437,9 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
 
     private fun initDashboardViews(role: Role) {
         this.role = role
-        if (!isSME) {
+//        if (!isSME) {
             removeElevation(viewToolbar)
-        }
+//        }
         role.let {
             textViewCorporationName?.text = it.organizationName
             textViewInitial?.text =
@@ -683,7 +684,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                 if (position == bottomNavigationItems[FRAGMENT_APPROVALS]) {
                     removeElevation(viewToolbar)
                 } else {
-                    addElevation(viewToolbar)
+//                    addElevation(viewToolbar)
                 }
             }
             textViewEditApprovals.visibility(
@@ -985,10 +986,12 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                 bottomNavigationBTR.getViewAtPosition(2).id = R.id.tabApprovals
                 bottomNavigationBTR.getViewAtPosition(3).id = R.id.tabPayBills
                 bottomNavigationBTR.getViewAtPosition(4).id = R.id.tabSettings
+
+                // Disable Pay Bills Temporarily
+                bottomNavigationBTR.getViewAtPosition(3).isEnabled = false
+                bottomNavigationBTR.getViewAtPosition(3).isClickable = false
             }
         }
-
-        enableTabs(true) // Added this line temporarily for disabling PAY BILLS
     }
 
     private fun enableTabs(isEnable: Boolean) {
