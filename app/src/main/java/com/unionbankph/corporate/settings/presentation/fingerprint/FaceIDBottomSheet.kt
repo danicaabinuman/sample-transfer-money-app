@@ -3,6 +3,7 @@ package com.unionbankph.corporate.settings.presentation.fingerprint
 import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
 import androidx.biometric.BiometricManager
@@ -19,12 +20,13 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.nullable
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
+import com.unionbankph.corporate.databinding.BottomSheetFaceIdBinding
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
-import kotlinx.android.synthetic.main.bottom_sheet_face_id.*
 import java.nio.charset.Charset
 
-class FaceIDBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout.bottom_sheet_face_id) {
+class FaceIDBottomSheet :
+    BaseBottomSheetDialog<BottomSheetFaceIdBinding, SettingsViewModel>() {
 
     private var onFaceIdListener: OnFaceIdListener? = null
     private lateinit var biometricPrompt: BiometricPrompt
@@ -36,7 +38,7 @@ class FaceIDBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout.bott
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSettingsError -> {
-                    (activity as BaseActivity<*>).handleOnError(it.throwable)
+                    (activity as BaseActivity<*,*>).handleOnError(it.throwable)
                 }
             }
         })
@@ -44,7 +46,7 @@ class FaceIDBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout.bott
 
     override fun onViewsBound() {
         super.onViewsBound()
-        buttonCancel.setOnClickListener { this.dismiss() }
+        binding.buttonCancel.setOnClickListener { this.dismiss() }
         val bundle = arguments
         val token = bundle?.getString(EXTRA_TOKEN).notNullable()
         biometricPrompt(token)
@@ -100,14 +102,14 @@ class FaceIDBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout.bott
     private fun setStatusText(text: String?) {
         text?.let {
             val shake = AnimationUtils.loadAnimation(context, R.anim.anim_shake)
-            textViewFaceIdDesc.text = it
-            textViewFaceIdDesc.startAnimation(shake)
+            binding.textViewFaceIdDesc.text = it
+            binding.textViewFaceIdDesc.startAnimation(shake)
         }
     }
 
     private fun setStatusText() {
         if (BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_STRONG or DEVICE_CREDENTIAL) == BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE){
-            textViewFaceIdTitle.text = formatString(R.string.title_face_id_not_detected)
+            binding.textViewFaceIdTitle.text = formatString(R.string.title_face_id_not_detected)
             setStatusText(formatString(R.string.msg_face_id_not_detected))
             viewModel.updateRecentUser(PromptTypeEnum.BIOMETRIC, false)
             viewModel.deleteFingerPrint()
@@ -143,4 +145,13 @@ class FaceIDBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout.bott
         const val EXTRA_TOKEN = "token"
         const val EXTRA_TYPE = "type"
     }
+
+    override val bindingBinder: (View) -> BottomSheetFaceIdBinding
+        get() = BottomSheetFaceIdBinding::bind
+
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_face_id
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
 }

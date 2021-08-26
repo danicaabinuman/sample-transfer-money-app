@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.splash
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -8,13 +9,13 @@ import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import kotlinx.android.synthetic.main.activity_splash_started_screen.*
+import com.unionbankph.corporate.databinding.ActivitySplashStartedScreenBinding
 
 /**
  * Created by herald on 2/17/21
  */
 class SplashStartedScreenActivity :
-    BaseActivity<SplashStartedScreenViewModel>(R.layout.activity_splash_started_screen) {
+    BaseActivity<ActivitySplashStartedScreenBinding, SplashStartedScreenViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -23,8 +24,7 @@ class SplashStartedScreenActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[SplashStartedScreenViewModel::class.java]
+
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Success -> {
@@ -49,12 +49,18 @@ class SplashStartedScreenActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        btn_lets_go.setOnClickListener {
+        binding.btnLetsGo.setOnClickListener {
             viewModel.onClickedLetsGo()
         }
-        tv_no_thanks.setOnClickListener {
+        binding.tvNoThanks.setOnClickListener {
             onBackPressed()
         }
     }
+
+    override val viewModelClassType: Class<SplashStartedScreenViewModel>
+        get() = SplashStartedScreenViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySplashStartedScreenBinding
+        get() = ActivitySplashStartedScreenBinding::inflate
 
 }

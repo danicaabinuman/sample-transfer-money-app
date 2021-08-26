@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.account.presentation.account_selection
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -22,14 +23,12 @@ import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScrollListener
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityAccountSelectionBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_account_selection.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
 class AccountSelectionActivity :
-    BaseActivity<AccountSelectionViewModel>(R.layout.activity_account_selection),
+    BaseActivity<ActivityAccountSelectionBinding, AccountSelectionViewModel>(),
     AccountAdapterCallback {
 
     private val controller by lazyFast {
@@ -42,7 +41,7 @@ class AccountSelectionActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -56,7 +55,7 @@ class AccountSelectionActivity :
         super.onInitializeListener()
         initDataBus()
         initRxSearchEventListener()
-        swipeRefreshLayoutAccounts.apply {
+        binding.swipeRefreshLayoutAccounts.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getAccounts(true)
@@ -66,8 +65,7 @@ class AccountSelectionActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[AccountSelectionViewModel::class.java]
+
         viewModel.state.observe(this, Observer {
 
             when (it) {
@@ -76,12 +74,12 @@ class AccountSelectionActivity :
                         updateController()
                     } else {
                         showLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutAccounts,
-                            recyclerViewAccounts,
-                            textViewState
+                            binding.viewLoadingState.root,
+                            binding.swipeRefreshLayoutAccounts,
+                            binding.recyclerViewAccounts,
+                            binding.textViewState
                         )
-                        if (viewLoadingState.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     }
@@ -91,9 +89,9 @@ class AccountSelectionActivity :
                         updateController()
                     } else {
                         dismissLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutAccounts,
-                            recyclerViewAccounts
+                            binding.viewLoadingState.root,
+                            binding.swipeRefreshLayoutAccounts,
+                            binding.recyclerViewAccounts
                         )
                     }
                 }
@@ -164,9 +162,9 @@ class AccountSelectionActivity :
 
     private fun showEmptyState(data: MutableList<Account> = viewModel.getAccounts()) {
         if (data.size > 0) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -180,7 +178,7 @@ class AccountSelectionActivity :
     private fun initBinding() {
         viewModel.page.subscribe {
             setToolbarTitle(
-                tvToolbar,
+                binding.viewToolbar.tvToolbar,
                 when (it) {
                     PAGE_BILLS_PAYMENT -> {
                         formatString(R.string.title_payment_from)
@@ -204,8 +202,8 @@ class AccountSelectionActivity :
 
     private fun initRecyclerView() {
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewAccounts.layoutManager = linearLayoutManager
-        recyclerViewAccounts.addOnScrollListener(
+        binding.recyclerViewAccounts.layoutManager = linearLayoutManager
+        binding.recyclerViewAccounts.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = viewModel.pageable.totalPageCount
@@ -222,34 +220,34 @@ class AccountSelectionActivity :
             }
         )
         controller.setAdapterCallbacks(this)
-        recyclerViewAccounts.setController(controller)
+        binding.recyclerViewAccounts.setController(controller)
     }
 
     private fun scrollToTop() {
-        recyclerViewAccounts.post {
-            recyclerViewAccounts.scrollToPosition(0)
+        binding.recyclerViewAccounts.post {
+            binding.recyclerViewAccounts.scrollToPosition(0)
         }
     }
 
     private fun initRxSearchEventListener() {
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                editTextSearch.clearFocus()
+                binding.viewSearchLayout.editTextSearch.clearFocus()
                 viewUtil.dismissKeyboard(this@AccountSelectionActivity)
                 getAccounts(true)
                 return@OnEditorActionListener true
             }
             false
         })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -257,7 +255,7 @@ class AccountSelectionActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     viewModel.pageable.filter = filter.text().toString().nullable()
                     getAccounts(true)
@@ -301,4 +299,10 @@ class AccountSelectionActivity :
         const val EXTRA_PERMISSION_ID = "permission_id"
         const val EXTRA_EXCEPT_CURRENCY = "except_currency"
     }
+
+    override val viewModelClassType: Class<AccountSelectionViewModel>
+        get() = AccountSelectionViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityAccountSelectionBinding
+        get() = ActivityAccountSelectionBinding::inflate
 }

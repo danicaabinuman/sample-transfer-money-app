@@ -1,32 +1,31 @@
 package com.unionbankph.corporate.dao.presentation
 
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
-import kotlinx.android.synthetic.main.activity_dao_basic_info_reminder.*
+import com.unionbankph.corporate.databinding.ActivityDaoBasicInfoReminderBinding
 
 class DaoBasicInfoReminderActivity :
-    BaseActivity<DaoViewModel>(R.layout.activity_dao_basic_info_reminder) {
+    BaseActivity<ActivityDaoBasicInfoReminderBinding, DaoViewModel>() {
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[DaoViewModel::class.java]
-
         viewModel.getSignatoryDetailsFromCache()
 
         viewModel.navigatePages.observe(this, Observer {
-            textViewName.text = formatString(R.string.hi, viewModel.signatoriesDetail.value?.firstNameInput)
+            binding.textViewName.text = formatString(R.string.hi, viewModel.signatoriesDetail.value?.firstNameInput)
         })
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
 
-        imageViewBack.setOnClickListener { onBackPressed() }
-        buttonProceed.setOnClickListener { onBackPressed() }
+        binding.imageViewBack.setOnClickListener { onBackPressed() }
+        binding.buttonProceed.setOnClickListener { onBackPressed() }
     }
 
     override fun onBackPressed() {
@@ -43,4 +42,10 @@ class DaoBasicInfoReminderActivity :
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityDaoBasicInfoReminderBinding
+        get() = ActivityDaoBasicInfoReminderBinding::inflate
+
+    override val viewModelClassType: Class<DaoViewModel>
+        get() = DaoViewModel::class.java
 }

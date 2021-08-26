@@ -2,6 +2,7 @@ package com.unionbankph.corporate.mcd.presentation.list
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -34,27 +35,17 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrg
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.ActivityCheckDepositBinding
 import com.unionbankph.corporate.mcd.presentation.filter.CheckDepositFilterActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_check_deposit.*
-import kotlinx.android.synthetic.main.activity_check_deposit.constraintLayout
-import kotlinx.android.synthetic.main.activity_check_deposit.recyclerViewTutorial
-import kotlinx.android.synthetic.main.activity_check_deposit.swipeRefreshLayoutTable
-import kotlinx.android.synthetic.main.activity_check_deposit.textViewState
-import kotlinx.android.synthetic.main.activity_check_deposit.viewLoadingState
-import kotlinx.android.synthetic.main.activity_check_deposit.viewToolbar
-import kotlinx.android.synthetic.main.activity_organization_transfer.*
-import kotlinx.android.synthetic.main.widget_badge_small.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_table_view.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by herald25santos on 2019-11-05
  */
-class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activity_check_deposit),
-                             EpoxyAdapterCallback<CheckDeposit>, OnTutorialListener {
+class CheckDepositActivity :
+    BaseActivity<ActivityCheckDepositBinding, CheckDepositViewModel>(),
+    EpoxyAdapterCallback<CheckDeposit>, OnTutorialListener {
 
     private val controller by lazyFast { CheckDepositController(this, viewUtil, autoFormatUtil) }
 
@@ -66,7 +57,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -170,9 +161,9 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
                     getFirstItemTutorial() -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            fabCheckDeposit,
+                            binding.fabCheckDeposit,
                             R.layout.frame_tutorial_lower_right,
-                            fabCheckDeposit.height.toFloat() -
+                            binding.fabCheckDeposit.height.toFloat() -
                                     resources.getDimension(R.dimen.grid_5_half),
                             true,
                             getString(R.string.msg_tutorial_beneficiary_fab),
@@ -180,7 +171,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    fabCheckDeposit -> {
+                    binding.fabCheckDeposit -> {
                         clearTutorial()
                     }
                 }
@@ -206,7 +197,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
     }
 
     private fun setupViews() {
-        imageViewFilter.isVisible = true
+        binding.viewSearchLayout.imageViewFilter.isVisible = true
         tutorialEngineUtil.setOnTutorialListener(this)
         initRecyclerView()
     }
@@ -215,18 +206,18 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
         viewModel.checkDepositFilterCount.subscribe {
             it?.let {
                 val hasBadge = it > 0
-                viewBadgeCount.visibility(hasBadge)
-                textViewBadgeCount.text = it.toString()
-                textViewBadgeCount.setContextCompatBackground(R.drawable.circle_solid_orange)
+                binding.viewSearchLayout.viewBadgeCount.root.visibility(hasBadge)
+                binding.viewSearchLayout.viewBadgeCount.textViewBadgeCount.text = it.toString()
+                binding.viewSearchLayout.viewBadgeCount.textViewBadgeCount.setContextCompatBackground(R.drawable.circle_solid_orange)
                 if (hasBadge) {
-                    imageViewFilter.setImageResource(R.drawable.ic_filter_orange)
+                    binding.viewSearchLayout.imageViewFilter.setImageResource(R.drawable.ic_filter_orange)
                 } else {
-                    imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
+                    binding.viewSearchLayout.imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
                 }
             }
             if (it == 0L) {
-                imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
-                viewBadgeCount.visibility(false)
+                binding.viewSearchLayout.imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
+                binding.viewSearchLayout.viewBadgeCount.root.visibility(false)
             }
         }.addTo(disposables)
         viewModel.checkDepositFilterCount.subscribe {
@@ -235,23 +226,22 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
     }
 
     private fun initCheckDepositViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[CheckDepositViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowCheckDepositLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView(),
-                        textViewState
+                        binding.textViewState
                     )
-                    if (viewLoadingState.visibility == View.VISIBLE) {
+                    if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                         updateController(mutableListOf())
                     }
                 }
                 is ShowCheckDepositDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView()
                     )
@@ -312,8 +302,8 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_check_deposit),
                         it.orgName
                     )
@@ -326,7 +316,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
     private fun initEventBus() {
         eventBus.actionSyncEvent.flowable.subscribe {
             if (it.eventType == ActionSyncEvent.ACTION_UPDATE_CHECK_DEPOSIT_LIST) {
-                if (viewLoadingState.visibility != View.VISIBLE) {
+                if (binding.viewLoadingState.root.visibility != View.VISIBLE) {
                     getSwipeRefreshLayout().isRefreshing = true
                 }
                 getCheckDeposits(true)
@@ -337,7 +327,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
     }
 
     private fun initClickListener() {
-        fabCheckDeposit.setOnClickListener {
+        binding.fabCheckDeposit.setOnClickListener {
             navigator.navigate(
                 this,
                 CheckDepositOnBoardingActivity::class.java,
@@ -347,29 +337,29 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
-        imageViewFilter.setOnClickListener {
+        binding.viewSearchLayout.imageViewFilter.setOnClickListener {
             viewModel.onClickedFilter()
         }
-        imageViewClearText.setOnClickListener {
+        binding.viewSearchLayout.imageViewClearText.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
                 return@setOnClickListener
             }
             mLastClickTime = SystemClock.elapsedRealtime()
-            editTextSearch.text?.clear()
+            binding.viewSearchLayout.editTextSearch.text?.clear()
         }
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                editTextSearch.clearFocus()
+                binding.viewSearchLayout.editTextSearch.clearFocus()
                 viewUtil.dismissKeyboard(this)
                 getCheckDeposits(true)
                 return@OnEditorActionListener true
             }
             false
         })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -377,7 +367,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     viewModel.pageable.filter = filter.text().toString().nullable()
                     getCheckDeposits(true)
@@ -414,7 +404,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
         if (!isInitial) {
             getRecyclerView().visibility(false)
             if (isTableView()) {
-                linearLayoutRow.visibility(true)
+                binding.viewTable.linearLayoutRow.visibility(true)
             }
             updateTutorialController()
             viewUtil.animateRecyclerView(getRecyclerViewTutorial(), true)
@@ -433,7 +423,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
         getRecyclerView().visibility(true)
         getRecyclerViewTutorial().visibility(false)
         getRecyclerViewTutorial().setController(tutorialController)
-        if (viewLoadingState.visibility != View.VISIBLE) {
+        if (binding.viewLoadingState.root.visibility != View.VISIBLE) {
             showEmptyState(getCheckDepositsLiveData())
         }
     }
@@ -443,7 +433,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        constraintLayout,
+                        binding.constraintLayout,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -467,12 +457,12 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
 
     private fun showEmptyState(data: MutableList<CheckDeposit>) {
         if (isTableView()) {
-            linearLayoutRow.visibility(data.size > 0)
+            binding.viewTable.linearLayoutRow.visibility(data.size > 0)
         }
         if (data.size > 0) {
-            if (textViewState?.visibility == View.VISIBLE) textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -532,8 +522,8 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutCheckDeposit.visibility(false)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutCheckDeposit.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_organization_payments)
                     .toMutableList()
@@ -542,7 +532,7 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
@@ -564,11 +554,17 @@ class CheckDepositActivity : BaseActivity<CheckDepositViewModel>(R.layout.activi
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewCheckDeposit
+        if (isTableView()) binding.viewTable.recyclerViewTable else binding.recyclerViewCheckDeposit
 
     private fun getRecyclerViewTutorial() =
-        if (isTableView()) recyclerViewTableTutorial else recyclerViewTutorial
+        if (isTableView()) binding.viewTable.recyclerViewTableTutorial else binding.recyclerViewTutorial
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutCheckDeposit
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutCheckDeposit
+
+    override val viewModelClassType: Class<CheckDepositViewModel>
+        get() = CheckDepositViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositBinding
+        get() = ActivityCheckDepositBinding::inflate
 }

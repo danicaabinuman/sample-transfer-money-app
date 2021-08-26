@@ -2,9 +2,7 @@ package com.unionbankph.corporate.dao.presentation.type_of_business
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import androidx.appcompat.widget.AppCompatRadioButton
@@ -20,15 +18,16 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombin
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.databinding.FragmentDaoTypeOfBusinessBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_type_of_business.*
 import timber.log.Timber
 import javax.annotation.concurrent.ThreadSafe
 
-class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.layout.fragment_dao_type_of_business),
-                                  DaoActivity.ActionEvent {
+class DaoTypeOfBusinessFragment :
+    BaseFragment<FragmentDaoTypeOfBusinessBinding, DaoTypeOfBusinessViewModel>(),
+    DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
 
@@ -45,8 +44,6 @@ class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.lay
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[DaoTypeOfBusinessViewModel::class.java]
     }
 
     override fun onInitializeListener() {
@@ -57,33 +54,33 @@ class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.lay
     }
 
     private fun initRadioGroupListener() {
-        rg_type_of_business.setOnCheckedChangeListener { _, checkedId ->
+        binding.rgTypeOfBusiness.setOnCheckedChangeListener { _, checkedId ->
             initRadioButtonListener(checkedId)
         }
         initToolTipListener(
             formatString(R.string.title_sole_proprietorship),
             formatString(R.string.msg_tooltip_sole_propriotorship),
-            rb_sole_proprietorship
+            binding.rbSoleProprietorship
         )
         initToolTipListener(
             formatString(R.string.title_partnership),
             formatString(R.string.msg_tooltip_partnership),
-            rb_partnership
+            binding.rbPartnership
         )
         initToolTipListener(
             formatString(R.string.title_corporation),
             formatString(R.string.msg_tooltip_corporation),
-            rb_corporation
+            binding.rbCorporation
         )
         initToolTipListener(
             formatString(R.string.title_cooperative),
             formatString(R.string.msg_tooltip_cooperative),
-            rb_cooperative
+            binding.rbCooperative
         )
         initToolTipListener(
             formatString(R.string.title_non_government),
             formatString(R.string.msg_tooltip_non_government),
-            rb_non_government
+            binding.rbNonGovernment
         )
     }
 
@@ -105,11 +102,11 @@ class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.lay
     }
 
     private fun initRadioButtonListener(checkedId: Int) {
-        til_others.visibility(checkedId == R.id.rb_others)
+        binding.tilOthers.visibility(checkedId == R.id.rb_others)
         if (checkedId == R.id.rb_others) {
-            tie_others.clear()
+            binding.tieOthers.clear()
         } else {
-            tie_others.setText(Constant.EMPTY)
+            binding.tieOthers.setText(Constant.EMPTY)
         }
     }
 
@@ -119,14 +116,14 @@ class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.lay
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_others
+            editText = binding.tieOthers
         )
         val tieBusinessIndustryObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_business_industry
+            editText = binding.tieBusinessIndustry
         )
         initSetError(tieOthersObservable)
         initSetError(tieBusinessIndustryObservable)
@@ -146,7 +143,7 @@ class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.lay
     }
 
     private fun initClickListener() {
-        tie_business_industry.setOnClickListener {
+        binding.tieBusinessIndustry.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.TYPE_OF_BUSINESS.name)
         }
     }
@@ -169,13 +166,13 @@ class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.lay
     private fun initBinding() {
         viewModel.typeOfIndustry
             .subscribe {
-                tie_business_industry.setText(it.value)
+                binding.tieBusinessIndustry.setText(it.value)
             }.addTo(disposables)
     }
 
     private fun init() {
         validateForm()
-        tie_others.refresh()
+        binding.tieOthers.refresh()
         val refNumber = arguments?.getString(EXTRA_REFERENCE_NUMBER)
         Timber.d("refNumber: $refNumber")
     }
@@ -197,8 +194,8 @@ class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.lay
 
     private fun clearFormFocus() {
         viewUtil.dismissKeyboard(getAppCompatActivity())
-        constraint_layout.requestFocus()
-        constraint_layout.isFocusableInTouchMode = true
+        binding.constraintLayout.requestFocus()
+        binding.constraintLayout.isFocusableInTouchMode = true
     }
 
     override fun onClickNext() {
@@ -207,8 +204,8 @@ class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.lay
             findNavController().navigate(R.id.action_reminders)
         } else {
             showMissingFieldDialog()
-            tie_others.refresh()
-            tie_business_industry.refresh()
+            binding.tieOthers.refresh()
+            binding.tieBusinessIndustry.refresh()
         }
     }
 
@@ -216,4 +213,10 @@ class DaoTypeOfBusinessFragment : BaseFragment<DaoTypeOfBusinessViewModel>(R.lay
     companion object {
         const val EXTRA_REFERENCE_NUMBER = "referenceNumber"
     }
+
+    override val viewModelClassType: Class<DaoTypeOfBusinessViewModel>
+        get() = DaoTypeOfBusinessViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoTypeOfBusinessBinding
+        get() = FragmentDaoTypeOfBusinessBinding::inflate
 }

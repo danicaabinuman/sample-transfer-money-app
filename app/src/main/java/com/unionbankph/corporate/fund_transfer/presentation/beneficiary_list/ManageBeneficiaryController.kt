@@ -22,9 +22,9 @@ import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
+import com.unionbankph.corporate.databinding.ItemManageBeneficiaryBinding
+import com.unionbankph.corporate.databinding.RowManageBeneficiaryBinding
 import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
-import kotlinx.android.synthetic.main.item_manage_beneficiary.view.*
-import kotlinx.android.synthetic.main.row_manage_beneficiary.view.*
 
 /**
  * Created by herald25santos on 08/04/2019
@@ -37,13 +37,14 @@ constructor(
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed3EpoxyController<MutableList<Beneficiary>, Pageable, Boolean>() {
 
+    private lateinit var callbacks: EpoxyAdapterCallback<Beneficiary>
+
     @AutoModel
     lateinit var loadingFooterModel: LoadingFooterModel_
 
     @AutoModel
     lateinit var errorFooterModel: ErrorFooterModel_
 
-    private lateinit var callbacks: EpoxyAdapterCallback<Beneficiary>
 
     override fun buildModels(
         data: MutableList<Beneficiary>,
@@ -55,20 +56,20 @@ constructor(
                 manageBeneficiaryRow {
                     id(beneficiary.id)
                     beneficiary(beneficiary)
-                    context(context)
-                    callbacks(callbacks)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
+                    context(this@ManageBeneficiaryController.context)
+                    callbacks(this@ManageBeneficiaryController.callbacks)
+                    viewUtil(this@ManageBeneficiaryController.viewUtil)
+                    autoFormatUtil(this@ManageBeneficiaryController.autoFormatUtil)
                     position(index)
                 }
             } else {
                 manageBeneficiaryItem {
                     id(beneficiary.id)
                     beneficiary(beneficiary)
-                    context(context)
-                    callbacks(callbacks)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
+                    context(this@ManageBeneficiaryController.context)
+                    callbacks(this@ManageBeneficiaryController.callbacks)
+                    viewUtil(this@ManageBeneficiaryController.viewUtil)
+                    autoFormatUtil(this@ManageBeneficiaryController.autoFormatUtil)
                     position(index)
                 }
             }
@@ -115,7 +116,7 @@ abstract class ManageBeneficiaryItemModel :
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             textViewBeneficiaryName.text = beneficiary.name
             textViewCreatedBy.text = ConstantHelper.Text.getRemarksCreated(
                 context,
@@ -145,24 +146,11 @@ abstract class ManageBeneficiaryItemModel :
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewBeneficiaryName: TextView
-        lateinit var textViewCreatedBy: TextView
-        lateinit var textViewChannel: TextView
-        lateinit var textViewBeneficiaryCode: TextView
-        lateinit var textViewReceivingBank: TextView
-        lateinit var textViewAccountNumber: TextView
-        lateinit var cardViewBeneficiary: androidx.cardview.widget.CardView
-        lateinit var itemView: View
+
+        lateinit var binding: ItemManageBeneficiaryBinding
 
         override fun bindView(itemView: View) {
-            textViewBeneficiaryName = itemView.textViewBeneficiaryName
-            textViewCreatedBy = itemView.textViewCreatedBy
-            textViewChannel = itemView.textViewChannel
-            textViewBeneficiaryCode = itemView.textViewBeneficiaryCode
-            textViewReceivingBank = itemView.textViewReceivingBank
-            textViewAccountNumber = itemView.textViewAccountNumber
-            cardViewBeneficiary = itemView.cardViewBeneficiary
-            this.itemView = itemView
+            binding = ItemManageBeneficiaryBinding.bind(itemView)
         }
     }
 }
@@ -191,7 +179,7 @@ abstract class ManageBeneficiaryRowModel :
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             textViewRowBeneficiaryName.text = beneficiary.name
             textViewRowChannel.text =
@@ -209,35 +197,18 @@ abstract class ManageBeneficiaryRowModel :
                 }
             textViewRowAccountNumber.text =
                 viewUtil.getAccountNumberFormat(beneficiary.accountNumber)
-            itemView.setOnClickListener {
-                callbacks.onClickItem(itemView, beneficiary, position)
+            holder.binding.root.setOnClickListener {
+                callbacks.onClickItem(holder.binding.root, beneficiary, position)
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var linearLayoutRow: LinearLayout
-        lateinit var viewBackgroundRow: View
-        lateinit var imageViewRowIcon: ImageView
-        lateinit var textViewRowBeneficiaryName: TextView
-        lateinit var textViewRowChannel: TextView
-        lateinit var textViewRowBeneficiaryCode: TextView
-        lateinit var textViewRowReceivingBank: TextView
-        lateinit var textViewRowAccountNumber: TextView
-        lateinit var viewBorderTop: View
-        lateinit var itemView: View
+
+        lateinit var binding: RowManageBeneficiaryBinding
 
         override fun bindView(itemView: View) {
-            linearLayoutRow = itemView.linearLayoutRow
-            viewBackgroundRow = itemView.viewBackgroundRow
-            imageViewRowIcon = itemView.imageViewRowIcon
-            textViewRowBeneficiaryName = itemView.textViewRowBeneficiaryName
-            textViewRowChannel = itemView.textViewRowChannel
-            textViewRowBeneficiaryCode = itemView.textViewRowBeneficiaryCode
-            textViewRowReceivingBank = itemView.textViewRowReceivingBank
-            textViewRowAccountNumber = itemView.textViewRowAccountNumber
-            viewBorderTop = itemView.viewBorderTop
-            this.itemView = itemView
+            binding = RowManageBeneficiaryBinding.bind(itemView)
         }
     }
 }

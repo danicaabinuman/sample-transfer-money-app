@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
-import kotlinx.android.synthetic.main.header_title.view.*
+import com.unionbankph.corporate.databinding.HeaderTitleBinding
 
 @EpoxyModelClass(layout = R.layout.header_title)
 abstract class HeaderTitleModel : EpoxyModelWithHolder<HeaderTitleModel.Holder>() {
@@ -22,22 +22,17 @@ abstract class HeaderTitleModel : EpoxyModelWithHolder<HeaderTitleModel.Holder>(
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.textViewTitle.text = title
-        holder.cardViewButton.visibility = if (haveButton) View.VISIBLE else View.GONE
-        holder.viewBorderHeader.visibility = View.GONE
+        holder.binding.textViewTitle.text = title
+        holder.binding.cardViewButton.visibility = if (haveButton) View.VISIBLE else View.GONE
+        holder.binding.viewBorderHeader.visibility = View.GONE
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var viewBorderHeader: View
-        lateinit var imageViewPresence: ImageView
-        lateinit var textViewTitle: TextView
-        lateinit var cardViewButton: CardView
+
+        lateinit var binding: HeaderTitleBinding
 
         override fun bindView(itemView: View) {
-            viewBorderHeader = itemView.viewBorderHeader
-            imageViewPresence = itemView.imageViewPresence
-            textViewTitle = itemView.textViewTitle
-            cardViewButton = itemView.cardViewButton
+            binding = HeaderTitleBinding.bind(itemView)
         }
     }
 }

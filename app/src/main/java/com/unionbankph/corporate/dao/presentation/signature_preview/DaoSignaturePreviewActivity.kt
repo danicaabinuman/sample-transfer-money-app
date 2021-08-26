@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -16,15 +17,13 @@ import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.util.BitmapUtil
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import kotlinx.android.synthetic.main.activity_dao_signature_result.*
-import kotlinx.android.synthetic.main.activity_organization_transfer.viewToolbar
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import com.unionbankph.corporate.databinding.ActivityDaoSignatureResultBinding
 import java.io.File
 import javax.annotation.concurrent.ThreadSafe
 import javax.inject.Inject
 
 class DaoSignaturePreviewActivity :
-    BaseActivity<DaoSignaturePreviewViewModel>(R.layout.activity_dao_signature_result) {
+    BaseActivity<ActivityDaoSignatureResultBinding, DaoSignaturePreviewViewModel>() {
 
     @Inject
     lateinit var bitmapUtil: BitmapUtil
@@ -33,8 +32,8 @@ class DaoSignaturePreviewActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_preview))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_preview))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -50,12 +49,12 @@ class DaoSignaturePreviewActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonUseThis.setOnClickListener {
+        binding.buttonUseThis.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             val path = saveCroppedFile()
             viewModel.onSubmitSignatureFile(File(path))
         }
-        buttonRetake.setOnClickListener {
+        binding.buttonRetake.setOnClickListener {
             onBackPressed()
         }
     }
@@ -93,10 +92,6 @@ class DaoSignaturePreviewActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[DaoSignaturePreviewViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -135,7 +130,7 @@ class DaoSignaturePreviewActivity :
         viewModel.loadDaoForm(intent.getStringExtra(EXTRA_DAO_FORM))
         croppedBitmap =
             cropImage(BitmapFactory.decodeFile(intent.getStringExtra(EXTRA_PATH).notNullable()))
-        iv_preview.setImageBitmap(croppedBitmap)
+        binding.ivPreview.setImageBitmap(croppedBitmap)
     }
 
     private fun saveCroppedFile(): String {
@@ -152,4 +147,10 @@ class DaoSignaturePreviewActivity :
         const val EXTRA_PATH = "path"
         const val EXTRA_DAO_FORM = "daoForm"
     }
+
+    override val viewModelClassType: Class<DaoSignaturePreviewViewModel>
+        get() = DaoSignaturePreviewViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityDaoSignatureResultBinding
+        get() = ActivityDaoSignatureResultBinding::inflate
 }

@@ -39,7 +39,6 @@ import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
-import kotlinx.serialization.enumFromName
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -75,7 +74,7 @@ class SingleSelectorViewModel @Inject constructor(
 
     fun setSelector(selector: String) {
         this.selector.onNext(selector)
-        when (enumFromName(SingleSelectorTypeEnum::class, selector)) {
+        when (enumValueOf<SingleSelectorTypeEnum>(selector)) {
             OCCUPATION,
             PROVINCE,
             PROVINCE_PERMANENT,
@@ -92,7 +91,7 @@ class SingleSelectorViewModel @Inject constructor(
     }
 
     fun getSingleSelector(selector: String, isInitialLoading: Boolean, param: String?) {
-        when (val singleSelectorEnum = enumFromName(SingleSelectorTypeEnum::class, selector)) {
+        when (val singleSelectorEnum = enumValueOf<SingleSelectorTypeEnum>(selector)) {
             OCCUPATION -> {
                 requestPaginatedRemotes(singleSelectorEnum, isInitialLoading)
             }

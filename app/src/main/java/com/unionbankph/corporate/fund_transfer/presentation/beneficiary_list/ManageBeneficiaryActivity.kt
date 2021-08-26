@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.fund_transfer.presentation.beneficiary_list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -30,18 +31,15 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrg
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity
+import com.unionbankph.corporate.databinding.ActivityManageBeneficiaryBinding
 import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_detail.ManageBeneficiaryDetailActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_manage_beneficiary.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_table_view.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class ManageBeneficiaryActivity :
-    BaseActivity<ManageBeneficiaryViewModel>(R.layout.activity_manage_beneficiary),
+    BaseActivity<ActivityManageBeneficiaryBinding, ManageBeneficiaryViewModel>(),
     OnTutorialListener,
     EpoxyAdapterCallback<Beneficiary> {
 
@@ -61,7 +59,7 @@ class ManageBeneficiaryActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
@@ -90,8 +88,8 @@ class ManageBeneficiaryActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_manage_beneficiary),
                         it.orgName
                     )
@@ -102,27 +100,23 @@ class ManageBeneficiaryActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[ManageBeneficiaryViewModel::class.java]
         viewModel.beneficiaryState.observe(this, Observer {
             when (it) {
                 is ShowManageBeneficiaryLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView(),
-                        textViewState,
-                        linearLayoutRow
+                        binding.textViewState,
+                        binding.viewTable.linearLayoutRow
                     )
-                    if (viewLoadingState.visibility == View.VISIBLE) {
+                    if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                         updateController(mutableListOf())
                     }
                 }
                 is ShowManageBeneficiaryDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView()
                     )
@@ -137,7 +131,7 @@ class ManageBeneficiaryActivity :
                     startViewTutorial(it.data)
                 }
                 is ShowManageBeneficiaryGetBeneficiaryCreationPermission -> {
-                    floatingActionButtonAddBeneficiary.visibility(it.hasPermission)
+                    binding.floatingActionButtonAddBeneficiary.visibility(it.hasPermission)
                 }
                 is ShowManageBeneficiaryError -> {
                     handleOnError(it.throwable)
@@ -227,16 +221,16 @@ class ManageBeneficiaryActivity :
                 fetchBeneficiaries(true)
             }
         }
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.requestFocus()
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.requestFocus()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        RxView.clicks(floatingActionButtonAddBeneficiary)
+        RxView.clicks(binding.floatingActionButtonAddBeneficiary)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -323,9 +317,9 @@ class ManageBeneficiaryActivity :
                     getFirstItemTutorial() -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            floatingActionButtonAddBeneficiary,
+                            binding.floatingActionButtonAddBeneficiary,
                             R.layout.frame_tutorial_lower_right,
-                            floatingActionButtonAddBeneficiary.height.toFloat() -
+                            binding.floatingActionButtonAddBeneficiary.height.toFloat() -
                                     resources.getDimension(R.dimen.grid_5_half),
                             true,
                             getString(R.string.msg_tutorial_beneficiary_fab),
@@ -333,10 +327,10 @@ class ManageBeneficiaryActivity :
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    floatingActionButtonAddBeneficiary -> {
+                    binding.floatingActionButtonAddBeneficiary -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            editTextSearch,
+                            binding.viewSearchLayout.editTextSearch,
                             R.layout.frame_tutorial_upper_left,
                             resources.getDimension(R.dimen.field_radius_search),
                             false,
@@ -345,7 +339,7 @@ class ManageBeneficiaryActivity :
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    editTextSearch -> {
+                    binding.viewSearchLayout.editTextSearch -> {
                         clearTutorial()
                     }
                 }
@@ -370,7 +364,7 @@ class ManageBeneficiaryActivity :
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        constraintLayout,
+                        binding.constraintLayout,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -396,12 +390,13 @@ class ManageBeneficiaryActivity :
     private fun showEmptyState(data: MutableList<Beneficiary>) {
         val isNotEmpty = data.isNotEmpty()
         if (isTableView()) {
-            linearLayoutRow.visibility(isNotEmpty)
+            binding.viewTable.linearLayoutRow.visibility(isNotEmpty)
         }
         if (isNotEmpty) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -437,10 +432,10 @@ class ManageBeneficiaryActivity :
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(
             TextView.OnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    editTextSearch.clearFocus()
+                    binding.viewSearchLayout.editTextSearch.clearFocus()
                     viewUtil.dismissKeyboard(this)
                     fetchBeneficiaries(true)
                     return@OnEditorActionListener true
@@ -448,7 +443,7 @@ class ManageBeneficiaryActivity :
                 false
             }
         )
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -456,7 +451,7 @@ class ManageBeneficiaryActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     pageable.filter = filter.text().toString().nullable()
                     fetchBeneficiaries(true)
@@ -493,7 +488,7 @@ class ManageBeneficiaryActivity :
     private fun startViewTutorial(data: MutableList<Beneficiary>) {
         getRecyclerView().visibility(false)
         if (isTableView()) {
-            linearLayoutRow.visibility(true)
+            binding.viewTable.linearLayoutRow.visibility(true)
         }
         updateTutorialController(data)
         viewUtil.animateRecyclerView(getRecyclerViewTutorial(), true)
@@ -507,8 +502,8 @@ class ManageBeneficiaryActivity :
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutBeneficiary.visibility(false)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutBeneficiary.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_manage_beneficiary)
                     .toMutableList()
@@ -517,18 +512,24 @@ class ManageBeneficiaryActivity :
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewBeneficiary
+        if (isTableView()) binding.viewTable.recyclerViewTable else binding.recyclerViewBeneficiary
 
     private fun getRecyclerViewTutorial() =
-        if (isTableView()) recyclerViewTableTutorial else recyclerViewTutorial
+        if (isTableView()) binding.viewTable.recyclerViewTableTutorial else binding.recyclerViewTutorial
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutBeneficiary
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutBeneficiary
+
+    override val viewModelClassType: Class<ManageBeneficiaryViewModel>
+        get() = ManageBeneficiaryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityManageBeneficiaryBinding
+        get() = ActivityManageBeneficiaryBinding::inflate
 
 }

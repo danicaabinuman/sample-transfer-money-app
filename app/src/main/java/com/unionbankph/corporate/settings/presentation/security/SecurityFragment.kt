@@ -3,8 +3,10 @@ package com.unionbankph.corporate.settings.presentation.security
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.view.LayoutInflater
 import android.view.View
 import androidx.biometric.BiometricManager
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
@@ -26,17 +28,17 @@ import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEn
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.FragmentSecurityBinding
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsViewModel
 import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettingsClearToken
 import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettingsError
 import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettingsGetToken
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_security.*
 import java.util.concurrent.TimeUnit
 
 class SecurityFragment :
-    BaseFragment<GeneralSettingsViewModel>(R.layout.fragment_security),
+    BaseFragment<FragmentSecurityBinding, GeneralSettingsViewModel>(),
     OnTutorialListener {
 
     override fun onViewModelBound() {
@@ -46,18 +48,16 @@ class SecurityFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[GeneralSettingsViewModel::class.java]
 
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowGeneralSettingsGetToken -> {
-                    switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
-                    switchBiometric.isChecked = it.token != ""
+                    binding.switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
+                    binding.switchBiometric.isChecked = it.token != ""
                 }
                 is ShowGeneralSettingsClearToken -> {
-                    switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
-                    switchBiometric.isChecked = false
+                    binding.switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
+                    binding.switchBiometric.isChecked = false
                 }
                 is ShowGeneralSettingsError -> {
                     handleOnError(it.throwable)
@@ -100,19 +100,18 @@ class SecurityFragment :
         super.onResume()
         if (RxFingerprint.isAvailable(applicationContext)) {
             viewModel.getTokenFingerPrint()
-            constraintLayoutBiometric.visibility(true)
-            viewBorderFingerPrint.visibility(true)
+            binding.constraintLayoutBiometric.visibility(true)
+            binding.viewBorderFingerPrint.visibility(true)
         }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
                 .BIOMETRIC_SUCCESS){
             viewModel.getTokenFingerPrint()
-            constraintLayoutBiometric.visibility(true)
-            text_view_biometric_title.text = getString(R.string.title_face_id)
-            text_view_biometric.text = getString(R.string.msg_face_id)
-            viewBorderFingerPrint.visibility(true)
-        }
-        else {
-            constraintLayoutBiometric.visibility(false)
-            viewBorderFingerPrint.visibility(false)
+            binding.constraintLayoutBiometric.visibility(true)
+//            text_view_biometric_title.text = getString(R.string.title_face_id)
+//            text_view_biometric.text = getString(R.string.msg_face_id)
+            binding.viewBorderFingerPrint.visibility(true)
+        } else {
+            binding.constraintLayoutBiometric.visibility(false)
+            binding.viewBorderFingerPrint.visibility(false)
         }
     }
 
@@ -132,11 +131,11 @@ class SecurityFragment :
     }
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
-        if (!isSkipTutorial && view == constraintLayoutOTP &&
+        if (!isSkipTutorial && view == binding.constraintLayoutOTP &&
             RxFingerprint.isAvailable(getAppCompatActivity())) {
             tutorialEngineUtil.startTutorial(
                 getAppCompatActivity(),
-                constraintLayoutBiometric,
+                binding.constraintLayoutBiometric,
                 R.layout.frame_tutorial_upper_left,
                 0f,
                 false,
@@ -150,7 +149,7 @@ class SecurityFragment :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        RxView.clicks(constraintLayoutPassword)
+        RxView.clicks(binding.constraintLayoutPassword)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -171,7 +170,7 @@ class SecurityFragment :
                 )
             }.addTo(disposables)
 
-        RxView.clicks(constraintLayoutOTP)
+        RxView.clicks(binding.constraintLayoutOTP)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -182,7 +181,7 @@ class SecurityFragment :
                 )
             }.addTo(disposables)
 
-        RxView.clicks(constraintLayoutManageDevices)
+        RxView.clicks(binding.constraintLayoutManageDevices)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -193,10 +192,10 @@ class SecurityFragment :
                 )
             }.addTo(disposables)
 
-        switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
-        switchBiometric.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (switchBiometric.tag != null) {
-                switchBiometric.tag = null
+        binding.switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
+        binding.switchBiometric.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (binding.switchBiometric.tag != null) {
+                binding.switchBiometric.tag = null
                 return@setOnCheckedChangeListener
             }
             if (isChecked) {
@@ -212,9 +211,9 @@ class SecurityFragment :
                             res = R.string.action_ok,
                             click = {
                                 it.dismiss()
-                                this@SecurityFragment.switchBiometric.tag =
+                                this@SecurityFragment.binding.switchBiometric.tag =
                                     GeneralSettingsViewModel::class.java.simpleName
-                                this@SecurityFragment.switchBiometric.isChecked = false
+                                this@SecurityFragment.binding.switchBiometric.isChecked = false
                             }
                         )
                         negativeButton(
@@ -231,8 +230,8 @@ class SecurityFragment :
             }
         }
 
-        switchBiometric.setOnTouchListener { view, motionEvent ->
-            switchBiometric.tag = null
+        binding.switchBiometric.setOnTouchListener { view, motionEvent ->
+            binding.switchBiometric.tag = null
             return@setOnTouchListener false
         }
     }
@@ -241,8 +240,8 @@ class SecurityFragment :
         eventBus.biometricSyncEvent.flowable.subscribe {
             when (it.eventType) {
                 BiometricSyncEvent.ACTION_UPDATE_BIOMETRIC -> {
-                    switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
-                    switchBiometric.isChecked = it.payload!!
+                    binding.switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
+                    binding.switchBiometric.isChecked = it.payload!!
                 }
             }
         }.addTo(disposables)
@@ -256,7 +255,7 @@ class SecurityFragment :
     private fun startViewTutorial() {
         tutorialEngineUtil.startTutorial(
             getAppCompatActivity(),
-            constraintLayoutOTP,
+            binding.constraintLayoutOTP,
             R.layout.frame_tutorial_upper_left,
             0f,
             false,
@@ -265,4 +264,10 @@ class SecurityFragment :
             OverlayAnimationEnum.ANIM_EXPLODE
         )
     }
+
+    override val viewModelClassType: Class<GeneralSettingsViewModel>
+        get() = GeneralSettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSecurityBinding
+        get() = FragmentSecurityBinding::inflate
 }

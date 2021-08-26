@@ -197,9 +197,8 @@
 -keep class jumio.** { *; }
 -keep class com.microblink.** { *; }
 -keep class com.microblink.**$* { *; }
--keep class com.facetec.zoom.** { *; }
+-keep public class com.iproov.sdk.IProov {public *; }
 
--keep class net.sf.scuba.smartcards.IsoDepCardService {*;}
 -keep class org.jmrtd.** { *; }
 -keep class net.sf.scuba.** {*;}
 -keep class org.bouncycastle.** {*;}
@@ -224,7 +223,17 @@
 
 ### Resources
 -keepattributes InnerClasses
- -keep class **.R
- -keep class **.R$* {
+-keep class **.R
+-keep class **.R$* {
     <fields>;
- }
+}
+
+-dontnote kotlinx.serialization.AnnotationsKt # core serialization annotations
+
+# kotlinx-serialization-json specific. Add this if you have java.lang.NoClassDefFoundError kotlinx.serialization.json.JsonObjectSerializer
+-keepclassmembers class kotlinx.serialization.json.** {
+ *** Companion;
+}
+-keepclasseswithmembers class kotlinx.serialization.json.** {
+ kotlinx.serialization.KSerializer serializer(...);
+}

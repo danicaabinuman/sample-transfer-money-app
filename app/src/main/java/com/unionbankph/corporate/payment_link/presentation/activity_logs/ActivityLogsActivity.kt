@@ -1,13 +1,13 @@
 package com.unionbankph.corporate.payment_link.presentation.activity_logs
 
 import android.content.Intent
+import android.view.LayoutInflater
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_billing_details.*
-import kotlinx.android.synthetic.main.activity_nominate_settlement.*
+import com.unionbankph.corporate.databinding.ActivityActivityLogsBinding
 
 class ActivityLogsActivity :
-        BaseActivity<ActivityLogsViewModel>(R.layout.activity_activity_logs)
+        BaseActivity<ActivityActivityLogsBinding, ActivityLogsViewModel>()
 {
     override fun onViewsBound() {
         super.onViewsBound()
@@ -18,5 +18,11 @@ class ActivityLogsActivity :
         super.onViewModelBound()
 
     }
+
+    override val viewModelClassType: Class<ActivityLogsViewModel>
+        get() = ActivityLogsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityActivityLogsBinding
+        get() = ActivityActivityLogsBinding::inflate
 
 }

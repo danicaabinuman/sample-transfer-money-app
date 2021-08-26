@@ -2,7 +2,7 @@ package com.unionbankph.corporate.account.data.model
 
 import android.os.Parcelable
 import com.unionbankph.corporate.common.data.model.PermissionCollection
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

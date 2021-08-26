@@ -182,7 +182,7 @@ class DaoPersonalInformationStepOneViewModel @Inject constructor(
                 getDisposableSingleObserver(
                     {
                         if (!it.isNullOrEmpty()) {
-                            val results = it.values.toTypedArray()[0]
+                            val results = it[0]
                             if (results.withError == true) {
                                 _uiState.value = Event(UiState.Complete)
                                 _hasValidationError.value = Event(results)

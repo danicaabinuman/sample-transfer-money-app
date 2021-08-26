@@ -2,11 +2,7 @@ package com.unionbankph.corporate.mcd.presentation.form
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.view.View.OnTouchListener
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -41,6 +37,7 @@ import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityCheckDepositFormBinding
 import com.unionbankph.corporate.fund_transfer.presentation.bank.BankActivity
 import com.unionbankph.corporate.mcd.data.form.CheckDepositForm
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationActivity
@@ -48,10 +45,6 @@ import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositTypeEnum
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_check_deposit_form.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.toolbar
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.*
 import java.util.regex.Pattern
 
@@ -59,7 +52,7 @@ import java.util.regex.Pattern
  * Created by herald25santos on 2019-10-23
  */
 class CheckDepositFormActivity :
-    BaseActivity<CheckDepositFormViewModel>(R.layout.activity_check_deposit_form),
+    BaseActivity<ActivityCheckDepositFormBinding, CheckDepositFormViewModel>(),
     View.OnClickListener, OnConfirmationPageCallBack, ImeOptionEditText.OnImeOptionListener {
 
     private lateinit var textInputLayoutAccountNumber: TextInputLayout
@@ -84,7 +77,7 @@ class CheckDepositFormActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
@@ -183,13 +176,11 @@ class CheckDepositFormActivity :
     }
 
     private fun initListener() {
-        textInputEditTextIssuingBank.setOnClickListener(this)
-        textInputEditTextDepositTo.setOnClickListener(this)
+        binding.textInputEditTextIssuingBank.setOnClickListener(this)
+        binding.textInputEditTextDepositTo.setOnClickListener(this)
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[CheckDepositFormViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Error -> {
@@ -204,8 +195,8 @@ class CheckDepositFormActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_check_deposit),
                         it.orgName
                     )
@@ -257,17 +248,17 @@ class CheckDepositFormActivity :
 
     @SuppressLint("ClickableViewAccessibility")
     private fun init() {
-        textViewChannel.text = formatString(R.string.title_check_deposit)
-        imageViewChannel.setImageResource(R.drawable.ic_check_deposit)
-        textViewServiceFee.text = formatString(R.string.value_service_fee_free)
-        textInputLayoutAccountNumber = viewCheckAccountNumber.findViewById(R.id.textInputLayout)
-        textInputLayoutCheckNumber = viewCheckNumber.findViewById(R.id.textInputLayout)
-        textInputLayoutDateOnCheck = viewDateOnCheck.findViewById(R.id.textInputLayoutStartDate)
+        binding.viewChannelHeader.textViewChannel.text = formatString(R.string.title_check_deposit)
+        binding.viewChannelHeader.imageViewChannel.setImageResource(R.drawable.ic_check_deposit)
+        binding.viewChannelHeader.textViewServiceFee.text = formatString(R.string.value_service_fee_free)
+        textInputLayoutAccountNumber = binding.viewCheckAccountNumber.textInputLayout
+        textInputLayoutCheckNumber = binding.viewCheckNumber.textInputLayout
+        textInputLayoutDateOnCheck = binding.viewDateOnCheck.textInputLayoutStartDate
         textInputEditTextCheckAccountNumber =
-            viewCheckAccountNumber.findViewById(R.id.textInputEditText)
-        textInputEditTextCheckNumber = viewCheckNumber.findViewById(R.id.textInputEditText)
-        textInputEditTextDateOnCheck = viewDateOnCheck.findViewById(R.id.textInputEditTextStartDate)
-        progressBarCheckNumber = viewCheckNumber.findViewById(R.id.textInputEditTextProgressBar)
+            binding.viewCheckAccountNumber.textInputEditText
+        textInputEditTextCheckNumber = binding.viewCheckNumber.textInputEditText
+        textInputEditTextDateOnCheck = binding.viewDateOnCheck.textInputEditTextStartDate
+        progressBarCheckNumber = binding.viewCheckNumber.textInputEditTextProgressBar
         textInputLayoutAccountNumber.hint = formatString(R.string.hint_check_account_number)
         textInputLayoutCheckNumber.hint = formatString(R.string.hint_check_number)
         textInputLayoutDateOnCheck.hint = formatString(R.string.hint_date_front_of_check)
@@ -342,7 +333,7 @@ class CheckDepositFormActivity :
             }.addTo(disposables)
         viewModel.bankInput
             .subscribe {
-                textInputEditTextIssuingBank.setText(it.bank)
+                binding.textInputEditTextIssuingBank.setText(it.bank)
             }.addTo(disposables)
         viewModel.dateOnCheckInput
             .subscribe {
@@ -355,7 +346,7 @@ class CheckDepositFormActivity :
             }.addTo(disposables)
         viewModel.depositToAccount
             .subscribe {
-                textInputEditTextDepositTo.setText(
+                binding.textInputEditTextDepositTo.setText(
                     (it.name + "\n" + viewUtil.getAccountNumberFormat(it.accountNumber))
                 )
             }.addTo(disposables)
@@ -368,15 +359,15 @@ class CheckDepositFormActivity :
             .subscribe {
                 viewModel.checkDepositForm.value?.checkNumber = it
             }.addTo(disposables)
-        et_amount.asDriver()
+        binding.etAmount.asDriver()
             .subscribe {
-                viewModel.checkDepositForm.value?.checkAmount = et_amount.getNumericValue().toString()
+                viewModel.checkDepositForm.value?.checkAmount = binding.etAmount.getNumericValue().toString()
             }.addTo(disposables)
         viewModel.checkDepositFormOutput
             .subscribe {
                 navigateCheckDepositConfirmationScreen(it)
             }.addTo(disposables)
-        tie_remarks.asDriver()
+        binding.tieRemarks.asDriver()
             .subscribe {
                 viewModel.checkDepositForm.value?.remarks = it
             }.addTo(disposables)
@@ -393,7 +384,7 @@ class CheckDepositFormActivity :
         imeOptionEditText.addEditText(
             textInputEditTextCheckAccountNumber,
             textInputEditTextCheckNumber,
-            et_amount
+            binding.etAmount
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
@@ -434,7 +425,7 @@ class CheckDepositFormActivity :
             isValueChanged = isValueChanged,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = textInputEditTextIssuingBank
+            editText = binding.textInputEditTextIssuingBank
         )
         val textInputEditTextCheckAccountNumberObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
@@ -453,7 +444,7 @@ class CheckDepositFormActivity :
         val amountLimitObservable = viewUtil.rxTextChangesAmount(
             true,
             isValueChanged,
-            et_amount,
+            binding.etAmount,
             RxValidator.PatternMatch(
                 formatString(R.string.error_input_valid_amount),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_VALID_AMOUNT)
@@ -479,7 +470,7 @@ class CheckDepositFormActivity :
             isValueChanged = isValueChanged,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = textInputEditTextDepositTo
+            editText = binding.textInputEditTextDepositTo
         )
         initSetError(textInputEditTextIssuingBankObservable)
         initSetError(textInputEditTextCheckAccountNumberObservable)
@@ -520,12 +511,12 @@ class CheckDepositFormActivity :
     }
 
     private fun initEditTextDefaultValue() {
-        setDefaultValue(textInputEditTextIssuingBank)
+        setDefaultValue(binding.textInputEditTextIssuingBank)
         setDefaultValue(textInputEditTextCheckAccountNumber)
         setDefaultValue(textInputEditTextCheckNumber)
         setDefaultValue(textInputEditTextDateOnCheck)
-        setDefaultValue(et_amount)
-        setDefaultValue(textInputEditTextDepositTo)
+        setDefaultValue(binding.etAmount)
+        setDefaultValue(binding.textInputEditTextDepositTo)
     }
 
     private fun setDefaultValue(textInputEditText: EditText) {
@@ -535,8 +526,8 @@ class CheckDepositFormActivity :
     }
 
     private fun clearFormFocus() {
-        constraintLayoutParent.requestFocus()
-        constraintLayoutParent.isFocusableInTouchMode = true
+        binding.constraintLayoutParent.requestFocus()
+        binding.constraintLayoutParent.isFocusableInTouchMode = true
     }
 
     private fun clickNext() {
@@ -583,4 +574,10 @@ class CheckDepositFormActivity :
         const val DRAWABLE_RIGHT = 2
         const val TAG_CANCEL_TRANSACTION_DIALOG = "cancel_transaction_dialog"
     }
+
+    override val viewModelClassType: Class<CheckDepositFormViewModel>
+        get() = CheckDepositFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositFormBinding
+        get() = ActivityCheckDepositFormBinding::inflate
 }

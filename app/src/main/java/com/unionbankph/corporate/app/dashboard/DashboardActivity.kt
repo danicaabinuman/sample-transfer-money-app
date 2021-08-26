@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -43,18 +44,16 @@ import com.unionbankph.corporate.common.presentation.constant.GravityEnum
 import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEnum
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity
+import com.unionbankph.corporate.databinding.ActivityDashboardBinding
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
+import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.android.synthetic.main.widget_badge_initial.*
-import kotlinx.android.synthetic.main.widget_badge_small.*
-import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import kotlin.collections.set
@@ -62,7 +61,7 @@ import kotlin.collections.set
 /**
  * Created by Herald Santos
  */
-class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_dashboard),
+class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewModel>(),
     AHBottomNavigation.OnTabSelectedListener,
     OnTutorialListener,
     OnConfirmationPageCallBack,
@@ -110,6 +109,10 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
 
     private var isBackButtonFragmentAlerts: Boolean = false
 
+    private var isBackButtonPaymentList: Boolean = false
+
+    private lateinit var transactFragment: TransactFragment
+
     override fun onViewsBound() {
         super.onViewsBound()
         initViewPager()
@@ -122,7 +125,6 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[DashboardViewModel::class.java]
         viewModel.dashBoardState.observe(this, Observer {
             when (it) {
                 is ShowProgressLoading -> {
@@ -218,7 +220,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         initEventBus()
         initDataBus()
         tutorialEngineUtil.setOnTutorialListener(this)
-        RxView.clicks(imageViewLogout)
+        RxView.clicks(binding.viewToolbar.imageViewLogout)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -226,10 +228,10 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             .subscribe {
                 showLogoutBottomSheet()
             }.addTo(disposables)
-        imageViewHelp.setOnClickListener {
+        binding.viewToolbar.imageViewHelp.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
-            when (bottomNavigationBTR.currentItem) {
+            when (binding.bottomNavigationBTR.currentItem) {
                 bottomNavigationItems[FRAGMENT_ACCOUNTS] -> {
                     eventBus.settingsSyncEvent.emmit(
                         BaseEvent(SettingsSyncEvent.ACTION_PUSH_TUTORIAL_ACCOUNT)
@@ -258,11 +260,11 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             }
         }
 
-        btnRequestPayment.setOnClickListener{
+        binding.viewToolbar.btnRequestPayment.setOnClickListener{
             viewModel.validateMerchant(DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
         }
 
-        RxView.clicks(viewBadge)
+        RxView.clicks(binding.viewToolbar.viewBadge.viewBadgeLayout)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -289,9 +291,9 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                 SettingsSyncEvent.ACTION_TUTORIAL_ACCOUNT_TAP -> {
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewBadge,
+                        binding.viewToolbar.viewBadge.viewBadgeLayout,
                         R.layout.frame_tutorial_upper_left,
-                        getCircleFloatSize(viewBadge) -
+                        getCircleFloatSize(binding.viewToolbar.viewBadge.viewBadgeLayout) -
                                 resources.getDimension(R.dimen.content_spacing_half),
                         true,
                         getString(R.string.msg_tutorial_badge),
@@ -339,7 +341,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                         }
                     }
                     ActionSyncEvent.ACTION_NAVIGATE_ALERTS_TAB -> {
-                        bottomNavigationBTR.currentItem =
+                        binding.bottomNavigationBTR.currentItem =
                             bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 3
                         Handler().postDelayed(
                             {
@@ -364,24 +366,30 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             Timber.e(it, "actionSyncEvent")
         }.addTo(disposables)
 
-        eventBus.transactSyncEvent.flowable.subscribe {
+        eventBus.transactSyncEvent.flowable.subscribe({
             when (it.eventType) {
                 TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST -> {
                     viewModel.validateMerchant(DashboardViewModel.FROM_TRANSACT_TAB)
                 }
                 TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST -> {
-                    viewPagerBTR.currentItem = bottomNavigationItems[FRAGMENT_TRANSACT]!!
-                    eventBus.transactSyncEvent.emmit(
-                        BaseEvent(TransactSyncEvent.ACTION_REDIRECT_TO_PAYMENT_LINK_LIST)
-                    )
+                    isBackButtonPaymentList = true
+                    binding.viewPagerBTR.currentItem = bottomNavigationItems[FRAGMENT_TRANSACT]!!
+
                     setToolbarTitle(
-                            getString(R.string.title_payment_links),
-                            hasBackButton = false,
-                            hasMenuItem = true
+                        getString(R.string.title_payment_links),
+                        hasBackButton = true,
+                        hasMenuItem = true
                     )
-                    btnRequestPayment.visibility = View.VISIBLE
+
+                    binding.viewToolbar.btnRequestPayment.visibility = View.VISIBLE
+
+                    runPostDelayed({
+                        transactFragment.navigateToPaymentLinkFragment()
+                    }, 100)
                 }
             }
+        }) {
+            Timber.e(it, "transactSyncEvent error: ${it.message}")
         }.addTo(disposables)
     }
 
@@ -435,17 +443,17 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     private fun initDashboardViews(role: Role) {
         this.role = role
         if (!isSME) {
-            removeElevation(viewToolbar)
+            removeElevation(binding.viewToolbar.appBarLayout)
         }
         role.let {
-            textViewCorporationName?.text = it.organizationName
-            textViewInitial?.text =
+            binding.viewToolbar.textViewCorporationName.text = it.organizationName
+            binding.viewToolbar.viewBadge.textViewInitial.text =
                 viewUtil.getCorporateOrganizationInitial(it.organizationName)
-            textViewTitle?.text = getString(
+            binding.viewToolbar.textViewTitle.text = getString(
                 R.string.title_dashboard_header_accounts
             )
             if (!it.hasApproval && !it.isApprover) {
-                bottomNavigationBTR.disableItemAtPosition(2)
+                binding.bottomNavigationBTR.disableItemAtPosition(2)
             }
         }
         viewModel.isNewUserDetected()
@@ -546,7 +554,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             .name
         when (fragmentTag) {
             NotificationLogTabFragment.FRAGMENT_NOTIFICATION_LOG_DETAIL -> {
-                imageViewMarkAllAsRead.visibility(false)
+                binding.viewToolbar.imageViewMarkAllAsRead.visibility(false)
                 setToolbarTitle(
                     getString(
                         R.string.title_dashboard_header_notifications
@@ -556,7 +564,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                 )
             }
             else -> {
-                imageViewMarkAllAsRead.visibility(hasNotificationLogs)
+                binding.viewToolbar.imageViewMarkAllAsRead.visibility(hasNotificationLogs)
                 setToolbarTitle(
                     getString(
                         R.string.title_dashboard_header_notifications
@@ -569,14 +577,15 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     }
 
 
-
     fun faceIDPrompt(toEncrypt: String) {
         if (BiometricManager.from(applicationContext).canAuthenticate() != BiometricManager
-                .BIOMETRIC_SUCCESS) return
+                .BIOMETRIC_SUCCESS
+        ) return
 
         if (TextUtils.isEmpty(toEncrypt)) return
         if (BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
-                .BIOMETRIC_SUCCESS) {
+                .BIOMETRIC_SUCCESS
+        ) {
             val executor = ContextCompat.getMainExecutor(applicationContext)
             val biometricPrompt = BiometricPrompt(
                 this, executor,
@@ -584,18 +593,22 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
 
                     }
-                    override fun onAuthenticationError(errorCode: Int,
-                                                       errString: CharSequence) {
 
-                        if(errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+                    override fun onAuthenticationError(
+                        errorCode: Int,
+                        errString: CharSequence
+                    ) {
+
+                        if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
 
                         }
                     }
+
                     override fun onAuthenticationFailed() {
                     }
                 })
 
-           val promptInfo =  BiometricPrompt.PromptInfo.Builder()
+            val promptInfo = BiometricPrompt.PromptInfo.Builder()
                 .setTitle(getString(R.string.title_login_in_using_faceid))
                 .setSubtitle(getString(R.string.confirm_fingerprint_description))
                 .setNegativeButtonText(getString(R.string.btn_cancel))
@@ -606,60 +619,65 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         }
     }
 
+    private fun popBackStackTransact() {
+        val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
+        val fragmentManager = transactTabFragment.childFragmentManager
+        val fragmentTag = transactTabFragment
+            .childFragmentManager
+            .getBackStackEntryAt(fragmentManager.backStackEntryCount - 1)
+            .name
+        if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT,true)) {
+            transactTabFragment.childFragmentManager.popBackStackImmediate()
+            isBackButtonPaymentList = false
+            setToolbarTitle(
+                getString(R.string.title_dashboard_header_transact),
+                hasBackButton = false,
+                hasMenuItem = true
+            )
+            binding.viewToolbar.btnRequestPayment.visibility = View.GONE
+        }
+    }
+
     override fun onBackPressed() {
-        if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
+        if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
             val settingsFragment =
                 adapter?.getItem(bottomNavigationItems[FRAGMENT_SETTINGS]!!)!!
             if (settingsFragment.isAdded) {
                 val count = settingsFragment.childFragmentManager.backStackEntryCount
                 if (count == 1 ||
-                    viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_SETTINGS]
+                    binding.viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_SETTINGS]
                 ) {
                     showLogoutBottomSheet()
                 } else {
                     popStackFragmentSettings()
                 }
             }
-        } else if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
+        } else if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
             val notificationTabFragment =
                 adapter?.getItem(bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 3)!!
             if (notificationTabFragment.isAdded) {
                 val count = notificationTabFragment.childFragmentManager.backStackEntryCount
                 if (count == 1 ||
-                    viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_NOTIFICATIONS]
+                    binding.viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_NOTIFICATIONS]
                 ) {
                     showLogoutBottomSheet()
                 } else {
                     popStackFragmentNotifications()
                 }
             }
-        } else if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_TRANSACT]) {
+        } else if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_TRANSACT]) {
             val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
             if (transactTabFragment.isAdded) {
 
-                btnRequestPayment.visibility = View.GONE
                 val count = transactTabFragment.childFragmentManager.backStackEntryCount
-                if (count == 0 || viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_TRANSACT]){
+                if (count == 0 || binding.viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_TRANSACT]){
                     showLogoutBottomSheet()
                 } else {
-                    val fragmentManager = transactTabFragment.childFragmentManager
-                    val fragmentTag = transactTabFragment
-                        .childFragmentManager
-                        .getBackStackEntryAt(fragmentManager.backStackEntryCount - 1)
-                        .name
-                    if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT,true)) {
-                        transactTabFragment.childFragmentManager.popBackStackImmediate()
-                        setToolbarTitle(
-                            getString(R.string.title_dashboard_header_transact),
-                            hasBackButton = true,
-                            hasMenuItem = true
-                        )
-                    }
+                    popBackStackTransact()
                 }
-
             }
         } else {
-            if (viewApprovalsNavigation.visibility == View.VISIBLE) {
+            if (binding.viewApprovalsNavigation.viewApprovalsNavigationLayout.visibility == View.VISIBLE) {
                 eventBus.actionSyncEvent.emmit(
                     BaseEvent(ActionSyncEvent.ACTION_CANCEL_MULTIPLE_SELECTION_APPROVAL)
                 )
@@ -675,57 +693,62 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             if ((isBackButtonFragmentSettings &&
                         position == bottomNavigationItems[FRAGMENT_SETTINGS]) ||
                 (isBackButtonFragmentAlerts &&
-                        position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS])
+                        position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) ||
+                isBackButtonPaymentList && position == bottomNavigationItems[FRAGMENT_TRANSACT]
             ) {
-                viewBadgeCount.visibility(false)
-                imageViewLogout.visibility(false)
-                imageViewMarkAllAsRead.visibility(false)
-                btnRequestPayment.visibility(false)
-                imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
-                if (isSME) imageViewInitial.setColor(R.color.colorInfo)
-                textViewInitial.visibility = View.GONE
-                viewBadge.setOnClickListener {
-                    if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
-                        popStackFragmentSettings()
-                    } else if (
-                        viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
-                        popStackFragmentNotifications()
+                binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility(false)
+                binding.viewToolbar.imageViewLogout.visibility(false)
+                binding.viewToolbar.imageViewMarkAllAsRead.visibility(false)
+                binding.viewToolbar.btnRequestPayment.visibility(
+                    when (binding.viewPagerBTR.currentItem) {
+                        bottomNavigationItems[FRAGMENT_TRANSACT] -> true
+                        else -> false
+                    }
+                )
+                binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
+                if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
+                binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
+                binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener {
+                    when (binding.viewPagerBTR.currentItem) {
+                        bottomNavigationItems[FRAGMENT_SETTINGS] -> popStackFragmentSettings()
+                        bottomNavigationItems[FRAGMENT_NOTIFICATIONS] -> popStackFragmentNotifications()
+                        bottomNavigationItems[FRAGMENT_TRANSACT] -> popBackStackTransact()
                     }
                 }
-                textViewTitle.text = stackTitle
+                binding.viewToolbar.textViewTitle.text = stackTitle
             } else {
-                if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS] &&
-                    textViewInitial.visibility != View.VISIBLE
+                if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS] &&
+                    binding.viewToolbar.viewBadge.textViewInitial.visibility != View.VISIBLE
                 ) {
                     isBackButtonFragmentSettings = true
                 } else if (
-                    viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] &&
-                    textViewInitial.visibility != View.VISIBLE
+                    binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] &&
+                    binding.viewToolbar.viewBadge.textViewInitial.visibility != View.VISIBLE
                 ) {
                     isBackButtonFragmentAlerts = true
                 }
-                imageViewMarkAllAsRead.visibility(
+                binding.viewToolbar.imageViewMarkAllAsRead.visibility(
                     position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
                 )
-                imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
-                if (isSME) imageViewInitial.clearTheme()
-                textViewInitial.visibility = View.VISIBLE
+                binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
+                if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.clearTheme()
+                binding.viewToolbar.viewBadge.textViewInitial.visibility = View.VISIBLE
                 setOrganizationBadge(organizationBadgeCount)
-                viewBadge.setOnClickListener { navigateOrganizationScreen() }
-                textViewTitle.text = headerDashboard[position]
+                binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener { navigateOrganizationScreen() }
+                binding.viewToolbar.textViewTitle.text = headerDashboard[position]
             }
             if (isSME) {
                 if (position == bottomNavigationItems[FRAGMENT_APPROVALS]) {
-                    removeElevation(viewToolbar)
+                    removeElevation(binding.viewToolbar.appBarLayout)
                 } else {
-                    addElevation(viewToolbar)
+                    addElevation(binding.viewToolbar.appBarLayout)
                 }
             }
-            textViewEditApprovals.visibility(
+            binding.viewApprovalsNavigation.viewApprovalsNavigationLayout.visibility(
                 position == bottomNavigationItems[FRAGMENT_APPROVALS] &&
                         allowMultipleSelectionApprovals
             )
-            imageViewHelp.visibility(
+            binding.viewToolbar.imageViewHelp.visibility(
                 position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
                         position == bottomNavigationItems[FRAGMENT_TRANSACT] ||
                         position == bottomNavigationItems[FRAGMENT_APPROVALS] ||
@@ -735,18 +758,19 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                                 stackFlagSettings)
             )
 
-            btnRequestPayment.visibility(
-                position == bottomNavigationItems[FRAGMENT_ACCOUNTS]
+            binding.viewToolbar.btnRequestPayment.visibility(
+                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
+                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
             )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
                     adapter?.getItem(bottomNavigationItems[FRAGMENT_SETTINGS]!!)!!
                 if (settingsFragment.isAdded) {
                     val count = settingsFragment.childFragmentManager.backStackEntryCount
-                    imageViewLogout.visibility(count == 1)
+                    binding.viewToolbar.imageViewLogout.visibility(count == 1)
                 }
             } else {
-                imageViewLogout.visibility(false)
+                binding.viewToolbar.imageViewLogout.visibility(false)
             }
             initForceTutorialTabs(position)
         } else {
@@ -754,7 +778,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                 BaseEvent(SettingsSyncEvent.ACTION_SCROLL_TO_TOP)
             )
         }
-        viewPagerBTR.currentItem = position
+        binding.viewPagerBTR.currentItem = position
         return true
     }
 
@@ -771,9 +795,9 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     override fun onStartedTutorial(view: View?, viewTarget: View) {
         if (view != null) {
             when (view) {
-                imageViewHelp,
-                imageViewLogout,
-                viewBadge -> {
+                binding.viewToolbar.imageViewHelp,
+                binding.viewToolbar.imageViewLogout,
+                binding.viewToolbar.viewBadge.viewBadgeLayout -> {
                     val constraintSet = ConstraintSet()
                     val constraintLayoutTutorial =
                         viewTarget.findViewById<ConstraintLayout>(
@@ -793,7 +817,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                     val marginTop = rect.bottom + resources.getDimension(
                         R.dimen.content_group_spacing
                     ).toInt()
-                    val marginLeft = if (view == viewBadge) {
+                    val marginLeft = if (view == binding.viewToolbar.viewBadge.viewBadgeLayout) {
                         rect.right - ((rect.right - rect.left) / 2)
                     } else {
                         rect.right - ((rect.right - rect.left) / 2) -
@@ -823,13 +847,13 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         } else {
             if (view != null) {
                 when (view) {
-                    imageViewHelp -> {
+                    binding.viewToolbar.imageViewHelp -> {
                         viewModel.setTutorialIntroduction(false)
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
                         )
                     }
-                    viewBadge -> {
+                    binding.viewToolbar.viewBadge.viewBadgeLayout -> {
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_TUTORIAL_BOTTOM)
                         )
@@ -837,7 +861,7 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
                         )
                     }
-                    imageViewLogout -> {
+                    binding.viewToolbar.imageViewLogout -> {
                         viewModel.setTutorialUser(false)
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
@@ -847,9 +871,9 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             } else {
                 tutorialEngineUtil.startTutorial(
                     this,
-                    imageViewHelp,
+                    binding.viewToolbar.imageViewHelp,
                     R.layout.frame_tutorial_upper_right,
-                    getCircleFloatSize(imageViewHelp),
+                    getCircleFloatSize(binding.viewToolbar.imageViewHelp),
                     true,
                     getString(R.string.msg_tutorial_help),
                     GravityEnum.BOTTOM,
@@ -932,19 +956,25 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
             .setBackgroundColor(ContextCompat.getColor(this, color))
             .setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
         val builder = ahNotificationBuilder.build()
-        bottomNavigationBTR?.setNotification(builder, position)
+        binding.bottomNavigationBTR.setNotification(builder, position)
     }
 
     private fun setOrganizationBadge(badgeCount: BadgeCount?) {
         if (badgeCount == null) return
-        if (viewBadgeCount.visibility == View.VISIBLE) {
-            viewBadgeCount.visibility(badgeCount.badge > 0 && textViewInitial.visibility == View.VISIBLE)
+        if (binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility == View.VISIBLE) {
+            binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout
+                .visibility(badgeCount.badge > 0 &&
+                        binding.viewToolbar.viewBadge.textViewInitial.visibility == View.VISIBLE)
         } else {
-            if (textViewInitial.visibility == View.VISIBLE && badgeCount.badge > 0)
-                viewUtil.startAnimateView(true, viewBadgeCount, R.anim.anim_popup)
+            if (binding.viewToolbar.viewBadge.textViewInitial.visibility == View.VISIBLE && badgeCount.badge > 0)
+                viewUtil.startAnimateView(
+                    true,
+                    binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout,
+                    R.anim.anim_popup
+                )
         }
-        textViewBadgeCount.text = badgeCount.badge.toString()
-        textViewBadgeCount.setBackgroundResource(
+        binding.viewToolbar.viewBadgeCount.textViewBadgeCount.text = badgeCount.badge.toString()
+        binding.viewToolbar.viewBadgeCount.textViewBadgeCount.setBackgroundResource(
             if (!badgeCount.isColored)
                 R.drawable.circle_gray_badge
             else
@@ -971,75 +1001,78 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         )
         val item5 =
             AHBottomNavigationItem(getString(R.string.title_tab_settings), R.drawable.ic_settings)
-        bottomNavigationBTR?.defaultBackgroundColor =
+        binding.bottomNavigationBTR.defaultBackgroundColor =
             ContextCompat.getColor(this, R.color.colorWhite)
-        bottomNavigationBTR?.accentColor = getColorFromAttr(R.attr.colorAccent)
-        bottomNavigationBTR?.inactiveColor = ContextCompat.getColor(this, R.color.colorTextTab)
-        bottomNavigationBTR?.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
-        bottomNavigationBTR?.setTitleTextSize(
+        binding.bottomNavigationBTR.accentColor = getColorFromAttr(R.attr.colorAccent)
+        binding.bottomNavigationBTR.inactiveColor = ContextCompat.getColor(this, R.color.colorTextTab)
+        binding.bottomNavigationBTR.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
+        binding.bottomNavigationBTR.setTitleTextSize(
             resources.getDimension(R.dimen.navigation_bottom_text_size_active),
             resources.getDimension(R.dimen.navigation_bottom_text_size_normal)
         )
-        bottomNavigationBTR?.addItem(item1)
-        bottomNavigationBTR?.addItem(item2)
-        bottomNavigationBTR?.addItem(item3)
-        bottomNavigationBTR?.addItem(item4)
-        bottomNavigationBTR?.addItem(item5)
-        bottomNavigationBTR?.currentItem = 0
-        bottomNavigationBTR.setNotificationMarginLeft(
+        binding.bottomNavigationBTR.addItem(item1)
+        binding.bottomNavigationBTR.addItem(item2)
+        binding.bottomNavigationBTR.addItem(item3)
+        binding.bottomNavigationBTR.addItem(item4)
+        binding.bottomNavigationBTR.addItem(item5)
+        binding.bottomNavigationBTR.currentItem = 0
+        binding.bottomNavigationBTR.setNotificationMarginLeft(
             resources.getDimension(R.dimen.bottom_notification_margin).toInt(),
             resources.getDimension(R.dimen.bottom_notification_margin).toInt()
         )
-        bottomNavigationBTR?.setOnTabSelectedListener(this)
-        bottomNavigationBTR.post {
-            if (bottomNavigationBTR.getViewAtPosition(0) != null &&
-                bottomNavigationBTR.getViewAtPosition(1) != null &&
-                bottomNavigationBTR.getViewAtPosition(2) != null &&
-                bottomNavigationBTR.getViewAtPosition(3) != null &&
-                bottomNavigationBTR.getViewAtPosition(4) != null
+        binding.bottomNavigationBTR.setOnTabSelectedListener(this)
+        binding.bottomNavigationBTR.post {
+            if (binding.bottomNavigationBTR.getViewAtPosition(0) != null &&
+                binding.bottomNavigationBTR.getViewAtPosition(1) != null &&
+                binding.bottomNavigationBTR.getViewAtPosition(2) != null &&
+                binding.bottomNavigationBTR.getViewAtPosition(3) != null &&
+                binding.bottomNavigationBTR.getViewAtPosition(4) != null
             ) {
-                bottomNavigationBTR.getViewAtPosition(0).id = R.id.tabAccounts
-                bottomNavigationBTR.getViewAtPosition(1).id = R.id.tabTransact
-                bottomNavigationBTR.getViewAtPosition(2).id = R.id.tabApprovals
-                bottomNavigationBTR.getViewAtPosition(3).id = R.id.tabProfile
-                bottomNavigationBTR.getViewAtPosition(4).id = R.id.tabSettings
+                binding.bottomNavigationBTR.getViewAtPosition(0).id = R.id.tabAccounts
+                binding.bottomNavigationBTR.getViewAtPosition(1).id = R.id.tabTransact
+                binding.bottomNavigationBTR.getViewAtPosition(2).id = R.id.tabApprovals
+                binding.bottomNavigationBTR.getViewAtPosition(3).id = R.id.tabProfile
+                binding.bottomNavigationBTR.getViewAtPosition(4).id = R.id.tabSettings
             }
         }
     }
 
     private fun enableTabs(isEnable: Boolean) {
-        if (bottomNavigationBTR.getViewAtPosition(0) != null &&
-            bottomNavigationBTR.getViewAtPosition(1) != null &&
-            bottomNavigationBTR.getViewAtPosition(2) != null &&
-            bottomNavigationBTR.getViewAtPosition(3) != null &&
-            bottomNavigationBTR.getViewAtPosition(4) != null
+        if (binding.bottomNavigationBTR.getViewAtPosition(0) != null &&
+            binding.bottomNavigationBTR.getViewAtPosition(1) != null &&
+            binding.bottomNavigationBTR.getViewAtPosition(2) != null &&
+            binding.bottomNavigationBTR.getViewAtPosition(3) != null &&
+            binding.bottomNavigationBTR.getViewAtPosition(4) != null
         ) {
-            bottomNavigationBTR.getViewAtPosition(0).isEnabled = isEnable
-            bottomNavigationBTR.getViewAtPosition(0).isClickable = isEnable
-            bottomNavigationBTR.getViewAtPosition(1).isEnabled = isEnable
-            bottomNavigationBTR.getViewAtPosition(1).isClickable = isEnable
-            bottomNavigationBTR.getViewAtPosition(2).isEnabled = isEnable
-            bottomNavigationBTR.getViewAtPosition(2).isClickable = isEnable
-            bottomNavigationBTR.getViewAtPosition(3).isEnabled = isEnable
-            bottomNavigationBTR.getViewAtPosition(3).isClickable = isEnable
-            bottomNavigationBTR.getViewAtPosition(4).isEnabled = isEnable
-            bottomNavigationBTR.getViewAtPosition(4).isClickable = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(0).isEnabled = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(0).isClickable = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(1).isEnabled = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(1).isClickable = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(2).isEnabled = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(2).isClickable = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(3).isEnabled = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(3).isClickable = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(4).isEnabled = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(4).isClickable = isEnable
         }
     }
 
     private fun initViewPager() {
+
+        transactFragment = TransactFragment()
+
         adapter = ViewPagerAdapter(
             supportFragmentManager
         )
         adapter?.addFragment(AccountFragment(), FRAGMENT_ACCOUNTS)
-        adapter?.addFragment(TransactFragment(), FRAGMENT_TRANSACT)
+        adapter?.addFragment(transactFragment, FRAGMENT_TRANSACT)
         adapter?.addFragment(ApprovalFragment(), FRAGMENT_APPROVALS)
         adapter?.addFragment(NotificationLogTabFragment(), FRAGMENT_NOTIFICATIONS)
         adapter?.addFragment(SettingsFragment(), FRAGMENT_SETTINGS)
         // viewPagerBTR.setPageTransformer(false, FadePageTransformer())
-        viewPagerBTR.setPagingEnabled(false)
-        viewPagerBTR.offscreenPageLimit = 4
-        viewPagerBTR.adapter = adapter
+        binding.viewPagerBTR.setPagingEnabled(false)
+        binding.viewPagerBTR.offscreenPageLimit = 4
+        binding.viewPagerBTR.adapter = adapter
     }
 
     private fun getCircleFloatSize(view: View): Float {
@@ -1195,9 +1228,9 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     private fun startTutorialLogout() {
         tutorialEngineUtil.startTutorial(
             this,
-            imageViewLogout,
+            binding.viewToolbar.imageViewLogout,
             R.layout.frame_tutorial_upper_right,
-            getCircleFloatSize(imageViewLogout),
+            getCircleFloatSize(binding.viewToolbar.imageViewLogout),
             true,
             getString(R.string.msg_tutorial_logout),
             GravityEnum.BOTTOM,
@@ -1255,35 +1288,35 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     }
 
     fun setToolbarTitle(title: String, hasBackButton: Boolean, hasMenuItem: Boolean = false) {
-        textViewTitle?.text = title
-        imageViewHelp.visibility(hasMenuItem)
+        binding.viewToolbar.textViewTitle.text = title
+        binding.viewToolbar.imageViewHelp.visibility(hasMenuItem)
         if (!hasBackButton) {
-            imageViewLogout.visibility(
-                viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]
+            binding.viewToolbar.imageViewLogout.visibility(
+                binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]
             )
-            imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
-            if (isSME) imageViewInitial.clearTheme()
-            viewBadge.setOnClickListener { navigateOrganizationScreen() }
-            textViewInitial.visibility = View.VISIBLE
+            binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.circle_gradient_orange)
+            if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.clearTheme()
+            binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener { navigateOrganizationScreen() }
+            binding.viewToolbar.viewBadge.textViewInitial.visibility = View.VISIBLE
             setOrganizationBadge(organizationBadgeCount)
         } else {
-            viewBadgeCount.visibility(false)
-            imageViewLogout.visibility(false)
-            imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
-            if (isSME) imageViewInitial.setColor(R.color.colorInfo)
-            viewBadge.setOnClickListener {
-                if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
-                    popStackFragmentSettings()
-                } else if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
-                    popStackFragmentNotifications()
+            binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility(false)
+            binding.viewToolbar.imageViewLogout.visibility(false)
+            binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
+            if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
+            binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener {
+                when (binding.viewPagerBTR.currentItem) {
+                    bottomNavigationItems[FRAGMENT_SETTINGS] -> popStackFragmentSettings()
+                    bottomNavigationItems[FRAGMENT_NOTIFICATIONS] -> popStackFragmentNotifications()
+                    bottomNavigationItems[FRAGMENT_TRANSACT] -> popBackStackTransact()
                 }
             }
-            textViewInitial.visibility = View.GONE
+            binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
         }
-        if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
+        if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
             isBackButtonFragmentSettings = hasBackButton
             stackFlagSettings = hasMenuItem
-        } else if (viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
+        } else if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
             isBackButtonFragmentAlerts = hasBackButton
             stackFlagNotification = hasMenuItem
         }
@@ -1293,25 +1326,25 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
     fun setBottomNavigationBadgeColor(color: Int, position: Int) {
         ahNotificationBuilder.setBackgroundColor(ContextCompat.getColor(this, color))
         val builder = ahNotificationBuilder.build()
-        bottomNavigationBTR?.setNotification(builder, position)
+        binding.bottomNavigationBTR.setNotification(builder, position)
     }
 
-    fun viewPager(): AHBottomNavigationViewPager = viewPagerBTR
+    fun viewPager(): AHBottomNavigationViewPager = binding.viewPagerBTR
 
-    fun bottomNavigationBTR(): AHBottomNavigation = bottomNavigationBTR
+    fun bottomNavigationBTR(): AHBottomNavigation = binding.bottomNavigationBTR
 
-    fun imageViewHelp(): ImageView = imageViewHelp
+    fun imageViewHelp(): ImageView = binding.viewToolbar.imageViewHelp
 
-    fun imageViewMarkAllAsRead(): ImageView = imageViewMarkAllAsRead
+    fun imageViewMarkAllAsRead(): ImageView = binding.viewToolbar.imageViewMarkAllAsRead
 
-    fun viewApprovalsNavigation(): View = viewApprovalsNavigation
+    fun viewApprovalsNavigation(): View = binding.viewApprovalsNavigation.viewApprovalsNavigationLayout
 
-    fun textViewEditApprovals(): AppCompatTextView = textViewEditApprovals
+    fun textViewEditApprovals(): AppCompatTextView = binding.viewToolbar.textViewEditApprovals
 
     fun allowMultipleSelectionApprovals(allowMultipleSelectionApprovals: Boolean) {
         this.allowMultipleSelectionApprovals = allowMultipleSelectionApprovals
-        if (bottomNavigationBTR.currentItem == bottomNavigationItems[FRAGMENT_APPROVALS]) {
-            textViewEditApprovals.visibility(allowMultipleSelectionApprovals)
+        if (binding.bottomNavigationBTR.currentItem == bottomNavigationItems[FRAGMENT_APPROVALS]) {
+            binding.viewToolbar.textViewEditApprovals.visibility(allowMultipleSelectionApprovals)
         }
     }
 
@@ -1329,4 +1362,10 @@ class DashboardActivity : BaseActivity<DashboardViewModel>(R.layout.activity_das
         const val TAG_FINGERPRINT_DIALOG = "fingerprint_dialog"
         const val TAG_LOGOUT_DIALOG = "logout_dialog"
     }
+
+    override val viewModelClassType: Class<DashboardViewModel>
+        get() = DashboardViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityDashboardBinding
+        get() = ActivityDashboardBinding::inflate
 }

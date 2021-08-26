@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.general.presentation.result
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -15,19 +16,18 @@ import com.unionbankph.corporate.bills_payment.presentation.frequent_biller_list
 import com.unionbankph.corporate.common.data.model.ApiError
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
+import com.unionbankph.corporate.databinding.ActivityResultLandingPageBinding
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_detail.ManageBeneficiaryDetailActivity
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_list.ManageBeneficiaryActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_result_landing_page.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
 class ResultLandingPageActivity :
-    BaseActivity<GeneralViewModel>(R.layout.activity_result_landing_page) {
+    BaseActivity<ActivityResultLandingPageBinding, GeneralViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar, false)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout, false)
     }
 
     override fun onViewsBound() {
@@ -37,7 +37,7 @@ class ResultLandingPageActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(buttonClose)
+        RxView.clicks(binding.buttonClose)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -109,17 +109,17 @@ class ResultLandingPageActivity :
     private fun initViews() {
         when (intent.getStringExtra(EXTRA_PAGE)) {
             PAGE_NOMINATE_PASSWORD -> {
-                imageViewLogo.clearTheme()
-                imageViewLogo.layoutParams.width =
+                binding.imageViewLogo.clearTheme()
+                binding.imageViewLogo.layoutParams.width =
                     resources.getDimension(R.dimen.image_view_success_large).toInt()
-                imageViewLogo.layoutParams.height =
+                binding.imageViewLogo.layoutParams.height =
                     resources.getDimension(R.dimen.image_view_success_large).toInt()
                 if (intent.getStringExtra(EXTRA_TITLE) != null &&
                     intent.getStringExtra(EXTRA_DESC) != null
                 ) {
-                    imageViewLogo.setImageResource(R.drawable.logo_migration_successful)
-                    textViewTitle.text = intent.getStringExtra(EXTRA_TITLE)
-                    textViewDescription.text =
+                    binding.imageViewLogo.setImageResource(R.drawable.logo_migration_successful)
+                    binding.textViewTitle.text = intent.getStringExtra(EXTRA_TITLE)
+                    binding.textViewDescription.text =
                         intent.getStringExtra(EXTRA_DESC).notNullable().toHtmlSpan()
                 } else {
                     try {
@@ -128,20 +128,20 @@ class ResultLandingPageActivity :
                         val errorMessage = apiError.errors[0].message ?: ""
                         val errorDescription = apiError.errors[0].description ?: ""
                         val errorCode = apiError.errors[0].code ?: ""
-                        textViewTitle.text = errorMessage
-                        textViewDescription.text = errorDescription
+                        binding.textViewTitle.text = errorMessage
+                        binding.textViewDescription.text = errorDescription
                         when (errorCode) {
                             "ACTVSYN-00" -> {
-                                imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
+                                binding.imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
                             }
                             "ACTVSYN-01" -> {
-                                imageViewLogo.setImageResource(R.drawable.logo_migration_already_migrated)
+                                binding.imageViewLogo.setImageResource(R.drawable.logo_migration_already_migrated)
                             }
                             "ACTVSYN-02" -> {
-                                imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
+                                binding.imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
                             }
                             "ACTVSYN-03" -> {
-                                imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
+                                binding.imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
                             }
                         }
                     } catch (e: Exception) {
@@ -155,12 +155,12 @@ class ResultLandingPageActivity :
                 }
             }
             else -> {
-                textViewTitle.text = intent.getStringExtra(EXTRA_TITLE)
-                textViewDescription.text =
+                binding.textViewTitle.text = intent.getStringExtra(EXTRA_TITLE)
+                binding.textViewDescription.text =
                     intent.getStringExtra(EXTRA_DESC).notNullable().toHtmlSpan()
             }
         }
-        buttonClose.text = intent.getStringExtra(EXTRA_BUTTON)
+        binding.buttonClose.text = intent.getStringExtra(EXTRA_BUTTON)
     }
 
     companion object {
@@ -184,4 +184,10 @@ class ResultLandingPageActivity :
         const val PAGE_MIGRATION_RESULT = "migration_result"
         const val PAGE_NOMINATE_PASSWORD = "nominate_password"
     }
+
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityResultLandingPageBinding
+        get() = ActivityResultLandingPageBinding::inflate
 }

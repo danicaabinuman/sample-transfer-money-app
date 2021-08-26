@@ -23,8 +23,8 @@ import com.unionbankph.corporate.bills_payment.data.model.FrequentBiller
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.Constant
-import kotlinx.android.synthetic.main.item_manage_frequent_biller.view.*
-import kotlinx.android.synthetic.main.row_manage_frequent_biller.view.*
+import com.unionbankph.corporate.databinding.ItemManageFrequentBillerBinding
+import com.unionbankph.corporate.databinding.RowManageFrequentBillerBinding
 
 class ManageFrequentBillerController
 constructor(
@@ -33,13 +33,14 @@ constructor(
     private val autoFormatUtil: AutoFormatUtil
 ) : Typed3EpoxyController<MutableList<FrequentBiller>, Pageable, Boolean>() {
 
+    private lateinit var callbacks: EpoxyAdapterCallback<FrequentBiller>
+
     @AutoModel
     lateinit var loadingFooterModel: LoadingFooterModel_
 
     @AutoModel
     lateinit var errorFooterModel: ErrorFooterModel_
 
-    private lateinit var callbacks: EpoxyAdapterCallback<FrequentBiller>
 
     init {
         if (BuildConfig.DEBUG) {
@@ -58,20 +59,20 @@ constructor(
                     id(frequentBiller.id)
                     frequentBiller(frequentBiller)
                     position(position)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@ManageFrequentBillerController.viewUtil)
+                    autoFormatUtil(this@ManageFrequentBillerController.autoFormatUtil)
+                    context(this@ManageFrequentBillerController.context)
+                    callbacks(this@ManageFrequentBillerController.callbacks)
                 }
             } else {
                 manageFrequentBillerItem {
                     id(frequentBiller.id)
                     frequentBiller(frequentBiller)
                     position(position)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@ManageFrequentBillerController.viewUtil)
+                    autoFormatUtil(this@ManageFrequentBillerController.autoFormatUtil)
+                    context(this@ManageFrequentBillerController.context)
+                    callbacks(this@ManageFrequentBillerController.callbacks)
                 }
             }
         }
@@ -119,7 +120,7 @@ abstract class ManageFrequentBillerItemModel :
     override fun bind(holder: Holder) {
         super.bind(holder)
         val linearInflater = LayoutInflater.from(context)
-        holder.apply {
+        holder.binding.apply {
             linearLayoutFrequentBillerFields.removeAllViews()
             textViewApprovalRemarks.text = frequentBiller.name
             textViewCreatedBy.text = String.format(
@@ -148,31 +149,17 @@ abstract class ManageFrequentBillerItemModel :
                     }
             }
             cardViewItem.setOnClickListener {
-                callbacks.onClickItem(itemView, frequentBiller, position)
+                callbacks.onClickItem(this.root, frequentBiller, position)
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutItemManageFrequentBiller: ConstraintLayout
-        lateinit var textViewApprovalRemarks: TextView
-        lateinit var textViewCreatedBy: TextView
-        lateinit var textViewBillerTitle: TextView
-        lateinit var textViewBiller: TextView
-        lateinit var linearLayoutFrequentBillerFields: LinearLayout
-        lateinit var cardViewItem: androidx.cardview.widget.CardView
-        lateinit var itemView: View
+
+        lateinit var binding: ItemManageFrequentBillerBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutItemManageFrequentBiller =
-                itemView.constraintLayoutItemManageFrequentBiller
-            textViewApprovalRemarks = itemView.textViewApprovalRemarks
-            textViewCreatedBy = itemView.textViewCreatedBy
-            textViewBillerTitle = itemView.textViewBillerTitle
-            textViewBiller = itemView.textViewBiller
-            linearLayoutFrequentBillerFields = itemView.linearLayoutFrequentBillerFields
-            cardViewItem = itemView.cardViewItem
-            this.itemView = itemView
+            binding = ItemManageFrequentBillerBinding.bind(itemView)
         }
     }
 }
@@ -202,7 +189,7 @@ abstract class ManageFrequentBillerRowModel :
     override fun bind(holder: Holder) {
         super.bind(holder)
         val linearInflater = LayoutInflater.from(context)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             linearLayoutReferences.removeAllViews()
             textViewRowBillerName.text = frequentBiller.billerName
@@ -223,27 +210,18 @@ abstract class ManageFrequentBillerRowModel :
                     }
                 }
             }
-            itemView.setOnClickListener {
-                callbacks.onClickItem(itemView, frequentBiller, position)
+            root.setOnClickListener {
+                callbacks.onClickItem(root, frequentBiller, position)
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var linearLayoutRow: LinearLayout
-        lateinit var textViewRowBillerAlias: TextView
-        lateinit var textViewRowBillerName: TextView
-        lateinit var linearLayoutReferences: LinearLayout
-        lateinit var viewBorderTop: View
-        lateinit var itemView: View
+
+        lateinit var binding: RowManageFrequentBillerBinding
 
         override fun bindView(itemView: View) {
-            linearLayoutRow = itemView.linearLayoutRow
-            textViewRowBillerAlias = itemView.textViewRowBillerAlias
-            textViewRowBillerName = itemView.textViewRowBillerName
-            linearLayoutReferences = itemView.linearLayoutReferences
-            viewBorderTop = itemView.viewBorderTop
-            this.itemView = itemView
+            binding = RowManageFrequentBillerBinding.bind(itemView)
         }
     }
 }

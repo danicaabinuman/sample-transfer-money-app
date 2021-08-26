@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.account.presentation.source_account
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -26,14 +27,12 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScroll
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivitySourceAccountSelectionBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_source_account_selection.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
 class SourceAccountActivity :
-    BaseActivity<SourceAccountViewModel>(R.layout.activity_source_account_selection),
+    BaseActivity<ActivitySourceAccountSelectionBinding, SourceAccountViewModel>(),
     AccountAdapterCallback {
 
     private val controller by lazyFast {
@@ -44,7 +43,7 @@ class SourceAccountActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -55,17 +54,17 @@ class SourceAccountActivity :
     }
 
     private fun init() {
-        swipeRefreshLayoutSourceAccounts.isEnabled = false
+        binding.swipeRefreshLayoutSourceAccounts.isEnabled = false
         if (intent.getStringExtra(EXTRA_PAGE) == PAGE_BENEFICIARY_DETAIL ||
             intent.getStringExtra(EXTRA_PAGE) == PAGE_FREQUENT_BILLER_DETAIL
         ) {
-            setToolbarTitle(tvToolbar, getString(R.string.title_allowed_source_accounts))
+            setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_allowed_source_accounts))
             intent.getParcelableExtra<SourceAccountForm>(EXTRA_SOURCE_ACCOUNT_FORM)?.let {
                 viewModel.setBeneficiaryAccounts(it.selectedAccounts)
             }
             updateController()
         } else {
-            setToolbarTitle(tvToolbar, getString(R.string.title_source_account))
+            setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_source_account))
             intent.getParcelableExtra<SourceAccountForm>(EXTRA_SOURCE_ACCOUNT_FORM)?.let {
                 viewModel.onSetSourceAccountForm(it)
             }
@@ -75,10 +74,7 @@ class SourceAccountActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[SourceAccountViewModel::class.java]
+
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSourceAccountLoading -> {
@@ -86,12 +82,12 @@ class SourceAccountActivity :
                         updateController()
                     } else {
                         showLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutSourceAccounts,
-                            recyclerViewSourceAccounts,
-                            textViewState
+                            binding.viewLoadingState.viewLoadingLayout,
+                            binding.swipeRefreshLayoutSourceAccounts,
+                            binding.recyclerViewSourceAccounts,
+                            binding.textViewState
                         )
-                        if (viewLoadingState.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.viewLoadingLayout.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     }
@@ -101,9 +97,9 @@ class SourceAccountActivity :
                         updateController()
                     } else {
                         dismissLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutSourceAccounts,
-                            recyclerViewSourceAccounts
+                            binding.viewLoadingState.viewLoadingLayout,
+                            binding.swipeRefreshLayoutSourceAccounts,
+                            binding.recyclerViewSourceAccounts
                         )
                     }
                 }
@@ -149,13 +145,13 @@ class SourceAccountActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initRxSearchEventListener()
-        swipeRefreshLayoutSourceAccounts.apply {
+        binding.swipeRefreshLayoutSourceAccounts.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getAccounts(true)
             }
         }
-        RxView.clicks(buttonSelectAccounts)
+        RxView.clicks(binding.buttonSelectAccounts)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -168,7 +164,7 @@ class SourceAccountActivity :
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
-        val menuItemView = toolbar.findViewById<View>(R.id.menu_check)
+        val menuItemView = binding.viewToolbar.toolbar.findViewById<View>(R.id.menu_check)
         if (menuItemView is TextView) {
             menuItemView.setTextColor(ContextCompat.getColor(this, R.color.colorWhite))
         }
@@ -197,8 +193,8 @@ class SourceAccountActivity :
 
     private fun initRecyclerView() {
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewSourceAccounts.layoutManager = linearLayoutManager
-        recyclerViewSourceAccounts.addOnScrollListener(
+        binding.recyclerViewSourceAccounts.layoutManager = linearLayoutManager
+        binding.recyclerViewSourceAccounts.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = viewModel.pageable.totalPageCount
@@ -220,7 +216,7 @@ class SourceAccountActivity :
             }
         )
         controller.setAccountAdapterCallback(this)
-        recyclerViewSourceAccounts.setController(controller)
+        binding.recyclerViewSourceAccounts.setController(controller)
     }
 
     private fun updateController(data: MutableList<Account> = viewModel.getAccounts()) {
@@ -242,11 +238,11 @@ class SourceAccountActivity :
 
     private fun updateSelectButton(isShownButton: Boolean, countSelectedAccounts: Int) {
         if (isShownButton) {
-            buttonSelectAccounts.visibility = View.VISIBLE
+            binding.buttonSelectAccounts.visibility = View.VISIBLE
         } else {
-            buttonSelectAccounts.visibility = View.GONE
+            binding.buttonSelectAccounts.visibility = View.GONE
         }
-        buttonSelectAccounts.text = String.format(
+        binding.buttonSelectAccounts.text = String.format(
             getString(
                 R.string.params_select_accounts,
                 countSelectedAccounts.toString()
@@ -264,11 +260,11 @@ class SourceAccountActivity :
                 } else {
                     getString(R.string.action_select_all)
                 }
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
             menuCheck?.isVisible = false
-            textViewState.visibility = View.VISIBLE
-            buttonSelectAccounts.visibility = View.GONE
+            binding.textViewState.visibility = View.VISIBLE
+            binding.buttonSelectAccounts.visibility = View.GONE
         }
     }
 
@@ -289,32 +285,32 @@ class SourceAccountActivity :
 
 
     private fun scrollToTop() {
-        recyclerViewSourceAccounts.post {
-            recyclerViewSourceAccounts.scrollToPosition(0)
+        binding.recyclerViewSourceAccounts.post {
+            binding.recyclerViewSourceAccounts.scrollToPosition(0)
         }
     }
 
     private fun initRxSearchEventListener() {
-        viewSearchLayout.isVisible = intent.getStringExtra(EXTRA_PAGE) == PAGE_BENEFICIARY_FORM ||
+        binding.viewSearchLayout.constraintLayoutSearch.isVisible = intent.getStringExtra(EXTRA_PAGE) == PAGE_BENEFICIARY_FORM ||
                 intent.getStringExtra(EXTRA_PAGE) == PAGE_FREQUENT_BILLER_FORM
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                editTextSearch.clearFocus()
+                binding.viewSearchLayout.editTextSearch.clearFocus()
                 viewUtil.dismissKeyboard(this@SourceAccountActivity)
                 getAccounts(true)
                 return@OnEditorActionListener true
             }
             false
         })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -322,7 +318,7 @@ class SourceAccountActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     viewModel.pageable.filter = filter.text().toString().nullable()
                     getAccounts(true)
@@ -361,4 +357,10 @@ class SourceAccountActivity :
         const val PAGE_FREQUENT_BILLER_FORM = "frequent_biller_form"
         const val PAGE_FREQUENT_BILLER_DETAIL = "frequent_biller_detail"
     }
+
+    override val viewModelClassType: Class<SourceAccountViewModel>
+        get() = SourceAccountViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySourceAccountSelectionBinding
+        get() = ActivitySourceAccountSelectionBinding::inflate
 }

@@ -15,7 +15,7 @@ import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.branch.presentation.model.BranchVisit
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
-import kotlinx.android.synthetic.main.row_branch_visit.view.*
+import com.unionbankph.corporate.databinding.RowBranchVisitBinding
 
 @EpoxyModelClass(layout = R.layout.row_branch_visit)
 abstract class BranchVisitRowModel : EpoxyModelWithHolder<BranchVisitRowModel.Holder>() {
@@ -40,7 +40,7 @@ abstract class BranchVisitRowModel : EpoxyModelWithHolder<BranchVisitRowModel.Ho
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             textViewRowRemarks.text = branchVisit.remarks
             textViewRowDepositTo.text =
                 if (branchVisit.isBatch)
@@ -54,31 +54,18 @@ abstract class BranchVisitRowModel : EpoxyModelWithHolder<BranchVisitRowModel.Ho
                 ConstantHelper.Color.getTextColorBranchVisit(branchVisit.status)
             )
             textViewRowStatus.text = branchVisit.status?.value
-            itemView.setOnClickListener {
+            holder.binding.root.setOnClickListener {
                 callbacks.onClickItem(it, branchVisit, position)
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var imageViewRowIcon: ImageView
-        lateinit var textViewRowRemarks: AppCompatTextView
-        lateinit var textViewRowDepositTo: AppCompatTextView
-        lateinit var textViewRowAmount: AppCompatTextView
-        lateinit var textViewRowTransactionDate: AppCompatTextView
-        lateinit var textViewRowChannel: AppCompatTextView
-        lateinit var textViewRowStatus: AppCompatTextView
-        lateinit var itemView: View
+
+        lateinit var binding: RowBranchVisitBinding
 
         override fun bindView(itemView: View) {
-            imageViewRowIcon = itemView.imageViewRowIcon
-            textViewRowRemarks = itemView.textViewRowRemarks
-            textViewRowDepositTo = itemView.textViewRowDepositTo
-            textViewRowAmount = itemView.textViewRowAmount
-            textViewRowTransactionDate = itemView.textViewRowTransactionDate
-            textViewRowChannel = itemView.textViewRowChannel
-            textViewRowStatus = itemView.textViewRowStatus
-            this.itemView = itemView
+            binding = RowBranchVisitBinding.bind(itemView)
         }
     }
 }

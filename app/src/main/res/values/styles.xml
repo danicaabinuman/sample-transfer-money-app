@@ -401,6 +401,13 @@
         <item name="android:textColor">@color/colorButtonGray</item>
     </style>
 
+    <style name="RoundedButtonBorderedOrangeOverLay" parent="BorderedButton">
+        <item name="backgroundTint">@color/colorOrangeAccountItem</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="strokeColor">@color/colorOrangeAccountItem</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
     <style name="TutorialOkButton" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_height">@dimen/button_small_size</item>
         <item name="android:layout_width">@dimen/button_tutorial_width</item>

@@ -16,8 +16,8 @@ import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.bills_payment.data.model.Biller
 import com.unionbankph.corporate.bills_payment.presentation.biller.BillerMainActivity
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
-import kotlinx.android.synthetic.main.header_title_initial.view.*
-import kotlinx.android.synthetic.main.item_title.view.*
+import com.unionbankph.corporate.databinding.HeaderAllBillerBinding
+import com.unionbankph.corporate.databinding.ItemAllBillerBinding
 
 class AllBillerController
 constructor(
@@ -56,7 +56,7 @@ constructor(
                             biller(biller)
                             page(page)
                             position(position)
-                            callbacks(callbacks)
+                            callbacks(this@AllBillerController.callbacks)
                         }
                     }
             }
@@ -81,14 +81,14 @@ abstract class BillerHeaderModel : EpoxyModelWithHolder<BillerHeaderModel.Holder
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.textViewHeaderTitle.text = title.get(0).toString()
+        holder.binding.textViewHeaderTitle.text = title.get(0).toString()
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewHeaderTitle: TextView
+        lateinit var binding: HeaderAllBillerBinding
 
         override fun bindView(itemView: View) {
-            textViewHeaderTitle = itemView.textViewHeaderTitle
+            binding = HeaderAllBillerBinding.bind(itemView)
         }
     }
 }
@@ -114,7 +114,7 @@ abstract class BillerItemModel : EpoxyModelWithHolder<BillerItemModel.Holder>() 
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.apply {
+        holder.binding.apply {
             textViewItemTitle.text = title
             constraintLayoutItemTitle.alpha =
                 if (!biller.canAddAsFrequentBiller &&
@@ -129,14 +129,10 @@ abstract class BillerItemModel : EpoxyModelWithHolder<BillerItemModel.Holder>() 
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var viewBorder: View
-        lateinit var constraintLayoutItemTitle: ConstraintLayout
-        lateinit var textViewItemTitle: TextView
+        lateinit var binding: ItemAllBillerBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutItemTitle = itemView.constraintLayoutItemTitle
-            textViewItemTitle = itemView.textViewItemTitle
-            viewBorder = itemView.viewBorder
+            binding = ItemAllBillerBinding.bind(itemView)
         }
     }
 }

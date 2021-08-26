@@ -3,6 +3,7 @@ package com.unionbankph.corporate.mcd.presentation.confirmation
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.ImageView
 import androidx.lifecycle.Observer
@@ -15,21 +16,19 @@ import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
+import com.unionbankph.corporate.databinding.ActivityCheckDepositConfirmationBinding
 import com.unionbankph.corporate.mcd.data.form.CheckDepositForm
 import com.unionbankph.corporate.mcd.data.model.CheckDeposit
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositScreenEnum
 import com.unionbankph.corporate.mcd.presentation.constant.CheckDepositTypeEnum
 import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewActivity
 import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryActivity
-import kotlinx.android.synthetic.main.activity_check_deposit_confirmation.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.toolbar
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 /**
  * Created by herald25santos on 2019-10-23
  */
 class CheckDepositConfirmationActivity :
-    BaseActivity<CheckDepositConfirmationViewModel>(R.layout.activity_check_deposit_confirmation) {
+    BaseActivity<ActivityCheckDepositConfirmationBinding, CheckDepositConfirmationViewModel>() {
 
     private val checkDepositForm by lazyFast {
         JsonHelper.fromJson<CheckDepositForm>(intent.getStringExtra(EXTRA_FORM))
@@ -37,7 +36,7 @@ class CheckDepositConfirmationActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -54,24 +53,24 @@ class CheckDepositConfirmationActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        imageViewFrontOfCheck.setOnClickListener {
+        binding.imageViewFrontOfCheck.setOnClickListener {
             navigateCheckDepositPreviewScreen(
                 CheckDepositTypeEnum.FRONT_OF_CHECK,
                 checkDepositForm.frontOfCheckFilePath.notNullable(),
-                imageViewFrontOfCheck
+                binding.imageViewFrontOfCheck
             )
         }
-        imageViewBackOfCheck.setOnClickListener {
+        binding.imageViewBackOfCheck.setOnClickListener {
             navigateCheckDepositPreviewScreen(
                 CheckDepositTypeEnum.BACK_OF_CHECK,
                 checkDepositForm.backOfCheckFilePath.notNullable(),
-                imageViewBackOfCheck
+                binding.imageViewBackOfCheck
             )
         }
-        buttonEdit.setOnClickListener {
+        binding.buttonEdit.setOnClickListener {
             onBackPressed()
         }
-        buttonSubmit.setOnClickListener {
+        binding.buttonSubmit.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             viewModel.checkDeposit(checkDepositForm)
         }
@@ -88,10 +87,6 @@ class CheckDepositConfirmationActivity :
     }
 
     private fun initCheckDepositViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[CheckDepositConfirmationViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowCheckDepositConfirmationLoading -> {
@@ -115,8 +110,8 @@ class CheckDepositConfirmationActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_check_deposit_confirmation),
                         it.orgName
                     )
@@ -165,19 +160,19 @@ class CheckDepositConfirmationActivity :
     }
 
     private fun initCheckDepositConfirmationDetails() {
-        textViewBankOfCheck.text = checkDepositForm.issuerName
-        textViewCheckAccountNumber.text = checkDepositForm.sourceAccount
-        textViewCheckNumber.text = checkDepositForm.checkNumber
-        textViewRemarks.text = checkDepositForm.remarks.notEmpty()
-        textViewDateOnCheck.text = viewUtil.getDateFormatByDateString(
+        binding.textViewBankOfCheck.text = checkDepositForm.issuerName
+        binding.textViewCheckAccountNumber.text = checkDepositForm.sourceAccount
+        binding.textViewCheckNumber.text = checkDepositForm.checkNumber
+        binding.textViewRemarks.text = checkDepositForm.remarks.notEmpty()
+        binding.textViewDateOnCheck.text = viewUtil.getDateFormatByDateString(
             checkDepositForm.checkDate,
             DateFormatEnum.DATE_FORMAT_ISO_Z.value,
             DateFormatEnum.DATE_FORMAT_DATE.value
         )
-        textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
+        binding.textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
             checkDepositForm.checkAmount, checkDepositForm.currency
         )
-        textViewServiceFee.text = if (checkDepositForm.serviceFee != null) {
+        binding.textViewServiceFee.text = if (checkDepositForm.serviceFee != null) {
             formatString(
                 R.string.value_service,
                 autoFormatUtil.formatWithTwoDecimalPlaces(
@@ -188,17 +183,17 @@ class CheckDepositConfirmationActivity :
         } else {
             formatString(R.string.value_service_fee_free)
         }
-        textViewDepositTo.text = formatString(
+        binding.textViewDepositTo.text = formatString(
             R.string.params_account_detail,
             checkDepositForm.targetAccountName,
             viewUtil.getAccountNumberFormat(checkDepositForm.targetAccount),
             checkDepositForm.accountType.notEmpty()
         ).toHtmlSpan()
-        imageViewFrontOfCheck.loadImage(
+        binding.imageViewFrontOfCheck.loadImage(
             checkDepositForm.frontOfCheckFilePath.notNullable(),
             "front_${checkDepositForm.id}"
         )
-        imageViewBackOfCheck.loadImage(
+        binding.imageViewBackOfCheck.loadImage(
             checkDepositForm.backOfCheckFilePath.notNullable(),
             "back_${checkDepositForm.id}"
         )
@@ -247,4 +242,10 @@ class CheckDepositConfirmationActivity :
     companion object {
         const val EXTRA_FORM = "form"
     }
+    
+    override val viewModelClassType: Class<CheckDepositConfirmationViewModel>
+        get() = CheckDepositConfirmationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositConfirmationBinding
+        get() = ActivityCheckDepositConfirmationBinding::inflate
 }

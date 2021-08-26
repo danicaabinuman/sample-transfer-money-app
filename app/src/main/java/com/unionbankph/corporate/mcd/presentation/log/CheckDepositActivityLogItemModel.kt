@@ -15,8 +15,8 @@ import com.unionbankph.corporate.app.common.extension.setContextCompatTextColor
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
+import com.unionbankph.corporate.databinding.ItemActivityLogBinding
 import com.unionbankph.corporate.mcd.data.model.CheckDepositActivityLog
-import kotlinx.android.synthetic.main.item_check_deposit_activity_log.view.*
 
 @EpoxyModelClass(layout = R.layout.item_activity_log)
 abstract class CheckDepositActivityLogItemModel :
@@ -91,6 +91,8 @@ abstract class CheckDepositActivityLogItemModel :
     }
 
     class Holder : EpoxyHolder() {
+        lateinit var binding : ItemActivityLogBinding
+
         lateinit var constraintLayoutItemRecent: ConstraintLayout
         lateinit var textViewTime: TextView
         lateinit var textViewRemarks: TextView
@@ -101,14 +103,7 @@ abstract class CheckDepositActivityLogItemModel :
         lateinit var viewBorderItem2: View
 
         override fun bindView(itemView: View) {
-            constraintLayoutItemRecent = itemView.constraintLayoutItemRecent
-            textViewTime = itemView.textViewTime
-            textViewRemarks = itemView.textViewRemarks
-            textViewNoteTitle = itemView.textViewNoteTitle
-            textViewNote = itemView.textViewNote
-            imageViewPresence = itemView.imageViewPresence
-            viewBorderItem1 = itemView.viewBorderItem1
-            viewBorderItem2 = itemView.viewBorderItem2
+            binding = ItemActivityLogBinding.bind(itemView)
         }
     }
 }

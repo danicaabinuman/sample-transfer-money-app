@@ -98,6 +98,8 @@
         <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/fabFundTransfer"
             style="@style/MatchConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:padding="@dimen/fab_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

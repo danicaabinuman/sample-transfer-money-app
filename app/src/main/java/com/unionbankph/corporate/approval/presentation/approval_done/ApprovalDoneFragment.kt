@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.approval.presentation.approval_done
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
@@ -27,19 +29,13 @@ import com.unionbankph.corporate.approval.presentation.approval_detail.ApprovalD
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentApprovalDoneBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_organization_transfer.*
-import kotlinx.android.synthetic.main.fragment_approval_done.*
-import kotlinx.android.synthetic.main.fragment_approval_done.swipeRefreshLayoutTable
-import kotlinx.android.synthetic.main.fragment_approval_done.textViewState
-import kotlinx.android.synthetic.main.fragment_approval_done.viewLoadingState
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_table_view.*
 import java.util.concurrent.TimeUnit
 
 
 class ApprovalDoneFragment :
-    BaseFragment<ApprovalDoneViewModel>(R.layout.fragment_approval_done),
+    BaseFragment<FragmentApprovalDoneBinding, ApprovalDoneViewModel>(),
     EpoxyAdapterCallback<Transaction> {
 
     private val pageable by lazyFast { Pageable() }
@@ -60,24 +56,23 @@ class ApprovalDoneFragment :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[ApprovalDoneViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowApprovalDoneLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.viewLoadingLayout,
                         getSwipeRefreshLayout(),
                         getRecyclerView(),
-                        textViewState,
-                        linearLayoutRow
+                        binding.textViewState,
+                        binding.viewTable.linearLayoutRow
                     )
-                    if (viewLoadingState.visibility == View.VISIBLE) {
+                    if (binding.viewLoadingState.viewLoadingLayout.visibility == View.VISIBLE) {
                         updateController(mutableListOf())
                     }
                 }
                 is ShowApprovalDoneDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.viewLoadingLayout,
                         getSwipeRefreshLayout(),
                         getRecyclerView()
                     )
@@ -129,14 +124,14 @@ class ApprovalDoneFragment :
         initEventBus()
         initRxSearchEventListener()
         initSwipeRefreshLayout()
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.requestFocus()
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.requestFocus()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
     }
 
@@ -174,10 +169,10 @@ class ApprovalDoneFragment :
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(
             TextView.OnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    editTextSearch.clearFocus()
+                    binding.viewSearchLayout.editTextSearch.clearFocus()
                     viewUtil.dismissKeyboard(getAppCompatActivity())
                     fetchApprovalDone(true)
                     return@OnEditorActionListener true
@@ -185,7 +180,7 @@ class ApprovalDoneFragment :
                 false
             }
         )
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -193,7 +188,7 @@ class ApprovalDoneFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     pageable.filter = filter.text().toString().nullable()
                     fetchApprovalDone(true)
@@ -282,19 +277,19 @@ class ApprovalDoneFragment :
 
     private fun clearRecyclerView() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutApprovalDone.visibility(false)
-            recyclerViewApprovalDone.clear()
-            recyclerViewApprovalDone.clearPreloaders()
-            recyclerViewApprovalDone.adapter = null
-            recyclerViewApprovalDone.layoutManager = null
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutApprovalDone.visibility(false)
+            binding.recyclerViewApprovalDone.clear()
+            binding.recyclerViewApprovalDone.clearPreloaders()
+            binding.recyclerViewApprovalDone.adapter = null
+            binding.recyclerViewApprovalDone.layoutManager = null
         } else {
-            swipeRefreshLayoutTable.visibility(false)
-            swipeRefreshLayoutApprovalDone.visibility(true)
-            recyclerViewTable.clear()
-            recyclerViewTable.clearPreloaders()
-            recyclerViewTable.adapter = null
-            recyclerViewTable.layoutManager = null
+            binding.swipeRefreshLayoutTable.visibility(false)
+            binding.swipeRefreshLayoutApprovalDone.visibility(true)
+            binding.viewTable.recyclerViewTable.clear()
+            binding.viewTable.recyclerViewTable.clearPreloaders()
+            binding.viewTable.recyclerViewTable.adapter = null
+            binding.viewTable.recyclerViewTable.layoutManager = null
         }
     }
 
@@ -308,7 +303,7 @@ class ApprovalDoneFragment :
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        coordinatorLayoutSnackBar,
+                        binding.coordinatorLayoutSnackBar,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -333,12 +328,12 @@ class ApprovalDoneFragment :
 
     private fun showEmptyState(data: MutableList<Transaction>) {
         if (isTableView()) {
-            linearLayoutRow.visibility(data.isNotEmpty())
+            binding.viewTable.linearLayoutRow.visibility(data.isNotEmpty())
         }
         if (data.size > 0) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -350,27 +345,27 @@ class ApprovalDoneFragment :
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            coordinatorLayoutSnackBar.visibility(true)
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutApprovalDone.visibility(false)
+            binding.coordinatorLayoutSnackBar.visibility(true)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutApprovalDone.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_done_approvals).toMutableList()
-            linearLayoutRow.removeAllViews()
+            binding.viewTable.linearLayoutRow.removeAllViews()
             headers.forEach {
                 val viewRowHeader = layoutInflater.inflate(R.layout.header_table_row, null)
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewApprovalDone
+        if (isTableView()) binding.viewTable.recyclerViewTable else binding.recyclerViewApprovalDone
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutApprovalDone
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutApprovalDone
 
     private fun getTransactions(): MutableList<Transaction> =
         viewModel.transactions.value ?: mutableListOf()
@@ -388,5 +383,11 @@ class ApprovalDoneFragment :
         }
 
     }
+
+    override val viewModelClassType: Class<ApprovalDoneViewModel>
+        get() = ApprovalDoneViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentApprovalDoneBinding
+        get() = FragmentApprovalDoneBinding::inflate
 
 }

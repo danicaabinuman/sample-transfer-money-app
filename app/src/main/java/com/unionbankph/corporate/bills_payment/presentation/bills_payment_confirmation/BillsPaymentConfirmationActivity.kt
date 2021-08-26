@@ -2,6 +2,7 @@ package com.unionbankph.corporate.bills_payment.presentation.bills_payment_confi
 
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -36,13 +37,12 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrg
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.ActivityBillsPaymentConfirmationBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_bills_payment_confirmation.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.concurrent.TimeUnit
 
 class BillsPaymentConfirmationActivity :
-    BaseActivity<BillsPaymentConfirmationViewModel>(R.layout.activity_bills_payment_confirmation),
+    BaseActivity<ActivityBillsPaymentConfirmationBinding, BillsPaymentConfirmationViewModel>(),
     OnTutorialListener {
 
     private lateinit var billsPaymentForm: BillsPaymentForm
@@ -51,7 +51,7 @@ class BillsPaymentConfirmationActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -75,7 +75,7 @@ class BillsPaymentConfirmationActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(buttonEdit)
+        RxView.clicks(binding.buttonEdit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -85,7 +85,7 @@ class BillsPaymentConfirmationActivity :
             }
             .addTo(disposables)
 
-        RxView.clicks(buttonSubmit)
+        RxView.clicks(binding.buttonSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -136,15 +136,15 @@ class BillsPaymentConfirmationActivity :
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.button_radius)
             when (view) {
-                buttonEdit -> {
-                    viewUtil.setFocusOnView(scrollView, buttonSubmit)
+                binding.buttonEdit -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.buttonSubmit)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        buttonSubmit,
+                        binding.buttonSubmit,
                         R.layout.frame_tutorial_lower_right,
                         radius,
                         false,
@@ -154,7 +154,7 @@ class BillsPaymentConfirmationActivity :
                     )
                 }
                 else -> {
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
 //                    tutorialViewModel.setTutorial(
 //                        TutorialScreenEnum.BILLS_PAYMENT_CONFIRMATION,
 //                        false
@@ -165,10 +165,6 @@ class BillsPaymentConfirmationActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[BillsPaymentConfirmationViewModel::class.java]
         viewModel.confirmationState.observe(this, Observer {
 
             when (it) {
@@ -199,8 +195,8 @@ class BillsPaymentConfirmationActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_payment_confirmation),
                         it.orgName
                     )
@@ -350,7 +346,7 @@ class BillsPaymentConfirmationActivity :
         billsPaymentForm: BillsPaymentForm,
         account: Account
     ) {
-        textViewTransferFrom.text = Html.fromHtml(
+        binding.textViewTransferFrom.text = Html.fromHtml(
             String.format(
                 getString(R.string.params_account_detail),
                 account.name,
@@ -387,14 +383,14 @@ class BillsPaymentConfirmationActivity :
             }
         }
 
-        textViewPaymentTo.text = Html.fromHtml(
+        binding.textViewPaymentTo.text = Html.fromHtml(
             billsPaymentForm.billerName +
                     "<br>" +
                     "<br>" +
                     sb.toString()
         )
 
-        textViewProposedTransferDate.text =
+        binding.textViewProposedTransferDate.text =
             if (billsPaymentForm.immediate!!)
                 getString(
                     R.string.title_immediately
@@ -404,9 +400,9 @@ class BillsPaymentConfirmationActivity :
                     billsPaymentForm.paymentDate, ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
-        textViewAmount.text =
+        binding.textViewAmount.text =
             billsPaymentForm.amount?.value.toString().formatAmount(billsPaymentForm.amount?.currency)
-        textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
+        binding.textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(EXTRA_SERVICE_FEE)
             )
@@ -420,7 +416,7 @@ class BillsPaymentConfirmationActivity :
         } else {
             getString(R.string.value_service_fee_free)
         }
-        textViewRemarks.text = viewUtil.getStringOrEmpty(billsPaymentForm.remarks)
+        binding.textViewRemarks.text = viewUtil.getStringOrEmpty(billsPaymentForm.remarks)
 
         val reminders = JsonHelper.fromListJson<String>(intent.getStringExtra(EXTRA_REMINDERS))
         if (reminders.isNotEmpty()) {
@@ -428,59 +424,59 @@ class BillsPaymentConfirmationActivity :
             reminders.forEach {
                 remindersContent.append("$it\n\n")
             }
-            tv_reminders.text = remindersContent
+            binding.tvReminders.text = remindersContent
         } else {
-            border_reminders.isInvisible = true
-            tv_reminders_title.isInvisible = true
-            tv_reminders.isVisible = false
+            binding.borderReminders.isInvisible = true
+            binding.tvRemindersTitle.isInvisible = true
+            binding.tvReminders.isVisible = false
         }
         if (billsPaymentForm.immediate!!) {
-            textViewStartDateTitle.visibility = View.GONE
-            textViewStartDate.visibility = View.GONE
-            view5.visibility = View.GONE
-            textViewFrequencyTitle.visibility = View.GONE
-            textViewFrequency.visibility = View.GONE
-            view6.visibility = View.GONE
-            textViewEndDateTitle.visibility = View.GONE
-            textViewEndDate.visibility = View.GONE
-            view7.visibility = View.GONE
-            textViewProposedTransferDateTitle.visibility = View.VISIBLE
-            textViewProposedTransferDate.visibility = View.VISIBLE
-            view4.visibility = View.VISIBLE
+            binding.textViewStartDateTitle.visibility = View.GONE
+            binding.textViewStartDate.visibility = View.GONE
+            binding.view5.visibility = View.GONE
+            binding.textViewFrequencyTitle.visibility = View.GONE
+            binding.textViewFrequency.visibility = View.GONE
+            binding.view6.visibility = View.GONE
+            binding.textViewEndDateTitle.visibility = View.GONE
+            binding.textViewEndDate.visibility = View.GONE
+            binding.view7.visibility = View.GONE
+            binding.textViewProposedTransferDateTitle.visibility = View.VISIBLE
+            binding.textViewProposedTransferDate.visibility = View.VISIBLE
+            binding.view4.visibility = View.VISIBLE
         } else {
-            textViewStartDate.text = viewUtil.getDateFormatByDateString(
+            binding.textViewStartDate.text = viewUtil.getDateFormatByDateString(
                 billsPaymentForm.paymentDate, ViewUtil.DATE_FORMAT_ISO,
                 ViewUtil.DATE_FORMAT_DEFAULT
             )
-            textViewEndDate.text = viewUtil.getDateFormatByDateString(
+            binding.textViewEndDate.text = viewUtil.getDateFormatByDateString(
                 billsPaymentForm.recurrenceEndDate, ViewUtil.DATE_FORMAT_ISO,
                 ViewUtil.DATE_FORMAT_DATE
             )
-            textViewFrequency.text = billsPaymentForm.frequency
+            binding.textViewFrequency.text = billsPaymentForm.frequency
             if (billsPaymentForm.frequency == getString(R.string.title_one_time)) {
-                textViewEndDate.visibility = View.GONE
-                textViewEndDateTitle.visibility = View.GONE
-                view7.visibility = View.GONE
-                textViewFrequencyTitle.visibility = View.GONE
-                textViewFrequency.visibility = View.GONE
-                view6.visibility = View.GONE
-                textViewStartDateTitle.visibility = View.GONE
-                textViewStartDate.visibility = View.GONE
-                view5.visibility = View.GONE
+                binding.textViewEndDate.visibility = View.GONE
+                binding.textViewEndDateTitle.visibility = View.GONE
+                binding.view7.visibility = View.GONE
+                binding.textViewFrequencyTitle.visibility = View.GONE
+                binding.textViewFrequency.visibility = View.GONE
+                binding.view6.visibility = View.GONE
+                binding.textViewStartDateTitle.visibility = View.GONE
+                binding.textViewStartDate.visibility = View.GONE
+                binding.view5.visibility = View.GONE
             } else {
-                textViewProposedTransferDateTitle.visibility = View.GONE
-                textViewProposedTransferDate.visibility = View.GONE
-                view4.visibility = View.GONE
+                binding.textViewProposedTransferDateTitle.visibility = View.GONE
+                binding.textViewProposedTransferDate.visibility = View.GONE
+                binding.view4.visibility = View.GONE
             }
         }
     }
 
     private fun startViewTutorial() {
-        viewUtil.setFocusOnView(scrollView, buttonEdit)
+        viewUtil.setFocusOnView(binding.scrollView, binding.buttonEdit)
         val radius = resources.getDimension(R.dimen.button_radius)
         tutorialEngineUtil.startTutorial(
             this,
-            buttonEdit,
+            binding.buttonEdit,
             R.layout.frame_tutorial_lower_left,
             radius,
             false,
@@ -498,4 +494,10 @@ class BillsPaymentConfirmationActivity :
         const val EXTRA_CHANNEL_ID = "channel_id"
         const val EXTRA_REMINDERS = "reminders"
     }
+
+    override val viewModelClassType: Class<BillsPaymentConfirmationViewModel>
+        get() = BillsPaymentConfirmationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBillsPaymentConfirmationBinding
+        get() = ActivityBillsPaymentConfirmationBinding::inflate
 }

@@ -2,6 +2,7 @@ package com.unionbankph.corporate.account.presentation.account_detail
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -26,12 +27,11 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityAccountDetailsBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_account_details.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 class AccountDetailActivity :
-    BaseActivity<AccountDetailViewModel>(R.layout.activity_account_details),
+    BaseActivity<ActivityAccountDetailsBinding, AccountDetailViewModel>(),
     AccountDetailController.AdapterCallbacks,
     OnTutorialListener {
 
@@ -51,8 +51,8 @@ class AccountDetailActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, getString(R.string.title_account_details))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_account_details))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -89,9 +89,7 @@ class AccountDetailActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[AccountDetailViewModel::class.java]
-        viewModel.uiState.observe(this, EventObserver {
+    viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
                     isLoading = true
@@ -145,8 +143,8 @@ class AccountDetailActivity :
             }
             R.id.menu_help -> {
                 isClickedHelpTutorial = true
-                recyclerViewAccountDetails.post {
-                    recyclerViewAccountDetails.smoothScrollToPosition(0)
+                binding.recyclerViewAccountDetails.post {
+                    binding.recyclerViewAccountDetails.smoothScrollToPosition(0)
                 }
                 Handler().postDelayed(
                     {
@@ -176,20 +174,20 @@ class AccountDetailActivity :
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            recyclerViewAccountDetails.post { recyclerViewAccountDetails.scrollToPosition(0) }
+            binding.recyclerViewAccountDetails.post { binding.recyclerViewAccountDetails.scrollToPosition(0) }
         } else {
             when (view) {
-                recyclerViewAccountDetails.findViewHolderForAdapterPosition(0)
+                binding.recyclerViewAccountDetails.findViewHolderForAdapterPosition(0)
                     ?.itemView?.findViewById<androidx.cardview.widget.CardView>(R.id.cardViewAccountDetails) -> {
-                    recyclerViewAccountDetails.post {
-                        recyclerViewAccountDetails.scrollToPosition(
+                    binding.recyclerViewAccountDetails.post {
+                        binding.recyclerViewAccountDetails.scrollToPosition(
                             controller.adapter.itemCount - 1
                         )
                     }
                     Handler().postDelayed(
                         {
                             val cardViewAll =
-                                recyclerViewAccountDetails.findViewHolderForAdapterPosition(0)
+                                binding.recyclerViewAccountDetails.findViewHolderForAdapterPosition(0)
                                     ?.itemView?.findViewById<androidx.cardview.widget.CardView>(R.id.cardViewAll)
                             tutorialEngineUtil.startTutorial(
                                 this,
@@ -205,7 +203,7 @@ class AccountDetailActivity :
                     )
                 }
                 else -> {
-                    recyclerViewAccountDetails.post { recyclerViewAccountDetails.scrollToPosition(0) }
+                    binding.recyclerViewAccountDetails.post { binding.recyclerViewAccountDetails.scrollToPosition(0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.ACCOUNT_DETAILS, false)
                 }
             }
@@ -248,16 +246,16 @@ class AccountDetailActivity :
 
     private fun initRecyclerView() {
         controller.setAdapterCallbacks(this)
-        recyclerViewAccountDetails.setController(controller)
+        binding.recyclerViewAccountDetails.setController(controller)
         updateController()
     }
 
     private fun startViewTutorial() {
         val cardViewDetails =
-            recyclerViewAccountDetails.findViewHolderForAdapterPosition(0)
+            binding.recyclerViewAccountDetails.findViewHolderForAdapterPosition(0)
                 ?.itemView?.findViewById<androidx.cardview.widget.CardView>(R.id.cardViewAccountDetails)!!
-        recyclerViewAccountDetails.post {
-            recyclerViewAccountDetails.scrollTo(0, cardViewDetails.bottom)
+        binding.recyclerViewAccountDetails.post {
+            binding.recyclerViewAccountDetails.scrollTo(0, cardViewDetails.bottom)
         }
         tutorialEngineUtil.startTutorial(
             this,
@@ -274,4 +272,10 @@ class AccountDetailActivity :
     companion object {
         const val EXTRA_ACCOUNT = "account"
     }
+
+    override val viewModelClassType: Class<AccountDetailViewModel>
+        get() = AccountDetailViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityAccountDetailsBinding
+        get() = ActivityAccountDetailsBinding::inflate
 }

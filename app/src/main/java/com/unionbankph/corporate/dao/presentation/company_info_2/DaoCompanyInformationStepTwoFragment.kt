@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.company_info_2
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -20,16 +22,16 @@ import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.databinding.FragmentDaoCompanyInformationStep2Binding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_company_information_step_2.*
 import java.util.*
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoCompanyInformationStepTwoFragment :
-    BaseFragment<DaoCompanyInformationStepTwoViewModel>(R.layout.fragment_dao_company_information_step_2),
+    BaseFragment<FragmentDaoCompanyInformationStep2Binding, DaoCompanyInformationStepTwoViewModel>(),
     DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
@@ -41,11 +43,7 @@ class DaoCompanyInformationStepTwoFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[DaoCompanyInformationStepTwoViewModel::class.java]
+
     }
 
     override fun onViewsBound() {
@@ -65,36 +63,36 @@ class DaoCompanyInformationStepTwoFragment :
             .subscribe {
                 setOtherTextInputEditText(
                     it.value,
-                    til_other_type_of_office,
-                    tie_other_type_of_office
+                    binding.tilOtherTypeOfOffice,
+                    binding.tieOtherTypeOfOffice
                 )
-                tie_type_of_office.setText(it.value)
+                binding.tieOtherTypeOfOffice.setText(it.value)
             }.addTo(disposables)
         viewModel.businessOwnershipInput
             .subscribe {
                 setOtherTextInputEditText(
                     it.value,
-                    til_other_business_ownership,
-                    tie_other_business_ownership
+                    binding.tilOtherBusinessOwnership,
+                    binding.tieOtherBusinessOwnership
                 )
-                tie_business_ownership.setText(it.value)
+                binding.tieBusinessOwnership.setText(it.value)
             }.addTo(disposables)
         viewModel.sourceOfFundsInput
             .subscribe {
                 setOtherTextInputEditText(
                     it.value,
-                    til_other_source_of_funds,
-                    tie_other_source_of_funds
+                    binding.tilOtherSourceOfFunds,
+                    binding.tieOtherSourceOfFunds
                 )
-                tie_source_of_funds.setText(it.value)
+                binding.tieSourceOfFunds.setText(it.value)
             }.addTo(disposables)
         viewModel.purposeInput
             .subscribe {
-                tie_purpose.setText(it.value)
+                binding.tiePurpose.setText(it.value)
             }.addTo(disposables)
         viewModel.dateOfIncorporationInput
             .subscribe {
-                tie_date_of_incorporation.setText(
+                binding.tieDateOfIncorporation.setText(
                     viewUtil.getDateFormatByCalendar(
                         it,
                         DateFormatEnum.DATE_FORMAT_DATE.value
@@ -104,12 +102,12 @@ class DaoCompanyInformationStepTwoFragment :
     }
 
     private fun init() {
-        til_other_type_of_office.visibility(false)
-        til_other_business_ownership.visibility(false)
-        til_other_source_of_funds.visibility(false)
-        tie_other_type_of_office.setText(Constant.EMPTY)
-        tie_other_business_ownership.setText(Constant.EMPTY)
-        tie_other_source_of_funds.setText(Constant.EMPTY)
+        binding.tilOtherTypeOfOffice.visibility(false)
+        binding.tilOtherBusinessOwnership.visibility(false)
+        binding.tilOtherSourceOfFunds.visibility(false)
+        binding.tieOtherTypeOfOffice.setText(Constant.EMPTY)
+        binding.tieOtherBusinessOwnership.setText(Constant.EMPTY)
+        binding.tieOtherSourceOfFunds.setText(Constant.EMPTY)
         validateForm()
     }
 
@@ -142,13 +140,13 @@ class DaoCompanyInformationStepTwoFragment :
     }
 
     private fun initClickListener() {
-        tie_type_of_office.setOnClickListener {
+        binding.tieTypeOfOffice.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.TYPE_OF_OFFICE.name)
         }
-        tie_business_ownership.setOnClickListener {
+        binding.tieBusinessOwnership.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.BUSINESS_OWNERSHIP.name)
         }
-        tie_date_of_incorporation.setOnClickListener {
+        binding.tieDateOfIncorporation.setOnClickListener {
             showDatePicker(
                 minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
                 maxDate = Calendar.getInstance(),
@@ -161,25 +159,25 @@ class DaoCompanyInformationStepTwoFragment :
                 }
             )
         }
-        tie_source_of_funds.setOnClickListener {
+        binding.tieSourceOfFunds.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.SOURCE_OF_FUNDS.name)
         }
-        tie_purpose.setOnClickListener {
+        binding.tiePurpose.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.PURPOSE.name)
         }
-        sb_estimated_amount.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.sbEstimatedAmount.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 val estimatedAmounts =
                     resources.getStringArray(R.array.array_estimated_amount).toMutableList()
                 val selectedAmount = estimatedAmounts[progress]
-                tv_amount.text =
+                binding.tvAmount.text =
                     ("Around ${autoFormatUtil.formatWithTwoDecimalPlaces(selectedAmount, "PHP")}")
                 if (progress == 0) {
-                    tie_estimated_amount.text?.clear()
-                    view_border_estimated_amount.setContextCompatBackground(R.drawable.bg_cardview_border_red)
+                    binding.tieEstimatedAmount.text?.clear()
+                    binding.viewBorderEstimatedAmount.setContextCompatBackground(R.drawable.bg_cardview_border_red)
                 } else {
-                    tie_estimated_amount.setText(selectedAmount)
-                    view_border_estimated_amount.setContextCompatBackground(null)
+                    binding.tieEstimatedAmount.setText(selectedAmount)
+                    binding.viewBorderEstimatedAmount.setContextCompatBackground(null)
                 }
             }
 
@@ -196,18 +194,18 @@ class DaoCompanyInformationStepTwoFragment :
     }
 
     private fun refreshFields() {
-        tie_type_of_office.refresh()
-        tie_business_ownership.refresh()
-        tie_country.refresh()
-        tie_date_of_incorporation.refresh()
-        tie_source_of_funds.refresh()
-        tie_other_source_of_funds.refresh()
-        tie_purpose.refresh()
-        tie_estimated_amount.refresh()
-        if (tie_estimated_amount.length() == 0) {
-            view_border_estimated_amount.setContextCompatBackground(R.drawable.bg_cardview_border_red)
+        binding.tieTypeOfOffice.refresh()
+        binding.tieBusinessOwnership.refresh()
+        binding.tieCountry.refresh()
+        binding.tieDateOfIncorporation.refresh()
+        binding.tieSourceOfFunds.refresh()
+        binding.tieOtherSourceOfFunds.refresh()
+        binding.tiePurpose.refresh()
+        binding.tieEstimatedAmount.refresh()
+        if (binding.tieEstimatedAmount.length() == 0) {
+            binding.viewBorderEstimatedAmount.setContextCompatBackground(R.drawable.bg_cardview_border_red)
         } else {
-            view_border_estimated_amount.setContextCompatBackground(null)
+            binding.viewBorderEstimatedAmount.setContextCompatBackground(null)
         }
     }
 
@@ -217,70 +215,70 @@ class DaoCompanyInformationStepTwoFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_type_of_office
+            editText = binding.tieTypeOfOffice
         )
         val typeOfBusinessOtherObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_other_type_of_office
+            editText = binding.tieOtherTypeOfOffice
         )
         val businessOwnershipObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_business_ownership
+            editText = binding.tieBusinessOwnership
         )
         val businessOwnershipOtherObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_other_business_ownership
+            editText = binding.tieOtherBusinessOwnership
         )
         val countryObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_country
+            editText = binding.tieCountry
         )
         val dateOfIncorporationObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_date_of_incorporation
+            editText = binding.tieDateOfIncorporation
         )
         val sourceOfFundsObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_source_of_funds
+            editText = binding.tieSourceOfFunds
         )
         val otherSourceOfFundsObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_other_source_of_funds
+            editText = binding.tieOtherSourceOfFunds
         )
         val purposeObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_purpose
+            editText = binding.tiePurpose
         )
         val estimatedAmountObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_estimated_amount
+            editText = binding.tieEstimatedAmount
         )
         initSetError(typeOfBusinessObservable)
         initSetError(typeOfBusinessOtherObservable)
@@ -343,8 +341,8 @@ class DaoCompanyInformationStepTwoFragment :
 
     private fun clearFormFocus() {
         viewUtil.dismissKeyboard(getAppCompatActivity())
-        constraint_layout.requestFocus()
-        constraint_layout.isFocusableInTouchMode = true
+        binding.constraintLayout.requestFocus()
+        binding.constraintLayout.isFocusableInTouchMode = true
     }
 
     override fun onClickNext() {
@@ -361,4 +359,10 @@ class DaoCompanyInformationStepTwoFragment :
     companion object {
         const val OTHER = "Other"
     }
+
+    override val viewModelClassType: Class<DaoCompanyInformationStepTwoViewModel>
+        get() = DaoCompanyInformationStepTwoViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoCompanyInformationStep2Binding
+        get() = FragmentDaoCompanyInformationStep2Binding::inflate
 }
