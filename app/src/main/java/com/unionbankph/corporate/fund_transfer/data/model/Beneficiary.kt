@@ -29,9 +29,6 @@ data class Beneficiary(
     @SerialName("firm_code")
     var firmCode: String? = null,
 
-    @SerialName("country_code_id")
-    var countryCodeId: String? = null,
-
     @SerialName("country_code")
     var countryCode: CountryCode? = null,
 
