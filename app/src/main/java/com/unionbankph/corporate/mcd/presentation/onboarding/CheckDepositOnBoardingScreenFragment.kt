@@ -1,48 +1,50 @@
 package com.unionbankph.corporate.mcd.presentation.onboarding
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.formatString
-import kotlinx.android.synthetic.main.fragment_splash_screen.*
+import com.unionbankph.corporate.databinding.FragmentSplashScreenBinding
 
 class CheckDepositOnBoardingScreenFragment :
-    BaseFragment<CheckDepositOnBoardingViewModel>(R.layout.fragment_splash_screen) {
+    BaseFragment<FragmentSplashScreenBinding, CheckDepositOnBoardingViewModel>() {
 
     override fun onViewsBound() {
         super.onViewsBound()
         when (arguments?.getSerializable(EXTRA_SCREEN)) {
             CheckDepositOnBoardingScreenEnum.CHECK_DEPOSIT_SCREEN -> {
-                imageView.setImageResource(R.drawable.logo_check_deposit_splash_1)
-                textViewHeader.text = formatString(R.string.title_check_deposit)
-                textViewDesc.text = formatString(R.string.desc_check_deposit_splash_1)
+                binding.imageView.setImageResource(R.drawable.logo_check_deposit_splash_1)
+                binding.textViewHeader.text = formatString(R.string.title_check_deposit)
+                binding.textViewDesc.text = formatString(R.string.desc_check_deposit_splash_1)
             }
             CheckDepositOnBoardingScreenEnum.GET_TO_KNOW_SCREEN -> {
-                imageView.setImageResource(R.drawable.logo_check_deposit_splash_2)
-                imageView.setPadding(
+                binding.imageView.setImageResource(R.drawable.logo_check_deposit_splash_2)
+                binding.imageView.setPadding(
                     resources.getDimension(R.dimen.content_spacing).toInt(),
                     resources.getDimension(R.dimen.content_spacing).toInt(),
                     resources.getDimension(R.dimen.content_spacing).toInt(),
                     resources.getDimension(R.dimen.content_spacing).toInt()
                 )
-                textViewHeader.text = formatString(R.string.title_get_to_know_your_check)
-                textViewDesc.text = formatString(R.string.desc_check_deposit_splash_2)
+                binding.textViewHeader.text = formatString(R.string.title_get_to_know_your_check)
+                binding.textViewDesc.text = formatString(R.string.desc_check_deposit_splash_2)
             }
             CheckDepositOnBoardingScreenEnum.FRONT_OF_CHECK_SCREEN -> {
-                imageView.setImageResource(R.drawable.logo_check_deposit_splash_3)
-                imageView.setPadding(
+                binding.imageView.setImageResource(R.drawable.logo_check_deposit_splash_3)
+                binding.imageView.setPadding(
                     resources.getDimension(R.dimen.content_spacing).toInt(),
                     resources.getDimension(R.dimen.content_spacing).toInt(),
                     resources.getDimension(R.dimen.content_spacing).toInt(),
                     resources.getDimension(R.dimen.content_spacing).toInt()
                 )
-                textViewHeader.text = formatString(R.string.title_front_of_check)
-                textViewDesc.text = formatString(R.string.desc_check_deposit_splash_3)
+                binding.textViewHeader.text = formatString(R.string.title_front_of_check)
+                binding.textViewDesc.text = formatString(R.string.desc_check_deposit_splash_3)
             }
             CheckDepositOnBoardingScreenEnum.BACK_OF_CHECK_SCREEN -> {
-                imageView.setImageResource(R.drawable.logo_check_deposit_splash_4)
-                textViewHeader.text = formatString(R.string.title_back_of_check)
-                textViewDesc.text = formatString(R.string.desc_check_deposit_splash_4)
+                binding.imageView.setImageResource(R.drawable.logo_check_deposit_splash_4)
+                binding.textViewHeader.text = formatString(R.string.title_back_of_check)
+                binding.textViewDesc.text = formatString(R.string.desc_check_deposit_splash_4)
             }
         }
     }
@@ -70,4 +72,10 @@ class CheckDepositOnBoardingScreenFragment :
         REMINDERS_SCREEN,
         IMPORTANT_SCREEN
     }
+
+    override val viewModelClassType: Class<CheckDepositOnBoardingViewModel>
+        get() = CheckDepositOnBoardingViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashScreenBinding
+        get() = FragmentSplashScreenBinding::inflate
 }

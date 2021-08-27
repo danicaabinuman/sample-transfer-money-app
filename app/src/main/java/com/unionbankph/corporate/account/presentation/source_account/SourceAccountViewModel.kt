@@ -300,7 +300,7 @@ class SourceAccountViewModel @Inject constructor(
         accountsSelected?.forEach {
             it.isViewableCheckBox = false
         }
-        _accounts.value = accountsSelected
+        _accounts.value = accountsSelected!!
     }
 
     fun selectAllAccounts(selected: Boolean) {

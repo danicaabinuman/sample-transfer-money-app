@@ -4,6 +4,7 @@ import android.content.Intent
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -20,29 +21,22 @@ import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivitySetupPaymentLinksBinding
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
-import kotlinx.android.synthetic.main.activity_link_details.*
-import kotlinx.android.synthetic.main.activity_no_available_accounts.*
-import kotlinx.android.synthetic.main.activity_setup_payment_links.*
-import kotlinx.android.synthetic.main.activity_setup_payment_links.ivBackButton
-import kotlinx.android.synthetic.main.dialog_feature_unavailable.*
 
-class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layout.activity_setup_payment_links) {
+class SetupPaymentLinkActivity :
+    BaseActivity<ActivitySetupPaymentLinksBinding, SetupPaymentLinkViewModel>() {
 
     private var accounts = mutableListOf<Account>()
     private var fromWhatTab : String? = null
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[SetupPaymentLinkViewModel::class.java]
     }
 
     override fun onViewsBound() {
@@ -63,12 +57,12 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         setupOutputs()
         backButton()
 
-        llSettlementAccount.visibility = View.GONE
-        noAvailableAccounts.visibility = View.GONE
+        binding.llSettlementAccount.visibility = View.GONE
+        binding.noAvailableAccounts.visibility = View.GONE
     }
 
     private fun setupInputs(){
-        setupPaymentLinkLoading.visibility = View.VISIBLE
+        binding.setupPaymentLinkLoading.visibility = View.VISIBLE
         viewModel.validateIfApprover()
     }
 
@@ -76,50 +70,52 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     private fun initViews() {
 
 
-        include1.setOnClickListener {
+        binding.include1.root.setOnClickListener {
             openNominateAccounts()
         }
-        btnSetupBusinessLink.setOnClickListener {
+        binding.btnSetupBusinessLink.setOnClickListener {
 
-            setupPaymentLinkLoading.visibility = View.VISIBLE
+            binding.setupPaymentLinkLoading.visibility = View.VISIBLE
+            binding.tilBusinessName.error = null
 
             val role = cacheManager.getObject(CacheManager.ROLE) as? Role
             val orgName = role?.organizationName
-            val businessWebsite = et_business_websites.text.toString()
-            val businessProductsOffered = et_business_products_offered.text.toString()
+            val businessName = binding.etBusinessName.text.toString()
+            val businessWebsite = binding.etBusinessWebsites.text.toString()
+            val businessProductsOffered = binding.etBusinessProductsOffered.text.toString()
 
             viewModel.createMerchant(
                     CreateMerchantForm(
                             orgName!!,
-                            "",
-                            include1.findViewById<TextView>(R.id.textViewAccountNumber).text.toString(),
-                            include1.findViewById<TextView>(R.id.textViewCorporateName).text.toString(),
+                            businessName,
+                            binding.include1.textViewAccountNumber.text.toString(),
+                            binding.include1.textViewCorporateName.text.toString(),
                             businessWebsite,
                             businessProductsOffered
                     )
             )
         }
 
-        btnCancel.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
             finish()
         }
 
-        btnNominate.setOnClickListener {
+        binding.btnNominate.setOnClickListener {
             openNominateAccounts()
         }
 
-        btnBackToDashboard.setOnClickListener {
+        binding.viewNoAvailableAccounts.btnBackToDashboard.setOnClickListener {
             finish()
         }
 
-        btnFeatureUnavailableBackToDashboard.setOnClickListener {
+        binding.viewDialogFeatureUnavailable.btnFeatureUnavailableBackToDashboard.setOnClickListener {
             finish()
         }
 
         if( BuildConfig.DEBUG){
-            btnFeatureUnavailableBackToDashboard.setOnLongClickListener {
-                approverPermissionRequired.visibility = View.GONE
-                setupPaymentLinkLoading.visibility = View.VISIBLE
+            binding.viewDialogFeatureUnavailable.btnFeatureUnavailableBackToDashboard.setOnLongClickListener {
+                binding.approverPermissionRequired.visibility = View.GONE
+                binding.setupPaymentLinkLoading.visibility = View.VISIBLE
                 viewModel.getAccounts()
                 return@setOnLongClickListener true
             }
@@ -134,7 +130,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
         val clickableSpan1 = object : ClickableSpan(){
             override fun onClick(widget: View) {
-                cb_fnc_tnc.isChecked = true
+                binding.cbFncTnc.isChecked = true
                 val intent = Intent(this@SetupPaymentLinkActivity, TermsOfServiceActivity::class.java)
                 startActivity(intent)
             }
@@ -142,7 +138,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
         val clickableSpan2 = object : ClickableSpan(){
             override fun onClick(widget: View) {
-                cb_fnc_tnc.isChecked = true
+                binding.cbFncTnc.isChecked = true
                 val intent = Intent(this@SetupPaymentLinkActivity, TermsOfServiceActivity::class.java)
                 intent.putExtra("termsAndConditions", "TC")
                 startActivity(intent)
@@ -153,24 +149,41 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         spannableString.setSpan(clickableSpan1, 16, 32, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
         spannableString.setSpan(clickableSpan2, 50, 70, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
 
-        tv_link_fnc_tnc.text = spannableString
-        tv_link_fnc_tnc.movementMethod = LinkMovementMethod.getInstance()
+        binding.tvLinkFncTnc.text = spannableString
+        binding.tvLinkFncTnc.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun buttonDisable(){
-        btnSetupBusinessLink?.isEnabled = false
-        btnSetupBusinessLink?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        btnSetupBusinessLink?.setBackgroundResource(R.drawable.bg_splash_payment_request_button_disabled)
+        binding.btnSetupBusinessLink.isEnabled = false
+        binding.btnSetupBusinessLink.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnSetupBusinessLink.setBackgroundResource(R.drawable.bg_splash_payment_request_button_disabled)
     }
 
     private fun buttonEnable(){
-        btnSetupBusinessLink?.isEnabled = true
-        btnSetupBusinessLink?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        btnSetupBusinessLink?.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
+        binding.btnSetupBusinessLink.isEnabled = true
+        binding.btnSetupBusinessLink.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnSetupBusinessLink.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
     }
 
     private fun requiredFields(){
-        et_business_products_offered.addTextChangedListener(object : TextWatcher{
+        binding.etBusinessName.setOnFocusChangeListener { v, hasFocus ->
+            binding.tilBusinessName.error = null
+        }
+        binding.etBusinessName.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateForm()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
+
+        binding.etBusinessProductsOffered.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -185,14 +198,14 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
 
         })
 
-        cb_fnc_tnc.setOnCheckedChangeListener { _, _ ->
+        binding.cbFncTnc.setOnCheckedChangeListener { _, _ ->
             validateForm()
         }
     }
 
     private fun setupOutputs() {
         viewModel.createMerchantResponse.observe(this, Observer {
-            setupPaymentLinkLoading.visibility = View.GONE
+            binding.setupPaymentLinkLoading.visibility = View.GONE
             if(it.message.equals("Success",true)){
 
                 val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
@@ -205,7 +218,7 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         })
 
         viewModel.soleAccount.observe(this, Observer {
-            setupPaymentLinkLoading.visibility = View.GONE
+            binding.setupPaymentLinkLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it)
             accounts = mutableListOf()
             accounts.add(it)
@@ -213,12 +226,12 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         })
 
         viewModel.accounts.observe(this, Observer {
-            setupPaymentLinkLoading.visibility = View.GONE
+            binding.setupPaymentLinkLoading.visibility = View.GONE
             accounts = it
         })
 
         viewModel.accountsBalances.observe(this, Observer {
-            setupPaymentLinkLoading.visibility = View.GONE
+            binding.setupPaymentLinkLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it.first())
         })
 
@@ -226,10 +239,10 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             it.getContentIfNotHandled().let { event ->
                 when (event) {
                     is UiState.Loading -> {
-                        setupPaymentLinkLoading.visibility = View.VISIBLE
+                        binding.setupPaymentLinkLoading.visibility = View.VISIBLE
                     }
                     is UiState.Complete -> {
-                        setupPaymentLinkLoading.visibility = View.GONE
+                        binding.setupPaymentLinkLoading.visibility = View.GONE
                     }
                     is UiState.Error -> {
                         handleOnError(event.throwable)
@@ -239,14 +252,16 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
         })
 
         viewModel.setupPaymentLinkState.observe(this, Observer {
-            setupPaymentLinkLoading.visibility = View.GONE
+            binding.setupPaymentLinkLoading.visibility = View.GONE
             when (it) {
                 is ShowNoAvailableAccounts -> {
-                    noAvailableAccounts.visibility = View.VISIBLE
+                    binding.noAvailableAccounts.visibility = View.VISIBLE
                 }
-
+                is ShowHandleNotAvailable -> {
+                    binding.tilBusinessName.error = "This handle is no longer available. Please try another one"
+                }
                 is ShowApproverPermissionRequired -> {
-                    approverPermissionRequired.visibility = View.VISIBLE
+                    binding.approverPermissionRequired.visibility = View.VISIBLE
                 }
             }
         })
@@ -259,18 +274,18 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
             intent.putExtra(NominateSettlementActivity.EXTRA_ACCOUNTS_ARRAY, accountsJson)
             startActivityForResult(intent,REQUEST_CODE)
         }else if(accounts.size == 1){
-            if(include1.visibility == View.VISIBLE){
+            if(binding.include1.root.visibility == View.VISIBLE){
                 //DO NOTHING
             }
         }else {
-            noAvailableAccounts.visibility = View.VISIBLE
+            binding.noAvailableAccounts.visibility = View.VISIBLE
         }
 
     }
 
     private fun backButton(){
 
-        ivBackButton.setOnClickListener{
+        binding.ivBackButton.setOnClickListener{
             val intent = Intent (this, DashboardActivity::class.java)
             startActivity(intent)
         }
@@ -278,12 +293,14 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     }
 
     private fun validateForm(){
-        val businessProductsOffered = et_business_products_offered.text.toString()
-        val isChecked = cb_fnc_tnc.isChecked
+        val businessName = binding.etBusinessName.text.toString()
+        val businessProductsOffered = binding.etBusinessProductsOffered.text.toString()
+        val isChecked = binding.cbFncTnc.isChecked
 
         if (
+            businessName.isNotEmpty() &&
             businessProductsOffered.isNotEmpty() &&
-            llSettlementAccount.visibility == View.VISIBLE
+            binding.llSettlementAccount.visibility == View.VISIBLE
             && isChecked
         ){
             buttonEnable()
@@ -305,13 +322,13 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
     }
 
     private fun populateNominatedSettlementAccount(accountData: Account){
-        llSettlementAccount.visibility = View.VISIBLE
-        val tvCorporateName: AppCompatTextView = include1.findViewById(R.id.textViewCorporateName)
-        val tvAccountName: AppCompatTextView = include1.findViewById(R.id.textViewAccountName)
-        val tvAccountNumber: AppCompatTextView = include1.findViewById(R.id.textViewAccountNumber)
-        val tvAvailableBalance: AppCompatTextView = include1.findViewById(R.id.textViewAvailableBalance)
-        val slAmount: ShimmerLayout = include1.findViewById(R.id.shimmerLayoutAmount)
-        val viewShimmer: View = include1.findViewById(R.id.viewShimmer)
+        binding.llSettlementAccount.visibility = View.VISIBLE
+        val tvCorporateName: AppCompatTextView = binding.include1.textViewCorporateName
+        val tvAccountName: AppCompatTextView = binding.include1.textViewAccountName
+        val tvAccountNumber: AppCompatTextView = binding.include1.textViewAccountNumber
+        val tvAvailableBalance: AppCompatTextView = binding.include1.textViewAvailableBalance
+        val slAmount: ShimmerLayout = binding.include1.shimmerLayoutAmount
+        val viewShimmer: View = binding.include1.viewShimmer
 
         tvCorporateName.text = accountData.name
         tvAccountNumber.text = accountData.accountNumber
@@ -329,10 +346,16 @@ class SetupPaymentLinkActivity : BaseActivity<SetupPaymentLinkViewModel>(R.layou
                 }
             }
         }
-        llNominateSettlementAccount.visibility = View.GONE
+        binding.llNominateSettlementAccount.visibility = View.GONE
     }
 
     companion object {
         const val REQUEST_CODE = 1216
     }
+
+    override val viewModelClassType: Class<SetupPaymentLinkViewModel>
+        get() = SetupPaymentLinkViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySetupPaymentLinksBinding
+        get() = ActivitySetupPaymentLinksBinding::inflate
 }

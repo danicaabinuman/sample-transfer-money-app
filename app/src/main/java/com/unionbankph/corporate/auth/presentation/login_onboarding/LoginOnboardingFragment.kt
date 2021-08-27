@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.auth.presentation.login_onboarding
 
 import android.animation.ObjectAnimator
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -12,21 +14,17 @@ import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.login.LoginFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityOnboardingSignupBinding
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
-import kotlinx.android.synthetic.main.activity_onboarding_signup.*
-import kotlinx.android.synthetic.main.fragment_check_deposit_onboarding_reminders.*
-import kotlinx.android.synthetic.main.widget_transparent_dashboard_appbar.*
 import timber.log.Timber
 
-class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.activity_onboarding_signup) {
+class LoginOnboardingFragment :
+    BaseFragment<ActivityOnboardingSignupBinding, LoginOnboardingViewModel>() {
 
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[LoginOnboardingViewModel::class.java]
+
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Success -> {
@@ -51,7 +49,7 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
 
 
     fun initViews(){
-        btn_onboarding_register.setOnClickListener {
+        binding.btnOnboardingRegister.setOnClickListener {
             viewModel.onClickedStartLaunch()
             navigator.navigate(
                 getAppCompatActivity(),
@@ -64,9 +62,9 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
 
         }
 
-        btn_onboarding_login.setOnClickListener {
+        binding.btnOnboardingLogin.setOnClickListener {
             viewModel.onClickedStartLaunch()
-            viewUtil.startAnimateView(false, constraintLayout, android.R.anim.fade_out)
+            viewUtil.startAnimateView(false, binding.constraintLayout, android.R.anim.fade_out)
             navigator.replaceFragment(
                 R.id.frameLayoutSignup,
                 LoginFragment(),
@@ -82,21 +80,21 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
     private fun initFreshLogin(){
         runPostDelayed(
             {
-                bg_signup_illustration.visibility = View.VISIBLE
-                btn_onboarding_register.visibility = View.VISIBLE
-                btn_onboarding_login.visibility = View.VISIBLE
-                tv_ub_caption.visibility = View.VISIBLE
-                fl_signup.visibility = View.VISIBLE
+                binding.bgSignupIllustration.visibility = View.VISIBLE
+                binding.btnOnboardingRegister.visibility = View.VISIBLE
+                binding.btnOnboardingLogin.visibility = View.VISIBLE
+                binding.tvUbCaption.visibility = View.VISIBLE
+                binding.flSignup.visibility = View.VISIBLE
             }, 100
         )
 
     }
 
     private fun initAnimationLogo() {
-        imageViewLogoOnboarding.viewTreeObserver.addOnGlobalLayoutListener(
+        binding.imageViewLogoOnboarding.root.viewTreeObserver.addOnGlobalLayoutListener(
             object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-                    imageViewLogoOnboarding.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    binding.imageViewLogoOnboarding.root.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     runPostDelayed(
                         {
                             animateContent()
@@ -110,27 +108,33 @@ class LoginOnboardingFragment : BaseFragment<LoginOnboardingViewModel>(R.layout.
     private fun animateContent() {
         runPostDelayed(
             {
-                viewUtil.startAnimateView(true, constraintLayout, android.R.anim.fade_in)
+                viewUtil.startAnimateView(true, binding.constraintLayout, android.R.anim.fade_in)
             }, 250
         )
         val location = IntArray(2)
-        imageViewLogoOnboarding.getLocationOnScreen(location)
+        binding.imageViewLogoOnboarding.root.getLocationOnScreen(location)
         val y = location[1]
         val objectAnimator =
-            ObjectAnimator.ofFloat(imageViewLogoAnimateOnboarding, "y", y.toFloat())
+            ObjectAnimator.ofFloat(binding.imageViewLogoAnimateOnboarding, "y", y.toFloat())
         Timber.d("y axis:${y.toFloat()}")
         objectAnimator.duration = resources.getInteger(R.integer.anim_duration_medium).toLong()
         objectAnimator.start()
         runPostDelayed(
             {
-                imageViewLogoOnboarding.visibility(true)
+                binding.imageViewLogoOnboarding.root.visibility(true)
                 runPostDelayed(
                     {
-                        imageViewLogoAnimateOnboarding.visibility(false)
+                        binding.imageViewLogoAnimateOnboarding.root.visibility(false)
                     }, 50
                 )
             }, 550
         )
     }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> ActivityOnboardingSignupBinding
+        get() = ActivityOnboardingSignupBinding::inflate
+
+    override val viewModelClassType: Class<LoginOnboardingViewModel>
+        get() = LoginOnboardingViewModel::class.java
 
 }

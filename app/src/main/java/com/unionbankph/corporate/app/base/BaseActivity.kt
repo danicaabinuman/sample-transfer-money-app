@@ -14,16 +14,16 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -31,6 +31,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.unionbankph.corporate.R
@@ -80,11 +81,19 @@ import timber.log.Timber
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
-abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
-    AppCompatActivity(layoutId),
+abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
+    AppCompatActivity(),
     SessionTimeOutBottomSheet.OnBottomSheetSessionTimeOutListener {
 
     lateinit var viewModel: VM
+        private set
+
+    lateinit var binding: VB
+        private set
+
+    abstract val bindingInflater: (LayoutInflater) -> VB
+
+    protected abstract val viewModelClassType: Class<VM>
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -163,6 +172,7 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
         super.onCreate(savedInstanceState)
         initCheckOrientationSupport()
         registerReceiver()
+        initViewBinding()
         afterLayout(savedInstanceState)
         onViewModelBound()
         onViewsBound()
@@ -256,7 +266,16 @@ abstract class BaseActivity<VM : ViewModel>(layoutId: Int) :
         }
     }
 
+    private fun initViewBinding() {
+//        binding = DataBindingUtil.setContentView(this, layoutId)
+
+        binding = bindingInflater.invoke(layoutInflater)
+        setContentView(binding.root)
+    }
+
     private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[viewModelClassType]
+
         generalViewModel =
             ViewModelProviders.of(this, viewModelFactory)[GeneralViewModel::class.java]
         generalViewModel.state.observe(this, Observer {

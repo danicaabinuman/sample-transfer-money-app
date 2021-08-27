@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.transact.presentation.transact
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.takusemba.spotlight.Spotlight
@@ -28,6 +30,7 @@ import com.unionbankph.corporate.common.presentation.constant.TutorialScreenEnum
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.FragmentSendRequestBinding
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
@@ -38,10 +41,10 @@ import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsHasPermission
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_send_request.*
 
 class TransactFragment :
-    BaseFragment<SettingsViewModel>(R.layout.fragment_send_request), OnTutorialListener {
+    BaseFragment<FragmentSendRequestBinding, SettingsViewModel>(),
+    OnTutorialListener {
 
     override fun onResume() {
         super.onResume()
@@ -55,10 +58,10 @@ class TransactFragment :
     }
     private fun init() {
         if (App.isSupportedInProduction) {
-            constraintLayoutBranchVisit.visibility(false)
-            view5.visibility(false)
-            constraintLayoutElectronicBilling.visibility(false)
-            view7.visibility(false)
+            binding.constraintLayoutBranchVisit.visibility(false)
+            binding.view5.visibility(false)
+            binding.constraintLayoutElectronicBilling.visibility(false)
+            binding.view7.visibility(false)
         }
         viewModel.hasFundTransferTransactionsPermission(
             TransactScreenEnum.FUND_TRANSFER.name
@@ -118,10 +121,10 @@ class TransactFragment :
         if (!isSkipTutorial) {
             if (view != null) {
                 when (view.id) {
-                    constraintLayoutFundTransfer.id -> {
+                    binding.constraintLayoutFundTransfer.id -> {
                         tutorialEngineUtil.startTutorial(
                             getAppCompatActivity(),
-                            constraintLayoutBillsPayment,
+                            binding.constraintLayoutBillsPayment,
                             R.layout.frame_tutorial_upper_left,
                             0f,
                             false,
@@ -130,10 +133,10 @@ class TransactFragment :
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    constraintLayoutBillsPayment.id -> {
+                    binding.constraintLayoutBillsPayment.id -> {
                         tutorialEngineUtil.startTutorial(
                             getAppCompatActivity(),
-                            constraintLayoutCheckDeposit,
+                            binding.constraintLayoutCheckDeposit,
                             R.layout.frame_tutorial_upper_left,
                             0f,
                             false,
@@ -142,10 +145,10 @@ class TransactFragment :
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    constraintLayoutCheckDeposit.id -> {
+                    binding.constraintLayoutCheckDeposit.id -> {
                         tutorialEngineUtil.startTutorial(
                             getAppCompatActivity(),
-                            constraintLayoutRequestPayment,
+                            binding.constraintLayoutRequestPayment,
                             R.layout.frame_tutorial_upper_left,
                             0f,
                             false,
@@ -154,7 +157,7 @@ class TransactFragment :
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    constraintLayoutRequestPayment.id -> {
+                    binding.constraintLayoutRequestPayment.id -> {
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
                         )
@@ -183,7 +186,7 @@ class TransactFragment :
     }
 
     private fun initClickListener() {
-        constraintLayoutFundTransfer.setOnClickListener {
+        binding.constraintLayoutFundTransfer.setOnClickListener {
             navigator.navigate(
                 (activity as DashboardActivity),
                 OrganizationTransferActivity::class.java,
@@ -193,7 +196,7 @@ class TransactFragment :
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
-        constraintLayoutBillsPayment.setOnClickListener {
+        binding.constraintLayoutBillsPayment.setOnClickListener {
             navigator.navigate(
                 (activity as DashboardActivity),
                 OrganizationPaymentActivity::class.java,
@@ -203,7 +206,7 @@ class TransactFragment :
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
-        constraintLayoutCheckDeposit.setOnClickListener {
+        binding.constraintLayoutCheckDeposit.setOnClickListener {
             navigator.navigate(
                 (activity as DashboardActivity),
                 CheckDepositActivity::class.java,
@@ -213,7 +216,7 @@ class TransactFragment :
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
-        constraintLayoutBranchVisit.setOnClickListener {
+        binding.constraintLayoutBranchVisit.setOnClickListener {
             navigator.navigate(
                 (activity as DashboardActivity),
                 BranchVisitActivity::class.java,
@@ -223,7 +226,7 @@ class TransactFragment :
                 transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
             )
         }
-        constraintLayoutElectronicBilling.setOnClickListener {
+        binding.constraintLayoutElectronicBilling.setOnClickListener {
             navigator.navigate(
                 (activity as DashboardActivity),
                 EBillingFormActivity::class.java,
@@ -234,7 +237,7 @@ class TransactFragment :
             )
         }
 
-        constraintLayoutRequestPayment.setOnClickListener{
+        binding.constraintLayoutRequestPayment.setOnClickListener{
 
             eventBus.transactSyncEvent.emmit(
                 BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST)
@@ -244,20 +247,18 @@ class TransactFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[SettingsViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSettingsHasPermission -> {
                     val cl = when (it.permissionCode) {
                         TransactScreenEnum.FUND_TRANSFER.name -> {
-                            constraintLayoutFundTransfer
+                            binding.constraintLayoutFundTransfer
                         }
                         TransactScreenEnum.BILLS_PAYMENT.name -> {
-                            constraintLayoutBillsPayment
+                            binding.constraintLayoutBillsPayment
                         }
                         else -> {
-                            constraintLayoutCheckDeposit
+                            binding.constraintLayoutCheckDeposit
                         }
                     }
                     cl.setEnableView(it.hasPermission)
@@ -280,10 +281,10 @@ class TransactFragment :
                         Constant.Permissions.CODE_RCD_MOBILE_CHECK
                     )
                 } else {
-                    constraintLayoutCheckDeposit.setEnableView(it.second)
-                    constraintLayoutCheckDeposit.isEnabled = true
-                    constraintLayoutCheckDeposit.isClickable = true
-                    constraintLayoutCheckDeposit.setOnClickListener {
+                    binding.constraintLayoutCheckDeposit.setEnableView(it.second)
+                    binding.constraintLayoutCheckDeposit.isEnabled = true
+                    binding.constraintLayoutCheckDeposit.isClickable = true
+                    binding.constraintLayoutCheckDeposit.setOnClickListener {
                         showBottomSheetError(
                             formatString(R.string.title_check_deposit_unavailable),
                             formatString(R.string.msg_check_deposit_unavailable)
@@ -294,10 +295,10 @@ class TransactFragment :
                 if (it.second) {
                     initEBillingClickEvent()
                 } else {
-                    constraintLayoutElectronicBilling.setEnableView(it.second)
-                    constraintLayoutElectronicBilling.isEnabled = true
-                    constraintLayoutElectronicBilling.isClickable = true
-                    constraintLayoutElectronicBilling.setOnClickListener {
+                    binding.constraintLayoutElectronicBilling.setEnableView(it.second)
+                    binding.constraintLayoutElectronicBilling.isEnabled = true
+                    binding.constraintLayoutElectronicBilling.isClickable = true
+                    binding.constraintLayoutElectronicBilling.setOnClickListener {
                         showBottomSheetError(
                             formatString(R.string.title_e_billing_unavailable),
                             formatString(R.string.msg_e_billing_unavailable)
@@ -310,25 +311,19 @@ class TransactFragment :
             BaseEvent(SettingsSyncEvent.ACTION_DISABLE_NAVIGATION_BOTTOM)
         )
         tutorialViewModel.hasTutorial(TutorialScreenEnum.TRANSACT)
+    }
 
-
-        eventBus.transactSyncEvent.flowable.subscribe {
-            when (it.eventType) {
-                TransactSyncEvent.ACTION_REDIRECT_TO_PAYMENT_LINK_LIST -> {
-                    navigator.addFragmentWithAnimation(
-                        R.id.frameLayoutTransact,
-                        PaymentLinkListFragment(),
-                        null,
-                        childFragmentManager,
-                        TransactFragment.FRAGMENT_REQUEST_PAYMENT
-                    )
-                }
-            }
-        }.addTo(disposables)
+    fun navigateToPaymentLinkFragment() {
+        navigator.addFragmentWithAnimation(
+            R.id.frameLayoutTransact,
+            PaymentLinkListFragment(),
+            null,
+            childFragmentManager,
+            TransactFragment.FRAGMENT_REQUEST_PAYMENT)
     }
 
     private fun setCheckDepositClickListener() {
-        constraintLayoutCheckDeposit.setOnClickListener {
+        binding.constraintLayoutCheckDeposit.setOnClickListener {
             navigator.navigate(
                 (activity as DashboardActivity),
                 CheckDepositActivity::class.java,
@@ -341,7 +336,7 @@ class TransactFragment :
     }
 
     private fun initEBillingClickEvent() {
-        constraintLayoutElectronicBilling.setOnClickListener {
+        binding.constraintLayoutElectronicBilling.setOnClickListener {
             navigator.navigate(
                 (activity as DashboardActivity),
                 EBillingFormActivity::class.java,
@@ -379,7 +374,7 @@ class TransactFragment :
     private fun startViewTutorial() {
         tutorialEngineUtil.startTutorial(
             getAppCompatActivity(),
-            constraintLayoutFundTransfer,
+            binding.constraintLayoutFundTransfer,
             R.layout.frame_tutorial_upper_left,
             0f,
             false,
@@ -411,4 +406,10 @@ class TransactFragment :
     companion object {
         const val FRAGMENT_REQUEST_PAYMENT = "request_payment"
     }
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSendRequestBinding
+        get() = FragmentSendRequestBinding::inflate
 }

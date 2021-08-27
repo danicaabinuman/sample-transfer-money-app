@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.payment_link.presentation.payment_link_list
 
 import android.content.Intent
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -11,24 +13,20 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.dashboard.*
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentPaymentLinkListBinding
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkTransactionData
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
-import kotlinx.android.synthetic.main.fragment_payment_link_list.*
-import kotlinx.android.synthetic.main.fragment_send_request.*
 
 
-class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.fragment_payment_link_list){
+class PaymentLinkListFragment :
+    BaseFragment<FragmentPaymentLinkListBinding, PaymentLinkListViewModel>(){
 
     lateinit var mAdapter : PaymentLinkListAdapter
     var mDisableLazyLoading = false
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-                this,
-                viewModelFactory
-        )[PaymentLinkListViewModel::class.java]
     }
 
     override fun onViewsBound() {
@@ -46,12 +44,12 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
 
     private fun initViews(){
 
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                flLoading.visibility = View.VISIBLE
+                binding.flLoading.visibility = View.VISIBLE
 
-                if(editTextSearch.text!=null){
-                    val searchString = editTextSearch.text!!.toString()
+                if(binding.editTextSearch.text!=null){
+                    val searchString = binding.editTextSearch.text!!.toString()
                     if(searchString.isNotEmpty()){
                         viewModel.doSearch(searchString)
                     }else{
@@ -66,12 +64,12 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
             false
         })
 
-        rvPaymentLinkList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.rvPaymentLinkList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
                     if(!mDisableLazyLoading){
-                        rvPaymentLinkList.scrollToPosition((rvPaymentLinkList.adapter?.itemCount ?: 1) - 1);
+                        binding.rvPaymentLinkList.scrollToPosition((binding.rvPaymentLinkList.adapter?.itemCount ?: 1) - 1);
                         viewModel.getAllNextPaymentLinks()
                     }
                 }
@@ -79,9 +77,9 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         })
 
         mAdapter = PaymentLinkListAdapter(applicationContext)
-        rvPaymentLinkList.adapter = mAdapter
+        binding.rvPaymentLinkList.adapter = mAdapter
         mAdapter.onItemClick = {
-            flLoading.visibility = View.VISIBLE
+            binding.flLoading.visibility = View.VISIBLE
             it.referenceNo?.let { it1 -> viewModel.getPaymentLinkDetails(it1) }
         }
 
@@ -119,16 +117,16 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         viewModel.paymentLinkListState.observe(this, Observer {
             when (it) {
                 is ShouldShowProgressLoading -> {
-                    flLoading.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
+                    binding.flLoading.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
                 }
                 is ShouldShowNoAvailablePaymentLinks -> {
-                    flNoAvailablePaymenLinks.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
+                    binding.flNoAvailablePaymenLinks.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
                 }
                 is ShouldShowLazyLoading -> {
-                    pbPaymentLinkListLoading.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
+                    binding.pbPaymentLinkListLoading.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
                 }
                 is ShouldShowRecyclerView -> {
-                    rvPaymentLinkList.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
+                    binding.rvPaymentLinkList.visibility = if (it.shouldShow)  View.VISIBLE else View.GONE
                 }
 
                 is NoMoreAvailablePaymentLinks -> {
@@ -174,5 +172,11 @@ class PaymentLinkListFragment : BaseFragment<PaymentLinkListViewModel>(R.layout.
         intent.putExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB, DashboardViewModel.FROM_TRANSACT_TAB)
         startActivity(intent)
     }
+
+    override val viewModelClassType: Class<PaymentLinkListViewModel>
+        get() = PaymentLinkListViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPaymentLinkListBinding
+        get() = FragmentPaymentLinkListBinding::inflate
 
 }

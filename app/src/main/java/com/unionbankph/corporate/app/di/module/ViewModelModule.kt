@@ -135,6 +135,7 @@ import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
 import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameViewModel
 import com.unionbankph.corporate.open_account.presentation.tnc_reminder.TNCReminderViewModel
 import com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoViewModel
+import com.unionbankph.corporate.open_account.presentation.nominate_password.OaNominatePasswordViewModel
 import com.unionbankph.corporate.open_account.presentation.otp.OaOTPFragment
 import com.unionbankph.corporate.open_account.presentation.otp.OaOTPViewModel
 import com.unionbankph.corporate.open_account.presentation.personalise_settings.OAPersonaliseSettingsViewModel
@@ -877,5 +878,12 @@ abstract class ViewModelModule {
     @ViewModelKey(OAPersonaliseSettingsViewModel::class)
     abstract fun oaPersonaliseSettingsViewModel(
         viewModel: OAPersonaliseSettingsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OaNominatePasswordViewModel::class)
+    abstract fun oaNominatePasswordViewModel(
+        viewModel: OaNominatePasswordViewModel
     ): ViewModel
 }

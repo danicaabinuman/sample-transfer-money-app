@@ -11,8 +11,10 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.*
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorFooterModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoadingFooterModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.DashboardAccountItemModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.AccountItemLoadingModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.ErrorAccountFooterModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoansDashboardItemModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.EarningsDashboardItemModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.NoAccountItemModel_
@@ -24,9 +26,9 @@ import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCall
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import kotlinx.android.synthetic.main.item_dashboard_action_group.view.*
-import kotlinx.android.synthetic.main.item_dashboard_actions.view.*
-import kotlinx.android.synthetic.main.item_dashboard_header.view.*
+import com.unionbankph.corporate.databinding.ItemDashboardActionGroupBinding
+import com.unionbankph.corporate.databinding.ItemDashboardActionsBinding
+import com.unionbankph.corporate.databinding.ItemDashboardHeaderBinding
 
 class DashboardFragmentController
 constructor(
@@ -118,7 +120,7 @@ constructor(
         actionGroup {
             id("dashboard-action-group")
             dashboardItemsString(JsonHelper.toJson(dashboardViewState.actionList))
-            callbacks(dashboardAdapterCallback)
+            callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
         }
 
         loansModel
@@ -178,15 +180,15 @@ abstract class DashboardHeaderModel: EpoxyModelWithHolder<DashboardHeaderModel.H
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.textViewHello.text = context.formatString(R.string.hello_name, helloName)
+        holder.binding.textViewHello.text = context.formatString(R.string.hello_name, helloName)
 
         if (buttonText.isNotEmpty()) {
-            holder.buttonAccountAction.apply {
+            holder.binding.buttonAccountAction.apply {
                 text = buttonText
                 visibility = View.VISIBLE
             }
         } else {
-            holder.buttonAccountAction.visibility = View.INVISIBLE
+            holder.binding.buttonAccountAction.visibility = View.INVISIBLE
         }
 
         val action = when (buttonText) {
@@ -196,18 +198,19 @@ abstract class DashboardHeaderModel: EpoxyModelWithHolder<DashboardHeaderModel.H
             else -> Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS
         }
 
-        holder.buttonAccountAction.setOnClickListener {
+        holder.binding.buttonAccountAction.setOnClickListener {
             callbacks.onDashboardActionEmit(action, true)
         }
     }
 
     class Holder : EpoxyHolder() {
+        lateinit var binding: ItemDashboardHeaderBinding
+
         lateinit var textViewHello: AppCompatTextView
         lateinit var buttonAccountAction: AppCompatButton
 
         override fun bindView(itemView: View) {
-            textViewHello = itemView.textViewHello
-            buttonAccountAction = itemView.buttonAccountAction
+            binding = ItemDashboardHeaderBinding.bind(itemView)
         }
     }
 }
@@ -242,16 +245,15 @@ abstract class ActionGroupModel: EpoxyModelWithHolder<ActionGroupModel.Holder>()
             )
         }
 
-        holder.dashboardActionContainer
+        holder.binding.dashboardGroupContainer
             .setModels(dashboardActionModelList)
     }
 
     class Holder : EpoxyHolder() {
-
-        lateinit var dashboardActionContainer: DashboardActionCarousel
+        lateinit var binding: ItemDashboardActionGroupBinding
 
         override fun bindView(itemView: View) {
-            dashboardActionContainer = itemView.dashboardGroupContainer
+            binding = ItemDashboardActionGroupBinding.bind(itemView)
         }
     }
 }
@@ -274,13 +276,13 @@ abstract class ActionModel : EpoxyModelWithHolder<ActionModel.Holder>() {
 
         val dashboardItem = JsonHelper.fromJson<ActionItem>(dashboardItemString)
 
-        holder.constraintLayoutRoot.setOnClickListener {
+        holder.binding.constraintLayoutRoot.setOnClickListener {
             callbacks.onDashboardActionEmit(
                 dashboardItem.id.toString(),
                 dashboardItem.isEnabled)
         }
-        holder.textViewLabel.text = dashboardItem.label
-        holder.imageViewIcon.setImageResource(
+        holder.binding.textViewLabel.text = dashboardItem.label
+        holder.binding.imageViewIcon.setImageResource(
             ConstantHelper.Drawable.getDashboardActionIcon(
                 dashboardItem.id!!
             )
@@ -288,14 +290,10 @@ abstract class ActionModel : EpoxyModelWithHolder<ActionModel.Holder>() {
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutRoot: ConstraintLayout
-        lateinit var textViewLabel: AppCompatTextView
-        lateinit var imageViewIcon: AppCompatImageView
+        lateinit var binding: ItemDashboardActionsBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutRoot = itemView.constraintLayoutRoot
-            textViewLabel = itemView.textViewLabel
-            imageViewIcon = itemView.imageViewIcon
+            binding = ItemDashboardActionsBinding.bind(itemView)
         }
     }
 }

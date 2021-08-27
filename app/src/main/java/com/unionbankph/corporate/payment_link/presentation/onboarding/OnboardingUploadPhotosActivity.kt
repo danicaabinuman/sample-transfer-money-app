@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -20,12 +21,9 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.util.FileUtil
+import com.unionbankph.corporate.databinding.ActivityOnboardingUploadPhotosBinding
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
-import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.viewToolbar
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
-import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -34,7 +32,7 @@ import javax.inject.Inject
 import kotlin.concurrent.timerTask
 
 class OnboardingUploadPhotosActivity :
-    BaseActivity<RequestPaymentSplashViewModel>(R.layout.activity_onboarding_upload_photos),
+    BaseActivity<ActivityOnboardingUploadPhotosBinding, RequestPaymentSplashViewModel>(),
     OnboardingUploadPhotosFragment.OnOnboardingUploadPhotosFragmentInteraction {
 
     @Inject
@@ -47,7 +45,7 @@ class OnboardingUploadPhotosActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
@@ -56,11 +54,7 @@ class OnboardingUploadPhotosActivity :
     }
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[RequestPaymentSplashViewModel::class.java]
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -85,13 +79,13 @@ class OnboardingUploadPhotosActivity :
     }
     
     private fun initOnClicks(){
-        btnAddPhotos.setOnClickListener {
+        binding.btnAddPhotos.setOnClickListener {
             showbottomSheetDialog()
         }
-        btnAddPhotos2.setOnClickListener {
+        binding.btnAddPhotos2.setOnClickListener {
             showbottomSheetDialog()
         }
-        btnNext.setOnClickListener {
+        binding.btnNext.setOnClickListener {
             showSnackbar()
         }
     }
@@ -119,43 +113,45 @@ class OnboardingUploadPhotosActivity :
 
     private fun imageBtnsListener(){
         adapter = UploadPhotosCustomAdapter(this, uriArrayList)
-        gv.adapter = adapter
+        binding.gv.adapter = adapter
         if (uriArrayList.size < 6) {
-            gv.setOnItemClickListener { parent, view, position, id ->
+            binding.gv.setOnItemClickListener { parent, view, position, id ->
                 val itemUri = uriArrayList[position]
-                ivFullscreenImage.setImageURI(itemUri)
-                clUploadPhotosIntro.visibility(false)
-                clSelectedPhotos.visibility(false)
-                btnSaveAndExit.visibility(false)
-                btnNext.visibility(false)
-                clDeleteSelectedPhoto.visibility(true)
-                btnDelete.visibility(true)
+                binding.apply {
+                    ivFullscreenImage.setImageURI(itemUri)
+                    clUploadPhotosIntro.visibility(false)
+                    clSelectedPhotos.visibility(false)
+                    viewToolbar.btnSaveAndExit.visibility(false)
+                    btnNext.visibility(false)
+                    clDeleteSelectedPhoto.visibility(true)
+                    viewToolbar.btnDelete.visibility(true)
 
-                btnDelete.setOnClickListener {
-                    uriArrayList.remove(itemUri)
-                    adapter?.notifyDataSetChanged()
-                    clDeleteSelectedPhoto.visibility(false)
-                    btnDelete.visibility(false)
-                    clSelectedPhotos.visibility(true)
-                    btnNext.visibility(true)
-                    btnSaveAndExit.visibility(true)
-                    btnAddPhotos2.visibility(true)
-                }
+                    viewToolbar.btnDelete.setOnClickListener {
+                        uriArrayList.remove(itemUri)
+                        adapter?.notifyDataSetChanged()
+                        clDeleteSelectedPhoto.visibility(false)
+                        viewToolbar.btnDelete.visibility(false)
+                        clSelectedPhotos.visibility(true)
+                        btnNext.visibility(true)
+                        viewToolbar.btnSaveAndExit.visibility(true)
+                        btnAddPhotos2.visibility(true)
+                    }
 
-                if (uriArrayList.size == 6) {
-                    btnAddPhotos2.visibility(false)
+                    if (uriArrayList.size == 6) {
+                        btnAddPhotos2.visibility(false)
+                    }
                 }
             }
         }else{
-            btnAddPhotos2.visibility(false)
+            binding.btnAddPhotos2.visibility(false)
         }
     }
 
     private fun buttonsVisibility(){
-        clUploadPhotosIntro.visibility(false)
-        clSelectedPhotos.visibility(true)
-        btnNext.visibility(true)
-        btnSaveAndExit.visibility(true)
+        binding.clUploadPhotosIntro.visibility(false)
+        binding.clSelectedPhotos.visibility(true)
+        binding.btnNext.visibility(true)
+        binding.viewToolbar.btnSaveAndExit.visibility(true)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -199,7 +195,7 @@ class OnboardingUploadPhotosActivity :
     }
 
     private fun showSnackbar(){
-        Snackbar.make(snackbar, "Uploading photo...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext).show()
+        Snackbar.make(binding.snackbar, "Uploading photo...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext).show()
         val intent = Intent(this, PaymentLinkChannelsActivity::class.java)
         Timer().schedule(timerTask {
             startActivity(intent)
@@ -276,12 +272,18 @@ class OnboardingUploadPhotosActivity :
 
     override fun onBackPressed() {
 //        super.onBackPressed()
-        if (clDeleteSelectedPhoto.isShown){
-            clDeleteSelectedPhoto.visibility = View.GONE
-            clSelectedPhotos.visibility = View.VISIBLE
-            btnNext.visibility = View.VISIBLE
-        } else if (clSelectedPhotos.isShown || clUploadPhotosIntro.isShown){
+        if (binding.clDeleteSelectedPhoto.isShown){
+            binding.clDeleteSelectedPhoto.visibility = View.GONE
+            binding.clSelectedPhotos.visibility = View.VISIBLE
+            binding.btnNext.visibility = View.VISIBLE
+        } else if (binding.clSelectedPhotos.isShown || binding.clUploadPhotosIntro.isShown){
             super.onBackPressed()
         }
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOnboardingUploadPhotosBinding
+        get() = ActivityOnboardingUploadPhotosBinding::inflate
+
+    override val viewModelClassType: Class<RequestPaymentSplashViewModel>
+        get() = RequestPaymentSplashViewModel::class.java
 }

@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.open_account.presentation.enter_name
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.addCallback
@@ -18,14 +20,14 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombin
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.FragmentOaEnterNameBinding
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_oa_enter_name.*
 
 class OAEnterNameFragment :
-    BaseFragment<OAEnterNameViewModel>(R.layout.fragment_oa_enter_name) {
+    BaseFragment<FragmentOaEnterNameBinding, OAEnterNameViewModel>() {
 
     private var enableBackButton = true
 
@@ -52,12 +54,10 @@ class OAEnterNameFragment :
     }
 
     private fun initOnClicks() {
-        buttonNext.setOnClickListener { attemptSubmit() }
+        binding.buttonNext.setOnClickListener { attemptSubmit() }
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[OAEnterNameViewModel::class.java]
 
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
@@ -98,11 +98,11 @@ class OAEnterNameFragment :
         viewModel.loadDefaultForm(openAccountActivity.viewModel.defaultForm())
         viewModel.input.firstNameInput
             .subscribe {
-                editTextFirstName.setText(it)
+                binding.editTextFirstName.setText(it)
             }.addTo(disposables)
         viewModel.input.lastNameInput
             .subscribe {
-                editTextLastName.setText(it)
+                binding.editTextLastName.setText(it)
             }.addTo(disposables)
     }
 
@@ -113,17 +113,17 @@ class OAEnterNameFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = editTextFirstName
+            editText = binding.editTextFirstName
         )
         val lastNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = editTextLastName
+            editText = binding.editTextLastName
         )
-        initError(firstNameObservable, textViewFirstNameLabel)
-        initError(lastNameObservable, textViewLastName)
+        initError(firstNameObservable, binding.textViewFirstNameLabel)
+        initError(lastNameObservable, binding.textViewLastName)
         RxCombineValidator(
             firstNameObservable,
             lastNameObservable
@@ -152,14 +152,14 @@ class OAEnterNameFragment :
 
     private fun updatePreTextValues() {
         viewModel.setPreTextValues(
-            editTextFirstName.getTextNullable(),
-            editTextLastName.getTextNullable()
+            binding.editTextFirstName.getTextNullable(),
+            binding.editTextLastName.getTextNullable()
         )
     }
 
     private fun refreshFields() {
-        editTextFirstName.refresh()
-        editTextLastName.refresh()
+        binding.editTextFirstName.refresh()
+        binding.editTextLastName.refresh()
     }
 
     private fun initError(
@@ -172,21 +172,21 @@ class OAEnterNameFragment :
             .subscribe {
                 viewUtil.setError(it)
                 textView.setTextColor(when (it.isProper) {
-                    true -> ContextCompat.getColor(context!!, R.color.dsColorDarkGray)
-                    else -> ContextCompat.getColor(context!!, R.color.colorErrorColor)
+                    true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
+                    else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
                 })
             }.addTo(formDisposable)
     }
 
     private fun setSubmitButtonState(it: Boolean?) {
-        buttonNext.isEnabled = it!!
+        binding.buttonNext.isEnabled = it!!
     }
 
     private fun clearFormFocus() {
-        constraintLayout1.post {
+        binding.constraintLayout1.post {
             viewUtil.dismissKeyboard(getAppCompatActivity())
-            constraintLayout1.requestFocus()
-            constraintLayout1.isFocusableInTouchMode = true
+            binding.constraintLayout1.requestFocus()
+            binding.constraintLayout1.isFocusableInTouchMode = true
         }
     }
 
@@ -210,4 +210,10 @@ class OAEnterNameFragment :
             runPostDelayed({ enableBackButton = true }, 1000)
         }
     }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOaEnterNameBinding
+        get() = FragmentOaEnterNameBinding::inflate
+
+    override val viewModelClassType: Class<OAEnterNameViewModel>
+        get() = OAEnterNameViewModel::class.java
 }

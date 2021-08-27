@@ -13,7 +13,7 @@ import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.branch.data.model.Branch
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
-import kotlinx.android.synthetic.main.item_branch.view.*
+import com.unionbankph.corporate.databinding.ItemBranchBinding
 
 @EpoxyModelClass(layout = R.layout.item_branch)
 abstract class BranchItemModel : EpoxyModelWithHolder<BranchItemModel.Holder>() {
@@ -38,7 +38,7 @@ abstract class BranchItemModel : EpoxyModelWithHolder<BranchItemModel.Holder>() 
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             textViewName.text = branch.name
             textViewBranchCode.text = branch.name
             textViewAddress.text = branch.address
@@ -49,16 +49,11 @@ abstract class BranchItemModel : EpoxyModelWithHolder<BranchItemModel.Holder>() 
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var cardViewBranch: CardView
-        lateinit var textViewName: AppCompatTextView
-        lateinit var textViewBranchCode: AppCompatTextView
-        lateinit var textViewAddress: AppCompatTextView
+
+        lateinit var binding: ItemBranchBinding
 
         override fun bindView(itemView: View) {
-            cardViewBranch = itemView.cardViewBranch
-            textViewName = itemView.textViewName
-            textViewBranchCode = itemView.textViewBranchCode
-            textViewAddress = itemView.textViewAddress
+            binding = ItemBranchBinding.bind(itemView)
         }
     }
 }

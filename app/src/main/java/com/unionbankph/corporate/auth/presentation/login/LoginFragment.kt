@@ -4,17 +4,18 @@ import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
+import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.view.KeyEvent
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -57,23 +58,25 @@ import com.unionbankph.corporate.common.presentation.constant.URLDataEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.selection.DaoSelectionActivity
+import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
+import com.unionbankph.corporate.databinding.FragmentLoginBinding
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_login.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by herald on 2/17/21
  */
-class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
+class LoginFragment :
+    BaseFragment<FragmentLoginBinding, LoginViewModel>(),
     FingerprintBottomSheet.OnFingerPrintListener,
     InstallStateUpdatedListener,
     OnSuccessListener<AppUpdateInfo>,
-    ImeOptionEditText.OnImeOptionListener {
+    ImeOptionEditText.OnImeOptionListener{
 
     private lateinit var imeOptionEditText: ImeOptionEditText
 
@@ -87,7 +90,7 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        setMargins(textViewVersion, 0, getStatusBarHeight(), 0, 0)
+        setMargins(binding.textViewVersion, 0, getStatusBarHeight(), 0, 0)
     }
 
     override fun onViewsBound() {
@@ -102,15 +105,17 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     private fun initBinding() {
         viewModel.isTrustedDeviceOutput
             .subscribe {
-                buttonGenerateOTP.visibility(it)
+                binding.buttonGenerateOTP.visibility(it)
             }.addTo(disposables)
         viewModel.token
             .subscribe {
-                showFingerprintImageView(it != "")
+                if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "")
+                }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                        .BIOMETRIC_SUCCESS) { showFaceIDImageView(it !="") }
             }.addTo(disposables)
         viewModel.fullName
             .subscribe {
-                textViewFullname.text = it
+                binding.textViewFullname.text = it
             }.addTo(disposables)
         viewModel.emailAddress
             .subscribe {
@@ -128,11 +133,11 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
                         }, 100
                     )
                 } else {
-                    imageViewLogo.visibility(true)
-                    imageViewLogoAnimate.visibility(false)
+                    binding.imageViewLogo.root.visibility(true)
+                    binding.imageViewLogoAnimate.root.visibility(false)
                     viewUtil.startAnimateView(
                         true,
-                        constraintLayoutContent,
+                        binding.constraintLayoutContent,
                         android.R.anim.fade_in
                     )
                     if (it != "") {
@@ -221,7 +226,7 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             showFlexibleUpdateNotification()
         } else if (state.installStatus() == InstallStatus.INSTALLED) {
             viewUtil.snackBarMessage(
-                constraintLayoutLogin,
+                binding.constraintLayoutLogin,
                 getString(R.string.msg_playstore_update_success),
                 Snackbar.LENGTH_SHORT
             ).show()
@@ -230,12 +235,13 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             }
         } else if (state.installStatus() == InstallStatus.FAILED) {
             viewUtil.snackBarMessage(
-                constraintLayoutLogin,
+                binding.constraintLayoutLogin,
                 getString(R.string.msg_playstore_update_failed),
                 Snackbar.LENGTH_SHORT
             ).show()
         }
     }
+
 
     override fun onCompleteFingerprint(token: String) {
         viewModel.userLoginFingerPrint(
@@ -270,7 +276,6 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[LoginViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowLoginLoading -> {
@@ -329,7 +334,7 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     private fun init() {
         initBinding()
         validateForm(getEditTextUsername(), getEditTextPassword())
-        textViewVersion.text = getString(R.string.app_version_number)
+        binding.textViewVersion.text = getString(R.string.app_version_number)
         initImeOptionEditText()
         checkUpdates()
         clearCache()
@@ -338,53 +343,54 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
         viewModel.hasTOTP()
         viewModel.refreshNotificationTokenIfNull()
         if (isSME) {
-            tv_sign_up.text = formatString(R.string.action_sign_up).toHtmlSpan()
+            binding.tvSignUp.text = formatString(R.string.action_sign_up).toHtmlSpan()
         } else {
-            tv_sign_up.text = formatString(R.string.title_forgot_password).toUpperCase()
-            tv_sign_up.setTypeface(tv_sign_up.typeface, Typeface.BOLD)
+            binding.tvSignUp.text = formatString(R.string.title_forgot_password).uppercase()
+            binding.tvSignUp.setTypeface(binding.tvSignUp.typeface, Typeface.BOLD)
         }
     }
 
     private fun initListener() {
         initClickButtonLogin()
         initClickImgFingerPrint()
+        initClickImgFaceID()
         initClickTextViewFullname()
         initClickTextViewLearnMore()
         initClickButtonGenerateTOTP()
-        textViewMigration.makeLinks(
+        binding.textViewMigration.makeLinks(
             Pair(getString(R.string.action_here), View.OnClickListener {
                 navigateMigrationScreen()
             })
         )
-        textViewMigration.setOnClickListener {
+        binding.textViewMigration.setOnClickListener {
             navigateMigrationScreen()
         }
-        iv_show_password.setOnClickListener {
-            iv_show_password.isActivated = !iv_show_password.isActivated
-            if (iv_show_password.isActivated) {
-                etPasswordSME.transformationMethod = null
+        binding.ivShowPassword.setOnClickListener {
+            binding.ivShowPassword.isActivated = !binding.ivShowPassword.isActivated
+            if (binding.ivShowPassword.isActivated) {
+                binding.etPasswordSME.transformationMethod = null
             } else {
-                etPasswordSME.transformationMethod = PasswordTransformationMethod()
+                binding.etPasswordSME.transformationMethod = PasswordTransformationMethod()
             }
-            etPasswordSME.setSelection(etPasswordSME.length())
+            binding.etPasswordSME.setSelection(binding.etPasswordSME.length())
         }
         setOnClickListenerSignUp()
-        btn_open_business_account.setOnClickListener {
+        binding.btnOpenBusinessAccount.setOnClickListener {
             navigateDaoSelectionScreen()
         }
-        btn_apply_loan.setOnClickListener {
+        binding.btnApplyLoan.setOnClickListener {
             showDisclaimerDialog()
         }
-        btn_initial_login.setOnClickListener {
+        binding.btnInitialLogin.setOnClickListener {
             loginViews()
         }
-        tvForgotPassword.setOnClickListener {
+        binding.tvForgotPassword.setOnClickListener {
             navigatePasswordRecoveryScreen()
         }
     }
 
     private fun setOnClickListenerSignUp() {
-        tv_sign_up.setOnClickListener {
+        binding.tvSignUp.setOnClickListener {
             if (isSME) {
                 navigateDaoSelectionScreen()
             } else {
@@ -431,7 +437,7 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             .observeOn(schedulerProvider.ui())
             .subscribe {
                 isValidForm = it
-                buttonLogin.loginEnableButton(it)
+                binding.buttonLogin.loginEnableButton(it)
             }.addTo(disposables)
     }
 
@@ -440,20 +446,20 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             if (!viewModel.cdaoFeature.value.notNullable()) {
                 loginViews()
             } else {
-                btn_open_business_account.visibility(true)
-                btn_apply_loan.visibility(true)
-                btn_initial_login.visibility(true)
-                buttonLogin.visibility(false)
-                tilUsername.visibility(false)
-                tilPassword.visibility(false)
-                cardViewEmail.visibility(false)
-                cardViewPassword.visibility(false)
-                tv_sign_up.visibility(true)
-                tv_sign_up.text =
+                binding.btnOpenBusinessAccount.visibility(true)
+                binding.btnApplyLoan.visibility(true)
+                binding.btnInitialLogin.visibility(true)
+                binding.buttonLogin.visibility(false)
+                binding.tilUsername.visibility(false)
+                binding.tilPassword.visibility(false)
+                binding.cardViewEmail.visibility(false)
+                binding.cardViewPassword.visibility(false)
+                binding.tvSignUp.visibility(true)
+                binding.tvSignUp.text =
                     formatString(R.string.action_sign_up_with_existing)
-                        .toUpperCase()
+                        .uppercase()
                         .toHtmlSpan()
-                tv_sign_up.setOnClickListener {
+                binding.tvSignUp.setOnClickListener {
                     navigator.navigateBrowser(
                         getAppCompatActivity(),
                         URLDataEnum.ENROLLMENT_LINK
@@ -461,31 +467,31 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
                 }
                 val constraintSet = ConstraintSet()
                 constraintSet.connect(
-                    tv_sign_up.id,
+                    binding.tvSignUp.id,
                     ConstraintSet.TOP,
-                    btn_initial_login.id,
+                    binding.btnInitialLogin.id,
                     ConstraintSet.BOTTOM
                 )
-                constraintSet.clone(constraint_layout)
+                constraintSet.clone(binding.constraintLayout)
             }
         } else {
-            tv_sign_up.visibility(true)
-            tilUsername.visibility(true)
-            tilPassword.visibility(true)
-            buttonLogin.visibility(true)
-            cardViewEmail.visibility(false)
-            cardViewPassword.visibility(false)
+            binding.tvSignUp.visibility(true)
+            binding.tilUsername.visibility(true)
+            binding.tilPassword.visibility(true)
+            binding.buttonLogin.visibility(true)
+            binding.cardViewEmail.visibility(false)
+            binding.cardViewPassword.visibility(false)
         }
-        buttonLogin.loginEnableButton(false)
-        textViewMigration.visibility(true)
-        textViewWelcomeBack.visibility(false)
-        textViewFullname.visibility(false)
-        buttonGenerateOTP.visibility(false)
+        binding.buttonLogin.loginEnableButton(false)
+        binding.textViewMigration.visibility(true)
+        binding.textViewWelcomeBack.visibility(false)
+        binding.textViewFullname.visibility(false)
+        binding.buttonGenerateOTP.visibility(false)
     }
 
     private fun fingerprintViews(token: String) {
-        val tilUsernameParams = tilUsername.layoutParams as ViewGroup.MarginLayoutParams
-        val buttonLoginParams = buttonLogin.layoutParams as ViewGroup.MarginLayoutParams
+        val tilUsernameParams = binding.tilUsername.layoutParams as ViewGroup.MarginLayoutParams
+        val buttonLoginParams = binding.buttonLogin.layoutParams as ViewGroup.MarginLayoutParams
         tilUsernameParams.setMargins(
             tilUsernameParams.leftMargin,
             resources.getDimensionPixelSize(R.dimen.content_group_spacing),
@@ -498,18 +504,18 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             buttonLoginParams.rightMargin,
             buttonLoginParams.bottomMargin
         )
-        tvForgotPassword.visibility(false)
-        textViewWelcomeBack.visibility(true)
-        textViewFullname.visibility(true)
-        buttonLogin.visibility(true)
-        cardViewEmail.visibility(false)
-        cardViewPassword.visibility(false)
-        tilUsername.visibility(false)
-        tilPassword.visibility(false)
-        tv_sign_up.visibility(false)
-        textViewMigration.visibility(false)
-        buttonLogin.text = getString(R.string.use_password)
-        buttonLogin.loginEnableButton(true)
+        binding.tvForgotPassword.visibility(false)
+        binding.textViewWelcomeBack.visibility(true)
+        binding.textViewFullname.visibility(true)
+        binding.buttonLogin.visibility(true)
+        binding.cardViewEmail.visibility(false)
+        binding.cardViewPassword.visibility(false)
+        binding.tilUsername.visibility(false)
+        binding.tilPassword.visibility(false)
+        binding.tvSignUp.visibility(false)
+        binding.textViewMigration.visibility(false)
+        binding.buttonLogin.text = getString(R.string.use_password)
+        binding.buttonLogin.loginEnableButton(true)
         if (token != "") {
             if (getAppCompatActivity().intent.getBooleanExtra(EXTRA_SPLASH_SCREEN, true)
                 && !isShownInitialFingerprint
@@ -527,9 +533,9 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     }
 
     private fun loginViews() {
-        val tilUsernameParams = tilUsername.layoutParams as ViewGroup.MarginLayoutParams
-        val tilPasswordParams = tilPassword.layoutParams as ViewGroup.MarginLayoutParams
-        val buttonLoginParams = buttonLogin.layoutParams as ViewGroup.MarginLayoutParams
+        val tilUsernameParams = binding.tilUsername.layoutParams as ViewGroup.MarginLayoutParams
+        val tilPasswordParams = binding.tilPassword.layoutParams as ViewGroup.MarginLayoutParams
+        val buttonLoginParams = binding.buttonLogin.layoutParams as ViewGroup.MarginLayoutParams
         tilUsernameParams.setMargins(
             tilUsernameParams.leftMargin,
             resources.getDimensionPixelSize(R.dimen.content_group_spacing),
@@ -550,35 +556,35 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
         )
         val constraintSet = ConstraintSet()
         constraintSet.connect(
-            tv_sign_up.id, ConstraintSet.TOP,
-            buttonLogin.id, ConstraintSet.BOTTOM
+            binding.tvSignUp.id, ConstraintSet.TOP,
+            binding.buttonLogin.id, ConstraintSet.BOTTOM
         )
-        constraintSet.clone(constraint_layout)
+        constraintSet.clone(binding.constraintLayout)
         if (isSME) {
-            tilUsername.setVisible(false)
-            tilPassword.setVisible(false)
-            cardViewEmail.visibility(true)
-            cardViewPassword.visibility(true)
-            tvForgotPassword.visibility(true)
-            btn_initial_login.visibility(false)
-            btn_open_business_account.visibility(false)
-            btn_apply_loan.visibility(false)
-            tv_sign_up.text = formatString(R.string.action_sign_up).toHtmlSpan()
-            tv_sign_up.visibility(viewModel.cdaoFeature.value.notNullable())
+            binding.tilUsername.setVisible(false)
+            binding.tilPassword.setVisible(false)
+            binding.cardViewEmail.visibility(true)
+            binding.cardViewPassword.visibility(true)
+            binding.tvForgotPassword.visibility(true)
+            binding.btnInitialLogin.visibility(false)
+            binding.btnOpenBusinessAccount.visibility(false)
+            binding.btnApplyLoan.visibility(false)
+            binding.tvSignUp.text = formatString(R.string.action_sign_up).toHtmlSpan()
+            binding.tvSignUp.visibility(viewModel.cdaoFeature.value.notNullable())
             setOnClickListenerSignUp()
         } else {
-            tilUsername.visibility(true)
-            tilPassword.visibility(true)
-            cardViewEmail.visibility(false)
-            cardViewPassword.visibility(false)
-            tv_sign_up.visibility(true)
+            binding.tilUsername.visibility(true)
+            binding.tilPassword.visibility(true)
+            binding.cardViewEmail.visibility(false)
+            binding.cardViewPassword.visibility(false)
+            binding.tvSignUp.visibility(true)
         }
-        textViewWelcomeBack.visibility(false)
-        textViewFullname.visibility(false)
-        textViewMigration.visibility(true)
-        buttonLogin.visibility(true)
-        buttonLogin.text = formatString(R.string.action_login)
-        buttonLogin.loginEnableButton(false)
+        binding.textViewWelcomeBack.visibility(false)
+        binding.textViewFullname.visibility(false)
+        binding.textViewMigration.visibility(true)
+        binding.buttonLogin.visibility(true)
+        binding.buttonLogin.text = formatString(R.string.action_login)
+        binding.buttonLogin.loginEnableButton(false)
         if (getEditTextUsername().length() > 0) {
             getEditTextPassword().requestFocus()
             viewUtil.showKeyboard(getAppCompatActivity())
@@ -587,9 +593,9 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
 
     private fun usePasswordViews() {
         validateForm(getEditTextUsername(), getEditTextPassword())
-        val tilUsernameParams = tilUsername.layoutParams as ViewGroup.MarginLayoutParams
-        val tilPasswordParams = tilPassword.layoutParams as ViewGroup.MarginLayoutParams
-        val buttonLoginParams = buttonLogin.layoutParams as ViewGroup.MarginLayoutParams
+        val tilUsernameParams = binding.tilUsername.layoutParams as ViewGroup.MarginLayoutParams
+        val tilPasswordParams = binding.tilPassword.layoutParams as ViewGroup.MarginLayoutParams
+        val buttonLoginParams = binding.buttonLogin.layoutParams as ViewGroup.MarginLayoutParams
         tilUsernameParams.setMargins(
             tilUsernameParams.leftMargin,
             resources.getDimensionPixelSize(R.dimen.content_group_spacing),
@@ -616,24 +622,24 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
         )
         val constraintSet = ConstraintSet()
         constraintSet.connect(
-            tv_sign_up.id, ConstraintSet.TOP,
-            buttonLogin.id, ConstraintSet.BOTTOM
+            binding.tvSignUp.id, ConstraintSet.TOP,
+            binding.buttonLogin.id, ConstraintSet.BOTTOM
         )
-        constraintSet.clone(constraint_layout)
+        constraintSet.clone(binding.constraintLayout)
         if (isSME) {
-            cardViewPassword.visibility(true)
-            tilPassword.setVisible(false)
-            tvForgotPassword.setVisible(true)
-            tv_sign_up.text = formatString(R.string.action_sign_up).toHtmlSpan()
-            tv_sign_up.visibility(viewModel.cdaoFeature.value.notNullable())
+            binding.cardViewPassword.visibility(true)
+            binding.tilPassword.setVisible(false)
+            binding.tvForgotPassword.setVisible(true)
+            binding.tvSignUp.text = formatString(R.string.action_sign_up).toHtmlSpan()
+            binding.tvSignUp.visibility(viewModel.cdaoFeature.value.notNullable())
             setOnClickListenerSignUp()
         } else {
-            tilPassword.visibility(true)
-            tv_sign_up.visibility(true)
+            binding.tilPassword.visibility(true)
+            binding.tvSignUp.visibility(true)
         }
-        textViewMigration.visibility = View.GONE
-        buttonLogin.text = formatString(R.string.action_login)
-        buttonLogin.loginEnableButton(false)
+        binding.textViewMigration.visibility = View.GONE
+        binding.buttonLogin.text = formatString(R.string.action_login)
+        binding.buttonLogin.loginEnableButton(false)
         getEditTextPassword().requestFocus()
         viewUtil.showKeyboard(getAppCompatActivity())
     }
@@ -652,6 +658,11 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
                 childFragmentManager,
                 LoginActivity::class.java.simpleName
             )
+        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS
+            && !isShownInUpdateApp
+            && App.isActivityVisible()){
+            biometricPrompt(token)
         }
     }
 
@@ -726,15 +737,15 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     }
 
     private fun initClickButtonLogin() {
-        RxView.clicks(buttonLogin)
+        RxView.clicks(binding.buttonLogin)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                if (buttonLogin.text == getString(R.string.action_login)) {
+                if (binding.buttonLogin.text == getString(R.string.action_login)) {
                     submitForm()
-                } else if (buttonLogin.text == getString(R.string.use_password)) {
+                } else if (binding.buttonLogin.text == getString(R.string.use_password)) {
                     usePasswordViews()
                 }
             }.addTo(disposables)
@@ -742,8 +753,8 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
 
     private fun submitForm() {
         viewUtil.dismissKeyboard(getAppCompatActivity())
-        constraintLayoutLogin.requestFocus()
-        constraintLayoutLogin.isFocusableInTouchMode = true
+        binding.constraintLayoutLogin.requestFocus()
+        binding.constraintLayoutLogin.isFocusableInTouchMode = true
         viewModel.login(
             LoginForm(
                 username = getEditTextUsername().text.toString().trim(),
@@ -767,7 +778,7 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     }
 
     private fun initClickButtonGenerateTOTP() {
-        RxView.clicks(buttonGenerateOTP)
+        RxView.clicks(binding.buttonGenerateOTP)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -785,7 +796,7 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     }
 
     private fun initClickTextViewLearnMore() {
-        RxView.clicks(textViewLearnMore)
+        RxView.clicks(binding.textViewLearnMore)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -803,7 +814,7 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     }
 
     private fun initClickTextViewFullname() {
-        RxView.clicks(textViewFullname)
+        RxView.clicks(binding.textViewFullname)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -814,7 +825,19 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     }
 
     private fun initClickImgFingerPrint() {
-        RxView.clicks(imgFingerPrint)
+        RxView.clicks(binding.imgFingerPrint)
+            .throttleFirst(
+                resources.getInteger(R.integer.time_button_debounce).toLong(),
+                TimeUnit.MILLISECONDS
+            )
+            .subscribe {
+                viewUtil.dismissKeyboard(getAppCompatActivity())
+                fingerprintViews(viewModel.token.value.notNullable())
+            }.addTo(disposables)
+    }
+
+    private fun initClickImgFaceID() {
+        RxView.clicks(binding.imgFaceID)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -894,13 +917,26 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                imgFingerPrint.visibility(it)
+                binding.imgFingerPrint.visibility(it)
+            }.addTo(disposables)
+    }
+
+    private fun showFaceIDImageView(isShow: Boolean) {
+        Observable.just(isShow)
+            .delay(
+                resources.getInteger(R.integer.time_delay_fingerprint).toLong(),
+                TimeUnit.MILLISECONDS
+            )
+            .subscribeOn(schedulerProvider.computation())
+            .observeOn(schedulerProvider.ui())
+            .subscribe {
+                binding.imgFaceID.visibility(it)
             }.addTo(disposables)
     }
 
     private fun showFlexibleUpdateNotification() {
         viewUtil.snackBarWithAction(
-            constraintLayoutLogin,
+            binding.constraintLayoutLogin,
             getString(R.string.msg_playstore_update),
             getString(R.string.action_install).toUpperCase(),
             Snackbar.LENGTH_INDEFINITE,
@@ -911,10 +947,10 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     }
 
     private fun initAnimationLogo() {
-        imageViewLogo.viewTreeObserver.addOnGlobalLayoutListener(
+        binding.imageViewLogo.root.viewTreeObserver.addOnGlobalLayoutListener(
             object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
-                    imageViewLogo.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    binding.imageViewLogo.root.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     runPostDelayed(
                         {
                             animateContent()
@@ -928,36 +964,76 @@ class LoginFragment : BaseFragment<LoginViewModel>(R.layout.fragment_login),
     private fun animateContent() {
         runPostDelayed(
             {
-                viewUtil.startAnimateView(true, constraintLayoutContent, android.R.anim.fade_in)
+                viewUtil.startAnimateView(true, binding.constraintLayoutContent, android.R.anim.fade_in)
             }, 250
         )
         val location = IntArray(2)
-        imageViewLogo.getLocationOnScreen(location)
+        binding.imageViewLogo.root.getLocationOnScreen(location)
         val y = location[1]
         val objectAnimator =
-            ObjectAnimator.ofFloat(imageViewLogoAnimate, "y", y.toFloat())
+            ObjectAnimator.ofFloat(binding.imageViewLogoAnimate.root, "y", y.toFloat())
         Timber.d("y axis:${y.toFloat()}")
         objectAnimator.duration = resources.getInteger(R.integer.anim_duration_medium).toLong()
         objectAnimator.start()
         runPostDelayed(
             {
-                imageViewLogo.visibility(true)
+                binding.imageViewLogo.root.visibility(true)
                 runPostDelayed(
                     {
-                        imageViewLogoAnimate.visibility(false)
+                        binding.imageViewLogoAnimate.root.visibility(false)
                     }, 50
                 )
             }, 550
         )
     }
 
-    private fun getEditTextUsername() = if (App.isSME()) etUsernameSME else etUsername
+    private fun biometricPrompt(token: String){
+        if (BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS) {
+            val executor = ContextCompat.getMainExecutor(applicationContext)
+            val biometricPrompt =
+                BiometricPrompt(this, executor,
+                    object : BiometricPrompt.AuthenticationCallback() {
+                        override fun onAuthenticationError(errorCode: Int,
+                                                           errString: CharSequence) {
+                            if(errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
+                                if ((BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                                        .BIOMETRIC_SUCCESS) &&
+                                    sharedPreferenceUtil.fingerPrintTokenSharedPref().get() != ""
+                                ) {
+                                    showFaceIDImageView(true)
+                                }
+                            }
+                        }
+                        override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                            viewModel.userLoginFingerPrint(
+                                LoginFingerprintForm(fingerprintToken = token, udid = settingsUtil.getUdId())
+                            )
+                        }
+                    })
 
-    private fun getEditTextPassword() = if (App.isSME()) etPasswordSME else etPassword
+            val promptInfo =  BiometricPrompt.PromptInfo.Builder()
+                .setTitle(applicationContext.getString(R.string.title_login_in_using_faceid))
+                .setSubtitle(applicationContext.getString(R.string.confirm_fingerprint_description))
+                .setNegativeButtonText(applicationContext.getString(R.string.action_use_password))
+                .setConfirmationRequired(false)
+                .build()
+            biometricPrompt.authenticate(promptInfo)
+        }
+    }
+
+    private fun getEditTextUsername() = if (App.isSME()) binding.etUsernameSME else binding.etUsername
+
+    private fun getEditTextPassword() = if (App.isSME()) binding.etPasswordSME else binding.etPassword
 
     companion object {
         const val EXTRA_SPLASH_SCREEN = "splash_screen"
         const val REQUEST_CODE_UPDATE = 1
     }
 
+    override val viewModelClassType: Class<LoginViewModel>
+        get() = LoginViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentLoginBinding
+        get() = FragmentLoginBinding::inflate
 }

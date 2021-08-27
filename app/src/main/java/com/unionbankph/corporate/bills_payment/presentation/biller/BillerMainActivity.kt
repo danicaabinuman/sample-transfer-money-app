@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.bills_payment.presentation.biller
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
@@ -11,10 +12,10 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.bills_payment.presentation.biller.biller_all.AllBillerFragment
 import com.unionbankph.corporate.bills_payment.presentation.biller.frequent_biller.FrequentBillerFragment
-import kotlinx.android.synthetic.main.activity_billers_main.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import com.unionbankph.corporate.databinding.ActivityBillersMainBinding
 
-class BillerMainActivity : BaseActivity<BillerMainViewModel>(R.layout.activity_billers_main) {
+class BillerMainActivity :
+    BaseActivity<ActivityBillersMainBinding, BillerMainViewModel>() {
 
     private var adapter: ViewPagerAdapter? = null
 
@@ -22,13 +23,13 @@ class BillerMainActivity : BaseActivity<BillerMainViewModel>(R.layout.activity_b
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         if (isSME) {
-            removeElevation(viewToolbar)
-            shadow_toolbar.isVisible = true
+            removeElevation(binding.viewToolbar.appBarLayout)
+            binding.shadowToolbar.isVisible = true
         }
         setToolbarTitle(
-            tvToolbar,
+            binding.viewToolbar.tvToolbar,
             if (intent.getStringExtra(EXTRA_PAGE) == PAGE_FREQUENT_BILLER_FORM)
                 getString(R.string.title_select_biller)
             else
@@ -44,12 +45,11 @@ class BillerMainActivity : BaseActivity<BillerMainViewModel>(R.layout.activity_b
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[BillerMainViewModel::class.java]
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        tabLayoutBillers.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.tabLayoutBillers.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 // onTabReselected
             }
@@ -59,14 +59,14 @@ class BillerMainActivity : BaseActivity<BillerMainViewModel>(R.layout.activity_b
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (viewUtil.isSoftKeyboardShown(constraintLayoutBillers))
+                if (viewUtil.isSoftKeyboardShown(binding.constraintLayoutBillers))
                     viewUtil.dismissKeyboard(this@BillerMainActivity)
                 when (tab?.position) {
                     0 -> {
-                        viewPagerBillers.currentItem = 0
+                        binding.viewPagerBillers.currentItem = 0
                     }
                     1 -> {
-                        viewPagerBillers.currentItem = 1
+                        binding.viewPagerBillers.currentItem = 1
                     }
                 }
             }
@@ -88,26 +88,26 @@ class BillerMainActivity : BaseActivity<BillerMainViewModel>(R.layout.activity_b
             supportFragmentManager
         )
         if (intent.getStringExtra(EXTRA_PAGE) == PAGE_BILLS_PAYMENT_FORM) {
-            tabLayoutBillers.visibility = View.VISIBLE
+            binding.tabLayoutBillers.visibility = View.VISIBLE
             adapter?.addFragment(
                 FrequentBillerFragment.newInstance(),
                 FRAGMENT_FREQUENT_BILLERS
             )
         } else {
-            tabLayoutBillers.visibility = View.GONE
+            binding.tabLayoutBillers.visibility = View.GONE
         }
         adapter?.addFragment(
             AllBillerFragment.newInstance(),
             FRAGMENT_ALL_BILLERS
         )
-        viewPagerBillers.offscreenPageLimit = 0
-        viewPagerBillers.currentItem = 1
-        viewPagerBillers.adapter = adapter
-        tabLayoutBillers.setupWithViewPager(viewPagerBillers, false)
+        binding.viewPagerBillers.offscreenPageLimit = 0
+        binding.viewPagerBillers.currentItem = 1
+        binding.viewPagerBillers.adapter = adapter
+        binding.tabLayoutBillers.setupWithViewPager(binding.viewPagerBillers, false)
     }
 
     fun setCurrentViewPager(currentItem: Int) {
-        viewPagerBillers.currentItem = currentItem
+        binding.viewPagerBillers.currentItem = currentItem
     }
 
     companion object {
@@ -121,4 +121,10 @@ class BillerMainActivity : BaseActivity<BillerMainViewModel>(R.layout.activity_b
         const val PAGE_BILLS_PAYMENT_FORM = "bills_payment_form"
         const val PAGE_BILLS_PAYMENT_FILTER = "bills_payment_filter"
     }
+
+    override val viewModelClassType: Class<BillerMainViewModel>
+        get() = BillerMainViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBillersMainBinding
+        get() = ActivityBillersMainBinding::inflate
 }

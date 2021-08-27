@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.password
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,23 +19,22 @@ import com.unionbankph.corporate.auth.presentation.otp.OTPActivity
 import com.unionbankph.corporate.common.data.model.Auth
 import com.unionbankph.corporate.common.data.model.Message
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityPasswordBinding
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import com.unionbankph.corporate.settings.presentation.*
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_password.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
-class PasswordActivity : BaseActivity<SettingsViewModel>(R.layout.activity_password) {
+class PasswordActivity :
+    BaseActivity<ActivityPasswordBinding, SettingsViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[SettingsViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSettingsLoading -> {
@@ -67,16 +67,16 @@ class PasswordActivity : BaseActivity<SettingsViewModel>(R.layout.activity_passw
 
     private fun init() {
         if (intent.getStringExtra(EXTRA_PAGE) == PAGE_EDIT_MOBILE_NUMBER) {
-            tvPasswordDesc.text = formatString(R.string.msg_enter_password_mobile_number)
+            binding.tvPasswordDesc.text = formatString(R.string.msg_enter_password_mobile_number)
         } else {
-            tvPasswordDesc.text = formatString(R.string.msg_enter_password_email_address)
+            binding.tvPasswordDesc.text = formatString(R.string.msg_enter_password_email_address)
         }
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
 
-        RxView.clicks(btnSubmit)
+        RxView.clicks(binding.btnSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -86,14 +86,14 @@ class PasswordActivity : BaseActivity<SettingsViewModel>(R.layout.activity_passw
                     PAGE_EDIT_EMAIL_ADDERSS -> {
                         viewModel.changeEmailAddress(
                             intent.getStringExtra(EXTRA_EMAIL).notNullable(),
-                            textInputEditTextPassword.text.toString()
+                            binding.textInputEditTextPassword.text.toString()
                         )
                     }
                     PAGE_EDIT_MOBILE_NUMBER -> {
                         viewModel.changeMobileNumber(
                             intent.getStringExtra(EXTRA_COUNTRY_CODE_ID).notNullable(),
                             intent.getStringExtra(EXTRA_MOBILE_NUMBER).notNullable(),
-                            textInputEditTextPassword.text.toString()
+                            binding.textInputEditTextPassword.text.toString()
                         )
                     }
                 }
@@ -173,7 +173,7 @@ class PasswordActivity : BaseActivity<SettingsViewModel>(R.layout.activity_passw
             isValueChanged = true,
             minLength = 8,
             maxLength = 30,
-            editText = textInputEditTextPassword
+            editText = binding.textInputEditTextPassword
         )
 
         passwordObservable
@@ -189,7 +189,7 @@ class PasswordActivity : BaseActivity<SettingsViewModel>(R.layout.activity_passw
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                btnSubmit.enableButton(it)
+                binding.btnSubmit.enableButton(it)
             }.addTo(disposables)
     }
 
@@ -202,4 +202,10 @@ class PasswordActivity : BaseActivity<SettingsViewModel>(R.layout.activity_passw
         const val PAGE_EDIT_MOBILE_NUMBER = "edit_mobile_number"
         const val PAGE_EDIT_EMAIL_ADDERSS = "edit_email_address"
     }
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityPasswordBinding
+        get() = ActivityPasswordBinding::inflate
 }

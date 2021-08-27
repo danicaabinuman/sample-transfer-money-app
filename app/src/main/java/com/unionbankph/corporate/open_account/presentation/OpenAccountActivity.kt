@@ -2,6 +2,7 @@ package com.unionbankph.corporate.open_account.presentation
 
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -12,27 +13,26 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
+import com.unionbankph.corporate.databinding.ActivityOpenAccountBinding
 import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameViewModel
 import com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoViewModel
-import kotlinx.android.synthetic.main.activity_open_account.*
 
 
 class OpenAccountActivity :
-    BaseActivity<OpenAccountViewModel>(R.layout.activity_open_account) {
+    BaseActivity<ActivityOpenAccountBinding, OpenAccountViewModel>() {
 
     private lateinit var navHostFragment: NavHostFragment
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, appBarLayout)
+        initToolbar(binding.toolbar, binding.appBarLayout)
         setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorDarkOrange, true)
         setIsScreenScrollable(false)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[OpenAccountViewModel::class.java]
+
     }
 
     override fun onViewsBound() {
@@ -85,7 +85,7 @@ class OpenAccountActivity :
     }
 
     fun popBackStack() {
-        openAccountNavHostFragment.findNavController().popBackStack()
+        binding.openAccountNavHostFragment.findNavController().popBackStack()
     }
 
     fun setNameInput(input: OAEnterNameViewModel.Input) {
@@ -104,7 +104,7 @@ class OpenAccountActivity :
         }
 
         supportActionBar?.elevation = elevation
-        appBarLayout.elevation = elevation
+        binding.appBarLayout.elevation = elevation
     }
 
     companion object {
@@ -112,4 +112,10 @@ class OpenAccountActivity :
         const val FRAGMENT_ENTER_NAME = "fragment_enter_name"
         const val TAG_GO_BACK_DAO_DIALOG = "user_creation_go_back_dialog"
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOpenAccountBinding
+        get() = ActivityOpenAccountBinding::inflate
+
+    override val viewModelClassType: Class<OpenAccountViewModel>
+        get() = OpenAccountViewModel::class.java
 }

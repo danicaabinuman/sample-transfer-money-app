@@ -46,6 +46,8 @@ import com.unionbankph.corporate.dao.presentation.signature.DaoSignatureFragment
 import com.unionbankph.corporate.dao.presentation.type_of_business.DaoTypeOfBusinessFragment
 import com.unionbankph.corporate.dao.presentation.welcome.DaoWelcomeFragment
 import com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterFragment
+import com.unionbankph.corporate.databinding.BottomSheetUploadBirBinding
+import com.unionbankph.corporate.databinding.BottomSheetUploadPhotosBinding
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
@@ -62,6 +64,7 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.pa
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsFragment
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
+import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsFragment
 import com.unionbankph.corporate.settings.presentation.notification.NotificationDetailFragment
@@ -85,6 +88,8 @@ import com.unionbankph.corporate.open_account.presentation.tnc.OATNCFragment
 import com.unionbankph.corporate.open_account.presentation.tnc_reminder.OATNCReminderFragment
 import com.unionbankph.corporate.open_account.presentation.otp.OaOTPFragment
 import com.unionbankph.corporate.open_account.presentation.personalise_settings.OAPersonaliseSettingsFragment
+import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -426,4 +431,17 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun oaConfirmationMessageFragment(): OAConfirmationMessageFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun faceIDBottomSheet(): FaceIDBottomSheet
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun bottomSheetUploadPhotos(): OnboardingUploadPhotosFragment
+
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun bottomSheetUploadBir(): CardAcceptanceUploadDocumentFragment
 }

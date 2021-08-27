@@ -18,6 +18,8 @@
     <string name="use_password">Use password</string>
     <string name="password">Password</string>
     <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="confirm_fingerprint_description">Confirm login with your biometrics</string>
+    <string name="touch_the_fingerprint_sensor">Touch the fingerprint sensor</string>
     <string name="fingerprint_hint">Touch sensor</string>
     <string name="password_description">Enter your store password to continue</string>
     <string name="purchase">Purchase</string>
@@ -80,6 +82,7 @@
     <string name="title_forgot_password">Forgot Password</string>
     <string name="title_lets_get_started">Let\'s Get Started!</string>
     <string name="title_login_with_fingerprint">Login with Fingerprint</string>
+    <string name="title_login_in_using_biometrics">Log in using biometrics</string>
     <string name="title_fingerprint_not_detected">Fingerprint Not Detected</string>
     <string name="title_new_fingerprint_detected">New Fingerprint Detected</string>
     <string name="title_session_time_out">Your session is about to expire</string>
@@ -392,7 +395,7 @@
     <string name="title_notification_1003">There is a transaction pending my approval</string>
     <string name="title_notification_1004">A transaction I approved changes status</string>
     <string name="title_notification_1005">Any changes are made to my organization.</string>
-    <string name="title_no_fingerprint">No Stored Fingerprint</string>
+    <string name="title_no_fingerprint">No Stored Fingerprint/Face ID</string>
     <string name="title_source_account">Source Account</string>
     <string name="title_source_name">Source Account Name</string>
     <string name="title_source_number">Source Account Number</string>
@@ -762,6 +765,7 @@
     <string name="title_one_time_password">One-Time Password</string>
     <string name="title_loans">Loans</string>
     <string name="title_earnings">Earnings</string>
+    <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -1180,7 +1184,7 @@
     <string name="msg_exit_dao">You are about to leave the account opening form. Any unsaved changes will be lost. Would you like to proceed?</string>
     <string name="msg_go_back">Are you sure you want to go back? Your entries in this page will be lost.</string>
     <string name="msg_cancel_bills_payment_transaction">You are about to leave the Bills Payment Form. Any unsaved changes will be lost. Would you like to proceed?</string>
-    <string name="msg_no_fingerprint">There was no Fingerprint data found stored in the system.</string>
+    <string name="msg_no_fingerprint">There was no Fingerprint/Face ID data found stored in the system.</string>
     <string name="msg_success_approval">Transaction successfully approved.</string>
     <string name="msg_rejected_approval">Transaction successfully rejected.</string>
     <string name="msg_transaction_successfully_cancelled">Transaction successfully cancelled.</string>
@@ -2335,7 +2339,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hello_name">Hello, %1$s!</string>
     
     <string name="user_creation_title_reminder">Before we begin, please ensure that the\nfollowing details in your application matches\nwith details in your ID:</string>
-    <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
     <string name="desc_user_creation_reminders">
         <![CDATA[
         <font size="%1$s" color="%2$s"><b>\u2022</b></font>  First Name".<br>
@@ -2504,4 +2507,26 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="desc_confirmation_message">You are taking the first step in growing your business.\nPlease continue setting up your account so you may\nenjoy using the app\'s key features.</string>
     <string name="title_continue_dashboard">CONTINUE TO DASHBOARD</string>
     <string name="header_user_creation_confirmation_page">Confirmation Page</string>
+    <string name="hi">Hi %1$s!</string>
+
+    <!--FaceID-->
+    <string name="title_login_in_using_faceid">Log in with Face ID</string>
+    <string name="desc_look_directly_at_your_camera">Look directly at your font camera to\nuse Face ID</string>
+    <string name="msg_face_id_not_recognized">Face ID not recognized, try again!</string>
+    <string name="msg_face_id_not_detected">Your previously saved face ID is no longer detected on this device. Login with your password to continue.</string>
+    <string name="msg_new_face_id_detected">A new face ID was detected. Login with your password to link this new face ID.</string>
+    <string name="title_face_id_not_detected">Face ID Not Detected</string>
+    <string name="title_new_face_id_detected">New Face ID Detected</string>
+    <string name="title_enable_face_id">Enable Face ID</string>
+    <string name="desc_face_id">
+        <![CDATA[
+        Do you want to enable Face ID authentication to access UnionBank Business Banking?
+        <br>
+        <br>
+        Face ID can be used to access your account. We do not recommend this if you are sharing this device.
+        ]]>
+    </string>
+    <string name="title_face_id">Face ID</string>
+    <string name="msg_face_id">All face ID data stored on this device can be used to access your account</string>
+
 </resources>

@@ -6,7 +6,7 @@ import androidx.core.widget.TextViewCompat
 import com.airbnb.epoxy.*
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.common.presentation.constant.Constant
-import kotlinx.android.synthetic.main.sme_textview_model.view.*
+import com.unionbankph.corporate.databinding.SmeTextviewModelBinding
 
 @EpoxyModelClass
 abstract class SMETextViewModel :
@@ -35,16 +35,16 @@ abstract class SMETextViewModel :
             else -> R.style.SMEBody // Default: Body
         }
 
-        TextViewCompat.setTextAppearance(holder.textViewContent, textStyle)
+        TextViewCompat.setTextAppearance(holder.binding.textViewContent, textStyle)
 
-        holder.textViewContent.text = text
+        holder.binding.textViewContent.text = text
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewContent: TextView
+        lateinit var binding: SmeTextviewModelBinding
 
         override fun bindView(itemView: View) {
-            textViewContent = itemView.textViewContent
+            binding = SmeTextviewModelBinding.bind(itemView)
         }
     }
 }

@@ -3,6 +3,7 @@ package com.unionbankph.corporate.bills_payment.presentation.frequent_biller_for
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -45,20 +46,16 @@ import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEn
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.ActivityManageFrequentBillerFormBinding
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_manage_frequent_biller_form.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_edit_text_allowed_source_account.*
-import kotlinx.android.synthetic.main.widget_edit_text_biller.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.*
 
 class ManageFrequentBillerFormActivity :
-    BaseActivity<ManageFrequentBillerFormViewModel>(R.layout.activity_manage_frequent_biller_form),
+    BaseActivity<ActivityManageFrequentBillerFormBinding, ManageFrequentBillerFormViewModel>(),
     View.OnClickListener,
     OnTutorialListener,
     OnConfirmationPageCallBack {
@@ -83,7 +80,7 @@ class ManageFrequentBillerFormActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewsBound() {
@@ -113,10 +110,6 @@ class ManageFrequentBillerFormActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[ManageFrequentBillerFormViewModel::class.java]
         viewModel.state.observe(this, Observer {
 
             when (it) {
@@ -134,8 +127,8 @@ class ManageFrequentBillerFormActivity :
                 }
                 is ShowManageFrequentBillerFormGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         String.format(
                             if (isCreationForm())
                                 getString(R.string.title_create_frequent_biller)
@@ -179,7 +172,7 @@ class ManageFrequentBillerFormActivity :
             R.id.menu_help -> {
                 isClickedHelpTutorial = true
                 viewUtil.dismissKeyboard(this)
-                scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                 Handler().postDelayed(
                     {
                         startViewTutorial()
@@ -217,12 +210,12 @@ class ManageFrequentBillerFormActivity :
         super.onInitializeListener()
         initEventBus()
         tutorialEngineUtil.setOnTutorialListener(this)
-        textInputEditTextAllowedSourceAccounts.setOnClickListener(this)
-        textInputEditTextSelectBiller.setOnClickListener(this)
-        linearLayoutAllowedSourceAccounts.setOnClickListener(this)
+        binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts.setOnClickListener(this)
+        binding.viewBiller.textInputEditTextSelectBiller.setOnClickListener(this)
+        binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.setOnClickListener(this)
         imeOptionEditText =
             ImeOptionEditText()
-        imeOptionEditText.addEditText(textInputEditTextBillerAlias)
+        imeOptionEditText.addEditText(binding.textInputEditTextBillerAlias)
         imeOptionEditText.startListener()
     }
 
@@ -243,15 +236,15 @@ class ManageFrequentBillerFormActivity :
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.field_radius)
             when (view) {
-                viewTutorialAllowedSourceAccounts -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialBillerAlias)
+                binding.viewTutorialAllowedSourceAccounts -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialBillerAlias)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialBillerAlias,
+                        binding.viewTutorialBillerAlias,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -260,11 +253,11 @@ class ManageFrequentBillerFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialBillerAlias -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialSelectBiller)
+                binding.viewTutorialBillerAlias -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewBiller.viewTutorialSelectBiller)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialSelectBiller,
+                        binding.viewBiller.viewTutorialSelectBiller,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -273,12 +266,12 @@ class ManageFrequentBillerFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialSelectBiller -> {
+                binding.viewBiller.viewTutorialSelectBiller -> {
                     if (billerFields != null) {
-                        viewUtil.setFocusOnView(scrollView, viewTutorialBillerFields)
+                        viewUtil.setFocusOnView(binding.scrollView, binding.viewBiller.viewTutorialBillerFields)
                         tutorialEngineUtil.startTutorial(
                             this,
-                            viewTutorialBillerFields,
+                            binding.viewBiller.viewTutorialBillerFields,
                             R.layout.frame_tutorial_lower_left,
                             radius,
                             false,
@@ -290,11 +283,11 @@ class ManageFrequentBillerFormActivity :
                         startSaveTutorial()
                     }
                 }
-                viewTutorialBillerFields -> {
+                binding.viewBiller.viewTutorialBillerFields -> {
                     startSaveTutorial()
                 }
                 buttonAction -> {
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                 }
             }
         }
@@ -336,8 +329,8 @@ class ManageFrequentBillerFormActivity :
     private fun showBillerFields(it: BaseEvent<String>) {
         this.biller = JsonHelper.fromJson(it.payload)
         rxValidationResultList.clear()
-        linearLayoutSelectBillerDetails.removeAllViews()
-        textInputEditTextSelectBiller.setText(biller?.name)
+        binding.viewBiller.linearLayoutSelectBillerDetails.removeAllViews()
+        binding.viewBiller.textInputEditTextSelectBiller.setText(biller?.name)
         viewModel.getBillerFields(biller?.serviceId!!)
     }
 
@@ -345,12 +338,12 @@ class ManageFrequentBillerFormActivity :
         sourceAccounts: MutableList<Account>,
         totalElements: Int
     ) {
-        linearLayoutAllowedSourceAccounts.removeAllViews()
-        textInputEditTextAllowedSourceAccounts.setText("-")
-        textInputLayoutAllowedSourceAccounts.visibility = View.GONE
-        linearLayoutAllowedSourceAccounts.visibility = View.VISIBLE
-        imageViewClose.visibility = View.VISIBLE
-        imageViewClose.setOnClickListener {
+        binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.removeAllViews()
+        binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts.setText("-")
+        binding.viewAllowedSourceAccounts.textInputLayoutAllowedSourceAccounts.visibility = View.GONE
+        binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.visibility = View.VISIBLE
+        binding.viewAllowedSourceAccounts.imageViewClose.visibility = View.VISIBLE
+        binding.viewAllowedSourceAccounts.imageViewClose.setOnClickListener {
             clearAllowedSourceAccounts()
         }
 
@@ -371,7 +364,7 @@ class ManageFrequentBillerFormActivity :
                 ),
                 formatString(R.string.title_frequent_biller)
             ).toHtmlSpan()
-            linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
+            binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
         } else {
             sourceAccounts.forEach {
                 val viewAllowedSourceAccount =
@@ -382,7 +375,7 @@ class ManageFrequentBillerFormActivity :
                     viewAllowedSourceAccount.findViewById<TextView>(R.id.textViewAccountNumber)
                 textViewAccountName.text = it.name
                 textViewAccountNumber.text = viewUtil.getAccountNumberFormat(it.accountNumber)
-                linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
+                binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
             }
         }
     }
@@ -432,19 +425,19 @@ class ManageFrequentBillerFormActivity :
 
     private fun clearAllowedSourceAccounts() {
         viewModel.clearSourceAccounts()
-        linearLayoutAllowedSourceAccounts.visibility = View.GONE
-        imageViewClose.visibility = View.GONE
-        textInputLayoutAllowedSourceAccounts.visibility = View.VISIBLE
-        textInputEditTextAllowedSourceAccounts.text?.clear()
+        binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.visibility = View.GONE
+        binding.viewAllowedSourceAccounts.imageViewClose.visibility = View.GONE
+        binding.viewAllowedSourceAccounts.textInputLayoutAllowedSourceAccounts.visibility = View.VISIBLE
+        binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts.text?.clear()
     }
 
     private fun initBillerFields(billerFields: MutableList<BillerField>) {
         this.billerFields = billerFields
         isValidForm = false
-        linearLayoutSelectBillerDetails.removeAllViews()
-        textInputEditTextBillerAlias.imeOptions = EditorInfo.IME_ACTION_NEXT
+        binding.viewBiller.linearLayoutSelectBillerDetails.removeAllViews()
+        binding.textInputEditTextBillerAlias.imeOptions = EditorInfo.IME_ACTION_NEXT
         imeOptionEditText.removeListener()
-        imeOptionEditText.addEditText(textInputEditTextBillerAlias)
+        imeOptionEditText.addEditText(binding.textInputEditTextBillerAlias)
         billerFields
             .sortedWith(compareBy { it.index })
             .forEach {
@@ -475,7 +468,7 @@ class ManageFrequentBillerFormActivity :
             }
         }
 
-        linearLayoutSelectBillerDetails?.addView(view)
+        binding.viewBiller.linearLayoutSelectBillerDetails.addView(view)
     }
 
     private fun setupField(
@@ -617,21 +610,21 @@ class ManageFrequentBillerFormActivity :
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field),
-            textInputEditTextAllowedSourceAccounts
+            binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts
         )
         val billerAliasObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field),
-            textInputEditTextBillerAlias
+            binding.textInputEditTextBillerAlias
         )
         val selectBillerObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field),
-            textInputEditTextSelectBiller
+            binding.viewBiller.textInputEditTextSelectBiller
         )
         initSetError(allowedSourceAccountsObservable)
         initSetError(billerAliasObservable)
@@ -668,21 +661,21 @@ class ManageFrequentBillerFormActivity :
         rxValidationResults.add(
             ReferenceTextInputEditText(
                 allowedSourceAccountsObservable,
-                textInputEditTextAllowedSourceAccounts,
+                binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts,
                 null
             )
         )
         rxValidationResults.add(
             ReferenceTextInputEditText(
                 billerAliasObservable,
-                textInputEditTextBillerAlias,
+                binding.textInputEditTextBillerAlias,
                 null
             )
         )
         rxValidationResults.add(
             ReferenceTextInputEditText(
                 selectBillerObservable,
-                textInputEditTextSelectBiller,
+                binding.viewBiller.textInputEditTextSelectBiller,
                 null
             )
         )
@@ -771,7 +764,7 @@ class ManageFrequentBillerFormActivity :
         frequentBillerForm.code = biller?.code
         frequentBillerForm.serviceId = biller?.serviceId
         frequentBillerForm.shortName = biller?.shortName
-        frequentBillerForm.name = textInputEditTextBillerAlias.text.toString().trim()
+        frequentBillerForm.name = binding.textInputEditTextBillerAlias.text.toString().trim()
         frequentBillerForm.fields = getBillerFields()
         frequentBillerForm.allAccountsSelected =
             viewModel.sourceAccountForm.value?.allAccountsSelected.notNullable()
@@ -847,8 +840,8 @@ class ManageFrequentBillerFormActivity :
     }
 
     private fun initEditFrequentBiller() {
-        textViewServiceFeeTitle.visibility(false)
-        textViewServiceFee.visibility(false)
+        binding.viewChannelHeader.textViewServiceFeeTitle.visibility(false)
+        binding.viewChannelHeader.textViewServiceFee.visibility(false)
         viewModel.getOrgName()
         val frequentBiller = intent.getParcelableExtra<FrequentBiller>(EXTRA_FREQUENT_BILLER)
         if (frequentBiller != null) {
@@ -873,8 +866,8 @@ class ManageFrequentBillerFormActivity :
             if (frequentBiller.accounts != null) {
                 viewModel.onSetSourceAccountsFromEdit(frequentBiller.accounts.notNullable())
             }
-            textInputEditTextBillerAlias.setText(frequentBiller.name)
-            textInputEditTextSelectBiller.setText(frequentBiller.billerName)
+            binding.textInputEditTextBillerAlias.setText(frequentBiller.name)
+            binding.viewBiller.textInputEditTextSelectBiller.setText(frequentBiller.billerName)
             viewModel.getBillerFields(frequentBiller.serviceId.notNullable())
         }.addTo(disposables)
     }
@@ -965,7 +958,7 @@ class ManageFrequentBillerFormActivity :
         val radius = resources.getDimension(R.dimen.field_radius)
         tutorialEngineUtil.startTutorial(
             this,
-            viewTutorialAllowedSourceAccounts,
+            binding.viewTutorialAllowedSourceAccounts,
             R.layout.frame_tutorial_upper_left,
             radius,
             false,
@@ -976,8 +969,8 @@ class ManageFrequentBillerFormActivity :
     }
 
     private fun clearFormFocus() {
-        constraintLayoutParent.requestFocus()
-        constraintLayoutParent.isFocusableInTouchMode = true
+        binding.constraintLayoutParent.requestFocus()
+        binding.constraintLayoutParent.isFocusableInTouchMode = true
     }
 
     private fun isCreationForm() = intent.getStringExtra(EXTRA_TYPE) == TYPE_CREATE
@@ -990,4 +983,10 @@ class ManageFrequentBillerFormActivity :
 
         const val TAG_SAVE_CHANGES_DIALOG = "save_changes_dialog"
     }
+
+    override val viewModelClassType: Class<ManageFrequentBillerFormViewModel>
+        get() = ManageFrequentBillerFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityManageFrequentBillerFormBinding
+        get() = ActivityManageFrequentBillerFormBinding::inflate
 }

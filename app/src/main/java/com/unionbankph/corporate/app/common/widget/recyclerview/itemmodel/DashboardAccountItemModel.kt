@@ -18,11 +18,12 @@ import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ItemDashboardAccountBinding
 import io.supercharge.shimmerlayout.ShimmerLayout
-import kotlinx.android.synthetic.main.item_account.view.*
 
 @EpoxyModelClass
-abstract class DashboardAccountItemModel : EpoxyModelWithHolder<DashboardAccountItemModel.Holder>() {
+abstract class DashboardAccountItemModel :
+    EpoxyModelWithHolder<DashboardAccountItemModel.Holder>() {
 
     override fun getDefaultLayout(): Int {
         return R.layout.item_dashboard_account
@@ -59,114 +60,101 @@ abstract class DashboardAccountItemModel : EpoxyModelWithHolder<DashboardAccount
         super.bind(holder)
         val account = JsonHelper.fromJson<Account>(accountString)
 
-        holder.corporateName.text = viewUtil.getStringOrDefaultString(
-            account.name,
-            context.getString(R.string.title_account_name)
-        )
-        holder.accountNumber.text = viewUtil.getStringOrEmpty(
-            viewUtil.getAccountNumberFormat(account.accountNumber)
-        )
-        holder.accountType.text = viewUtil.getStringOrEmpty(account.productCodeDesc)
-
-        if (account.productType.equals(ACCOUNT_TYPE_ODA)) {
-            val availableCredit = autoFormatUtil.getBalance(
-                AccountBalanceTypeEnum.AVAILABLE_CREDIT.value,
-                account.headers
+        holder.binding.apply {
+            textViewCorporateName.text = viewUtil.getStringOrDefaultString(
+                account.name,
+                context.getString(R.string.title_account_name)
             )
-            holder.textViewAvailableBalanceTitle.text = availableCredit?.display
-            holder.textViewAvailableBalance.text = availableCredit?.value ?: Constant.EMPTY
-            holder.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_orange)
-        } else {
-            val availableBalance = autoFormatUtil.getBalance(
-                AccountBalanceTypeEnum.AVAILABLE.value,
-                account.headers
+            textViewAccountNumber.text = viewUtil.getStringOrEmpty(
+                viewUtil.getAccountNumberFormat(account.accountNumber)
             )
-            holder.textViewAvailableBalanceTitle.text = availableBalance?.display
-            holder.textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
-            holder.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
-        }
+            textViewProductType.text = viewUtil.getStringOrEmpty(account.productCodeDesc)
 
-        holder.cardViewAccount.setOnClickListener {
-            if (account.permissionCollection.hasAllowToBTRViewTransaction &&
-                account.permissionCollection.hasAllowToBTRViewBalance &&
-                !errorBool
-            ) {
-                callbacks.onClickItem(accountString, position)
-            }
-        }
-
-        if (loadingAccount) {
-            //callbacks.onRequestAccountDetail(account.id.toString(), position)
-            holder.shimmerLayoutAmount.post {
-                holder.shimmerLayoutAmount.startShimmerAnimation()
-            }
-            holder.viewShimmer.visibility = View.VISIBLE
-            holder.textViewAvailableBalanceTitle.visibility = View.VISIBLE
-            holder.textViewAvailableBalance.visibility = View.INVISIBLE
-            holder.textViewAvailableBalance.text =
-                context.formatString(R.string.value_default_zero_balance)
-            if (holder.viewError.visibility == View.VISIBLE) {
-                holder.viewError.visibility = View.GONE
-            }
-        } else {
-            holder.shimmerLayoutAmount.post {
-                holder.shimmerLayoutAmount.stopShimmerAnimation()
-            }
-            holder.viewShimmer.visibility = View.GONE
-            if (account.permissionCollection.hasAllowToBTRViewBalance) {
-                holder.textViewAvailableBalanceTitle.visibility = View.VISIBLE
-                holder.textViewAvailableBalance.visibility = View.VISIBLE
+            if (account.productType.equals(ACCOUNT_TYPE_ODA)) {
+                val availableCredit = autoFormatUtil.getBalance(
+                    AccountBalanceTypeEnum.AVAILABLE_CREDIT.value,
+                    account.headers
+                )
+                textViewAvailableBalanceTitle.text = availableCredit?.display
+                textViewAvailableBalance.text = availableCredit?.value ?: Constant.EMPTY
+                cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_orange)
             } else {
-                holder.textViewAvailableBalanceTitle.visibility = View.INVISIBLE
-                holder.textViewAvailableBalance.visibility = View.INVISIBLE
+                val availableBalance = autoFormatUtil.getBalance(
+                    AccountBalanceTypeEnum.AVAILABLE.value,
+                    account.headers
+                )
+                textViewAvailableBalanceTitle.text = availableBalance?.display
+                textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
+                cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
             }
-        }
-        if (errorBool) {
-            holder.viewError.visibility = View.VISIBLE
-            holder.textViewAvailableBalanceTitle.visibility = View.INVISIBLE
-            holder.textViewAvailableBalance.visibility = View.INVISIBLE
-            holder.viewError.setOnClickListener {
-                callbacks.onTapErrorRetry(account.id.toString(), position)
+
+            cardViewAccount.setOnClickListener {
+                if (account.permissionCollection.hasAllowToBTRViewTransaction &&
+                    account.permissionCollection.hasAllowToBTRViewBalance &&
+                    !errorBool
+                ) {
+                    callbacks.onClickItem(accountString, position)
+                }
             }
-        } else {
-            holder.viewError.visibility = View.GONE
+
+            if (loadingAccount) {
+                //callbacks.onRequestAccountDetail(account.id.toString(), position)
+                shimmerLayoutAmount.post {
+                    shimmerLayoutAmount.startShimmerAnimation()
+                }
+                viewShimmer.visibility = View.VISIBLE
+                textViewAvailableBalanceTitle.visibility = View.VISIBLE
+                textViewAvailableBalance.visibility = View.INVISIBLE
+                textViewAvailableBalance.text =
+                    context.formatString(R.string.value_default_zero_balance)
+                if (viewError.root.visibility == View.VISIBLE) {
+                    viewError.root.visibility = View.GONE
+                }
+            } else {
+                shimmerLayoutAmount.post {
+                    shimmerLayoutAmount.stopShimmerAnimation()
+                }
+                viewShimmer.visibility = View.GONE
+                if (account.permissionCollection.hasAllowToBTRViewBalance) {
+                    textViewAvailableBalanceTitle.visibility = View.VISIBLE
+                    textViewAvailableBalance.visibility = View.VISIBLE
+                } else {
+                    textViewAvailableBalanceTitle.visibility = View.INVISIBLE
+                    textViewAvailableBalance.visibility = View.INVISIBLE
+                }
+            }
+            if (errorBool) {
+                viewError.root.visibility = View.VISIBLE
+                textViewAvailableBalanceTitle.visibility = View.INVISIBLE
+                textViewAvailableBalance.visibility = View.INVISIBLE
+                viewError.root.setOnClickListener {
+                    callbacks.onTapErrorRetry(account.id.toString(), position)
+                }
+            } else {
+                viewError.root.visibility = View.GONE
+            }
         }
     }
 
     override fun onViewAttachedToWindow(holder: Holder) {
         if (loadingAccount) {
-            holder.shimmerLayoutAmount.post {
-                holder.shimmerLayoutAmount.startShimmerAnimation()
+            holder.binding.shimmerLayoutAmount.post {
+                holder.binding.shimmerLayoutAmount.startShimmerAnimation()
             }
         } else {
-            holder.shimmerLayoutAmount.post {
-                holder.shimmerLayoutAmount.stopShimmerAnimation()
+            holder.binding.shimmerLayoutAmount.post {
+                holder.binding.shimmerLayoutAmount.stopShimmerAnimation()
             }
         }
         super.onViewAttachedToWindow(holder)
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var corporateName: TextView
-        lateinit var accountNumber: TextView
-        lateinit var textViewAvailableBalance: TextView
-        lateinit var textViewAvailableBalanceTitle: TextView
-        lateinit var accountType: TextView
-        lateinit var cardViewAccount: CardView
-        lateinit var shimmerLayoutAmount: ShimmerLayout
-        lateinit var viewShimmer: View
-        lateinit var viewError: View
+
+        lateinit var binding: ItemDashboardAccountBinding
 
         override fun bindView(itemView: View) {
-            corporateName = itemView.textViewCorporateName
-            accountNumber = itemView.textViewAccountNumber
-            textViewAvailableBalance = itemView.textViewAvailableBalance
-            textViewAvailableBalanceTitle = itemView.textViewAvailableBalanceTitle
-            accountType = itemView.textViewProductType
-            cardViewAccount = itemView.card_view_account
-            shimmerLayoutAmount = itemView.shimmerLayoutAmount
-            viewShimmer = itemView.viewShimmer
-            viewError = itemView.viewError
+            binding = ItemDashboardAccountBinding.bind(itemView)
         }
     }
 }

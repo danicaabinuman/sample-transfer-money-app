@@ -192,7 +192,7 @@
     </androidx.cardview.widget.CardView>
 
     <include
-        android:id="@+id/cardViewBatch"
+        android:id="@+id/viewCardViewBatch"
         layout="@layout/view_card_batch_layer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

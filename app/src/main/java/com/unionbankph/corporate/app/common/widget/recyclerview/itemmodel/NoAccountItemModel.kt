@@ -8,7 +8,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardAdapterCallback
-import kotlinx.android.synthetic.main.item_no_account.view.*
+import com.unionbankph.corporate.databinding.ItemNoAccountBinding
 
 @EpoxyModelClass
 abstract class NoAccountItemModel : EpoxyModelWithHolder<NoAccountItemModel.Holder>() {
@@ -21,17 +21,17 @@ abstract class NoAccountItemModel : EpoxyModelWithHolder<NoAccountItemModel.Hold
     }
 
     override fun bind(holder: Holder) {
-        holder.cardViewRoot.setOnClickListener {
+        holder.binding.root.setOnClickListener {
             callbacks.onContinueAccountSetup()
         }
     }
 
     class Holder: EpoxyHolder() {
 
-        lateinit var cardViewRoot: CardView
+        lateinit var binding : ItemNoAccountBinding
 
         override fun bindView(itemView: View) {
-            cardViewRoot = itemView.cardViewSetupAccount
+            binding = ItemNoAccountBinding.bind(itemView)
         }
     }
 }

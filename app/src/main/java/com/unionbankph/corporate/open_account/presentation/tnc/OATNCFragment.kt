@@ -1,20 +1,21 @@
 package com.unionbankph.corporate.open_account.presentation.tnc
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
-import kotlinx.android.synthetic.main.fragment_oa_terms_and_condition.*
 import com.jakewharton.rxbinding2.view.RxView
+import com.unionbankph.corporate.databinding.FragmentOaTermsAndConditionBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_oa_terms_and_condition.*
 import java.util.concurrent.TimeUnit
 
 class OATNCFragment :
-    BaseFragment<OpenAccountViewModel>(R.layout.fragment_oa_terms_and_condition) {
+    BaseFragment<FragmentOaTermsAndConditionBinding, OpenAccountViewModel>() {
 
     private val openAccountActivity by lazyFast { getAppCompatActivity() as OpenAccountActivity }
 
@@ -31,7 +32,7 @@ class OATNCFragment :
 
     private fun initOnClicks() {
 
-        RxView.clicks(btn_proceed)
+        RxView.clicks(binding.btnProceed)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -40,6 +41,12 @@ class OATNCFragment :
                 findNavController().navigate(R.id.action_tnc_to_enter_contact_info)
             }.addTo(disposables)
     }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOaTermsAndConditionBinding
+        get() = FragmentOaTermsAndConditionBinding::inflate
+
+    override val viewModelClassType: Class<OpenAccountViewModel>
+        get() = OpenAccountViewModel::class.java
 }
 
 

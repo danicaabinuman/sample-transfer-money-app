@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.welcome_enter
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
@@ -20,21 +22,18 @@ import com.unionbankph.corporate.dao.domain.exception.VerificationCompletedExcep
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
+import com.unionbankph.corporate.databinding.FragmentDaoWelcomeBinding
+import com.unionbankph.corporate.databinding.FragmentDaoWelcomeEnterBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_welcome_enter.*
 
 class DaoWelcomeEnterFragment :
-    BaseFragment<DaoWelcomeEnterViewModel>(R.layout.fragment_dao_welcome_enter),
+    BaseFragment<FragmentDaoWelcomeEnterBinding, DaoWelcomeEnterViewModel>(),
     DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[DaoWelcomeEnterViewModel::class.java]
         viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
             if (it) {
                 navigateDaoScreen()
@@ -96,7 +95,7 @@ class DaoWelcomeEnterFragment :
                 val daoHit = DaoHit(
                     false,
                     businessName = details.businessName,
-                    referenceNumber = tie_reference_number.text?.toString().notNullable()
+                    referenceNumber = binding.tieReferenceNumber.text?.toString().notNullable()
                 )
                 navigationDaoResult(daoHit)
             }
@@ -112,7 +111,7 @@ class DaoWelcomeEnterFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_reference_number
+            editText = binding.tieReferenceNumber
         )
         initSetError(referenceNumberObservable)
         RxCombineValidator(referenceNumberObservable)
@@ -128,8 +127,8 @@ class DaoWelcomeEnterFragment :
     }
 
     private fun clearFormFocus() {
-        constraint_layout.requestFocus()
-        constraint_layout.isFocusableInTouchMode = true
+        binding.constraintLayout.requestFocus()
+        binding.constraintLayout.isFocusableInTouchMode = true
         viewUtil.dismissKeyboard(getAppCompatActivity())
     }
 
@@ -178,15 +177,20 @@ class DaoWelcomeEnterFragment :
     }
 
     override fun onClickNext() {
-        constraint_layout.post {
+        binding.constraintLayout.post {
             clearFormFocus()
             if (viewModel.hasValidForm()) {
-                viewModel.onClickedSubmit(tie_reference_number.text.toString())
+                viewModel.onClickedSubmit(binding.tieReferenceNumber.text.toString())
             } else {
                 showMissingFieldDialog()
-                tie_reference_number.refresh()
+                binding.tieReferenceNumber.refresh()
             }
         }
     }
 
+    override val viewModelClassType: Class<DaoWelcomeEnterViewModel>
+        get() = DaoWelcomeEnterViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoWelcomeEnterBinding
+        get() = FragmentDaoWelcomeEnterBinding::inflate
 }

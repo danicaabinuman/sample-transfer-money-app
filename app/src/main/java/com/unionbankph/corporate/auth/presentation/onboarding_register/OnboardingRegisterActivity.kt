@@ -1,32 +1,29 @@
 package com.unionbankph.corporate.auth.presentation.onboarding_register
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.databinding.ActivityOnboardingRegisterBinding
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_onboarding_register.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.toolbar
 import java.util.concurrent.TimeUnit
 
-class OnboardingRegisterActivity : BaseActivity<OnboardingRegisterViewModel>(R.layout.activity_onboarding_register) {
+class OnboardingRegisterActivity :
+    BaseActivity<ActivityOnboardingRegisterBinding, OnboardingRegisterViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorSMEMediumOrange, true)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[OnboardingRegisterViewModel::class.java]
 
     }
 
@@ -37,7 +34,7 @@ class OnboardingRegisterActivity : BaseActivity<OnboardingRegisterViewModel>(R.l
     }
 
     fun initViews(){
-        RxView.clicks(btn_existing_ub_account)
+        RxView.clicks(binding.btnExistingUbAccount)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -67,4 +64,10 @@ class OnboardingRegisterActivity : BaseActivity<OnboardingRegisterViewModel>(R.l
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOnboardingRegisterBinding
+        get() = ActivityOnboardingRegisterBinding::inflate
+
+    override val viewModelClassType: Class<OnboardingRegisterViewModel>
+        get() = OnboardingRegisterViewModel::class.java
 }

@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.preferred_branch
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
@@ -13,21 +15,19 @@ import com.unionbankph.corporate.branch.data.model.Branch
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.databinding.FragmentDaoPreferredBranchBinding
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_preferred_branch.*
 import java.util.*
 
 class DaoPreferredBranchFragment :
-    BaseFragment<DaoPreferredBranchViewModel>(R.layout.fragment_dao_preferred_branch),
+    BaseFragment<FragmentDaoPreferredBranchBinding, DaoPreferredBranchViewModel>(),
     DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[DaoPreferredBranchViewModel::class.java]
     }
 
     override fun onViewsBound() {
@@ -56,7 +56,7 @@ class DaoPreferredBranchFragment :
     private fun initBinding() {
         viewModel.dateInput
             .subscribe {
-                tie_date.setText(
+                binding.tieDate.setText(
                     viewUtil.getDateFormatByCalendar(
                         it,
                         DateFormatEnum.DATE_FORMAT_DATE.value
@@ -65,7 +65,7 @@ class DaoPreferredBranchFragment :
             }.addTo(disposables)
         viewModel.branchInput
             .subscribe {
-                tie_preferred_branch.setText(it.name)
+                binding.tiePreferredBranch.setText(it.name)
             }.addTo(disposables)
     }
 
@@ -80,10 +80,10 @@ class DaoPreferredBranchFragment :
     }
 
     private fun initClickListener() {
-        tie_preferred_branch.setOnClickListener {
+        binding.tiePreferredBranch.setOnClickListener {
             findNavController().navigate(R.id.action_branch_activity)
         }
-        tie_date.setOnClickListener {
+        binding.tieDate.setOnClickListener {
             showDatePicker(
                 minDate = Calendar.getInstance(),
                 callback = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -103,14 +103,14 @@ class DaoPreferredBranchFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_preferred_branch
+            editText = binding.tiePreferredBranch
         )
         val tieDate = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_date
+            editText = binding.tieDate
         )
         initSetError(preferredBranchObservable)
         initSetError(tieDate)
@@ -131,8 +131,8 @@ class DaoPreferredBranchFragment :
 
     private fun clearFormFocus() {
         viewUtil.dismissKeyboard(getAppCompatActivity())
-        constraint_layout.requestFocus()
-        constraint_layout.isFocusableInTouchMode = true
+        binding.constraintLayout.requestFocus()
+        binding.constraintLayout.isFocusableInTouchMode = true
     }
 
     private fun showMissingFieldDialog() {
@@ -152,4 +152,10 @@ class DaoPreferredBranchFragment :
 //            tie_date.refresh()
 //        }
     }
+
+    override val viewModelClassType: Class<DaoPreferredBranchViewModel>
+        get() = DaoPreferredBranchViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoPreferredBranchBinding
+        get() = FragmentDaoPreferredBranchBinding::inflate
 }

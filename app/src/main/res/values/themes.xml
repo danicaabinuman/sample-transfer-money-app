@@ -86,8 +86,8 @@
         <item name="netverify_scanOptionsItemBackground">@color/colorWhite</item>
 
         <item name="netverify_confirmationBackground">@color/colorContentBackground</item>
-        <item name="netverify_confirmationPositiveStyle">@style/Positive.MaterialButton</item>
-        <item name="netverify_confirmationNegativeStyle">@style/Negative.MaterialButton</item>
+        <!--        <item name="netverify_confirmationPositiveStyle">@style/Positive.MaterialButton</item>-->
+        <!--        <item name="netverify_confirmationNegativeStyle">@style/Negative.MaterialButton</item>-->
         <item name="netverify_confirmationIcon">?colorAccent</item>
         <item name="netverify_confirmationHintStyle">@style/JumioConfirmationHint</item>
 
@@ -102,21 +102,20 @@
         <item name="netverify_scanOverlayFill">@color/colorWhite50</item>
         <item name="netverify_scanBackground">@color/colorWhite50</item>
 
-        <item name="face_helpButtonTheme">@style/HelpViewButton</item>
-        <item name="face_scanOverlayFeedbackBackground">?colorAccent</item>
-        <item name="face_scanOverlayProgress">?colorAccent</item>
-        <item name="face_helpBackground">@color/colorContentBackground</item>
-        <item name="face_scanOverlayFeedbackText">@color/colorWhite</item>
-        <item name="face_helpTitle">?colorAccent</item>
-        <item name="face_helpProgressString">@color/colorWhite</item>
-        <item name="face_helpImage">@color/colorInfo</item>
-        <item name="face_helpSeperator">@color/colorInfo</item>
-        <item name="face_helpInstructions">@color/colorInfo</item>
-        <item name="face_helpFallback">@color/colorInfo</item>
-        <item name="face_helpFallbackText">@color/colorInfo</item>
-        <item name="face_scanOverlayBackground">@color/colorWhite50</item>
-        <item name="face_scanOverlayOval">@color/colorWhite</item>
-
+        <!--        <item name="face_helpButtonTheme">@style/HelpViewButton</item>-->
+        <!--        <item name="face_scanOverlayFeedbackBackground">?colorAccent</item>-->
+        <!--        <item name="face_scanOverlayProgress">?colorAccent</item>-->
+        <!--        <item name="face_helpBackground">@color/colorContentBackground</item>-->
+        <!--        <item name="face_scanOverlayFeedbackText">@color/colorWhite</item>-->
+        <!--        <item name="face_helpTitle">?colorAccent</item>-->
+        <!--        <item name="face_helpProgressString">@color/colorWhite</item>-->
+        <!--        <item name="face_helpImage">@color/colorInfo</item>-->
+        <!--        <item name="face_helpSeperator">@color/colorInfo</item>-->
+        <!--        <item name="face_helpInstructions">@color/colorInfo</item>-->
+        <!--        <item name="face_helpFallback">@color/colorInfo</item>-->
+        <!--        <item name="face_helpFallbackText">@color/colorInfo</item>-->
+        <!--        <item name="face_scanOverlayBackground">@color/colorWhite50</item>-->
+        <!--        <item name="face_scanOverlayOval">@color/colorWhite</item>-->
 
         <item name="netverify_submissionErrorStatusBar">@color/colorDarkGray</item>
         <item name="netverify_submissionErrorBackground">@color/colorContentBackground</item>
@@ -147,7 +146,30 @@
         <item name="netverify_countryListCountryName">@color/jumio_grey900</item>
         <item name="netverify_countryListSeperator">@color/jumio_grey300</item>
 
-        <item name="netverify_nfc_dialog_theme">@style/Netverify.NFC.Dialog</item>
+        <item name="materialButtonStyle">@style/JumioPositiveButtonStyle</item>
+        <item name="materialButtonOutlinedStyle">@style/JumioNegativeButtonStyle</item>
+
+        <item name="iproov_customization">@style/CustomIproov</item>
+    </style>
+
+    <style name="JumioPositiveButtonStyle" parent="RoundedButtonOrangeTransparent">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:layout_height">@dimen/button_small_size</item>
+    </style>
+
+    <style name="JumioNegativeButtonStyle" parent="RoundedButtonBorderedLightOverLay">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:layout_height">@dimen/button_small_size</item>
+    </style>
+
+    <style name="CustomIproov" parent="Iproov.Customization">
+        <item name="iproov_helpBackground">@color/colorContentBackground</item>
+        <item name="iproov_helpText">?colorAccent</item>
+        <item name="iproov_helpImage">@color/colorInfo</item>
+        <item name="iproov_livenessScanningTintColor">@color/colorInfo</item>
+        <item name="iproov_headerTextColor">?colorAccent</item>
+        <item name="iproov_headerBackgroundColor">@color/colorInfo</item>
+        <!--        <item name="iproov_confirmationPositiveStyle">@style/Positive.MaterialButton</item>-->
     </style>
 
     <style name="AppThemePortal.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />

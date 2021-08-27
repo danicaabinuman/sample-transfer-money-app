@@ -14,18 +14,23 @@ properties.load(FileInputStream(versionPropertiesFile))
 plugins {
     id(BuildPlugins.androidApplication)
     id(BuildPlugins.kotlinAndroid)
-    id(BuildPlugins.kotlinAndroidExtensions)
     id(BuildPlugins.kotlinKapt)
     id(BuildPlugins.kotlinxSerialization)
+    id(BuildPlugins.kotlinAndroidParcelize)
     id(BuildPlugins.navigationSafeArgs)
     id(BuildPlugins.googleServices)
     id(BuildPlugins.firebaseCrashlytics)
     id(BuildPlugins.ktLint)
 }
 
+
 android {
     compileSdkVersion(AndroidSdk.compile)
     flavorDimensions(AndroidSdk.dimension)
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
     defaultConfig {
         minSdkVersion(AndroidSdk.min)
         targetSdkVersion(AndroidSdk.target)
@@ -159,7 +164,7 @@ ktlint {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libraries.kotlinStdLib)
+    implementation(Libraries.kotlinReflect)
     implementation(Libraries.multiDex)
     /* View */
     implementation(Libraries.appCompat)
@@ -188,9 +193,11 @@ dependencies {
     implementation(Libraries.dagger)
     implementation(Libraries.daggerSupport)
     implementation(Libraries.coreKtx)
+    implementation(Libraries.kotlinXCore)
     implementation(Libraries.kotlinX)
     implementation(Libraries.kotlinXConverter)
     implementation(Libraries.extensionLifeCycle)
+    implementation(Libraries.commonJava8LifeCycle)
     implementation(Libraries.glide)
     implementation(Libraries.timber)
     kapt(Libraries.glideCompiler)
@@ -212,6 +219,7 @@ dependencies {
     implementation(Libraries.materialDialogLifeCycle)
     implementation(Libraries.shimmer)
     implementation(Libraries.epoxy)
+    implementation(Libraries.epoxyViewBinding)
     implementation(Libraries.ahbottomnavigation)
     implementation(Libraries.shortcutBadger)
     implementation(Libraries.phoneNumber)
@@ -230,6 +238,7 @@ dependencies {
     implementation(Libraries.playServicesAuth)
     implementation(Libraries.playServicesAuthPhone)
     kapt(Libraries.epoxyProcessor)
+    implementation(Libraries.biometric)
 
     // Third party SDK
     implementation(Libraries.jumioCore)
@@ -238,10 +247,12 @@ dependencies {
     implementation(Libraries.jumioMRZ)
     implementation(Libraries.jumioNFC)
     implementation(Libraries.jumioOCR)
-    implementation(Libraries.jumioFace)
-    implementation(Libraries.jumioDV)
-    implementation(Libraries.facetecZoom)
+    implementation(Libraries.jumioIProove)
     implementation(Libraries.roomRuntime)
+
+    implementation(Libraries.iProovSDK) {
+        exclude("org.json", "json")
+    }
 
     /* Testing */
     testImplementation(TestLibraries.junit)
@@ -279,15 +290,12 @@ fun setupProductFlavors(
     productFlavor.versionCode = newVersionCode
     productFlavor.applicationIdSuffix = getApplicationSuffixId(appId, env)
     productFlavor.versionNameSuffix = getVersionNameSuffix(env)
-    productFlavor.setDimension(AndroidSdk.dimension)
-    val host = buildGradle.properties["host${env.getDisplayName()}"].toString()
-    productFlavor.manifestPlaceholders = mapOf(
-        "appTheme" to if (appId == AppId.SME) {
-            "@style/AppThemeSME"
-        } else {
-            "@style/AppThemePortal"
-        }
-    )
+    productFlavor.dimension(AndroidSdk.dimension)
+    var host = buildGradle.properties["host${env.getDisplayName()}"].toString()
+    productFlavor.manifestPlaceholders["appTheme"] = when (appId == AppId.SME) {
+        true -> "@style/AppThemeSME"
+        else -> "@style/AppThemePortal"
+    }
     productFlavor.resValue("string", "app_name", getAppName(appId, env))
     productFlavor.resValue(
         "string",

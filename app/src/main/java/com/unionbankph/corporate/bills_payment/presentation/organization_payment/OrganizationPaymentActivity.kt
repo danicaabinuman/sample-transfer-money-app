@@ -6,6 +6,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -44,25 +45,14 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTu
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity
+import com.unionbankph.corporate.databinding.ActivityOrganizationPaymentBinding
 import com.unionbankph.corporate.general.data.model.TransactionFilterForm
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_organization_payment.*
-import kotlinx.android.synthetic.main.activity_organization_payment.constraintLayout
-import kotlinx.android.synthetic.main.activity_organization_payment.recyclerViewTutorial
-import kotlinx.android.synthetic.main.activity_organization_payment.swipeRefreshLayoutTable
-import kotlinx.android.synthetic.main.activity_organization_payment.textViewState
-import kotlinx.android.synthetic.main.activity_organization_payment.viewLoadingState
-import kotlinx.android.synthetic.main.activity_organization_payment.viewToolbar
-import kotlinx.android.synthetic.main.activity_organization_transfer.*
-import kotlinx.android.synthetic.main.widget_badge_small.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_table_view.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.concurrent.TimeUnit
 
 class OrganizationPaymentActivity :
-    BaseActivity<OrganizationPaymentViewModel>(R.layout.activity_organization_payment),
+    BaseActivity<ActivityOrganizationPaymentBinding, OrganizationPaymentViewModel>(),
     OnTutorialListener,
     EpoxyAdapterCallback<Transaction> {
 
@@ -87,7 +77,7 @@ class OrganizationPaymentActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -131,8 +121,8 @@ class OrganizationPaymentActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         getString(R.string.title_bills_payment),
                         it.orgName
                     )
@@ -143,8 +133,6 @@ class OrganizationPaymentActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[OrganizationPaymentViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -152,12 +140,12 @@ class OrganizationPaymentActivity :
                         showEndlessProgressBar()
                     } else {
                         showLoading(
-                            viewLoadingState,
+                            binding.viewLoadingState.root,
                             getSwipeRefreshLayout(),
                             getRecyclerView(),
-                            textViewState
+                            binding.textViewState
                         )
-                        if (viewLoadingState.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     }
@@ -167,7 +155,7 @@ class OrganizationPaymentActivity :
                         dismissEndlessProgressBar()
                     } else {
                         dismissLoading(
-                            viewLoadingState,
+                            binding.viewLoadingState.root,
                             getSwipeRefreshLayout(),
                             getRecyclerView()
                         )
@@ -210,8 +198,8 @@ class OrganizationPaymentActivity :
                 true
             }
             R.id.menu_help -> {
-                if (fabBillsPayment.isOpened) {
-                    fabBillsPayment.toggle(true)
+                if (binding.fabBillsPayment.isOpened) {
+                    binding.fabBillsPayment.toggle(true)
                 }
                 isClickedHelpTutorial = true
                 viewModel.getOrganizationPaymentsTestData()
@@ -222,8 +210,8 @@ class OrganizationPaymentActivity :
     }
 
     override fun onBackPressed() {
-        if (fabBillsPayment.isOpened) {
-            fabBillsPayment.toggle(true)
+        if (binding.fabBillsPayment.isOpened) {
+            binding.fabBillsPayment.toggle(true)
         } else {
             onBackPressed(false)
             overridePendingTransition(R.anim.anim_no_change, R.anim.anim_slide_down)
@@ -241,29 +229,29 @@ class OrganizationPaymentActivity :
                 fetchTransactionHistory(true)
             }
         }
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        RxView.clicks(imageViewFilter)
+        RxView.clicks(binding.viewSearchLayout.imageViewFilter)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
                 navigateTransactionFilterScreen()
-                if (fabBillsPayment.isOpened) {
-                    fabBillsPayment.toggle(true)
+                if (binding.fabBillsPayment.isOpened) {
+                    binding.fabBillsPayment.toggle(true)
                 }
             }.addTo(disposables)
     }
 
     private fun init() {
-        imageViewFilter.visibility(true)
+        binding.viewSearchLayout.imageViewFilter.visibility(true)
     }
 
     private fun initBinding() {
@@ -280,18 +268,18 @@ class OrganizationPaymentActivity :
             .subscribe {
                 it.count?.let {
                     val hasBadge = it > 0
-                    viewBadgeCount.visibility(hasBadge)
-                    textViewBadgeCount.text = it.toString()
-                    textViewBadgeCount.setContextCompatBackground(R.drawable.circle_solid_orange)
+                    binding.viewSearchLayout.viewBadgeCount.root.visibility(hasBadge)
+                    binding.viewSearchLayout.viewBadgeCount.textViewBadgeCount.text = it.toString()
+                    binding.viewSearchLayout.viewBadgeCount.textViewBadgeCount.setContextCompatBackground(R.drawable.circle_solid_orange)
                     if (hasBadge) {
-                        imageViewFilter.setImageResource(R.drawable.ic_filter_orange)
+                        binding.viewSearchLayout.imageViewFilter.setImageResource(R.drawable.ic_filter_orange)
                     } else {
-                        imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
+                        binding.viewSearchLayout.imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
                     }
                 }
                 if (it.count == null) {
-                    imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
-                    viewBadgeCount.visibility(false)
+                    binding.viewSearchLayout.imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
+                    binding.viewSearchLayout.viewBadgeCount.root.visibility(false)
                 }
             }.addTo(disposables)
     }
@@ -300,7 +288,7 @@ class OrganizationPaymentActivity :
         eventBus.actionSyncEvent.flowable.subscribe {
             when {
                 it.eventType == ActionSyncEvent.ACTION_UPDATE_TRANSACTION_LIST -> {
-                    if (viewLoadingState.visibility != View.VISIBLE) {
+                    if (binding.viewLoadingState.root.visibility != View.VISIBLE) {
                         getSwipeRefreshLayout().isRefreshing = true
                     }
                     fetchTransactionHistory(true)
@@ -319,17 +307,17 @@ class OrganizationPaymentActivity :
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener
         { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                editTextSearch.clearFocus()
+                binding.viewSearchLayout.editTextSearch.clearFocus()
                 viewUtil.dismissKeyboard(this@OrganizationPaymentActivity)
                 fetchTransactionHistory(true)
                 return@OnEditorActionListener true
             }
             false
         })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -337,7 +325,7 @@ class OrganizationPaymentActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     viewModel.pageable.filter = filter.text().toString().nullable()
                     fetchTransactionHistory(true)
@@ -382,9 +370,9 @@ class OrganizationPaymentActivity :
                     getFirstItemTutorial() -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            fabBillsPayment.menuIconView,
+                            binding.fabBillsPayment.menuIconView,
                             R.layout.frame_tutorial_lower_right,
-                            fabBillsPayment.menuIconView.height.toFloat() +
+                            binding.fabBillsPayment.menuIconView.height.toFloat() +
                                     resources.getDimension(R.dimen.content_spacing),
                             true,
                             getString(R.string.msg_tutorial_bills_payment_create),
@@ -392,19 +380,19 @@ class OrganizationPaymentActivity :
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    fabBillsPayment.menuIconView -> {
+                    binding.fabBillsPayment.menuIconView -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            imageViewFilter,
+                            binding.viewSearchLayout.imageViewFilter,
                             R.layout.frame_tutorial_upper_right,
-                            getCircleFloatSize(imageViewFilter),
+                            getCircleFloatSize(binding.viewSearchLayout.imageViewFilter),
                             true,
                             getString(R.string.msg_tutorial_bills_payment_filter),
                             GravityEnum.BOTTOM,
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    imageViewFilter -> {
+                    binding.viewSearchLayout.imageViewFilter -> {
                         clearTutorial()
                     }
                 }
@@ -460,10 +448,10 @@ class OrganizationPaymentActivity :
 
     private fun initFabButton() {
         val set = AnimatorSet()
-        val scaleOutX = ObjectAnimator.ofFloat(fabBillsPayment.menuIconView, "scaleX", 1.0f, 0.2f)
-        val scaleOutY = ObjectAnimator.ofFloat(fabBillsPayment.menuIconView, "scaleY", 1.0f, 0.2f)
-        val scaleInX = ObjectAnimator.ofFloat(fabBillsPayment.menuIconView, "scaleX", 0.2f, 1.0f)
-        val scaleInY = ObjectAnimator.ofFloat(fabBillsPayment.menuIconView, "scaleY", 0.2f, 1.0f)
+        val scaleOutX = ObjectAnimator.ofFloat(binding.fabBillsPayment.menuIconView, "scaleX", 1.0f, 0.2f)
+        val scaleOutY = ObjectAnimator.ofFloat(binding.fabBillsPayment.menuIconView, "scaleY", 1.0f, 0.2f)
+        val scaleInX = ObjectAnimator.ofFloat(binding.fabBillsPayment.menuIconView, "scaleX", 0.2f, 1.0f)
+        val scaleInY = ObjectAnimator.ofFloat(binding.fabBillsPayment.menuIconView, "scaleY", 0.2f, 1.0f)
         scaleOutX.duration = 50
         scaleOutY.duration = 50
         scaleInX.duration = 150
@@ -471,48 +459,48 @@ class OrganizationPaymentActivity :
         set.play(scaleOutX).with(scaleOutY)
         set.play(scaleInX).with(scaleInY).after(scaleOutX)
         set.interpolator = OvershootInterpolator(2f)
-        fabBillsPayment.menuIconView.id = R.id.imageViewMakeAPayment
-        fabBillsPayment.iconToggleAnimatorSet = set
-        fabBillsPayment.setClosedOnTouchOutside(true)
+        binding.fabBillsPayment.menuIconView.id = R.id.imageViewMakeAPayment
+        binding.fabBillsPayment.iconToggleAnimatorSet = set
+        binding.fabBillsPayment.setClosedOnTouchOutside(true)
         initFabButtonListener(scaleInX)
     }
 
     private fun initFabButtonListener(scaleInX: ObjectAnimator) {
         scaleInX.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {
-                if (fabBillsPayment.isOpened) {
-                    fabBillsPayment.menuIconView.setImageResource(R.drawable.ic_plus_white)
+                if (binding.fabBillsPayment.isOpened) {
+                    binding.fabBillsPayment.menuIconView.setImageResource(R.drawable.ic_plus_white)
                 } else {
                     initMakePaymentFab()
                 }
             }
         })
-        fabBillsPayment.setOnMenuButtonClickListener {
+        binding.fabBillsPayment.setOnMenuButtonClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000)
                 return@setOnMenuButtonClickListener
-            if (fabBillsPayment.isOpened) {
+            if (binding.fabBillsPayment.isOpened) {
                 navigateChannelScreen()
             } else {
-                fabBillsPayment.toggle(true)
+                binding.fabBillsPayment.toggle(true)
             }
         }
-        fabMenuManageFrequentBillers.setOnClickListener {
+        binding.fabMenuManageFrequentBillers.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
-            fabBillsPayment.toggle(true)
+            binding.fabBillsPayment.toggle(true)
             navigateFrequentBillerScreen()
         }
     }
 
     private fun initMakePaymentFab() {
-        fabBillsPayment.menuButtonLabelText = getString(R.string.title_make_payment)
-        fabBillsPayment.menuIconView.setImageResource(R.drawable.ic_card_white)
+        binding.fabBillsPayment.menuButtonLabelText = getString(R.string.title_make_payment)
+        binding.fabBillsPayment.menuIconView.setImageResource(R.drawable.ic_card_white)
     }
 
     private fun navigateChannelScreen() {
         if (!viewModel.hasCreateTransaction.value.notNullable()) {
             showPermissionAccountBottomSheet()
         } else {
-            fabBillsPayment.toggle(false)
+            binding.fabBillsPayment.toggle(false)
             val bundle = Bundle()
             bundle.putString(ChannelActivity.EXTRA_PAGE, ChannelActivity.PAGE_BILLS_PAYMENT)
             navigator.navigate(
@@ -584,7 +572,7 @@ class OrganizationPaymentActivity :
         if (!isInitial) {
             getRecyclerView().visibility(false)
             if (isTableView()) {
-                linearLayoutRow.visibility(true)
+                binding.viewTable.linearLayoutRow.visibility(true)
             }
             updateTutorialController()
             viewUtil.animateRecyclerView(getRecyclerViewTutorial(), true)
@@ -603,7 +591,7 @@ class OrganizationPaymentActivity :
         getRecyclerView().visibility(true)
         getRecyclerViewTutorial().visibility(false)
         getRecyclerViewTutorial().setController(organizationPaymentTutorialController)
-        if (viewLoadingState.visibility != View.VISIBLE) {
+        if (binding.viewLoadingState.root.visibility != View.VISIBLE) {
             showEmptyState(getTransactionsLiveData())
         }
     }
@@ -613,7 +601,7 @@ class OrganizationPaymentActivity :
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        constraintLayout,
+                        binding.constraintLayout,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -637,12 +625,13 @@ class OrganizationPaymentActivity :
 
     private fun showEmptyState(data: MutableList<Transaction>) {
         if (isTableView()) {
-            linearLayoutRow.visibility(data.isNotEmpty())
+            binding.viewTable.linearLayoutRow.visibility(data.isNotEmpty())
         }
         if (data.isNotEmpty()) {
-            if (textViewState?.visibility == View.VISIBLE) textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -702,8 +691,8 @@ class OrganizationPaymentActivity :
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutOrganizationPayment.visibility(false)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutOrganizationPayment.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_organization_payments)
                     .toMutableList()
@@ -712,19 +701,19 @@ class OrganizationPaymentActivity :
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewOrganizationPayment
+        if (isTableView()) binding.viewTable.recyclerViewTable else binding.recyclerViewOrganizationPayment
 
     private fun getRecyclerViewTutorial() =
-        if (isTableView()) recyclerViewTableTutorial else recyclerViewTutorial
+        if (isTableView()) binding.viewTable.recyclerViewTableTutorial else binding.recyclerViewTutorial
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutOrganizationPayment
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutOrganizationPayment
 
     private fun showProcessingStatusRestrictionDialog() {
         val processingStatusRestrictionDialog = ConfirmationBottomSheet.newInstance(
@@ -765,5 +754,11 @@ class OrganizationPaymentActivity :
             this::class.java.simpleName
         )
     }
+
+    override val viewModelClassType: Class<OrganizationPaymentViewModel>
+        get() = OrganizationPaymentViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOrganizationPaymentBinding
+        get() = ActivityOrganizationPaymentBinding::inflate
 
 }

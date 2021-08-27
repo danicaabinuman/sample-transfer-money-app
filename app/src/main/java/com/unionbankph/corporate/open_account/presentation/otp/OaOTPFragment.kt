@@ -1,25 +1,21 @@
 package com.unionbankph.corporate.open_account.presentation.otp
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.widget.edittext.PincodeEditText
+import com.unionbankph.corporate.databinding.FragmentOaOtpBinding
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_otp.*
 import java.util.concurrent.TimeUnit
-import kotlinx.android.synthetic.main.fragment_oa_otp.*
-import kotlinx.android.synthetic.main.fragment_oa_otp.btnResend
-import kotlinx.android.synthetic.main.fragment_oa_otp.btnSubmit
-import kotlinx.android.synthetic.main.fragment_oa_otp.buttonGenerateOTP
-import kotlinx.android.synthetic.main.fragment_oa_otp.editTextHidden
-import kotlinx.android.synthetic.main.fragment_oa_otp.parentLayout
-import kotlinx.android.synthetic.main.widget_pin_code.*
 
 
-class OaOTPFragment : BaseFragment<OaOTPViewModel>(R.layout.fragment_oa_otp),
+class OaOTPFragment :
+    BaseFragment<FragmentOaOtpBinding, OaOTPViewModel>(),
     PincodeEditText.OnOTPCallback {
 
     private val openAccountActivity by lazyFast { getAppCompatActivity() as OpenAccountActivity }
@@ -35,15 +31,15 @@ class OaOTPFragment : BaseFragment<OaOTPViewModel>(R.layout.fragment_oa_otp),
         pinCodeEditText =
             PincodeEditText(
                 openAccountActivity,
-                parentLayout,
-                btnSubmit,
-                editTextHidden,
-                etPin1,
-                etPin2,
-                etPin3,
-                etPin4,
-                etPin5,
-                etPin6
+                binding.parentLayout,
+                binding.btnSubmit,
+                binding.editTextHidden,
+                binding.viewPinCode.etPin1,
+                binding.viewPinCode.etPin2,
+                binding.viewPinCode.etPin3,
+                binding.viewPinCode.etPin4,
+                binding.viewPinCode.etPin5,
+                binding.viewPinCode.etPin6
             )
         pinCodeEditText.setOnOTPCallback(this)
     }
@@ -51,7 +47,7 @@ class OaOTPFragment : BaseFragment<OaOTPViewModel>(R.layout.fragment_oa_otp),
     override fun onInitializeListener() {
         super.onInitializeListener()
 
-        RxView.clicks(buttonGenerateOTP)
+        RxView.clicks(binding.buttonGenerateOTP)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -59,7 +55,7 @@ class OaOTPFragment : BaseFragment<OaOTPViewModel>(R.layout.fragment_oa_otp),
 //                viewModel.resendOTP()
                 findNavController().navigate(R.id.action_otp_to_nominate_password)
             }.addTo(disposables)
-        RxView.clicks(btnSubmit)
+        RxView.clicks(binding.btnSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -67,7 +63,7 @@ class OaOTPFragment : BaseFragment<OaOTPViewModel>(R.layout.fragment_oa_otp),
             .subscribe {
                 //                viewMode.submitOTP()
             }.addTo(disposables)
-        RxView.clicks(btnResend)
+        RxView.clicks(binding.btnResend)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -80,4 +76,10 @@ class OaOTPFragment : BaseFragment<OaOTPViewModel>(R.layout.fragment_oa_otp),
     override fun onSubmitOTP(otpCode: String) {
         findNavController().navigate(R.id.action_otp_to_nominate_password)
     }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOaOtpBinding
+        get() = FragmentOaOtpBinding::inflate
+
+    override val viewModelClassType: Class<OaOTPViewModel>
+        get() = OaOTPViewModel::class.java
 }

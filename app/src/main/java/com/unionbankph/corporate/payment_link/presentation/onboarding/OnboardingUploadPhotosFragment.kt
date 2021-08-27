@@ -9,29 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
-import kotlinx.android.synthetic.main.bottom_sheet_upload_photos.*
+import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
+import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
+import com.unionbankph.corporate.databinding.BottomSheetUploadBirBinding
+import com.unionbankph.corporate.databinding.BottomSheetUploadPhotosBinding
 
-class OnboardingUploadPhotosFragment : BottomSheetDialogFragment() {
+class OnboardingUploadPhotosFragment :
+    BaseBottomSheetDialog<BottomSheetUploadPhotosBinding, GeneralViewModel>() {
 
     private var listener : OnOnboardingUploadPhotosFragmentInteraction? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.bottom_sheet_upload_photos, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        btnGallery.setOnClickListener {
+    override fun onViewsBound() {
+        super.onViewsBound()
+        binding.btnGallery.setOnClickListener {
             listener?.openGallery()
         }
 
-        btnCamera.setOnClickListener {
+        binding.btnCamera.setOnClickListener {
             listener?.openCamera()
         }
     }
@@ -78,4 +72,13 @@ class OnboardingUploadPhotosFragment : BottomSheetDialogFragment() {
                 }
             }
     }
+
+    override val bindingBinder: (View) -> BottomSheetUploadPhotosBinding
+        get() = BottomSheetUploadPhotosBinding::bind
+
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_upload_photos
+
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
 }

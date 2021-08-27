@@ -1,21 +1,18 @@
 package com.unionbankph.corporate.app.common.widget.dialog
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
-import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.viewmodel.NegPosBottomSheetViewModel
+import com.unionbankph.corporate.databinding.BottomSheetConfirmationNewBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.bottom_sheet_confirmation_new.*
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class NewConfirmationBottomSheet :
-    BaseBottomSheetDialog<NegPosBottomSheetViewModel>(R.layout.bottom_sheet_confirmation_new) {
+    BaseBottomSheetDialog<BottomSheetConfirmationNewBinding, NegPosBottomSheetViewModel>() {
 
     private var dismissOnActionClicked = true
 
@@ -25,8 +22,8 @@ class NewConfirmationBottomSheet :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        isCancelable = arguments!!.getBoolean(EXTRA_IS_CANCELABLE, true)
-        dismissOnActionClicked = arguments!!.getBoolean(EXTRA_DISMISS_ON_ACTION_CLICKED, true)
+        isCancelable = requireArguments().getBoolean(EXTRA_IS_CANCELABLE, true)
+        dismissOnActionClicked = requireArguments().getBoolean(EXTRA_DISMISS_ON_ACTION_CLICKED, true)
 
         mGravity = arguments?.getString(EXTRA_GRAVITY, GRAVITY_START)!!
 
@@ -40,19 +37,19 @@ class NewConfirmationBottomSheet :
     private fun initIcon() {
         val iconResource = arguments?.getInt(EXTRA_ICON)!!
         if (iconResource != -1) {
-            imageViewIcon.apply {
+            binding.imageViewIcon.apply {
                 this.visibility = View.VISIBLE
                 this.setImageResource(iconResource)
             }
         } else {
-            imageViewIcon.visibility = View.GONE
+            binding.imageViewIcon.visibility = View.GONE
         }
     }
 
     private fun initTitle() {
         val titleArg = arguments?.getString(EXTRA_TITLE)
         if (!titleArg.isNullOrEmpty()) {
-            textViewTitle.apply {
+            binding.textViewTitle.apply {
                 text = titleArg
                 gravity = when (mGravity.equals(GRAVITY_CENTER, true)) {
                     true -> Gravity.CENTER
@@ -60,14 +57,14 @@ class NewConfirmationBottomSheet :
                 }
             }
         } else {
-            textViewTitle.visibility = View.GONE
+            binding.textViewTitle.visibility = View.GONE
         }
     }
 
     private fun initDescription() {
         val descArgs = arguments?.getString(EXTRA_DESCRIPTION)
         if (!descArgs.isNullOrEmpty()) {
-            textViewDescription.apply {
+            binding.textViewDescription.apply {
                 text = descArgs
                 gravity = when (mGravity.equals(GRAVITY_CENTER, true)) {
                     true -> Gravity.CENTER
@@ -81,10 +78,10 @@ class NewConfirmationBottomSheet :
         val negativeButtonTextArgs = arguments?.getString(EXTRA_NEGATIVE_BUTTON_TEXT)
 
         if (!negativeButtonTextArgs.isNullOrEmpty()) {
-            buttonNegative.apply {
+            binding.buttonNegative.apply {
                 text = negativeButtonTextArgs
 
-                RxView.clicks(buttonNegative)
+                RxView.clicks(binding.buttonNegative)
                     .throttleFirst(
                         3.toLong(),
                         TimeUnit.SECONDS
@@ -95,7 +92,7 @@ class NewConfirmationBottomSheet :
                     }.addTo(disposables)
             }
         } else {
-            buttonNegative.visibility = View.GONE
+            binding.buttonNegative.visibility = View.GONE
         }
     }
 
@@ -103,7 +100,7 @@ class NewConfirmationBottomSheet :
         val positiveButtonTextArgs = arguments?.getString(EXTRA_POSITIVE_BUTTON_TEXT)
 
         if (!positiveButtonTextArgs.isNullOrEmpty()) {
-            buttonPositive.apply {
+            binding.buttonPositive.apply {
                 text = positiveButtonTextArgs
 
                 RxView.clicks(this)
@@ -117,7 +114,7 @@ class NewConfirmationBottomSheet :
                     }.addTo(disposables)
             }
         } else {
-            buttonPositive.visibility = View.GONE
+            binding.buttonPositive.visibility = View.GONE
         }
     }
 
@@ -171,4 +168,13 @@ class NewConfirmationBottomSheet :
                 }
             }
     }
+
+    override val bindingBinder: (View) -> BottomSheetConfirmationNewBinding
+        get() = BottomSheetConfirmationNewBinding::bind
+
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_confirmation_new
+
+    override val viewModelClassType: Class<NegPosBottomSheetViewModel>
+        get() = NegPosBottomSheetViewModel::class.java
 }

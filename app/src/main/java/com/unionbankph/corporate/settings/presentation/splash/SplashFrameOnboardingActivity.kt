@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.splash
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.unionbankph.corporate.R
@@ -9,15 +10,16 @@ import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.auth.presentation.login_onboarding.LoginOnboardingFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
-import kotlinx.android.synthetic.main.activity_splash_onboarding_screen.*
+import com.unionbankph.corporate.databinding.ActivitySplashOnboardingScreenBinding
 
-class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.activity_splash_onboarding_screen) {
+class SplashFrameOnboardingActivity :
+    BaseActivity<ActivitySplashOnboardingScreenBinding, GeneralViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initTransparency()
         setMargins(
-            textViewSkip,
+            binding.textViewSkip,
             0,
             getStatusBarHeight() + resources.getDimension(R.dimen.content_spacing).toInt(),
             resources.getDimension(R.dimen.content_spacing).toInt(),
@@ -30,10 +32,10 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
     }
 
     override fun onInitializeListener() {
-        textViewSkip.setOnClickListener {
-            viewPager.currentItem = 5
+        binding.textViewSkip.setOnClickListener {
+            binding.viewPager.currentItem = 5
         }
-        imageViewBack.setOnClickListener {
+        binding.imageViewBack.setOnClickListener {
             onBackPressed()
         }
     }
@@ -63,8 +65,8 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
             SplashOnboardingFragment.SplashScreenPage.PAGE_DEPOSIT_CHECK.name
         )
         if (intent.getStringExtra(EXTRA_SCREEN) == SCREEN_LEARN_MORE) {
-            textViewSkip.visibility = View.INVISIBLE
-            viewPager?.offscreenPageLimit = 4
+            binding.textViewSkip.visibility = View.INVISIBLE
+            binding.viewPager?.offscreenPageLimit = 4
         } else {
             if (isSME) {
                 adapter.addFragment(
@@ -77,28 +79,28 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
                     SplashFragment.SplashScreenPage.PAGE_SUMMARY.name
                 )
             }
-            viewPager?.offscreenPageLimit = 5
+            binding.viewPager?.offscreenPageLimit = 5
         }
 
-        viewPager?.adapter = adapter
+        binding.viewPager?.adapter = adapter
 
-        indicator?.setViewPager(viewPager)
-        viewPager?.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+        binding.indicator?.setViewPager(binding.viewPager)
+        binding.viewPager?.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
 
-                if (position == 4 && iv_bg_light_orange.visibility == View.VISIBLE) {
+                if (position == 4 && binding.ivBgLightOrange.visibility == View.VISIBLE) {
                     val defaultOffsetHide = 1f
                     val currentOffsetByAlpha = defaultOffsetHide - positionOffset
-                    textViewSkip.alpha = currentOffsetByAlpha
-                    iv_bg_light_orange.alpha = currentOffsetByAlpha
-                } else if (position == 4 && textViewSkip.visibility == View.INVISIBLE) {
-                    textViewSkip.visibility = View.VISIBLE
-                    textViewSkip.alpha = positionOffset
-                    iv_bg_light_orange.alpha = positionOffset
+                    binding.textViewSkip.alpha = currentOffsetByAlpha
+                    binding.ivBgLightOrange.alpha = currentOffsetByAlpha
+                } else if (position == 4 && binding.textViewSkip.visibility == View.INVISIBLE) {
+                    binding.textViewSkip.visibility = View.VISIBLE
+                    binding.textViewSkip.alpha = positionOffset
+                    binding.ivBgLightOrange.alpha = positionOffset
                 }
                 // onPageScrolled
             }
@@ -119,10 +121,10 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
     }
 
     private fun initViewVisibility(isVisible: Boolean){
-        iv_bg_light_orange.visibility(isVisible)
-        textViewSkip.visibility(isVisible)
-        indicator.visibility(isVisible)
-        imageViewBack.visibility(isVisible)
+        binding.ivBgLightOrange.visibility(isVisible)
+        binding.textViewSkip.visibility(isVisible)
+        binding.indicator.visibility(isVisible)
+        binding.imageViewBack.visibility(isVisible)
 
     }
 
@@ -132,4 +134,9 @@ class SplashFrameOnboardingActivity : BaseActivity<GeneralViewModel>(R.layout.ac
         const val SCREEN_LEARN_MORE = "learn_more"
     }
 
+    override val bindingInflater: (LayoutInflater) -> ActivitySplashOnboardingScreenBinding
+        get() = ActivitySplashOnboardingScreenBinding::inflate
+
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
 }

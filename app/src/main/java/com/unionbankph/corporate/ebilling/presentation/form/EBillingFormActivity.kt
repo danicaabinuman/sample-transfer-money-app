@@ -2,6 +2,7 @@ package com.unionbankph.corporate.ebilling.presentation.form
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -28,24 +29,23 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrg
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityEbillingFormBinding
 import com.unionbankph.corporate.ebilling.presentation.confirmation.EBillingConfirmationActivity
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPFormActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_ebilling_form.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 /**
  * Created by herald on 10/27/20
  */
-class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activity_ebilling_form),
+class EBillingFormActivity :
+    BaseActivity<ActivityEbillingFormBinding, EBillingFormViewModel>(),
     OnTutorialListener {
 
     private lateinit var buttonAction: Button
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
@@ -65,7 +65,7 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
         super.onInitializeListener()
         initEventBus()
         tutorialEngineUtil.setOnTutorialListener(this)
-        tie_deposit_to.setOnClickListener {
+        binding.tieDepositTo.setOnClickListener {
             navigateAccountSelectionScreen()
         }
     }
@@ -94,7 +94,7 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
             R.id.menu_help -> {
                 isClickedHelpTutorial = true
                 viewUtil.dismissKeyboard(this)
-                scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                 runPostDelayed(
                     {
                         startViewTutorial()
@@ -132,13 +132,13 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.field_radius)
             if (view == null) {
                 tutorialEngineUtil.startTutorial(
                     this,
-                    view_tutorial_deposit_to,
+                    binding.viewTutorialDepositTo,
                     R.layout.frame_tutorial_upper_left,
                     radius,
                     false,
@@ -148,11 +148,11 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
                 )
             } else {
                 when (view) {
-                    view_tutorial_deposit_to -> {
-                        viewUtil.setFocusOnView(scrollView, view_tutorial_amount)
+                    binding.viewTutorialDepositTo -> {
+                        viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialAmount)
                         tutorialEngineUtil.startTutorial(
                             this,
-                            view_tutorial_amount,
+                            binding.viewTutorialAmount,
                             R.layout.frame_tutorial_upper_left,
                             radius,
                             false,
@@ -161,7 +161,7 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    view_tutorial_amount -> {
+                    binding.viewTutorialAmount -> {
                         val buttonRadius = resources.getDimension(R.dimen.button_radius)
                         tutorialEngineUtil.startTutorial(
                             this,
@@ -180,8 +180,6 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[EBillingFormViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Error -> {
@@ -213,8 +211,8 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_generate_qr),
                         it.orgName
                     )
@@ -235,11 +233,11 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
     }
 
     private fun setupViews() {
-        et_amount.setEnableAmount(false)
-        textViewChannel.isVisible = true
-        imageViewChannel.setImageResource(R.drawable.ic_electronic_billing)
-        textViewChannel.text = formatString(R.string.title_electronic_billing)
-        textViewServiceFee.text = if (intent.getStringExtra(UBPFormActivity.EXTRA_SERVICE_FEE) != null) {
+        binding.etAmount.setEnableAmount(false)
+        binding.viewChannelHeader.textViewChannel.isVisible = true
+        binding.viewChannelHeader.imageViewChannel.setImageResource(R.drawable.ic_electronic_billing)
+        binding.viewChannelHeader.textViewChannel.text = formatString(R.string.title_electronic_billing)
+        binding.viewChannelHeader.textViewServiceFee.text = if (intent.getStringExtra(UBPFormActivity.EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(UBPFormActivity.EXTRA_SERVICE_FEE)
             )
@@ -258,22 +256,22 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
 
     private fun setupBindings() {
         viewModel.selectedAccount.subscribe {
-            et_amount.setEnableAmount(true)
-            et_amount.setCurrencySymbol(it.currency, true)
-            tie_deposit_to.setText((it.name + "\n" + it.accountNumber.formatAccountNumber()))
+            binding.etAmount.setEnableAmount(true)
+            binding.etAmount.setCurrencySymbol(it.currency, true)
+            binding.tieDepositTo.setText((it.name + "\n" + it.accountNumber.formatAccountNumber()))
             invalidateOptionsMenu()
         }.addTo(disposables)
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initAmountToolTip() {
-        et_amount.setCompoundDrawablesWithIntrinsicBounds(
+        binding.etAmount.setCompoundDrawablesWithIntrinsicBounds(
             0,
             0,
             R.drawable.ic_warning_circle_orange,
             0
         )
-        et_amount.setToolTipListener(object : CurrencyEditText.ToolTipListener{
+        binding.etAmount.setToolTipListener(object : CurrencyEditText.ToolTipListener{
             override fun onClickedIcon() {
                 showToolTip(
                     formatString(R.string.title_tooltip_amount),
@@ -311,7 +309,7 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            tie_deposit_to
+            binding.tieDepositTo
         )
         initSetError(depositToObservable)
 
@@ -357,11 +355,11 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
     }
 
     private fun initEditTextDefaultValue() {
-        if (tie_deposit_to.length() != 0) {
-            tie_deposit_to.setText(tie_deposit_to.text.toString())
+        if (binding.tieDepositTo.length() != 0) {
+            binding.tieDepositTo.setText(binding.tieDepositTo.text.toString())
         }
-        if (et_amount.length() != 0) {
-            et_amount.setText(et_amount.text.toString())
+        if (binding.etAmount.length() != 0) {
+            binding.etAmount.setText(binding.etAmount.text.toString())
         }
     }
 
@@ -372,13 +370,13 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
     }
 
     private fun submitForm() {
-        viewModel.bindFreeFields(et_amount.getNumericValue())
+        viewModel.bindFreeFields(binding.etAmount.getNumericValue())
         viewModel.onClickedNext()
     }
 
     private fun clearFormFocus() {
-        cl_parent.requestFocus()
-        cl_parent.isFocusableInTouchMode = true
+        binding.clParent.requestFocus()
+        binding.clParent.isFocusableInTouchMode = true
     }
 
     private fun startViewTutorial() {
@@ -402,5 +400,11 @@ class EBillingFormActivity : BaseActivity<EBillingFormViewModel>(R.layout.activi
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
     }
+
+    override val viewModelClassType: Class<EBillingFormViewModel>
+        get() = EBillingFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityEbillingFormBinding
+        get() = ActivityEbillingFormBinding::inflate
 
 }

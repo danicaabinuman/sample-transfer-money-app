@@ -2,6 +2,7 @@ package com.unionbankph.corporate.notification.presentation.notification_log.not
 
 import android.graphics.Rect
 import android.os.Handler
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -38,6 +39,7 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.FragmentNotificationLogBinding
 import com.unionbankph.corporate.notification.data.model.NotificationLogDto
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogError
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogViewModel
@@ -49,12 +51,11 @@ import com.unionbankph.corporate.notification.presentation.notification_log.Show
 import com.unionbankph.corporate.notification.presentation.notification_log.ShowProgressBarDismissLoading
 import com.unionbankph.corporate.notification.presentation.notification_log.ShowProgressBarLoading
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_notification_log.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class NotificationLogFragment :
-    BaseFragment<NotificationLogViewModel>(R.layout.fragment_notification_log),
+    BaseFragment<FragmentNotificationLogBinding, NotificationLogViewModel>(),
     EpoxyAdapterCallback<NotificationLogDto>,
     OnTutorialListener, OnConfirmationPageCallBack {
 
@@ -103,23 +104,21 @@ class NotificationLogFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[NotificationLogViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutNotificationLog,
-                        recyclerViewNotificationLog,
-                        textViewState
+                        binding.viewLoadingState.viewLoadingLayout,
+                        binding.swipeRefreshLayoutNotificationLog,
+                        binding.recyclerViewNotificationLog,
+                        binding.textViewState
                     )
                 }
                 is ShowDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutNotificationLog,
-                        recyclerViewNotificationLog
+                        binding.viewLoadingState.viewLoadingLayout,
+                        binding.swipeRefreshLayoutNotificationLog,
+                        binding.recyclerViewNotificationLog
                     )
                 }
                 is ShowEndlessLoading -> {
@@ -149,7 +148,7 @@ class NotificationLogFragment :
                             BaseEvent(NotificationSyncEvent.ACTION_UPDATE_NOTIFICATION_ALERTS)
                         )
                     }
-                    swipeRefreshLayoutNotificationLog.isRefreshing = true
+                    binding.swipeRefreshLayoutNotificationLog.isRefreshing = true
                     getNotificationLogs(true)
                 }
                 is NotificationLogError -> {
@@ -176,7 +175,7 @@ class NotificationLogFragment :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        swipeRefreshLayoutNotificationLog.apply {
+        binding.swipeRefreshLayoutNotificationLog.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getNotificationLogs(true)
@@ -366,8 +365,8 @@ class NotificationLogFragment :
 
     private fun initRecyclerView() {
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewNotificationLog.layoutManager = linearLayoutManager
-        recyclerViewNotificationLog.addOnScrollListener(
+        binding.recyclerViewNotificationLog.layoutManager = linearLayoutManager
+        binding.recyclerViewNotificationLog.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = pageable.totalPageCount
@@ -383,7 +382,7 @@ class NotificationLogFragment :
                 }
             }
         )
-        recyclerViewNotificationLog.setController(controller)
+        binding.recyclerViewNotificationLog.setController(controller)
         controller.setAdapterCallbacks(this)
     }
 
@@ -392,12 +391,12 @@ class NotificationLogFragment :
             eventBus.actionSyncEvent.emmit(
                 BaseEvent(ActionSyncEvent.ACTION_UPDATE_MARK_ALL_AS_READ_ICON, "1")
             )
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
             eventBus.actionSyncEvent.emmit(
                 BaseEvent(ActionSyncEvent.ACTION_UPDATE_MARK_ALL_AS_READ_ICON, "0")
             )
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -432,5 +431,11 @@ class NotificationLogFragment :
     private fun getNotificationLogs(): MutableList<StateData<NotificationLogDto>> {
         return viewModel.notifications.value ?: mutableListOf()
     }
+
+    override val viewModelClassType: Class<NotificationLogViewModel>
+        get() = NotificationLogViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNotificationLogBinding
+        get() = FragmentNotificationLogBinding::inflate
 
 }

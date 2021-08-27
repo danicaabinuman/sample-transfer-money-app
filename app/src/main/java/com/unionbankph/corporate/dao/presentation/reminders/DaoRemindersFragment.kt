@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.reminders
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -7,10 +9,11 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.extension.toHtmlSpan
 import com.unionbankph.corporate.dao.presentation.DaoActivity
-import kotlinx.android.synthetic.main.fragment_dao_reminders.*
+import com.unionbankph.corporate.databinding.FragmentDaoRemindersBinding
 
-class DaoRemindersFragment : BaseFragment<DaoRemindersViewModel>(R.layout.fragment_dao_reminders),
-                             DaoActivity.ActionEvent {
+class DaoRemindersFragment :
+    BaseFragment<FragmentDaoRemindersBinding, DaoRemindersViewModel>(),
+    DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
 
@@ -20,9 +23,9 @@ class DaoRemindersFragment : BaseFragment<DaoRemindersViewModel>(R.layout.fragme
     }
 
     private fun init() {
-        tv_reminder_1_sub_1.text = formatString(R.string.desc_dao_reminder_1_sub_1).toHtmlSpan()
-        tv_reminder_1_sub_2.text = formatString(R.string.desc_dao_reminder_1_sub_2).toHtmlSpan()
-        tv_reminder_3_sub.text = formatString(R.string.desc_dao_reminder_3_sub).toHtmlSpan()
+        binding.tvReminder1Sub1.text = formatString(R.string.desc_dao_reminder_1_sub_1).toHtmlSpan()
+        binding.tvReminder1Sub2.text = formatString(R.string.desc_dao_reminder_1_sub_2).toHtmlSpan()
+        binding.tvReminder3Sub.text = formatString(R.string.desc_dao_reminder_3_sub).toHtmlSpan()
         daoActivity.showToolBarDetails()
         daoActivity.setToolBarDesc(formatString(R.string.title_reminders))
         daoActivity.showButton(true)
@@ -34,4 +37,10 @@ class DaoRemindersFragment : BaseFragment<DaoRemindersViewModel>(R.layout.fragme
     override fun onClickNext() {
         findNavController().navigate(R.id.action_company_information_step_one)
     }
+
+    override val viewModelClassType: Class<DaoRemindersViewModel>
+        get() = DaoRemindersViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoRemindersBinding
+        get() = FragmentDaoRemindersBinding::inflate
 }

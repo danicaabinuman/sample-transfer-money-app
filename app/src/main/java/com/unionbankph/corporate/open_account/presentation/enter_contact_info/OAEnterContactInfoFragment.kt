@@ -1,17 +1,14 @@
 package com.unionbankph.corporate.open_account.presentation.enter_contact_info
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -20,21 +17,20 @@ import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidator
-import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.FragmentOaEnterContactInfoBinding
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_oa_enter_contact_info.*
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 
 class OAEnterContactInfoFragment :
-    BaseFragment<OAEnterContactInfoViewModel>(R.layout.fragment_oa_enter_contact_info) {
+    BaseFragment<FragmentOaEnterContactInfoBinding, OAEnterContactInfoViewModel>() {
 
     private var enableBackButton = true
 
@@ -61,12 +57,10 @@ class OAEnterContactInfoFragment :
     }
 
     private fun initOnClicks() {
-        buttonNext.setOnClickListener { attemptSubmit() }
+        binding.buttonNext.setOnClickListener { attemptSubmit() }
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[OAEnterContactInfoViewModel::class.java]
 
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
@@ -108,15 +102,15 @@ class OAEnterContactInfoFragment :
         viewModel.loadDefaultForm(openAccountActivity.viewModel.defaultForm())
         viewModel.input.emailInput
             .subscribe {
-                et_email.setText(it)
+                binding.etEmail.setText(it)
             }.addTo(disposables)
         viewModel.input.countryCodeInput
             .subscribe {
-                et_country_code.setText(it)
+                binding.etCountryCode.setText(it)
             }.addTo(disposables)
         viewModel.input.mobileInput
             .subscribe {
-                et_mobile.setText(it)
+                binding.etMobile.setText(it)
             }.addTo(disposables)
     }
 
@@ -127,14 +121,14 @@ class OAEnterContactInfoFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = et_email
+            editText = binding.etEmail
         )
 
-        val mobileNumberObservable = RxValidator.createFor(et_mobile)
+        val mobileNumberObservable = RxValidator.createFor(binding.etMobile)
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
-                    tv_mobile.text
+                    binding.tvMobile.text
                 )
             )
             .patternMatches(getString(R.string.error_mobile_field),
@@ -156,12 +150,12 @@ class OAEnterContactInfoFragment :
                 )
             }
 
-        initError(emailObservable, tv_email)
+        initError(emailObservable, binding.tvEmail)
         initError(
             mobileNumberObservable,
-            tv_mobile,
-            errorTextView = textViewMobileNumberError,
-            textInputLayout = textInputLayoutPrefix
+            binding.tvMobile,
+            errorTextView = binding.textViewMobileNumberError,
+            textInputLayout = binding.textInputLayoutPrefix
         )
 
         RxCombineValidator(
@@ -192,16 +186,16 @@ class OAEnterContactInfoFragment :
 
     private fun updatePreTextValues() {
         viewModel.setPreTextValues(
-            et_email.getTextNullable(),
-            et_mobile.getTextNullable(),
-            et_country_code.getTextNullable()
+            binding.etEmail.getTextNullable(),
+            binding.etMobile.getTextNullable(),
+            binding.etCountryCode.getTextNullable()
         )
     }
 
     private fun refreshFields() {
-        et_email.refresh()
-        et_mobile.refresh()
-        et_country_code.refresh()
+        binding.etEmail.refresh()
+        binding.etMobile.refresh()
+        binding.etCountryCode.refresh()
     }
 
     private fun initError(
@@ -239,14 +233,14 @@ class OAEnterContactInfoFragment :
     }
 
     private fun setSubmitButtonState(it: Boolean?) {
-        buttonNext.isEnabled = it!!
+        binding.buttonNext.isEnabled = it!!
     }
 
     private fun clearFormFocus() {
-        constraintLayout1.post {
+        binding.constraintLayout1.post {
             viewUtil.dismissKeyboard(getAppCompatActivity())
-            constraintLayout1.requestFocus()
-            constraintLayout1.isFocusableInTouchMode = true
+            binding.constraintLayout1.requestFocus()
+            binding.constraintLayout1.isFocusableInTouchMode = true
         }
     }
 
@@ -276,5 +270,9 @@ class OAEnterContactInfoFragment :
 
     }
 
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOaEnterContactInfoBinding
+        get() = FragmentOaEnterContactInfoBinding::inflate
 
+    override val viewModelClassType: Class<OAEnterContactInfoViewModel>
+        get() = OAEnterContactInfoViewModel::class.java
 }

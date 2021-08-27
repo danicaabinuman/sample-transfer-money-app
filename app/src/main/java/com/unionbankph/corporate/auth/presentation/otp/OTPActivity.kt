@@ -3,6 +3,7 @@ package com.unionbankph.corporate.auth.presentation.otp
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
@@ -36,6 +37,7 @@ import com.unionbankph.corporate.bills_payment.presentation.bills_payment_summar
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityOtpBinding
 import com.unionbankph.corporate.fund_transfer.presentation.instapay.InstaPaySummaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.pddts.PDDTSSummaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.pesonet.PesoNetSummaryActivity
@@ -43,9 +45,6 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftSummaryAc
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPSummaryActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_otp.*
-import kotlinx.android.synthetic.main.widget_pin_code.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import java.util.regex.Matcher
@@ -56,7 +55,7 @@ import java.util.regex.Pattern
  * Created by Herald Santos
  */
 class OTPActivity :
-    BaseActivity<OTPViewModel>(R.layout.activity_otp),
+    BaseActivity<ActivityOtpBinding, OTPViewModel>(),
     PincodeEditText.OnOTPCallback {
 
     private val page by lazyFast { intent.getStringExtra(EXTRA_REQUEST_PAGE) }
@@ -71,19 +70,17 @@ class OTPActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
             true
         )
-        (viewToolbar as AppBarLayout).isLiftOnScroll = true
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[OTPViewModel::class.java]
+
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowOTPLoading -> {
@@ -144,14 +141,15 @@ class OTPActivity :
 
         startSMSUserConsent()
 
-        RxView.clicks(buttonGenerateOTP)
+        RxView.clicks(binding.buttonGenerateOTP)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             ).subscribe {
                 onClickedResendOTP()
             }.addTo(disposables)
-        RxView.clicks(btnSubmit)
+
+        RxView.clicks(binding.btnSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -159,7 +157,7 @@ class OTPActivity :
             .subscribe {
                 submitTransaction()
             }.addTo(disposables)
-        RxView.clicks(btnResend)
+        RxView.clicks(binding.btnResend)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -223,7 +221,7 @@ class OTPActivity :
         val pattern: Pattern = Pattern.compile("(|^)\\d{6}")
         val matcher: Matcher = pattern.matcher(message)
         if (matcher.find()) {
-            editTextHidden.setText(matcher.group(0))
+            binding.editTextHidden.setText(matcher.group(0))
         }
     }
 
@@ -290,15 +288,15 @@ class OTPActivity :
         pinCodeEditText =
             PincodeEditText(
                 this,
-                parentLayout,
-                btnSubmit,
-                editTextHidden,
-                etPin1,
-                etPin2,
-                etPin3,
-                etPin4,
-                etPin5,
-                etPin6
+                binding.parentLayout,
+                binding.btnSubmit,
+                binding.editTextHidden,
+                binding.viewPinCode.etPin1,
+                binding.viewPinCode.etPin2,
+                binding.viewPinCode.etPin3,
+                binding.viewPinCode.etPin4,
+                binding.viewPinCode.etPin5,
+                binding.viewPinCode.etPin6
             )
         pinCodeEditText.setOnOTPCallback(this)
         when (page) {
@@ -761,8 +759,8 @@ class OTPActivity :
             }
         }
 
-        btnResend.visibility = View.VISIBLE
-        buttonGenerateOTP.visibility = View.GONE
+        binding.btnResend.visibility = View.VISIBLE
+        binding.buttonGenerateOTP.visibility = View.GONE
     }
 
     private fun submitTransaction() {
@@ -831,12 +829,12 @@ class OTPActivity :
         val minutesDisplay = (seconds / 60).toString().padStart(2, '0')
         val secondsDisplay = (seconds % 60).toString().padStart(2, '0')
 
-        tvResendTimer.text = "$minutesDisplay:$secondsDisplay"
+        binding.tvResendTimer.text = "$minutesDisplay:$secondsDisplay"
     }
 
     private fun initEnableResendButton(isEnabled: Boolean) {
-        btnResend.isEnabled = isEnabled
-        btnResend.setTextColor(
+        binding.btnResend.isEnabled = isEnabled
+        binding.btnResend.setTextColor(
             if (isEnabled)
                 ContextCompat.getColor(this, R.color.dsColorMediumOrange)
             else
@@ -885,22 +883,31 @@ class OTPActivity :
         viewModel.otpType.onNext(auth.otpType ?: LOGIN_TYPE_SMS)
         if (isTOTPScreen(loginType)) {
             initEnableResendButton(true)
-            textViewDidNotReceived.text = formatString(R.string.desc_cannot_generate_code)
-            textViewDidNotReceived.visibility(true)
-            tvResendTimer.visibility(false)
-            btnResend.text = formatString(R.string.action_receive_via_otp)
+            binding.tvVerifyAccountDesc.text = formatString(R.string.desc_verify_account_totp)
+            binding.textViewDidNotReceived.text = formatString(R.string.desc_cannot_generate_code)
+            binding.textViewDidNotReceived.visibility(true)
+            binding.tvResendTimer.visibility(false)
+            binding.btnResend.text = formatString(R.string.action_receive_via_otp)
         } else {
-            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_30))
+            binding.tvVerifyAccountDesc.text = formatString(
+                R.string.desc_verify_account_sms,
+                formatString(
+                    R.string.param_color,
+                    convertColorResourceToHex(if (isSME) getAccentColor() else R.color.colorWhite),
+                    auth.mobileNumber?.substring(auth.mobileNumber?.length?.minus(4) ?: 0)
+                )
+            ).toHtmlSpan()
+            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count))
             initEnableResendButton(false)
             viewModel.countDownTimer(
                 resources.getInteger(R.integer.resend_otp_code_period).toLong(),
                 resources.getInteger(R.integer.resend_otp_code_count_30).toLong()
             )
-            textViewDidNotReceived.text = formatString(R.string.desc_did_not_receive_code)
-            btnResend.text = formatString(R.string.action_resend)
-            textViewDidNotReceived.visibility(true)
-            tvResendTimer.visibility(true)
-            btnResend.visibility(true)
+            binding.textViewDidNotReceived.text = formatString(R.string.desc_did_not_receive_code)
+            binding.btnResend.text = formatString(R.string.action_resend_code)
+            binding.textViewDidNotReceived.visibility(true)
+            binding.tvResendTimer.visibility(true)
+            binding.btnResend.visibility(true)
         }
     }
 
@@ -935,4 +942,10 @@ class OTPActivity :
 
         const val REQ_USER_CONSENT = 100
     }
+
+    override val viewModelClassType: Class<OTPViewModel>
+        get() = OTPViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOtpBinding
+        get() = ActivityOtpBinding::inflate
 }

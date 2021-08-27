@@ -145,6 +145,8 @@
             android:layout_width="match_parent"
             android:textColor="@color/colorErrorColor"
             android:paddingStart="@dimen/grid_3_half"
+            android:visibility="gone"
+            tools:visibility="visible"
             tools:text="Mobile number error"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

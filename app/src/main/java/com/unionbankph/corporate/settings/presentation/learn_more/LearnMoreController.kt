@@ -13,7 +13,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.makeLinks
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
-import kotlinx.android.synthetic.main.item_learn_more.view.*
+import com.unionbankph.corporate.databinding.ItemLearnMoreBinding
 
 class LearnMoreController : TypedEpoxyController<MutableList<LearnMoreData>>() {
 
@@ -31,7 +31,7 @@ class LearnMoreController : TypedEpoxyController<MutableList<LearnMoreData>>() {
                 id(learnMoreData.id)
                 learnMoreData(learnMoreData)
                 position(index)
-                callbacks(callbacks)
+                callbacks(this@LearnMoreController.callbacks)
             }
         }
     }
@@ -60,33 +60,30 @@ abstract class LearnMoreItemModel : EpoxyModelWithHolder<LearnMoreItemModel.Hold
     var position: Int = 0
 
     override fun bind(holder: Holder) {
-        val context = holder.clItem.context
-        holder.tvTitle.text = learnMoreData.title
-        holder.tvDesc.text = learnMoreData.desc
+        val context = holder.binding.clItem.context
+        holder.binding.tvTitle.text = learnMoreData.title
+        holder.binding.tvDesc.text = learnMoreData.desc
         if (learnMoreData.desc.contains(context.getString(R.string.action_here))) {
-            holder.tvDesc.makeLinks(
+            holder.binding.tvDesc.makeLinks(
                 Pair(context.formatString(R.string.action_here), View.OnClickListener {
                     callbacks.onClickItem(it, learnMoreData, position)
                 })
             )
         }
-        holder.clItem.setOnClickListener {
+        holder.binding.clItem.setOnClickListener {
             callbacks.onClickItem(it, learnMoreData, position)
         }
-        holder.tvDesc.setOnClickListener {
+        holder.binding.tvDesc.setOnClickListener {
             callbacks.onClickItem(it, learnMoreData, position)
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var clItem: ConstraintLayout
-        lateinit var tvTitle: TextView
-        lateinit var tvDesc: TextView
+
+        lateinit var binding: ItemLearnMoreBinding
 
         override fun bindView(itemView: View) {
-            clItem = itemView.cl_item
-            tvTitle = itemView.tv_title
-            tvDesc = itemView.tv_desc
+            binding = ItemLearnMoreBinding.bind(itemView)
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.app.dashboard.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -24,6 +26,7 @@ import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPage
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.TutorialScreenEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentDashboardBinding
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
@@ -37,13 +40,10 @@ import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactScreenEnum
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard.swipeRefreshLayoutBtr
-import kotlinx.android.synthetic.main.fragment_send_request.*
 import timber.log.Timber
 
 class DashboardFragment :
-    BaseFragment<DashboardFragmentViewModel>(R.layout.fragment_dashboard),
+    BaseFragment<FragmentDashboardBinding, DashboardFragmentViewModel>(),
     DashboardAdapterCallback,
     AccountAdapterCallback{
 
@@ -153,14 +153,12 @@ class DashboardFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[DashboardFragmentViewModel::class.java]
 
         viewModel.dashboardViewState.observe(this, Observer {
             controller.setData(it, viewModel.pageable)
 
-            if (swipeRefreshLayoutBtr.isRefreshing) {
-                swipeRefreshLayoutBtr.isRefreshing = false
+            if (binding.swipeRefreshLayoutBtr.isRefreshing) {
+                binding.swipeRefreshLayoutBtr.isRefreshing = false
             }
         })
 
@@ -181,8 +179,8 @@ class DashboardFragment :
 
     private fun initRecyclerView() {
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewDashboard.layoutManager = linearLayoutManager
-        recyclerViewDashboard.addOnScrollListener(
+        binding.recyclerViewDashboard.layoutManager = linearLayoutManager
+        binding.recyclerViewDashboard.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = viewModel.pageable.totalPageCount
@@ -198,7 +196,7 @@ class DashboardFragment :
                 }
             }
         )
-        recyclerViewDashboard.setController(controller)
+        binding.recyclerViewDashboard.setController(controller)
         controller.setDashboardAdapterCallbacks(this)
         controller.setAccountAdapterCallbacks(this)
     }
@@ -210,7 +208,7 @@ class DashboardFragment :
     }
 
     private fun initSwipeRefreshLayout() {
-        swipeRefreshLayoutBtr.apply {
+        binding.swipeRefreshLayoutBtr.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getAccounts(true)
@@ -400,7 +398,22 @@ class DashboardFragment :
         )
     }
 
+    fun navigateToPaymentLinkFragment() {
+        navigator.addFragmentWithAnimation(
+            R.id.frameLayoutTransact,
+            PaymentLinkListFragment(),
+            null,
+            childFragmentManager,
+            TransactFragment.FRAGMENT_REQUEST_PAYMENT)
+    }
+
     companion object {
         const val DASHBOARD_ACTIONS = "dashboard_actions"
     }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDashboardBinding
+        get() = FragmentDashboardBinding::inflate
+
+    override val viewModelClassType: Class<DashboardFragmentViewModel>
+        get() = DashboardFragmentViewModel::class.java
 }

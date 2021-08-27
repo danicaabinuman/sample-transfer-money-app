@@ -2,6 +2,7 @@ package com.unionbankph.corporate.dao.presentation
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
@@ -19,6 +20,7 @@ import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.dao.domain.model.SignatoryDetail
@@ -28,12 +30,12 @@ import com.unionbankph.corporate.dao.presentation.personal_info_2.DaoPersonalInf
 import com.unionbankph.corporate.dao.presentation.personal_info_3.DaoPersonalInformationStepThreeViewModel
 import com.unionbankph.corporate.dao.presentation.personal_info_4.DaoPersonalInformationStepFourViewModel
 import com.unionbankph.corporate.dao.presentation.signature.DaoSignatureViewModel
+import com.unionbankph.corporate.databinding.ActivityDaoBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_dao.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import javax.annotation.concurrent.ThreadSafe
 
-class DaoActivity : BaseActivity<DaoViewModel>(R.layout.activity_dao) {
+class DaoActivity :
+    BaseActivity<ActivityDaoBinding, DaoViewModel>() {
 
     private lateinit var buttonAction: Button
 
@@ -42,15 +44,15 @@ class DaoActivity : BaseActivity<DaoViewModel>(R.layout.activity_dao) {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        textViewCorporationName.setContextCompatTextColor(R.color.colorInfo)
-        textViewTitle.setContextCompatTextColor(R.color.colorInfo)
-        textViewCorporationName.text = formatString(R.string.title_digital_account_opening)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        binding.viewToolbar.textViewCorporationName.setContextCompatTextColor(R.color.colorInfo)
+        binding.viewToolbar.textViewTitle.setContextCompatTextColor(R.color.colorInfo)
+        binding.viewToolbar.textViewCorporationName.text = formatString(R.string.title_digital_account_opening)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[DaoViewModel::class.java]
+
         viewModel.navigatePages.observe(this, EventObserver {
             if (intent.getBooleanExtra(EXTRA_PRIVACY_POLICY, false)) {
                 eventBus.actionSyncEvent.emmit(BaseEvent(ActionSyncEvent.ACTION_PLOT_SIGNATORY_DETAILS))
@@ -58,31 +60,31 @@ class DaoActivity : BaseActivity<DaoViewModel>(R.layout.activity_dao) {
             if (it.hasEditPersonalInformationOneInput
                 && !intent.getBooleanExtra(EXTRA_PRIVACY_POLICY, false)
             ) {
-                nav_host_fragment.findNavController()
+                binding.navHostFragment.findNavController()
                     .navigate(R.id.action_personal_information_step_one)
             }
             if (it.hasEditPersonalInformationTwoInput) {
-                nav_host_fragment.findNavController()
+                binding.navHostFragment.findNavController()
                     .navigate(R.id.action_personal_information_step_two)
             }
             if (it.hasEditPersonalInformationThreeInput) {
-                nav_host_fragment.findNavController()
+                binding.navHostFragment.findNavController()
                     .navigate(R.id.action_personal_information_step_three)
             }
             if (it.hasEditPersonalInformationFourInput) {
-                nav_host_fragment.findNavController()
+                binding.navHostFragment.findNavController()
                     .navigate(R.id.action_personal_information_step_four)
             }
             if (it.hasEditJumioVerificationInput) {
-                nav_host_fragment.findNavController()
+                binding.navHostFragment.findNavController()
                     .navigate(R.id.action_jumio_verification_fragment)
             }
             if (it.hasEditSignatureInput) {
-                nav_host_fragment.findNavController()
+                binding.navHostFragment.findNavController()
                     .navigate(R.id.action_dao_signature_fragment)
             }
             if (it.hasEditConfirmationInput) {
-                nav_host_fragment.findNavController()
+                binding.navHostFragment.findNavController()
                     .navigate(R.id.action_dao_confirmation_fragment)
             }
         })
@@ -147,7 +149,8 @@ class DaoActivity : BaseActivity<DaoViewModel>(R.layout.activity_dao) {
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.dao_navigation)
         if (intent.getBooleanExtra(EXTRA_PRIVACY_POLICY, false)) {
-            graph.startDestination = R.id.dao_personal_information_step_one_fragment
+            showBasicInfoReminder()
+            graph.setStartDestination(R.id.dao_personal_information_step_one_fragment)
             navHostFragment.navController.graph = graph
             viewModel.getSignatoryDetailsFromCache()
         }
@@ -182,25 +185,25 @@ class DaoActivity : BaseActivity<DaoViewModel>(R.layout.activity_dao) {
     }
 
     fun popBackStack() {
-        nav_host_fragment.findNavController().popBackStack()
+        binding.navHostFragment.findNavController().popBackStack()
     }
 
     fun setToolBarDesc(desc: String) {
-        textViewTitle.text = desc
+        binding.viewToolbar.textViewTitle.text = desc
     }
 
     fun setToolBarTitle(title: String) {
-        textViewCorporationName.text = title
+        binding.viewToolbar.textViewCorporationName.text = title
     }
 
     fun hideToolBarDetails() {
-        textViewCorporationName.visibility(false)
-        textViewTitle.visibility(false)
+        binding.viewToolbar.textViewCorporationName.visibility(false)
+        binding.viewToolbar.textViewTitle.visibility(false)
     }
 
     fun showToolBarDetails() {
-        textViewCorporationName.visibility(true)
-        textViewTitle.visibility(true)
+        binding.viewToolbar.textViewCorporationName.visibility(true)
+        binding.viewToolbar.textViewTitle.visibility(true)
     }
 
     fun clearToolbarDetails() {
@@ -208,8 +211,8 @@ class DaoActivity : BaseActivity<DaoViewModel>(R.layout.activity_dao) {
         showProgress(false)
         showButton(false)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
-        removeElevation(viewToolbar)
-        viewToolbar.setContextCompatBackgroundColor(R.color.colorTransparent)
+        removeElevation(binding.viewToolbar.appBarLayout)
+        binding.viewToolbar.appBarLayout.setContextCompatBackgroundColor(R.color.colorTransparent)
     }
 
     fun setActionEvent(actionEvent: ActionEvent) {
@@ -229,16 +232,16 @@ class DaoActivity : BaseActivity<DaoViewModel>(R.layout.activity_dao) {
     }
 
     fun showProgress(isShown: Boolean) {
-        progress_action.visibility(isShown)
+        binding.progressAction.visibility(isShown)
     }
 
     fun setProgressValue(step: Int) {
         val progressValue = step * 100 / TOTAL_STEPS
         //progress_action.progress = progressValue
-        ObjectAnimator.ofInt(progress_action, "progress", progressValue)
+        ObjectAnimator.ofInt(binding.progressAction, "progress", progressValue)
             .setDuration(150)
             .start()
-        textViewCorporationName.text = formatString(R.string.param_dao_part, step, TOTAL_STEPS)
+        binding.viewToolbar.textViewCorporationName.text = formatString(R.string.param_dao_part, step, TOTAL_STEPS)
     }
 
     fun setPersonalInformationStepOneInput(input: DaoPersonalInformationStepOneViewModel.Input) {
@@ -269,6 +272,18 @@ class DaoActivity : BaseActivity<DaoViewModel>(R.layout.activity_dao) {
         viewModel.setSignatoriesDetail(signatoryDetail)
     }
 
+    fun showBasicInfoReminder() {
+        val bundle = Bundle()
+        navigator.navigate(
+            this,
+            DaoBasicInfoReminderActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
     interface ActionEvent {
         fun onClickNext()
     }
@@ -281,4 +296,10 @@ class DaoActivity : BaseActivity<DaoViewModel>(R.layout.activity_dao) {
 
         const val TAG_GO_BACK_DAO_DIALOG = "go_back_dialog"
     }
+
+    override val viewModelClassType: Class<DaoViewModel>
+        get() = DaoViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityDaoBinding
+        get() = ActivityDaoBinding::inflate
 }

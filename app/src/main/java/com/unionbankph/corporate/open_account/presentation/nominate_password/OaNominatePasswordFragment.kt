@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.open_account.presentation.nominate_password
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,16 +16,15 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombin
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidator
 import com.unionbankph.corporate.app.util.ViewUtil
+import com.unionbankph.corporate.databinding.FragmentOaNominatePasswordBinding
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_oa_nominate_password.*
-import kotlinx.android.synthetic.main.fragment_oa_nominate_password.buttonNext
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 class OaNominatePasswordFragment :
-    BaseFragment<OaNominatePasswordViewModel>(R.layout.fragment_oa_nominate_password) {
+    BaseFragment<FragmentOaNominatePasswordBinding, OaNominatePasswordViewModel>() {
 
     private val formDisposable = CompositeDisposable()
 
@@ -34,7 +35,7 @@ class OaNominatePasswordFragment :
     }
 
     private fun initListeners() {
-        buttonNext.setOnClickListener {
+        binding.buttonNext.setOnClickListener {
             displaySuccessBottomSheet()
         }
     }
@@ -42,7 +43,7 @@ class OaNominatePasswordFragment :
     private fun validateForm() {
         formDisposable.clear()
 
-        val emptyObservable = RxValidator.createFor(textInputEditTextPassword)
+        val emptyObservable = RxValidator.createFor(binding.textInputEditTextPassword)
             .nonEmpty(getString(R.string.error_password_validation_message))
             .onValueChanged()
             .toObservable()
@@ -53,7 +54,7 @@ class OaNominatePasswordFragment :
                 )
             }
 
-        val lengthObservable = RxValidator.createFor(textInputEditTextPassword)
+        val lengthObservable = RxValidator.createFor(binding.textInputEditTextPassword)
             .minLength(resources.getInteger(R.integer.min_length_nominate_password_field))
             .maxLength(resources.getInteger(R.integer.max_length_nominate_password_field))
             .onValueChanged()
@@ -65,7 +66,7 @@ class OaNominatePasswordFragment :
                 )
             }
 
-        val upperCaseObservable = RxValidator.createFor(textInputEditTextPassword)
+        val upperCaseObservable = RxValidator.createFor(binding.textInputEditTextPassword)
             .patternMatches(
                 getString(R.string.error_password_validation_message),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_HAS_ALPHA_UPPERCASE))
@@ -78,7 +79,7 @@ class OaNominatePasswordFragment :
                 )
             }
 
-        val numberObservable = RxValidator.createFor(textInputEditTextPassword)
+        val numberObservable = RxValidator.createFor(binding.textInputEditTextPassword)
             .patternMatches(
                 getString(R.string.error_password_validation_message),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_HAS_NUMBER)
@@ -92,7 +93,7 @@ class OaNominatePasswordFragment :
                 )
             }
 
-        val symbolObservable = RxValidator.createFor(textInputEditTextPassword)
+        val symbolObservable = RxValidator.createFor(binding.textInputEditTextPassword)
             .patternFind(
                 getString(R.string.error_password_validation_message),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_HAS_SYMBOL)
@@ -106,11 +107,11 @@ class OaNominatePasswordFragment :
                 )
             }
 
-        initError(lengthObservable, imageViewBullet1)
-        initError(upperCaseObservable, imageViewBullet2)
-        initError(numberObservable, imageViewBullet3)
-        initError(symbolObservable, imageViewBullet4)
-        initError(emptyObservable, imageViewBullet5)
+        initError(lengthObservable, binding.imageViewBullet1)
+        initError(upperCaseObservable, binding.imageViewBullet2)
+        initError(numberObservable, binding.imageViewBullet3)
+        initError(symbolObservable, binding.imageViewBullet4)
+        initError(emptyObservable, binding.imageViewBullet5)
 
         RxCombineValidator(
             lengthObservable,
@@ -124,7 +125,7 @@ class OaNominatePasswordFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { isProper ->
-                buttonNext.isEnabled = isProper
+                binding.buttonNext.isEnabled = isProper
 
                 setErrorLabels(isProper)
             }
@@ -142,14 +143,14 @@ class OaNominatePasswordFragment :
 
                 imageView.requestLayout()
                 if (it.isProper) {
-                    val widthHeight = SUCCESS_INDICATOR_DIMEN.convertToDP(context!!)
+                    val widthHeight = SUCCESS_INDICATOR_DIMEN.convertToDP(requireContext())
                     imageView.apply {
                         setImageResource(R.drawable.ic_check_circle_green)
                         layoutParams.height = widthHeight
                         layoutParams.width = widthHeight
                     }
                 } else {
-                    val widthHeight = ERROR_INDICATOR_DIMEN.convertToDP(context!!)
+                    val widthHeight = ERROR_INDICATOR_DIMEN.convertToDP(requireContext())
                     imageView.apply {
                         setImageResource(R.drawable.circle_red_badge)
                         layoutParams.height = widthHeight
@@ -161,17 +162,17 @@ class OaNominatePasswordFragment :
 
     private fun setErrorLabels(isProper: Boolean) {
         if (isProper) {
-            inputLayoutPassword.isErrorEnabled = false
-            inputLayoutPassword.error = null
+            binding.inputLayoutPassword.isErrorEnabled = false
+            binding.inputLayoutPassword.error = null
         } else {
-            inputLayoutPassword.isErrorEnabled = false
-            inputLayoutPassword.error = getString(R.string.error_password_validation_message)
+            binding.inputLayoutPassword.isErrorEnabled = false
+            binding.inputLayoutPassword.error = getString(R.string.error_password_validation_message)
         }
 
-        textViewPasswordRequirementLabel.visibility = View.GONE
-        textViewPasswordLabel.setTextColor(when (isProper) {
-            true -> ContextCompat.getColor(context!!, R.color.dsColorDarkGray)
-            else -> ContextCompat.getColor(context!!, R.color.colorErrorColor)
+        binding.textViewPasswordRequirementLabel.visibility = View.GONE
+        binding.textViewPasswordLabel.setTextColor(when (isProper) {
+            true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
+            else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
         })
     }
 
@@ -194,4 +195,10 @@ class OaNominatePasswordFragment :
         const val ERROR_INDICATOR_DIMEN = 6
         const val SUCCESS_INDICATOR_DIMEN = 12
     }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOaNominatePasswordBinding
+        get() = FragmentOaNominatePasswordBinding::inflate
+
+    override val viewModelClassType: Class<OaNominatePasswordViewModel>
+        get() = OaNominatePasswordViewModel::class.java
 }

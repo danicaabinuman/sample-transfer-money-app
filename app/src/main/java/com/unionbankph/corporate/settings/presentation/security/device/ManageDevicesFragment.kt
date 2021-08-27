@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.settings.presentation.security.device
 
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -14,13 +16,13 @@ import com.unionbankph.corporate.app.common.platform.bus.event.FragmentSettingsS
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
+import com.unionbankph.corporate.databinding.FragmentManageDevicesBinding
 import com.unionbankph.corporate.settings.data.model.Device
 import com.unionbankph.corporate.settings.data.model.ManageDevicesDto
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_manage_devices.*
 
 class ManageDevicesFragment :
-    BaseFragment<ManageDevicesViewModel>(R.layout.fragment_manage_devices),
+    BaseFragment<FragmentManageDevicesBinding, ManageDevicesViewModel>(),
     EpoxyAdapterCallback<Device> {
 
     private val controller by lazyFast {
@@ -32,23 +34,21 @@ class ManageDevicesFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[ManageDevicesViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowManageDevicesLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutManageDevices,
-                        recyclerViewManageDevices,
-                        textViewState
+                        binding.viewLoadingState.viewLoadingLayout,
+                        binding.swipeRefreshLayoutManageDevices,
+                        binding.recyclerViewManageDevices,
+                        binding.textViewState
                     )
                 }
                 is ShowManageDevicesDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutManageDevices,
-                        recyclerViewManageDevices
+                        binding.viewLoadingState.viewLoadingLayout,
+                        binding.swipeRefreshLayoutManageDevices,
+                        binding. recyclerViewManageDevices
                     )
                 }
                 is ShowManageDeviceGetDevices -> {
@@ -75,13 +75,13 @@ class ManageDevicesFragment :
 
     private fun initRecyclerView() {
         controller.setAdapterCallbacks(this)
-        recyclerViewManageDevices.setController(controller)
+        binding.recyclerViewManageDevices.setController(controller)
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        swipeRefreshLayoutManageDevices.apply {
+        binding.swipeRefreshLayoutManageDevices.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 viewModel.getManageDevicesList()
@@ -92,7 +92,7 @@ class ManageDevicesFragment :
     private fun initEventBus() {
         eventBus.actionSyncEvent.flowable.subscribe {
             if (it.eventType == ActionSyncEvent.ACTION_UPDATE_MANAGE_DEVICES) {
-                swipeRefreshLayoutManageDevices.isRefreshing = true
+                binding.swipeRefreshLayoutManageDevices.isRefreshing = true
                 viewModel.getManageDevicesList()
             }
         }.addTo(disposables)
@@ -112,4 +112,10 @@ class ManageDevicesFragment :
     private fun updateController(data: ManageDevicesDto) {
         controller.setData(data)
     }
+
+    override val viewModelClassType: Class<ManageDevicesViewModel>
+        get() = ManageDevicesViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentManageDevicesBinding
+        get() = FragmentManageDevicesBinding::inflate
 }

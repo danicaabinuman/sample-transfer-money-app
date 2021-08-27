@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.mobile
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.widget.EditText
 import androidx.lifecycle.Observer
@@ -22,6 +23,7 @@ import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityChangeMobileNumberBinding
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsGetCorporateUser
@@ -30,14 +32,11 @@ import com.unionbankph.corporate.settings.presentation.password.PasswordActivity
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_change_mobile_number.*
-import kotlinx.android.synthetic.main.widget_country_picker.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 class ChangeMobileNumberActivity :
-    BaseActivity<SettingsViewModel>(R.layout.activity_change_mobile_number) {
+    BaseActivity<ActivityChangeMobileNumberBinding, SettingsViewModel>() {
 
     private var countryCode: CountryCode? = null
 
@@ -45,19 +44,18 @@ class ChangeMobileNumberActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[SettingsViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSettingsGetCorporateUser -> {
                     countryCode = it.corporateUser.countryCode
                     initCountryDefault(countryCode)
-                    editTextMobileNumber.setText(it.corporateUser.mobileNumber)
+                    binding.editTextMobileNumber.setText(it.corporateUser.mobileNumber)
                 }
                 is ShowSettingsError -> {
                     handleOnError(it.throwable)
@@ -74,7 +72,7 @@ class ChangeMobileNumberActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        RxView.clicks(btnSubmit)
+        RxView.clicks(binding.btnSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -91,7 +89,7 @@ class ChangeMobileNumberActivity :
                 }
             }.addTo(disposables)
 
-        countryCodePicker.setOnClickListener {
+        binding.countryCodePicker.root.setOnClickListener {
             navigateCountryScreen()
         }
     }
@@ -108,7 +106,7 @@ class ChangeMobileNumberActivity :
         )
         bundle.putString(
             PasswordActivity.EXTRA_MOBILE_NUMBER,
-            editTextMobileNumber.text.toString()
+            binding.editTextMobileNumber.text.toString()
         )
         navigator.navigate(
             this,
@@ -146,9 +144,9 @@ class ChangeMobileNumberActivity :
 
     private fun initCountryDefault(selectedCountryCode: CountryCode?) {
         validateForm(Constant.getDefaultCountryCode().code == selectedCountryCode?.code)
-        editTextMobileNumber.clear()
+        binding.editTextMobileNumber.clear()
         viewUtil.setEditTextMaxLength(
-            editTextMobileNumber,
+            binding.editTextMobileNumber,
             resources.getInteger(
                 if (Constant.getDefaultCountryCode().code == countryCode?.code) {
                     R.integer.max_length_mobile_number_ph
@@ -157,8 +155,8 @@ class ChangeMobileNumberActivity :
                 }
             )
         )
-        textViewCallingCode.text = selectedCountryCode?.callingCode
-        imageViewFlag.setImageResource(
+        binding.countryCodePicker.textViewCallingCode.text = selectedCountryCode?.callingCode
+        binding.countryCodePicker.imageViewFlag.setImageResource(
             viewUtil.getDrawableById("ic_flag_${selectedCountryCode?.code?.toLowerCase()}")
         )
     }
@@ -167,7 +165,7 @@ class ChangeMobileNumberActivity :
         formDisposable.clear()
         val mobileNumberObservable =
             if (isCountryPH) {
-                RxValidator.createFor(editTextMobileNumber)
+                RxValidator.createFor(binding.editTextMobileNumber)
                     .nonEmpty(
                         String.format(
                             getString(R.string.error_specific_field),
@@ -200,7 +198,7 @@ class ChangeMobileNumberActivity :
                     isValueChanged = true,
                     minLength = resources.getInteger(R.integer.min_length_field),
                     maxLength = resources.getInteger(R.integer.max_length_field_100),
-                    editText = editTextMobileNumber,
+                    editText = binding.editTextMobileNumber,
                     customErrorMessage = String.format(
                         getString(R.string.error_specific_field),
                         getString(R.string.hint_mobile_number)
@@ -237,4 +235,10 @@ class ChangeMobileNumberActivity :
 
         )
     }
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityChangeMobileNumberBinding
+        get() = ActivityChangeMobileNumberBinding::inflate
 }

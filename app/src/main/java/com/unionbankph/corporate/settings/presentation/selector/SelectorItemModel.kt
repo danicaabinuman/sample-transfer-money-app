@@ -10,8 +10,8 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.setContextCompatBackgroundColor
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
+import com.unionbankph.corporate.databinding.ItemSelectorBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
-import kotlinx.android.synthetic.main.item_selector.view.*
 
 @EpoxyModelClass(layout = R.layout.item_selector)
 abstract class SelectorItemModel : EpoxyModelWithHolder<SelectorItemModel.Holder>() {
@@ -30,7 +30,7 @@ abstract class SelectorItemModel : EpoxyModelWithHolder<SelectorItemModel.Holder
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             checkBox.text = item.value
             checkBox.isChecked = hasSelected
@@ -48,14 +48,11 @@ abstract class SelectorItemModel : EpoxyModelWithHolder<SelectorItemModel.Holder
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var checkBox: MaterialCheckBox
-        lateinit var viewBorderTop: View
-        lateinit var viewItemState: View
+
+        lateinit var binding : ItemSelectorBinding
 
         override fun bindView(itemView: View) {
-            checkBox = itemView.checkBox
-            viewBorderTop = itemView.viewBorderTop
-            viewItemState = itemView.viewItemState
+            binding = ItemSelectorBinding.bind(itemView)
         }
     }
 }

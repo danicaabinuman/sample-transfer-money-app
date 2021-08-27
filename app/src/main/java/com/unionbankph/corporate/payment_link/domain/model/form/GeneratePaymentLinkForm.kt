@@ -9,15 +9,15 @@ data class GeneratePaymentLinkForm(
         @SerialName("amount")
         var totalAmount: Double = 0.0,
         @SerialName("description")
-        var description: String,
+        var description: String? = "",
         @SerialName("note")
-        var notes: String? = null,
+        var notes: String? = "",
         @SerialName("expiry")
-        var paymentLinkExpiry: Int = 12,
+        var expiry: Int = 0,
         @SerialName("mobileNumber")
-        var mobileNumber: String?,
+        var mobileNumber: String? = "",
         @SerialName("organizationName")
-        var organizationName: String?,
+        var organizationName: String? = "",
         @SerialName("corporateId")
-        var corporateId: String?
+        var corporateId: String? = ""
 )

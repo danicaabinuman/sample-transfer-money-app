@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchWrapParent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintFaceId"
+        style="@style/BottomSheetBackground"
+        android:padding="@dimen/grid_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewFaceIdTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textSize="@dimen/text_18"
+            android:layout_marginTop="@dimen/grid_2"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:textStyle="bold"
+            android:text="@string/title_login_in_using_faceid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewFaceIdDesc"
+            style="@style/TextViewThemeLarge"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/content_spacing_half"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:gravity="center"
+            android:text="@string/confirm_fingerprint_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFaceIdTitle" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewIcon"
+            android:layout_height="@dimen/circle_icon_size"
+            android:layout_width="@dimen/circle_icon_size"
+            android:layout_marginTop="@dimen/grid_3"
+            android:scaleType="centerInside"
+            app:layout_constraintTop_toBottomOf="@id/textViewFaceIdDesc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_face_id" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewFaceIdDesc2"
+            style="@style/TextViewThemeLarge"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/grid_2"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:gravity="center"
+            android:textColor="@color/colorButtonGray"
+            android:text="@string/desc_look_directly_at_your_camera"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewIcon" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonCancel"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_large_size"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:text="@string/action_use_password"
+            android:textStyle="bold"
+            android:background="@color/colorWhite"
+            android:textColor="@color/dsColorMediumOrange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFaceIdDesc2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

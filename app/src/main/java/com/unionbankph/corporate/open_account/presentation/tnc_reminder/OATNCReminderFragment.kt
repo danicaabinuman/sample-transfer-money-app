@@ -2,6 +2,8 @@ package com.unionbankph.corporate.open_account.presentation.tnc_reminder
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding2.view.RxView
@@ -12,13 +14,13 @@ import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.FragmentOaTncReminderBinding
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_oa_tnc_reminder.*
 import java.util.concurrent.TimeUnit
 
 class OATNCReminderFragment :
-    BaseFragment<TNCReminderViewModel>(R.layout.fragment_oa_tnc_reminder) {
+    BaseFragment<FragmentOaTncReminderBinding, TNCReminderViewModel>() {
 
     private val openAccountActivity by lazyFast { getAppCompatActivity() as OpenAccountActivity }
 
@@ -40,8 +42,6 @@ class OATNCReminderFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[TNCReminderViewModel::class.java]
 
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
@@ -80,13 +80,13 @@ class OATNCReminderFragment :
             viewModel.loadName(openAccountActivity.viewModel.defaultForm())
             viewModel.input.firstNameInput
                 .subscribe {
-                    txt_welcome_name.text = formatString(R.string.welcome_reminder, it)
+                    binding.txtWelcomeName.text = formatString(R.string.welcome_reminder, it)
                 }.addTo(disposables)
         }
     }
 
     private fun initOnClicks(){
-        RxView.clicks(btn_tnc_reminder_next)
+        RxView.clicks(binding.btnTncReminderNext)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -95,4 +95,10 @@ class OATNCReminderFragment :
                 findNavController().navigate(R.id.action_tnc_reminder_to_tnc)
             }.addTo(disposables)
     }
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOaTncReminderBinding
+        get() = FragmentOaTncReminderBinding::inflate
+
+    override val viewModelClassType: Class<TNCReminderViewModel>
+        get() = TNCReminderViewModel::class.java
 }

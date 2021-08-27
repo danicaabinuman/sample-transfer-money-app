@@ -211,6 +211,9 @@
 
     <!-- Dashboard Screen-->
 
+    <color name="colorFingerPrintIconPlain">@color/dsColorMediumOrange</color>
+    <color name="colorFaceIDIconPlain">@color/dsColorMediumOrange</color>
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->

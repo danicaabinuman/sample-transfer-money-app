@@ -4,24 +4,24 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
+import com.unionbankph.corporate.databinding.ActivityCardAcceptanceOptionBinding
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
-import kotlinx.android.synthetic.main.activity_card_acceptance_option.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 class CardAcceptanceOptionActivity :
-    BaseActivity<CardAcceptanceOptionViewModel>(R.layout.activity_card_acceptance_option) {
+    BaseActivity<ActivityCardAcceptanceOptionBinding, CardAcceptanceOptionViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorSMEMediumOrange, true)
     }
 
@@ -44,7 +44,7 @@ class CardAcceptanceOptionActivity :
     }
 
     private fun selectYesCardPayments(){
-        btnYes.setOnClickListener {
+        binding.btnYes.setOnClickListener {
             navigator.navigate(
                 this,
                 YesAcceptCardPaymentsActivity::class.java,
@@ -57,7 +57,7 @@ class CardAcceptanceOptionActivity :
     }
 
     private fun selectNotNowCardPayments(){
-        btnNotNow.setOnClickListener {
+        binding.btnNotNow.setOnClickListener {
             navigator.navigate(
                 this,
                 NotNowCardPaymentsActivity::class.java,
@@ -70,7 +70,7 @@ class CardAcceptanceOptionActivity :
     }
 
     private fun selectDontAskMeAgain(){
-        btnDontAskAgain.setOnClickListener {
+        binding.btnDontAskAgain.setOnClickListener {
             val sharedPref: SharedPreferences = getSharedPreferences(SHAREDPREF_IS_ONBOARDED, Context.MODE_PRIVATE)
             if (sharedPref.getBoolean(SHAREDPREF_IS_ONBOARDED, false)){
                 continueToNextScreen()
@@ -89,4 +89,10 @@ class CardAcceptanceOptionActivity :
     companion object {
         const val SHAREDPREF_IS_ONBOARDED = "sharedpref_is_onboarded"
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCardAcceptanceOptionBinding
+        get() = ActivityCardAcceptanceOptionBinding::inflate
+
+    override val viewModelClassType: Class<CardAcceptanceOptionViewModel>
+        get() = CardAcceptanceOptionViewModel::class.java
 }

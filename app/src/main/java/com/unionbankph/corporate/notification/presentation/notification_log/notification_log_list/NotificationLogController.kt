@@ -21,8 +21,8 @@ import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.data.model.StateData
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.NotificationLogTypeEnum
+import com.unionbankph.corporate.databinding.ItemNotificationLogBinding
 import com.unionbankph.corporate.notification.data.model.NotificationLogDto
-import kotlinx.android.synthetic.main.item_notification_log.view.*
 
 class NotificationLogController
 constructor(
@@ -51,11 +51,11 @@ constructor(
         data.forEachIndexed { index, stateData ->
             notificationLogItem {
                 id(stateData.data.id)
-                context(context)
-                viewUtil(viewUtil)
+                context(this@NotificationLogController.context)
+                viewUtil(this@NotificationLogController.viewUtil)
                 hasRead(stateData.state)
                 notificationLogDto(stateData.data)
-                callbacks(callbacks)
+                callbacks(this@NotificationLogController.callbacks)
                 position(index)
             }
         }
@@ -100,7 +100,7 @@ abstract class NotificationLogItemModel : EpoxyModelWithHolder<NotificationLogIt
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             textViewNotificationLogTitle.text = notificationLogDto.title
             textViewNotificationLogDesc.text = notificationLogDto.message
@@ -131,9 +131,9 @@ abstract class NotificationLogItemModel : EpoxyModelWithHolder<NotificationLogIt
                 }
             }
             viewReadStatus.visibility(!hasRead)
-            itemView.setOnClickListener {
+            root.setOnClickListener {
                 callbacks.onClickItem(
-                    itemView,
+                    root,
                     notificationLogDto,
                     position
                 )
@@ -142,22 +142,11 @@ abstract class NotificationLogItemModel : EpoxyModelWithHolder<NotificationLogIt
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var imageViewNotificationLog: AppCompatImageView
-        lateinit var textViewNotificationLogTitle: TextView
-        lateinit var textViewNotificationLogDesc: TextView
-        lateinit var textViewNotificationLogCreatedDate: TextView
-        lateinit var viewBorderTop: View
-        lateinit var viewReadStatus: View
-        lateinit var itemView: View
+
+        lateinit var binding : ItemNotificationLogBinding
 
         override fun bindView(itemView: View) {
-            this.itemView = itemView
-            imageViewNotificationLog = itemView.imageViewNotificationLog
-            textViewNotificationLogTitle = itemView.textViewNotificationLogTitle
-            textViewNotificationLogDesc = itemView.textViewNotificationLogDesc
-            textViewNotificationLogCreatedDate = itemView.textViewNotificationLogCreatedDate
-            viewBorderTop = itemView.viewBorderTop
-            viewReadStatus = itemView.viewReadStatus
+            binding = ItemNotificationLogBinding.bind(itemView)
         }
     }
 }

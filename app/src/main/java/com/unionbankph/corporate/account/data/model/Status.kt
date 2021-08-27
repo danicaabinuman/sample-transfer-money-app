@@ -1,10 +1,18 @@
 package com.unionbankph.corporate.account.data.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.*
 import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.buildClassSerialDescriptor
+import kotlinx.serialization.descriptors.element
+import kotlinx.serialization.encoding.CompositeDecoder
+import kotlinx.serialization.encoding.CompositeEncoder
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+
 
 @Parcelize
 @Serializable
@@ -21,6 +29,12 @@ data class Status(
 ) : Parcelable {
     @Serializer(forClass = Status::class)
     companion object : KSerializer<Status> {
+
+        override val descriptor: SerialDescriptor = buildClassSerialDescriptor(this.toString()) {
+            element<String>("type", isOptional = true)
+            element<String>("description", isOptional = true)
+            element<String>("color", isOptional = true)
+        }
 
         override fun serialize(encoder: Encoder, value: Status) {
             val compositeOutput: CompositeEncoder = encoder.beginStructure(descriptor)
@@ -54,7 +68,7 @@ data class Status(
 
                 loop@ while (true) {
                     when (val i = inp.decodeElementIndex(descriptor)) {
-                        CompositeDecoder.READ_DONE -> break@loop
+                        CompositeDecoder.DECODE_DONE -> break@loop
                         0 -> type = inp.decodeNullableSerializableElement(
                             descriptor,
                             i,

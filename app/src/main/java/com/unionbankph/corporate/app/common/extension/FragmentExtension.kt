@@ -5,6 +5,7 @@ import android.os.Looper
 import android.text.Spanned
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.AttrRes
@@ -14,12 +15,14 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.button.MaterialButton
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
+import com.unionbankph.corporate.app.base.FragmentViewBindingDelegate
 
 fun Fragment.runPostDelayed(func: (() -> Unit), delayMillisecond: Long) {
     Handler(Looper.getMainLooper()).postDelayed(
@@ -106,3 +109,6 @@ fun Fragment.showToolTip(title: String, content: String) {
     toolTipDialog.window?.setGravity(Gravity.CENTER)
     toolTipDialog.show()
 }
+
+fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
+    FragmentViewBindingDelegate(this, viewBindingFactory)

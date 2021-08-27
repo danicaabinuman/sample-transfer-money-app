@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
-import kotlinx.android.synthetic.main.item_account_error.view.*
+import com.unionbankph.corporate.databinding.ItemAccountErrorBinding
 
 @EpoxyModelClass
 abstract class AccountItemErrorModel : EpoxyModelWithHolder<AccountItemErrorModel.Holder>() {
@@ -27,24 +27,22 @@ abstract class AccountItemErrorModel : EpoxyModelWithHolder<AccountItemErrorMode
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.textViewErrorMessage.text = when (errorMessage.isNotEmpty()) {
+        holder.binding.textViewErrorMessage.text = when (errorMessage.isNotEmpty()) {
             true -> errorMessage
-            else -> holder.textViewErrorMessage.context.getString(R.string.error_something_went_wrong)
+            else -> holder.binding.textViewErrorMessage.context.getString(R.string.error_something_went_wrong)
         }
 
-        holder.cardViewTapToRetry.setOnClickListener {
+        holder.binding.cardViewTapToRetry.setOnClickListener {
             callbacks.onTapToRetry()
         }
     }
 
     class Holder : EpoxyHolder() {
 
-        lateinit var cardViewTapToRetry : CardView
-        lateinit var textViewErrorMessage : TextView
+        lateinit var binding: ItemAccountErrorBinding
 
         override fun bindView(itemView: View) {
-            cardViewTapToRetry = itemView.cardViewTapToRetry
-            textViewErrorMessage = itemView.textViewErrorMessage
+            binding = ItemAccountErrorBinding.bind(itemView)
         }
     }
 }

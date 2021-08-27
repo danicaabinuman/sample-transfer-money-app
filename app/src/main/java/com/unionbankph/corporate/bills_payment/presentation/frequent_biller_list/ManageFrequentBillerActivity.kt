@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.bills_payment.presentation.frequent_biller_list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -37,24 +38,15 @@ import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEn
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.ActivityManageFrequentBillerBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_manage_frequent_biller.*
-import kotlinx.android.synthetic.main.activity_manage_frequent_biller.constraintLayout
-import kotlinx.android.synthetic.main.activity_manage_frequent_biller.recyclerViewTutorial
-import kotlinx.android.synthetic.main.activity_manage_frequent_biller.swipeRefreshLayoutTable
-import kotlinx.android.synthetic.main.activity_manage_frequent_biller.textViewState
-import kotlinx.android.synthetic.main.activity_manage_frequent_biller.viewLoadingState
-import kotlinx.android.synthetic.main.activity_manage_frequent_biller.viewToolbar
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_table_view.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by herald25santos on 12/03/2019
  */
 class ManageFrequentBillerActivity :
-    BaseActivity<FrequentBillerViewModel>(R.layout.activity_manage_frequent_biller),
+    BaseActivity<ActivityManageFrequentBillerBinding, FrequentBillerViewModel>(),
     EpoxyAdapterCallback<FrequentBiller>, OnTutorialListener {
 
     private val pageable by lazyFast { Pageable() }
@@ -71,7 +63,7 @@ class ManageFrequentBillerActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewsBound() {
@@ -89,16 +81,16 @@ class ManageFrequentBillerActivity :
                 getFrequentBillers(true)
             }
         }
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.requestFocus()
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.requestFocus()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        floatingActionButtonAddFrequentBiller.setOnClickListener {
+        binding.floatingActionButtonAddFrequentBiller.setOnClickListener {
             val bundle = Bundle()
             bundle.putString(
                 ManageFrequentBillerFormActivity.EXTRA_TYPE,
@@ -142,8 +134,8 @@ class ManageFrequentBillerActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_manage_frequent_billers),
                         it.orgName
                     )
@@ -154,26 +146,22 @@ class ManageFrequentBillerActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[FrequentBillerViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowFrequentBillerLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView(),
-                        textViewState
+                        binding.textViewState
                     )
-                    if (viewLoadingState.visibility == View.VISIBLE) {
+                    if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                         updateController(mutableListOf())
                     }
                 }
                 is ShowFrequentBillerDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView()
                     )
@@ -289,9 +277,9 @@ class ManageFrequentBillerActivity :
                     getFirstItemTutorial() -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            floatingActionButtonAddFrequentBiller,
+                            binding.floatingActionButtonAddFrequentBiller,
                             R.layout.frame_tutorial_lower_right,
-                            floatingActionButtonAddFrequentBiller.height.toFloat() -
+                            binding.floatingActionButtonAddFrequentBiller.height.toFloat() -
                                     resources.getDimension(R.dimen.grid_5_half),
                             true,
                             getString(R.string.msg_tutorial_frequent_biller_fab),
@@ -299,10 +287,10 @@ class ManageFrequentBillerActivity :
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    floatingActionButtonAddFrequentBiller -> {
+                    binding.floatingActionButtonAddFrequentBiller -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            editTextSearch,
+                            binding.viewSearchLayout.editTextSearch,
                             R.layout.frame_tutorial_upper_left,
                             resources.getDimension(R.dimen.field_radius_search),
                             false,
@@ -311,7 +299,7 @@ class ManageFrequentBillerActivity :
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    editTextSearch -> {
+                    binding.viewSearchLayout.editTextSearch -> {
                         clearTutorial()
                     }
                 }
@@ -343,7 +331,7 @@ class ManageFrequentBillerActivity :
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        constraintLayout,
+                        binding.constraintLayout,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -368,13 +356,13 @@ class ManageFrequentBillerActivity :
 
     private fun showEmptyState(data: MutableList<FrequentBiller>) {
         if (isTableView()) {
-            linearLayoutRow.visibility(data.isNotEmpty())
+            binding.viewTable.linearLayoutRow.visibility(data.isNotEmpty())
         }
         if (data.isNotEmpty()) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.text = getString(R.string.title_no_frequent_billers)
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.text = getString(R.string.title_no_frequent_billers)
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -383,7 +371,7 @@ class ManageFrequentBillerActivity :
             if (it.eventType == ActionSyncEvent.ACTION_UPDATE_FREQUENT_BILLER_LIST ||
                 it.eventType == ActionSyncEvent.ACTION_DELETE_FREQUENT_BILLER
             ) {
-                if (viewLoadingState.visibility != View.VISIBLE) {
+                if (binding.viewLoadingState.root.visibility != View.VISIBLE) {
                     getSwipeRefreshLayout().isRefreshing = true
                 }
                 getFrequentBillers(true)
@@ -438,10 +426,10 @@ class ManageFrequentBillerActivity :
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(
             TextView.OnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    editTextSearch.clearFocus()
+                    binding.viewSearchLayout.editTextSearch.clearFocus()
                     viewUtil.dismissKeyboard(this)
                     getFrequentBillers(true)
                     return@OnEditorActionListener true
@@ -449,7 +437,7 @@ class ManageFrequentBillerActivity :
                 false
             }
         )
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -457,7 +445,7 @@ class ManageFrequentBillerActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     pageable.filter = filter.text().toString().nullable()
                     getFrequentBillers(true)
@@ -494,8 +482,8 @@ class ManageFrequentBillerActivity :
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutFrequentBiller.visibility(false)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutFrequentBiller.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_manage_frequency)
                     .toMutableList()
@@ -504,17 +492,23 @@ class ManageFrequentBillerActivity :
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewManageFrequentBiller
+        if (isTableView()) binding.viewTable.recyclerViewTable else binding.recyclerViewManageFrequentBiller
 
     private fun getRecyclerViewTutorial() =
-        if (isTableView()) recyclerViewTableTutorial else recyclerViewTutorial
+        if (isTableView()) binding.viewTable.recyclerViewTableTutorial else binding.recyclerViewTutorial
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutFrequentBiller
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutFrequentBiller
+
+    override val viewModelClassType: Class<FrequentBillerViewModel>
+        get() = FrequentBillerViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityManageFrequentBillerBinding
+        get() = ActivityManageFrequentBillerBinding::inflate
 }

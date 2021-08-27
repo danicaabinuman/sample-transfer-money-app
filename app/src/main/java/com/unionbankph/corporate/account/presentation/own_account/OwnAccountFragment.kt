@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.account.presentation.own_account
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.lifecycle.Observer
@@ -22,17 +24,16 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScroll
 import com.unionbankph.corporate.common.data.model.PermissionCollection
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentOwnAccountBinding
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_own_account.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
 import java.util.concurrent.TimeUnit
 
 /**
  * Created by herald25santos on 12/03/2019
  */
 class OwnAccountFragment :
-    BaseFragment<OwnAccountViewModel>(R.layout.fragment_own_account),
+    BaseFragment<FragmentOwnAccountBinding ,OwnAccountViewModel>(),
     AccountAdapterCallback {
 
     private val controller by lazyFast {
@@ -60,7 +61,7 @@ class OwnAccountFragment :
         dataBus.accountDataBus.flowable.subscribe {
             viewModel.updateEachAccount(it)
         }.addTo(disposables)
-        swipeRefreshLayoutAccounts.apply {
+        binding.swipeRefreshLayoutAccounts.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getAccountsPermission(true)
@@ -70,7 +71,6 @@ class OwnAccountFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[OwnAccountViewModel::class.java]
         viewModel.stateOwn.observe(this, Observer {
             when (it) {
                 is ShowOwnAccountLoading -> {
@@ -78,12 +78,12 @@ class OwnAccountFragment :
                         updateController()
                     } else {
                         showLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutAccounts,
-                            recyclerViewAccounts,
-                            textViewState
+                            binding.viewLoadingState.root,
+                            binding.swipeRefreshLayoutAccounts,
+                            binding.recyclerViewAccounts,
+                            binding.textViewState
                         )
-                        if (viewLoadingState.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     }
@@ -93,9 +93,9 @@ class OwnAccountFragment :
                         updateController()
                     } else {
                         dismissLoading(
-                            viewLoadingState,
-                            swipeRefreshLayoutAccounts,
-                            recyclerViewAccounts
+                            binding.viewLoadingState.root,
+                            binding.swipeRefreshLayoutAccounts,
+                            binding.recyclerViewAccounts
                         )
                     }
                 }
@@ -149,8 +149,8 @@ class OwnAccountFragment :
 
     private fun initRecyclerView() {
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewAccounts.layoutManager = linearLayoutManager
-        recyclerViewAccounts.addOnScrollListener(
+        binding.recyclerViewAccounts.layoutManager = linearLayoutManager
+        binding.recyclerViewAccounts.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = viewModel.pageable.totalPageCount
@@ -168,29 +168,29 @@ class OwnAccountFragment :
             }
         )
         controller.setAdapterCallbacks(this)
-        recyclerViewAccounts.layoutManager = linearLayoutManager
-        recyclerViewAccounts.setController(controller)
+        binding.recyclerViewAccounts.layoutManager = linearLayoutManager
+        binding.recyclerViewAccounts.setController(controller)
     }
 
     private fun initRxSearchEventListener() {
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                editTextSearch.clearFocus()
+                binding.viewSearchLayout.editTextSearch.clearFocus()
                 viewUtil.dismissKeyboard(getAppCompatActivity())
                 getAccountsPermission(true)
                 return@OnEditorActionListener true
             }
             false
         })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -198,7 +198,7 @@ class OwnAccountFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     viewModel.pageable.filter = filter.text().toString().nullable()
                     getAccountsPermission(true)
@@ -209,15 +209,15 @@ class OwnAccountFragment :
 
     private fun showEmptyState(data: MutableList<Account> = viewModel.getAccounts()) {
         if (data.size > 0) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun scrollToTop() {
-        recyclerViewAccounts.post {
-            recyclerViewAccounts.scrollToPosition(0)
+        binding.recyclerViewAccounts.post {
+            binding.recyclerViewAccounts.scrollToPosition(0)
         }
     }
 
@@ -245,9 +245,9 @@ class OwnAccountFragment :
                     destinationId = destinationId
                 )
             } else {
-                textViewState.text = getString(R.string.title_no_feature_permission)
-                textViewState.visibility = View.VISIBLE
-                swipeRefreshLayoutAccounts.isEnabled = false
+                binding.textViewState.text = getString(R.string.title_no_feature_permission)
+                binding.textViewState.visibility = View.VISIBLE
+                binding.swipeRefreshLayoutAccounts.isEnabled = false
             }
         }
     }
@@ -278,4 +278,10 @@ class OwnAccountFragment :
             return fragment
         }
     }
+
+    override val viewModelClassType: Class<OwnAccountViewModel>
+        get() = OwnAccountViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOwnAccountBinding
+        get() = FragmentOwnAccountBinding::inflate
 }
