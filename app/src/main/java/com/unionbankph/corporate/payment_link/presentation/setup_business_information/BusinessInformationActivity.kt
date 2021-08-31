@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -20,6 +21,7 @@ import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import kotlinx.android.synthetic.main.activity_business_information.*
@@ -36,6 +38,7 @@ class BusinessInformationActivity :
     AdapterView.OnItemSelectedListener {
 
     var rmoBusinessInformationResponse: RMOBusinessInformationForm? = null
+    private var info = GetRMOBusinessInformationResponse()
     var businessType =
         arrayOf(
             "Select",
@@ -93,6 +96,9 @@ class BusinessInformationActivity :
             }
         })
 
+        viewModel.getRMOBusinessInformationResponse.observe(this, Observer {
+            getBusinessInformationResponse(it)
+        })
     }
 
     override fun onViewsBound() {
@@ -106,7 +112,7 @@ class BusinessInformationActivity :
     private fun initViews() {
         disableNextButton()
         requiredFields()
-        getBusinessInformation()
+//        getBusinessInformation()
 
         btn_lazada.setOnClickListener { btnLazadaClicked() }
         btn_shopee.setOnClickListener { btnShopeeClicked() }
@@ -119,6 +125,8 @@ class BusinessInformationActivity :
         btn_years_decrement_active.setOnClickListener { businessYearDecrementClicked() }
         btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
         btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
+        btn_employee_increment.setOnClickListener { employeeNumberIncrement() }
+        btn_employee_decrement_inactive.setOnClickListener { employeeNumberDecrement() }
         btn_next.setOnClickListener {
 //            retrieveInformationFromFields()
             btnNextClicked()
@@ -129,30 +137,40 @@ class BusinessInformationActivity :
         }
     }
 
-    private fun getBusinessInformation(){
-        rmoBusinessInformationResponse?.let {
-            viewModel.getBusinessInformation(
-                GetRMOBusinessInformationForm(
-                    it.businessType,
-                    it.storeProduct,
-                    it.infoStatus,
-                    it.yearsInBusiness,
-                    it.numberOfBranches,
-                    it.physicalStore,
-                    it.website,
-                    it.lazadaUrl,
-                    it.shopeeUrl,
-                    it.facebookUrl,
-                    it.instagramUrl,
-                    it.imageUrl1,
-                    it.imageUrl2,
-                    it.imageUrl3,
-                    it.imageUrl4,
-                    it.imageUrl5,
-                    it.imageUrl6
-                )
-            )
-        }
+    private fun getBusinessInformationResponse(response: GetRMOBusinessInformationResponse){
+//        rmoBusinessInformationResponse?.let {
+//            viewModel.getBusinessInformation(
+//                GetRMOBusinessInformationForm(
+//                    it.businessType,
+//                    it.storeProduct,
+//                    it.infoStatus,
+//                    it.yearsInBusiness,
+//                    it.numberOfBranches,
+//                    it.physicalStore,
+//                    it.website,
+//                    it.lazadaUrl,
+//                    it.shopeeUrl,
+//                    it.facebookUrl,
+//                    it.instagramUrl,
+//                    it.imageUrl1,
+//                    it.imageUrl2,
+//                    it.imageUrl3,
+//                    it.imageUrl4,
+//                    it.imageUrl5,
+//                    it.imageUrl6
+//                )
+//            )
+//        }
+        displayBusinessInfo(response)
+        this.info = response
+    }
+
+    private fun displayBusinessInfo(info: GetRMOBusinessInformationResponse){
+        val tvProductsAndServices : TextView = findViewById(R.id.tv_product_of_services_offered)
+        val tvYearsOfBusiness : TextView = findViewById(R.id.tv_years_counter)
+
+        tvProductsAndServices.text = info.merchantDetails!!.storeProduct.toString()
+        tvYearsOfBusiness.text = info.merchantDetails!!.yearsInBusiness.toString()
     }
     private fun natureOfBusiness() {
 
@@ -237,6 +255,22 @@ class BusinessInformationActivity :
         var branchCounter = tv_branch_counter.text.toString().toInt()
         branchCounter--
         tv_branch_counter.text = branchCounter.toString()
+
+        fromZeroCounter()
+    }
+
+    private fun employeeNumberIncrement(){
+        var employeeCounter = tv_employee_counter.text.toString().toInt()
+        employeeCounter++
+        tv_employee_counter.text = employeeCounter.toString()
+
+        fromZeroCounter()
+    }
+
+    private fun employeeNumberDecrement(){
+        var employeeCounter = tv_employee_counter.text.toString().toInt()
+        employeeCounter--
+        tv_employee_counter.text = employeeCounter.toString()
 
         fromZeroCounter()
     }

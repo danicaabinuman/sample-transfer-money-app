@@ -207,13 +207,59 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_business_years" />
 
+                <TextView
+                    android:id="@+id/tv_employee_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/how_many_employees"
+                    android:textColor="#4A4A4A"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_years_in_business" />
+
+                <ImageView
+                    android:id="@+id/btn_employee_decrement_inactive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
+                    app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
+
+                <TextView
+                    android:id="@+id/tv_employee_counter"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="@string/default_number_0"
+                    android:textSize="16sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
+                    app:layout_constraintEnd_toStartOf="@id/btn_increment"
+                    app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
+
+                <ImageView
+                    android:id="@+id/btn_employee_increment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_baseline_add_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
+
                 <ImageView
                     android:id="@+id/divider2"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_marginTop="15dp"
                     android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/tv_years_in_business" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_employee_number" />
 
                 <TextView
                     android:id="@+id/tv_where_do_you_sell"
@@ -284,6 +330,18 @@
                         android:paddingEnd="12dp"
                         android:paddingBottom="6dp"
                         android:text="@string/website" />
+
+                        <TextView
+                        android:id="@+id/btn_suysing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_where_do_you_sell_inactive"
+                        android:paddingStart="12dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/suysing" />
 
                 </LinearLayout>
 

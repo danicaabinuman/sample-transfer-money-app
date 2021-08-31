@@ -1,40 +1,36 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents
 
-import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.*
-import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import com.tbruyelle.rxpermissions2.RxPermissions
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.util.FileUtil
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraActivity
-import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
-import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.viewToolbar
 import kotlinx.android.synthetic.main.activity_upload_documents.*
 import kotlinx.android.synthetic.main.activity_upload_documents.btnNext
+import kotlinx.android.synthetic.main.layout_documents_preview.*
 import kotlinx.android.synthetic.main.layout_preview_docs.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import kotlinx.android.synthetic.main.layout_preview_docs.btnEdit
+import kotlinx.android.synthetic.main.layout_preview_docs.btnNavigateBackToUploadDocs
+import kotlinx.android.synthetic.main.layout_preview_docs.ivBackButton
+import kotlinx.android.synthetic.main.layout_preview_docs.llToolbar
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.toolbar
-import java.io.File
-import java.io.IOException
 import java.util.ArrayList
 import javax.annotation.concurrent.ThreadSafe
 import javax.inject.Inject
@@ -112,7 +108,7 @@ class CardAcceptanceUploadDocumentsActivity :
         uriArrayList = intent.getParcelableArrayListExtra<Uri>(OnboardingUploadPhotosActivity.LIST_OF_IMAGES_URI)
             .notNullable() as ArrayList<Uri>
         if (uriArrayList.size != 0){
-            layoutVisibility()
+            layoutVisibilityFromCamera()
             initAdapterListener()
         }
     }
@@ -126,12 +122,12 @@ class CardAcceptanceUploadDocumentsActivity :
     }
 
 
-    private fun layoutVisibility(){
+    private fun layoutVisibilityFromCamera(){
         viewToolbar.visibility = View.GONE
-        popupPreviewDocs.visibility = View.VISIBLE
+        popupPreviewDocsFromCamera.visibility = View.VISIBLE
 
         ivBackButton.setOnClickListener {
-            popupPreviewDocs.visibility = View.GONE
+            popupPreviewDocsFromCamera.visibility = View.GONE
             viewToolbar.visibility = View.VISIBLE
             clUploadBIRDocs.visibility = View.VISIBLE
         }
@@ -141,7 +137,29 @@ class CardAcceptanceUploadDocumentsActivity :
         }
 
         btnNavigateBackToUploadDocs.setOnClickListener {
-            popupPreviewDocs.visibility = View.GONE
+            popupPreviewDocsFromCamera.visibility = View.GONE
+            viewToolbar.visibility = View.VISIBLE
+            clUploadBIRDocs.visibility = View.VISIBLE
+            btnNext.visibility = View.VISIBLE
+        }
+    }
+
+    private fun layoutVisibilityFromGallery(){
+        viewToolbar.visibility = View.GONE
+        popupPreviewDocsFromGallery.visibility = View.VISIBLE
+
+        ivBackButton.setOnClickListener {
+            popupPreviewDocsFromGallery.visibility = View.GONE
+            viewToolbar.visibility = View.VISIBLE
+            clUploadBIRDocs.visibility = View.VISIBLE
+        }
+
+        btnEdit.setOnClickListener {
+            showbottomSheetDialog()
+        }
+
+        btnNavigateBackToUploadDocs.setOnClickListener {
+            popupPreviewDocsFromGallery.visibility = View.GONE
             viewToolbar.visibility = View.VISIBLE
             clUploadBIRDocs.visibility = View.VISIBLE
             btnNext.visibility = View.VISIBLE
@@ -172,14 +190,14 @@ class CardAcceptanceUploadDocumentsActivity :
                         imgView.setImageBitmap(bitmap)
                         rendererPage.close()
                         pdfRenderer.close()
-                        layoutVisibility()
+                        layoutVisibilityFromGallery()
                     }
                 }
             GALLERY_REQUEST_CODE ->
                 if (resultCode == RESULT_OK){
                     if (data?.data != null){
                         clUploadBIRDocs.visibility = View.GONE
-                        layoutVisibility()
+                        layoutVisibilityFromGallery()
 
                         val imageUri = data.data!!
                         imgView.setImageURI(imageUri)

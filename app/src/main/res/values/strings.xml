@@ -2283,6 +2283,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="physical_store">Physical Store</string>
     <string name="hint_www_storename_com">www.shopname.com</string>
     <string name="website">Website</string>
+    <string name="suysing">Suy Sing</string>
     <string name="hint_shopee_ph_shopname">shopee.ph/shopname</string>
     <string name="shopee">Shopee</string>
     <string name="hint_lazada_com_ph_shop_shopname">lazada.com.ph/shop/shopname</string>
@@ -2299,7 +2300,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="we_want_to_know_more_about_your_business">We want to know more about your business</string>
     <string name="indicate_0_if_less_than_1_year">Indicate 0 if less than 1 year</string>
     <string name="one_last_thing">One last thing...</string>
-    <string name="what_s_your_average_monthly_volume">What\'s your average monthly volume?</string>
+    <string name="what_s_your_average_monthly_volume">What\'s your average monthly sales?</string>
     <string name="below_10k">Below 10K</string>
     <string name="above_3m">Above 3M</string>
     <string name="what_s_your_average_transaction_amount">What\'s your average transaction amount?</string>
@@ -2311,4 +2312,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_use_photo">Use Photo</string>
     <string name="title_delete_photo">Are you sure you want to remove this photo?</string>
     <string name="btn_delete_this_photo">YES, DELETE THIS PHOTO</string>
+    <string name="how_many_employees">How many employees do you \nhave?</string>
 </resources>

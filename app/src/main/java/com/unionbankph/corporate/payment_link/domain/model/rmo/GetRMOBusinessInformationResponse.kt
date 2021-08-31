@@ -1,6 +1,5 @@
 package com.unionbankph.corporate.payment_link.domain.model.rmo
 
-import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOMerchantDetailsModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
