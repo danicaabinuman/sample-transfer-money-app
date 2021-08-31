@@ -15,14 +15,11 @@ import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
 import com.aurelhubert.ahbottomnavigation.notification.AHNotification
-import com.google.android.material.appbar.AppBarLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.mtramin.rxfingerprint.RxFingerprint
 import com.takusemba.spotlight.Spotlight
@@ -381,9 +378,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST -> {
                     isBackButtonPaymentList = true
                     binding.viewPagerBTR.currentItem = bottomNavigationItems[FRAGMENT_DASHBOARD]!!
-                    eventBus.transactSyncEvent.emmit(
-                        BaseEvent(TransactSyncEvent.ACTION_REDIRECT_TO_PAYMENT_LINK_LIST)
-                    )
+
                     setToolbarTitle(
                         getString(R.string.title_payment_links),
                         hasBackButton = true,
@@ -631,8 +626,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         }
     }
 
-    private fun popBackStackTransact() {
-        val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
+    private fun popBackStackDashboard() {
+        val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_DASHBOARD] ?: 1)!!
         val fragmentManager = transactTabFragment.childFragmentManager
         val fragmentTag = transactTabFragment
             .childFragmentManager
@@ -642,7 +637,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             transactTabFragment.childFragmentManager.popBackStackImmediate()
             isBackButtonPaymentList = false
             setToolbarTitle(
-                getString(R.string.title_dashboard_header_transact),
+                getString(R.string.title_dashboard_header_dashboard),
                 hasBackButton = false,
                 hasMenuItem = true
             )
@@ -678,14 +673,13 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 }
             }
         } else if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD]) {
-            val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_DASHBOARD] ?: 1)!!
+            val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_DASHBOARD]!!)!!
             if (transactTabFragment.isAdded) {
-
                 val count = transactTabFragment.childFragmentManager.backStackEntryCount
                 if (count == 0 || binding.viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_DASHBOARD]){
                     showLogoutBottomSheet()
                 } else {
-                    popBackStackTransact()
+                    popBackStackDashboard()
                 }
             }
         } else {
@@ -706,14 +700,14 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                         position == bottomNavigationItems[FRAGMENT_SETTINGS]) ||
                 (isBackButtonFragmentAlerts &&
                         position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) ||
-                isBackButtonPaymentList && position == bottomNavigationItems[FRAGMENT_TRANSACT]
+                isBackButtonPaymentList && position == bottomNavigationItems[FRAGMENT_DASHBOARD]
             ) {
                 binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility(false)
                 binding.viewToolbar.imageViewLogout.visibility(false)
                 binding.viewToolbar.imageViewMarkAllAsRead.visibility(false)
                 binding.viewToolbar.btnRequestPayment.visibility(
                     when (binding.viewPagerBTR.currentItem) {
-                        bottomNavigationItems[FRAGMENT_TRANSACT] -> true
+                        bottomNavigationItems[FRAGMENT_DASHBOARD] -> true
                         else -> false
                     }
                 )
@@ -724,7 +718,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     when (binding.viewPagerBTR.currentItem) {
                         bottomNavigationItems[FRAGMENT_SETTINGS] -> popStackFragmentSettings()
                         bottomNavigationItems[FRAGMENT_NOTIFICATIONS] -> popStackFragmentNotifications()
-                        bottomNavigationItems[FRAGMENT_TRANSACT] -> popBackStackTransact()
+                        bottomNavigationItems[FRAGMENT_DASHBOARD] -> popBackStackDashboard()
                     }
                 }
                 binding.viewToolbar.textViewTitle.text = stackTitle
@@ -775,7 +769,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
             binding.viewToolbar.btnRequestPayment.visibility(
                 position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
-                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
+                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_DASHBOARD]))
             )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
@@ -1037,7 +1031,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         binding.bottomNavigationBTR.inactiveColor = ContextCompat.getColor(this, R.color.colorTextTab)
         binding.bottomNavigationBTR.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
         binding.bottomNavigationBTR.setTitleTextSize(
-            resources.getDimension(R.dimen.navigation_bottom_text_size_active),
+            resources.getDimension(R.dimen.navigation_bottom_text_size_normal),
             resources.getDimension(R.dimen.navigation_bottom_text_size_normal)
         )
         binding.bottomNavigationBTR.addItem(item1)
@@ -1343,7 +1337,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 when (binding.viewPagerBTR.currentItem) {
                     bottomNavigationItems[FRAGMENT_SETTINGS] -> popStackFragmentSettings()
                     bottomNavigationItems[FRAGMENT_NOTIFICATIONS] -> popStackFragmentNotifications()
-                    bottomNavigationItems[FRAGMENT_TRANSACT] -> popBackStackTransact()
+                    bottomNavigationItems[FRAGMENT_DASHBOARD] -> popBackStackDashboard()
                 }
             }
             binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
