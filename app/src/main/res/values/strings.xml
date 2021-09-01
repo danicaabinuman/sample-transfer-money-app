@@ -2528,5 +2528,12 @@ Neither Party shall be liable for any failure to perform its obligations under t
     </string>
     <string name="title_face_id">Face ID</string>
     <string name="msg_face_id">All face ID data stored on this device can be used to access your account</string>
-
+    <string name="msg_trial_mode">You are on Trial Mode\nfor 30 days</string>
+    <string name="msg_setup_account">Setup you account so you may enjoy using\nthe MSME Business Banking services.</string>
+    <string name="unlock_key_features">Unlock key features like:</string>
+    <string name="title_accept_multiple_payments">Accept multiple payment methods</string>
+    <string name="msg_accept_multiple_payments">Accept payments from 50,000+ payment\nchannel partners globally</string>
+    <string name="title_payment_link">Get paid easily with payment links</string>
+    <string name="msg_payment_link">Create Payment Links in seconds and instantly\nshare with your customers via Facebook\nMessenger, Email, SMS, Viber, Whatsapp and\nmore!</string>
+    <string name="title_cotinue_account_setup">Continue Account Setup</string>
 </resources>

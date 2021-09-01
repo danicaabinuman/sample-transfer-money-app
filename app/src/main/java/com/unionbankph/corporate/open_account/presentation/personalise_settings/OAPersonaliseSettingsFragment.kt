@@ -24,7 +24,6 @@ class OAPersonaliseSettingsFragment :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         openAccountActivity.setIsScreenScrollable(false)
     }
 

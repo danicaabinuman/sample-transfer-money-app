@@ -139,6 +139,7 @@ import com.unionbankph.corporate.open_account.presentation.nominate_password.OaN
 import com.unionbankph.corporate.open_account.presentation.otp.OaOTPFragment
 import com.unionbankph.corporate.open_account.presentation.otp.OaOTPViewModel
 import com.unionbankph.corporate.open_account.presentation.personalise_settings.OAPersonaliseSettingsViewModel
+import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -885,5 +886,12 @@ abstract class ViewModelModule {
     @ViewModelKey(OaNominatePasswordViewModel::class)
     abstract fun oaNominatePasswordViewModel(
         viewModel: OaNominatePasswordViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TrialAccountViewModel::class)
+    abstract fun trialAccountViewModel(
+        viewModel: TrialAccountViewModel
     ): ViewModel
 }
