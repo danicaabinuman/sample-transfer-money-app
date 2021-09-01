@@ -30,7 +30,7 @@ class SplashStartedScreenActivity :
                 is UiState.Success -> {
                     navigator.navigate(
                         this,
-                        SplashFrameActivity::class.java,
+                        SplashFrameOnboardingActivity::class.java,
                         null,
                         isClear = true,
                         isAnimated = true,

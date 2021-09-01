@@ -112,14 +112,14 @@ class OAEnterNameFragment :
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
-            maxLength = resources.getInteger(R.integer.max_length_field_100),
+            maxLength = resources.getInteger(R.integer.max_length_field_40),
             editText = binding.editTextFirstName
         )
         val lastNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
-            maxLength = resources.getInteger(R.integer.max_length_field_100),
+            maxLength = resources.getInteger(R.integer.max_length_field_40),
             editText = binding.editTextLastName
         )
         initError(firstNameObservable, binding.textViewFirstNameLabel)

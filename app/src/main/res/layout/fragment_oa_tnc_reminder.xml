@@ -33,7 +33,10 @@
                     tools:text="Welcome, Davis!"
                     app:layout_constraintBottom_toBottomOf="@+id/viewToolbar"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="@dimen/msme_content_spacing"
+                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/SMEHeadlineH2"

@@ -13,6 +13,7 @@
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_alpha_numeric_symbols_email_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@.</string>
     <string name="digits_country_code">1234567890+</string>
+    <string name="digits_alpha_numeric_specific_symbols">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,-()</string>
 
     <!--FingerPrint-->
     <string name="use_password">Use password</string>
@@ -2536,4 +2537,12 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_payment_link">Get paid easily with payment links</string>
     <string name="msg_payment_link">Create Payment Links in seconds and instantly\nshare with your customers via Facebook\nMessenger, Email, SMS, Viber, Whatsapp and\nmore!</string>
     <string name="title_cotinue_account_setup">Continue Account Setup</string>
+    <string name="desc_migration_login_msme">
+        <![CDATA[
+        <font color="#BFBFBF">Coming from the old e-banking website? Click</font>
+        <font color="#FF8200">here</font><font color="#BFBFBF"> to migrate<br>
+        your existing credentials.</font>
+        ]]></string>
+    <string name="hide_password">......................</string>
+
 </resources>

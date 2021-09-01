@@ -60,6 +60,7 @@ import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.selection.DaoSelectionActivity
 import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
 import com.unionbankph.corporate.databinding.FragmentLoginBinding
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
@@ -342,6 +343,7 @@ class LoginFragment :
         viewModel.hasFingerPrint()
         viewModel.hasTOTP()
         viewModel.refreshNotificationTokenIfNull()
+        binding.textViewMigration.text = formatString(R.string.desc_migration_login_msme).toHtmlSpan()
         if (isSME) {
             binding.tvSignUp.text = formatString(R.string.action_sign_up).toHtmlSpan()
         } else {
@@ -351,6 +353,7 @@ class LoginFragment :
     }
 
     private fun initListener() {
+        initClickMSMEButtonLogin()
         initClickButtonLogin()
         initClickImgFingerPrint()
         initClickImgFaceID()
@@ -385,6 +388,16 @@ class LoginFragment :
             loginViews()
         }
         binding.tvForgotPassword.setOnClickListener {
+            navigatePasswordRecoveryScreen()
+        }
+        binding.MSMESignUp.setOnClickListener {
+            navigateRegisterMSME()
+        }
+        binding.MSMEFirstLogin.setOnClickListener {
+            navigateFirstLoginMSME()
+
+        }
+        binding.MSMEForgotPassword.setOnClickListener {
             navigatePasswordRecoveryScreen()
         }
     }
@@ -446,33 +459,7 @@ class LoginFragment :
             if (!viewModel.cdaoFeature.value.notNullable()) {
                 loginViews()
             } else {
-                binding.btnOpenBusinessAccount.visibility(true)
-                binding.btnApplyLoan.visibility(true)
-                binding.btnInitialLogin.visibility(true)
-                binding.buttonLogin.visibility(false)
-                binding.tilUsername.visibility(false)
-                binding.tilPassword.visibility(false)
-                binding.cardViewEmail.visibility(false)
-                binding.cardViewPassword.visibility(false)
-                binding.tvSignUp.visibility(true)
-                binding.tvSignUp.text =
-                    formatString(R.string.action_sign_up_with_existing)
-                        .uppercase()
-                        .toHtmlSpan()
-                binding.tvSignUp.setOnClickListener {
-                    navigator.navigateBrowser(
-                        getAppCompatActivity(),
-                        URLDataEnum.ENROLLMENT_LINK
-                    )
-                }
-                val constraintSet = ConstraintSet()
-                constraintSet.connect(
-                    binding.tvSignUp.id,
-                    ConstraintSet.TOP,
-                    binding.btnInitialLogin.id,
-                    ConstraintSet.BOTTOM
-                )
-                constraintSet.clone(binding.constraintLayout)
+                firstloginViewsMSME()
             }
         } else {
             binding.tvSignUp.visibility(true)
@@ -481,12 +468,61 @@ class LoginFragment :
             binding.buttonLogin.visibility(true)
             binding.cardViewEmail.visibility(false)
             binding.cardViewPassword.visibility(false)
+            binding.textViewMigration.visibility(true)
         }
         binding.buttonLogin.loginEnableButton(false)
-        binding.textViewMigration.visibility(true)
         binding.textViewWelcomeBack.visibility(false)
         binding.textViewFullname.visibility(false)
         binding.buttonGenerateOTP.visibility(false)
+    }
+
+    private fun firstloginViewsSME(){
+        binding.textViewMigration.visibility(true)
+        binding.btnOpenBusinessAccount.visibility(true)
+        binding.btnApplyLoan.visibility(true)
+        binding.btnInitialLogin.visibility(true)
+        binding.buttonLogin.visibility(false)
+        binding.tilUsername.visibility(false)
+        binding.tilPassword.visibility(false)
+        binding.cardViewEmail.visibility(false)
+        binding.cardViewPassword.visibility(false)
+        binding.tvSignUp.visibility(true)
+        binding.tvSignUp.text =
+            formatString(R.string.action_sign_up_with_existing)
+                .toUpperCase()
+                .toHtmlSpan()
+        binding.tvSignUp.setOnClickListener {
+            navigator.navigateBrowser(
+                getAppCompatActivity(),
+                URLDataEnum.ENROLLMENT_LINK
+            )
+        }
+        val constraintSet = ConstraintSet()
+        constraintSet.connect(
+            binding.tvSignUp.id,
+            ConstraintSet.TOP,
+            binding.btnInitialLogin.id,
+            ConstraintSet.BOTTOM
+        )
+        constraintSet.clone(binding.constraintLayout)
+    }
+    private fun firstloginViewsMSME(){
+        binding.tvSignUp.visibility(false)
+        binding.buttonGenerateOTP.visibility(false)
+        binding.buttonLogin.visibility(false)
+        binding.tilUsername.visibility(false)
+        binding.tilPassword.visibility(false)
+        binding.cardViewEmail.visibility(false)
+        binding.cardViewPassword.visibility(false)
+        binding.textViewMigration.visibility(false)
+        binding.textViewLearnMore.visibility(false)
+        binding.bgSignupIllustration.visibility(true)
+        binding.MSMESignUp.visibility(true)
+        binding.MSMEFirstLogin.visibility(true)
+        viewUtil.startAnimateView(true, binding.ivbgOrange, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.tvUbCaption, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.ivWhitebg, android.R.anim.fade_in)
+
     }
 
     private fun fingerprintViews(token: String) {
@@ -751,6 +787,17 @@ class LoginFragment :
             }.addTo(disposables)
     }
 
+    private fun initClickMSMEButtonLogin() {
+        RxView.clicks(binding.MSMEbtnLogin)
+            .throttleFirst(
+                resources.getInteger(R.integer.time_button_debounce).toLong(),
+                TimeUnit.MILLISECONDS
+            )
+            .subscribe {
+                submitForm()
+            }.addTo(disposables)
+    }
+
     private fun submitForm() {
         viewUtil.dismissKeyboard(getAppCompatActivity())
         binding.constraintLayoutLogin.requestFocus()
@@ -775,6 +822,34 @@ class LoginFragment :
             isAnimated = true,
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
+    }
+
+    private fun navigateRegisterMSME(){
+        navigator.navigate(
+            getAppCompatActivity(),
+            OpenAccountActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
+    private fun navigateFirstLoginMSME(){
+        binding.MSMESignUp.visibility(false)
+        binding.MSMEFirstLogin.visibility(false)
+        binding.ivbgOrange.visibility(false)
+        binding.tvUbCaption.visibility(false)
+        binding.bgSignupIllustration.visibility(false)
+        binding.ivWhitebg.visibility(false)
+        binding.imageViewBackground.visibility(false)
+        binding.llEmailSME.visibility(true)
+        binding.llPasswordSME.visibility(true)
+        binding.MSMEbtnLogin.visibility(true)
+        binding.MSMEForgotPassword.visibility(true)
+        binding.textViewLearnMore.visibility(true)
+        binding.textViewMigration.visibility(true)
+
     }
 
     private fun initClickButtonGenerateTOTP() {
@@ -1022,9 +1097,9 @@ class LoginFragment :
         }
     }
 
-    private fun getEditTextUsername() = if (App.isSME()) binding.etUsernameSME else binding.etUsername
+    private fun getEditTextUsername() = if (App.isSME()) binding.etUsernameMSME/* binding.etUsernameSME*/ else binding.etUsername
 
-    private fun getEditTextPassword() = if (App.isSME()) binding.etPasswordSME else binding.etPassword
+    private fun getEditTextPassword() = if (App.isSME()) binding.etPasswordMSME /*binding.etPasswordSME*/ else binding.etPassword
 
     companion object {
         const val EXTRA_SPLASH_SCREEN = "splash_screen"
