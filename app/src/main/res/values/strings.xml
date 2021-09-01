@@ -2279,8 +2279,9 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="instagram">Instagram</string>
     <string name="hint_facebook_com_shopname">facebook.com/shopname</string>
     <string name="facebook">Facebook</string>
-    <string name="hint_address">Indicate store address or registered address for e-commerce</string>
+    <string name="hint_address">Indicate store address</string>
     <string name="physical_store">Physical Store</string>
+    <string name="main_branch">Main Branch</string>
     <string name="hint_www_storename_com">www.shopname.com</string>
     <string name="website">Website</string>
     <string name="suysing">Suy Sing</string>

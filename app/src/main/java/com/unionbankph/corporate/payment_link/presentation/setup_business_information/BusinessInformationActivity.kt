@@ -366,6 +366,7 @@ class BusinessInformationActivity :
             tv_physical_store.visibility = View.VISIBLE
             til_physical_store.visibility = View.VISIBLE
             et_physical_store.visibility = View.VISIBLE
+            btnAddBranchAddress.visibility = View.VISIBLE
             disableNextButton()
         } else if (stateChecker == 0) {
             btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
@@ -374,6 +375,7 @@ class BusinessInformationActivity :
             tv_physical_store.visibility = View.GONE
             til_physical_store.visibility = View.GONE
             et_physical_store.visibility = View.GONE
+            btnAddBranchAddress.visibility = View.GONE
             if (et_physical_store.text!!.isNotEmpty()){
                 et_physical_store.text!!.clear()
                 enableNextButton()

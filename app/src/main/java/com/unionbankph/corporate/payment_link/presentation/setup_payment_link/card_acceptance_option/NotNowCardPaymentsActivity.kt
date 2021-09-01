@@ -27,6 +27,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_not_now_accept_card_payments.*
+import kotlinx.android.synthetic.main.widget_amount_slider_1.*
 import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -145,6 +146,12 @@ class NotNowCardPaymentsActivity :
                 when (it) {
                     is SeekBarProgressChangeEvent -> {
                         onUserSeekerSetValue(it.progress(), editTextMonthlyVolume)
+                        val setTransactionProgress = seekBarMonthlyVolume.progress
+                        if (setTransactionProgress > 1){
+                            seekBarTransactionAmount.progress = setTransactionProgress - 1
+                        } else {
+                            seekBarTransactionAmount.progress = setTransactionProgress
+                        }
                     }
                 }
             }) { Timber.e(it) }
@@ -152,11 +159,11 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun initAverageTransactionViews() {
-        editTextTransactionAmount = viewTransactionAmount.findViewById(R.id.autoFormatEditText)
-        seekBarTransactionAmount = viewTransactionAmount.findViewById(R.id.seekBar)
+        editTextTransactionAmount = viewTransactionAmount.findViewById(R.id.autoFormatEditText1)
+        seekBarTransactionAmount = viewTransactionAmount.findViewById(R.id.seekBar1)
 
-        seekBarTransactionAmount.max = SLIDER_MAX_STEP
-        seekBarTransactionAmount.progress = SLIDER_DEFAULT_STEP
+        seekBarTransactionAmount.max = TRANSACTION_SLIDER_MAX_STEP
+        seekBarTransactionAmount.progress = TRANSACTION_SLIDER_DEFAULT_STEP
 
         RxTextView.textChanges(editTextTransactionAmount)
             .debounce(
@@ -176,6 +183,11 @@ class NotNowCardPaymentsActivity :
                 when (it) {
                     is SeekBarProgressChangeEvent -> {
                         onUserSeekerSetValue(it.progress(), editTextTransactionAmount)
+                        val transactionAmount = seekBarTransactionAmount.progress
+                        val monthlyVolume = seekBarMonthlyVolume.progress
+                        if (transactionAmount > monthlyVolume){
+                            seekBarTransactionAmount.progress = monthlyVolume - 1
+                        }
                     }
                 }
             }) { Timber.e(it) }
@@ -327,6 +339,8 @@ class NotNowCardPaymentsActivity :
         const val SLIDER_TEP = 1
         const val SLIDER_MAX_STEP = 299
         const val SLIDER_DEFAULT_STEP = 24
+        const val TRANSACTION_SLIDER_MAX_STEP = 298
+        const val TRANSACTION_SLIDER_DEFAULT_STEP = 23
         const val SLIDER_MIN_VALUE = 10000
         const val REQUEST_CODE = 200
     }

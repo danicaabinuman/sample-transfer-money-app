@@ -253,13 +253,78 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
 
+                <TextView
+                    android:id="@+id/tv_number_of_branch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/how_many_branches_do_you_nhave"
+                    android:textColor="#4A4A4A"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_employee_number" />
+
+                <ImageView
+                    android:id="@+id/btn_decrement_branch_number_active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
+                    app:layout_constraintEnd_toStartOf="@id/tv_branch_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+
+                <ImageView
+                    android:id="@+id/btn_decrement_branch_number_inactive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
+                    app:layout_constraintEnd_toStartOf="@id/tv_branch_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+
+                <TextView
+                    android:id="@+id/tv_branch_counter"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="@string/default_number_1"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
+                    app:layout_constraintEnd_toStartOf="@id/btn_increment_branch_number"
+                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+
+                <ImageView
+                    android:id="@+id/btn_increment_branch_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_baseline_add_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+
+                <TextView
+                    android:id="@+id/tv_number_of_branches"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/e_commerce_count_as_one_1_branch"
+                    android:textColor="@color/dsColorMediumGray"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_of_branch" />
+
                 <ImageView
                     android:id="@+id/divider2"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_marginTop="15dp"
                     android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/tv_employee_number" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_number_of_branches" />
 
                 <TextView
                     android:id="@+id/tv_where_do_you_sell"
@@ -598,35 +663,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/tv_physical_store"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/physical_store"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_website" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_physical_store"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_physical_store">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_physical_store"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_address" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
                     android:id="@+id/tv_facebook_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -636,7 +672,7 @@
                     android:textSize="12sp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_physical_store" />
+                    app:layout_constraintTop_toBottomOf="@id/til_website" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_facebook"
@@ -685,6 +721,88 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
+                    android:id="@+id/tv_suysing_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/suysing"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_instagram" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_suysing"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginBottom="15dp"
+                    android:visibility="gone"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_suysing_title">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_suysing"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="@string/hint_instagram_com_shopname" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tv_physical_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/physical_store"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_suysing" />
+
+                <TextView
+                    android:id="@+id/tv_main_branch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/main_branch"
+                    android:textColor="#4A4A4A"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_physical_store" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_physical_store"
+                    style="@style/TextInputLayoutForm"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginBottom="15dp"
+                    android:visibility="gone"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/tv_main_branch">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_physical_store"
+                        style="@style/TextInputEditTextFormCounter"
+                        android:hint="@string/hint_address"
+                        android:paddingBottom="@dimen/grid_4"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/btnAddBranchAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="+ Add another address"
+                    android:textColor="@color/colorSMEMediumOrange"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_physical_store"/>
+
+                <TextView
                     android:id="@+id/tv_others_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -694,7 +812,7 @@
                     android:textSize="12sp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_instagram" />
+                    app:layout_constraintTop_toBottomOf="@id/btnAddBranchAddress" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_others"
@@ -722,70 +840,93 @@
                     app:layout_constraintTop_toBottomOf="@id/til_others" />
 
                 <TextView
-                    android:id="@+id/tv_number_of_branch"
+                    android:id="@+id/tv_order_fulfillment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/how_many_branches_do_you_nhave"
+                    android:layout_marginTop="@dimen/grid_3"
+                    android:text="Order Fulfillment"
                     android:textColor="#4A4A4A"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_14"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider3" />
 
-                <ImageView
-                    android:id="@+id/btn_decrement_branch_number_active"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_baseline_remove_circle_outline_24"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
-                    app:layout_constraintEnd_toStartOf="@id/tv_branch_counter"
-                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_order_fulfillment"
+                    style="@style/Spinner.DropDownOrange"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/grid_1"
+                    app:layout_constraintTop_toBottomOf="@id/tv_order_fulfillment">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Spinner
+                            android:id="@+id/dropdownOrderFulfillment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/a_spinner_outline"
+                            android:dropDownSelector="#000"
+                            android:spinnerMode="dropdown" />
+
+                        <ImageView
+                            android:layout_width="@dimen/grid_5"
+                            android:layout_height="0dp"
+                            android:layout_alignTop="@+id/dropdownOrderFulfillment"
+                            android:layout_alignBottom="@+id/dropdownOrderFulfillment"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="@dimen/grid_2"
+                            android:src="@drawable/ic_arrow_black_down" />
+                    </RelativeLayout>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageView
-                    android:id="@+id/btn_decrement_branch_number_inactive"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
-                    app:layout_constraintEnd_toStartOf="@id/tv_branch_counter"
-                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+                    android:id="@+id/divider4"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/view_gray_solid_line"
+                    app:layout_constraintTop_toBottomOf="@id/til_order_fulfillment" />
 
                 <TextView
-                    android:id="@+id/tv_branch_counter"
-                    android:layout_width="40dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:gravity="center"
-                    android:text="@string/default_number_1"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
-                    app:layout_constraintEnd_toStartOf="@id/btn_increment_branch_number"
-                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
-
-                <ImageView
-                    android:id="@+id/btn_increment_branch_number"
+                    android:id="@+id/tvPolicyReturns"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:src="@drawable/ic_baseline_add_circle_outline_24"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
-
-                <TextView
-                    android:id="@+id/tv_number_of_branches"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/e_commerce_count_as_one_1_branch"
-                    android:textColor="@color/dsColorMediumGray"
-                    android:textSize="14sp"
+                    android:text="Policy on Returns"
+                    android:textSize="@dimen/text_18"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_number_of_branch" />
+                    app:layout_constraintTop_toBottomOf="@+id/divider4"/>
 
+                <TextView
+                    android:id="@+id/tvUploadBusinessPolicy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="Upload a copy of your business return policy"
+                    android:textSize="@dimen/text_14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPolicyReturns"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnUploadBusinessPolicy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:background="@drawable/bg_white_rounded_radius16"
+                    android:text="Upload document"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvUploadBusinessPolicy" />
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/cb_notApplicable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="Not applicable"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnUploadBusinessPolicy"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </LinearLayout>
