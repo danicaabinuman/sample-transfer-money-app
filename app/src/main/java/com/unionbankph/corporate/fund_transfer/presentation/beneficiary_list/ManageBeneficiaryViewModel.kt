@@ -62,7 +62,6 @@ class ManageBeneficiaryViewModel @Inject constructor(
                 }
                 .subscribe(
                     {
-                        Timber.e("VIEWMODELL " + JsonHelper.toJson(it))
                         _beneficiaries.value = it
                     }, {
                         Timber.e(it, "getBeneficiaries Failed")

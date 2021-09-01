@@ -39,7 +39,7 @@ data class BeneficiaryForm(
     var channelId: Int? = null,
 
     @SerialName("country_code_id")
-    var countryCodeId: Int? = null,
+    var countryCodeId: String? = null,
 
     @SerialName("mobile_number")
     var mobileNumber: String? = null,
