@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cdPaymentLink"
+        style="@style/MatchWrapParent"
+        android:layout_marginTop="@dimen/msme_content_spacing"
+        android:layout_marginStart="@dimen/msme_content_spacing"
+        android:layout_marginEnd="@dimen/msme_content_spacing"
+        android:layout_marginBottom="@dimen/msme_content_spacing"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardElevation="@dimen/match_constraint"
+        app:cardCornerRadius="@dimen/card_radius_half"
+        android:backgroundTint="@color/dsColorExtraLightGray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/grid_2">
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/match_constraint"
+                android:src="@drawable/ic_payment_link"
+                android:tint="@color/dsColorDarkOrange"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                style="@style/SMESubtitle2"
+                android:text="@string/title_payment_link"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/msme_content_spacing"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView"
+                style="@style/SMECaption"
+                android:text="@string/msg_payment_link"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                android:layout_marginStart="@dimen/msme_content_spacing"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

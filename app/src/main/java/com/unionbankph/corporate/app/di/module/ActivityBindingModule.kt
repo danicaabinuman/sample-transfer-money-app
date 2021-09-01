@@ -119,6 +119,7 @@ import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScree
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
+import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -598,4 +599,10 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun daoBasicInfoReminderActivity(): DaoBasicInfoReminderActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun trialAccountActivity(): TrialAccountActivity
+
+
 }
