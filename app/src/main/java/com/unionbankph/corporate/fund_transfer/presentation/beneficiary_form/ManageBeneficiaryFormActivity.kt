@@ -919,7 +919,7 @@ class ManageBeneficiaryFormActivity :
             }
         }
         beneficiaryForm.mobileNumber = binding.viewMobileNumber.editTextMobileNumber.getEditTextNullable()
-        beneficiaryForm.countryCodeId = countryCode.id
+        beneficiaryForm.countryCodeId = countryCode.id.toString()
         beneficiaryForm.address =
             if (binding.textInputEditTextBeneficiaryAddress != null)
                 binding.textInputEditTextBeneficiaryAddress.text.toString()
