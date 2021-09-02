@@ -16,6 +16,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivWhitebg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/match_constraint"
+        android:scaleType="centerCrop"
+        android:src="@color/colorWhite"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivbgOrange"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/match_constraint"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHeight_percent=".65"
+        android:background="@drawable/bg_signup_orange"
+        android:visibility="invisible"
+        />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayoutContent"
         style="@style/MatchConstraint"
@@ -33,7 +58,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/grid_9_half"
                 android:id="@+id/constraint_layout"
                 style="@style/MatchWrapParent"
                 android:layout_gravity="center"
@@ -54,10 +78,22 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/bg_signup_illustration"
+                    style="@style/WrapContent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_signup_screen"
+                    android:layout_marginTop="@dimen/msme_content_spacing"
+                    android:visibility="gone"
+
+                    />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textViewWelcomeBack"
                     style="@style/TextViewTheme"
-                    android:layout_marginTop="@dimen/content_buttons_spacing_large"
+                    android:layout_marginTop="@dimen/content_margin"
                     android:text="@string/title_welcome_back"
                     android:textColor="@color/colorLightGray"
                     android:visibility="visible"
@@ -97,7 +133,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_marginTop="@dimen/content_buttons_spacing_large"
                     android:id="@+id/cardViewEmail"
                     style="@style/CardViewEditText"
                     android:layout_width="@dimen/match_constraint"
@@ -164,7 +199,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.cardview.widget.CardView
-                    android:layout_marginTop="@dimen/content_buttons_spacing_large"
                     android:id="@+id/cardViewPassword"
                     style="@style/CardViewEditText"
                     android:layout_width="@dimen/match_constraint"
@@ -244,7 +278,7 @@
                     android:id="@+id/btn_open_business_account"
                     style="@style/RoundedButtonOrange"
                     android:layout_marginLeft="@dimen/content_margin"
-                    android:layout_marginTop="@dimen/content_buttons_spacing_large"
+                    android:layout_marginTop="@dimen/content_spacing_large"
                     android:layout_marginRight="@dimen/content_margin"
                     android:text="@string/action_open_a_business_account"
                     android:visibility="gone"
@@ -336,6 +370,155 @@
                     app:srcCompat="@drawable/face_id_white"
                     app:tint="?colorImage" />
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:id="@+id/llEmailSME"
+                    android:visibility="invisible"
+                    android:layout_marginTop="@dimen/grid_10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tilUsername"
+                    android:layout_marginStart="@dimen/msme_content_spacing"
+                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMECaption"
+                        android:text="@string/hint_email_address_normal" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:hint="@string/hint_email_address_small_letter"
+                        app:hintEnabled="false">
+
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etUsernameMSME"
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_1"
+                            android:digits="@string/digits_alpha_numeric_symbols_email_no_space"
+                            android:hint="@string/hint_email_address_small_letter"
+                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/llPasswordSME"
+                    style="@style/MatchWrapParent"
+                    android:layout_marginTop="@dimen/msme_content_spacing"
+                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    android:layout_marginStart="@dimen/msme_content_spacing"
+                    android:orientation="vertical"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/llEmailSME">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMECaption"
+                        android:text="@string/title_password"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:id="@+id/inputLayoutPassword"
+                        style="@style/TextInputLayoutFormThin.Password"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:hintEnabled="false"
+                        android:hint="@string/title_enter_password"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/etPasswordSME">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPasswordMSME"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:digits="@string/digits_with_restriction"
+                            android:hint="@string/hide_password"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/MSMEbtnLogin"
+                    style="@style/SMEPrimaryButtonLarge"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_11_half"
+                    app:layout_constraintTop_toBottomOf="@+id/llPasswordSME"
+                    android:layout_marginStart="@dimen/msme_content_spacing"
+                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    android:layout_marginBottom="@dimen/grid_1"
+                    android:textAllCaps="true"
+                    android:text="@string/title_login"
+                    android:visibility="invisible"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/MSMEForgotPassword"
+                    style="@style/SMETertiaryButtonLarge"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_1"
+                    app:layout_constraintTop_toBottomOf="@+id/MSMEbtnLogin"
+                    android:layout_marginStart="@dimen/msme_content_spacing"
+                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    android:layout_marginBottom="@dimen/grid_1"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorButtonGray"
+                    android:text="@string/title_forgot_password"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@+id/constraint_layout"
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/MSMESignUp"
+                    style="@style/SMEPrimaryButtonLarge"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_15"
+                    app:layout_constraintTop_toBottomOf="@+id/bg_signup_illustration"
+                    android:layout_marginStart="@dimen/msme_content_spacing"
+                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    android:layout_marginBottom="@dimen/grid_1"
+                    android:textAllCaps="true"
+                    android:text="@string/title_register"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:visibility="gone"
+                    />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/MSMEFirstLogin"
+                    style="@style/SMESecondaryButtonLarge"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_1"
+                    app:layout_constraintTop_toBottomOf="@+id/MSMESignUp"
+                    app:layout_constraintBottom_toBottomOf="@+id/constraint_layout"
+                    android:layout_marginStart="@dimen/msme_content_spacing"
+                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    android:layout_marginBottom="@dimen/grid_1"
+                    android:textAllCaps="true"
+                    android:text="@string/title_login"
+                    android:visibility="gone"
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
@@ -376,9 +559,11 @@
             android:padding="@dimen/text_view_padding"
             android:text="@string/title_learn_more"
             android:textAllCaps="true"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/colorSMEMediumOrange"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewVersion"
@@ -388,6 +573,22 @@
             android:padding="@dimen/text_view_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/MatchWrapParent"
+            android:id="@+id/tv_ub_caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginBottom="@dimen/grid_3"
+            android:lineSpacingMultiplier="1.2"
+            android:text="@string/desc_unionbank"
+            android:textSize="@dimen/text_12"
+            android:layout_gravity="center_horizontal|center"
+            android:gravity="start"
+            android:visibility="invisible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -28,6 +28,7 @@
     <integer name="max_zip_code_length">4</integer>
     <integer name="max_line">10</integer>
     <integer name="min_length_account_number">9</integer>
+    <integer name="max_length_field_40">40</integer>
 
     <integer name="min_camera_height">2316</integer>
     <integer name="min_camera_width">2112</integer>

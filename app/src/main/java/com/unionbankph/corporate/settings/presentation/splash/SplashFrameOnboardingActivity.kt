@@ -3,12 +3,11 @@ package com.unionbankph.corporate.settings.presentation.splash
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
-import com.unionbankph.corporate.auth.presentation.login_onboarding.LoginOnboardingFragment
+import com.unionbankph.corporate.auth.presentation.login.LoginFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
 import com.unionbankph.corporate.databinding.ActivitySplashOnboardingScreenBinding
 
@@ -70,7 +69,7 @@ class SplashFrameOnboardingActivity :
         } else {
             if (isSME) {
                 adapter.addFragment(
-                    LoginOnboardingFragment(),
+                    LoginFragment(),
                     SplashFragment.SplashScreenPage.PAGE_LOGIN.name
                 )
             } else {

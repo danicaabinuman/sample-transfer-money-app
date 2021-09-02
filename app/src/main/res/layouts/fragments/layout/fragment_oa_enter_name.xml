@@ -53,7 +53,9 @@
             style="@style/TextInputLayoutFormThinEditText"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:hint="@string/hint_first_name"            android:inputType="textPersonName|textCapWords" />
+            android:hint="@string/hint_first_name"
+            android:digits="@string/digits_alpha_numeric_specific_symbols"
+            android:inputType="textPersonName|textCapWords" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,6 +90,7 @@
             android:layout_width="match_parent"
             style="@style/TextInputLayoutFormThinEditText"
             android:inputType="textPersonName|textCapWords"
+            android:digits="@string/digits_alpha_numeric_specific_symbols"
             android:hint="@string/hint_last_name"/>
 
     </com.google.android.material.textfield.TextInputLayout>
