@@ -233,7 +233,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             .subscribe {
                 showLogoutBottomSheet()
             }.addTo(disposables)
-        binding.viewToolbar.imageViewHelp.setOnClickListener {
+        binding.viewToolbar.btnHelp.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
             when (binding.bottomNavigationBTR.currentItem) {
@@ -703,7 +703,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 position == bottomNavigationItems[FRAGMENT_APPROVALS] &&
                         allowMultipleSelectionApprovals
             )
-            binding.viewToolbar.imageViewHelp.visibility(
+            binding.viewToolbar.btnHelp.visibility(
                 position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
                         position == bottomNavigationItems[FRAGMENT_TRANSACT] ||
                         position == bottomNavigationItems[FRAGMENT_APPROVALS] ||
@@ -750,7 +750,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     override fun onStartedTutorial(view: View?, viewTarget: View) {
         if (view != null) {
             when (view) {
-                binding.viewToolbar.imageViewHelp,
+                binding.viewToolbar.btnHelp,
                 binding.viewToolbar.imageViewLogout,
                 binding.viewToolbar.viewBadge.viewBadgeLayout -> {
                     val constraintSet = ConstraintSet()
@@ -802,7 +802,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         } else {
             if (view != null) {
                 when (view) {
-                    binding.viewToolbar.imageViewHelp -> {
+                    binding.viewToolbar.btnHelp -> {
                         viewModel.setTutorialIntroduction(false)
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
@@ -826,9 +826,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             } else {
                 tutorialEngineUtil.startTutorial(
                     this,
-                    binding.viewToolbar.imageViewHelp,
+                    binding.viewToolbar.btnHelp,
                     R.layout.frame_tutorial_upper_right,
-                    getCircleFloatSize(binding.viewToolbar.imageViewHelp),
+                    getCircleFloatSize(binding.viewToolbar.btnHelp),
                     true,
                     getString(R.string.msg_tutorial_help),
                     GravityEnum.BOTTOM,
@@ -1251,7 +1251,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     fun setToolbarTitle(title: String, hasBackButton: Boolean, hasMenuItem: Boolean = false) {
         binding.viewToolbar.textViewTitle.text = title
-        binding.viewToolbar.imageViewHelp.visibility(hasMenuItem)
+        binding.viewToolbar.btnHelp.visibility(hasMenuItem)
         if (!hasBackButton) {
             binding.viewToolbar.imageViewLogout.visibility(
                 binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]
@@ -1295,7 +1295,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     fun bottomNavigationBTR(): AHBottomNavigation = binding.bottomNavigationBTR
 
-    fun imageViewHelp(): ImageView = binding.viewToolbar.imageViewHelp
+    fun btnHelp(): ConstraintLayout = binding.viewToolbar.btnHelp
 
     fun imageViewMarkAllAsRead(): ImageView = binding.viewToolbar.imageViewMarkAllAsRead
 
