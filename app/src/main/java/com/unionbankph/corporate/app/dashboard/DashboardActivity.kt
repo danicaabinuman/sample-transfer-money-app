@@ -589,7 +589,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 hasBackButton = false,
                 hasMenuItem = true
             )
-            binding.viewToolbar.btnRequestPayment.visibility = View.GONE
+//            binding.viewToolbar.btnRequestPayment.visibility = View.GONE
         }
     }
 
@@ -654,12 +654,12 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility(false)
                 binding.viewToolbar.imageViewLogout.visibility(false)
                 binding.viewToolbar.imageViewMarkAllAsRead.visibility(false)
-                binding.viewToolbar.btnRequestPayment.visibility(
-                    when (binding.viewPagerBTR.currentItem) {
-                        bottomNavigationItems[FRAGMENT_TRANSACT] -> true
-                        else -> false
-                    }
-                )
+//                binding.viewToolbar.btnRequestPayment.visibility(
+//                    when (binding.viewPagerBTR.currentItem) {
+//                        bottomNavigationItems[FRAGMENT_TRANSACT] -> true
+//                        else -> false
+//                    }
+//                )
                 binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
                 if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
                 binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
@@ -713,10 +713,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                                 stackFlagSettings)
             )
 
-            binding.viewToolbar.btnRequestPayment.visibility(
-                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
-                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
-            )
+//            binding.viewToolbar.btnRequestPayment.visibility(
+//                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
+//                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
+//            )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
                     adapter?.getItem(bottomNavigationItems[FRAGMENT_SETTINGS]!!)!!
