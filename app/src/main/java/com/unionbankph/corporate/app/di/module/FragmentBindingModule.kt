@@ -24,7 +24,6 @@ import com.unionbankph.corporate.auth.presentation.migration.nominate_verify.Nom
 import com.unionbankph.corporate.auth.presentation.migration.nominate_welcome.NominateWelcomeFragment
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyFragment
 import com.unionbankph.corporate.auth.presentation.policy.TermsAndConditionsFragment
-import com.unionbankph.corporate.auth.presentation.login_onboarding.LoginOnboardingFragment
 import com.unionbankph.corporate.bills_payment.presentation.biller.biller_all.AllBillerFragment
 import com.unionbankph.corporate.bills_payment.presentation.biller.frequent_biller.FrequentBillerFragment
 import com.unionbankph.corporate.dao.presentation.business_registration_papers.DaoBusinessRegistrationPapersFragment
@@ -46,8 +45,6 @@ import com.unionbankph.corporate.dao.presentation.signature.DaoSignatureFragment
 import com.unionbankph.corporate.dao.presentation.type_of_business.DaoTypeOfBusinessFragment
 import com.unionbankph.corporate.dao.presentation.welcome.DaoWelcomeFragment
 import com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterFragment
-import com.unionbankph.corporate.databinding.BottomSheetUploadBirBinding
-import com.unionbankph.corporate.databinding.BottomSheetUploadPhotosBinding
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
@@ -380,9 +377,6 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun splashOnboardingFragment(): SplashOnboardingFragment
 
-    @PerActivity
-    @ContributesAndroidInjector
-    abstract fun loginOnboardingFragment(): LoginOnboardingFragment
 
     @PerActivity
     @ContributesAndroidInjector

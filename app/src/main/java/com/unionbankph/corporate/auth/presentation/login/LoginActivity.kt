@@ -5,13 +5,10 @@ import android.view.LayoutInflater
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
-import com.unionbankph.corporate.auth.presentation.login_onboarding.LoginOnboardingFragment
 import com.unionbankph.corporate.databinding.ActivityLoginBinding
 import com.unionbankph.corporate.settings.presentation.splash.SplashFrameActivity
-import com.unionbankph.corporate.settings.presentation.splash.SplashFrameOnboardingActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 
 class LoginActivity :

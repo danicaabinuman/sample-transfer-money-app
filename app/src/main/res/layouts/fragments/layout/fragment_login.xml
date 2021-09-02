@@ -373,11 +373,11 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     style="@style/MatchWrapParent"
                     android:id="@+id/llEmailSME"
-                    android:visibility="invisible"
-                    android:layout_marginTop="@dimen/grid_10"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/content_group_spacing"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tilUsername"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewFullname"
                     android:layout_marginStart="@dimen/msme_content_spacing"
                     android:layout_marginEnd="@dimen/msme_content_spacing"
                     android:orientation="vertical">
@@ -391,7 +391,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
-                        android:hint="@string/hint_email_address_small_letter"
+                        android:hint="@string/title_email_address"
                         app:hintEnabled="false">
 
 
@@ -402,7 +402,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/grid_1"
                             android:digits="@string/digits_alpha_numeric_symbols_email_no_space"
-                            android:hint="@string/hint_email_address_small_letter"
+                            android:hint="@string/title_email_address"
                             android:imeOptions="actionNext"
                             android:inputType="textEmailAddress" />
 
@@ -412,6 +412,7 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/llPasswordSME"
                     style="@style/MatchWrapParent"
@@ -419,9 +420,10 @@
                     android:layout_marginEnd="@dimen/msme_content_spacing"
                     android:layout_marginStart="@dimen/msme_content_spacing"
                     android:orientation="vertical"
-                    android:visibility="invisible"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/llEmailSME"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/llEmailSME">
+                    >
 
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -467,7 +469,7 @@
                     android:layout_marginBottom="@dimen/grid_1"
                     android:textAllCaps="true"
                     android:text="@string/title_login"
-                    android:visibility="invisible"/>
+                    android:visibility="gone"/>
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/MSMEForgotPassword"
@@ -482,7 +484,7 @@
                     android:textAllCaps="true"
                     android:textColor="@color/colorButtonGray"
                     android:text="@string/title_forgot_password"
-                    android:visibility="invisible"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/constraint_layout"
                     />
 
