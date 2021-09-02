@@ -1,10 +1,18 @@
 package com.unionbankph.corporate.fund_transfer.data.model
 
 import com.unionbankph.corporate.account.data.model.Account
+import com.unionbankph.corporate.app.common.extension.nullable
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import kotlinx.serialization.*
+import kotlinx.serialization.builtins.nullable
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.buildClassSerialDescriptor
+import kotlinx.serialization.descriptors.element
+import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.JsonDecoder
 import org.json.JSONObject
 
@@ -82,6 +90,101 @@ data class Beneficiary(
     @Serializer(forClass = Beneficiary::class)
     companion object : KSerializer<Beneficiary> {
 
+        override val descriptor: SerialDescriptor = buildClassSerialDescriptor(this.toString()) {
+            element<String>("account_number", isOptional = true)
+            element<String>("address", isOptional = true)
+            element<String>("bank_details", isOptional = true)
+            element<String>("channel_id", isOptional = true)
+            element<String>("code", isOptional = true)
+            element<String>("country_code_id", isOptional = true)
+            element<String>("brstn_code", isOptional = true)
+            element<String>("firm_code", isOptional = true)
+            element<String>("country_code", isOptional = true)
+            element<String>("created_by", isOptional = true)
+            element<String>("created_date", isOptional = true)
+            element<String>("id", isOptional = true)
+            element<String>("mobile_number", isOptional = true)
+            element<String>("modified_by", isOptional = true)
+            element<String>("modified_date", isOptional = true)
+            element<String>("name", isOptional = true)
+            element<String>("email_address", isOptional = true)
+            element<String>("nickname", isOptional = true)
+            element<String>("organization_id", isOptional = true)
+            element<String>("instapay_code", isOptional = true)
+            element<String>("accounts", isOptional = true)
+            element<String>("swift_bank_details", isOptional = true)
+        }
+
+        override fun serialize(encoder: Encoder, value: Beneficiary) {
+            val compositeEncoder = encoder.beginStructure(descriptor)
+            encodeSerializableString(0, compositeEncoder, value.accountNumber)
+            encodeSerializableString(1, compositeEncoder, value.address)
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                2,
+                BankDetails.serializer().nullable,
+                value.bankDetails
+            )
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                3,
+                Int.serializer().nullable,
+                value.channelId
+            )
+            encodeSerializableString(4, compositeEncoder, value.code)
+            encodeSerializableString(5, compositeEncoder, value.countryCodeId)
+            encodeSerializableString(6, compositeEncoder, value.brstnCode)
+            encodeSerializableString(7, compositeEncoder, value.firmCode)
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                8,
+                CountryCode.serializer().nullable,
+                value.countryCode
+            )
+            encodeSerializableString(9, compositeEncoder, value.createdBy)
+            encodeSerializableString(10, compositeEncoder, value.createdDate)
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                11,
+                Int.serializer().nullable,
+                value.id
+            )
+            encodeSerializableString(12, compositeEncoder, value.mobileNumber)
+            encodeSerializableString(13, compositeEncoder, value.modifiedBy)
+            encodeSerializableString(14, compositeEncoder, value.modifiedDate)
+            encodeSerializableString(15, compositeEncoder, value.name)
+            encodeSerializableString(16, compositeEncoder, value.emailAddress)
+            encodeSerializableString(17, compositeEncoder, value.nickname)
+            encodeSerializableString(18, compositeEncoder, value.organizationId)
+            encodeSerializableString(19, compositeEncoder, value.instapayCode)
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                20,
+                serializer<List<Account>>(),
+                value.accounts
+            )
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                21,
+                SwiftBankDetails.serializer().nullable,
+                value.swiftBankDetails
+            )
+            compositeEncoder.endStructure(descriptor)
+        }
+
+        private fun encodeSerializableString(
+            index: Int,
+            compositeOutput: CompositeEncoder,
+            value: String?
+        ) {
+            compositeOutput.encodeNullableSerializableElement(
+                descriptor,
+                index,
+                String.serializer().nullable,
+                value
+            )
+        }
+
         override fun deserialize(decoder: Decoder): Beneficiary {
             val jsonInput = decoder as? JsonDecoder ?: error("Can be deserialized only by JSON")
             val json = jsonInput.decodeJsonElement().toString()
@@ -94,48 +197,47 @@ data class Beneficiary(
                 "null" -> jsonObject.put("country_code_id", "175")
             }
 
-            val bankDetails : BankDetails? = when (jsonObject.has("bank_details") && !jsonObject.isNull("bank_details")) {
-                true -> JsonHelper.fromJson(jsonObject.get("bank_details").toString())
-                else -> null
-            }
-
-            val countryCode : CountryCode? = when (jsonObject.has("country_code") && !jsonObject.isNull("country_code")) {
-                true -> JsonHelper.fromJson(jsonObject.get("country_code").toString())
-                else -> null
-            }
-
             val accounts : MutableList<Account>? = when (jsonObject.has("accounts") && !jsonObject.isNull("accounts")) {
                 true -> JsonHelper.fromListJson(jsonObject.get("accounts").toString())
                 else -> null
             }
 
-            val swiftBankDetails : SwiftBankDetails? = when (jsonObject.has("swift_bank_details") && !jsonObject.isNull("swift_bank_details")) {
-                true -> JsonHelper.fromJson(jsonObject.get("swift_bank_details").toString())
-                else -> null
-            }
-
             return Beneficiary().apply {
-                this.accountNumber = jsonObject.get("account_number").toString()
-                this.address = jsonObject.get("address").toString()
-                this.bankDetails = bankDetails
-                this.channelId = jsonObject.get("channel_id").toString()?.toInt() ?: null
-                this.code = jsonObject.get("code").toString()
-                this.brstnCode = jsonObject.get("brstn_code").toString()
-                this.firmCode = jsonObject.get("firm_code").toString()
-                this.countryCode = countryCode
-                this.createdBy = jsonObject.get("created_by").toString()
-                this.createdDate = jsonObject.get("created_date").toString()
-                this.emailAddress = jsonObject.get("email_address").toString()
-                this.id = jsonObject.get("id").toString()?.toInt()
-                this.mobileNumber = jsonObject.get("mobile_number").toString()
-                this.modifiedBy = jsonObject.get("modified_by").toString()
-                this.modifiedDate = jsonObject.get("modified_date").toString()
-                this.name = jsonObject.get("name").toString()
-                this.nickname = jsonObject.get("nickname").toString()
-                this.organizationId = jsonObject.get("organization_id").toString()
-                this.instapayCode = jsonObject.get("instapay_code").toString()
+                this.accountNumber = getJsonAsString(jsonObject,"account_number")
+                this.address = getJsonAsString(jsonObject,"address")
+                this.bankDetails = getJsonAsObject(jsonObject, "bank_details")
+                this.channelId = getJsonAsString(jsonObject,"channel_id")?.toInt()
+                this.code = getJsonAsString(jsonObject,"code")
+                this.brstnCode = getJsonAsString(jsonObject,"brstn_code")
+                this.firmCode = getJsonAsString(jsonObject,"firm_code")
+                this.countryCode = getJsonAsObject(jsonObject, "country_code")
+                this.createdBy = getJsonAsString(jsonObject,"created_by")
+                this.createdDate = getJsonAsString(jsonObject,"created_date")
+                this.emailAddress = getJsonAsString(jsonObject,"email_address")
+                this.id = getJsonAsString(jsonObject,"id")?.toInt()
+                this.mobileNumber = getJsonAsString(jsonObject,"mobile_number")
+                this.modifiedBy = getJsonAsString(jsonObject,"modified_by")
+                this.modifiedDate = getJsonAsString(jsonObject,"modified_date")
+                this.name = getJsonAsString(jsonObject,"name")
+                this.nickname = getJsonAsString(jsonObject,"nickname")
+                this.organizationId = getJsonAsString(jsonObject,"organization_id")
+                this.instapayCode = getJsonAsString(jsonObject,"instapay_code")
                 this.accounts = accounts
-                this.swiftBankDetails = swiftBankDetails
+                this.swiftBankDetails = getJsonAsObject(jsonObject, "swift_bank_details")
+            }
+        }
+
+        private fun getJsonAsString(jsonObject : JSONObject, key: String) : String? {
+            return when (jsonObject.has(key) && !jsonObject.isNull(key)) {
+                true -> jsonObject.get(key).toString()
+                else -> String().nullable()
+            }
+        }
+
+        inline fun <reified T> getJsonAsObject(jsonObject: JSONObject, key: String) : T? {
+            return when (jsonObject.has(key) && !jsonObject.isNull(key)) {
+                true -> JsonHelper.fromJson(jsonObject.get(key).toString()) as T
+                else -> null
             }
         }
     }
