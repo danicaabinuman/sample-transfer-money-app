@@ -46,6 +46,7 @@ import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer.ProposedTransferDateActivity
 import io.reactivex.rxkotlin.addTo
+import timber.log.Timber
 import java.util.regex.Pattern
 
 class UBPFormActivity :
@@ -238,23 +239,29 @@ class UBPFormActivity :
     }
 
     private fun initEventBus() {
-        eventBus.inputSyncEvent.flowable.subscribe {
+        eventBus.inputSyncEvent.flowable.subscribe({
             if (it.eventType == InputSyncEvent.ACTION_INPUT_BENEFICIARY) {
                 showBeneficiaryDetails(it)
             } else if (it.eventType == InputSyncEvent.ACTION_INPUT_OWN_ACCOUNT) {
                 showBeneficiaryOwnAccount(it)
             }
-        }.addTo(disposables)
-        eventBus.accountSyncEvent.flowable.subscribe {
+        },{
+            Timber.e(it)
+        }).addTo(disposables)
+        eventBus.accountSyncEvent.flowable.subscribe({
             if (it.eventType == AccountSyncEvent.ACTION_UPDATE_SELECTED_ACCOUNT) {
                 showTransferFrom(it.payload)
             }
-        }.addTo(disposables)
-        eventBus.proposedTransferDateSyncEvent.flowable.subscribe {
+        },{
+            Timber.e(it)
+        }).addTo(disposables)
+        eventBus.proposedTransferDateSyncEvent.flowable.subscribe({
             if (it.eventType == ProposedTransferDateSyncEvent.ACTION_SET_PROPOSED_TRANSFER_DATE) {
                 showProposedTransactionDate(it)
             }
-        }.addTo(disposables)
+        },{
+            Timber.e(it)
+        }).addTo(disposables)
     }
 
     private fun showBeneficiaryDetails(it: BaseEvent<String>) {
