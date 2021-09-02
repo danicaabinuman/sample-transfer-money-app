@@ -621,11 +621,6 @@
             android:launchMode="standard" />
 
         <activity
-            android:name="com.unionbankph.corporate.auth.presentation.onboarding_register.OnboardingRegisterActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
-
-        <activity
             android:name="com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.YesAcceptCardPaymentsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />

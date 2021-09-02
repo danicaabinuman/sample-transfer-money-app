@@ -7,6 +7,9 @@ import android.view.MenuItem
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
 import com.unionbankph.corporate.databinding.ActivityTrialAccountSetupBinding
 
 class TrialAccountActivity :
@@ -29,6 +32,32 @@ class TrialAccountActivity :
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onViewsBound() {
+        super.onViewsBound()
+
+        initOnClick()
+    }
+
+    private fun initOnClick(){
+        binding.buttonNext.setOnClickListener { navigateDashboardScreen() }
+    }
+
+    private fun navigateDashboardScreen() {
+        val bundle = Bundle().apply {
+            putString(
+                AutobahnFirebaseMessagingService.EXTRA_DATA,
+                intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
+            )
+        }
+        navigator.navigateClearStacks(
+            this,
+            DashboardActivity::class.java,
+            bundle,
+            true,
+            Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     override val bindingInflater: (LayoutInflater) -> ActivityTrialAccountSetupBinding

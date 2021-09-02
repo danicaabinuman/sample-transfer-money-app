@@ -44,6 +44,7 @@ import com.unionbankph.corporate.fund_transfer.presentation.pesonet.PesoNetSumma
 import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftSummaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPSummaryActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
+import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountActivity
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -670,7 +671,8 @@ class OTPActivity :
         when (page) {
             PAGE_LOGIN -> {
                 if (privacyAgreed) {
-                    navigateDashboardScreen()
+                    navigateTrialModeScreen()
+                    //navigateDashboardScreen()
                 } else {
                     navigatePrivacyPolicyScreen()
                 }
@@ -857,6 +859,21 @@ class OTPActivity :
         )
     }
 
+    private fun navigateTrialModeScreen() {
+        val bundle = Bundle()
+        bundle.putString(
+            AutobahnFirebaseMessagingService.EXTRA_DATA,
+            intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
+        )
+        navigator.navigateClearStacks(
+            this,
+            TrialAccountActivity::class.java,
+            bundle,
+            true,
+            Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
     private fun navigatePrivacyPolicyScreen() {
         val bundle = Bundle()
         bundle.putString(
@@ -886,7 +903,7 @@ class OTPActivity :
             binding.tvVerifyAccountDesc.text = formatString(R.string.desc_verify_account_totp)
             binding.textViewDidNotReceived.text = formatString(R.string.desc_cannot_generate_code)
             binding.textViewDidNotReceived.visibility(true)
-            binding.tvResendTimer.visibility(false)
+            binding.tvResendTimer.setVisible(false)
             binding.btnResend.text = formatString(R.string.action_receive_via_otp)
         } else {
             binding.tvVerifyAccountDesc.text = formatString(

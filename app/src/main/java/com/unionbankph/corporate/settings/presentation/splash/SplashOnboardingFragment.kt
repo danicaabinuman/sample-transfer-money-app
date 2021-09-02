@@ -7,10 +7,10 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
-import com.unionbankph.corporate.databinding.FragmentSplashScreenBinding
+import com.unionbankph.corporate.databinding.FragmentSplashScreenOnboardingBinding
 
 class SplashOnboardingFragment :
-    BaseFragment<FragmentSplashScreenBinding, GeneralViewModel>() {
+    BaseFragment<FragmentSplashScreenOnboardingBinding, GeneralViewModel>() {
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -87,8 +87,8 @@ class SplashOnboardingFragment :
         PAGE_DEPOSIT_CHECK
     }
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashScreenBinding
-        get() = FragmentSplashScreenBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSplashScreenOnboardingBinding
+        get() = FragmentSplashScreenOnboardingBinding::inflate
 
     override val viewModelClassType: Class<GeneralViewModel>
         get() = GeneralViewModel::class.java

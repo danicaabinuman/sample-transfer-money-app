@@ -19,7 +19,6 @@ import com.unionbankph.corporate.auth.presentation.migration.migration_form.Migr
 import com.unionbankph.corporate.auth.presentation.migration.migration_merge.MigrationMergeActivity
 import com.unionbankph.corporate.auth.presentation.migration.migration_selection.MigrationSelectionActivity
 import com.unionbankph.corporate.auth.presentation.migration.nominate_migration_success.NominateMigrationSuccessActivity
-import com.unionbankph.corporate.auth.presentation.onboarding_register.OnboardingRegisterActivity
 import com.unionbankph.corporate.auth.presentation.otp.OTPActivity
 import com.unionbankph.corporate.auth.presentation.password_recovery.PasswordRecoveryActivity
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity
@@ -571,10 +570,6 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun cardAcceptanceOptionActivity(): CardAcceptanceOptionActivity
-
-    @PerActivity
-    @ContributesAndroidInjector
-    abstract fun onboardingRegisterActivity(): OnboardingRegisterActivity
 
     @PerActivity
     @ContributesAndroidInjector

@@ -663,9 +663,11 @@ class LoginFragment :
         )
         constraintSet.clone(binding.constraintLayout)
         if (isSME) {
-            binding.cardViewPassword.visibility(true)
+            binding.llPasswordSME.visibility(true)
+            //binding.cardViewPassword.visibility(true)
+            binding.llPasswordSME.visibility(true)
             binding.tilPassword.setVisible(false)
-            binding.tvForgotPassword.setVisible(true)
+            binding.tvForgotPassword.setVisible(false)
             binding.tvSignUp.text = formatString(R.string.action_sign_up).toHtmlSpan()
             binding.tvSignUp.visibility(viewModel.cdaoFeature.value.notNullable())
             setOnClickListenerSignUp()
@@ -836,20 +838,19 @@ class LoginFragment :
     }
 
     private fun navigateFirstLoginMSME(){
-        binding.MSMESignUp.visibility(false)
-        binding.MSMEFirstLogin.visibility(false)
-        binding.ivbgOrange.visibility(false)
-        binding.tvUbCaption.visibility(false)
-        binding.bgSignupIllustration.visibility(false)
-        binding.ivWhitebg.visibility(false)
-        binding.imageViewBackground.visibility(false)
-        binding.llEmailSME.visibility(true)
-        binding.llPasswordSME.visibility(true)
-        binding.MSMEbtnLogin.visibility(true)
-        binding.MSMEForgotPassword.visibility(true)
-        binding.textViewLearnMore.visibility(true)
-        binding.textViewMigration.visibility(true)
-
+        viewUtil.startAnimateView(false, binding.MSMESignUp, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.MSMEFirstLogin, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.ivbgOrange, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.tvUbCaption, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.bgSignupIllustration, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.ivWhitebg, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.imageViewBackground, android.R.anim.fade_out)
+        viewUtil.startAnimateView(true, binding.llEmailSME, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.llPasswordSME, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.MSMEbtnLogin, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.MSMEForgotPassword, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.textViewLearnMore, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.textViewMigration, android.R.anim.fade_in)
     }
 
     private fun initClickButtonGenerateTOTP() {
