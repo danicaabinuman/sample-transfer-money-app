@@ -2,7 +2,7 @@ package com.unionbankph.corporate.settings.presentation.form
 
 import android.os.Parcelable
 import com.unionbankph.corporate.common.data.model.StateData
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
