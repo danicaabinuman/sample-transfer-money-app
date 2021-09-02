@@ -211,6 +211,7 @@ data class Beneficiary(
                 this.brstnCode = getJsonAsString(jsonObject,"brstn_code")
                 this.firmCode = getJsonAsString(jsonObject,"firm_code")
                 this.countryCode = getJsonAsObject(jsonObject, "country_code")
+                this.countryCodeId = getJsonAsObject(jsonObject, "country_code_id")
                 this.createdBy = getJsonAsString(jsonObject,"created_by")
                 this.createdDate = getJsonAsString(jsonObject,"created_date")
                 this.emailAddress = getJsonAsString(jsonObject,"email_address")
