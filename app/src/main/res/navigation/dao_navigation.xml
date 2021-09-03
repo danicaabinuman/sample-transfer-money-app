@@ -350,7 +350,29 @@
             app:enterAnim="@anim/anim_enter_from_right"
             app:exitAnim="@anim/anim_exit_to_left"
             app:popEnterAnim="@anim/anim_enter_from_left"
-            app:popExitAnim="@anim/anim_exit_to_right" />
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
+        <action
+            android:id="@+id/action_personal_information_step_two_has_mismatch"
+            app:destination="@id/dao_personal_information_step_two_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:popUpTo="@id/dao_personal_information_step_one_fragment"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="isEdit"
+                app:argType="boolean"
+                android:defaultValue="true"/>
+
+            <argument
+                android:name="isBirthDateMismatched"
+                app:argType="boolean"
+                android:defaultValue="true"/>
+
+        </action>
 
         <action
             android:id="@+id/action_country_activity"
@@ -779,7 +801,23 @@
 
             <argument
                 android:name="isEdit"
-                app:argType="boolean" />
+                app:argType="boolean"
+                />
+
+            <argument
+                android:name="isFirstNameMismatched"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+
+            <argument
+                android:name="isLastNameMismatched"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+
+            <argument
+                android:name="isBirthDateMismatched"
+                app:argType="boolean"
+                android:defaultValue="false"/>
 
         </action>
 
@@ -794,6 +832,11 @@
             <argument
                 android:name="isEdit"
                 app:argType="boolean" />
+
+            <argument
+                android:name="isBirthDateMismatched"
+                app:argType="boolean"
+                android:defaultValue="false"/>
 
         </action>
 

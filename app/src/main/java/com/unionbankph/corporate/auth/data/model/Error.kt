@@ -13,6 +13,8 @@ data class Error(
     var code: String? = null,
     @SerialName("heading")
     var heading: String? = null,
+    @SerialName("mismatchedIdDetails")
+    var mismatchedIdDetails: MutableList<String>? = null,
     @SerialName("details")
     var details: Details? = null
 )
