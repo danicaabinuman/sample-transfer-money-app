@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.addCallback
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -26,6 +25,7 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.dao.presentation.confirmation.DaoConfirmationFragmentDirections
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
 import com.unionbankph.corporate.databinding.FragmentDaoPersonalInformationStep1Binding
 import com.unionbankph.corporate.settings.presentation.form.Selector
@@ -46,6 +46,9 @@ class DaoPersonalInformationStepOneFragment :
     private var cancelBottomSheet: ConfirmationBottomSheet? = null
 
     private val formDisposable = CompositeDisposable()
+
+    private var isFirstNameMismatched = false
+    private var isLastNameMismatched = false
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -93,7 +96,14 @@ class DaoPersonalInformationStepOneFragment :
         viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
             daoActivity.setPersonalInformationStepOneInput(it)
             if (viewModel.isEditMode.value == true) {
-                requireActivity().onBackPressed()
+                val isBirthDateMismatch = arguments?.getBoolean(EXTRA_IS_BIRTH_DATE_MISMATCH, false)!!
+                if (isBirthDateMismatch) {
+                    val action = DaoPersonalInformationStepOneFragmentDirections
+                        .actionPersonalInformationStepTwoHasMismatch()
+                    findNavController().navigate(action)
+                } else {
+                    requireActivity().onBackPressed()
+                }
             } else {
                 findNavController().navigate(R.id.action_personal_information_step_two)
             }
@@ -128,6 +138,9 @@ class DaoPersonalInformationStepOneFragment :
         arguments?.getBoolean(EXTRA_IS_EDIT, false)?.let {
             viewModel.isEditMode.onNext(it)
         }
+
+        isFirstNameMismatched = arguments?.getBoolean(EXTRA_IS_FIRST_NAME_MISMATCH, false)!!
+        isLastNameMismatched = arguments?.getBoolean(EXTRA_IS_LAST_NAME_MISMATCH, false)!!
     }
 
     private fun initBinding() {
@@ -270,20 +283,23 @@ class DaoPersonalInformationStepOneFragment :
             maxLength = resources.getInteger(R.integer.max_length_field_100),
             editText = binding.tieSalutation
         )
-        val firstNameObservable = viewUtil.rxTextChanges(
-            isFocusChanged = true,
-            isValueChanged = true,
-            minLength = resources.getInteger(R.integer.min_length_field),
-            maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = binding.tieFirstName
-        )
-        val lastNameObservable = viewUtil.rxTextChanges(
-            isFocusChanged = true,
-            isValueChanged = true,
-            minLength = resources.getInteger(R.integer.min_length_field),
-            maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = binding.tieLastName
-        )
+
+        val firstNameObservable = when (isFirstNameMismatched) {
+            true -> nameMismatchValidationObservable(
+                binding.tieFirstName,
+                viewModel.input.firstNameInput.value!!
+            )
+            else -> nameDefaultObservable(binding.tieFirstName)
+        }
+
+        val lastNameObservable = when (isLastNameMismatched) {
+            true -> nameMismatchValidationObservable(
+                binding.tieLastName,
+                viewModel.input.lastNameInput.value!!
+            )
+            else -> nameDefaultObservable(binding.tieLastName)
+        }
+
         val emailAddressObservable = RxValidator.createFor(binding.tieEmailAddress)
             .nonEmpty(
                 String.format(
@@ -378,6 +394,35 @@ class DaoPersonalInformationStepOneFragment :
             }
             .subscribe()
             .addTo(formDisposable)
+    }
+
+    private fun nameDefaultObservable(editTextField: EditText) : Observable<RxValidationResult<EditText>> {
+        return viewUtil.rxTextChanges(
+            isFocusChanged = true,
+            isValueChanged = true,
+            minLength = resources.getInteger(R.integer.min_length_field),
+            maxLength = resources.getInteger(R.integer.max_length_field_100),
+            editText = editTextField
+        )
+    }
+
+    private fun nameMismatchValidationObservable(editTextField: EditText, compareToString: String)
+            : Observable<RxValidationResult<EditText>> {
+
+        return RxValidator.createFor(editTextField)
+            .nonEmpty(getString(R.string.error_this_field))
+            .notSameAs(compareToString, getString(R.string.dao_title_mismatch_info))
+            .onFocusChanged()
+            .onValueChanged()
+            .minLength(resources.getInteger(R.integer.min_length_field))
+            .maxLength(resources.getInteger(R.integer.max_length_field_100))
+            .toObservable()
+            .debounce {
+                Observable.timer(
+                    resources.getInteger(R.integer.time_edit_text_debounce_password).toLong(),
+                    TimeUnit.MILLISECONDS
+                )
+            }
     }
 
     private fun initError(
@@ -489,6 +534,9 @@ class DaoPersonalInformationStepOneFragment :
     @ThreadSafe
     companion object {
         const val EXTRA_IS_EDIT = "isEdit"
+        const val EXTRA_IS_FIRST_NAME_MISMATCH = "isFirstNameMismatched"
+        const val EXTRA_IS_LAST_NAME_MISMATCH = "isLastNameMismatched"
+        const val EXTRA_IS_BIRTH_DATE_MISMATCH = "isBirthDateMismatched"
         const val TAG_CANCEL_DAO_DIALOG = "cancel_dao"
     }
 

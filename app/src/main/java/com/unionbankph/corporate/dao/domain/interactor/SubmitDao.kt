@@ -59,7 +59,12 @@ constructor(
                             }
                         }
                         DaoErrorCodeEnum.DAO_JUMIO_SCAN_RETRY.name -> {
-                            Single.error(MismatchIDException(apiError.message))
+                            if (error.mismatchedIdDetails != null) {
+                                val mismatchedIdErrors = JsonHelper.toJson(error.mismatchedIdDetails)
+                                Single.error(MismatchIDException(mismatchedIdErrors))
+                            } else {
+                                Single.error(MismatchIDException(apiError.message))
+                            }
                         }
                         DaoErrorCodeEnum.DAO_JUMIO_EXPIRED_DOCUMENT_SCAN_RETRY.name -> {
                             Single.error(ExpiredIDException(apiError.message))

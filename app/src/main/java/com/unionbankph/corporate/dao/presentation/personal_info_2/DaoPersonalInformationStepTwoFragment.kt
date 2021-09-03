@@ -3,6 +3,7 @@ package com.unionbankph.corporate.dao.presentation.personal_info_2
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -12,6 +13,8 @@ import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.widget.edittext.ImeOptionEditText
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
+import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
+import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidator
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
@@ -23,8 +26,10 @@ import com.unionbankph.corporate.databinding.FragmentDaoPersonalInformationStep2
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import java.util.*
+import java.util.concurrent.TimeUnit
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoPersonalInformationStepTwoFragment :
@@ -32,6 +37,8 @@ class DaoPersonalInformationStepTwoFragment :
     DaoActivity.ActionEvent, ImeOptionEditText.OnImeOptionListener {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
+
+    private var isBirthDateMismatched = false
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -91,6 +98,7 @@ class DaoPersonalInformationStepTwoFragment :
         arguments?.getBoolean(EXTRA_IS_EDIT, false)?.let {
             viewModel.isEditMode.onNext(it)
         }
+        isBirthDateMismatched = arguments?.getBoolean(EXTRA_IS_BIRTH_DATE_MISMATCHED, false)!!
     }
 
     private fun initBinding() {
@@ -258,13 +266,16 @@ class DaoPersonalInformationStepTwoFragment :
             maxLength = resources.getInteger(R.integer.max_length_tin),
             editText = binding.tieGovernmentId
         )
-        val dateOfBirthObservable = viewUtil.rxTextChanges(
-            isFocusChanged = true,
-            isValueChanged = true,
-            minLength = resources.getInteger(R.integer.min_length_field),
-            maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = binding.tieDateOfBirth
-        )
+        val dateOfBirthObservable = when (isBirthDateMismatched) {
+            true -> birthDateMismatchValidationObservable(
+                binding.tieDateOfBirth,
+                viewModel.input.dateOfBirthInput.value.convertDateToDesireFormat(
+                    DateFormatEnum.DATE_FORMAT_DATE
+                )!!
+            )
+            else -> birthDateDefaultObservable(binding.tieDateOfBirth)
+        }
+
         val placeOfBirthObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
@@ -316,6 +327,35 @@ class DaoPersonalInformationStepTwoFragment :
             }
             .subscribe()
             .addTo(disposables)
+    }
+
+    private fun birthDateDefaultObservable(editTextField: EditText) : Observable<RxValidationResult<EditText>> {
+        return viewUtil.rxTextChanges(
+            isFocusChanged = true,
+            isValueChanged = true,
+            minLength = resources.getInteger(R.integer.min_length_field),
+            maxLength = resources.getInteger(R.integer.max_length_field_100),
+            editText = editTextField
+        )
+    }
+
+    private fun birthDateMismatchValidationObservable(editTextField: EditText, compareToString: String)
+            : Observable<RxValidationResult<EditText>> {
+
+        return RxValidator.createFor(editTextField)
+            .nonEmpty(getString(R.string.error_this_field))
+            .notSameAs(compareToString, getString(R.string.dao_title_mismatch_info))
+            .onFocusChanged()
+            .onValueChanged()
+            .minLength(resources.getInteger(R.integer.min_length_field))
+            .maxLength(resources.getInteger(R.integer.max_length_field_100))
+            .toObservable()
+            .debounce {
+                Observable.timer(
+                    resources.getInteger(R.integer.time_edit_text_debounce_password).toLong(),
+                    TimeUnit.MILLISECONDS
+                )
+            }
     }
 
     private fun showMissingFieldDialog() {
@@ -374,6 +414,7 @@ class DaoPersonalInformationStepTwoFragment :
     @ThreadSafe
     companion object {
         const val EXTRA_IS_EDIT = "isEdit"
+        const val EXTRA_IS_BIRTH_DATE_MISMATCHED = "isBirthDateMismatched"
     }
 
     override val viewModelClassType: Class<DaoPersonalInformationStepTwoViewModel>

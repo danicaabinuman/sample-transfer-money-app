@@ -4,15 +4,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.unionbankph.corporate.app.common.widget.validator.DigitValidator
-import com.unionbankph.corporate.app.common.widget.validator.EmailValidator
-import com.unionbankph.corporate.app.common.widget.validator.LengthValidator
-import com.unionbankph.corporate.app.common.widget.validator.MaxLengthValidator
-import com.unionbankph.corporate.app.common.widget.validator.MinLengthValidator
-import com.unionbankph.corporate.app.common.widget.validator.NonEmptyValidator
-import com.unionbankph.corporate.app.common.widget.validator.PatternFindValidator
-import com.unionbankph.corporate.app.common.widget.validator.PatternMatchesValidator
-import com.unionbankph.corporate.app.common.widget.validator.SameAsValidator
+import com.unionbankph.corporate.app.common.widget.validator.*
 import io.reactivex.Observable
 import java.util.*
 import java.util.regex.Pattern
@@ -129,6 +121,11 @@ class RxValidator private constructor(private val et: EditText) {
 
     fun sameAs(anotherTextView: TextView, message: String): RxValidator {
         this.validators.add(SameAsValidator(anotherTextView, message))
+        return this
+    }
+
+    fun notSameAs(anotherText: String, message: String): RxValidator {
+        this.validators.add(NotSameAsValidator(anotherText, message))
         return this
     }
 

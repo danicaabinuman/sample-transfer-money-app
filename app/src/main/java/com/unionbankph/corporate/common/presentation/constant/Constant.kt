@@ -131,4 +131,12 @@ class Constant {
             const val SSS_SERVICE_ID = "7779"
         }
     }
+
+    class MismatchIDDetails {
+        companion object {
+            const val FIRST_NAME = "FIRSTNAME_MISMATCHED"
+            const val LAST_NAME = "LASTNAME_MISMATCHED"
+            const val BIRTH_DATE = "BIRTHDATE_MISMATCHED"
+        }
+    }
 }
