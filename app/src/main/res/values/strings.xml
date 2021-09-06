@@ -2544,5 +2544,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
         your existing credentials.</font>
         ]]></string>
     <string name="hide_password">......................</string>
-
+    <string name="title_accounts">Accounts</string>
 </resources>

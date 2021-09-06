@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/SMESubtitle2"
-        android:text="@string/title_account"
+        android:text="@string/title_accounts"
         android:layout_marginStart="@dimen/grid_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/buttonAccountAction"
