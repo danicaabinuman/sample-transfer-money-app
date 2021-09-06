@@ -154,6 +154,15 @@ class Constant {
             const val BODY = "BODY"
             const val BODY_GRAY = "BODY_GRAY"
             const val CAPTION = "CAPTION"
+
+        }
+    }
+
+    class MismatchIDDetails {
+        companion object {
+            const val FIRST_NAME = "FIRSTNAME_MISMATCHED"
+            const val LAST_NAME = "LASTNAME_MISMATCHED"
+            const val BIRTH_DATE = "BIRTHDATE_MISMATCHED"
         }
     }
 }

@@ -32,6 +32,7 @@ import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomShee
 import com.unionbankph.corporate.auth.data.model.Details
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
+import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
@@ -46,6 +47,7 @@ import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
 import com.unionbankph.corporate.databinding.FragmentDaoConfirmationBinding
 import io.reactivex.rxkotlin.addTo
+import timber.log.Timber
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoConfirmationFragment :
@@ -116,7 +118,8 @@ class DaoConfirmationFragment :
                 showDaoErrorDetailsDialog(DaoErrorCodeEnum.DAO_JUMIO_NEED_MORE_TIME)
             }
             is MismatchIDException -> {
-                showDaoErrorDetailsDialog(DaoErrorCodeEnum.DAO_JUMIO_SCAN_RETRY)
+                Timber.e("throwable " + throwable.message)
+                showDaoErrorDetailsDialog(DaoErrorCodeEnum.DAO_JUMIO_SCAN_RETRY, throwable.message)
             }
             is ExpiredIDException -> {
                 showDaoErrorDetailsDialog(DaoErrorCodeEnum.DAO_JUMIO_EXPIRED_DOCUMENT_SCAN_RETRY)
@@ -436,7 +439,7 @@ class DaoConfirmationFragment :
         loadingDialog?.dismiss()
     }
 
-    private fun showDaoErrorDetailsDialog(daoErrorCodeEnum: DaoErrorCodeEnum) {
+    private fun showDaoErrorDetailsDialog(daoErrorCodeEnum: DaoErrorCodeEnum, mismatchIdError: String? = null) {
         val dialog = MaterialDialog(getAppCompatActivity()).apply {
             lifecycleOwner(getAppCompatActivity())
             customView(R.layout.dialog_tool_tip)
@@ -545,14 +548,50 @@ class DaoConfirmationFragment :
                 DaoErrorCodeEnum.DAO_JUMIO_EXPIRED_DOCUMENT_SCAN_RETRY -> {
                     navigateJumioVerification()
                 }
+                DaoErrorCodeEnum.DAO_JUMIO_SCAN_RETRY -> {
+                    mismatchIdError?.let {
+                        navigateToMismatchedForms(mismatchIdError)
+                    }
+                }
             }
         }
-        ivClose.setOnClickListener {
-            it.setOnClickListener(null)
+        ivClose.setOnClickListener { view ->
+            Timber.e("ivClose.setOnClickListener throwable " + mismatchIdError)
+
+            mismatchIdError?.let {
+                navigateToMismatchedForms(mismatchIdError)
+            }
+
+            view.setOnClickListener(null)
             dialog.cancel()
         }
         dialog.window?.setGravity(Gravity.CENTER)
         dialog.show()
+    }
+
+    private fun navigateToMismatchedForms(mismatchedError: String) {
+        val mismatchedErrorList : MutableList<String> = JsonHelper.fromListJson(mismatchedError)
+        val hasFirstNameMismatch = mismatchedErrorList.contains(Constant.MismatchIDDetails.FIRST_NAME)
+        val hasLastNameMismatch = mismatchedErrorList.contains(Constant.MismatchIDDetails.LAST_NAME)
+        val hasBirthDateMismatch = mismatchedErrorList.contains(Constant.MismatchIDDetails.BIRTH_DATE)
+
+        if (hasFirstNameMismatch || hasLastNameMismatch) {
+            val action = DaoConfirmationFragmentDirections.actionPersonalInformationStepOne(
+                isEdit = true,
+                isFirstNameMismatched = hasFirstNameMismatch,
+                isLastNameMismatched= hasLastNameMismatch,
+                isBirthDateMismatched = hasBirthDateMismatch
+            )
+            findNavController().navigate(action)
+            setBackIconToDefault()
+        } else if (hasBirthDateMismatch) {
+            val action = DaoConfirmationFragmentDirections.actionPersonalInformationStepTwo(
+                isEdit = true,
+                isBirthDateMismatched = true
+            )
+            findNavController().navigate(action)
+            setBackIconToDefault()
+        }
     }
 
     private fun navigationDaoResult(daoHit: DaoHit) {
