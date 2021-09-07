@@ -98,7 +98,8 @@ class DaoPersonalInformationStepTwoFragment :
         arguments?.getBoolean(EXTRA_IS_EDIT, false)?.let {
             viewModel.isEditMode.onNext(it)
         }
-        isBirthDateMismatched = arguments?.getBoolean(EXTRA_IS_BIRTH_DATE_MISMATCHED, false)!!
+        isBirthDateMismatched =
+            arguments?.getBoolean(EXTRA_IS_BIRTH_DATE_MISMATCHED, false) ?: false
     }
 
     private fun initBinding() {
@@ -268,6 +269,7 @@ class DaoPersonalInformationStepTwoFragment :
         )
         val dateOfBirthObservable = when (isBirthDateMismatched) {
             true -> birthDateMismatchValidationObservable(
+                getString(R.string.hint_birthdate),
                 binding.tieDateOfBirth,
                 viewModel.input.dateOfBirthInput.value.convertDateToDesireFormat(
                     DateFormatEnum.DATE_FORMAT_DATE
@@ -329,7 +331,8 @@ class DaoPersonalInformationStepTwoFragment :
             .addTo(disposables)
     }
 
-    private fun birthDateDefaultObservable(editTextField: EditText) : Observable<RxValidationResult<EditText>> {
+    private fun birthDateDefaultObservable(editTextField: EditText):
+            Observable<RxValidationResult<EditText>> {
         return viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
@@ -339,12 +342,18 @@ class DaoPersonalInformationStepTwoFragment :
         )
     }
 
-    private fun birthDateMismatchValidationObservable(editTextField: EditText, compareToString: String)
-            : Observable<RxValidationResult<EditText>> {
+    private fun birthDateMismatchValidationObservable(
+        fieldLabel: String,
+        editTextField: EditText,
+        compareToString: String
+    ) : Observable<RxValidationResult<EditText>> {
 
         return RxValidator.createFor(editTextField)
             .nonEmpty(getString(R.string.error_this_field))
-            .notSameAs(compareToString, getString(R.string.dao_title_mismatch_info))
+            .notSameAs(
+                compareToString,
+                formatString(R.string.error_mismatched_with_id_field, fieldLabel)
+            )
             .onFocusChanged()
             .onValueChanged()
             .minLength(resources.getInteger(R.integer.min_length_field))

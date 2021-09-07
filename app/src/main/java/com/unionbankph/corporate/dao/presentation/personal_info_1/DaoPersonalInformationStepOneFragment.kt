@@ -139,8 +139,8 @@ class DaoPersonalInformationStepOneFragment :
             viewModel.isEditMode.onNext(it)
         }
 
-        isFirstNameMismatched = arguments?.getBoolean(EXTRA_IS_FIRST_NAME_MISMATCH, false)!!
-        isLastNameMismatched = arguments?.getBoolean(EXTRA_IS_LAST_NAME_MISMATCH, false)!!
+        isFirstNameMismatched = arguments?.getBoolean(EXTRA_IS_FIRST_NAME_MISMATCH, false) ?: false
+        isLastNameMismatched = arguments?.getBoolean(EXTRA_IS_LAST_NAME_MISMATCH, false) ?: false
     }
 
     private fun initBinding() {
@@ -286,6 +286,7 @@ class DaoPersonalInformationStepOneFragment :
 
         val firstNameObservable = when (isFirstNameMismatched) {
             true -> nameMismatchValidationObservable(
+                getString(R.string.hint_first_name),
                 binding.tieFirstName,
                 viewModel.input.firstNameInput.value!!
             )
@@ -294,6 +295,7 @@ class DaoPersonalInformationStepOneFragment :
 
         val lastNameObservable = when (isLastNameMismatched) {
             true -> nameMismatchValidationObservable(
+                getString(R.string.hint_last_name),
                 binding.tieLastName,
                 viewModel.input.lastNameInput.value!!
             )
@@ -396,7 +398,9 @@ class DaoPersonalInformationStepOneFragment :
             .addTo(formDisposable)
     }
 
-    private fun nameDefaultObservable(editTextField: EditText) : Observable<RxValidationResult<EditText>> {
+    private fun nameDefaultObservable(editTextField: EditText) :
+            Observable<RxValidationResult<EditText>> {
+
         return viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
@@ -406,12 +410,14 @@ class DaoPersonalInformationStepOneFragment :
         )
     }
 
-    private fun nameMismatchValidationObservable(editTextField: EditText, compareToString: String)
-            : Observable<RxValidationResult<EditText>> {
+    private fun nameMismatchValidationObservable(
+        fieldLabel: String,
+        editTextField: EditText,
+        compareToString: String) : Observable<RxValidationResult<EditText>> {
 
         return RxValidator.createFor(editTextField)
             .nonEmpty(getString(R.string.error_this_field))
-            .notSameAs(compareToString, getString(R.string.dao_title_mismatch_info))
+            .notSameAs(compareToString, formatString(R.string.error_mismatched_with_id_field, fieldLabel))
             .onFocusChanged()
             .onValueChanged()
             .minLength(resources.getInteger(R.integer.min_length_field))
