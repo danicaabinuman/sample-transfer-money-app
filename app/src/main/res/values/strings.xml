@@ -1147,7 +1147,7 @@
     <string name="error_msg_under_maintenance">We are currently undergoing system maintenance. Please check back in a bit.</string>
     <string name="dao_error_mismatch_response">ID details do not match.</string>
     <string name="error_multiple_posting">This transaction has already been processed. Please return to the transaction dashboard to view the final status of the transaction.</string>
-
+    <string name="error_mismatched_with_id_field">%1$s must match with the ID.</string>
 
     <string name="msg_check_deposit_camera_tips_1">Place the check against a dark background</string>
     <string name="msg_check_deposit_camera_tips_2">Move camera on top of the check</string>
