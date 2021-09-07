@@ -377,7 +377,7 @@ class AccountFragment :
     }
 
     private fun startViewTutorial(isShownTestData: Boolean) {
-        if ((activity as DashboardActivity).viewPager().currentItem == 0) {
+        if ((activity as DashboardActivity).viewPager().currentItem == 1) {
             if (isShownTestData) {
                 val parseAccount = viewUtil.loadJSONFromAsset(
                     getAppCompatActivity(),

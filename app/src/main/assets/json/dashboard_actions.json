@@ -8,20 +8,20 @@
   {
     "id": "transfer_funds",
     "label": "Transfer\nFunds",
-    "isVisible": false,
-    "isEnable": true
+    "isVisible": true,
+    "isEnable": false
   },
   {
     "id": "pay_bills",
     "label": "Pay\nBills",
-    "isVisible": false,
-    "isEnable": true
+    "isVisible": true,
+    "isEnable": false
   },
   {
     "id": "deposit_check",
     "label": "Deposit\nCheck",
-    "isVisible": false,
-    "isEnable": true
+    "isVisible": true,
+    "isEnable": false
   },
   {
     "id": "apply_loan",
