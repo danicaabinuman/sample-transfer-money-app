@@ -1,16 +1,16 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_business_information
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -20,7 +20,6 @@ import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
@@ -28,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_business_information.viewToolbar
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
+import kotlinx.android.synthetic.main.layout_branch_textfields.view.*
 import kotlinx.android.synthetic.main.spinner.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
@@ -50,6 +50,11 @@ class BusinessInformationActivity :
             "Retailer",
             "Others"
         )
+    var orderFulfillment =
+        arrayOf(
+            "Select"
+        )
+
     var business = "Wholesaler"
     var lazadaCounter = 0
     var shopeeCounter = 0
@@ -57,7 +62,9 @@ class BusinessInformationActivity :
     var physicalStoreCounter = 0
     var instagramCounter = 0
     var websiteCounter = 0
+    var suysingCounter = 0
     var otherCounter = 0
+    var branchCounter = 0
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -106,6 +113,7 @@ class BusinessInformationActivity :
 
         initViews()
         natureOfBusiness()
+        orderFulfillment()
         fromZeroCounter()
     }
 
@@ -120,13 +128,14 @@ class BusinessInformationActivity :
         btn_physical_store.setOnClickListener { btnPhysicalStoreClicked() }
         btn_instagram.setOnClickListener { btnInstagramClicked() }
         btn_website.setOnClickListener { btnWebsiteClicked() }
+        btn_suysing.setOnClickListener { toggleSuysingButton() }
         btn_others.setOnClickListener { btnOtherClicked() }
         btn_increment.setOnClickListener { businessYearIncrementClicked() }
         btn_years_decrement_active.setOnClickListener { businessYearDecrementClicked() }
         btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
         btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
         btn_employee_increment.setOnClickListener { employeeNumberIncrement() }
-        btn_employee_decrement_inactive.setOnClickListener { employeeNumberDecrement() }
+        btn_employee_decrement_active.setOnClickListener { employeeNumberDecrement() }
         btn_next.setOnClickListener {
 //            retrieveInformationFromFields()
             btnNextClicked()
@@ -137,7 +146,7 @@ class BusinessInformationActivity :
         }
     }
 
-    private fun getBusinessInformationResponse(response: GetRMOBusinessInformationResponse){
+    private fun getBusinessInformationResponse(response: GetRMOBusinessInformationResponse) {
 //        rmoBusinessInformationResponse?.let {
 //            viewModel.getBusinessInformation(
 //                GetRMOBusinessInformationForm(
@@ -165,13 +174,14 @@ class BusinessInformationActivity :
         this.info = response
     }
 
-    private fun displayBusinessInfo(info: GetRMOBusinessInformationResponse){
-        val tvProductsAndServices : TextView = findViewById(R.id.tv_product_of_services_offered)
-        val tvYearsOfBusiness : TextView = findViewById(R.id.tv_years_counter)
+    private fun displayBusinessInfo(info: GetRMOBusinessInformationResponse) {
+        val tvProductsAndServices: TextView = findViewById(R.id.tv_product_of_services_offered)
+        val tvYearsOfBusiness: TextView = findViewById(R.id.tv_years_counter)
 
         tvProductsAndServices.text = info.merchantDetails!!.storeProduct.toString()
         tvYearsOfBusiness.text = info.merchantDetails!!.yearsInBusiness.toString()
     }
+
     private fun natureOfBusiness() {
 
         val aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, businessType)
@@ -186,10 +196,24 @@ class BusinessInformationActivity :
         }
     }
 
+    private fun orderFulfillment() {
+
+        val aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, orderFulfillment)
+        aa.setDropDownViewResource(R.layout.spinner)
+
+        with(dropdownOrderFulfillment) {
+            adapter = aa
+            setSelection(0, false)
+            onItemSelectedListener = this@BusinessInformationActivity
+            prompt = "SAMPLE PROMPT MESSAGE"
+            gravity = Gravity.CENTER
+        }
+    }
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (position > 0) {
             business = parent?.getItemAtPosition(position).toString()
-        } else if (position == 0){
+        } else if (position == 0) {
             disableNextButton()
         }
 
@@ -212,6 +236,14 @@ class BusinessInformationActivity :
         } else {
             btn_years_decrement_active.visibility = View.VISIBLE
             btn_years_decrement_inactive.visibility = View.GONE
+        }
+
+        if (tv_employee_counter.text == "1") {
+            btn_employee_decrement_active.visibility = View.GONE
+            btn_employee_decrement_inactive.visibility = View.VISIBLE
+        } else {
+            btn_employee_decrement_active.visibility = View.VISIBLE
+            btn_employee_decrement_inactive.visibility = View.GONE
         }
 
         if (tv_branch_counter.text == "1") {
@@ -259,7 +291,7 @@ class BusinessInformationActivity :
         fromZeroCounter()
     }
 
-    private fun employeeNumberIncrement(){
+    private fun employeeNumberIncrement() {
         var employeeCounter = tv_employee_counter.text.toString().toInt()
         employeeCounter++
         tv_employee_counter.text = employeeCounter.toString()
@@ -267,7 +299,7 @@ class BusinessInformationActivity :
         fromZeroCounter()
     }
 
-    private fun employeeNumberDecrement(){
+    private fun employeeNumberDecrement() {
         var employeeCounter = tv_employee_counter.text.toString().toInt()
         employeeCounter--
         tv_employee_counter.text = employeeCounter.toString()
@@ -294,7 +326,7 @@ class BusinessInformationActivity :
             tv_lazada_title.visibility = View.GONE
             til_lazada.visibility = View.GONE
             et_lazada.visibility = View.GONE
-            if (et_lazada.text!!.isNotEmpty()){
+            if (et_lazada.text!!.isNotEmpty()) {
                 et_lazada.text!!.clear()
                 enableNextButton()
             }
@@ -309,6 +341,7 @@ class BusinessInformationActivity :
             btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_shopee.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_shopee.visibility = View.VISIBLE
+            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
             tv_shopee_title.visibility = View.VISIBLE
             til_shopee.visibility = View.VISIBLE
@@ -321,7 +354,7 @@ class BusinessInformationActivity :
             tv_shopee_title.visibility = View.GONE
             til_shopee.visibility = View.GONE
             et_shopee.visibility = View.GONE
-            if (et_shopee.text!!.isNotEmpty()){
+            if (et_shopee.text!!.isNotEmpty()) {
                 et_shopee.text!!.clear()
                 enableNextButton()
             }
@@ -335,6 +368,7 @@ class BusinessInformationActivity :
             btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_facebook.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_facebook.visibility = View.VISIBLE
+            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
             tv_facebook_title.visibility = View.VISIBLE
             til_facebook.visibility = View.VISIBLE
@@ -347,7 +381,7 @@ class BusinessInformationActivity :
             tv_facebook_title.visibility = View.GONE
             til_facebook.visibility = View.GONE
             et_facebook.visibility = View.GONE
-            if (et_facebook.text!!.isNotEmpty()){
+            if (et_facebook.text!!.isNotEmpty()) {
                 et_facebook.text!!.clear()
                 enableNextButton()
             }
@@ -367,6 +401,7 @@ class BusinessInformationActivity :
             til_physical_store.visibility = View.VISIBLE
             et_physical_store.visibility = View.VISIBLE
             btnAddBranchAddress.visibility = View.VISIBLE
+            addAnotherBranchAddress()
             disableNextButton()
         } else if (stateChecker == 0) {
             btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
@@ -376,7 +411,7 @@ class BusinessInformationActivity :
             til_physical_store.visibility = View.GONE
             et_physical_store.visibility = View.GONE
             btnAddBranchAddress.visibility = View.GONE
-            if (et_physical_store.text!!.isNotEmpty()){
+            if (et_physical_store.text!!.isNotEmpty()) {
                 et_physical_store.text!!.clear()
                 enableNextButton()
             }
@@ -390,6 +425,7 @@ class BusinessInformationActivity :
             btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_instagram.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_instagram.visibility = View.VISIBLE
+            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
             tv_instagram_title.visibility = View.VISIBLE
             til_instagram.visibility = View.VISIBLE
@@ -402,7 +438,7 @@ class BusinessInformationActivity :
             tv_instagram_title.visibility = View.GONE
             til_instagram.visibility = View.GONE
             et_instagram.visibility = View.GONE
-            if (et_instagram.text!!.isNotEmpty()){
+            if (et_instagram.text!!.isNotEmpty()) {
                 et_instagram.text!!.clear()
                 enableNextButton()
             }
@@ -416,10 +452,11 @@ class BusinessInformationActivity :
             btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_website.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_website.visibility = View.VISIBLE
+            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
             tv_website_title.visibility = View.VISIBLE
             til_website.visibility = View.VISIBLE
-            til_website.visibility = View.VISIBLE
+            et_website.visibility = View.VISIBLE
             disableNextButton()
         } else if (stateChecker == 0) {
             btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
@@ -428,8 +465,35 @@ class BusinessInformationActivity :
             tv_website_title.visibility = View.GONE
             til_website.visibility = View.GONE
             et_website.visibility = View.GONE
-            if (et_website.text!!.isNotEmpty()){
+            if (et_website.text!!.isNotEmpty()) {
                 et_website.text!!.clear()
+                enableNextButton()
+            }
+        }
+    }
+
+    private fun toggleSuysingButton() {
+        suysingCounter++
+        val stateChecker = suysingCounter % 2
+        if (stateChecker == 1) {
+            btn_suysing.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            btn_suysing.setTextColor(Color.parseColor("#FF8200"))
+            tv_input_store_name_website.visibility = View.VISIBLE
+            tv_input_store_name.visibility = View.VISIBLE
+            divider_dashed.visibility = View.VISIBLE
+            tv_suysing_title.visibility = View.VISIBLE
+            til_suysing.visibility = View.VISIBLE
+            et_suysing.visibility = View.VISIBLE
+            disableNextButton()
+        } else if (stateChecker == 0) {
+            btn_suysing.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            btn_suysing.setTextColor(Color.parseColor("#4A4A4A"))
+            tv_input_store_name_website.visibility = View.INVISIBLE
+            tv_suysing_title.visibility = View.GONE
+            til_suysing.visibility = View.GONE
+            et_suysing.visibility = View.GONE
+            if (et_suysing.text!!.isNotEmpty()) {
+                et_suysing.text!!.clear()
                 enableNextButton()
             }
         }
@@ -442,10 +506,13 @@ class BusinessInformationActivity :
             btn_others.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_others.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_others.visibility = View.VISIBLE
+            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
             tv_others_title.visibility = View.VISIBLE
             til_others.visibility = View.VISIBLE
             et_others.visibility = View.VISIBLE
+            btnAddAnotherStore.visibility = View.VISIBLE
+            addAnotherStore()
             disableNextButton()
         } else if (stateChecker == 0) {
             btn_others.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
@@ -454,7 +521,7 @@ class BusinessInformationActivity :
             tv_others_title.visibility = View.GONE
             til_others.visibility = View.GONE
             et_others.visibility = View.GONE
-            if (et_others.text!!.isNotEmpty()){
+            if (et_others.text!!.isNotEmpty()) {
                 et_others.text!!.clear()
                 enableNextButton()
             }
@@ -533,7 +600,7 @@ class BusinessInformationActivity :
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val servicesOffered = s?.length
-                if (servicesOffered == 0){
+                if (servicesOffered == 0) {
                     disableNextButton()
                 } else {
                     enableNextButton()
@@ -685,6 +752,39 @@ class BusinessInformationActivity :
                 )
             }
         ).show()
+    }
+
+    private fun addAnotherBranchAddress() {
+        var addBranchFields: View
+        val container: LinearLayout = findViewById(R.id.branchContainer)
+        btnAddBranchAddress.setOnClickListener {
+            val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            addBranchFields = layoutInflater.inflate(R.layout.layout_branch_textfields, null)
+            container.addView(addBranchFields, container.childCount)
+
+            val branchCount = container.childCount
+            if (branchCount <= 99){
+                branchCounter++
+                addBranchFields.tv_branch_number.text = getString(R.string.branch) + " " + branchCounter
+            } else {
+                btnAddBranchAddress.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun addAnotherStore() {
+        var addOtherStoreFields: View
+        val container: LinearLayout = findViewById(R.id.storeContainer)
+        btnAddAnotherStore.setOnClickListener {
+            val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            addOtherStoreFields = layoutInflater.inflate(R.layout.layout_store_textfields, null)
+            container.addView(addOtherStoreFields, container.childCount)
+
+            val storeCount = container.childCount
+            if (storeCount > 99){
+                btnAddAnotherStore.visibility = View.GONE
+            }
+        }
     }
 
     companion object {

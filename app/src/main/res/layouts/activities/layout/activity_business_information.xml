@@ -220,6 +220,17 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_years_in_business" />
 
                 <ImageView
+                    android:id="@+id/btn_employee_decrement_active"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
+                    app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
+
+                <ImageView
                     android:id="@+id/btn_employee_decrement_inactive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -236,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="@string/default_number_0"
+                    android:text="@string/default_number_1"
                     android:textSize="16sp"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
@@ -791,6 +802,16 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <LinearLayout
+                    android:id="@+id/branchContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_physical_store">
+
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/btnAddBranchAddress"
                     android:layout_width="wrap_content"
@@ -800,7 +821,7 @@
                     android:textColor="@color/colorSMEMediumOrange"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_physical_store"/>
+                    app:layout_constraintTop_toBottomOf="@id/branchContainer"/>
 
                 <TextView
                     android:id="@+id/tv_others_title"
@@ -831,13 +852,34 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <LinearLayout
+                    android:id="@+id/storeContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/til_others">
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/btnAddAnotherStore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="+ Add another store"
+                    android:textColor="@color/colorSMEMediumOrange"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/storeContainer"/>
+
                 <ImageView
                     android:id="@+id/divider3"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
                     android:layout_marginTop="25dp"
                     android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/til_others" />
+                    app:layout_constraintTop_toBottomOf="@id/btnAddAnotherStore" />
 
                 <TextView
                     android:id="@+id/tv_order_fulfillment"
@@ -893,6 +935,7 @@
                     android:id="@+id/tvPolicyReturns"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
                     android:text="Policy on Returns"
                     android:textSize="@dimen/text_18"
                     android:textStyle="bold"
@@ -914,6 +957,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_2"
+                    android:paddingStart="@dimen/grid_1"
+                    android:paddingEnd="@dimen/grid_1"
                     android:background="@drawable/bg_white_rounded_radius16"
                     android:text="Upload document"
                     app:layout_constraintStart_toStartOf="parent"

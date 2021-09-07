@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents
 
 import android.content.Intent
+import android.content.res.AssetFileDescriptor
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
@@ -16,6 +17,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.app.util.FileUtil
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
@@ -23,12 +25,11 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ca
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.viewToolbar
 import kotlinx.android.synthetic.main.activity_upload_documents.*
 import kotlinx.android.synthetic.main.activity_upload_documents.btnNext
-import kotlinx.android.synthetic.main.layout_documents_preview.*
+import kotlinx.android.synthetic.main.layout_gallery_preview.*
 import kotlinx.android.synthetic.main.layout_preview_docs.*
 import kotlinx.android.synthetic.main.layout_preview_docs.btnEdit
 import kotlinx.android.synthetic.main.layout_preview_docs.btnNavigateBackToUploadDocs
 import kotlinx.android.synthetic.main.layout_preview_docs.ivBackButton
-import kotlinx.android.synthetic.main.layout_preview_docs.llToolbar
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
 import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.toolbar
 import java.util.ArrayList
@@ -46,7 +47,7 @@ class CardAcceptanceUploadDocumentsActivity :
     lateinit var imgView: ImageView
     private var uriArrayList = arrayListOf<Uri>()
     var adapter: BaseAdapter? = null
-    val REQUEST_CODE = 200
+    val PDF_REQUEST_CODE = 200
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -108,7 +109,7 @@ class CardAcceptanceUploadDocumentsActivity :
         uriArrayList = intent.getParcelableArrayListExtra<Uri>(OnboardingUploadPhotosActivity.LIST_OF_IMAGES_URI)
             .notNullable() as ArrayList<Uri>
         if (uriArrayList.size != 0){
-            layoutVisibilityFromCamera()
+            layoutVisibility()
             initAdapterListener()
         }
     }
@@ -122,7 +123,7 @@ class CardAcceptanceUploadDocumentsActivity :
     }
 
 
-    private fun layoutVisibilityFromCamera(){
+    private fun layoutVisibility(){
         viewToolbar.visibility = View.GONE
         popupPreviewDocsFromCamera.visibility = View.VISIBLE
 
@@ -148,17 +149,17 @@ class CardAcceptanceUploadDocumentsActivity :
         viewToolbar.visibility = View.GONE
         popupPreviewDocsFromGallery.visibility = View.VISIBLE
 
-        ivBackButton.setOnClickListener {
+        ivBackButton1.setOnClickListener {
             popupPreviewDocsFromGallery.visibility = View.GONE
             viewToolbar.visibility = View.VISIBLE
             clUploadBIRDocs.visibility = View.VISIBLE
         }
 
-        btnEdit.setOnClickListener {
+        btnEdit1.setOnClickListener {
             showbottomSheetDialog()
         }
 
-        btnNavigateBackToUploadDocs.setOnClickListener {
+        btnNavigateBackToUploadDocs1.setOnClickListener {
             popupPreviewDocsFromGallery.visibility = View.GONE
             viewToolbar.visibility = View.VISIBLE
             clUploadBIRDocs.visibility = View.VISIBLE
@@ -171,16 +172,38 @@ class CardAcceptanceUploadDocumentsActivity :
         gvDocs.adapter = adapter
 
     }
+
+    private fun layoutVisibilityWhenInvalidFiles(){
+        popupPreviewDocsFromGallery.visibility = View.GONE
+        viewToolbar.visibility = View.VISIBLE
+        clUploadBIRDocs.visibility = View.VISIBLE
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         imgView = findViewById(R.id.ivPreviewBIR)
         when (requestCode) {
-            REQUEST_CODE ->
+            PDF_REQUEST_CODE ->
                 if (resultCode == RESULT_OK) {
                     if (data?.data != null) {
 
                         val fileUri = data.data!!
                         val fileDescriptor : ParcelFileDescriptor = context.contentResolver.openFileDescriptor(fileUri,"r")!!
+                        val fileType: String? = applicationContext.contentResolver.getType(fileUri)
+                        if (fileType != DOCU_PDF){
+                            DialogFactory().createSMEDialog(
+                                this,
+                                isNewDesign = false,
+                                title = getString(R.string.item_not_uploaded),
+                                description = getString(R.string.invalid_filetype_desc),
+                                positiveButtonText = getString(R.string.action_try_again),
+                                onPositiveButtonClicked = {
+                                    imgView.setImageBitmap(null)
+                                    layoutVisibilityWhenInvalidFiles()
+                                }
+                            ).show()
+
+                        }
                         val pdfRenderer = PdfRenderer(fileDescriptor)
                         val rendererPage = pdfRenderer.openPage(0)
                         val rendererPageWidth = rendererPage.width
@@ -200,6 +223,36 @@ class CardAcceptanceUploadDocumentsActivity :
                         layoutVisibilityFromGallery()
 
                         val imageUri = data.data!!
+                        val fileDescriptor: AssetFileDescriptor = applicationContext.contentResolver.openAssetFileDescriptor(imageUri, "r")!!
+                        val fileType: String? = applicationContext.contentResolver.getType(imageUri)
+                        val fileSize: Long = fileDescriptor.length
+                        if (fileSize > MAX_FILESIZE_2MB){
+                            DialogFactory().createSMEDialog(
+                                this,
+                                isNewDesign = false,
+                                title = getString(R.string.item_not_uploaded),
+                                description = getString(R.string.invalid_filesize_desc),
+                                positiveButtonText = getString(R.string.action_try_again),
+                                onPositiveButtonClicked = {
+                                    imgView.setImageBitmap(null)
+                                    layoutVisibilityWhenInvalidFiles()
+                                }
+                            ).show()
+                        }
+                        if (fileType != IMAGE_JPEG || fileType != IMAGE_PNG){
+                            DialogFactory().createSMEDialog(
+                                this,
+                                isNewDesign = false,
+                                title = getString(R.string.item_not_uploaded),
+                                description = getString(R.string.invalid_filetype_desc),
+                                positiveButtonText = getString(R.string.action_try_again),
+                                onPositiveButtonClicked = {
+                                    imgView.setImageBitmap(null)
+                                    layoutVisibilityWhenInvalidFiles()
+                                }
+                            ).show()
+                        }
+
                         imgView.setImageURI(imageUri)
                     }
 
@@ -229,13 +282,13 @@ class CardAcceptanceUploadDocumentsActivity :
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             startActivityForResult(
                 Intent.createChooser(intent, "Choose file"),
-                REQUEST_CODE
+                PDF_REQUEST_CODE
             )
         } else {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             intent.type = "application/pdf"
-            startActivityForResult(intent, REQUEST_CODE)
+            startActivityForResult(intent, PDF_REQUEST_CODE)
         }
 
     }
@@ -308,7 +361,10 @@ class CardAcceptanceUploadDocumentsActivity :
         const val GALLERY_REQUEST_CODE = 1
         const val CAPTURE_PHOTO = 2
         const val LIST_OF_IMAGES_URI = "list_of_image_uri"
-
+        const val MAX_FILESIZE_2MB = 2097152
+        const val IMAGE_JPEG = "image/jpeg"
+        const val IMAGE_PNG = "image/png"
+        const val DOCU_PDF = "application/pdf"
     }
 }
 

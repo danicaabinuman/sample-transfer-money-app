@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/ivBackButton"
+            android:id="@+id/ivBackButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -31,7 +31,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/btnEdit"
+            android:id="@+id/btnEdit1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit"

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos
 
 import android.content.Intent
+import android.content.res.AssetFileDescriptor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +15,8 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
+import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import io.reactivex.rxkotlin.addTo
@@ -74,10 +77,12 @@ class OnboardingUploadPhotosActivity :
 
     private fun initOnClicks() {
         btnAddPhotos.setOnClickListener {
-            showUploadPhotoDialog()
+//            showUploadPhotoDialog()
+            captureImageViaCamera()
         }
         btnAddPhotos2.setOnClickListener {
-            showUploadPhotoDialog()
+//            showUploadPhotoDialog()
+            captureImageViaCamera()
         }
         btnNext.setOnClickListener {
             showSnackbar()
@@ -161,6 +166,35 @@ class OnboardingUploadPhotosActivity :
                             buttonsVisibility()
                             for (i in 0 until count) {
                                 val imageUri = data.clipData!!.getItemAt(i).uri
+                                val fileDescriptor: AssetFileDescriptor = applicationContext.contentResolver.openAssetFileDescriptor(imageUri, "r")!!
+                                val fileType: String? = applicationContext.contentResolver.getType(imageUri)
+                                val fileSize: Long = fileDescriptor.length
+                                if (fileSize > MAX_FILESIZE_2MB){
+                                    DialogFactory().createSMEDialog(
+                                        this,
+                                        isNewDesign = false,
+                                        title = "Item wasn't uploaded",
+                                        description = "File size exceeds the maximum allowed size. Maximum file size is 2 MB",
+                                        positiveButtonText = "TRY AGAIN",
+                                        onPositiveButtonClicked = {
+                                            uriArrayList.remove(imageUri)
+                                            adapter?.notifyDataSetChanged()
+                                        }
+                                    ).show()
+                                }
+                                if (fileType != IMAGE_JPEG && fileType != IMAGE_PNG){
+                                    DialogFactory().createSMEDialog(
+                                        this,
+                                        isNewDesign = false,
+                                        title = getString(R.string.item_not_uploaded),
+                                        description = getString(R.string.invalid_filetype_desc),
+                                        positiveButtonText = getString(R.string.action_try_again),
+                                        onPositiveButtonClicked = {
+                                            uriArrayList.remove(imageUri)
+                                            adapter?.notifyDataSetChanged()
+                                        }
+                                    ).show()
+                                }
                                 uriArrayList.add(imageUri)
                                 initListener()
                             }
@@ -170,6 +204,37 @@ class OnboardingUploadPhotosActivity :
 
                     } else if (data?.data != null) {
                         viewModel.originalApplicationUriInput.onNext(data.data!!)
+                        val imageUri = data.data!!
+                        val fileDescriptor: AssetFileDescriptor = applicationContext.contentResolver.openAssetFileDescriptor(imageUri, "r")!!
+                        val fileType: String? = applicationContext.contentResolver.getType(imageUri)
+                        val fileSize: Long = fileDescriptor.length
+                        if (fileSize > MAX_FILESIZE_2MB){
+                            DialogFactory().createSMEDialog(
+                                this,
+                                isNewDesign = false,
+                                title = getString(R.string.item_not_uploaded),
+                                description = getString(R.string.invalid_filesize_desc),
+                                positiveButtonText = getString(R.string.action_try_again),
+                                onPositiveButtonClicked = {
+                                    uriArrayList.remove(imageUri)
+                                    adapter?.notifyDataSetChanged()
+                                }
+                            ).show()
+                        }
+                        if (fileType != IMAGE_JPEG && fileType != IMAGE_PNG){
+                            DialogFactory().createSMEDialog(
+                                this,
+                                isNewDesign = false,
+                                title = getString(R.string.item_not_uploaded),
+                                description = getString(R.string.invalid_filetype_desc),
+                                positiveButtonText = getString(R.string.action_try_again),
+                                onPositiveButtonClicked = {
+                                    uriArrayList.remove(imageUri)
+                                    adapter?.notifyDataSetChanged()
+                                }
+                            ).show()
+                        }
+
                     }
                 }
             }
@@ -221,11 +286,7 @@ class OnboardingUploadPhotosActivity :
         }
     }
 
-    override fun openGallery() {
-        openGalleryForImages()
-    }
-
-    override fun openCamera() {
+    private fun captureImageViaCamera(){
         val bundle = Bundle().apply {
             putParcelableArrayList(
                 LIST_OF_IMAGES_URI,
@@ -240,6 +301,26 @@ class OnboardingUploadPhotosActivity :
             isAnimated = true,
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
+    }
+    override fun openGallery() {
+        openGalleryForImages()
+    }
+
+    override fun openCamera() {
+//        val bundle = Bundle().apply {
+//            putParcelableArrayList(
+//                LIST_OF_IMAGES_URI,
+//                uriArrayList
+//            )
+//        }
+//        navigator.navigate(
+//            this,
+//            OnboardingCameraActivity::class.java,
+//            bundle,
+//            isClear = true,
+//            isAnimated = true,
+//            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+//        )
     }
 
     override fun deletePhoto() {
@@ -256,6 +337,7 @@ class OnboardingUploadPhotosActivity :
             }
             clSelectedPhotos.isShown -> {
                 clSelectedPhotos.visibility = View.GONE
+                btnNext.visibility = View.GONE
                 clUploadPhotosIntro.visibility = View.VISIBLE
             }
             clUploadPhotosIntro.isShown -> {
@@ -271,6 +353,10 @@ class OnboardingUploadPhotosActivity :
         const val REQUEST_CODE = 1209
         const val LIST_OF_IMAGES_URI = "list_of_image_uri"
         const val EXTRA_SETUP_MERCHANT_DETAILS = "extra_setup_merchant_details"
+        const val IMAGE_JPEG = "image/jpeg"
+        const val IMAGE_PNG = "image/png"
+        const val DOCU_PDF = "image/jpeg"
+        const val MAX_FILESIZE_2MB = 2097152
     }
 
 }

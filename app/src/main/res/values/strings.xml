@@ -2273,7 +2273,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="e_commerce_count_as_one_1_branch">E-commerce count as one (1) branch</string>
     <string name="default_number_1">1</string>
     <string name="how_many_branches_do_you_nhave">How many branches do you\nhave?</string>
-    <string name="additional_online_stores">Other online stores. Use comma to separate links.</string>
+    <string name="additional_online_stores">Indicate store link</string>
     <string name="others">Others</string>
     <string name="hint_instagram_com_shopname">instagram.com/shopname</string>
     <string name="instagram">Instagram</string>
@@ -2314,4 +2314,8 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_delete_photo">Are you sure you want to remove this photo?</string>
     <string name="btn_delete_this_photo">YES, DELETE THIS PHOTO</string>
     <string name="how_many_employees">How many employees do you \nhave?</string>
+    <string name="item_not_uploaded">Item wasn\'t uploaded</string>
+    <string name="invalid_filesize_desc">File size exceeds the maximum allowed size. Maximum file size is 2 MB</string>
+    <string name="invalid_filetype_desc">File format is not supported. Only .jpeg, .png and .pdf are accepted.</string>
+    <string name="branch">Branch </string>
 </resources>

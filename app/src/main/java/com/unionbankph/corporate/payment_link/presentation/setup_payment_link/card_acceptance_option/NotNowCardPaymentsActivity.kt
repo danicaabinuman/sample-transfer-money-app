@@ -1,7 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -27,7 +26,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.supercharge.shimmerlayout.ShimmerLayout
 import kotlinx.android.synthetic.main.activity_not_now_accept_card_payments.*
-import kotlinx.android.synthetic.main.widget_amount_slider_1.*
 import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -146,11 +144,10 @@ class NotNowCardPaymentsActivity :
                 when (it) {
                     is SeekBarProgressChangeEvent -> {
                         onUserSeekerSetValue(it.progress(), editTextMonthlyVolume)
-                        val setTransactionProgress = seekBarMonthlyVolume.progress
-                        if (setTransactionProgress > 1){
-                            seekBarTransactionAmount.progress = setTransactionProgress - 1
-                        } else {
-                            seekBarTransactionAmount.progress = setTransactionProgress
+                        val setMonthlyProgress = seekBarMonthlyVolume.progress
+                        val setTransactionProgress = seekBarTransactionAmount.progress
+                        if (setMonthlyProgress < setTransactionProgress){
+                            seekBarTransactionAmount.progress = setMonthlyProgress - 1
                         }
                     }
                 }
