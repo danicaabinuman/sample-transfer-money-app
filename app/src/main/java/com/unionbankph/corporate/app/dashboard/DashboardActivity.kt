@@ -386,6 +386,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     )
 
                     binding.viewToolbar.btnRequestPayment.visibility = View.VISIBLE
+                    binding.viewToolbar.viewNotificationBadge.root.visibility = View.GONE
 
                     runPostDelayed({
                         dashboardFragment.navigateToPaymentLinkFragment()
@@ -642,6 +643,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 hasMenuItem = true
             )
             binding.viewToolbar.btnRequestPayment.visibility = View.GONE
+            binding.viewToolbar.viewNotificationBadge.root.visibility = View.VISIBLE
         }
     }
 
@@ -771,6 +773,15 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
                         (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_DASHBOARD]))
             )
+
+            binding.viewToolbar.viewNotificationBadge.root.visibility(
+//                    position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
+                    position == bottomNavigationItems[FRAGMENT_APPROVALS] ||
+//                    (position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] && !stackFlagNotification) ||
+                    (position == bottomNavigationItems[FRAGMENT_SETTINGS] && !stackFlagSettings) ||
+                    (position == bottomNavigationItems[FRAGMENT_DASHBOARD] && !isBackButtonPaymentList)
+            )
+
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
                     adapter?.getItem(bottomNavigationItems[FRAGMENT_SETTINGS]!!)!!
@@ -1078,8 +1089,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             binding.bottomNavigationBTR.getViewAtPosition(1).isClickable = isEnable
             binding.bottomNavigationBTR.getViewAtPosition(2).isEnabled = isEnable
             binding.bottomNavigationBTR.getViewAtPosition(2).isClickable = isEnable
-            binding.bottomNavigationBTR.getViewAtPosition(3).isEnabled = isEnable
-            binding.bottomNavigationBTR.getViewAtPosition(3).isClickable = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(3).isEnabled = false
+            binding.bottomNavigationBTR.getViewAtPosition(3).isClickable = false
             binding.bottomNavigationBTR.getViewAtPosition(4).isEnabled = isEnable
             binding.bottomNavigationBTR.getViewAtPosition(4).isClickable = isEnable
         }
