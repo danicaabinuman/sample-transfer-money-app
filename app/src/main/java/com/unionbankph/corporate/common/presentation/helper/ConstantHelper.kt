@@ -237,7 +237,7 @@ class ConstantHelper {
             fun getDashboardAccountButtonText(context: Context, accountSize: Int, isRefreshed: Boolean) : String {
                 return when {
                     accountSize == 0 && !isRefreshed -> context.getString(R.string.action_add)
-                    accountSize > 0 && !isRefreshed -> context.getString(R.string.action_view_all_account)
+                    accountSize > 0 && !isRefreshed -> context.getString(R.string.title_view_accounts)
                     else -> ""
                 }
             }
