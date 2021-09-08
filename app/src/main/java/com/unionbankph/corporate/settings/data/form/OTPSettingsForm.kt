@@ -1,14 +1,13 @@
 package com.unionbankph.corporate.settings.data.form
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 
 @Serializable
 data class OTPSettingsForm(
 
     @SerialName("login_otp")
-    var loginOtp: Boolean = false,
+    var loginOtp: Boolean? = null,
 
     @SerialName("transaction_otp")
-    var transactionOtp: Boolean = false
+    var transactionOtp: Boolean? = null
 )
