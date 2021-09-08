@@ -98,6 +98,46 @@ class DialogFactory {
             disposables.clear()
             disposables.dispose()
         }
+//        view.imageViewIconPlain.apply {
+//            if (iconResource != null) {
+//                this.visibility = View.VISIBLE
+//                this.setImageResource(iconResource)
+//            } else {
+//                this.visibility = View.GONE
+//            }
+//        }
+//
+//        view.textViewDialogTitlePlain.apply {
+//            this.visibility = when (title.isNullOrBlank()) {
+//                true -> View.GONE
+//                else -> View.VISIBLE
+//            }
+//            this.text = title
+//        }
+//
+//        view.textViewDialogContentPlain.apply {
+//            this.text = content
+//        }
+//
+//        view.buttonPositivePlain.apply {
+//            this.text = positiveButtonText
+//            this.setOnClickListener {
+//                if (dismissOnActionClicked) dialog.dismiss()
+//                onPositiveButtonClicked?.invoke()
+//            }
+//        }
+//
+//        view.buttonNegativePlain.apply {
+//            this.visibility = when (negativeButtonText.isEmpty()) {
+//                true -> View.GONE
+//                else -> View.VISIBLE
+//            }
+//            this.text = negativeButtonText
+//            this.setOnClickListener {
+//                if (dismissOnActionClicked) dialog.dismiss()
+//                onNegativeButtonClicked?.invoke()
+//            }
+//        }
 
         return dialog
     }

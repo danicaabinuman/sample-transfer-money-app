@@ -47,17 +47,11 @@ class LinkDetailsActivity :
 
     private fun initViews(){
 
-        binding.ivBackButton.setOnClickListener{
-            finish()
-        }
+        binding.ivBackButton.setOnClickListener{ finish() }
 
-        binding.imgBtnShare.setOnClickListener{
-            shareLink()
-        }
+        binding.imgBtnShare.setOnClickListener{ shareLink() }
 
-        binding.ibURLcopy.setOnClickListener{
-            copyLink()
-        }
+        binding.ibURLcopy.setOnClickListener{ copyLink() }
 
         binding.btnGenerateAnotherLink.setOnClickListener{
             when(fromWhatTab){
@@ -74,7 +68,7 @@ class LinkDetailsActivity :
 
         binding.btnArchive.setOnClickListener{
 
-            when(binding.btnArchive.text){
+            when (binding.btnArchive.text){
                 "ARCHIVE" -> {
                     binding.flLoading.visibility = View.VISIBLE
                     mCurrentLinkDetails?.let {
@@ -102,6 +96,9 @@ class LinkDetailsActivity :
                         intent.putExtra(BillingDetailsActivity.EXTRA_REFERENCE_NUMBER,it.referenceNumber!!)
                     }
                     startActivity(intent)
+                }
+                else -> {
+
                 }
             }
         }
@@ -138,103 +135,104 @@ class LinkDetailsActivity :
     }
 
 
-    private fun updateArchivedView(){
-        binding.tvStatus.text = "ARCHIVED"
-        binding.tvStatus.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_archived)
-        binding.clCyberSure.visibility = View.GONE
-        binding.btnGenerateAnotherLink.text = "GENERATE NEW LINK"
-        binding.btnArchive.text = "MARK AS UNPAID"
-        binding.imgBtnShare.isEnabled = false
-        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        binding.ibURLcopy.isEnabled = false
-        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
-        binding.btnArchive.isEnabled = true
-        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
-        binding.tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
 
-    }
 
-    private fun updatePendingView(){
-        binding.tvStatus.text = "PENDING"
-        binding.tvStatus.setTextColor(Color.parseColor("#FF8200"))
-        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_pending)
-        binding.clCyberSure.visibility = View.GONE
-        binding.btnGenerateAnotherLink.text = "GENERATE NEW LINK"
-        binding.btnArchive.visibility = View.GONE
-        binding.btnArchive.text = "ARCHIVE"
-        binding.imgBtnShare.isEnabled = false
-        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        binding.ibURLcopy.isEnabled = false
-        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
-        binding.btnArchive.isEnabled = false
-        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
-        binding.tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
-    }
+        private fun updateArchivedView(){
+            binding.apply {
+                tvStatus.text = "ARCHIVED"
+                tvStatus.setTextColor(Color.parseColor("#4A4A4A"))
+                tvStatus.background = getDrawable(R.drawable.bg_status_card_archived)
+                clCyberSure.visibility = View.GONE
+                btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+                btnArchive.text = "MARK AS UNPAID"
+                imgBtnShare.isEnabled = false
+                ibURLcopy.isEnabled = false
+                btnArchive.isEnabled = true
+                tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+                tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+                linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+                tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+                linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+            }
+        }
 
-    private fun updateUnpaidView(){
-        binding.tvStatus.text = "UNPAID"
-        binding.tvStatus.setTextColor(Color.parseColor("#F6B000"))
-        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_unpaid)
-        binding.clCyberSure.visibility = View.VISIBLE
-        binding.btnGenerateAnotherLink.text = "GENERATE ANOTHER LINK"
-        binding.btnArchive.text = "ARCHIVE"
-        binding.imgBtnShare.isEnabled = true
-        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_orange)
-        binding.ibURLcopy.isEnabled = true
-        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_orange)
-        binding.btnArchive.isEnabled = true
-        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
-        binding.tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
-    }
+        private fun updatePendingView(){
+            binding.apply {
+                tvStatus.text = "PENDING"
+                tvStatus.setTextColor(Color.parseColor("#FF8200"))
+                tvStatus.background = getDrawable(R.drawable.bg_status_card_pending)
+                clCyberSure.visibility = View.GONE
+                btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+                btnArchive.visibility = View.GONE
+                btnArchive.text = "ARCHIVE"
+                imgBtnShare.visibility = View.INVISIBLE
+                ibURLcopy.visibility = View.INVISIBLE
+                btnArchive.isEnabled = false
+                tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+                tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+                linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+                tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+                linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+            }
+        }
 
-    private fun updateExpiredView(){
-        binding.tvStatus.text = "EXPIRED"
-        binding.tvStatus.setTextColor(Color.parseColor("#E83C18"))
-        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_expired)
-        binding.clCyberSure.visibility = View.GONE
-        binding.btnGenerateAnotherLink.text = "GENERATE NEW LINK"
-        binding.btnArchive.visibility = View.GONE
-        binding.btnArchive.text = "ARCHIVE"
-        binding.imgBtnShare.isEnabled = false
-        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        binding.ibURLcopy.isEnabled = false
-        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
-        binding.btnArchive.isEnabled = false
-        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
-        binding.tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
-        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
-    }
+        private fun updateUnpaidView(){
+            binding.apply {
+                tvStatus.text = "UNPAID"
+                tvStatus.setTextColor(Color.parseColor("#F6B000"))
+                tvStatus.background = getDrawable(R.drawable.bg_status_card_unpaid)
+                clCyberSure.visibility = View.VISIBLE
+                btnGenerateAnotherLink.text = "GENERATE ANOTHER LINK"
+                btnArchive.text = "ARCHIVE"
+                imgBtnShare.isEnabled = true
+                ibURLcopy.isEnabled = true
+                btnArchive.isEnabled = true
+                tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+                tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+                linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+                tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+                linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+            }
+        }
 
-    private fun updatePaidView(){
-        binding.tvStatus.text = "PAID"
-        binding.tvStatus.setTextColor(Color.parseColor("#5CA500"))
-        binding.tvStatus.background = getDrawable(R.drawable.bg_status_card_paid)
-        binding.clCyberSure.visibility = View.VISIBLE
-        binding.btnGenerateAnotherLink.text = "GENERATE NEW LINK"
-        binding.btnArchive.text = "VIEW MORE DETAILS"
-        binding.imgBtnShare.isEnabled = false
-        binding.imgBtnShare.background = getDrawable(R.drawable.ic_share_gray_archive)
-        binding.ibURLcopy.isEnabled = false
-        binding.ibURLcopy.background = getDrawable(R.drawable.ic_content_copy_gray)
-        binding.btnArchive.isEnabled = true
-        binding.tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_orange)
-        binding.tvReferenceNo.setTextColor(Color.parseColor("#FFFFFF"))
-        binding.linkDetailsRefNo.setTextColor(Color.parseColor("#FFFFFF"))
-        binding.tvDateCreated.setTextColor(Color.parseColor("#FFFFFF"))
-        binding.linkDetailsCreatedDate.setTextColor(Color.parseColor("#FFFFFF"))
-    }
+        private fun updateExpiredView(){
+            binding.apply {
+                tvStatus.text = "EXPIRED"
+                tvStatus.setTextColor(Color.parseColor("#E83C18"))
+                tvStatus.background = getDrawable(R.drawable.bg_status_card_expired)
+                clCyberSure.visibility = View.GONE
+                btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+                btnArchive.visibility = View.GONE
+                btnArchive.text = "ARCHIVE"
+                imgBtnShare.visibility = View.INVISIBLE
+                ibURLcopy.visibility = View.INVISIBLE
+                btnArchive.isEnabled = false
+                tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_gray)
+                tvReferenceNo.setTextColor(Color.parseColor("#4A4A4A"))
+                linkDetailsRefNo.setTextColor(Color.parseColor("#4A4A4A"))
+                tvDateCreated.setTextColor(Color.parseColor("#4A4A4A"))
+                linkDetailsCreatedDate.setTextColor(Color.parseColor("#4A4A4A"))
+            }
+        }
+
+        private fun updatePaidView(){
+            binding.apply {
+                tvStatus.text = "PAID"
+                tvStatus.setTextColor(Color.parseColor("#5CA500"))
+                tvStatus.background = getDrawable(R.drawable.bg_status_card_paid)
+                clCyberSure.visibility = View.VISIBLE
+                btnGenerateAnotherLink.text = "GENERATE NEW LINK"
+                btnArchive.text = "VIEW MORE DETAILS"
+                btnHolder.visibility = View.GONE
+                btnArchive.isEnabled = true
+                tvReferenceNumber.background = getDrawable(R.drawable.bg_half_card_view_gradient_orange)
+                tvReferenceNo.setTextColor(Color.parseColor("#FFFFFF"))
+                linkDetailsRefNo.setTextColor(Color.parseColor("#FFFFFF"))
+                tvDateCreated.setTextColor(Color.parseColor("#FFFFFF"))
+                linkDetailsCreatedDate.setTextColor(Color.parseColor("#FFFFFF"))
+                clCyberSure.visibility = View.GONE
+            }
+        }
 
     private fun setupViews(linkDetailsResponse: GeneratePaymentLinkResponse) {
 

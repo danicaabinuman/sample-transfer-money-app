@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.fund_transfer.data.gateway.FundTransferGateway
 import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway

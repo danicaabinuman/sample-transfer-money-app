@@ -9,10 +9,10 @@ import com.unionbankph.corporate.app.common.extension.getDisposableSingleObserve
 import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
+import com.unionbankph.corporate.payment_link.domain.model.form.UpdateSettlementOnRequestPaymentForm
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
-import com.unionbankph.corporate.payment_link.domain.usecase.GeneratePaymentLinkUseCase
-import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsBalanceUseCase
-import com.unionbankph.corporate.payment_link.domain.usecase.GetAccountsUseCase
+import com.unionbankph.corporate.payment_link.domain.model.response.UpdateSettlementOnRequestPaymentResponse
+import com.unionbankph.corporate.payment_link.domain.usecase.*
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,7 +21,9 @@ class RequestForPaymentViewModel
 @Inject constructor(
     private val generatePaymentLinkUseCase: GeneratePaymentLinkUseCase,
     private val getAccountsUseCase: GetAccountsUseCase,
-    private val getAccountsBalanceUseCase: GetAccountsBalanceUseCase
+    private val getAccountsBalanceUseCase: GetAccountsBalanceUseCase,
+    private val updateSettlementOnRequestPaymentUseCase: UpdateSettlementOnRequestPaymentUseCase,
+    private val getDefaultMerchantSA: GetDefaultMerchantSAUseCase
 ) : BaseViewModel(){
 
 
@@ -31,6 +33,8 @@ class RequestForPaymentViewModel
         get() = _linkDetailsResponse
     val _linkDetailsState = MutableLiveData<RequestForPaymentLinkState>()
 
+    private val _defaultMerchantSA = MutableLiveData<Account>()
+    val defaultMerchantSA = _defaultMerchantSA
 
     private val _accounts = MutableLiveData<MutableList<Account>>()
     val accounts: LiveData<MutableList<Account>> = _accounts
@@ -41,15 +45,18 @@ class RequestForPaymentViewModel
     private val _accountsBalances = MutableLiveData<MutableList<Account>>()
     val accountsBalances: LiveData<MutableList<Account>> = _accountsBalances
 
+    private val _updateSettlementOnRequestPaymentResponse = MutableLiveData<UpdateSettlementOnRequestPaymentResponse>()
+    val updateSettlementOnRequestPaymentResponse: LiveData<UpdateSettlementOnRequestPaymentResponse>
+    get() = _updateSettlementOnRequestPaymentResponse
+
     fun preparePaymentLinkGeneration(amount: String, paymentFor: String, notes: String?, selectedExpiry: String, mobileNumber: String?){
 
-        val expiry = when  {
-            selectedExpiry.equals("6 hours",true) -> 6
-            selectedExpiry.equals("12 hours", true) -> 12
-            selectedExpiry.equals("1 day", true) -> 24
-            selectedExpiry.equals("2 days", true) -> 48
-            selectedExpiry.equals("3 days", true) -> 72
-            selectedExpiry.equals("7 days", true) -> 168
+        val expiry = when (selectedExpiry) {
+            "6 hours" -> 6
+            "1 day" -> 24
+            "2 days" -> 48
+            "3 days" -> 72
+            "7 days" -> 168
             else -> 12
         }
 
@@ -65,12 +72,13 @@ class RequestForPaymentViewModel
         }
 
         generateLinkDetails(
+
             GeneratePaymentLinkForm().apply {
                 this.totalAmount = amount.replace("PHP","").replace(",","").trim().toDouble()
                 this.description = paymentFor
                 this.notes = notes
-                this.expiry = expiry
-                this.mobileNumber = finalMobileNumber ?: ""
+                this.paymentLinkExpiry = expiry
+                this.mobileNumber = finalMobileNumber  ?: ""
             }
         )
     }
@@ -143,8 +151,8 @@ class RequestForPaymentViewModel
                 {
                     _accountsBalances.value = it
                 }, {
-                    Timber.e(it, "getAccounts Balances")
-                    _uiState.value = Event(UiState.Error(it))
+                    _uiState.value = Event(UiState.Complete)
+
                 }
             ),
             doOnSubscribeEvent = {
@@ -156,6 +164,59 @@ class RequestForPaymentViewModel
             params = GetAccountsBalances(
                 accountNumberList
             )
+        ).addTo(disposables)
+    }
+
+    fun getDefaultMerchantSettlementAccount() {
+        getDefaultMerchantSA.execute(
+            getDisposableSingleObserver(
+                {
+
+                    if (it.size == 1) {
+                        _defaultMerchantSA.value = it.first()
+                        _soleAccount.value = it.first()
+                        val tempList = mutableListOf<Account>()
+                        tempList.add(it.first())
+                        getAccountBalances(tempList)
+                    } else if (it.size > 1) {
+                        _defaultMerchantSA.value = it.first()
+                        _accounts.value = it
+//                        val tempList = mutableListOf<Account>()
+//                        tempList.addAl
+                        getAccountBalances(it)
+                    } else {
+                        _linkDetailsState.value = ShowNoOtherAvailableAccounts
+                    }
+                }, {
+                    _uiState.value = Event(UiState.Error(it))
+                }
+            ),
+            doOnSubscribeEvent = {
+                _uiState.value = Event(UiState.Loading)
+            },
+            doFinallyEvent = {
+                _uiState.value = Event(UiState.Complete)
+            }
+        )
+    }
+
+    fun updateDefaultSettlementAccount(accountNumber: String){
+
+        updateSettlementOnRequestPaymentUseCase.execute(
+            getDisposableSingleObserver(
+                {
+                    _updateSettlementOnRequestPaymentResponse.value = it
+                },{
+                    _uiState.value = Event(UiState.Error(it))
+                }
+            ),
+            doOnSubscribeEvent = {
+                _uiState.value = Event(UiState.Loading)
+            },
+            doFinallyEvent = {
+                _uiState.value = Event(UiState.Complete)
+            },
+            params = UpdateSettlementOnRequestPaymentForm(accountNumber = accountNumber)
         ).addTo(disposables)
     }
 

@@ -32,6 +32,7 @@ import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
+import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
 import com.unionbankph.corporate.app.common.widget.tutorial.OnTutorialListener
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragment
@@ -46,6 +47,7 @@ import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity
 import com.unionbankph.corporate.databinding.ActivityDashboardBinding
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
@@ -126,6 +128,13 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     private fun initViewModel() {
         viewModel.dashBoardState.observe(this, Observer {
             when (it) {
+
+                is ShowMerchantStatusPendingScreen ->{
+                    showMerchantStatusPendingScreen()
+                }
+                is ShowFeatureUnavailable ->{
+                    showFeatureUnavailable()
+                }
                 is ShowProgressLoading -> {
                     showProgressAlertDialog(DashboardActivity::class.java.simpleName)
                 }
@@ -1326,6 +1335,25 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
     }
+
+    private fun showMerchantStatusPendingScreen(){
+        navigator.navigate(
+            this,
+            MerchantApplicationReceivedActivity::class.java,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
+    private fun showFeatureUnavailable(){
+
+        binding.errorMerchantRejected.visibility = View.VISIBLE
+        binding.viewFeatureUnavailable.btnFeatureUnavailableBackToDashboard.setOnClickListener{
+            binding.errorMerchantRejected.visibility = View.GONE
+        }
+    }
+
 
     fun setToolbarTitle(title: String, hasBackButton: Boolean, hasMenuItem: Boolean = false) {
         binding.viewToolbar.textViewTitle.text = title

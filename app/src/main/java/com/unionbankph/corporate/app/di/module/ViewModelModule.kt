@@ -102,18 +102,16 @@ import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryVie
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogViewModel
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsViewModel
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsViewModel
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedViewModel
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceViewModel
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
@@ -137,6 +135,7 @@ import com.unionbankph.corporate.open_account.presentation.otp.OaOTPFragment
 import com.unionbankph.corporate.open_account.presentation.otp.OaOTPViewModel
 import com.unionbankph.corporate.open_account.presentation.personalise_settings.OAPersonaliseSettingsViewModel
 import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -778,9 +777,16 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(PaymentLinkChannelsViewModel::class)
-    abstract fun paymentLinkChannelsViewModel(
-        viewModel: PaymentLinkChannelsViewModel
+    @ViewModelKey(MerchantApplicationReceivedViewModel::class)
+    abstract fun merchantApplicationReceivedViewModel(
+        viewModel: MerchantApplicationReceivedViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MerchantApplicationRejectedViewModel::class)
+    abstract fun merchantApplicationRejectedViewModel(
+        viewModel: MerchantApplicationRejectedViewModel
     ): ViewModel
 
     @Binds
@@ -795,21 +801,6 @@ abstract class ViewModelModule {
     @ViewModelKey(FeesAndChargesViewModel::class)
     abstract fun feesAndChargesViewModel(
         viewModel: FeesAndChargesViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(PaymentMethodsViewModel::class)
-    abstract fun paymentMethodsViewModel(
-        viewModel: PaymentMethodsViewModel
-    ): ViewModel
-
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(NotNowCardPaymentsViewModel::class)
-    abstract fun notNowCardPaymentsViewModel(
-        viewModel: NotNowCardPaymentsViewModel
     ): ViewModel
 
     @Binds

@@ -91,11 +91,11 @@ import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryAct
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosActivity
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
@@ -119,6 +119,8 @@ import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -569,6 +571,10 @@ abstract class ActivityBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
+    abstract fun merchantApplicationReceivedActivity(): MerchantApplicationReceivedActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
     abstract fun cardAcceptanceOptionActivity(): CardAcceptanceOptionActivity
 
     @PerActivity
@@ -599,5 +605,7 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector
     abstract fun trialAccountActivity(): TrialAccountActivity
 
-
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun merchantApplicationRejectedActivity(): MerchantApplicationRejectedActivity
 }

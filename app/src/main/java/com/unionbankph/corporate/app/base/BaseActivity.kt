@@ -267,8 +267,6 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
     }
 
     private fun initViewBinding() {
-//        binding = DataBindingUtil.setContentView(this, layoutId)
-
         binding = bindingInflater.invoke(layoutInflater)
         setContentView(binding.root)
     }

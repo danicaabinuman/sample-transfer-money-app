@@ -68,8 +68,10 @@ class FeeCalculatorActivity :
 
         binding.tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
 
+        val feeCalculatorValueModel = FeeCalculatorValueModel(0.00)
+
         if (binding.btnUB.isPressed){
-            feeAmount = 10.00
+            feeAmount = feeCalculatorValueModel.ubOnlineFee
             netAmount = grossAmountDouble - feeAmount
 
             binding.btnUB.background = getDrawable(R.drawable.bg_fee_payment_method_active)
@@ -79,7 +81,7 @@ class FeeCalculatorActivity :
             binding.btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
         } else if (binding.btnInstapay.isPressed){
-            feeAmount = 15.00
+            feeAmount = feeCalculatorValueModel.instapay
             netAmount = grossAmountDouble - feeAmount
 
             binding.btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -89,7 +91,7 @@ class FeeCalculatorActivity :
             binding.btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
         } else if (binding.btnCreditDebitCard.isPressed){
-            feeAmount = ((grossAmountDouble * .03) + 10)
+            feeAmount = ((grossAmountDouble * (feeCalculatorValueModel.cardPercentageFee/100)) + feeCalculatorValueModel.card)
             netAmount = grossAmountDouble - feeAmount
 
             binding.btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -99,7 +101,7 @@ class FeeCalculatorActivity :
             binding.btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
         } else if (binding.btnEWallet.isPressed){
-            feeAmount = ((grossAmountDouble * .02) + 10)
+            feeAmount = ((grossAmountDouble * (feeCalculatorValueModel.eWalletPercentageFee/100)) + feeCalculatorValueModel.eWallet)
             netAmount = grossAmountDouble - feeAmount
 
             binding.btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
@@ -110,7 +112,7 @@ class FeeCalculatorActivity :
 
 
         } else if (binding.btnOverTheCounter.isPressed){
-            feeAmount = 20.00
+            feeAmount = feeCalculatorValueModel.otc
             netAmount = grossAmountDouble - feeAmount
 
             binding.btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)

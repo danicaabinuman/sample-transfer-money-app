@@ -25,7 +25,7 @@ import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaym
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountBottomSheet
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
 import timber.log.Timber
@@ -33,16 +33,19 @@ import timber.log.Timber
 class RequestForPaymentActivity :
     BaseActivity<ActivityRequestPaymentBinding, RequestForPaymentViewModel>(),
     AdapterView.OnItemSelectedListener,
-    NominateSettlementAccountBottomSheet.OnNominateSettlementAccountListener{
+    NominateSettlementAccountFragment.OnNominateSettlementAccountListener {
 
     private var accounts = mutableListOf<Account>()
     private var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
     private val NEW_SPINNER_ID = 1
     private var linkExpiry = "12 hours"
-    private var nominateSettlementAccountBottomSheet: NominateSettlementAccountBottomSheet? = null
+    private var nominateSettlementAccountFragment: NominateSettlementAccountFragment? = null
+
+    private var currentAccount: Account = Account()
 
     override fun onViewModelBound() {
         super.onViewModelBound()
+
     }
 
     override fun onViewsBound() {
@@ -56,20 +59,27 @@ class RequestForPaymentActivity :
         requiredFields()
         paymentLinkExpiry()
         finishRequestPayment()
-
     }
 
 
     private fun initViews(){
         binding.requestPaymentLoading.visibility = View.VISIBLE
 
-        binding.btnRequestPaymentGenerate.setOnClickListener{
+        binding.includeSettlementAccount.root.setOnClickListener {
+            openNominateAccounts()
+        }
+
+        binding.viewNoAccounts.btnBackToDashboard.setOnClickListener {
+            finish()
+        }
+
+        binding.btnRequestPaymentGenerate.setOnClickListener {
             val amount = binding.etAmount.text.toString()
             val paymentFor = binding.etPaymentFor.text.toString()
             val notes = binding.etNotes.text.toString()
             val mobileNumber = binding.textInputEditTextMobileNumber.text.toString()
 
-            if(mobileNumber.isNotEmpty()){
+            if (mobileNumber.isNotEmpty()) {
                 if(mobileNumber.length<10){
                     Toast.makeText(this@RequestForPaymentActivity, "Mobile Number length is invalid",Toast.LENGTH_SHORT).show()
                 }else{
@@ -82,7 +92,7 @@ class RequestForPaymentActivity :
                         mobileNumber
                     )
                 }
-            }else{
+            } else {
                 binding.requestPaymentLoading.visibility = View.VISIBLE
                 viewModel.preparePaymentLinkGeneration(
                     amount,
@@ -98,10 +108,29 @@ class RequestForPaymentActivity :
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnCalculator.setOnClickListener {
+            val amountString = binding.etAmount.text.toString()
+            val amountChecker = amountString.replace("PHP","").replace(",","")
+
+            if(!amountString.isEmpty()) binding.btnCalculator.isEnabled
+
+            val bundle = Bundle()
+            bundle.putString(FeeCalculatorActivity.AMOUNT_VALUE, amountChecker)
+
+            navigator.navigate(
+                this,
+                FeeCalculatorActivity::class.java,
+                bundle,
+                isClear = false,
+                isAnimated = true,
+                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+            )
+        }
     }
 
     private fun setupInputs(){
-        viewModel.getAccounts()
+        viewModel.getDefaultMerchantSettlementAccount()
     }
 
     private fun setupOutputs(){
@@ -114,7 +143,7 @@ class RequestForPaymentActivity :
             when(it){
                 is ErrorMerchantDisabled -> {
                     binding.errorMerchantDisabled.visibility = View.VISIBLE
-                    binding.viewErrorMerchant.btnErrorMerchantDisabled.setOnClickListener{
+                    binding.viewMerchantDisabled.btnErrorMerchantDisabled.setOnClickListener{
                         finish()
                     }
                 }
@@ -128,7 +157,13 @@ class RequestForPaymentActivity :
             }
         })
 
+        viewModel.defaultMerchantSA.observe(this, Observer {
+            currentAccount = it
+            populateNominatedSettlementAccount(it)
+        })
+
         viewModel.soleAccount.observe(this, Observer {
+            currentAccount = it
             binding.requestPaymentLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it)
             accounts = mutableListOf()
@@ -145,6 +180,10 @@ class RequestForPaymentActivity :
         viewModel.accountsBalances.observe(this, Observer {
             binding.requestPaymentLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it.first())
+        })
+
+        viewModel.updateSettlementOnRequestPaymentResponse.observe(this, Observer {
+            populateNominatedSettlementAccount(currentAccount)
         })
 
         viewModel.uiState.observe(this, Observer {
@@ -183,10 +222,18 @@ class RequestForPaymentActivity :
         }
     }
 
-    private fun buttonDisable(){
-        binding.btnRequestPaymentGenerate.isEnabled = false
-        binding.btnRequestPaymentGenerate.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        binding.btnRequestPaymentGenerate.setBackgroundResource(R.drawable.bg_splash_payment_request_button_disabled)
+    private fun buttonCalculatorDisabled(){
+        binding.btnCalculator?.isEnabled = false
+    }
+
+    private fun buttonCalculatorEnabled(){
+        binding.btnCalculator?.isEnabled = true
+    }
+
+    private fun buttonDisable() {
+        binding.btnRequestPaymentGenerate?.isEnabled = false
+        binding.btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button_disabled)
     }
 
     private fun buttonEnable(){
@@ -204,6 +251,22 @@ class RequestForPaymentActivity :
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                    val cleanString = s.toString().replace("PHP","").replace(" ","")
+                    var amountDouble = 0.00
+                    try {
+                        amountDouble = cleanString.toDouble()
+                        if(amountDouble < 100.00){
+                            buttonCalculatorDisabled()
+                            binding.tilAmount.error = "Minimum amount is Php 100.00"
+                        } else {
+                            binding.tilAmount.error = ""
+                            buttonCalculatorEnabled()
+                        }
+                    }catch (e: NumberFormatException){
+                        Timber.e(e)
+                        e.printStackTrace()
+                    }
                 validateForm()
             }
         })
@@ -270,6 +333,27 @@ class RequestForPaymentActivity :
         startActivityForResult(intent, LinkDetailsActivity.REQUEST_CODE)
     }
 
+    private fun navigateToFeeCalculator(){
+        val intent = Intent(this, FeeCalculatorActivity::class.java)
+        intent.putExtra(FeeCalculatorActivity.FROM_WHAT_TAB, DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
+        startActivity(intent)
+    }
+
+    private fun openNominateAccounts(){
+        if(accounts.size>1){
+            nominateSettlementAccountFragment = NominateSettlementAccountFragment.newInstance(JsonHelper.toJson(accounts))
+            nominateSettlementAccountFragment?.setOnNominateSettlementAccountListener(this)
+            nominateSettlementAccountFragment?.show(
+                supportFragmentManager,
+                RequestForPaymentActivity::class.java.simpleName
+            )
+
+        }else{
+            binding.noOtherAvailableAccounts.visibility = View.VISIBLE
+        }
+
+    }
+
     private fun finishRequestPayment() {
         binding.ivBackButton.setOnClickListener {
             finish()
@@ -306,7 +390,10 @@ class RequestForPaymentActivity :
     }
 
     override fun onAccountSelected(account: Account) {
-        populateNominatedSettlementAccount(account)
+//        Timber.e()
+        currentAccount = account
+        // Call Put Merchant Here.
+        viewModel.updateDefaultSettlementAccount(account.accountNumber!!)
     }
 
 
@@ -326,6 +413,7 @@ class RequestForPaymentActivity :
             }
         }
     }
+
     companion object {
         const val REQUEST_CODE = 1226
 

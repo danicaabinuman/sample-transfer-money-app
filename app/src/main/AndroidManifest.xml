@@ -655,6 +655,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"/>
 
+        <activity
+            android:name=".payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
         <!-- Others -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

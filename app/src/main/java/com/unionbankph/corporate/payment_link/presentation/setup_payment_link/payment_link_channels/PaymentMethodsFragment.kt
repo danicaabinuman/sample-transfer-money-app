@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.unionbankph.corporate.app.base.BaseFragment
+import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
 import com.unionbankph.corporate.databinding.FragmentPaymentMethodsBinding
 
 
 class PaymentMethodsFragment :
-    BaseFragment<FragmentPaymentMethodsBinding, PaymentMethodsViewModel>() {
+    BaseFragment<FragmentPaymentMethodsBinding, GeneralViewModel>() {
 
     companion object {
 
@@ -25,6 +26,6 @@ class PaymentMethodsFragment :
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentPaymentMethodsBinding
         get() = FragmentPaymentMethodsBinding::inflate
 
-    override val viewModelClassType: Class<PaymentMethodsViewModel>
-        get() = PaymentMethodsViewModel::class.java
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
 }

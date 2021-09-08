@@ -24,7 +24,7 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivityNotNowAcceptCardPaymentsBinding
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountBottomSheet
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.supercharge.shimmerlayout.ShimmerLayout
@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit
 
 class NotNowCardPaymentsActivity :
     BaseActivity<ActivityNotNowAcceptCardPaymentsBinding, NotNowCardPaymentsViewModel>(),
-    NominateSettlementAccountBottomSheet.OnNominateSettlementAccountListener {
+    NominateSettlementAccountFragment.OnNominateSettlementAccountListener {
 
     private lateinit var buttonAction: Button
 
@@ -230,7 +230,7 @@ class NotNowCardPaymentsActivity :
 
     private fun selectAccount() {
         val nominateSettlementAccountBottomSheet =
-            NominateSettlementAccountBottomSheet.newInstance(JsonHelper.toJson(accountList))
+            NominateSettlementAccountFragment.newInstance(JsonHelper.toJson(accountList))
         nominateSettlementAccountBottomSheet.setOnNominateSettlementAccountListener(this)
         nominateSettlementAccountBottomSheet.show(
             supportFragmentManager,

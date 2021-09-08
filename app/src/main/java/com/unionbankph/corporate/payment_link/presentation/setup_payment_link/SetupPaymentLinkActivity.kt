@@ -12,10 +12,12 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.jakewharton.rxbinding2.widget.RxTextView
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.dashboard.*
 import com.unionbankph.corporate.auth.data.model.Role
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
@@ -23,11 +25,14 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivitySetupPaymentLinksBinding
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
+import io.reactivex.rxkotlin.addTo
 import io.supercharge.shimmerlayout.ShimmerLayout
+import java.util.concurrent.TimeUnit
 
 class SetupPaymentLinkActivity :
     BaseActivity<ActivitySetupPaymentLinksBinding, SetupPaymentLinkViewModel>() {
@@ -69,12 +74,10 @@ class SetupPaymentLinkActivity :
 
     private fun initViews() {
 
-
         binding.include1.root.setOnClickListener {
             openNominateAccounts()
         }
         binding.btnSetupBusinessLink.setOnClickListener {
-
             binding.setupPaymentLinkLoading.visibility = View.VISIBLE
             binding.tilBusinessName.error = null
 
@@ -96,17 +99,11 @@ class SetupPaymentLinkActivity :
             )
         }
 
-        binding.btnCancel.setOnClickListener {
-            finish()
-        }
+        binding.btnCancel.setOnClickListener { finish() }
 
-        binding.btnNominate.setOnClickListener {
-            openNominateAccounts()
-        }
+        binding.btnNominate.setOnClickListener { openNominateAccounts() }
 
-        binding.viewNoAvailableAccounts.btnBackToDashboard.setOnClickListener {
-            finish()
-        }
+        binding.viewNoAvailableAccounts.btnBackToDashboard.setOnClickListener { finish() }
 
         binding.viewDialogFeatureUnavailable.btnFeatureUnavailableBackToDashboard.setOnClickListener {
             finish()
@@ -166,10 +163,23 @@ class SetupPaymentLinkActivity :
     }
 
     private fun requiredFields(){
-        binding.etBusinessName.setOnFocusChangeListener { v, hasFocus ->
-            binding.tilBusinessName.error = null
-        }
-        binding.etBusinessName.addTextChangedListener(object : TextWatcher{
+        binding.etBusinessName.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateForm()
+                binding.tvErrorMessage.visibility = View.GONE
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+        })
+
+        binding.etBusinessWebsites.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -183,7 +193,7 @@ class SetupPaymentLinkActivity :
             }
         })
 
-        binding.etBusinessProductsOffered.addTextChangedListener(object : TextWatcher{
+        binding.etBusinessProductsOffered.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -208,7 +218,7 @@ class SetupPaymentLinkActivity :
             binding.setupPaymentLinkLoading.visibility = View.GONE
             if(it.message.equals("Success",true)){
 
-                val intent = Intent(this, SetupPaymentLinkSuccessfulActivity::class.java)
+                val intent = Intent(this, MerchantApplicationReceivedActivity::class.java)
                 intent.putExtra(RequestPaymentSplashActivity.EXTRA_FROM_WHAT_TAB,fromWhatTab)
                 startActivity(intent)
                 finish()
@@ -257,9 +267,11 @@ class SetupPaymentLinkActivity :
                 is ShowNoAvailableAccounts -> {
                     binding.noAvailableAccounts.visibility = View.VISIBLE
                 }
+
                 is ShowHandleNotAvailable -> {
-                    binding.tilBusinessName.error = "This handle is no longer available. Please try another one"
+                    binding.tvErrorMessage.visibility = View.VISIBLE
                 }
+
                 is ShowApproverPermissionRequired -> {
                     binding.approverPermissionRequired.visibility = View.VISIBLE
                 }
@@ -295,11 +307,13 @@ class SetupPaymentLinkActivity :
     private fun validateForm(){
         val businessName = binding.etBusinessName.text.toString()
         val businessProductsOffered = binding.etBusinessProductsOffered.text.toString()
+        val businessWebsite = binding.etBusinessWebsites.text.toString()
         val isChecked = binding.cbFncTnc.isChecked
 
         if (
             businessName.isNotEmpty() &&
             businessProductsOffered.isNotEmpty() &&
+            businessWebsite.isNotEmpty() &&
             binding.llSettlementAccount.visibility == View.VISIBLE
             && isChecked
         ){

@@ -56,7 +56,7 @@ import com.unionbankph.corporate.notification.presentation.notification_log.noti
 import com.unionbankph.corporate.open_account.presentation.confirmation_message.OAConfirmationMessageFragment
 import com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountBottomSheet
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsFragment
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
@@ -371,7 +371,7 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun nominateSettlementAccountFragment(): NominateSettlementAccountBottomSheet
+    abstract fun nominateSettlementAccountFragment(): NominateSettlementAccountFragment
 
     @PerActivity
     @ContributesAndroidInjector

@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clNominateAccountCard"
         android:layout_width="match_parent"
-        android:background="@drawable/bg_settlement_account_item_button_default_radius4"
+        android:background="@drawable/bg_card_view_gradient_gray"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
