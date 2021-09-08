@@ -464,6 +464,18 @@
         <item name="elevation">@dimen/grid_1</item>
     </style>
 
+    <style name="TabLayoutSME">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="tabIndicatorColor">#FF8200</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabTextAppearance">@style/TextAppearance.AppCompat.Widget.Button</item>
+        <item name="fontWeight">500</item>
+        <item name="tabSelectedTextColor">#FF8200</item>
+        <item name="tabTextColor">#BFBFBF</item>
+    </style>
+
     <style name="CardViewLight" parent="MatchWrapParent">
         <item name="cardCornerRadius">@dimen/card_radius</item>
     </style>
@@ -587,7 +599,7 @@
         <item name="android:textColorHint">@drawable/state_edit_text</item>
         <item name="hintTextColor">@drawable/state_edit_text</item>
         <item name="hintTextAppearance">@style/TextInputLayoutAppearance</item>
-        <item name="errorTextAppearance">@style/TextInputLayoutErrorAppearance</item>
+        <item name="errorTextAppearance">@style/error_appearance</item>
         <item name="android:theme">@style/TextInputEditTextAccent</item>
         <item name="boxStrokeColor">@drawable/state_edit_text</item>
         <item name="boxBackgroundColor">@color/jumio_white</item>
@@ -668,8 +680,6 @@
         <item name="android:inputType">textFilter</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
-        <item name="android:paddingStart">@dimen/content_spacing</item>
-        <item name="android:paddingEnd">@dimen/content_spacing</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/field_radius</item>
         <item name="boxCornerRadiusTopEnd">@dimen/field_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/field_radius</item>
@@ -692,7 +702,7 @@
         <item name="boxCornerRadiusTopEnd">@dimen/field_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/field_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/field_radius</item>
-        <item name="android:digits">@string/digits_with_restriction</item>
+        <item name="android:digits">@string/digits_with_restriction_with_space</item>
         <item name="android:maxLength">100</item>
         <item name="android:textSize">@dimen/text_12</item>
     </style>
@@ -708,7 +718,7 @@
         <item name="boxCornerRadiusTopEnd">@dimen/field_radius</item>
         <item name="boxCornerRadiusBottomStart">@dimen/field_radius</item>
         <item name="boxCornerRadiusTopStart">@dimen/field_radius</item>
-        <item name="android:digits">@string/digits_with_restriction</item>
+        <item name="android:digits">@string/digits_with_restriction_with_space</item>
         <item name="android:maxLength">100</item>
         <item name="android:textSize">@dimen/text_12</item>
     </style>
@@ -961,6 +971,141 @@
     <style name="JumioConfirmationHint">
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:textColor">@color/colorInfo</item>
+    </style>
+
+    <style name="DSRadioButtonStyle" parent="WrapContent">
+        <item name="colorAccent">@color/dsColorMediumOrange</item>
+    </style>
+
+    <style name="DSCheckBoxStyle" parent="WrapContent">
+        <item name="colorAccent">@color/dsColorMediumOrange</item>
+    </style>
+
+    <style name="SMELargeButton" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ds_sme_large_button</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SMEPrimaryButtonLarge" parent="SMELargeButton">
+        <item name="android:background">@drawable/style_primary_button_large</item>
+        <item name="android:textColor">@drawable/style_primary_button_text</item>
+    </style>
+
+    <style name="SMESecondaryButtonLarge" parent="SMELargeButton">
+        <item name="android:background">@drawable/style_secondary_button_large</item>
+        <item name="android:textColor">@drawable/style_secondary_button_text</item>
+    </style>
+
+    <style name="SMETertiaryButtonLarge" parent="SMELargeButton">
+        <item name="android:background">@drawable/style_tertiary_button_large</item>
+        <item name="android:textColor">@drawable/style_secondary_button_text</item>
+    </style>
+
+    <style name="SMESmallButton" parent="SMEPrimaryButtonLarge">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/ds_sme_small_button</item>
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:paddingStart">@dimen/grid_1</item>
+        <item name="android:paddingEnd">@dimen/grid_1</item>
+    </style>
+
+    <style name="SMEPrimaryButtonSmall" parent="SMESmallButton">
+        <item name="android:background">@drawable/style_primary_button_small</item>
+        <item name="android:textColor">@drawable/style_primary_button_text</item>
+
+    </style>
+
+    <style name="SMESecondaryButtonSmall" parent="SMESmallButton">
+        <item name="android:background">@drawable/style_secondary_button_small</item>
+        <item name="android:textColor">@drawable/style_secondary_button_text</item>
+    </style>
+
+    <style name="SMETertiaryButtonSmall" parent="SMESmallButton">
+        <item name="android:background">@drawable/style_tertiary_button_small</item>
+        <item name="android:textColor">@drawable/style_secondary_button_text</item>
+    </style>
+
+    <style name="SMEBigButton" parent="SMELargeButton">
+        <item name="android:layout_height">@dimen/ds_sme_big_button</item>
+        <item name="android:paddingStart">@dimen/grid_3</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="SMEPrimaryButtonBig" parent="SMEBigButton">
+        <item name="android:background">@drawable/style_primary_button_large</item>
+        <item name="android:textColor">@drawable/style_primary_button_text</item>
+    </style>
+
+    <style name="SMESecondaryButtonBig" parent="SMEBigButton">
+        <item name="android:background">@drawable/style_secondary_button_large</item>
+        <item name="android:textColor">@drawable/style_secondary_button_text</item>
+    </style>
+
+    <style name="SMECheckableButtonWithIcon" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:drawableTop">@drawable/ic_man</item>
+        <item name="android:drawablePadding">@dimen/grid_2</item>
+        <item name="android:padding">@dimen/grid_3</item>
+        <item name="android:background">@drawable/style_button_with_icon</item>
+        <item name="android:textColor">@color/dsColorDarkGray</item>
+        <item name="android:button">@null</item>
+    </style>
+
+    <style name="SMEHeadlineH1" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">@dimen/text_30</item>
+        <item name="android:textColor">@color/dsColorHeadlineH1</item>
+    </style>
+
+    <style name="SMEHeadlineH2" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">@dimen/text_24</item>
+        <item name="android:textColor">@color/dsColorHeadlineH2</item>
+    </style>
+
+    <style name="SMESubtitle1" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
+        <item name="android:textSize">@dimen/text_18</item>
+        <item name="android:textColor">@color/dsColorSubtitle1</item>
+    </style>
+
+    <style name="SMESubtitle2" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/dsColorSubtitle2</item>
+    </style>
+
+    <style name="SMEBody" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/dsColorBody</item>
+    </style>
+
+    <style name="SMECaption" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">@color/dsColorCaption</item>
+    </style>
+
+    <style name="error_appearance" parent="android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">#ED5635</item>
+        <item name="android:paddingStart">@dimen/grid_0</item>
+    </style>
+
+    <style name="contact_number" parent="MatchWrapParent">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/field_height</item>
+        <item name="android:background">@drawable/bg_edittext_form</item>
+        <item name="android:paddingLeft">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingRight">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingTop">@dimen/field_padding</item>
+        <item name="android:paddingBottom">@dimen/field_padding</item>
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">@integer/max_length_check_number</item>
+        <item name="android:textSize">@dimen/text_12</item>
     </style>
 
 </resources>

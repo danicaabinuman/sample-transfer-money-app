@@ -69,7 +69,7 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/editTextMobileNumber"
-            style="@style/EditTextForm"
+            style="@style/contact_number"
             android:layout_width="@dimen/match_constraint"
             android:background="@color/colorTransparent"
             android:hint="@string/title_mobile_number"

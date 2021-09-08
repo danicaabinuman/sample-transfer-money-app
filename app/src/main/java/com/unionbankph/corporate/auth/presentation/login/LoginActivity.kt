@@ -7,6 +7,7 @@ import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
+import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.databinding.ActivityLoginBinding
 import com.unionbankph.corporate.settings.presentation.splash.SplashFrameActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity

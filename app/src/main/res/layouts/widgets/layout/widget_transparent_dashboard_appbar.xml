@@ -39,6 +39,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/content_item_spacing"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:layout_marginEnd="@dimen/content_item_spacing"
                 android:background="@drawable/bg_request_payment_button"
                 android:gravity="center"

@@ -216,6 +216,63 @@
                         android:layout_height="16dp"
                         android:src="@drawable/ic_ub_orange"
                         android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/gcashLogo"
+                        android:layout_width="60dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_gcash"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/grabpayLogo"
+                        android:layout_width="60dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_grabpay"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/bayadCenterLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/bayad_center_logo"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/ecpayLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ecpay_logo"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/lbcLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/lbc_logo"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/palawanLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/palawan_logo"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/cebuanaLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:src="@drawable/cebuana_logo"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/paymentMethodText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="UB ONLINE"
+                        android:visibility="gone"/>
+
                 </LinearLayout>
 
                 <TextView
@@ -519,48 +576,48 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="ACTIVITY LOG"
-                    android:textColor="#4B4948"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="ACTIVITY LOG"-->
+<!--                    android:textColor="#4B4948"-->
+<!--                    android:textSize="10sp"-->
+<!--                    android:textStyle="bold" />-->
 
-                <TextView
-                    android:id="@+id/btnViewMore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/bg_white_rounded_corners"
-                    android:gravity="center"
-                    android:paddingStart="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="5dp"
-                    android:text="VIEW MORE"
-                    android:textStyle="bold"
-                    android:textColor="#4B4948"
-                    android:textSize="10sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/btnViewMore"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:background="@drawable/bg_white_rounded_corners"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingTop="5dp"-->
+<!--                    android:paddingEnd="10dp"-->
+<!--                    android:paddingBottom="5dp"-->
+<!--                    android:text="VIEW MORE"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:textColor="#4B4948"-->
+<!--                    android:textSize="10sp" />-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/bg_card_view_payment_status"
-                android:orientation="vertical"
-                android:paddingTop="20dp">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:background="@drawable/bg_card_view_payment_status"-->
+<!--                android:orientation="vertical"-->
+<!--                android:paddingTop="20dp">-->
 
 <!--                <LinearLayout-->
 <!--                    android:layout_width="match_parent"-->
@@ -721,7 +778,7 @@
 <!--                        android:textSize="12sp" />-->
 <!--                </LinearLayout>-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
         </LinearLayout>
 

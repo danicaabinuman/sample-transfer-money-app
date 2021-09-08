@@ -267,8 +267,6 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
     }
 
     private fun initViewBinding() {
-//        binding = DataBindingUtil.setContentView(this, layoutId)
-
         binding = bindingInflater.invoke(layoutInflater)
         setContentView(binding.root)
     }
@@ -753,9 +751,9 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
 
             else -> {
                 var errorMessage = throwable?.message
-                if(errorMessage!=null){
+                if (errorMessage != null) {
                     showMaterialDialogError(message = errorMessage)
-                }else{
+                } else {
                     showMaterialDialogError(message = formatString(R.string.error_something_went_wrong))
                 }
             }
@@ -792,9 +790,9 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
                             }
                         } catch (e: Exception) {
                             var errorMessage = e?.message
-                            if(errorMessage!=null){
+                            if (errorMessage != null) {
                                 showMaterialDialogError(message = errorMessage)
-                            }else{
+                            } else {
                                 showMaterialDialogError(message = formatString(R.string.error_something_went_wrong))
                             }
                         }

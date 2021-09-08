@@ -100,6 +100,8 @@ import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryVie
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogViewModel
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsViewModel
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsViewModel
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedViewModel
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
@@ -700,14 +702,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(TermsOfServiceViewModel::class)
     abstract fun termsOfServiceViewModel(
-            viewModel: TermsOfServiceViewModel
+        viewModel: TermsOfServiceViewModel
     ): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(NominateSettlementViewModel::class)
     abstract fun nominateSettlementViewModel(
-            viewModel: NominateSettlementViewModel
+        viewModel: NominateSettlementViewModel
     ): ViewModel
 
     @Binds
@@ -728,7 +730,7 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PaymentLinkListViewModel::class)
     abstract fun paymentLinkListViewModel(
-            viewModel: PaymentLinkListViewModel
+        viewModel: PaymentLinkListViewModel
     ): ViewModel
 
     @Binds
@@ -750,6 +752,20 @@ abstract class ViewModelModule {
     @ViewModelKey(FeeCalculatorViewModel::class)
     abstract fun feeCalculatorViewModel(
         viewModel: FeeCalculatorViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MerchantApplicationReceivedViewModel::class)
+    abstract fun merchantApplicationReceivedViewModel(
+        viewModel: MerchantApplicationReceivedViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MerchantApplicationRejectedViewModel::class)
+    abstract fun merchantApplicationRejectedViewModel(
+        viewModel: MerchantApplicationRejectedViewModel
     ): ViewModel
 
 }
