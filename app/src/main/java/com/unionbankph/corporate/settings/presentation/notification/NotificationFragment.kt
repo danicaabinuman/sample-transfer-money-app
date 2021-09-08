@@ -83,7 +83,7 @@ class NotificationFragment :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        (activity as DashboardActivity).imageViewHelp().visibility = View.GONE
+        (activity as DashboardActivity).btnHelp().visibility = View.GONE
         (activity as DashboardActivity).setToolbarTitle(
             getString(R.string.title_notifications),
             hasBackButton = true,
