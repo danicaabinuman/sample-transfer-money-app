@@ -195,7 +195,6 @@
     <color name="colorFingerPrintIconPlain">@color/dsColorMediumOrange</color>
     <color name="colorFaceIDIconPlain">@color/dsColorMediumOrange</color>
 
-    <color name="dsColorMediumOrange">#FF8200</color>
     <color name="dsColorRoundedTopBottomSheet">@color/colorWhite</color>
 
     <!--Transparency-->

@@ -235,6 +235,29 @@ class DaoConfirmationFragment :
             findNavController().navigate(action)
             setBackIconToDefault()
         }
+        binding.ivUnionbankEmployeeTooltip.setOnClickListener {
+            displayIsUBEmployeeTooltip()
+        }
+    }
+
+    private fun displayIsUBEmployeeTooltip() {
+        val isUbEmployeeToolTip = MaterialDialog(getAppCompatActivity()).apply {
+            lifecycleOwner(this@DaoConfirmationFragment)
+            customView(R.layout.dialog_tool_tip)
+        }
+        val buttonClose =
+            isUbEmployeeToolTip.view.findViewById<MaterialButton>(R.id.buttonClose)
+        val textViewTitle =
+            isUbEmployeeToolTip.view.findViewById<TextView>(R.id.textViewTitle)
+        val textViewContent =
+            isUbEmployeeToolTip.view.findViewById<TextView>(R.id.textViewContent)
+        textViewTitle.text = formatString(R.string.title_not_a_unionbank_employee)
+        textViewContent.text = formatString(R.string.msg_not_a_unionbank_employee)
+        buttonClose.setOnClickListener { isUbEmployeeToolTip.dismiss() }
+        isUbEmployeeToolTip.window?.attributes?.windowAnimations =
+            R.style.SlideUpAnimation
+        isUbEmployeeToolTip.window?.setGravity(Gravity.CENTER)
+        isUbEmployeeToolTip.show()
     }
 
     private fun setBackIconToDefault() {
@@ -244,6 +267,9 @@ class DaoConfirmationFragment :
     private fun initCheckListener() {
         binding.cbAgreement.setOnCheckedChangeListener { _, isChecked ->
             viewModel.isCheckedTNC.onNext(isChecked)
+        }
+        binding.cbUnionbankEmployee.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.isCheckedIsUbEmployee.onNext(isChecked)
         }
     }
 

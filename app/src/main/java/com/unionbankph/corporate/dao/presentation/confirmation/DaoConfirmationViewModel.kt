@@ -37,6 +37,8 @@ class DaoConfirmationViewModel @Inject constructor(
 
     val isCheckedTNC = BehaviorSubject.createDefault(false)
 
+    val isCheckedIsUbEmployee = BehaviorSubject.createDefault(false)
+
     val homeAddress = BehaviorSubject.create<String>()
 
     private val _navigateNextStep = MutableLiveData<Event<DaoHit>>()
