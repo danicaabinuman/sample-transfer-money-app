@@ -671,8 +671,7 @@ class OTPActivity :
         when (page) {
             PAGE_LOGIN -> {
                 if (privacyAgreed) {
-                    navigateTrialModeScreen()
-                    //navigateDashboardScreen()
+                    navigateDashboardScreen()
                 } else {
                     navigatePrivacyPolicyScreen()
                 }

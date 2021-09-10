@@ -51,8 +51,23 @@ class OAConfirmationMessageFragment :
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                navigateDashboardScreen()
+                navigateTrialModeScreen()
             }.addTo(disposables)
+    }
+
+    private fun navigateTrialModeScreen() {
+        val bundle = Bundle()
+        bundle.putString(
+            AutobahnFirebaseMessagingService.EXTRA_DATA,
+            getAppCompatActivity().intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
+        )
+        navigator.navigateClearStacks(
+            getAppCompatActivity(),
+            TrialAccountActivity::class.java,
+            bundle,
+            true,
+            Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     private fun navigateDashboardScreen() {
