@@ -284,6 +284,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             .subscribe {
                 binding.viewPagerBTR.setCurrentItem(5, true)
                 adapter?.notifyDataSetChanged()
+                binding.viewToolbar.viewNotificationBadge.root.visibility = View.GONE
             }.addTo(disposables)
     }
 
@@ -786,7 +787,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             binding.viewToolbar.viewNotificationBadge.root.visibility(
 //                    position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
                     position == bottomNavigationItems[FRAGMENT_APPROVALS] ||
-//                    (position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] && !stackFlagNotification) ||
+                    (position == bottomNavigationItems[FRAGMENT_DASHBOARD] && !stackFlagNotification) ||
                     (position == bottomNavigationItems[FRAGMENT_SETTINGS] && !stackFlagSettings) ||
                     (position == bottomNavigationItems[FRAGMENT_DASHBOARD] && !isBackButtonPaymentList)
             )
@@ -1427,7 +1428,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         const val FRAGMENT_APPROVALS = "approvals"
         const val FRAGMENT_SETTINGS = "settings"
         const val FRAGMENT_NOTIFICATIONS = "notifications"
-        const val FRAGMENT_PAY_BILLS = "notifications"
+        const val FRAGMENT_PAY_BILLS = "paybills"
         const val EXTRA_SWITCH_ORG = "from_switch_org"
         const val TAG_NEW_USER_DETECTED_DIALOG = "new_user_detected_dialog"
         const val TAG_TRUSTED_DEVICE_DIALOG = "trusted_device_dialog"

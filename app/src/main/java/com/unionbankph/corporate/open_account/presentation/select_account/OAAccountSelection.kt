@@ -32,6 +32,9 @@ class OAAccountSelection :
         binding.btnOpenAccount.setOnClickListener {
             findNavController().navigate(R.id.action_selection_to_reminder)
         }
+        binding.btnContinueExistingAccountApplication.setOnClickListener {
+            findNavController().navigate(R.id.action_dao_selection_activity)
+        }
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentOaAccountSelectionBinding

@@ -351,6 +351,9 @@ class DashboardFragment :
                     )
                 }
             }
+            Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS -> {
+                (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
+            }
         }
     }
 

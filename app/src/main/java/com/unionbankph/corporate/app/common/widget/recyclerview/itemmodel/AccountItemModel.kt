@@ -84,7 +84,7 @@ abstract class AccountItemModel : EpoxyModelWithHolder<AccountItemModel.Holder>(
                )
                textViewAvailableBalanceTitle.text = availableBalance?.display
                textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
-               cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
+               cardViewAccount.setBackgroundResource(R.drawable.bg_primary_button_default_radius4)
            }
 
            cardViewAccount.setOnClickListener {

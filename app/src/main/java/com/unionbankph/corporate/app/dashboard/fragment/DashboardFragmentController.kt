@@ -90,7 +90,7 @@ constructor(
                     !hasInitialFetchError &&
                             accountSize == 0, this)
 
-        dashboardViewState.accounts.forEachIndexed { position, account ->
+        dashboardViewState.accounts.take(2).forEachIndexed { position, account ->
             DashboardAccountItemModel_()
                 .id("${account.id?.toString()}")
                 .accountString(JsonHelper.toJson(account))
@@ -192,9 +192,7 @@ abstract class DashboardHeaderModel: EpoxyModelWithHolder<DashboardHeaderModel.H
         }
 
         val action = when (buttonText) {
-            context.getString(R.string.action_add) -> {
-                Constant.DASHBOARD_ACTION_ADD_ACCOUNT
-            }
+            context.getString(R.string.action_add) -> Constant.DASHBOARD_ACTION_ADD_ACCOUNT
             else -> Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS
         }
 
