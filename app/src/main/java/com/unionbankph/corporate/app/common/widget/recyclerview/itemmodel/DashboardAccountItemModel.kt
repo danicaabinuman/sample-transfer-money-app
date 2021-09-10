@@ -2,8 +2,6 @@ package com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel
 
 import android.content.Context
 import android.view.View
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
@@ -19,7 +17,6 @@ import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCall
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.ItemDashboardAccountBinding
-import io.supercharge.shimmerlayout.ShimmerLayout
 
 @EpoxyModelClass
 abstract class DashboardAccountItemModel :
@@ -85,7 +82,7 @@ abstract class DashboardAccountItemModel :
                 )
                 textViewAvailableBalanceTitle.text = availableBalance?.display
                 textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
-                cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
+                cardViewAccount.setBackgroundResource(R.drawable.bg_primary_button_default_radius4)
             }
 
             cardViewAccount.setOnClickListener {

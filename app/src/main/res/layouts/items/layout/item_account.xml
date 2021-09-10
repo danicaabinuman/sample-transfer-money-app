@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view_account"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/grid_1_half"
     app:cardCornerRadius="@dimen/card_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            style="@style/MatchConstraint"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="@+id/cl_content"
-            app:layout_constraintEnd_toEndOf="@+id/cl_content"
-            app:layout_constraintStart_toStartOf="@+id/cl_content"
-            app:layout_constraintTop_toTopOf="@+id/cl_content"
-            app:srcCompat="@drawable/bg_row" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_content"
             style="@style/MatchWrapParent"
-            android:padding="@dimen/content_spacing"
+            android:paddingStart="@dimen/grid_2"
+            android:paddingEnd="@dimen/grid_2"
+            android:paddingTop="@dimen/grid_3_half"
+            android:paddingBottom="@dimen/grid_3_half"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textViewProductType"
+                style="@style/SMECaption"
+                android:layout_width="@dimen/match_constraint"
+                android:ellipsize="end"
+                android:text="@string/title_product_code_desc"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Retail Power Saving"
+                tools:textColor="@color/colorBlack"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewCorporateName"
-                style="@style/TextViewThemeLarge"
+                style="@style/SMESubtitle2"
                 android:layout_width="match_parent"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -38,61 +47,44 @@
                 android:textColor="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewProductType"
-                style="@style/TextViewThemeSmall"
-                android:layout_width="@dimen/match_constraint"
-                android:ellipsize="end"
-                android:text="@string/title_product_code_desc"
-                android:textColor="@color/colorWhite"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCorporateName" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewAccountNumberTitle"
-                style="@style/TextViewThemeSmall"
-                android:layout_width="@dimen/match_constraint"
-                android:layout_marginTop="@dimen/content_spacing"
-                android:text="@string/title_account_number"
-                android:textColor="@color/colorWhite"
-                app:layout_constraintEnd_toStartOf="@+id/textViewAvailableBalanceTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewProductType" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewProductType"
+                tools:text="ABC Sample Corporation"
+                tools:textColor="@color/colorBlack"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewAccountNumber"
-                style="@style/TextViewTheme"
+                style="@style/SMECaption"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginTop="@dimen/content_spacing_small"
                 android:textColor="@color/colorWhite"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/shimmerLayoutAmount"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewAccountNumberTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewCorporateName"
+                tools:text="0000 1234 5678"
+                tools:textColor="@color/colorBlack"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewAvailableBalanceTitle"
-                style="@style/TextViewThemeSmall"
-                android:layout_width="@dimen/match_constraint"
+                style="@style/SMECaption"
+                android:layout_width="wrap_content"
                 android:layout_marginTop="@dimen/content_spacing"
-                android:gravity="end"
                 android:text="@string/title_available_balance"
                 android:textColor="@color/colorWhite"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewAccountNumberTitle"
-                app:layout_constraintTop_toBottomOf="@+id/textViewProductType" />
+                app:layout_constraintEnd_toStartOf="@+id/shimmerLayoutAmount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAccountNumber"
+                tools:text="Available Balance"
+                app:layout_constraintHorizontal_bias="0"
+                tools:textColor="@color/colorBlack"/>
 
             <io.supercharge.shimmerlayout.ShimmerLayout
                 android:id="@+id/shimmerLayoutAmount"
                 style="@style/WrapContent"
                 android:layout_width="@dimen/match_constraint"
-                android:layout_marginTop="@dimen/content_spacing_small"
+                android:layout_marginStart="@dimen/grid_3"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewAccountNumber"
-                app:layout_constraintTop_toBottomOf="@+id/textViewAvailableBalanceTitle"
+                app:layout_constraintStart_toEndOf="@+id/textViewAvailableBalanceTitle"
+                app:layout_constraintTop_toTopOf="@id/textViewAvailableBalanceTitle"
+                app:layout_constraintBottom_toBottomOf="@id/textViewAvailableBalanceTitle"
                 app:shimmer_animation_duration="1000"
                 app:shimmer_color="@color/colorGrey"
                 app:shimmer_mask_width="1">
@@ -101,11 +93,10 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/textViewAvailableBalance"
-                        style="@style/TextViewThemeLarge"
+                        style="@style/SMESubtitle2"
                         android:layout_width="@dimen/match_constraint"
                         android:gravity="end"
                         android:textColor="@color/colorWhite"
-                        android:textStyle="bold"
                         android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

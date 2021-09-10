@@ -901,10 +901,10 @@ class OTPActivity :
         if (isTOTPScreen(loginType)) {
             initEnableResendButton(true)
             binding.tvVerifyAccountDesc.text = formatString(R.string.desc_verify_account_totp)
-            binding.textViewDidNotReceived.text = formatString(R.string.desc_cannot_generate_code)
-            binding.textViewDidNotReceived.visibility(true)
+            binding.textViewDidNotReceived.visibility(false)
             binding.tvResendTimer.setVisible(false)
             binding.btnResend.text = formatString(R.string.action_receive_via_otp)
+            binding.buttonGenerateOTP.visibility(true)
         } else {
             binding.tvVerifyAccountDesc.text = formatString(
                 R.string.desc_verify_account_sms,
@@ -925,6 +925,7 @@ class OTPActivity :
             binding.textViewDidNotReceived.visibility(true)
             binding.tvResendTimer.visibility(true)
             binding.btnResend.visibility(true)
+            binding.buttonGenerateOTP.visibility(false)
         }
     }
 
