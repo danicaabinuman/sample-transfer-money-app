@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.app.di.module
 
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.unionbankph.corporate.account.presentation.account_detail.AccountDetailViewModel
@@ -86,6 +87,7 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.InstapayQrSplashViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationViewModel
@@ -768,4 +770,10 @@ abstract class ViewModelModule {
         viewModel: MerchantApplicationRejectedViewModel
     ): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(InstapayQrSplashViewModel::class)
+    abstract fun instapayQrSplashViewMOdel(
+        viewModel: RequestPaymentSplashViewModel
+    ): ViewModel
 }

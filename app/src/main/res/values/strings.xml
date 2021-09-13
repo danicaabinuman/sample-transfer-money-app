@@ -2298,4 +2298,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="okay_upper_case">OKAY</string>
     <string name="request">Request</string>
     <string name="scan">Scan</string>
+    <string name="allow_camera">Allow us to use your phone’s camera to scan other Instapay QR Codes</string>
+    <string name="btn_allow">Allow</string>
 </resources>
