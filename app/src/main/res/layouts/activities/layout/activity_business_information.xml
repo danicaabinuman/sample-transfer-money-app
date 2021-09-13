@@ -17,18 +17,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tv_about_your_business_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewToolbar"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:text="@string/we_want_to_know_more_about_your_business"
+        android:textColor="#4A4A4A"
+        android:textSize="@dimen/text_24"
+        android:textStyle="bold" />
+
     <LinearLayout
-        android:id="@+id/llBusinessInformationFields"
+        android:id="@+id/llBusinessInformationFields1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/viewToolbar"
+        android:layout_below="@id/tv_about_your_business_title"
         android:layout_above="@id/btn_next">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/grid_2"
             android:paddingBottom="@dimen/grid_2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,24 +50,15 @@
                 android:paddingBottom="@dimen/grid_2">
 
                 <TextView
-                    android:id="@+id/tv_about_your_business_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/we_want_to_know_more_about_your_business"
-                    android:textColor="#4A4A4A"
-                    android:textSize="24sp"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
                     android:id="@+id/tv_name_of_business_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_3"
+                    android:layout_marginTop="@dimen/grid_2"
                     android:text="@string/nature_of_business"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_about_your_business_title" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_status"
@@ -329,190 +331,218 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_number_of_branch" />
 
-                <ImageView
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginTop="15dp"
-                    android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/tv_number_of_branches" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_next"
+        android:visibility="gone"
+        android:layout_below="@id/tv_about_your_business_title">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/llBusinessInformationFields2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/grid_2"
+            android:paddingEnd="@dimen/grid_2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_where_do_you_sell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/where_do_you_sell"
+                android:textColor="#4A4A4A"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_where_do_you_sell_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_all_that_apply"
+                android:textColor="#9B9B9B"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_where_do_you_sell" />
+
+            <LinearLayout
+                android:id="@+id/ll_where_do_you_sell_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_where_do_you_sell_details">
 
                 <TextView
-                    android:id="@+id/tv_where_do_you_sell"
+                    android:id="@+id/btn_lazada"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/where_do_you_sell"
-                    android:textColor="#4A4A4A"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider2" />
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_where_do_you_sell_inactive"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/lazada" />
 
                 <TextView
-                    android:id="@+id/tv_where_do_you_sell_details"
+                    android:id="@+id/btn_shopee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/select_all_that_apply"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_where_do_you_sell" />
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_where_do_you_sell_inactive"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/shopee" />
 
-                <LinearLayout
-                    android:id="@+id/ll_where_do_you_sell_1"
+                <TextView
+                    android:id="@+id/btn_website"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_where_do_you_sell_inactive"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/website" />
+
+                <TextView
+                    android:id="@+id/btn_suysing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_where_do_you_sell_inactive"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/suysing" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_where_do_you_sell_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_1">
+
+                <TextView
+                    android:id="@+id/btn_physical_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_where_do_you_sell_inactive"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/physical_store" />
+
+                <TextView
+                    android:id="@+id/btn_facebook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_where_do_you_sell_inactive"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/facebook" />
+
+                <TextView
+                    android:id="@+id/btn_instagram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_where_do_you_sell_inactive"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/instagram" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_where_do_you_sell_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_2">
+
+                <TextView
+                    android:id="@+id/btn_others"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/bg_where_do_you_sell_inactive"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/others" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/divider_dashed"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/grid_1"
+                android:visibility="invisible"
+                android:src="@drawable/view_dashed"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
+
+            <RelativeLayout
+                android:id="@+id/rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/divider_dashed">
+
+                <TextView
+                    android:id="@+id/view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_where_do_you_sell_details">
-
-                    <TextView
-                        android:id="@+id/btn_lazada"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/lazada" />
-
-                    <TextView
-                        android:id="@+id/btn_shopee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/shopee" />
-
-                    <TextView
-                        android:id="@+id/btn_website"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/website" />
-
-                        <TextView
-                        android:id="@+id/btn_suysing"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/suysing" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_where_do_you_sell_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_1">
-
-                    <TextView
-                        android:id="@+id/btn_physical_store"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/physical_store" />
-
-                    <TextView
-                        android:id="@+id/btn_facebook"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/facebook" />
-
-                    <TextView
-                        android:id="@+id/btn_instagram"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/instagram" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_where_do_you_sell_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_2">
-
-                    <TextView
-                        android:id="@+id/btn_others"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/others" />
-
-                </LinearLayout>
-
-
-                <ImageView
-                    android:id="@+id/divider_dashed"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginTop="25dp"
-                    android:src="@drawable/view_dashed"
-                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
+                    android:text="just a filler view"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/tv_input_store_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_marginTop="15dp"
                     android:text="@string/input_store_name_link"
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
                     android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_input_store_name_shopee"
@@ -523,458 +553,276 @@
                     android:textColor="#9B9B9B"
                     android:textSize="14sp"
                     android:visibility="gone"
+                    android:layout_alignParentTop="true"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+                    />
 
-                <TextView
-                    android:id="@+id/tv_input_store_name_website"
-                    android:layout_width="wrap_content"
+                <include
+                    android:id="@+id/lazada"
+                    layout="@layout/item_store_lazada"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
+                    android:layout_below="@id/view"
                     android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name_physical_store"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name_facebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name_instagram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name_others"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_lazada_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/lazada"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_input_store_name" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_lazada"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_lazada_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_lazada"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_lazada_com_ph_shop_shopname" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_shopee_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/shopee"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_lazada" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_shopee"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_shopee_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_shopee"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_shopee_ph_shopname" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_website_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/website"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_shopee" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_website"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_website_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_website"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_www_storename_com" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_facebook_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/facebook"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_website" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_facebook"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_facebook_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_facebook"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_facebook_com_shopname" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_instagram_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/instagram"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_facebook" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_instagram"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_instagram_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_instagram"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_instagram_com_shopname" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_suysing_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/suysing"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_instagram" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_suysing"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_suysing_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_suysing"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_instagram_com_shopname" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_physical_store"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/physical_store"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_suysing" />
-
-                <TextView
-                    android:id="@+id/tv_main_branch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/main_branch"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_physical_store" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_physical_store"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_main_branch">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_physical_store"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_address"
-                        android:paddingBottom="@dimen/grid_4"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <LinearLayout
-                    android:id="@+id/branchContainer"
+                <include
+                    android:id="@+id/shopee"
+                    layout="@layout/item_store_shopee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_physical_store">
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/btnAddBranchAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="+ Add another address"
-                    android:textColor="@color/colorSMEMediumOrange"
+                    android:layout_below="@id/lazada"
                     android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/branchContainer"/>
+                    app:layout_constraintTop_toBottomOf="@id/lazada" />
+            </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/tv_others_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/others"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btnAddBranchAddress" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_others"
-                    style="@style/TextInputLayoutForm"
+            <TextView
+                android:id="@+id/tv_input_store_name_website"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/input_store_name_link"
+                android:textColor="#9B9B9B"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+            <TextView
+                android:id="@+id/tv_input_store_name_suysing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/input_store_name_link"
+                android:textColor="#9B9B9B"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+            <TextView
+                android:id="@+id/tv_input_store_name_physical_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/input_store_name_link"
+                android:textColor="#9B9B9B"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+            <TextView
+                android:id="@+id/tv_input_store_name_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/input_store_name_link"
+                android:textColor="#9B9B9B"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+            <TextView
+                android:id="@+id/tv_input_store_name_instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/input_store_name_link"
+                android:textColor="#9B9B9B"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+            <TextView
+                android:id="@+id/tv_input_store_name_others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/input_store_name_link"
+                android:textColor="#9B9B9B"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+
+
+
+            <include
+                android:id="@+id/website"
+                layout="@layout/item_store_website"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/rl" />
+
+            <include
+                android:id="@+id/facebook"
+                layout="@layout/item_store_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/website" />
+
+            <include
+                android:id="@+id/instagram"
+                layout="@layout/item_store_instagram"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/facebook" />
+
+            <include
+                android:id="@+id/suysing"
+                layout="@layout/item_store_suysing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/instagram" />
+
+            <include
+                android:id="@+id/physical_store"
+                layout="@layout/item_store_physical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/suysing" />
+
+            <include
+                android:id="@+id/others"
+                layout="@layout/item_store_others"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/physical_store" />
+
+
+            <ImageView
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/grid_1"
+                android:src="@drawable/view_gray_solid_line"
+                app:layout_constraintTop_toBottomOf="@id/others" />
+
+            <TextView
+                android:id="@+id/tv_order_fulfillment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_3"
+                android:text="Order Fulfillment"
+                android:textColor="#4A4A4A"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_order_fulfillment"
+                style="@style/Spinner.DropDownOrange"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/grid_1"
+                app:layout_constraintTop_toBottomOf="@id/tv_order_fulfillment">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_others_title">
+                    android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_others"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/additional_online_stores" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <LinearLayout
-                    android:id="@+id/storeContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_others">
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/btnAddAnotherStore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="+ Add another store"
-                    android:textColor="@color/colorSMEMediumOrange"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/storeContainer"/>
-
-                <ImageView
-                    android:id="@+id/divider3"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginTop="25dp"
-                    android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/btnAddAnotherStore" />
-
-                <TextView
-                    android:id="@+id/tv_order_fulfillment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_3"
-                    android:text="Order Fulfillment"
-                    android:textColor="#4A4A4A"
-                    android:textSize="@dimen/text_14"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider3" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_order_fulfillment"
-                    style="@style/Spinner.DropDownOrange"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1"
-                    app:layout_constraintTop_toBottomOf="@id/tv_order_fulfillment">
-
-                    <RelativeLayout
+                    <Spinner
+                        android:id="@+id/dropdownOrderFulfillment"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/a_spinner_outline"
+                        android:dropDownSelector="#000"
+                        android:spinnerMode="dropdown" />
 
-                        <Spinner
-                            android:id="@+id/dropdownOrderFulfillment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/a_spinner_outline"
-                            android:dropDownSelector="#000"
-                            android:spinnerMode="dropdown" />
+                    <ImageView
+                        android:layout_width="@dimen/grid_5"
+                        android:layout_height="0dp"
+                        android:layout_alignTop="@+id/dropdownOrderFulfillment"
+                        android:layout_alignBottom="@+id/dropdownOrderFulfillment"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="@dimen/grid_2"
+                        android:src="@drawable/ic_arrow_black_down" />
+                </RelativeLayout>
 
-                        <ImageView
-                            android:layout_width="@dimen/grid_5"
-                            android:layout_height="0dp"
-                            android:layout_alignTop="@+id/dropdownOrderFulfillment"
-                            android:layout_alignBottom="@+id/dropdownOrderFulfillment"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="@dimen/grid_2"
-                            android:src="@drawable/ic_arrow_black_down" />
-                    </RelativeLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+            <ImageView
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/view_gray_solid_line"
+                app:layout_constraintTop_toBottomOf="@id/til_order_fulfillment" />
 
-                <ImageView
-                    android:id="@+id/divider4"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginTop="25dp"
-                    android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/til_order_fulfillment" />
+            <TextView
+                android:id="@+id/tvPolicyReturns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_1"
+                android:text="Policy on Returns"
+                android:textSize="@dimen/text_18"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
-                <TextView
-                    android:id="@+id/tvPolicyReturns"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="Policy on Returns"
-                    android:textSize="@dimen/text_18"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider4"/>
+            <TextView
+                android:id="@+id/tvUploadBusinessPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_1"
+                android:text="Upload a copy of your business return policy"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvPolicyReturns" />
 
-                <TextView
-                    android:id="@+id/tvUploadBusinessPolicy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="Upload a copy of your business return policy"
-                    android:textSize="@dimen/text_14"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPolicyReturns"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnUploadBusinessPolicy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:background="@drawable/bg_white_rounded_radius16"
+                android:paddingStart="@dimen/grid_1"
+                android:paddingEnd="@dimen/grid_1"
+                android:text="Upload document"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvUploadBusinessPolicy" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnUploadBusinessPolicy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_2"
-                    android:paddingStart="@dimen/grid_1"
-                    android:paddingEnd="@dimen/grid_1"
-                    android:background="@drawable/bg_white_rounded_radius16"
-                    android:text="Upload document"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvUploadBusinessPolicy" />
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/cb_notApplicable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_1"
+                android:text="Not applicable"
+                android:onClick="disableUploadDocs"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnUploadBusinessPolicy" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/cb_notApplicable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:text="Not applicable"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btnUploadBusinessPolicy"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
-    </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/popupPreviewDocsFromCamera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true">
+        <include layout="@layout/layout_preview_docs"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/popupPreviewDocsFromGallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true">
+        <include layout="@layout/layout_gallery_preview"/>
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"

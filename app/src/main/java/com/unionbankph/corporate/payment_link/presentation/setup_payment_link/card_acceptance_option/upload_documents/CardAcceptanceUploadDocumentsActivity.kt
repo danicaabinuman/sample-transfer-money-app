@@ -38,7 +38,7 @@ import javax.inject.Inject
 
 class CardAcceptanceUploadDocumentsActivity :
     BaseActivity<CardAcceptanceUploadDocumentsViewModel>(R.layout.activity_upload_documents),
-    CardAcceptanceUploadDocumentFragment.OnUploadBIRDocs {
+    CardAcceptanceUploadDocumentFragment.OnUploadDocs {
 
     @Inject
     lateinit var fileUtil: FileUtil

@@ -2,8 +2,13 @@ package com.unionbankph.corporate.payment_link.presentation.setup_business_infor
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.AssetFileDescriptor
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.pdf.PdfRenderer
+import android.os.Build
 import android.os.Bundle
+import android.os.ParcelFileDescriptor
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -23,11 +28,23 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
 import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_business_information.viewToolbar
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
 import kotlinx.android.synthetic.main.activity_request_payment.*
+import kotlinx.android.synthetic.main.item_store_facebook.*
+import kotlinx.android.synthetic.main.item_store_instagram.*
+import kotlinx.android.synthetic.main.item_store_lazada.*
+import kotlinx.android.synthetic.main.item_store_others.*
+import kotlinx.android.synthetic.main.item_store_physical.*
+import kotlinx.android.synthetic.main.item_store_shopee.*
+import kotlinx.android.synthetic.main.item_store_suysing.*
+import kotlinx.android.synthetic.main.item_store_website.*
 import kotlinx.android.synthetic.main.layout_branch_textfields.view.*
+import kotlinx.android.synthetic.main.layout_gallery_preview.*
+import kotlinx.android.synthetic.main.layout_store_chips.*
 import kotlinx.android.synthetic.main.spinner.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
@@ -35,7 +52,8 @@ import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
 
 class BusinessInformationActivity :
     BaseActivity<BusinessInformationViewModel>(R.layout.activity_business_information),
-    AdapterView.OnItemSelectedListener {
+    AdapterView.OnItemSelectedListener,
+    CardAcceptanceUploadDocumentFragment.OnUploadDocs {
 
     var rmoBusinessInformationResponse: RMOBusinessInformationForm? = null
     private var info = GetRMOBusinessInformationResponse()
@@ -65,6 +83,9 @@ class BusinessInformationActivity :
     var suysingCounter = 0
     var otherCounter = 0
     var branchCounter = 0
+    private var uploadDocumentFragment: CardAcceptanceUploadDocumentFragment? = null
+    lateinit var imgView: ImageView
+
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -119,7 +140,7 @@ class BusinessInformationActivity :
 
     private fun initViews() {
         disableNextButton()
-        requiredFields()
+        firstScreenFieldChecker()
 //        getBusinessInformation()
 
         btn_lazada.setOnClickListener { btnLazadaClicked() }
@@ -143,6 +164,9 @@ class BusinessInformationActivity :
         btnSaveAndExit.setOnClickListener {
             retrieveInformationFromFields()
             showDialogToDashboard()
+        }
+        btnUploadBusinessPolicy.setOnClickListener {
+            showUploadDocumentDialog()
         }
     }
 
@@ -315,21 +339,32 @@ class BusinessInformationActivity :
             btn_lazada.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
-            tv_lazada_title.visibility = View.VISIBLE
-            til_lazada.visibility = View.VISIBLE
-            et_lazada.visibility = View.VISIBLE
+            lazada.visibility = View.VISIBLE
             disableNextButton()
+
+            et_lazada.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    enableNextButton()
+
+                }
+
+            })
         } else if (stateChecker == 0) {
             btn_lazada.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_lazada.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name.visibility = View.INVISIBLE
-            tv_lazada_title.visibility = View.GONE
-            til_lazada.visibility = View.GONE
-            et_lazada.visibility = View.GONE
-            if (et_lazada.text!!.isNotEmpty()) {
-                et_lazada.text!!.clear()
-                enableNextButton()
-            }
+            tv_input_store_name.visibility = View.GONE
+            view.visibility = View.INVISIBLE
+            lazada.visibility = View.GONE
+//            if (et_lazada.text!!.isNotEmpty()) {
+//                et_lazada.text!!.clear()
+//                enableNextButton()
+//            }
         }
 
     }
@@ -341,23 +376,34 @@ class BusinessInformationActivity :
             btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_shopee.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_shopee.visibility = View.VISIBLE
-            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
-            tv_shopee_title.visibility = View.VISIBLE
-            til_shopee.visibility = View.VISIBLE
-            et_shopee.visibility = View.VISIBLE
+            shopee.visibility = View.VISIBLE
             disableNextButton()
+
+            et_shopee.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    enableNextButton()
+
+                }
+
+            })
+
         } else if (stateChecker == 0) {
             btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_shopee.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_shopee.visibility = View.INVISIBLE
-            tv_shopee_title.visibility = View.GONE
-            til_shopee.visibility = View.GONE
-            et_shopee.visibility = View.GONE
-            if (et_shopee.text!!.isNotEmpty()) {
-                et_shopee.text!!.clear()
-                enableNextButton()
-            }
+            tv_input_store_name_shopee.visibility = View.GONE
+            view.visibility = View.INVISIBLE
+            shopee.visibility = View.GONE
+//            if (et_shopee.text!!.isNotEmpty()) {
+//                et_shopee.text!!.clear()
+//                enableNextButton()
+//            }
         }
     }
 
@@ -368,23 +414,33 @@ class BusinessInformationActivity :
             btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_facebook.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_facebook.visibility = View.VISIBLE
-            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
-            tv_facebook_title.visibility = View.VISIBLE
-            til_facebook.visibility = View.VISIBLE
-            et_facebook.visibility = View.VISIBLE
+            facebook.visibility = View.VISIBLE
             disableNextButton()
+
+            et_facebook.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    enableNextButton()
+
+                }
+
+            })
+
         } else if (stateChecker == 0) {
             btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_facebook.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_facebook.visibility = View.INVISIBLE
-            tv_facebook_title.visibility = View.GONE
-            til_facebook.visibility = View.GONE
-            et_facebook.visibility = View.GONE
-            if (et_facebook.text!!.isNotEmpty()) {
-                et_facebook.text!!.clear()
-                enableNextButton()
-            }
+            tv_input_store_name_facebook.visibility = View.GONE
+            facebook.visibility = View.GONE
+//            if (et_facebook.text!!.isNotEmpty()) {
+//                et_facebook.text!!.clear()
+//                enableNextButton()
+//            }
         }
     }
 
@@ -394,27 +450,35 @@ class BusinessInformationActivity :
         if (stateChecker == 1) {
             btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_physical_store.setTextColor(Color.parseColor("#FF8200"))
-            tv_input_store_name.visibility = View.VISIBLE
             tv_input_store_name_physical_store.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
-            tv_physical_store.visibility = View.VISIBLE
-            til_physical_store.visibility = View.VISIBLE
-            et_physical_store.visibility = View.VISIBLE
-            btnAddBranchAddress.visibility = View.VISIBLE
+            physical_store.visibility = View.VISIBLE
             addAnotherBranchAddress()
             disableNextButton()
+
+            et_physical_store.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    enableNextButton()
+
+                }
+
+            })
+
         } else if (stateChecker == 0) {
             btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_physical_store.setTextColor(Color.parseColor("#4A4A4A"))
             tv_input_store_name_physical_store.visibility = View.GONE
-            tv_physical_store.visibility = View.GONE
-            til_physical_store.visibility = View.GONE
-            et_physical_store.visibility = View.GONE
-            btnAddBranchAddress.visibility = View.GONE
-            if (et_physical_store.text!!.isNotEmpty()) {
-                et_physical_store.text!!.clear()
-                enableNextButton()
-            }
+            physical_store.visibility = View.GONE
+//            if (et_physical_store.text!!.isNotEmpty()) {
+//                et_physical_store.text!!.clear()
+//                enableNextButton()
+//            }
         }
     }
 
@@ -425,23 +489,33 @@ class BusinessInformationActivity :
             btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_instagram.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_instagram.visibility = View.VISIBLE
-            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
-            tv_instagram_title.visibility = View.VISIBLE
-            til_instagram.visibility = View.VISIBLE
-            et_instagram.visibility = View.VISIBLE
+            instagram.visibility = View.VISIBLE
             disableNextButton()
+
+            et_instagram.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    enableNextButton()
+
+                }
+
+            })
+
         } else if (stateChecker == 0) {
             btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_instagram.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_instagram.visibility = View.INVISIBLE
-            tv_instagram_title.visibility = View.GONE
-            til_instagram.visibility = View.GONE
-            et_instagram.visibility = View.GONE
-            if (et_instagram.text!!.isNotEmpty()) {
-                et_instagram.text!!.clear()
-                enableNextButton()
-            }
+            tv_input_store_name_instagram.visibility = View.GONE
+            instagram.visibility = View.GONE
+//            if (et_instagram.text!!.isNotEmpty()) {
+//                et_instagram.text!!.clear()
+//                enableNextButton()
+//            }
         }
     }
 
@@ -452,23 +526,33 @@ class BusinessInformationActivity :
             btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_website.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_website.visibility = View.VISIBLE
-            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
-            tv_website_title.visibility = View.VISIBLE
-            til_website.visibility = View.VISIBLE
-            et_website.visibility = View.VISIBLE
+            website.visibility = View.VISIBLE
             disableNextButton()
+
+            et_website.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    enableNextButton()
+
+                }
+
+            })
+
         } else if (stateChecker == 0) {
             btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_website.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_website.visibility = View.INVISIBLE
-            tv_website_title.visibility = View.GONE
-            til_website.visibility = View.GONE
-            et_website.visibility = View.GONE
-            if (et_website.text!!.isNotEmpty()) {
-                et_website.text!!.clear()
-                enableNextButton()
-            }
+            tv_input_store_name_website.visibility = View.GONE
+            website.visibility = View.GONE
+//            if (et_website.text!!.isNotEmpty()) {
+//                et_website.text!!.clear()
+//                enableNextButton()
+//            }
         }
     }
 
@@ -478,24 +562,46 @@ class BusinessInformationActivity :
         if (stateChecker == 1) {
             btn_suysing.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_suysing.setTextColor(Color.parseColor("#FF8200"))
-            tv_input_store_name_website.visibility = View.VISIBLE
-            tv_input_store_name.visibility = View.VISIBLE
+            tv_input_store_name_suysing.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
-            tv_suysing_title.visibility = View.VISIBLE
-            til_suysing.visibility = View.VISIBLE
-            et_suysing.visibility = View.VISIBLE
+            suysing.visibility = View.VISIBLE
+
+            btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            btn_physical_store.setTextColor(Color.parseColor("#FF8200"))
+            tv_input_store_name_physical_store.visibility = View.VISIBLE
+            physical_store.visibility = View.VISIBLE
+            addAnotherBranchAddress()
+
             disableNextButton()
+
+            et_suysing.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    enableNextButton()
+
+                }
+
+            })
+
         } else if (stateChecker == 0) {
             btn_suysing.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_suysing.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_website.visibility = View.INVISIBLE
-            tv_suysing_title.visibility = View.GONE
-            til_suysing.visibility = View.GONE
-            et_suysing.visibility = View.GONE
-            if (et_suysing.text!!.isNotEmpty()) {
-                et_suysing.text!!.clear()
-                enableNextButton()
-            }
+            tv_input_store_name_suysing.visibility = View.GONE
+            suysing.visibility = View.GONE
+
+            btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            btn_physical_store.setTextColor(Color.parseColor("#4A4A4A"))
+            tv_input_store_name_physical_store.visibility = View.GONE
+            physical_store.visibility = View.GONE
+//            if (et_suysing.text!!.isNotEmpty()) {
+//                et_suysing.text!!.clear()
+//                enableNextButton()
+//            }
         }
     }
 
@@ -506,25 +612,34 @@ class BusinessInformationActivity :
             btn_others.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             btn_others.setTextColor(Color.parseColor("#FF8200"))
             tv_input_store_name_others.visibility = View.VISIBLE
-            tv_input_store_name.visibility = View.VISIBLE
             divider_dashed.visibility = View.VISIBLE
-            tv_others_title.visibility = View.VISIBLE
-            til_others.visibility = View.VISIBLE
-            et_others.visibility = View.VISIBLE
-            btnAddAnotherStore.visibility = View.VISIBLE
+            others.visibility = View.VISIBLE
             addAnotherStore()
             disableNextButton()
+
+            et_others.addTextChangedListener(object : TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    enableNextButton()
+
+                }
+
+            })
+
         } else if (stateChecker == 0) {
             btn_others.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             btn_others.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_others.visibility = View.INVISIBLE
-            tv_others_title.visibility = View.GONE
-            til_others.visibility = View.GONE
-            et_others.visibility = View.GONE
-            if (et_others.text!!.isNotEmpty()) {
-                et_others.text!!.clear()
-                enableNextButton()
-            }
+            tv_input_store_name_others.visibility = View.GONE
+            others.visibility = View.GONE
+//            if (et_others.text!!.isNotEmpty()) {
+//                et_others.text!!.clear()
+//                enableNextButton()
+//            }
         }
     }
 
@@ -573,8 +688,14 @@ class BusinessInformationActivity :
     }
 
     private fun btnNextClicked() {
-        val intent = Intent(this, OnboardingUploadPhotosActivity::class.java)
-        startActivity(intent)
+        if (llBusinessInformationFields1.isShown){
+            llBusinessInformationFields1.visibility = View.GONE
+            scrollView2.visibility = View.VISIBLE
+            disableNextButton()
+        } else if (llBusinessInformationFields2.isShown){
+//            validation()
+        }
+
     }
 
     private fun navigateToUploadPhotos(response: RMOBusinessInformationForm) {
@@ -584,6 +705,25 @@ class BusinessInformationActivity :
         startActivityForResult(intent, OnboardingUploadPhotosActivity.REQUEST_CODE)
     }
 
+    private fun firstScreenFieldChecker(){
+        et_product_of_services_offered.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s?.length!! > 0){
+                    enableNextButton()
+                } else {
+                    disableNextButton()
+                }
+            }
+
+        })
+    }
     private fun enableNextButton() {
         btn_next?.isEnabled = true
     }
@@ -592,144 +732,17 @@ class BusinessInformationActivity :
         btn_next?.isEnabled = false
     }
 
-    private fun requiredFields() {
-        et_product_of_services_offered.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    fun disableUploadDocs(view: View) {
+        if (view is CheckBox){
+            val checked: Boolean = view.isChecked
 
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val servicesOffered = s?.length
-                if (servicesOffered == 0) {
-                    disableNextButton()
-                } else {
+            when (view.id){
+                R.id.cb_notApplicable -> {
+                    btnUploadBusinessPolicy?.isEnabled = !checked
                     enableNextButton()
                 }
             }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
-        et_lazada.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val lazadaLink = s?.length
-                if (lazadaLink == 0) {
-                    disableNextButton()
-                } else {
-                    enableNextButton()
-                }
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
-        et_shopee.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val shopeeLink = s?.length
-                if (shopeeLink == 0) {
-                    disableNextButton()
-                } else {
-                    enableNextButton()
-                }
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
-        et_facebook.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val facebookLink = s?.length
-                if (facebookLink == 0) {
-                    disableNextButton()
-                } else {
-                    enableNextButton()
-                }
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
-        et_instagram.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val instagramLink = s?.length
-                if (instagramLink == 0) {
-                    disableNextButton()
-                } else {
-                    enableNextButton()
-                }
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
-        et_physical_store.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val physicalStore = s?.length
-                if (physicalStore == 0) {
-                    disableNextButton()
-                } else {
-                    enableNextButton()
-                }
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
-        et_website.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val websiteLink = s?.length
-                if (websiteLink == 0) {
-                    disableNextButton()
-                } else {
-                    enableNextButton()
-                }
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-        })
+        }
 
     }
 
@@ -766,7 +779,7 @@ class BusinessInformationActivity :
             if (branchCount <= 99){
                 branchCounter++
                 addBranchFields.tv_branch_number.text = getString(R.string.branch) + " " + branchCounter
-            } else {
+            } else if (branchCount == 99){
                 btnAddBranchAddress.visibility = View.GONE
             }
         }
@@ -781,13 +794,178 @@ class BusinessInformationActivity :
             container.addView(addOtherStoreFields, container.childCount)
 
             val storeCount = container.childCount
-            if (storeCount > 99){
+            if (storeCount == 99){
                 btnAddAnotherStore.visibility = View.GONE
             }
         }
     }
 
+    private fun hideLayout(){
+        viewToolbar.visibility = View.GONE
+        scrollView2.visibility = View.GONE
+        btn_next.visibility = View.GONE
+    }
+
+    private fun showLayout(){
+        viewToolbar.visibility = View.VISIBLE
+        scrollView2.visibility = View.VISIBLE
+        btn_next.visibility = View.VISIBLE
+    }
+
+    private fun showUploadDocumentDialog(){
+        if (uploadDocumentFragment == null) {
+            uploadDocumentFragment = CardAcceptanceUploadDocumentFragment.newInstance()
+        }
+
+        uploadDocumentFragment!!.show(supportFragmentManager, CardAcceptanceUploadDocumentFragment.TAG)
+    }
+
+    override fun openCamera() {
+        TODO("Not yet implemented")
+    }
+
+    override fun openGallery() {
+        selectImageFromGallery()
+        uploadDocumentFragment?.dismiss()
+    }
+
+    override fun openFileManager() {
+        selectPDFDocument()
+        uploadDocumentFragment?.dismiss()
+    }
+
+    private fun selectPDFDocument(){
+        if (Build.VERSION.SDK_INT < 19) {
+            val intent = Intent()
+            intent.type = "application/pdf"
+            intent.action = Intent.ACTION_GET_CONTENT
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            startActivityForResult(
+                Intent.createChooser(intent, "Choose file"),
+                PDF_REQUEST_CODE
+            )
+        } else {
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "application/pdf"
+            startActivityForResult(intent, PDF_REQUEST_CODE)
+        }
+    }
+
+    private fun selectImageFromGallery(){
+        if (Build.VERSION.SDK_INT < 19) {
+            var intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "Choose pictures"), GALLERY_REQUEST_CODE
+            )
+        } else {
+            var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "image/*"
+            startActivityForResult(intent, GALLERY_REQUEST_CODE
+            )
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        imgView = findViewById(R.id.ivPreviewBIR)
+        when(requestCode){
+            PDF_REQUEST_CODE ->
+                if (resultCode == RESULT_OK){
+                    if (data?.data != null){
+                        val fileUri = data.data!!
+                        val fileDescriptor : ParcelFileDescriptor = context.contentResolver.openFileDescriptor(fileUri,"r")!!
+                        val fileType: String? = applicationContext.contentResolver.getType(fileUri)
+                        if (fileType != DOCU_PDF){
+                            DialogFactory().createSMEDialog(
+                                this,
+                                isNewDesign = false,
+                                title = getString(R.string.item_not_uploaded),
+                                description = getString(R.string.invalid_filetype_desc),
+                                positiveButtonText = getString(R.string.action_try_again),
+                                onPositiveButtonClicked = {
+                                    imgView.setImageBitmap(null)
+//                                    layoutVisibilityWhenInvalidFiles()
+                                }
+                            ).show()
+                            val pdfRenderer = PdfRenderer(fileDescriptor)
+                            val rendererPage = pdfRenderer.openPage(0)
+                            val rendererPageWidth = rendererPage.width
+                            val rendererPageHeight = rendererPage.height
+                            val bitmap = Bitmap.createBitmap(rendererPageWidth, rendererPageHeight, Bitmap.Config.ARGB_8888)
+                            rendererPage.render(bitmap,null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                            imgView.setImageBitmap(bitmap)
+                            rendererPage.close()
+                            pdfRenderer.close()
+                        }
+                    }
+                }
+            GALLERY_REQUEST_CODE ->
+                if (resultCode == RESULT_OK){
+                    hideLayout()
+                    popupPreviewDocsFromGallery.visibility = View.VISIBLE
+
+                    val imageUri = data?.data!!
+                    val fileDescriptor: AssetFileDescriptor = applicationContext.contentResolver.openAssetFileDescriptor(imageUri, "r")!!
+                    val fileType: String? = applicationContext.contentResolver.getType(imageUri)
+                    val fileSize: Long = fileDescriptor.length
+                    if (fileSize > MAX_FILESIZE_2MB){
+                        DialogFactory().createSMEDialog(
+                            this,
+                            isNewDesign = false,
+                            title = getString(R.string.item_not_uploaded),
+                            description = getString(R.string.invalid_filesize_desc),
+                            positiveButtonText = getString(R.string.action_try_again),
+                            onPositiveButtonClicked = {
+                                imgView.setImageBitmap(null)
+//                                layoutVisibilityWhenInvalidFiles()
+                            }
+                        ).show()
+                    }
+                    if (fileType != IMAGE_JPEG && fileType != IMAGE_PNG){
+                        DialogFactory().createSMEDialog(
+                            this,
+                            isNewDesign = false,
+                            title = getString(R.string.item_not_uploaded),
+                            description = getString(R.string.invalid_filetype_desc),
+                            positiveButtonText = getString(R.string.action_try_again),
+                            onPositiveButtonClicked = {
+                                imgView.setImageBitmap(null)
+//                                layoutVisibilityWhenInvalidFiles()
+                            }
+                        ).show()
+                    }
+
+                    imgView.setImageURI(imageUri)
+                    btnNavigateBackToUploadDocs1.setOnClickListener {
+                        popupPreviewDocsFromGallery.visibility = View.GONE
+                        showLayout()
+                    }
+                }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (scrollView2.isShown){
+            scrollView2.visibility = View.GONE
+            llBusinessInformationFields1.visibility = View.VISIBLE
+            enableNextButton()
+        } else if (llBusinessInformationFields1.isShown){
+            super.onBackPressed()
+        }
+    }
     companion object {
         var TAG = this::class.java.simpleName
+        const val PDF_REQUEST_CODE = 200
+        const val GALLERY_REQUEST_CODE = 201
+        const val CAMERA_REQUEST_CODE = 202
+        const val IMAGE_JPEG = "image/jpeg"
+        const val IMAGE_PNG = "image/png"
+        const val DOCU_PDF = "application/pdf"
+        const val LIST_OF_IMAGES_URI = "list_of_image_uri"
+        const val MAX_FILESIZE_2MB = 2097152
     }
 }

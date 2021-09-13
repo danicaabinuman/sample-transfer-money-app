@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.bottom_sheet_upload_bir.*
 
 class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
 
-    private var listener: OnUploadBIRDocs? = null
+    private var listener: OnUploadDocs? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,12 +41,12 @@ class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnUploadBIRDocs){
+        if (context is OnUploadDocs){
             listener = context
         }
     }
 
-    interface OnUploadBIRDocs{
+    interface OnUploadDocs{
         fun openCamera()
         fun openGallery()
         fun openFileManager()

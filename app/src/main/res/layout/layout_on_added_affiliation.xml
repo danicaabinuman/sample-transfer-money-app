@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlAffiliation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/grid_1_half"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAffiliation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/jumio_white"
+        android:drawableEnd="@drawable/ic_arrow_orange_right"
+        android:gravity="start|center"
+        android:paddingStart="@dimen/grid_2"
+        android:paddingEnd="@dimen/grid_2"
+        android:text="Affiliation"
+        android:textAllCaps="false" />
+
+    <include
+        android:id="@+id/showAffiliationLayout"
+        layout="@layout/spinner_card_payments_affiliation_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@+id/btnAffiliation"/>
+
+
+</RelativeLayout>
