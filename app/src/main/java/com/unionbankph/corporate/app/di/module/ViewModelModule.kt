@@ -87,6 +87,7 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_scanner.InstapayQrScannerViewModel
 import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.InstapayQrSplashViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
@@ -775,5 +776,12 @@ abstract class ViewModelModule {
     @ViewModelKey(InstapayQrSplashViewModel::class)
     abstract fun instapayQrSplashViewMOdel(
         viewModel: RequestPaymentSplashViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(InstapayQrScannerViewModel::class)
+    abstract fun instapayQrScannerViewModel(
+        viewModel: InstapayQrScannerViewModel
     ): ViewModel
 }

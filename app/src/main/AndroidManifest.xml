@@ -620,6 +620,16 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name=".instapay_qr.presentation.instapay_qr_splash.InstapayQrSplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".instapay_qr.presentation.instapay_qr_scanner.InstapayQrScannerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
         <!-- Others -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
