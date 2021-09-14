@@ -1007,8 +1007,8 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">@dimen/ds_sme_small_button</item>
         <item name="android:textSize">@dimen/text_12</item>
-        <item name="android:paddingStart">@dimen/grid_1</item>
-        <item name="android:paddingEnd">@dimen/grid_1</item>
+        <item name="android:paddingStart">@dimen/grid_2</item>
+        <item name="android:paddingEnd">@dimen/grid_2</item>
     </style>
 
     <style name="SMEPrimaryButtonSmall" parent="SMESmallButton">
@@ -1118,6 +1118,11 @@
         <item name="contentInsetLeft">@dimen/grid_0</item>
         <item name="contentInsetStart">@dimen/grid_0</item>
         <item name="contentInsetStartWithNavigation">@dimen/grid_0</item>
+    </style>
+
+    <style name="SMEPrimaryButtonLargeRounded" parent="SMELargeButton">
+        <item name="android:background">@drawable/style_primary_button_large</item>
+        <item name="android:textColor">@drawable/style_primary_button_text</item>
     </style>
 
 </resources>
