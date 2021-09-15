@@ -41,7 +41,7 @@ class TrialAccountActivity :
     }
 
     private fun initOnClick(){
-        binding.buttonNext.setOnClickListener { /*navigateDashboardScreen()*/ }
+        binding.buttonNext.setOnClickListener { navigateDashboardScreen() }
     }
 
     private fun navigateDashboardScreen() {

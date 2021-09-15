@@ -249,6 +249,17 @@ fun TextView.enableButton(isEnabled: Boolean) {
     }
 }
 
+fun TextView.enableButtonMSME(isEnabled: Boolean) {
+    this.isEnabled = isEnabled
+    if (isEnabled) {
+        this.alpha = 1.0f
+        this.setContextCompatTextColor(R.color.colorWhite)
+    } else {
+        this.alpha = 0.5f
+        this.setContextCompatTextColor(R.color.colorButtonGray)
+    }
+}
+
 fun TextView.loginEnableButton(isEnabled: Boolean) {
     this.isEnabled = isEnabled
     if (isEnabled) {
