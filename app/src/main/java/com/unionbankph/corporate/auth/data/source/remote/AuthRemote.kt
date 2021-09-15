@@ -3,6 +3,8 @@ package com.unionbankph.corporate.auth.data.source.remote
 import com.unionbankph.corporate.auth.data.form.*
 import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.common.data.model.Message
+import com.unionbankph.corporate.open_account.data.OpenAccountForm
+import com.unionbankph.corporate.open_account.data.form.ValidateContactInfoForm
 import io.reactivex.Single
 import retrofit2.Response
 
@@ -53,6 +55,10 @@ interface AuthRemote {
     fun resetPassNew(
         resetPasswordForm: ResetPasswordForm
     ): Single<Response<Message>>
+
+    fun validateContactInfo(
+        validateContactInfoForm: ValidateContactInfoForm
+    ): Single<Response<ContactValidityResponse>>
 
     fun nominatePasswordActivation(
         activationPasswordForm: ActivationPasswordForm

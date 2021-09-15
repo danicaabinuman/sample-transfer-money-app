@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.open_account.presentation.enter_contact_info
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,18 +14,26 @@ import com.google.android.material.textfield.TextInputLayout
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
-import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidator
-import com.unionbankph.corporate.auth.presentation.login.LoginActivity
-import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.auth.presentation.otp.*
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.FragmentOaEnterContactInfoBinding
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
-
+import com.unionbankph.corporate.settings.presentation.update_password.*
+import androidx.lifecycle.Observer
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
+import com.unionbankph.corporate.app.common.platform.events.Event
+import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.auth.presentation.login.LoginActivity
+import com.unionbankph.corporate.common.data.model.ApiError
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
@@ -71,7 +80,12 @@ class OAEnterContactInfoFragment :
                     dismissProgressAlertDialog()
                 }
                 is UiState.Error -> {
-                    handleOnError(it.throwable)
+                    try {
+                        val apiError = JsonHelper.fromJson<ApiError>(it.throwable.message)
+                        showErrorAndExit(message = JsonHelper.toJson(apiError.message))
+                    } catch (e: Exception) {
+                        handleOnError(it.throwable)
+                    }
                 }
                 is UiState.Exit -> {
                     navigator.navigateClearStacks(
@@ -82,6 +96,10 @@ class OAEnterContactInfoFragment :
                     )
                 }
             }
+        })
+
+        viewModel.navigateResult.observe(viewLifecycleOwner, EventObserver{
+
         })
 
         viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
@@ -178,7 +196,9 @@ class OAEnterContactInfoFragment :
         clearFormFocus()
         if (viewModel.hasValidForm()) {
             updatePreTextValues()
-            viewModel.onClickedNext()
+            viewModel.onClickedNext(
+                openAccountActivity.viewModel.defaultForm()
+            )
         } else {
             refreshFields()
         }
@@ -241,6 +261,25 @@ class OAEnterContactInfoFragment :
             viewUtil.dismissKeyboard(getAppCompatActivity())
             binding.constraintLayout1.requestFocus()
             binding.constraintLayout1.isFocusableInTouchMode = true
+        }
+    }
+
+    private fun showErrorAndExit(
+        title: String = formatString(R.string.title_error),
+        message: String
+    ) {
+        MaterialDialog(getAppCompatActivity()).show {
+            lifecycleOwner(getAppCompatActivity())
+            title(text = title)
+            cancelOnTouchOutside(false)
+            message(text = message)
+            positiveButton(
+                res = R.string.action_close,
+                click = {
+                    it.dismiss()
+                    //getAppCompatActivity().finish()
+                }
+            )
         }
     }
 

@@ -132,7 +132,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.cardview.widget.CardView
+                <!--<androidx.cardview.widget.CardView
                     android:id="@+id/cardViewEmail"
                     style="@style/CardViewEditText"
                     android:layout_width="@dimen/match_constraint"
@@ -175,7 +175,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilPassword"
@@ -198,7 +198,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.cardview.widget.CardView
+                <!--<androidx.cardview.widget.CardView
                     android:id="@+id/cardViewPassword"
                     style="@style/CardViewEditText"
                     android:layout_width="@dimen/match_constraint"
@@ -261,7 +261,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>-->
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvForgotPassword"
@@ -321,6 +321,7 @@
                     android:layout_marginRight="@dimen/content_margin"
                     android:layout_marginBottom="@dimen/content_spacing_half"
                     android:text="@string/action_login"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@+id/tv_sign_up"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -356,20 +357,6 @@
                     app:srcCompat="@drawable/ic_fingerprint_white_48dp"
                     app:tint="?colorImage" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imgFaceID"
-                    style="@style/WrapContent"
-                    android:layout_width="@dimen/image_view_login_fingerprint_size"
-                    android:layout_height="@dimen/image_view_login_fingerprint_size"
-                    android:layout_marginTop="@dimen/content_group_spacing"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_sign_up"
-                    app:srcCompat="@drawable/face_id_white"
-                    app:tint="?colorImage" />
-
                 <androidx.appcompat.widget.LinearLayoutCompat
                     style="@style/MatchWrapParent"
                     android:id="@+id/llEmailSME"
@@ -396,7 +383,7 @@
 
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etUsernameMSME"
+                            android:id="@+id/etUsernameSME"
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -437,13 +424,10 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
                         app:hintEnabled="false"
-                        android:hint="@string/title_enter_password"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etPasswordSME">
+                        android:hint="@string/title_enter_password">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etPasswordMSME"
+                            android:id="@+id/etPasswordSME"
                             android:layout_height="wrap_content"
                             android:layout_width="match_parent"
                             style="@style/TextInputLayoutFormThinEditText"
@@ -469,14 +453,15 @@
                     android:layout_marginBottom="@dimen/grid_1"
                     android:textAllCaps="true"
                     android:text="@string/title_login"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/MSMEForgotPassword"
                     style="@style/SMETertiaryButtonLarge"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1_half"
                     app:layout_constraintTop_toBottomOf="@+id/MSMEbtnLogin"
                     android:layout_marginStart="@dimen/msme_content_spacing"
                     android:layout_marginEnd="@dimen/msme_content_spacing"
@@ -487,6 +472,34 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/constraint_layout"
                     />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgFingerPrintMSME"
+                    style="@style/WrapContent"
+                    android:layout_width="@dimen/image_view_login_fingerprint_size"
+                    android:layout_height="@dimen/image_view_login_fingerprint_size"
+                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/MSMEbtnLogin"
+                    app:srcCompat="@drawable/ic_fingerprint_white_48dp"
+                    app:tint="@color/dsColorMediumOrange" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgFaceIDMSME"
+                    style="@style/WrapContent"
+                    android:layout_width="@dimen/image_view_login_fingerprint_size"
+                    android:layout_height="@dimen/image_view_login_fingerprint_size"
+                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/MSMEbtnLogin"
+                    app:srcCompat="@drawable/face_id_white"
+                    app:tint="@color/dsColorMediumOrange" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/MSMESignUp"

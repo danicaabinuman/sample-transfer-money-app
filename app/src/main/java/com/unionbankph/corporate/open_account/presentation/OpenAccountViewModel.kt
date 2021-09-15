@@ -37,9 +37,9 @@ class OpenAccountViewModel @Inject constructor() : BaseViewModel() {
         return OpenAccountForm().apply {
             firstName = nameInput.firstNameInput.value
             lastName = nameInput.lastNameInput.value
-            email = contactInput.emailInput.value
-            countryCode = contactInput.countryCodeInput.value
-            mobile = contactInput.mobileInput.value
+            email_address = contactInput.emailInput.value
+            country_code_id = contactInput.countryCodeInput.value
+            mobile_number = contactInput.mobileInput.value
         }
     }
 
