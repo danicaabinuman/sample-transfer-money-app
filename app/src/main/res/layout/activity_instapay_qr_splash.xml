@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#E5E5E5">
+
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/widget_transparent_appbar_instapay_splash"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/qrViewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/appbar"
+        app:layout_constraintBottom_toTopOf="@id/btnAllow"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAllow"
+        style="@style/SMEPrimaryButtonLarge"
+        android:text="@string/btn_allow"
+        android:layout_marginStart="@dimen/grid_5_half"
+        android:layout_marginEnd="@dimen/grid_5_half"
+        android:layout_marginBottom="@dimen/grid_5_half"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnNotNow"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnNotNow"
+        style="@style/SMESecondaryButtonLarge"
+        android:text="@string/action_not_now"
+        android:layout_marginStart="@dimen/grid_5_half"
+        android:layout_marginEnd="@dimen/grid_5_half"
+        android:layout_marginBottom="@dimen/grid_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/grid_6"
+        app:tabBackground="@drawable/viewpager_tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

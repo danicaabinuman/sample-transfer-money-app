@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.app.dashboard
 
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
@@ -43,6 +44,7 @@ import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEn
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity
 import com.unionbankph.corporate.databinding.ActivityDashboardBinding
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.InstapayQrSplashActivity
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
@@ -210,6 +212,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 is Error -> {
                     handleOnError(it.throwable)
                 }
+
+                is ShowQrScan -> {
+                    showInstapayQrScan()
+                }
             }
         })
 
@@ -277,6 +283,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             .subscribe {
                 navigateOrganizationScreen()
             }.addTo(disposables)
+
+        binding.viewToolbar.btnScan.setOnClickListener {
+            viewModel.scanQR()
+        }
     }
 
     private fun initDataBus() {
@@ -1224,6 +1234,17 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             this,
             RequestPaymentSplashActivity::class.java,
             bundle,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
+    private fun showInstapayQrScan() {
+        navigator.navigate(
+            this,
+            InstapayQrSplashActivity::class.java,
+            null,
             isClear = false,
             isAnimated = true,
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
