@@ -166,6 +166,9 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE)
+
         initDependencyInjection()
         initStatusBar()
         beforeLayout(savedInstanceState)
@@ -180,6 +183,17 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
         doBindService()
     }
 
+    override fun onResume() {
+        super.onResume()
+        window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+       window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+    }
+
     override fun onStart() {
         super.onStart()
         Timber.d("onStart")
@@ -187,12 +201,14 @@ abstract class BaseActivity<VB : ViewBinding, VM : ViewModel> :
             sessionTimeoutReceiver,
             IntentFilter(Constant.ACTION_SESSION_TIMEOUT)
         )
+        window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
     override fun onStop() {
         super.onStop()
         Timber.d("onStop")
         LocalBroadcastManager.getInstance(this).unregisterReceiver(sessionTimeoutReceiver)
+
     }
 
     override fun onDestroy() {
