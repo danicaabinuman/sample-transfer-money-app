@@ -1,7 +1,10 @@
 package com.unionbankph.corporate.app.dashboard.fragment
 
+import android.os.Parcelable
 import com.unionbankph.corporate.account.data.model.Account
-import com.unionbankph.corporate.common.data.form.Pageable
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.ChipItemModel
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.generic_item_1.GenericItemModel
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,10 +19,20 @@ data class DashboardViewState(
     var accounts: MutableList<Account> = mutableListOf()
 )
 
+@Parcelize
 @Serializable
 data class ActionItem(
     var id: String? = null,
     var label: String? = null,
+    var caption: String? = null,
+    var src: String? = null,
+    var action: String? = null,
     var isVisible: Boolean = false,
     var isEnabled: Boolean = true
+) : Parcelable
+
+@Serializable
+data class MoreBottomSheetState(
+    var filters: MutableList<ChipItemModel>? = null,
+    var actions: MutableList<GenericItemModel>? = null
 )

@@ -2,49 +2,82 @@
   {
     "id": "request_payment",
     "label": "Request\nPayment",
+    "caption": "Create payment links for your customers",
+    "src": "request_payment",
+    "action": "request_payment",
     "isVisible": true,
     "isEnable": true
   },
   {
     "id": "transfer_funds",
     "label": "Transfer\nFunds",
+    "caption": "View and create transfers",
+    "src": "transfer_funds",
+    "action": "transfer_funds",
     "isVisible": true,
     "isEnable": false
   },
   {
     "id": "pay_bills",
     "label": "Pay\nBills",
+    "caption": "Pay your bills",
+    "src": "pay_bills",
+    "action": "pay_bills",
     "isVisible": true,
     "isEnable": false
   },
   {
     "id": "deposit_check",
     "label": "Deposit\nCheck",
+    "caption": "Deposit checks to your account",
+    "src": "deposit_check",
+    "action": "deposit_check",
     "isVisible": true,
     "isEnable": false
   },
   {
     "id": "apply_loan",
     "label": "Apply\nLoan",
+    "caption": "Apply for a loan",
+    "src": "apply_loan",
+    "action": "apply_loan",
     "isVisible": true,
     "isEnable": true
   },
   {
     "id": "branch_visit",
     "label": "Branch\nVisit",
+    "caption": "Visit branch",
+    "src": "branch_visit",
+    "action": "branch_visit",
     "isVisible": true,
     "isEnable": true
   },
   {
     "id": "manage_expenses",
     "label": "Manage\nExpenses",
+    "caption": "Manage your expenses",
+    "src": "manage_expenses",
+    "action": "manage_expenses",
     "isVisible": true,
     "isEnable": true
   },
   {
     "id": "more",
     "label": "More",
+    "caption": null,
+    "src": "more",
+    "action": "more",
     "isVisible": true,
+    "isEnable": true
+  },
+  {
+    "id": "generate_otp",
+    "label": "Generate OTP",
+    "caption": "Generate One-Time Password",
+    "src": "generate_otp",
+    "action": "generate_otp",
+    "isVisible": false,
     "isEnable": true
   }
 ]

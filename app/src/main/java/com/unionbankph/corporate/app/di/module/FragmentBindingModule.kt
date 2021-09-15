@@ -7,6 +7,7 @@ import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.SessionTimeOutBottomSheet
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragment
+import com.unionbankph.corporate.app.dashboard.fragment.DashboardMoreBottomSheet
 import com.unionbankph.corporate.app.di.scope.PerActivity
 import com.unionbankph.corporate.approval.presentation.ApprovalFragment
 import com.unionbankph.corporate.approval.presentation.approval_done.ApprovalDoneFragment
@@ -434,8 +435,11 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun bottomSheetUploadPhotos(): OnboardingUploadPhotosFragment
 
-
     @PerActivity
     @ContributesAndroidInjector
     abstract fun bottomSheetUploadBir(): CardAcceptanceUploadDocumentFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun bottomDashboardMore(): DashboardMoreBottomSheet
 }

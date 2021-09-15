@@ -354,7 +354,17 @@ class DashboardFragment :
             Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS -> {
                 (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
             }
+            Constant.DASHBOARD_ACTION_MORE -> {
+                openMoreDashboardActions()
+            }
         }
+    }
+
+    private fun openMoreDashboardActions() {
+        val moreBottomSheet = DashboardMoreBottomSheet.newInstance(
+            viewModel.dashboardViewState.value?.actionList as ArrayList<ActionItem>
+        )
+        moreBottomSheet.show(childFragmentManager, "MoreBottomSheet")
     }
 
     override fun onTapErrorRetry(id: String, position: Int) {
