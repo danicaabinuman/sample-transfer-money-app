@@ -27,20 +27,10 @@ import com.unionbankph.corporate.auth.data.form.ResetPasswordForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordResendOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordVerifyForm
-import com.unionbankph.corporate.auth.data.model.Auth
-import com.unionbankph.corporate.auth.data.model.ConfirmationEmailDto
-import com.unionbankph.corporate.auth.data.model.ECredLoginDto
-import com.unionbankph.corporate.auth.data.model.ECredLoginOTPDto
-import com.unionbankph.corporate.auth.data.model.ECredMergeSubmitDto
-import com.unionbankph.corporate.auth.data.model.ECredSubmitDto
-import com.unionbankph.corporate.auth.data.model.ECredSubmitOTPDto
-import com.unionbankph.corporate.auth.data.model.LoginMigrationDto
-import com.unionbankph.corporate.auth.data.model.MigrationSubmitDto
-import com.unionbankph.corporate.auth.data.model.NominateEmailDto
-import com.unionbankph.corporate.auth.data.model.PasswordToken
-import com.unionbankph.corporate.auth.data.model.UserDetails
-import com.unionbankph.corporate.auth.data.model.VerifyResetPass
+import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.common.data.model.Message
+import com.unionbankph.corporate.open_account.data.OpenAccountForm
+import com.unionbankph.corporate.open_account.data.form.ValidateContactInfoForm
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -82,6 +72,8 @@ interface AuthGateway {
     fun nominatePasswordOTP(nominatePasswordOTPForm: NominatePasswordOTPForm): Single<Message>
     fun nominatePasswordResentOTP(nominatePasswordResendOTPForm: NominatePasswordResendOTPForm): Single<Auth>
     fun nominatePassword(nominatePasswordForm: NominatePasswordForm): Single<Auth>
+
+    fun validateContactInfo(validateContactInfoForm: ValidateContactInfoForm) : Single<ContactValidityResponse>
 
     fun nominateEmailMigration(
         temporaryCorporateUserId: String,
