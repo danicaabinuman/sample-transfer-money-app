@@ -29,15 +29,12 @@ import io.reactivex.rxkotlin.addTo
 class OAEnterNameFragment :
     BaseFragment<FragmentOaEnterNameBinding, OAEnterNameViewModel>() {
 
-    private var enableBackButton = true
-
     private val openAccountActivity by lazyFast { getAppCompatActivity() as OpenAccountActivity }
 
     private val formDisposable = CompositeDisposable()
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-
         handleOnBackPressed()
     }
 
@@ -91,11 +88,13 @@ class OAEnterNameFragment :
             openAccountActivity.viewModel.nameInput.let {
                 viewModel.setExistingNameInput(it)
             }
+        } else {
+            setSubmitButtonState(false)
         }
     }
 
     private fun initViewBinding() {
-        viewModel.loadDefaultForm(openAccountActivity.viewModel.defaultForm())
+        viewModel.loadDefaultForm(openAccountActivity.getDefaultForm())
         viewModel.input.firstNameInput
             .subscribe {
                 binding.editTextFirstName.setText(it)
@@ -111,6 +110,7 @@ class OAEnterNameFragment :
         val firstNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
+            hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
             editText = binding.editTextFirstName
@@ -118,6 +118,7 @@ class OAEnterNameFragment :
         val lastNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
+            hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
             editText = binding.editTextLastName
@@ -192,22 +193,7 @@ class OAEnterNameFragment :
 
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (!enableBackButton) return@addCallback
-
-            enableBackButton = false
-
-            // Temporary: Disable the back press confirmation
             openAccountActivity.popBackStack()
-            return@addCallback
-
-            updatePreTextValues()
-            if (viewModel.hasFormChanged()) {
-                openAccountActivity.showGoBackBottomSheet()
-            } else {
-                openAccountActivity.popBackStack()
-            }
-
-            runPostDelayed({ enableBackButton = true }, 1000)
         }
     }
 

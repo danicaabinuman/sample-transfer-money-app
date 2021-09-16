@@ -77,7 +77,7 @@ class OATNCReminderFragment :
 
     private fun initBinding() {
         Handler().post {
-            viewModel.loadName(openAccountActivity.viewModel.defaultForm())
+            viewModel.loadName(openAccountActivity.getDefaultForm())
             viewModel.input.firstNameInput
                 .subscribe {
                     binding.txtWelcomeName.text = formatString(R.string.welcome_reminder, it)

@@ -57,10 +57,6 @@ class OAEnterContactInfoViewModel @Inject constructor(
 
     val navigateResult: LiveData<Event<ContactValidityResponse>> get() = _navigateResult
 
-    private var _navigateNextStep = MutableLiveData<Event<Input>>()
-
-    val navigateNextStep: LiveData<Event<Input>> get() = _navigateNextStep
-
     fun onClickedNext(defaultForm: OpenAccountForm) {
         val contactInfoForm = contactInfoForm.apply {
                 firstName = defaultForm.firstName
@@ -69,7 +65,7 @@ class OAEnterContactInfoViewModel @Inject constructor(
                 mobile_number = input.mobileInput.value
                 country_code_id = Integer.valueOf(input.countryCodeInput.value!!.replace("+",""))
             }
-            enterContactInfo(contactInfoForm)
+        enterContactInfo(contactInfoForm)
     }
 
     fun loadDefaultForm(defaultForm: OpenAccountForm) {
@@ -112,7 +108,6 @@ class OAEnterContactInfoViewModel @Inject constructor(
             .subscribe(
                 {
                     isLoadedScreen.onNext(true)
-                    _navigateNextStep.value = Event(input)
                     _navigateResult.value = Event(it)
 
                 }, {

@@ -1,22 +1,27 @@
 package com.unionbankph.corporate.open_account.presentation.nominate_password
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.convertToDP
+import com.unionbankph.corporate.app.common.extension.lazyFast
+import com.unionbankph.corporate.app.common.extension.runPostDelayed
 import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidator
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.databinding.FragmentOaNominatePasswordBinding
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -27,6 +32,20 @@ class OaNominatePasswordFragment :
     BaseFragment<FragmentOaNominatePasswordBinding, OaNominatePasswordViewModel>() {
 
     private val formDisposable = CompositeDisposable()
+
+    private val openAccountActivity by lazyFast { getAppCompatActivity() as OpenAccountActivity }
+
+    override fun afterLayout(savedInstanceState: Bundle?) {
+        super.afterLayout(savedInstanceState)
+
+        handleOnBackPressed()
+    }
+
+    private fun handleOnBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            openAccountActivity.popBackStack()
+        }
+    }
 
     override fun onViewsBound() {
         super.onViewsBound()

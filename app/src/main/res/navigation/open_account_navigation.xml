@@ -59,6 +59,7 @@
             app:popEnterAnim="@anim/anim_enter_from_left"
             app:popExitAnim="@anim/anim_exit_to_right">
         </action>
+
     </fragment>
 
     <fragment
@@ -67,13 +68,13 @@
         android:label="tnc_reminder_fragment"
         tools:layout="@layout/fragment_oa_tnc_reminder">
 
-    <action
-        android:id="@+id/action_tnc_reminder_to_tnc"
-        app:destination="@id/tnc_fragment"
-        app:enterAnim="@anim/anim_enter_from_right"
-        app:exitAnim="@anim/anim_exit_to_left"
-        app:popEnterAnim="@anim/anim_enter_from_left"
-        app:popExitAnim="@anim/anim_exit_to_right"/>
+        <action
+            android:id="@+id/action_tnc_reminder_to_tnc"
+            app:destination="@id/tnc_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
 
     </fragment>
 
@@ -101,7 +102,30 @@
 
         <action
             android:id="@+id/action_enter_contact_to_otp"
-            app:destination="@id/otp_fragment"
+            app:destination="@id/otp_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="request"
+                app:argType="string" />
+
+            <argument
+                android:name="page"
+                app:argType="string" />
+
+            <argument
+                android:name="open_account_form"
+                app:argType="string" />
+        </action>
+
+        <action
+            android:id="@+id/action_contact_to_nominate_password"
+            app:destination="@id/nominate_password"
             app:enterAnim="@anim/anim_enter_from_right"
             app:exitAnim="@anim/anim_exit_to_left"
             app:popEnterAnim="@anim/anim_enter_from_left"
@@ -154,6 +178,7 @@
             app:popExitAnim="@anim/anim_exit_to_right"/>
 
     </fragment>
+
     <fragment
         android:id="@+id/confirmation_message_fragment"
         android:name="com.unionbankph.corporate.open_account.presentation.confirmation_message.OAConfirmationMessageFragment"
@@ -165,5 +190,11 @@
         android:name="com.unionbankph.corporate.dao.presentation.selection.DaoSelectionActivity"
         android:label="dao_selection_activity"
         tools:layout="@layout/activity_dao_selection" />
+
+    <activity
+        android:id="@+id/otp_activity"
+        android:name="com.unionbankph.corporate.auth.presentation.otp.OTPActivity"
+        android:label="otp_activity"
+        tools:layout="@layout/activity_otp"/>
 
 </navigation>

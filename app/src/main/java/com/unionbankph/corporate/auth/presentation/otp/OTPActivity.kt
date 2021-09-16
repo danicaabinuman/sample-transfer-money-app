@@ -44,6 +44,7 @@ import com.unionbankph.corporate.fund_transfer.presentation.pesonet.PesoNetSumma
 import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftSummaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPSummaryActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
+import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
 import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountActivity
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
@@ -823,7 +824,28 @@ class OTPActivity :
                     pinCodeEditText.getPinCode()
                 )
             }
+            PAGE_OPEN_ACCOUNT -> {
+                navigateOpenAccountScreen()
+            }
         }
+    }
+
+    private fun navigateOpenAccountScreen() {
+        val bundle = Bundle().apply {
+            putBoolean(OpenAccountActivity.EXTRA_FROM_OTP, true)
+            putString(
+                OpenAccountActivity.EXTRA_FORM,
+                intent.getStringExtra(EXTRA_OPEN_ACCOUNT_FORM)
+            )
+        }
+        intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
+        navigator.navigateClearStacks(
+            this,
+            OpenAccountActivity::class.java,
+            bundle,
+            true,
+            Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     private fun initStartResendCodeCount(seconds: Int) {
@@ -943,6 +965,7 @@ class OTPActivity :
         const val EXTRA_SECURITY_FORM = "security_form"
         const val EXTRA_SERVICE_FEE = "service_fee"
         const val EXTRA_CUSTOM_SERVICE_FEE = "custom_service_fee"
+        const val EXTRA_OPEN_ACCOUNT_FORM = "open_account_form"
 
         const val PAGE_LOGIN = "login"
         const val PAGE_MIGRATION = "migration"
@@ -956,6 +979,7 @@ class OTPActivity :
         const val PAGE_FUND_TRANSFER_PDDTS = "fund_transfer_pddts"
         const val PAGE_FUND_TRANSFER_SWIFT = "fund_transfer_swift"
         const val PAGE_BILLS_PAYMENT = "bills_payment"
+        const val PAGE_OPEN_ACCOUNT = "open_account"
 
         const val REQ_USER_CONSENT = 100
     }

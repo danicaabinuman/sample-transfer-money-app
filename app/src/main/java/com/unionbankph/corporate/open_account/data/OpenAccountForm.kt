@@ -10,10 +10,10 @@ data class OpenAccountForm(
     @SerialName("last_name")
     var lastName: String? = null,
     @SerialName("email_address")
-    var email_address: String? = null,
+    var emailAddress: String? = null,
     @SerialName("mobile_number")
-    var mobile_number: String? = null,
+    var mobileNumber: String? = null,
     @SerialName("country_code_id")
-    var country_code_id: String? = null
+    var countryCodeId: String? = null
 
 )
