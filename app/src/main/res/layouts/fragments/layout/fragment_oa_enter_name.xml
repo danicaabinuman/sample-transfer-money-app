@@ -51,6 +51,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextFirstName"
             style="@style/TextInputLayoutFormThinEditText"
+            android:singleLine="true"
+            android:nextFocusDown="@id/editTextLastName"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:hint="@string/hint_first_name"
@@ -86,6 +88,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextLastName"
+            android:singleLine="true"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             style="@style/TextInputLayoutFormThinEditText"

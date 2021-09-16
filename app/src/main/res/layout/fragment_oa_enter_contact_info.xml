@@ -71,6 +71,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
                 style="@style/TextInputLayoutFormThinEditText"
+                android:singleLine="true"
+                android:nextFocusDown="@id/et_mobile"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:hint="@string/hint_email_address_small_letter"
@@ -127,6 +129,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_mobile"
+                    android:singleLine="true"
                     style="@style/TextInputLayoutFormThinEditText"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
