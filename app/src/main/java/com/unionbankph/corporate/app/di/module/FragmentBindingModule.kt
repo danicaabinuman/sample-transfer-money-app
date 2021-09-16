@@ -416,10 +416,6 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun oaOTPFragment(): OaOTPFragment
-
-    @PerActivity
-    @ContributesAndroidInjector
     abstract fun oaPersonaliseSettingsFragment(): OAPersonaliseSettingsFragment
 
     @PerActivity
