@@ -83,7 +83,6 @@ import com.unionbankph.corporate.open_account.presentation.reminder.OAReminderFr
 import com.unionbankph.corporate.open_account.presentation.select_account.OAAccountSelection
 import com.unionbankph.corporate.open_account.presentation.tnc.OATNCFragment
 import com.unionbankph.corporate.open_account.presentation.tnc_reminder.OATNCReminderFragment
-import com.unionbankph.corporate.open_account.presentation.otp.OaOTPFragment
 import com.unionbankph.corporate.open_account.presentation.personalise_settings.OAPersonaliseSettingsFragment
 import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
