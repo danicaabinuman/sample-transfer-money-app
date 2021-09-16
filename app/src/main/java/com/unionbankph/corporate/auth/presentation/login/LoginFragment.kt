@@ -106,7 +106,7 @@ class LoginFragment :
     private fun initBinding() {
         viewModel.isTrustedDeviceOutput
             .subscribe {
-                binding.buttonGenerateOTP.visibility(it)
+                if(!isSME) {binding.buttonGenerateOTP.visibility(it)}
             }.addTo(disposables)
         viewModel.token
             .subscribe {
@@ -452,7 +452,7 @@ class LoginFragment :
             .subscribe {
                 isValidForm = it
                 if(isSME){
-                    binding.MSMEbtnLogin.isEnabled = it
+                    binding.MSMEbtnLogin.enableButtonMSME(it)
                 }else{
                     binding.buttonLogin.loginEnableButton(it)
                 }
@@ -637,8 +637,8 @@ class LoginFragment :
             binding.tvSignUp.visibility(false)
             binding.imgFingerPrintMSME.setVisible(false)
             binding.imgFaceIDMSME.setVisible(false)
-            binding.MSMEbtnLogin.text = formatString(R.string.action_login)
-            binding.MSMEbtnLogin.enableButton(false)
+            binding.MSMEbtnLogin.text = formatString(R.string.title_login)
+            binding.MSMEbtnLogin.enableButtonMSME(false)
             //setOnClickListenerSignUp()
         } else {
             binding.tilUsername.visibility(true)
@@ -710,8 +710,8 @@ class LoginFragment :
             binding.tvUbCaption.setVisible(false)
             binding.textViewMigration.setVisible(true)
             binding.textViewLearnMore.setVisible(true)
-            binding.MSMEbtnLogin.text = formatString(R.string.action_login)
-            binding.MSMEbtnLogin.isEnabled = false
+            binding.MSMEbtnLogin.text = formatString(R.string.title_login)
+            binding.MSMEbtnLogin.enableButtonMSME(false)
             //binding.tvSignUp.text = formatString(R.string.action_sign_up).toHtmlSpan()
             //binding.tvSignUp.visibility(viewModel.cdaoFeature.value.notNullable())
             //setOnClickListenerSignUp()
@@ -843,7 +843,7 @@ class LoginFragment :
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                if (binding.MSMEbtnLogin.text == getString(R.string.action_login)) {
+                if (binding.MSMEbtnLogin.text == getString(R.string.title_login)) {
                     submitForm()
                 } else if (binding.MSMEbtnLogin.text == getString(R.string.use_password)) {
                     usePasswordViews()
