@@ -239,7 +239,7 @@ class CardAcceptanceUploadDocumentsActivity :
                                 }
                             ).show()
                         }
-                        if (fileType != IMAGE_JPEG || fileType != IMAGE_PNG){
+                        if (fileType != IMAGE_JPEG && fileType != IMAGE_PNG){
                             DialogFactory().createSMEDialog(
                                 this,
                                 isNewDesign = false,
@@ -298,28 +298,7 @@ class CardAcceptanceUploadDocumentsActivity :
         uploadBIRFragment?.dismiss()
     }
 
-    private fun takePhotoOfBIRDocs(){
-//        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        startActivityForResult(cameraIntent, CAPTURE_PHOTO)
-
-        val bundle = Bundle().apply {
-            putParcelableArrayList(
-                LIST_OF_IMAGES_URI,
-                uriArrayList
-            )
-        }
-        navigator.navigate(
-            this,
-            DocumentCameraActivity::class.java,
-            bundle,
-            isClear = true,
-            isAnimated = true,
-            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
-        )
-    }
-
     override fun openCamera() {
-//        takePhotoOfBIRDocs()
         val bundle = Bundle().apply {
             putParcelableArrayList(
                 LIST_OF_IMAGES_URI,

@@ -75,16 +75,19 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.75"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/tv_card_issue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Card Issue"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_card_issue_date"
@@ -92,16 +95,16 @@
                 android:layout_marginTop="@dimen/content_spacing_small"
                 android:hint="@string/hint_select_a_date"
                 android:layout_marginEnd="@dimen/grid_2"
-                app:layout_constraintEnd_toEndOf="@id/gl_end"
-                app:layout_constraintStart_toStartOf="@id/gl_start"
-                app:layout_constraintTop_toBottomOf="@id/tv_date_of_incorporation">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_card_issue"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_date_of_incorporation"
+                    android:id="@+id/tie_date_of_issue"
                     style="@style/TextInputEditTextForm.DatePicker" />
 
             </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton

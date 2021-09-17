@@ -13,16 +13,23 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
+import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.showDatePicker
+import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_yes_accept_card_payments.viewToolbar
 import kotlinx.android.synthetic.main.activity_yes_accept_card_payments.*
+import kotlinx.android.synthetic.main.fragment_dao_company_information_step_2.*
 import kotlinx.android.synthetic.main.layout_on_added_affiliation.*
 import kotlinx.android.synthetic.main.layout_on_added_affiliation.view.*
 import kotlinx.android.synthetic.main.spinner_card_payments_affiliation_1.*
 import kotlinx.android.synthetic.main.spinner_card_payments_affiliation_1.view.*
 import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
+import java.util.*
 
 class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewModel>(R.layout.activity_yes_accept_card_payments) {
 
@@ -46,6 +53,22 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
         }
     }
 
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+
+        viewModel =
+            ViewModelProviders.of(
+                this,
+                viewModelFactory
+            )[YesAcceptCardPaymentsViewModel::class.java]
+
+    }
+
+    override fun onInitializeListener() {
+        super.onInitializeListener()
+
+        initClickListener()
+    }
     override fun onViewsBound() {
         super.onViewsBound()
 
@@ -53,6 +76,17 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
         buttonNextDisable()
 
         addAffiliation()
+
+        viewModel.dateOfIncorporationInput
+            .subscribe {
+                tie_date_of_incorporation.setText(
+                    viewUtil.getDateFormatByCalendar(
+                        it,
+                        DateFormatEnum.DATE_FORMAT_DATE.value
+                    )
+                )
+            }.addTo(disposables)
+
     }
 
 //    private fun showAffiliation1(){
@@ -81,6 +115,9 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
 ////        btnAffiliation2.visibility = View.INVISIBLE
 //    }
 
+    private fun initClickListener(){
+
+    }
     private fun addAffiliation(){
         var addAffiliationFields: View
         val container: LinearLayout = findViewById(R.id.llAddedAffiliations)
@@ -106,6 +143,20 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
                     if (checker == 1){
                         addAffiliationFields.showAffiliationLayout.visibility = View.VISIBLE
                         addAffiliationFields.rlAffiliation.setBackgroundResource(R.drawable.bg_transparent_orange_border_radius_8dp)
+                        addAffiliationFields.tie_date_of_issue.setOnClickListener {
+                            showDatePicker(
+                                minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
+                                maxDate = Calendar.getInstance(),
+                                callback = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                                    viewModel.dateOfIncorporationInput.onNext(
+                                        Calendar.getInstance().apply {
+                                            set(year, monthOfYear, dayOfMonth)
+                                        }
+                                    )
+                                }
+                            )
+                        }
+
                     } else if (checker == 0){
                         addAffiliationFields.showAffiliationLayout.visibility = View.GONE
                         addAffiliationFields.rlAffiliation.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

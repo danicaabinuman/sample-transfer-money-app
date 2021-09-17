@@ -29,7 +29,6 @@ import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInf
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
 import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_business_information.viewToolbar
 import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
@@ -86,6 +85,7 @@ class BusinessInformationActivity :
     private var uploadDocumentFragment: CardAcceptanceUploadDocumentFragment? = null
     lateinit var imgView: ImageView
 
+    private var fromWhatButton : String? = null
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -139,6 +139,15 @@ class BusinessInformationActivity :
     }
 
     private fun initViews() {
+
+        fromWhatButton = intent.getStringExtra(FROM_BUSINESS_INFO_BUTTON)
+        if (fromWhatButton == null){
+            fromWhatButton = FROM_BUSINESS_INFO
+        } else {
+            fromWhatButton = intent.getStringExtra(FROM_BUSINESS_INFO_BUTTON)
+
+        }
+
         disableNextButton()
         firstScreenFieldChecker()
 //        getBusinessInformation()
@@ -162,7 +171,7 @@ class BusinessInformationActivity :
             btnNextClicked()
         }
         btnSaveAndExit.setOnClickListener {
-            retrieveInformationFromFields()
+            putInformationFromFields()
             showDialogToDashboard()
         }
         btnUploadBusinessPolicy.setOnClickListener {
@@ -208,16 +217,25 @@ class BusinessInformationActivity :
 
     private fun natureOfBusiness() {
 
-        val aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, businessType)
-        aa.setDropDownViewResource(R.layout.spinner)
+//        val aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, businessType)
+//        aa.setDropDownViewResource(R.layout.spinner)
+//
+//        with(dropdownBusinessInformation) {
+//            adapter = aa
+//            setSelection(0, false)
+//            onItemSelectedListener = this@BusinessInformationActivity
+//            prompt = "SAMPLE PROMPT MESSAGE"
+//            gravity = Gravity.CENTER
+//        }
 
-        with(dropdownBusinessInformation) {
-            adapter = aa
-            setSelection(0, false)
-            onItemSelectedListener = this@BusinessInformationActivity
-            prompt = "SAMPLE PROMPT MESSAGE"
-            gravity = Gravity.CENTER
+        search_nature_of_business.setOnClickListener {
+            val intent = Intent(this, NatureOfBusinessActivity::class.java)
+            startActivity(intent)
         }
+
+        val bundle : Bundle? = intent.extras
+        val selectedNatureOfBusiness = bundle?.getString("selected")
+        search_nature_of_business.text = selectedNatureOfBusiness
     }
 
     private fun orderFulfillment() {
@@ -350,7 +368,7 @@ class BusinessInformationActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    enableNextButton()
+//                    enableNextButton()
 
                 }
 
@@ -388,7 +406,7 @@ class BusinessInformationActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    enableNextButton()
+//                    enableNextButton()
 
                 }
 
@@ -426,7 +444,7 @@ class BusinessInformationActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    enableNextButton()
+//                    enableNextButton()
 
                 }
 
@@ -464,7 +482,7 @@ class BusinessInformationActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    enableNextButton()
+//                    enableNextButton()
 
                 }
 
@@ -501,7 +519,7 @@ class BusinessInformationActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    enableNextButton()
+//                    enableNextButton()
 
                 }
 
@@ -538,7 +556,7 @@ class BusinessInformationActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    enableNextButton()
+//                    enableNextButton()
 
                 }
 
@@ -582,7 +600,7 @@ class BusinessInformationActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    enableNextButton()
+//                    enableNextButton()
 
                 }
 
@@ -625,7 +643,7 @@ class BusinessInformationActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    enableNextButton()
+//                    enableNextButton()
 
                 }
 
@@ -643,8 +661,8 @@ class BusinessInformationActivity :
         }
     }
 
-    private fun retrieveInformationFromFields() {
-        val businessType = business
+    private fun putInformationFromFields() {
+        val businessType = search_nature_of_business.text.toString()
         val storeProduct = et_product_of_services_offered.text.toString()
         val infoStatus = "draft"
         val yearsInBusiness = tv_years_counter.text.toString().toInt()
@@ -689,11 +707,21 @@ class BusinessInformationActivity :
 
     private fun btnNextClicked() {
         if (llBusinessInformationFields1.isShown){
-            llBusinessInformationFields1.visibility = View.GONE
-            scrollView2.visibility = View.VISIBLE
-            disableNextButton()
+            if (fromWhatButton.equals(FROM_BUSINESS_INFO)){
+                llBusinessInformationFields1.visibility = View.GONE
+                scrollView2.visibility = View.VISIBLE
+                disableNextButton()
+            } else if (fromWhatButton.equals(ReviewAndSubmitActivity.EDIT_BUSINESS_INFO_BUTTON)){
+                val intent = Intent(this, ReviewAndSubmitActivity::class.java)
+                startActivity(intent)
+            }
+
         } else if (llBusinessInformationFields2.isShown){
-//            validation()
+            if (fromWhatButton.equals(FROM_BUSINESS_INFO)){
+                val intent = Intent(this, OnboardingUploadPhotosActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
     }
@@ -738,8 +766,15 @@ class BusinessInformationActivity :
 
             when (view.id){
                 R.id.cb_notApplicable -> {
-                    btnUploadBusinessPolicy?.isEnabled = !checked
-                    enableNextButton()
+                    if (checked) {
+                        btnUploadBusinessPolicy.isEnabled = false
+                        btnUploadBusinessPolicy.text = ""
+                        enableNextButton()
+                    } else {
+                        btnUploadBusinessPolicy.isEnabled = true
+                        btnUploadBusinessPolicy.text = "Upload Document"
+                        disableNextButton()
+                    }
                 }
             }
         }
@@ -967,5 +1002,8 @@ class BusinessInformationActivity :
         const val DOCU_PDF = "application/pdf"
         const val LIST_OF_IMAGES_URI = "list_of_image_uri"
         const val MAX_FILESIZE_2MB = 2097152
+
+        const val FROM_BUSINESS_INFO_BUTTON = "from_business_info_button"
+        const val FROM_BUSINESS_INFO = "from_business_info"
     }
 }

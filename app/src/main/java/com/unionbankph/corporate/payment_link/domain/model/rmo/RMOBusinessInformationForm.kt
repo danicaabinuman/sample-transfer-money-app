@@ -43,4 +43,6 @@ data class RMOBusinessInformationForm(
     var imageUrl5: String,
     @SerialName("imageUrl6")
     var imageUrl6: String
+//    @SerialName("photos")
+//    var imageUrls: ArrayList<String>
 ) : Parcelable

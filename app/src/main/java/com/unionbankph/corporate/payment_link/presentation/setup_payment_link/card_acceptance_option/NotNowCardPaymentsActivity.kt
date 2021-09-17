@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -21,6 +22,7 @@ import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.ReviewAndSubmitActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountBottomSheet
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
@@ -99,6 +101,8 @@ class NotNowCardPaymentsActivity :
         include_settlement_account.setOnClickListener { openNominateAccounts() }
 
         viewModel.getAccounts()
+
+        navigateToReviewDetails()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -330,6 +334,12 @@ class NotNowCardPaymentsActivity :
         }
     }
 
+    private fun navigateToReviewDetails(){
+        btnReviewDetails.setOnClickListener {
+            val intent = Intent(this, ReviewAndSubmitActivity::class.java)
+            startActivity(intent)
+        }
+    }
     companion object {
         var TAG = this::class.java.simpleName
 

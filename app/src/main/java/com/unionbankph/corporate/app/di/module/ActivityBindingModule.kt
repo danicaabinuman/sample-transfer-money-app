@@ -99,6 +99,9 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.pa
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.NatureOfBusinessActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.ReviewAndSubmitActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.SubmitApplicationActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
@@ -598,4 +601,16 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun documentImagePreviewActivity(): DocumentImagePreviewActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun natureOfBusinessActivity(): NatureOfBusinessActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun reviewAndSubmitActivity(): ReviewAndSubmitActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun submitApplicationActivity(): SubmitApplicationActivity
 }

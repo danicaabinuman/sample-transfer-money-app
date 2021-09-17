@@ -60,35 +60,47 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_status"
-                    style="@style/Spinner.DropDownOrange"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/search_nature_of_business"
                     android:layout_width="match_parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name_of_business_title">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_transparent_gray_border_8dp"
+                    android:hint="Search"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:padding="@dimen/grid_2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_of_business_title"/>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                <!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/til_status"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    app:boxStrokeColor="@color/colorHint"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/tv_name_of_business_title">-->
 
-                        <Spinner
-                            android:id="@+id/dropdownBusinessInformation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/a_spinner_outline"
-                            android:dropDownSelector="#000"
-                            android:spinnerMode="dropdown" />
 
-                        <ImageView
-                            android:layout_width="@dimen/grid_5"
-                            android:layout_height="0dp"
-                            android:layout_alignTop="@+id/dropdownBusinessInformation"
-                            android:layout_alignBottom="@+id/dropdownBusinessInformation"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="@dimen/grid_2"
-                            android:src="@drawable/ic_arrow_black_down" />
-                    </RelativeLayout>
+<!--                                        <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content">-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                        <Spinner-->
+<!--                            android:id="@+id/dropdownBusinessInformation"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@drawable/a_spinner_outline"-->
+<!--                            android:dropDownSelector="#000"-->
+<!--                            android:spinnerMode="dropdown" />-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="@dimen/grid_5"-->
+<!--                            android:layout_height="0dp"-->
+<!--                            android:layout_alignTop="@+id/dropdownBusinessInformation"-->
+<!--                            android:layout_alignBottom="@+id/dropdownBusinessInformation"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_marginEnd="@dimen/grid_2"-->
+<!--                            android:src="@drawable/ic_arrow_black_down" />-->
+<!--                    </RelativeLayout>-->
+
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_others_pls_specify"
@@ -97,7 +109,7 @@
                     android:layout_marginTop="@dimen/grid_1"
                     android:visibility="gone"
                     app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/til_status">
+                    app:layout_constraintTop_toBottomOf="@id/search_nature_of_business">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etOthersPleaseSpecify"
@@ -745,7 +757,7 @@
                         android:layout_alignBottom="@+id/dropdownOrderFulfillment"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="@dimen/grid_2"
-                        android:src="@drawable/ic_arrow_black_down" />
+                        android:src="@drawable/ic_arrow_orange_down" />
                 </RelativeLayout>
 
             </com.google.android.material.textfield.TextInputLayout>

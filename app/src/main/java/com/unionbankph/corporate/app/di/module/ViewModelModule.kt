@@ -110,9 +110,13 @@ import com.unionbankph.corporate.payment_link.presentation.payment_link_list.Pay
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.NatureOfBusinessViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.ReviewAndSubmitViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.SubmitApplicationViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.YesAcceptCardPaymentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
@@ -838,5 +842,33 @@ abstract class ViewModelModule {
     @ViewModelKey(DocumentCameraViewModel::class)
     abstract fun documentCameraViewModel(
         viewModel: DocumentCameraViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NatureOfBusinessViewModel::class)
+    abstract fun natureOfBusinessViewModel(
+        viewModel: NatureOfBusinessViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ReviewAndSubmitViewModel::class)
+    abstract fun reviewAndSubmitViewModel(
+        viewModel: ReviewAndSubmitViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(YesAcceptCardPaymentsViewModel::class)
+    abstract fun yesAcceptCardPaymentsViewModel(
+        viewModel: YesAcceptCardPaymentsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SubmitApplicationViewModel::class)
+    abstract fun submitApplicationViewModel(
+        viewModel: SubmitApplicationViewModel
     ): ViewModel
 }
