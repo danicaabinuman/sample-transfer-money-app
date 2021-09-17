@@ -32,15 +32,15 @@ class InstapayQrSplashActivity :
         setViewPager()
 
         binding.btnAllow.setOnClickListener {
-
             initPermission()
-
         }
 
         binding.btnNotNow.setOnClickListener {
-
             finish()
+        }
 
+        binding.btnBack.setOnClickListener {
+            finish()
         }
     }
 

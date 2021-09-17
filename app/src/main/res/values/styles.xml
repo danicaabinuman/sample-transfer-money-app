@@ -458,6 +458,14 @@
         <item name="android:theme">?appBarTheme</item>
     </style>
 
+    <style name="InstapayQrAppBarLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#FFF3E5</item>
+        <item name="popupTheme">?appBarTheme</item>
+        <item name="android:theme">?appBarTheme</item>
+    </style>
+
     <style name="AppBarLayoutSME">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

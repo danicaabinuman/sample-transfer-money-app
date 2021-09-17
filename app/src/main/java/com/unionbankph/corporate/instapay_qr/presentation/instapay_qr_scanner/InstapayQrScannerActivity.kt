@@ -16,6 +16,7 @@ class InstapayQrScannerActivity :
     override fun onViewsBound() {
         super.onViewsBound()
         initViews()
+        initCamera()
     }
 
     override fun onStart() {
@@ -27,6 +28,10 @@ class InstapayQrScannerActivity :
 
         binding.btnUploadQr.setOnClickListener {
             openGallery()
+        }
+
+        binding.btnClose.setOnClickListener {
+            finish()
         }
     }
 
