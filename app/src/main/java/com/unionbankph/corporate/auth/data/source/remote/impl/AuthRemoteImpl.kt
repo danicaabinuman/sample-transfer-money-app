@@ -31,6 +31,7 @@ import com.unionbankph.corporate.auth.data.form.ResetPasswordVerifyForm
 import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.auth.data.source.remote.AuthRemote
 import com.unionbankph.corporate.auth.data.source.remote.client.AuthApiClient
+import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
 import com.unionbankph.corporate.open_account.data.form.ValidateContactInfoForm
 import io.reactivex.Single
@@ -197,6 +198,15 @@ constructor(
         return authApiClient.validateContactInfo(
             BuildConfig.MSME_CLIENT_API_VERSION,
             validateContactInfoForm
+        )
+    }
+
+    override fun verifyUserCreationOTP(
+        verifyOTPForm: VerifyOTPForm
+    ): Single<Response<UserCreationOTPVerified>> {
+        return authApiClient.verifyUserCreationOTP(
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            verifyOTPForm
         )
     }
 

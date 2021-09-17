@@ -1,7 +1,6 @@
 package com.unionbankph.corporate.open_account.presentation.enter_contact_info
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,19 +20,17 @@ import com.unionbankph.corporate.auth.presentation.otp.*
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.FragmentOaEnterContactInfoBinding
 import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
-import com.unionbankph.corporate.settings.presentation.update_password.*
-import androidx.lifecycle.Observer
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
-import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.auth.data.model.Auth
+import com.unionbankph.corporate.auth.data.model.ContactValidityResponse
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.data.model.ApiError
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
@@ -41,15 +38,12 @@ import java.util.regex.Pattern
 class OAEnterContactInfoFragment :
     BaseFragment<FragmentOaEnterContactInfoBinding, OAEnterContactInfoViewModel>() {
 
-    private var enableBackButton = true
-
     private val openAccountActivity by lazyFast { getAppCompatActivity() as OpenAccountActivity }
 
     private val formDisposable = CompositeDisposable()
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-
         handleOnBackPressed()
     }
 
@@ -99,25 +93,23 @@ class OAEnterContactInfoFragment :
         })
 
         viewModel.navigateResult.observe(viewLifecycleOwner, EventObserver{
-
+            openAccountActivity.setContactInput(viewModel.input)
+            navigateToOTPScreen(it)
         })
 
-        viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
-            openAccountActivity.setContactInput(it)
-            findNavController().navigate(R.id.action_enter_contact_to_otp)
-
-        })
-
-        val hasValue = openAccountActivity.viewModel.hasNameInput.hasValue()
+        val hasValue = openAccountActivity.viewModel.hasContactInput.hasValue()
         if (hasValue && !viewModel.isLoadedScreen.hasValue()) {
             openAccountActivity.viewModel.contactInput.let {
                 viewModel.setExistingContactInfoInput(it)
             }
+        } else {
+            setSubmitButtonState(false)
         }
     }
 
+
     private fun initViewBinding() {
-        viewModel.loadDefaultForm(openAccountActivity.viewModel.defaultForm())
+        viewModel.loadDefaultForm(openAccountActivity.getDefaultForm())
         viewModel.input.emailInput
             .subscribe {
                 binding.etEmail.setText(it)
@@ -134,13 +126,24 @@ class OAEnterContactInfoFragment :
 
     private fun validateForm() {
         formDisposable.clear()
-        val emailObservable = viewUtil.rxTextChanges(
-            isFocusChanged = true,
-            isValueChanged = true,
-            minLength = resources.getInteger(R.integer.min_length_field),
-            maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = binding.etEmail
-        )
+
+        val emailObservable = RxValidator.createFor(binding.etEmail)
+            .nonEmpty(
+                String.format(
+                    getString(R.string.error_specific_field),
+                    binding.etEmail.hint
+                )
+            )
+            .email(getString(R.string.error_invalid_email_address))
+            .onFocusChanged(hasSkip = false)
+            .onValueChanged()
+            .toObservable()
+            .debounce {
+                Observable.timer(
+                    resources.getInteger(R.integer.time_edit_text_debounce).toLong(),
+                    TimeUnit.MILLISECONDS
+                )
+            }
 
         val mobileNumberObservable = RxValidator.createFor(binding.etMobile)
             .nonEmpty(
@@ -158,7 +161,7 @@ class OAEnterContactInfoFragment :
                     resources.getInteger(R.integer.max_length_mobile_number_ph).toString()
                 )
             )
-            .onFocusChanged()
+            .onFocusChanged(hasSkip = false)
             .onValueChanged()
             .toObservable()
             .debounce {
@@ -197,7 +200,7 @@ class OAEnterContactInfoFragment :
         if (viewModel.hasValidForm()) {
             updatePreTextValues()
             viewModel.onClickedNext(
-                openAccountActivity.viewModel.defaultForm()
+                openAccountActivity.getDefaultForm()
             )
         } else {
             refreshFields()
@@ -283,24 +286,28 @@ class OAEnterContactInfoFragment :
         }
     }
 
+    private fun navigateToOTPScreen(response: ContactValidityResponse) {
+
+        val auth = Auth().apply {
+            this.type = response.type
+            this.requestId = response.requestId
+            this.validity = response.validity
+            this.otpType = response.otpType
+            this.mobileNumber = response.mobileNumber
+        }
+
+        val action = OAEnterContactInfoFragmentDirections.actionEnterContactToOtp(
+            request = JsonHelper.toJson(auth),
+            page = OTPActivity.PAGE_USER_CREATION,
+            openAccountForm = JsonHelper.toJson(openAccountActivity.getDefaultForm())
+        )
+
+        findNavController().navigate(action)
+    }
+
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if (!enableBackButton) return@addCallback
-
-            enableBackButton = false
-
-            // Temporarily disabled the back press confirmation
             openAccountActivity.popBackStack()
-            return@addCallback
-
-            updatePreTextValues()
-            if (viewModel.hasFormChanged()) {
-                openAccountActivity.showGoBackBottomSheet()
-            } else {
-                openAccountActivity.popBackStack()
-            }
-
-            runPostDelayed({ enableBackButton = true }, 1000)
         }
     }
 

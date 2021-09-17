@@ -250,7 +250,8 @@ class ViewUtil(private val mContext: Context) {
         minLength: Int,
         maxLength: Int,
         editText: EditText,
-        customErrorMessage: String? = null
+        customErrorMessage: String? = null,
+        hasSkip: Boolean? = true
     ): Observable<RxValidationResult<EditText>> {
 
         val rxValidator = RxValidator.createFor(editText)
@@ -269,7 +270,7 @@ class ViewUtil(private val mContext: Context) {
             )
 
         if (isFocusChanged) {
-            rxValidator.onFocusChanged()
+            rxValidator.onFocusChanged(hasSkip!!)
         }
         if (isValueChanged) {
             rxValidator.onValueChanged()

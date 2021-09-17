@@ -131,8 +131,6 @@ import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNam
 import com.unionbankph.corporate.open_account.presentation.tnc_reminder.TNCReminderViewModel
 import com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoViewModel
 import com.unionbankph.corporate.open_account.presentation.nominate_password.OaNominatePasswordViewModel
-import com.unionbankph.corporate.open_account.presentation.otp.OaOTPFragment
-import com.unionbankph.corporate.open_account.presentation.otp.OaOTPViewModel
 import com.unionbankph.corporate.open_account.presentation.personalise_settings.OAPersonaliseSettingsViewModel
 import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
@@ -841,13 +839,6 @@ abstract class ViewModelModule {
     @ViewModelKey(NegPosBottomSheetViewModel::class)
     abstract fun negPosBottomSheetViewModel(
         viewModel: NegPosBottomSheetViewModel
-    ): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(OaOTPViewModel::class)
-    abstract fun oaOTPViewModel(
-        viewModel: OaOTPViewModel
     ): ViewModel
 
     @Binds
