@@ -4,6 +4,122 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.otaliastudios.cameraview.CameraView
+        android:id="@+id/cameraView"
+        style="@style/MatchConstraint"
+        android:keepScreenOn="true"
+        app:cameraAudio="off"
+        app:cameraAutoFocusMarker="@string/cameraview_default_autofocus_marker"
+        app:cameraAutoFocusResetDelay="0"
+        app:cameraEngine="camera2"
+        app:cameraExperimental="false"
+        app:cameraFacing="back"
+        app:cameraFlash="off"
+        app:cameraGestureTap="autoFocus"
+        app:cameraMode="picture"
+        app:cameraPictureFormat="jpeg"
+        app:cameraPlaySounds="true"
+        app:cameraPreview="glSurface"
+        app:cameraPreviewFrameRateExact="true"
+        app:cameraUseDeviceOrientation="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.17" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideRight"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".8"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideTop"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".3"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".7"/>
+
+    <View
+        android:layout_width="@dimen/grid_0"
+        android:layout_height="@dimen/grid_0"
+        android:background="@color/colorCheckDepositOverlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideLeft"
+        app:layout_constraintTop_toBottomOf="@id/guideTop"
+        app:layout_constraintBottom_toTopOf="@id/guideBottom"/>
+
+    <View
+        android:layout_width="@dimen/grid_0"
+        android:layout_height="@dimen/grid_0"
+        android:background="@color/colorCheckDepositOverlay"
+        app:layout_constraintStart_toStartOf="@id/guideRight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideTop"
+        app:layout_constraintBottom_toTopOf="@id/guideBottom"/>
+
+    <View
+        android:layout_width="@dimen/grid_0"
+        android:layout_height="@dimen/grid_0"
+        android:background="@color/colorCheckDepositOverlay"
+        app:layout_constraintTop_toBottomOf="@id/navbar"
+        app:layout_constraintBottom_toBottomOf="@id/guideTop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:layout_width="@dimen/grid_0"
+        android:layout_height="@dimen/grid_0"
+        android:background="@color/colorCheckDepositOverlay"
+        app:layout_constraintTop_toBottomOf="@id/guideBottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_qr_top_left"
+        app:layout_constraintStart_toEndOf="@id/guideLeft"
+        app:layout_constraintTop_toBottomOf="@id/guideTop"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_qr_top_right"
+        app:layout_constraintEnd_toStartOf="@id/guideRight"
+        app:layout_constraintTop_toBottomOf="@id/guideTop"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_qr_bottom_right"
+        app:layout_constraintEnd_toStartOf="@id/guideRight"
+        app:layout_constraintBottom_toTopOf="@id/guideBottom"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_qr_bottom_left"
+        app:layout_constraintStart_toEndOf="@id/guideLeft"
+        app:layout_constraintBottom_toTopOf="@id/guideBottom"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/navbar"
         android:layout_width="match_parent"
@@ -34,94 +150,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.otaliastudios.cameraview.CameraView
-        android:id="@+id/cameraView"
-        style="@style/MatchConstraint"
-        android:keepScreenOn="true"
-        app:cameraAudio="off"
-        app:cameraAutoFocusMarker="@string/cameraview_default_autofocus_marker"
-        app:cameraAutoFocusResetDelay="0"
-        app:cameraEngine="camera2"
-        app:cameraExperimental="false"
-        app:cameraFacing="back"
-        app:cameraFlash="off"
-        app:cameraGestureTap="autoFocus"
-        app:cameraMode="picture"
-        app:cameraPictureFormat="jpeg"
-        app:cameraPlaySounds="true"
-        app:cameraPreview="glSurface"
-        app:cameraPreviewFrameRateExact="true"
-        app:cameraUseDeviceOrientation="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="@string/instapay_qr_detail"
         android:padding="@dimen/grid_6"
+        android:textColor="@color/jumio_white"
         app:layout_constraintBottom_toTopOf="@id/guideTop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.17" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideRight"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".8"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideTop"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".3"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".7"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_qr_top_left"
-        app:layout_constraintStart_toEndOf="@id/guideLeft"
-        app:layout_constraintTop_toBottomOf="@id/guideTop"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_qr_top_right"
-        app:layout_constraintEnd_toStartOf="@id/guideRight"
-        app:layout_constraintTop_toBottomOf="@id/guideTop"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_qr_bottom_right"
-        app:layout_constraintEnd_toStartOf="@id/guideRight"
-        app:layout_constraintBottom_toTopOf="@id/guideBottom"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_qr_bottom_left"
-        app:layout_constraintStart_toEndOf="@id/guideLeft"
-        app:layout_constraintBottom_toTopOf="@id/guideBottom"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnGenerateQr"
