@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayoutItemRecent"
+    style="@style/MatchWrapParent"
+    android:layout_height="@dimen/list_item_size">
+
+    <View
+        android:id="@+id/viewBorder"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewRemarks"
+        style="@style/TextViewDarkForm"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Bills Payment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewAmount"
+        style="@style/TextViewDarkForm"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginEnd="@dimen/content_spacing_half"
+        android:gravity="end"
+        android:text="PHP 99999999"
+        android:textSize="@dimen/text_13"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewTransferType"
+        app:layout_constraintTop_toTopOf="@+id/textViewRemarks"
+        app:layout_constraintWidth_percent="0.4" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDate"
+        style="@style/TextViewDarkSmall"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_marginEnd="@dimen/content_spacing_half"
+        android:gravity="end"
+        android:text="June 29, 2018, 07:00 PM"
+        android:textColor="@color/colorButtonGray"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewRemarks"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewTransferType"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAmount"
+        app:layout_goneMarginBottom="10dp" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewTransferType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_spacing"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAmount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewAmount"
+        app:srcCompat="@drawable/ic_account_plus_green" />
+
+    <View
+        android:id="@+id/viewBorder2"
+        style="@style/BorderHorizontal"
+        android:background="@color/colorGreyLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
