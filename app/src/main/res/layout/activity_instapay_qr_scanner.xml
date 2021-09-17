@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.17" />
+        app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideRight"
@@ -163,7 +163,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnGenerateQr"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         style="@style/SMEPrimaryButtonSmall"
         android:text="GENERATE QR"
         android:drawableLeft="@drawable/ic_scan_white"
@@ -175,7 +175,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnUploadQr"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         style="@style/SMEPrimaryButtonSmall"
         android:text="UPLOAD QR"
         android:drawableLeft="@drawable/ic_upload"
