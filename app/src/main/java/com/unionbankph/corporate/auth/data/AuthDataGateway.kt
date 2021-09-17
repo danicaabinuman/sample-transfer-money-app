@@ -5,10 +5,10 @@ import com.unionbankph.corporate.auth.data.form.*
 import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.auth.data.source.local.AuthCache
 import com.unionbankph.corporate.auth.data.source.remote.AuthRemote
+import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
-import com.unionbankph.corporate.open_account.data.OpenAccountForm
 import com.unionbankph.corporate.open_account.data.form.ValidateContactInfoForm
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import io.reactivex.Completable
@@ -200,10 +200,12 @@ constructor(
     override fun validateContactInfo(
         validateContactInfoForm: ValidateContactInfoForm
     ): Single<ContactValidityResponse> {
-        return authRemote.validateContactInfo(
-                    validateContactInfoForm
-                )
+        return authRemote.validateContactInfo(validateContactInfoForm)
+            .flatMap { responseProvider.executeResponseSingle(it) }
+    }
 
+    override fun verifyUserCreationOTP(verifyOTPForm: VerifyOTPForm): Single<UserCreationOTPVerified> {
+        return authRemote.verifyUserCreationOTP(verifyOTPForm)
             .flatMap { responseProvider.executeResponseSingle(it) }
     }
 

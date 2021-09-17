@@ -199,26 +199,12 @@ class OAEnterContactInfoFragment :
         clearFormFocus()
         if (viewModel.hasValidForm()) {
             updatePreTextValues()
-//            viewModel.onClickedNext(
-//                openAccountActivity.getDefaultForm()
-//            )
-            submitDummy()
+            viewModel.onClickedNext(
+                openAccountActivity.getDefaultForm()
+            )
         } else {
             refreshFields()
         }
-    }
-
-    private fun submitDummy() {
-        val dummyResponse = ContactValidityResponse().apply {
-            this.type = "0"
-            this.requestId = "contactValidityResponse.requestId"
-            this.validity = "100"
-            this.otpType = "SMS"
-            this.mobileNumber = "639123456789"
-        }
-        openAccountActivity.setContactInput(viewModel.input)
-
-        navigateToOTPScreen(dummyResponse)
     }
 
     private fun updatePreTextValues() {
@@ -300,19 +286,19 @@ class OAEnterContactInfoFragment :
         }
     }
 
-    private fun navigateToOTPScreen(contactValidityResponse: ContactValidityResponse) {
+    private fun navigateToOTPScreen(response: ContactValidityResponse) {
 
         val auth = Auth().apply {
-            this.type = contactValidityResponse.type
-            this.requestId = contactValidityResponse.requestId
-            this.validity = contactValidityResponse.validity
-            this.otpType = contactValidityResponse.otpType
-            this.mobileNumber = contactValidityResponse.mobileNumber
+            this.type = response.type
+            this.requestId = response.requestId
+            this.validity = response.validity
+            this.otpType = response.otpType
+            this.mobileNumber = response.mobileNumber
         }
 
         val action = OAEnterContactInfoFragmentDirections.actionEnterContactToOtp(
             request = JsonHelper.toJson(auth),
-            page = OTPActivity.PAGE_OPEN_ACCOUNT,
+            page = OTPActivity.PAGE_USER_CREATION,
             openAccountForm = JsonHelper.toJson(openAccountActivity.getDefaultForm())
         )
 

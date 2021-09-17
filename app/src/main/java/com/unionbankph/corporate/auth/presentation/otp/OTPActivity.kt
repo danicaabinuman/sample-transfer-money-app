@@ -11,11 +11,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.gms.auth.api.phone.SmsRetriever
-import com.google.android.material.appbar.AppBarLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -31,6 +29,7 @@ import com.unionbankph.corporate.auth.data.form.*
 import com.unionbankph.corporate.auth.data.model.Auth
 import com.unionbankph.corporate.auth.data.model.ECredLoginDto
 import com.unionbankph.corporate.auth.data.model.ECredLoginOTPDto
+import com.unionbankph.corporate.auth.data.model.UserCreationOTPVerified
 import com.unionbankph.corporate.auth.presentation.migration.MigrationMainActivity
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity
 import com.unionbankph.corporate.bills_payment.presentation.bills_payment_summary.BillsPaymentSummaryActivity
@@ -128,6 +127,9 @@ class OTPActivity :
                 is ShowOTPError -> {
                     pinCodeEditText.clearPinCode()
                     handleOnError(it.throwable)
+                }
+                is ShowVerifyUserCreationOTPSuccess -> {
+                    navigateBackToUserCreationScreen(it.userCreationOTPSuccess)
                 }
             }
         })
@@ -348,6 +350,9 @@ class OTPActivity :
             PAGE_FUND_TRANSFER_INSTAPAY,
             PAGE_FUND_TRANSFER_SWIFT -> {
                 viewModel.resendOTPFundTransfer(ResendOTPForm(auth.requestId))
+            }
+            PAGE_USER_CREATION -> {
+                showSMEGenericError()
             }
         }
     }
@@ -824,18 +829,27 @@ class OTPActivity :
                     pinCodeEditText.getPinCode()
                 )
             }
-            PAGE_OPEN_ACCOUNT -> {
-                navigateOpenAccountScreen()
+            PAGE_USER_CREATION -> {
+                viewModel.verifyUserCreationOTP(
+                    VerifyOTPForm(
+                        auth.requestId,
+                        pinCodeEditText.getPinCode()
+                    )
+                )
             }
         }
     }
 
-    private fun navigateOpenAccountScreen() {
+    private fun navigateBackToUserCreationScreen(response: UserCreationOTPVerified) {
         val bundle = Bundle().apply {
             putBoolean(OpenAccountActivity.EXTRA_FROM_OTP, true)
             putString(
                 OpenAccountActivity.EXTRA_FORM,
                 intent.getStringExtra(EXTRA_OPEN_ACCOUNT_FORM)
+            )
+            putString(
+                OpenAccountActivity.EXTRA_VERIFICATION_TOKEN,
+                response.accessToken
             )
         }
         intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
@@ -979,7 +993,7 @@ class OTPActivity :
         const val PAGE_FUND_TRANSFER_PDDTS = "fund_transfer_pddts"
         const val PAGE_FUND_TRANSFER_SWIFT = "fund_transfer_swift"
         const val PAGE_BILLS_PAYMENT = "bills_payment"
-        const val PAGE_OPEN_ACCOUNT = "open_account"
+        const val PAGE_USER_CREATION = "user_creation"
 
         const val REQ_USER_CONSENT = 100
     }

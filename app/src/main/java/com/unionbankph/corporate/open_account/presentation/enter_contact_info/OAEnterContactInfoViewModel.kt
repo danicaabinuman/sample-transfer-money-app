@@ -7,16 +7,11 @@ import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.auth.data.AuthGateway
 import com.unionbankph.corporate.auth.data.model.Auth
 import com.unionbankph.corporate.auth.data.model.ContactValidityResponse
-import com.unionbankph.corporate.common.data.model.ApiError
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
-import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.dao.domain.interactor.ValidateNominatedUser
-import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.open_account.data.OpenAccountForm
 import com.unionbankph.corporate.open_account.data.form.ValidateContactInfoForm
 import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
-import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordState
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
 import timber.log.Timber
@@ -109,12 +104,9 @@ class OAEnterContactInfoViewModel @Inject constructor(
                 {
                     isLoadedScreen.onNext(true)
                     _navigateResult.value = Event(it)
-
                 }, {
                     Timber.d(it, "OpenAccountContactValidity Failed")
                     _uiState.value = Event(UiState.Error(it))
                 }).addTo(disposables)
     }
-
-
 }

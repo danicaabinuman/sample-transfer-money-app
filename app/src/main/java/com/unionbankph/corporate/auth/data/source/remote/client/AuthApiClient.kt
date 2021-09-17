@@ -28,8 +28,8 @@ import com.unionbankph.corporate.auth.data.form.ResetPasswordOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordResendOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordVerifyForm
 import com.unionbankph.corporate.auth.data.model.*
+import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
-import com.unionbankph.corporate.open_account.data.OpenAccountForm
 import com.unionbankph.corporate.open_account.data.form.ValidateContactInfoForm
 import io.reactivex.Single
 import retrofit2.Response
@@ -153,6 +153,14 @@ interface AuthApiClient {
         @Body
         validateContactInfoForm: ValidateContactInfoForm
     ): Single<Response<ContactValidityResponse>>
+
+    @PUT("msme/api/{api_version}/corporate-users/validate-otp")
+    fun verifyUserCreationOTP(
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        verifyOTPForm: VerifyOTPForm
+    ): Single<Response<UserCreationOTPVerified>>
 
     @POST("api/{api_version}/config/policy")
     fun privacyPolicy(

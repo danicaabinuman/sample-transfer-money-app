@@ -59,6 +59,9 @@ class OpenAccountActivity :
         if (intent.getBooleanExtra(EXTRA_FROM_OTP, false)) {
             val form = JsonHelper.fromJson<OpenAccountForm>(intent.getStringExtra(EXTRA_FORM))
             viewModel.setExistingFormData(form)
+            viewModel.setOTPVerificationOTPToken(
+                intent.getStringExtra(EXTRA_VERIFICATION_TOKEN) ?: ""
+            )
             navigateUpToNominatePassword()
         }
     }
@@ -146,6 +149,7 @@ class OpenAccountActivity :
 
         const val EXTRA_FROM_OTP = "from_otp"
         const val EXTRA_FORM = "form"
+        const val EXTRA_VERIFICATION_TOKEN = "verification_token"
 
         const val FRAGMENT_ENTER_NAME = "fragment_enter_name"
         const val TAG_GO_BACK_DAO_DIALOG = "user_creation_go_back_dialog"

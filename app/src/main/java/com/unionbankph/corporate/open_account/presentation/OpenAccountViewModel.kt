@@ -12,6 +12,9 @@ import javax.inject.Inject
 
 class OpenAccountViewModel @Inject constructor() : BaseViewModel() {
 
+    // Token from success otp
+    private var otpSuccessToken: String = ""
+
     // Form
     private var openAccountForm = OpenAccountForm()
 
@@ -48,6 +51,10 @@ class OpenAccountViewModel @Inject constructor() : BaseViewModel() {
             }
             hasContactInput.onNext(true)
         }
+    }
+
+    fun setOTPVerificationOTPToken(token: String) {
+        otpSuccessToken = token
     }
 
     fun defaultForm() : OpenAccountForm {
