@@ -15,9 +15,12 @@ class InstapayQrScannerActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-
-        initCamera()
         initViews()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        initCamera()
     }
 
     fun initViews(){
