@@ -69,9 +69,13 @@ class BusinessInformationActivity :
         )
     var orderFulfillment =
         arrayOf(
-            "Select"
+            "Select",
+            "Beyond 3 days",
+            "Within 3 days",
+            "Not Applicable"
         )
 
+    var orderFulfilled = ""
     var business = "Wholesaler"
     var lazadaCounter = 0
     var shopeeCounter = 0
@@ -254,20 +258,17 @@ class BusinessInformationActivity :
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         if (position > 0) {
-            business = parent?.getItemAtPosition(position).toString()
+            orderFulfilled = parent?.getItemAtPosition(position).toString()
         } else if (position == 0) {
             disableNextButton()
-        }
-
-        if (position == 7) {
-            til_others_pls_specify.visibility = View.VISIBLE
-        } else {
-            til_others_pls_specify.visibility = View.GONE
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        disableNextButton()
+        val firstItem = parent?.getItemAtPosition(0)
+        if (firstItem == true){
+            disableNextButton()
+        }
     }
 
     private fun fromZeroCounter() {

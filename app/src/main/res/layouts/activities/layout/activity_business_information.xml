@@ -748,7 +748,8 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/a_spinner_outline"
                         android:dropDownSelector="#000"
-                        android:spinnerMode="dropdown" />
+                        android:spinnerMode="dropdown"
+                        android:layout_alignParentTop="true"/>
 
                     <ImageView
                         android:layout_width="@dimen/grid_5"

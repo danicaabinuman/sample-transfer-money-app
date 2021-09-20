@@ -94,6 +94,8 @@ class NotNowCardPaymentsActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
 
+        disableReviewDetailsButton()
+
         initMonthVolumeViews()
         initAverageTransactionViews()
 
@@ -332,8 +334,17 @@ class NotNowCardPaymentsActivity :
                 }
             }
         }
+
+        enableReviewDetailsButton()
     }
 
+    private fun disableReviewDetailsButton(){
+        btnReviewDetails?.isEnabled = false
+    }
+
+    private fun enableReviewDetailsButton(){
+        btnReviewDetails?.isEnabled = true
+    }
     private fun navigateToReviewDetails(){
         btnReviewDetails.setOnClickListener {
             val intent = Intent(this, ReviewAndSubmitActivity::class.java)

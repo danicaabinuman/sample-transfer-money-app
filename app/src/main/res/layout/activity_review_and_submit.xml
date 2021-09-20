@@ -55,11 +55,11 @@
 
             <include
                 android:id="@+id/layout_details_business_info"
+                layout="@layout/item_review_business_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                layout="@layout/item_review_business_info"
-                app:layout_constraintTop_toBottomOf="@id/btnReviewBusinessInfo"/>
+                app:layout_constraintTop_toBottomOf="@id/btnReviewBusinessInfo" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReviewOtherBusinessInfo"
@@ -78,11 +78,11 @@
 
             <include
                 android:id="@+id/layout_details_other_business_info"
+                layout="@layout/item_review_other_business_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                layout="@layout/item_review_other_business_info"
-                app:layout_constraintTop_toBottomOf="@id/btnReviewOtherBusinessInfo"/>
+                app:layout_constraintTop_toBottomOf="@id/btnReviewOtherBusinessInfo" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReviewProductsOrServices"
@@ -101,11 +101,11 @@
 
             <include
                 android:id="@+id/layout_details_products_or_services"
+                layout="@layout/item_review_product_or_services"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                layout="@layout/item_review_product_or_services"
-                app:layout_constraintTop_toBottomOf="@id/btnReviewProductsOrServices"/>
+                app:layout_constraintTop_toBottomOf="@id/btnReviewProductsOrServices" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReviewCardAcceptance"
@@ -124,11 +124,11 @@
 
             <include
                 android:id="@+id/layout_details_card_acceptance"
+                layout="@layout/item_review_card_acceptance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                layout="@layout/item_review_card_acceptance"
-                app:layout_constraintTop_toBottomOf="@id/btnReviewCardAcceptance"/>
+                app:layout_constraintTop_toBottomOf="@id/btnReviewCardAcceptance" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReviewTransactionInformation"
@@ -147,11 +147,11 @@
 
             <include
                 android:id="@+id/layout_details_transaction_info"
+                layout="@layout/item_review_transaction_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                layout="@layout/item_review_transaction_info"
-                app:layout_constraintTop_toBottomOf="@id/btnReviewTransactionInformation"/>
+                app:layout_constraintTop_toBottomOf="@id/btnReviewTransactionInformation" />
 
             <CheckBox
                 android:id="@+id/cb_review_fnc_tnc"

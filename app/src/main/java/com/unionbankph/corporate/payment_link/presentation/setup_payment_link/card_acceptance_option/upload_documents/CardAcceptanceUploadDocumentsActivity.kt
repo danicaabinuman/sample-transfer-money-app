@@ -177,6 +177,7 @@ class CardAcceptanceUploadDocumentsActivity :
         popupPreviewDocsFromGallery.visibility = View.GONE
         viewToolbar.visibility = View.VISIBLE
         clUploadBIRDocs.visibility = View.VISIBLE
+        btnNext.visibility = View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
