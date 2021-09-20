@@ -576,209 +576,52 @@
                 </LinearLayout>
             </LinearLayout>
 
-<!--            <LinearLayout-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="ACTIVITY LOG"
+                    android:textColor="#4B4948"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <include
+                    android:id="@+id/cardViewMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    layout="@layout/widget_view_more_button"
+                    android:layout_marginLeft="@dimen/content_spacing"
+                    android:layout_marginTop="@dimen/field_content_spacing"
+                    android:layout_marginRight="@dimen/content_spacing"
+                    android:layout_marginBottom="@dimen/field_content_spacing"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardViewAccountDetails" />
+
+            </LinearLayout>
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="20dp"-->
-<!--                android:layout_marginBottom="10dp"-->
-<!--                android:orientation="horizontal">-->
+<!--                android:background="@color/jumio_white"/>-->
 
-<!--                <TextView-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center_vertical"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="ACTIVITY LOG"-->
-<!--                    android:textColor="#4B4948"-->
-<!--                    android:textSize="10sp"-->
-<!--                    android:textStyle="bold" />-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/jumio_white"
+                android:orientation="vertical">
+                <include layout="@layout/item_payment_history"/>
+                <include layout="@layout/item_payment_history"/>
+                <include layout="@layout/item_payment_history"/>
+            </LinearLayout>
 
-<!--                <TextView-->
-<!--                    android:id="@+id/btnViewMore"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center_vertical"-->
-<!--                    android:background="@drawable/bg_white_rounded_corners"-->
-<!--                    android:gravity="center"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:paddingTop="5dp"-->
-<!--                    android:paddingEnd="10dp"-->
-<!--                    android:paddingBottom="5dp"-->
-<!--                    android:text="VIEW MORE"-->
-<!--                    android:textStyle="bold"-->
-<!--                    android:textColor="#4B4948"-->
-<!--                    android:textSize="10sp" />-->
-
-<!--            </LinearLayout>-->
-
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp"-->
-<!--                android:background="@drawable/bg_card_view_payment_status"-->
-<!--                android:orientation="vertical"-->
-<!--                android:paddingTop="20dp">-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="5dp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:paddingEnd="10dp">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="GCash"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="FAILED"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="10dp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:paddingEnd="10dp">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="pay_sdjftef46790kjgd"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="01 Jan 2021 at 3:30 PM"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-<!--                </LinearLayout>-->
-
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="3dp"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:paddingEnd="10dp"-->
-<!--                    android:src="@drawable/view_gray_solid_line" />-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="5dp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:layout_marginTop="15dp"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:paddingEnd="10dp">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="Visa"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="FAILED"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="5dp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:paddingEnd="10dp">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="pay_sdjftefhyfbklpiuy"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="02 Jan 2021 at 10:30 AM"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-<!--                </LinearLayout>-->
-
-<!--                <ImageView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="3dp"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:paddingEnd="10dp"-->
-<!--                    android:src="@drawable/view_gray_solid_line" />-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="15dp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:paddingEnd="10dp">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="GCash"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="PAID"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-<!--                </LinearLayout>-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="5dp"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:paddingEnd="10dp">-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="pay_sdbahdjkloiu890"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="01 Jan 2021 at 6:00 PM"-->
-<!--                        android:textColor="#4B4948"-->
-<!--                        android:textSize="12sp" />-->
-<!--                </LinearLayout>-->
-
-<!--            </LinearLayout>-->
 
         </LinearLayout>
 
