@@ -3,55 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/MatchParent">
 
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/match_constraint"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MatchParent"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent=".6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            style="@style/MatchParent"
-            android:orientation="vertical"
-            >
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/grid_36"
-                android:scaleType="fitCenter"
-                />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/MatchWrapParent"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
-                android:id="@+id/textViewHeader"
-                android:gravity="center"
-                android:textSize="@dimen/text_24"
-                android:textStyle="bold"
-                android:textColor="@color/colorSMEMediumOrange"
-                android:text="@string/title_transfer_funds"
-                android:layout_marginStart="@dimen/content_group_spacing"
-                android:layout_marginEnd="@dimen/content_group_spacing"
-                android:layout_marginTop="@dimen/grid_11"
-                />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView"
+            style="@style/MatchConstraint"
+            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:layout_marginTop="@dimen/grid_7"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.5"
+            app:layout_constraintWidth_percent="0.5"
+            />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:textFontWeight="500"
-                android:id="@+id/textViewDesc"
-                style="@style/MatchWrapParent"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@color/dsColorDarkGray"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="@dimen/grid_1"
-                android:layout_marginEnd="18dp"
-                android:gravity="center"
-                android:lineSpacingExtra="@dimen/text_view_spacing"
-                android:maxLines="10"
-                android:text="@string/desc_transfer_funds"
-                />
-        </LinearLayout>
-    </FrameLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/MatchWrapParent"
+            android:textAppearance="@style/SMEHeadlineH2"
+            android:id="@+id/textViewHeader"
+            android:gravity="center"
+            android:textSize="@dimen/text_24"
+            android:textStyle="bold"
+            android:textColor="@color/colorSMEMediumOrange"
+            android:text="@string/title_transfer_funds"
+            android:layout_marginStart="@dimen/content_group_spacing"
+            android:layout_marginEnd="@dimen/content_group_spacing"
+            android:layout_marginTop="@dimen/grid_5"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toBottomOf="@id/imageView"
+            app:layout_constraintBottom_toTopOf="@id/textViewDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:textFontWeight="500"
+            android:id="@+id/textViewDesc"
+            style="@style/MatchWrapParent"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textColor="@color/dsColorDarkGray"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginEnd="18dp"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/text_view_spacing"
+            android:maxLines="10"
+            android:text="@string/desc_transfer_funds"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewHeader"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

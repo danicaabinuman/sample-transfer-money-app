@@ -80,14 +80,17 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_signup_illustration"
-                    style="@style/WrapContent"
+                    style="@style/MatchConstraint"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:scaleType="centerInside"
                     app:layout_constraintTop_toBottomOf="@+id/imageViewLogo"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:srcCompat="@drawable/ic_signup_screen"
-                    android:layout_marginTop="@dimen/msme_content_spacing"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/MSMESignUp"
+                    app:layout_constraintHeight_percent=".35"
                     android:visibility="gone"
-
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -358,15 +361,16 @@
                     app:tint="?colorImage" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    style="@style/MatchWrapParent"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
                     android:id="@+id/llEmailSME"
                     android:visibility="gone"
-                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textViewFullname"
-                    android:layout_marginStart="@dimen/msme_content_spacing"
-                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -403,11 +407,14 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/llPasswordSME"
                     style="@style/MatchWrapParent"
-                    android:layout_marginTop="@dimen/msme_content_spacing"
-                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
                     android:layout_marginStart="@dimen/msme_content_spacing"
                     android:orientation="vertical"
                     android:visibility="gone"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/llEmailSME"
                     app:layout_constraintStart_toStartOf="parent"
                     >
@@ -446,32 +453,38 @@
                     style="@style/SMEPrimaryButtonLarge"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/grid_11_half"
+                    android:layout_marginTop="@dimen/grid_5"
                     app:layout_constraintTop_toBottomOf="@+id/llPasswordSME"
-                    android:layout_marginStart="@dimen/msme_content_spacing"
-                    android:layout_marginEnd="@dimen/msme_content_spacing"
-                    android:layout_marginBottom="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
                     android:textAllCaps="true"
                     android:text="@string/title_login"
                     android:visibility="gone"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintVertical_chainStyle="packed"
                     />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/MSMEForgotPassword"
-                    style="@style/SMETertiaryButtonLarge"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    app:layout_constraintTop_toBottomOf="@+id/MSMEbtnLogin"
-                    android:layout_marginStart="@dimen/msme_content_spacing"
-                    android:layout_marginEnd="@dimen/msme_content_spacing"
-                    android:layout_marginBottom="@dimen/grid_1"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorButtonGray"
+                    style="@style/TextViewTheme"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="@dimen/text_view_padding"
                     android:text="@string/title_forgot_password"
+                    app:layout_constraintBottom_toTopOf="@+id/imgFingerPrintMSME"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/MSMEbtnLogin"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:textAllCaps="true"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/constraint_layout"
-                    />
+                    android:textStyle="bold"
+                    android:textColor="@color/colorButtonGray"
+                    android:layout_marginTop="@dimen/content_spacing_large"
+
+                     />
+
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imgFingerPrintMSME"
@@ -506,14 +519,13 @@
                     style="@style/SMEPrimaryButtonLarge"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/grid_15"
+                    android:layout_marginTop="@dimen/grid_10"
                     app:layout_constraintTop_toBottomOf="@+id/bg_signup_illustration"
-                    android:layout_marginStart="@dimen/msme_content_spacing"
-                    android:layout_marginEnd="@dimen/msme_content_spacing"
-                    android:layout_marginBottom="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
                     android:textAllCaps="true"
                     android:text="@string/title_register"
-                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintVertical_bias="1"
                     app:layout_constraintVertical_chainStyle="packed"
                     android:visibility="gone"
                     />
@@ -523,14 +535,14 @@
                     style="@style/SMESecondaryButtonLarge"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1_half"
                     app:layout_constraintTop_toBottomOf="@+id/MSMESignUp"
-                    app:layout_constraintBottom_toBottomOf="@+id/constraint_layout"
-                    android:layout_marginStart="@dimen/msme_content_spacing"
-                    android:layout_marginEnd="@dimen/msme_content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
                     android:layout_marginBottom="@dimen/grid_1"
                     android:textAllCaps="true"
                     android:text="@string/title_login"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:visibility="gone"
                     />
 
@@ -597,13 +609,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
-            android:layout_marginBottom="@dimen/grid_3"
+            android:layout_marginBottom="@dimen/grid_1"
             android:lineSpacingMultiplier="1.2"
             android:text="@string/desc_unionbank"
             android:textSize="@dimen/text_12"
             android:layout_gravity="center_horizontal|center"
-            android:gravity="start"
-            android:visibility="invisible"/>
+            android:gravity="center"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
