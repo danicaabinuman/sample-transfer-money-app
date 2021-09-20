@@ -15,54 +15,53 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewRemarks"
-        style="@style/TextViewDarkForm"
+        android:id="@+id/tv_view_remarks"
+        style="@style/TextViewDarkHeaderDetail"
         android:layout_marginLeft="@dimen/content_spacing"
         android:layout_marginRight="@dimen/content_spacing"
         android:ellipsize="end"
         android:maxLines="2"
-        android:text="Bills Payment"
+        android:text="GCash"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewAmount"
+        app:layout_constraintEnd_toStartOf="@+id/tv_payment_history_amount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewAmount"
+        android:id="@+id/tv_history_code"
+        style="@style/TextViewDarkDetailForm"
+        android:layout_marginLeft="@dimen/content_spacing"
+        android:layout_marginRight="@dimen/content_spacing"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="pay_sdjftef46790kjgd"
+        app:layout_constraintTop_toBottomOf="@id/tv_view_remarks"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_payment_history_amount"
         style="@style/TextViewDarkForm"
         android:layout_width="@dimen/match_constraint"
         android:layout_marginEnd="@dimen/content_spacing_half"
         android:gravity="end"
-        android:text="PHP 99999999"
+        android:text="FAILED"
         android:textSize="@dimen/text_13"
-        app:layout_constraintBottom_toTopOf="@+id/textViewDate"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_view_remarks"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewTransferType"
-        app:layout_constraintTop_toTopOf="@+id/textViewRemarks"
+        app:layout_constraintTop_toTopOf="@+id/tv_view_remarks"
         app:layout_constraintWidth_percent="0.4" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewDate"
-        style="@style/TextViewDarkSmall"
+        android:id="@+id/tv_payment_history_date"
+        style="@style/TextViewDarkDetailForm"
         android:layout_width="@dimen/match_constraint"
         android:layout_marginEnd="@dimen/content_spacing_half"
         android:gravity="end"
-        android:text="June 29, 2018, 07:00 PM"
-        android:textColor="@color/colorButtonGray"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewRemarks"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewTransferType"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAmount"
-        app:layout_goneMarginBottom="10dp" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageViewTransferType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/content_spacing"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewAmount"
+        android:text="01 Jan 2021 at 3:30 PM"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_history_code"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewAmount"
-        app:srcCompat="@drawable/ic_account_plus_green" />
+        app:layout_constraintTop_toTopOf="@+id/tv_history_code"
+        app:layout_goneMarginBottom="10dp" />
 
     <View
         android:id="@+id/viewBorder2"
