@@ -368,15 +368,6 @@ class LoginFragment :
         binding.textViewMigration.setOnClickListener {
             navigateMigrationScreen()
         }
-        /*binding.ivShowPassword.setOnClickListener {
-            binding.ivShowPassword.isActivated = !binding.ivShowPassword.isActivated
-            if (binding.ivShowPassword.isActivated) {
-                binding.etPasswordSME.transformationMethod = null
-            } else {
-                binding.etPasswordSME.transformationMethod = PasswordTransformationMethod()
-            }
-            binding.etPasswordSME.setSelection(binding.etPasswordSME.length())
-        }*/
         setOnClickListenerSignUp()
         binding.btnOpenBusinessAccount.setOnClickListener {
             navigateDaoSelectionScreen()
@@ -468,14 +459,6 @@ class LoginFragment :
                 binding.buttonLogin.visibility(false)
                 binding.tilUsername.visibility(false)
                 binding.tilPassword.visibility(false)
-                /*val constraintSet = ConstraintSet()
-                constraintSet.connect(
-                    binding.bgSignupIllustration.id,
-                    ConstraintSet.TOP,
-                    binding.MSMEFirstLogin.id,
-                    ConstraintSet.BOTTOM
-                )
-                constraintSet.clone(binding.constraintLayout)*/
                 binding.textViewMigration.visibility(false)
                 binding.textViewLearnMore.visibility(false)
                 viewUtil.startAnimateView(true, binding.bgSignupIllustration, android.R.anim.fade_in)
@@ -484,28 +467,6 @@ class LoginFragment :
                 viewUtil.startAnimateView(true, binding.ivbgOrange, android.R.anim.fade_in)
                 viewUtil.startAnimateView(true, binding.tvUbCaption, android.R.anim.fade_in)
                 viewUtil.startAnimateView(true, binding.ivWhitebg, android.R.anim.fade_in)
-                /*//binding.cardViewEmail.visibility(false)
-                //binding.cardViewPassword.visibility(false)
-                binding.tvSignUp.visibility(true)
-                binding.tvSignUp.text =
-                    formatString(R.string.action_sign_up_with_existing)
-                        .toUpperCase()
-                        .toHtmlSpan()
-                binding.tvSignUp.setOnClickListener {
-                    navigator.navigateBrowser(
-                        getAppCompatActivity(),
-                        URLDataEnum.ENROLLMENT_LINK
-                    )
-                }
-                val constraintSet = ConstraintSet()
-                constraintSet.connect(
-                    binding.tvSignUp.id,
-                    ConstraintSet.TOP,
-                    binding.btnInitialLogin.id,
-                    ConstraintSet.BOTTOM
-                )
-                constraintSet.clone(binding.constraintLayout)*/
-
             }
         } else {
             binding.tvSignUp.visibility(true)
