@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
@@ -10,11 +11,11 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.platform.bus.event.InputSyncEvent
 import com.unionbankph.corporate.app.common.widget.recyclerview.viewpager.ViewPagerAdapter
+import com.unionbankph.corporate.databinding.ActivityBeneficiaryBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_beneficiary.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
-class BeneficiaryActivity : BaseActivity<BeneficiaryViewModel>(R.layout.activity_beneficiary) {
+class BeneficiaryActivity :
+    BaseActivity<ActivityBeneficiaryBinding, BeneficiaryViewModel>() {
 
     private var adapter: ViewPagerAdapter? = null
 
@@ -22,12 +23,12 @@ class BeneficiaryActivity : BaseActivity<BeneficiaryViewModel>(R.layout.activity
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         if (isSME) {
-            removeElevation(viewToolbar)
-            shadow_toolbar.isVisible = true
+            removeElevation(binding.viewToolbar.appBarLayout)
+            binding.shadowToolbar.isVisible = true
         }
-        setToolbarTitle(tvToolbar, getString(R.string.title_select_beneficiary))
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_select_beneficiary))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -79,24 +80,24 @@ class BeneficiaryActivity : BaseActivity<BeneficiaryViewModel>(R.layout.activity
                 ), FRAGMENT_OWN_ACCOUNT
             )
         } else {
-            tabLayoutBeneficiary.visibility = View.GONE
+            binding.tabLayoutBeneficiary.visibility = View.GONE
         }
 
-        viewPagerBeneficiary.adapter = adapter
-        viewPagerBeneficiary.offscreenPageLimit = 0
+        binding.viewPagerBeneficiary.adapter = adapter
+        binding.viewPagerBeneficiary.offscreenPageLimit = 0
         if (intent.getStringExtra(EXTRA_DESTINATION_ACCOUNT_ID) != null &&
             intent.getStringExtra(EXTRA_PAGE) != null
         ) {
-            viewPagerBeneficiary.currentItem = 1
+            binding.viewPagerBeneficiary.currentItem = 1
         }
-        tabLayoutBeneficiary.setupWithViewPager(viewPagerBeneficiary, false)
+        binding.tabLayoutBeneficiary.setupWithViewPager(binding.viewPagerBeneficiary, false)
     }
 
     fun setCurrentViewPager(currentItem: Int) {
         if (intent.getStringExtra(EXTRA_DESTINATION_ACCOUNT_ID) == null &&
             intent.getStringExtra(EXTRA_PAGE) != null
         ) {
-            viewPagerBeneficiary.currentItem = currentItem
+            binding.viewPagerBeneficiary.currentItem = currentItem
         }
     }
 
@@ -115,4 +116,10 @@ class BeneficiaryActivity : BaseActivity<BeneficiaryViewModel>(R.layout.activity
 
         const val PAGE_UBP_FORM = "ubp_form"
     }
+
+    override val viewModelClassType: Class<BeneficiaryViewModel>
+        get() = BeneficiaryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBeneficiaryBinding
+        get() = ActivityBeneficiaryBinding::inflate
 }

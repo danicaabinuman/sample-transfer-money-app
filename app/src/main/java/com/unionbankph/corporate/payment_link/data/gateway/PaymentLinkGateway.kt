@@ -1,9 +1,6 @@
 package com.unionbankph.corporate.payment_link.data.gateway
 
-import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
-import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
-import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
-import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import io.reactivex.Single
 import retrofit2.Response
@@ -27,5 +24,7 @@ interface PaymentLinkGateway {
     fun validateApprover() : Single<ValidateApproverResponse>
 
     fun submitBusinessInformation(rmoBusinessInformation : RMOBusinessInformationForm) : Single<RMOBusinessInformationResponse>
+
+    fun updateSettlementOnRequestPayment(updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm) : Single<UpdateSettlementOnRequestPaymentResponse>
 
 }

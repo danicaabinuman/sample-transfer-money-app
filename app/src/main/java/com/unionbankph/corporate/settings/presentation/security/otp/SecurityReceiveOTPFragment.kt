@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.settings.presentation.security.otp
 
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -12,6 +14,7 @@ import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.databinding.FragmentSecurityReceiveOtpBinding
 import com.unionbankph.corporate.settings.data.form.OTPTypeForm
 import com.unionbankph.corporate.settings.data.model.OTPTypeDto
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsViewModel
@@ -21,10 +24,9 @@ import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettin
 import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettingsLoading
 import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettingsProgressDismissLoading
 import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettingsProgressLoading
-import kotlinx.android.synthetic.main.fragment_security_receive_otp.*
 
 class SecurityReceiveOTPFragment :
-    BaseFragment<GeneralSettingsViewModel>(R.layout.fragment_security_receive_otp),
+    BaseFragment<FragmentSecurityReceiveOtpBinding, GeneralSettingsViewModel>(),
     View.OnClickListener {
 
     private lateinit var otpTypeDto: OTPTypeDto
@@ -35,23 +37,22 @@ class SecurityReceiveOTPFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[GeneralSettingsViewModel::class.java]
+
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowGeneralSettingsLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.viewLoadingLayout,
                         null,
-                        constraintLayoutContent,
+                        binding.constraintLayoutContent,
                         null
                     )
                 }
                 is ShowGeneralSettingsDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.viewLoadingLayout,
                         null,
-                        constraintLayoutContent
+                        binding.constraintLayoutContent
                     )
                 }
                 is ShowGeneralSettingsProgressLoading -> {
@@ -71,11 +72,11 @@ class SecurityReceiveOTPFragment :
                         )
                     )
                     if (otpTypeDto.loginType == TYPE_SMS) {
-                        imageViewSMS.visibility = View.VISIBLE
-                        imageViewTrustedDevice.visibility = View.GONE
+                        binding.imageViewSMS.visibility = View.VISIBLE
+                        binding.imageViewTrustedDevice.visibility = View.GONE
                     } else {
-                        imageViewSMS.visibility = View.GONE
-                        imageViewTrustedDevice.visibility = View.VISIBLE
+                        binding.imageViewSMS.visibility = View.GONE
+                        binding.imageViewTrustedDevice.visibility = View.VISIBLE
                     }
                 }
                 is ShowGeneralSettingsError -> {
@@ -94,14 +95,14 @@ class SecurityReceiveOTPFragment :
             hasBackButton = true,
             hasMenuItem = false
         )
-        constraintLayoutSMS.tag = TYPE_SMS
-        constraintLayoutTrustedDevice.tag = TYPE_TOTP
+        binding.constraintLayoutSMS.tag = TYPE_SMS
+        binding.constraintLayoutTrustedDevice.tag = TYPE_TOTP
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        constraintLayoutSMS.setOnClickListener(this)
-        constraintLayoutTrustedDevice.setOnClickListener(this)
+        binding.constraintLayoutSMS.setOnClickListener(this)
+        binding.constraintLayoutTrustedDevice.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {
@@ -110,7 +111,7 @@ class SecurityReceiveOTPFragment :
         if (otpTypeDto.loginType != v.tag) {
             viewModel.setOTPType(
                 OTPTypeForm(
-                    if (imageViewSMS.visibility == View.VISIBLE) {
+                    if (binding.imageViewSMS.visibility == View.VISIBLE) {
                         TYPE_TOTP
                     } else {
                         TYPE_SMS
@@ -119,4 +120,10 @@ class SecurityReceiveOTPFragment :
             )
         }
     }
+
+    override val viewModelClassType: Class<GeneralSettingsViewModel>
+        get() = GeneralSettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSecurityReceiveOtpBinding
+        get() = FragmentSecurityReceiveOtpBinding::inflate
 }

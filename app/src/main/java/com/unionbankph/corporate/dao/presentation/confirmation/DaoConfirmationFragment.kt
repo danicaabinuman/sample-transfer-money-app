@@ -4,7 +4,9 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -42,16 +44,12 @@ import com.unionbankph.corporate.dao.domain.exception.VerificationProcessingExce
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
+import com.unionbankph.corporate.databinding.FragmentDaoConfirmationBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_confirmation.*
-import kotlinx.android.synthetic.main.view_financial_information_details.*
-import kotlinx.android.synthetic.main.view_personal_info_1_details.*
-import kotlinx.android.synthetic.main.view_personal_info_2_details.*
-import kotlinx.android.synthetic.main.view_personal_info_3_details.*
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoConfirmationFragment :
-    BaseFragment<DaoConfirmationViewModel>(R.layout.fragment_dao_confirmation),
+    BaseFragment<FragmentDaoConfirmationBinding, DaoConfirmationViewModel>(),
     DaoActivity.ActionEvent {
 
     private lateinit var ivSignature: AppCompatImageView
@@ -86,8 +84,6 @@ class DaoConfirmationFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[DaoConfirmationViewModel::class.java]
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -206,32 +202,32 @@ class DaoConfirmationFragment :
     }
 
     private fun initClickListener() {
-        btn_personal_information_1.setOnClickListener {
+        binding.viewPersonalInfo1.btnPersonalInformation1.setOnClickListener {
             val action = DaoConfirmationFragmentDirections.actionPersonalInformationStepOne(true)
             findNavController().navigate(action)
             setBackIconToDefault()
         }
-        btn_personal_information_2.setOnClickListener {
+        binding.viewPersonalInfo2.btnPersonalInformation2.setOnClickListener {
             val action = DaoConfirmationFragmentDirections.actionPersonalInformationStepTwo(true)
             findNavController().navigate(action)
             setBackIconToDefault()
         }
-        btn_personal_information_3.setOnClickListener {
+        binding.viewPersonalInfo3.btnPersonalInformation3.setOnClickListener {
             val action = DaoConfirmationFragmentDirections.actionPersonalInformationStepThree(true)
             findNavController().navigate(action)
             setBackIconToDefault()
         }
-        btn_financial_information.setOnClickListener {
+        binding.viewFinancialInformation.btnFinancialInformation.setOnClickListener {
             val action = DaoConfirmationFragmentDirections.actionPersonalInformationStepFour(true)
             findNavController().navigate(action)
             setBackIconToDefault()
         }
-        btn_id_verification.setOnClickListener {
+        binding.btnIdVerification.setOnClickListener {
             val action = DaoConfirmationFragmentDirections.actionJumioVerificationFragment(true)
             findNavController().navigate(action)
             setBackIconToDefault()
         }
-        btn_signature_specimen.setOnClickListener {
+        binding.btnSignatureSpecimen.setOnClickListener {
             val action = DaoConfirmationFragmentDirections.actionDaoSignatureFragment(true)
             findNavController().navigate(action)
             setBackIconToDefault()
@@ -243,19 +239,19 @@ class DaoConfirmationFragment :
     }
 
     private fun initCheckListener() {
-        cb_agreement.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbAgreement.setOnCheckedChangeListener { _, isChecked ->
             viewModel.isCheckedTNC.onNext(isChecked)
         }
     }
 
     private fun init() {
         if (App.isSupportedInProduction) {
-            btn_id_verification.isInvisible = true
+            binding.btnIdVerification.isInvisible = true
         }
         viewModel.loadDaoForm(daoActivity.viewModel.defaultDaoForm())
-        ivSignature = view_signature.findViewById(R.id.imageView)
-        viewOverlay = view_signature.findViewById(R.id.viewOverLay)
-        pbSignature = view_signature.findViewById(R.id.imageViewProgressBar)
+        ivSignature = binding.viewSignature.imageView
+        viewOverlay = binding.viewSignature.viewOverLay.root
+        pbSignature = binding.viewSignature.imageViewProgressBar
         viewOverlay.isVisible = false
         pbSignature.isVisible = false
     }
@@ -264,96 +260,96 @@ class DaoConfirmationFragment :
         Handler().post {
             viewModel.input.salutationInput
                 .subscribe {
-                    tv_salutation.text = it.value
+                    binding.viewPersonalInfo1.tvSalutation.text = it.value
                 }.addTo(disposables)
             viewModel.input.firstNameInput
                 .subscribe {
-                    tv_first_name.text = it
+                    binding.viewPersonalInfo1.tvFirstName.text = it
                 }.addTo(disposables)
             viewModel.input.middleNameInput
                 .subscribe {
-                    tv_middle_name.text = it
+                    binding.viewPersonalInfo1.tvMiddleName.text = it
                 }.addTo(disposables)
             viewModel.input.lastNameInput
                 .subscribe {
-                    tv_last_name.text = it
+                    binding.viewPersonalInfo1.tvLastName.text = it
                 }.addTo(disposables)
             viewModel.input.emailAddressInput
                 .subscribe {
-                    tv_email_address.text = it
+                    binding.viewPersonalInfo1.tvEmailAddress.text = it
                 }.addTo(disposables)
             viewModel.input.countryCodeInput
                 .subscribe {
-                    tv_mobile_number.text = it.name
+                    binding.viewPersonalInfo1.tvMobileNumber.text = it.name
                 }.addTo(disposables)
             viewModel.input.businessMobileNumberInput
                 .subscribe {
-                    tv_mobile_number.text = it
+                    binding.viewPersonalInfo1.tvMobileNumber.text = it
                 }.addTo(disposables)
             viewModel.input.genderInput
                 .subscribe {
-                    tv_gender.text = it.value
+                    binding.viewPersonalInfo1.tvGender.text = it.value
                 }.addTo(disposables)
             viewModel.input.civilStatusInput
                 .subscribe {
-                    tv_civil_status.text = it.value
+                    binding.viewPersonalInfo1.tvCivilStatus.text = it.value
                 }.addTo(disposables)
 
             viewModel.input.governmentIdNumberInput
                 .subscribe {
-                    tv_government_id.text = it
+                    binding.viewPersonalInfo2.tvGovernmentId.text = it
                 }.addTo(disposables)
             viewModel.input.dateOfBirthInput
                 .subscribe {
-                    tv_date_of_birth.text =
+                    binding.viewPersonalInfo2.tvDateOfBirth.text =
                         it.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DATE)
                 }.addTo(disposables)
             viewModel.input.placeOfBirthInput
                 .subscribe {
-                    tv_place_of_birth.text = it
+                    binding.viewPersonalInfo2.tvPlaceOfBirth.text = it
                 }.addTo(disposables)
             viewModel.input.nationalityInput
                 .subscribe {
-                    tv_nationality.text = it.value
+                    binding.viewPersonalInfo2.tvNationality.text = it.value
                 }.addTo(disposables)
             viewModel.input.permanentAddressInput
                 .subscribe {
                     if (!it) {
-                        tv_address_title.text = formatString(R.string.title_permanent_address)
+                        binding.viewPersonalInfo3.tvAddressTitle.text = formatString(R.string.title_permanent_address)
                     } else {
-                        tv_address_title.text = formatString(R.string.title_present_address)
+                        binding.viewPersonalInfo3.tvAddressTitle.text = formatString(R.string.title_present_address)
                     }
                 }.addTo(disposables)
             viewModel.homeAddress
                 .subscribe {
-                    tv_address.text = it
+                    binding.viewPersonalInfo3.tvAddress.text = it
                 }.addTo(disposables)
 
             viewModel.input.occupationInput
                 .subscribe {
                     if (it.id != OTHERS_CODE) {
-                        tv_occupation.text = it.value
+                        binding.viewFinancialInformation.tvOccupation.text = it.value
                     }
                 }.addTo(disposables)
             viewModel.input.otherOccupationInput
                 .subscribe {
                     if (viewModel.input.occupationInput.value?.id == OTHERS_CODE) {
-                        tv_occupation.text =
+                        binding.viewFinancialInformation.tvOccupation.text =
                             ("${viewModel.input.occupationInput.value?.value} - $it")
                     }
                 }.addTo(disposables)
             viewModel.input.sourceOfFundsInput
                 .subscribe {
-                    tv_source_of_funds.text = it.value
+                    binding.viewFinancialInformation.tvSourceOfFunds.text = it.value
                 }.addTo(disposables)
             viewModel.input.percentOwnershipInput
                 .subscribe {
-                    tv_percent_ownership.text = ("$it%")
+                    binding.viewFinancialInformation.tvPercentOwnership.text = ("$it%")
                 }.addTo(disposables)
 
             viewModel.input.idTypeInput
                 .subscribe {
-                    tv_id_type_title.text = it
+                    binding.tvIdTypeTitle.text = it
                 }.addTo(disposables)
 
             viewModel.input.fileInput
@@ -586,4 +582,10 @@ class DaoConfirmationFragment :
         const val TAG_CANCEL_DAO_DIALOG = "cancel_dao"
         const val OTHERS_CODE = "NV"
     }
+
+    override val viewModelClassType: Class<DaoConfirmationViewModel>
+        get() = DaoConfirmationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoConfirmationBinding
+        get() = FragmentDaoConfirmationBinding::inflate
 }

@@ -2,6 +2,7 @@ package com.unionbankph.corporate.ebilling.presentation.generate
 
 import android.Manifest
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -15,24 +16,20 @@ import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrganizationName
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityEbillingGenerateBinding
 import com.unionbankph.corporate.ebilling.domain.form.EBillingForm
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_ebilling_generate.*
-import kotlinx.android.synthetic.main.view_e_billing_share.*
-import kotlinx.android.synthetic.main.widget_button_share_outline.*
-import kotlinx.android.synthetic.main.widget_header_transaction_summary.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 
 /**
  * Created by herald on 10/28/20
  */
 class EBillingGenerateActivity :
-    BaseActivity<EBillingGenerateViewModel>(R.layout.activity_ebilling_generate) {
+    BaseActivity<ActivityEbillingGenerateBinding, EBillingGenerateViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
@@ -43,14 +40,14 @@ class EBillingGenerateActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        textViewQRCodeDesc.isVisible = false
-        imageViewQRCode.isVisible = false
+        binding.viewShareContent.viewHeaderTransaction.textViewQRCodeDesc.isVisible = false
+        binding.viewShareContent.viewHeaderTransaction.imageViewQRCode.isVisible = false
         setupBindings()
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        btn_make_another.setOnClickListener {
+        binding.btnMakeAnother.setOnClickListener {
             navigator.navigateClearUpStack(
                 this,
                 EBillingFormActivity::class.java,
@@ -72,8 +69,6 @@ class EBillingGenerateActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[EBillingGenerateViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Error -> {
@@ -86,7 +81,7 @@ class EBillingGenerateActivity :
             setupViews(it)
         })
         viewModel.qrCodeFile.observe(this, Observer {
-            iv_qr_code.setImageBitmap(it.toBitmap())
+            binding.ivQrCode.setImageBitmap(it.toBitmap())
         })
     }
 
@@ -95,8 +90,8 @@ class EBillingGenerateActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_generate_qr),
                         it.orgName
                     )
@@ -108,9 +103,9 @@ class EBillingGenerateActivity :
 
     private fun setupViews(eBillingForm: EBillingForm) {
         viewModel.generateQRCode(eBillingForm.qrCodePath.notNullable())
-        tv_account_name.text = eBillingForm.depositTo?.name
-        tv_account_number.text = eBillingForm.depositTo?.accountNumber.formatAccountNumber()
-        buttonShare.setOnClickListener {
+        binding.tvAccountName.text = eBillingForm.depositTo?.name
+        binding.tvAccountNumber.text = eBillingForm.depositTo?.accountNumber.formatAccountNumber()
+        binding.viewShareButton.buttonShare.setOnClickListener {
             setShareTransactionValues(eBillingForm)
         }
     }
@@ -118,15 +113,15 @@ class EBillingGenerateActivity :
     private fun setupBindings() {}
 
     private fun setShareTransactionValues(eBillingForm: EBillingForm) {
-        iv_share_qr_code.setImageBitmap(viewModel.qrCodeFile.value?.toBitmap())
-        tv_share_deposit_to.text = formatString(
+        binding.viewShareContent.ivShareQrCode.setImageBitmap(viewModel.qrCodeFile.value?.toBitmap())
+        binding.viewShareContent.tvShareDepositTo.text = formatString(
             R.string.params_account_detail,
             eBillingForm.depositTo?.name,
             eBillingForm.depositTo?.accountNumber.formatAccountNumber(),
             eBillingForm.depositTo?.productCodeDesc.notNullable()
         ).toHtmlSpan()
-        tv_share_amount.text = eBillingForm.amount.toString().formatAmount(eBillingForm.currency)
-        tv_share_date_downloaded.text = viewUtil.getCurrentDateString()
+        binding.viewShareContent.tvShareAmount.text = eBillingForm.amount.toString().formatAmount(eBillingForm.currency)
+        binding.viewShareContent.tvShareDateDownloaded.text = viewUtil.getCurrentDateString()
         initPermission()
     }
 
@@ -171,7 +166,7 @@ class EBillingGenerateActivity :
         showShareContent(true)
         runPostDelayed(
             {
-                val shareBitmap = viewUtil.getBitmapByView(view_share_content)
+                val shareBitmap = viewUtil.getBitmapByView(binding.viewShareContent.root)
                 dismissProgressAlertDialog()
                 showShareContent(false)
                 startShareMediaActivity(shareBitmap)
@@ -180,7 +175,7 @@ class EBillingGenerateActivity :
     }
 
     private fun showShareContent(isShown: Boolean) {
-        view_share_content.isVisible = isShown
+        binding.viewShareContent.root.isVisible = isShown
     }
 
     companion object {
@@ -189,4 +184,9 @@ class EBillingGenerateActivity :
 
     }
 
+    override val viewModelClassType: Class<EBillingGenerateViewModel>
+        get() = EBillingGenerateViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityEbillingGenerateBinding
+        get() = ActivityEbillingGenerateBinding::inflate
 }

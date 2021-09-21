@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.mcd.presentation.log
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -11,19 +12,18 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.getAccentColor
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.extension.notNullable
+import com.unionbankph.corporate.databinding.ActivityCheckDepositLogsBinding
 import com.unionbankph.corporate.mcd.data.model.SectionedCheckDepositLogs
-import kotlinx.android.synthetic.main.activity_check_deposit_logs.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 class CheckDepositActivityLogActivity :
-    BaseActivity<CheckDepositActivityLogViewModel>(R.layout.activity_check_deposit_logs) {
+    BaseActivity<ActivityCheckDepositLogsBinding, CheckDepositActivityLogViewModel>() {
 
     private val controller by lazyFast { CheckDepositActivityLogController(this, viewUtil) }
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_activity_log))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_activity_log))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -34,25 +34,21 @@ class CheckDepositActivityLogActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[CheckDepositActivityLogViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowCheckDepositLogLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutActivityLogs,
-                        recyclerViewActivityLogs,
-                        textViewState
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutActivityLogs,
+                        binding.recyclerViewActivityLogs,
+                        binding.textViewState
                     )
                 }
                 is ShowCheckDepositLogDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutActivityLogs,
-                        recyclerViewActivityLogs
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutActivityLogs,
+                        binding.recyclerViewActivityLogs
                     )
                 }
                 is ShowCheckDepositLogError -> {
@@ -69,7 +65,7 @@ class CheckDepositActivityLogActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        swipeRefreshLayoutActivityLogs.apply {
+        binding.swipeRefreshLayoutActivityLogs.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 fetchActivityLogs()
@@ -101,19 +97,25 @@ class CheckDepositActivityLogActivity :
     }
 
     private fun initRecyclerView() {
-        recyclerViewActivityLogs.setController(controller)
+        binding.recyclerViewActivityLogs.setController(controller)
     }
 
     private fun showEmptyState(data: MutableList<SectionedCheckDepositLogs>) {
         if (data.size > 0) {
-            if (textViewState?.visibility == View.VISIBLE)
-                textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     companion object {
         const val EXTRA_ID = "id"
     }
+
+    override val viewModelClassType: Class<CheckDepositActivityLogViewModel>
+        get() = CheckDepositActivityLogViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCheckDepositLogsBinding
+        get() = ActivityCheckDepositLogsBinding::inflate
 }

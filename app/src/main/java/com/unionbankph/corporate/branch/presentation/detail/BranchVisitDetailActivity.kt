@@ -19,19 +19,17 @@ import com.unionbankph.corporate.branch.presentation.transactionlist.BranchTrans
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import kotlinx.android.synthetic.main.activity_branch_visit_detail.*
-import kotlinx.android.synthetic.main.header_title.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import com.unionbankph.corporate.databinding.ActivityBranchVisitDetailBinding
 
 class BranchVisitDetailActivity :
-    BaseActivity<BranchVisitDetailViewModel>(R.layout.activity_branch_visit_detail) {
+    BaseActivity<ActivityBranchVisitDetailBinding, BranchVisitDetailViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, formatString(R.string.title_cash_or_check_deposit))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_cash_or_check_deposit))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
-        textViewTitle.text = formatString(R.string.title_no_approval_hierarchy)
+        binding.viewHeader.textViewTitle.text = formatString(R.string.title_no_approval_hierarchy)
     }
 
     override fun onViewModelBound() {
@@ -41,7 +39,7 @@ class BranchVisitDetailActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        cardViewAll.setOnClickListener {
+        binding.cardViewAll.root.setOnClickListener {
             navigateBranchTransactionScreen()
         }
     }
@@ -62,19 +60,14 @@ class BranchVisitDetailActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[BranchVisitDetailViewModel::class.java]
         viewModel.detailState.observe(this, Observer {
             when (it) {
                 is ShowBranchVisitDetailLoading -> {
-                    viewLoadingState.visibility(true)
-                    constraintLayout.visibility(false)
+                    binding.viewLoadingState.root.visibility(true)
+                    binding.constraintLayout.visibility(false)
                 }
                 is ShowBranchVisitDetailDismissLoading -> {
-                    viewLoadingState.visibility(false)
+                    binding.viewLoadingState.root.visibility(false)
                 }
                 is ShowBranchVisitDetailError -> {
                     handleOnError(it.throwable)
@@ -91,29 +84,29 @@ class BranchVisitDetailActivity :
     }
 
     private fun initBranchVisitDetails(branchVisit: BranchVisit) {
-        constraintLayout.visibility(true)
-        textViewStatus.setContextCompatTextColor(
+        binding.constraintLayout.visibility(true)
+        binding.textViewStatus.setContextCompatTextColor(
             ConstantHelper.Color.getTextColorBranchVisit(
                 branchVisit.status
             )
         )
-        textViewStatus.text =
+        binding.textViewStatus.text =
             ("<b>${branchVisit.status?.value}</b><br>Reference Number: " +
                     branchVisit.referenceNumber.notEmpty()).toHtmlSpan()
-        textViewCreatedDate.text = viewUtil.getDateFormatByDateString(
+        binding.textViewCreatedDate.text = viewUtil.getDateFormatByDateString(
             branchVisit.createdDate,
             DateFormatEnum.DATE_FORMAT_ISO_WITHOUT_T.value,
             DateFormatEnum.DATE_FORMAT_DATE.value
         )
-        textViewCreatedBy.text = branchVisit.createdBy
-        textViewTransactionDate.text = viewUtil.getDateFormatByDateString(
+        binding.textViewCreatedBy.text = branchVisit.createdBy
+        binding.textViewTransactionDate.text = viewUtil.getDateFormatByDateString(
             branchVisit.transactionDate,
             DateFormatEnum.DATE_FORMAT_ISO_DATE.value,
             DateFormatEnum.DATE_FORMAT_DATE.value
         )
-        textViewBranchName.text = branchVisit.branchName.notEmpty()
-        textViewBranchAddress.text = branchVisit.branchAddress.notEmpty()
-        textViewAccount.text = branchVisit.depositTo
+        binding.textViewBranchName.text = branchVisit.branchName.notEmpty()
+        binding.textViewBranchAddress.text = branchVisit.branchAddress.notEmpty()
+        binding.textViewAccount.text = branchVisit.depositTo
         if (branchVisit.isBatch) {
             val cashDepositTitle = formatString(
                 if (branchVisit.cashDepositSize > 1)
@@ -179,15 +172,15 @@ class BranchVisitDetailActivity :
                     branchVisit.currency
                 )}"
             )
-            textViewTotalDepositAmount.text = stringBuffer.toString().toHtmlSpan()
+            binding.textViewTotalDepositAmount.text = stringBuffer.toString().toHtmlSpan()
         } else {
-            textViewTotalDepositAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
+            binding.textViewTotalDepositAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
                 branchVisit.amount,
                 branchVisit.currency
             )
         }
 
-        textViewServiceFee.text = if (branchVisit.serviceFee != null) {
+        binding.textViewServiceFee.text = if (branchVisit.serviceFee != null) {
             formatString(
                 R.string.value_service,
                 autoFormatUtil.formatWithTwoDecimalPlaces(
@@ -199,22 +192,22 @@ class BranchVisitDetailActivity :
             formatString(R.string.value_service_fee_free)
         }
         if (branchVisit.channel == formatString(R.string.title_cash_withdrawal)) {
-            setToolbarTitle(tvToolbar, formatString(R.string.title_cash_withdrawal_details))
+            setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_cash_withdrawal_details))
         } else {
-            setToolbarTitle(tvToolbar, formatString(R.string.title_cash_deposit_details))
+            setToolbarTitle(binding.viewToolbar.tvToolbar, formatString(R.string.title_cash_deposit_details))
         }
-        textViewChannel.text = branchVisit.channel
-        textViewRemarks.text = branchVisit.remarks.notEmpty()
-        textViewReferenceNumber.text = branchVisit.referenceNumber.notEmpty()
+        binding.textViewChannel.text = branchVisit.channel
+        binding.textViewRemarks.text = branchVisit.remarks.notEmpty()
+        binding.textViewReferenceNumber.text = branchVisit.referenceNumber.notEmpty()
     }
 
     private fun initBranchTransactionDetails(
         branchTransactionsForm: MutableList<BranchTransactionForm>
     ) {
-        textViewHeaderBranchTransactionDetails.visibility(branchTransactionsForm.size > 1)
-        cardViewBranchTransaction.visibility(branchTransactionsForm.size > 1)
-        cardViewAll.visibility(branchTransactionsForm.size > 3)
-        linearLayoutBranchTransaction.removeAllViews()
+        binding.textViewHeaderBranchTransactionDetails.visibility(branchTransactionsForm.size > 1)
+        binding.cardViewBranchTransaction.visibility(branchTransactionsForm.size > 1)
+        binding.cardViewAll.root.visibility(branchTransactionsForm.size > 3)
+        binding.linearLayoutBranchTransaction.removeAllViews()
         branchTransactionsForm.take(3).forEachIndexed { index, branchTransactionForm ->
             val viewBranchTransactionItem =
                 LayoutInflater.from(context)
@@ -246,7 +239,7 @@ class BranchVisitDetailActivity :
             viewBranchTransactionItem.setOnClickListener {
                 navigationBranchTransactionDetail(branchTransactionForm)
             }
-            linearLayoutBranchTransaction.addView(viewBranchTransactionItem)
+            binding.linearLayoutBranchTransaction.addView(viewBranchTransactionItem)
         }
     }
 
@@ -314,4 +307,10 @@ class BranchVisitDetailActivity :
     companion object {
         const val EXTRA_ID = "id"
     }
+
+    override val viewModelClassType: Class<BranchVisitDetailViewModel>
+        get() = BranchVisitDetailViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBranchVisitDetailBinding
+        get() = ActivityBranchVisitDetailBinding::inflate
 }

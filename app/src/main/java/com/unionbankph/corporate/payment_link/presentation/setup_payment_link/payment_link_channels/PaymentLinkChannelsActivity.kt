@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,17 +12,15 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.otp.OTPActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityPaymentLinkChannelsBinding
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
-import kotlinx.android.synthetic.main.activity_payment_link_channels.*
-import kotlinx.android.synthetic.main.activity_payment_link_channels.viewToolbar
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar_with_tab_layout.*
 
 class PaymentLinkChannelsActivity :
-    BaseActivity<PaymentLinkChannelsViewModel>(R.layout.activity_payment_link_channels) {
+    BaseActivity<ActivityPaymentLinkChannelsBinding, PaymentLinkChannelsViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorDarkOrange, true)
     }
 
@@ -45,11 +44,11 @@ class PaymentLinkChannelsActivity :
         val adapter = TabLayoutAdapter(supportFragmentManager)
         adapter.addFragment(PaymentMethodsFragment(), getString(R.string.title_payment_methods))
         adapter.addFragment(FeesAndChargesFragment(), getString(R.string.fees_and_charges))
-        viewPagerPaymentLinkChannels.adapter = adapter
+        binding.viewPagerPaymentLinkChannels.adapter = adapter
 
-        tabLayout.setupWithViewPager(viewPagerPaymentLinkChannels)
+        binding.viewToolbar.tabLayout.setupWithViewPager(binding.viewPagerPaymentLinkChannels)
 
-        viewPagerPaymentLinkChannels.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        binding.viewPagerPaymentLinkChannels.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(
                 position: Int,
@@ -74,7 +73,7 @@ class PaymentLinkChannelsActivity :
     }
 
     private fun nextButton() {
-        btnNext.setOnClickListener {
+        binding.btnNext.setOnClickListener {
 
             val bundle = Bundle()
             // bundle.putString( ) Todo() Setup Bundle
@@ -108,4 +107,10 @@ class PaymentLinkChannelsActivity :
             fragmentTitle.add(title)
         }
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityPaymentLinkChannelsBinding
+        get() = ActivityPaymentLinkChannelsBinding::inflate
+
+    override val viewModelClassType: Class<PaymentLinkChannelsViewModel>
+        get() = PaymentLinkChannelsViewModel::class.java
 }

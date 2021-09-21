@@ -2,10 +2,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled
 
 import android.os.Bundle
 import android.text.InputType
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
@@ -41,19 +38,17 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.FragmentManageScheduledTransferOngoingBinding
 import com.unionbankph.corporate.fund_transfer.data.model.ScheduledTransferDeletionForm
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.*
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_manage_scheduled_transfer_ongoing.*
-import kotlinx.android.synthetic.main.widget_approvals_navigation.*
-import kotlinx.android.synthetic.main.widget_table_view.*
 
 /**
  * Created by herald25santos on 12/03/2019
  */
 class ManageScheduledTransferOngoingFragment :
-    BaseFragment<ManageScheduledTransferViewModel>(R.layout.fragment_manage_scheduled_transfer_ongoing),
+    BaseFragment<FragmentManageScheduledTransferOngoingBinding, ManageScheduledTransferViewModel>(),
     OnTutorialListener,
     OnConfirmationPageCallBack,
     EpoxyAdapterCallback<Transaction> {
@@ -103,11 +98,11 @@ class ManageScheduledTransferOngoingFragment :
                 getManageScheduledTransfers(true)
             }
         }
-        textViewReject.setOnClickListener {
+        binding.viewApprovalsNavigation.textViewReject.setOnClickListener {
             showDeleteScheduledTransferBottomSheet()
         }
-        textViewSelectAll.setOnClickListener {
-            if (textViewSelectAll.text == formatString(R.string.action_select_all)) {
+        binding.viewApprovalsNavigation.textViewSelectAll.setOnClickListener {
+            if (binding.viewApprovalsNavigation.textViewSelectAll.text == formatString(R.string.action_select_all)) {
                 viewModel.selectAll()
             } else {
                 viewModel.deSelectAll()
@@ -142,24 +137,20 @@ class ManageScheduledTransferOngoingFragment :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[ManageScheduledTransferViewModel::class.java]
         viewModel.state.observe(this, Observer {
 
             when (it) {
                 is ShowManageScheduledTransferLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView(),
-                        textViewState
+                        binding.textViewState
                     )
                 }
                 is ShowManageScheduledTransferDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView()
                     )
@@ -352,18 +343,18 @@ class ManageScheduledTransferOngoingFragment :
     }
 
     private fun updateViews(count: Int = 0) {
-        textViewReject.text = formatString(
+        binding.viewApprovalsNavigation.textViewReject.text = formatString(
             R.string.params_cancel,
             count.toString()
         )
         if (count == 0) {
-            textViewReject.isEnabled = false
-            textViewReject.alpha = 0.5f
+            binding.viewApprovalsNavigation.textViewReject.isEnabled = false
+            binding.viewApprovalsNavigation.textViewReject.alpha = 0.5f
         } else {
-            textViewReject.isEnabled = true
-            textViewReject.alpha = 1f
+            binding.viewApprovalsNavigation.textViewReject.isEnabled = true
+            binding.viewApprovalsNavigation.textViewReject.alpha = 1f
         }
-        textViewSelectAll.text =
+        binding.viewApprovalsNavigation.textViewSelectAll.text =
             if (count == getTransaction().size)
                 formatString(R.string.action_deselect_all)
             else
@@ -376,7 +367,7 @@ class ManageScheduledTransferOngoingFragment :
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        constraintLayout,
+                        binding.constraintLayout,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -402,20 +393,21 @@ class ManageScheduledTransferOngoingFragment :
     private fun showEmptyState(data: MutableList<Transaction>) {
         getAppCompatActivity().invalidateOptionsMenu()
         if (isTableView()) {
-            linearLayoutRow.visibility(data.isNotEmpty())
+            binding.viewTable.linearLayoutRow.visibility(data.isNotEmpty())
         }
         if (data.isNotEmpty()) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.text = getString(R.string.title_no_active_scheduled_transfer)
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.text = getString(R.string.title_no_active_scheduled_transfer)
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun setMultiSelection(isMultipleSelection: Boolean) {
         isSelection = isMultipleSelection
         getSwipeRefreshLayout().isEnabled = !isMultipleSelection
-        viewApprovalsNavigation.visibility(isMultipleSelection)
+        binding.viewApprovalsNavigation.root.visibility(isMultipleSelection)
         activity?.invalidateOptionsMenu()
     }
 
@@ -597,7 +589,7 @@ class ManageScheduledTransferOngoingFragment :
     }
 
     private fun startViewTutorial(data: MutableList<Transaction> = mutableListOf()) {
-        if (isTableView()) linearLayoutRow.visibility(true)
+        if (isTableView()) binding.viewTable.linearLayoutRow.visibility(true)
         if (data.isNotEmpty()) {
             getRecyclerView().visibility(false)
             updateTutorialController(data)
@@ -638,7 +630,7 @@ class ManageScheduledTransferOngoingFragment :
 
     private fun init() {
         tutorialEngineUtil.setOnTutorialListener(this)
-        textViewApprove.visibility(false)
+        binding.viewApprovalsNavigation.textViewApprove.visibility(false)
     }
 
     private fun initRecyclerView() {
@@ -670,8 +662,8 @@ class ManageScheduledTransferOngoingFragment :
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutManageScheduledTransfer.visibility(false)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutManageScheduledTransfer.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_manage_scheduled_transfer)
                     .toMutableList()
@@ -680,7 +672,7 @@ class ManageScheduledTransferOngoingFragment :
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
@@ -690,13 +682,13 @@ class ManageScheduledTransferOngoingFragment :
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewApprovalManageScheduledTransfer
+        if (isTableView()) binding.viewTable.recyclerViewTable else binding.recyclerViewApprovalManageScheduledTransfer
 
     private fun getRecyclerViewTutorial() =
-        if (isTableView()) recyclerViewTableTutorial else recyclerViewTutorial
+        if (isTableView()) binding.viewTable.recyclerViewTableTutorial else binding.recyclerViewTutorial
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutManageScheduledTransfer
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutManageScheduledTransfer
 
     companion object {
         fun newInstance(): ManageScheduledTransferOngoingFragment {
@@ -707,4 +699,10 @@ class ManageScheduledTransferOngoingFragment :
             return fragment
         }
     }
+
+    override val viewModelClassType: Class<ManageScheduledTransferViewModel>
+        get() = ManageScheduledTransferViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentManageScheduledTransferOngoingBinding
+        get() = FragmentManageScheduledTransferOngoingBinding::inflate
 }

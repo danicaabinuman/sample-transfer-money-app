@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.dao.presentation.welcome
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
@@ -13,23 +15,21 @@ import com.unionbankph.corporate.app.common.widget.validator.validation.RxValida
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.databinding.FragmentDaoWelcomeBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_welcome.*
-import kotlinx.android.synthetic.main.widget_country_code.*
 import java.util.concurrent.TimeUnit
 
-class DaoWelcomeFragment : BaseFragment<DaoWelcomeViewModel>(R.layout.fragment_dao_welcome),
-                           DaoActivity.ActionEvent {
+class DaoWelcomeFragment :
+    BaseFragment<FragmentDaoWelcomeBinding, DaoWelcomeViewModel>(),
+    DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[DaoWelcomeViewModel::class.java]
     }
 
     override fun onViewsBound() {
@@ -47,7 +47,7 @@ class DaoWelcomeFragment : BaseFragment<DaoWelcomeViewModel>(R.layout.fragment_d
     private fun initBinding() {
         viewModel.salutationInput
             .subscribe {
-                tie_salutation.setText(it.value)
+                binding.tieSalutation.setText(it.value)
             }.addTo(disposables)
         viewModel.countryCodeInput
             .subscribe {
@@ -56,10 +56,10 @@ class DaoWelcomeFragment : BaseFragment<DaoWelcomeViewModel>(R.layout.fragment_d
     }
 
     private fun initListener() {
-        tie_salutation.setOnClickListener {
+        binding.tieSalutation.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.SALUTATION.name)
         }
-        tie_country_code.setOnClickListener {
+        binding.viewCountryCode.tieCountryCode.setOnClickListener {
             findNavController().navigate(R.id.action_country_activity)
         }
     }
@@ -91,8 +91,8 @@ class DaoWelcomeFragment : BaseFragment<DaoWelcomeViewModel>(R.layout.fragment_d
 
     private fun clearFormFocus() {
         viewUtil.dismissKeyboard(getAppCompatActivity())
-        constraint_layout.requestFocus()
-        constraint_layout.isFocusableInTouchMode = true
+        binding.constraintLayout.requestFocus()
+        binding.constraintLayout.isFocusableInTouchMode = true
     }
 
     private fun showMissingFieldDialog() {
@@ -102,8 +102,8 @@ class DaoWelcomeFragment : BaseFragment<DaoWelcomeViewModel>(R.layout.fragment_d
     }
 
     private fun showCountryDetails(countryCode: CountryCode?) {
-        tie_country_code.setText(countryCode?.callingCode)
-        imageViewFlag.setImageResource(
+        binding.viewCountryCode.tieCountryCode.setText(countryCode?.callingCode)
+        binding.viewCountryCode.imageViewFlag.setImageResource(
             viewUtil.getDrawableById("ic_flag_${countryCode?.code?.toLowerCase()}")
         )
     }
@@ -114,34 +114,34 @@ class DaoWelcomeFragment : BaseFragment<DaoWelcomeViewModel>(R.layout.fragment_d
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_first_name
+            editText = binding.tieFirstName
         )
         val tieMiddleNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_middle_name
+            editText = binding.tieMiddleName
         )
         val tieLastNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_last_name
+            editText = binding.tieLastName
         )
         val tieMobileNumberObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_mobile_number
+            editText = binding.tieMobileNumber
         )
-        val tieEmailAddressObservable = RxValidator.createFor(tie_email_address)
+        val tieEmailAddressObservable = RxValidator.createFor(binding.tieEmailAddress)
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
-                    til_email_address.hint
+                    binding.tilEmailAddress.hint
                 )
             )
             .email(getString(R.string.error_invalid_email_address))
@@ -193,10 +193,16 @@ class DaoWelcomeFragment : BaseFragment<DaoWelcomeViewModel>(R.layout.fragment_d
     }
 
     private fun refreshFields() {
-        tie_first_name.refresh()
-        tie_middle_name.refresh()
-        tie_last_name.refresh()
-        tie_mobile_number.refresh()
-        tie_email_address.refresh()
+        binding.tieFirstName.refresh()
+        binding.tieMiddleName.refresh()
+        binding.tieLastName.refresh()
+        binding.tieMobileNumber.refresh()
+        binding.tieEmailAddress.refresh()
     }
+
+    override val viewModelClassType: Class<DaoWelcomeViewModel>
+        get() = DaoWelcomeViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoWelcomeBinding
+        get() = FragmentDaoWelcomeBinding::inflate
 }

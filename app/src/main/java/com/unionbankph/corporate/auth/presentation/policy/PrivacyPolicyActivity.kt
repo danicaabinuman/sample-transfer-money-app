@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.policy
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -24,24 +25,23 @@ import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.databinding.ActivityPrivacyPolicyBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_privacy_policy.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
 class PrivacyPolicyActivity :
-    BaseActivity<PrivacyPolicyViewModel>(R.layout.activity_privacy_policy) {
+    BaseActivity<ActivityPrivacyPolicyBinding, PrivacyPolicyViewModel>() {
 
     private var adapter: ViewPagerAdapter? = null
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         if (isSME) {
-            removeElevation(viewToolbar)
-            shadow_toolbar.isVisible = true
+            removeElevation(binding.viewToolbar.appBarLayout)
+            binding.shadowToolbar.isVisible = true
         }
-        setToolbarTitle(tvToolbar, getString(R.string.title_terms_and_conditions))
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_terms_and_conditions))
         if (intent.getStringExtra(EXTRA_REQUEST_PAGE) != PAGE_LEARN_MORE)
             setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
@@ -92,8 +92,6 @@ class PrivacyPolicyActivity :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[PrivacyPolicyViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -131,16 +129,16 @@ class PrivacyPolicyActivity :
     private fun init() {
         setupViewPager()
         if (intent.getStringExtra(EXTRA_REQUEST_PAGE) == PAGE_LEARN_MORE) {
-            buttonAccept.visibility = View.GONE
-            val viewPagerParams = viewPager.layoutParams as ViewGroup.MarginLayoutParams
+            binding.buttonAccept.visibility = View.GONE
+            val viewPagerParams = binding.viewPager.layoutParams as ViewGroup.MarginLayoutParams
             viewPagerParams.setMargins(
                 viewPagerParams.leftMargin,
                 viewPagerParams.topMargin,
                 viewPagerParams.rightMargin,
                 0
             )
-            cb_tnc.visibility(false)
-            cb_privacy.visibility(false)
+            binding.cbTnc.visibility(false)
+            binding.cbPrivacy.visibility(false)
         }
     }
 
@@ -173,7 +171,7 @@ class PrivacyPolicyActivity :
     }
 
     private fun initClickListener() {
-        RxView.clicks(buttonAccept)
+        RxView.clicks(binding.buttonAccept)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -200,10 +198,10 @@ class PrivacyPolicyActivity :
     }
 
     private fun initCheckListener() {
-        cb_tnc.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbTnc.setOnCheckedChangeListener { _, isChecked ->
             viewModel.isCheckedTNCAgreement.onNext(isChecked)
         }
-        cb_privacy.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbPrivacy.setOnCheckedChangeListener { _, isChecked ->
             viewModel.isCheckedPrivacyAgreement.onNext(isChecked)
         }
     }
@@ -220,9 +218,9 @@ class PrivacyPolicyActivity :
             TermsAndConditionsFragment.newInstance(),
             getString(R.string.title_terms_and_conditions)
         )
-        viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 0
-        tabLayoutPrivacyPolicy.setupWithViewPager(viewPager, false)
+        binding.viewPager.adapter = adapter
+        binding.viewPager.offscreenPageLimit = 0
+        binding.tabLayoutPrivacyPolicy.setupWithViewPager(binding.viewPager, false)
     }
 
     private fun navigateLoginScreen() {
@@ -275,4 +273,10 @@ class PrivacyPolicyActivity :
         const val PAGE_DAO = "dao"
         const val PAGE_MCD_TERMS = "mcd_terms"
     }
+
+    override val viewModelClassType: Class<PrivacyPolicyViewModel>
+        get() = PrivacyPolicyViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityPrivacyPolicyBinding
+        get() = ActivityPrivacyPolicyBinding::inflate
 }

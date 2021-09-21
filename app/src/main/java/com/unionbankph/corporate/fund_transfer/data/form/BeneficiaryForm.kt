@@ -1,7 +1,6 @@
 package com.unionbankph.corporate.fund_transfer.data.form
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.*
 
 @Serializable
 data class BeneficiaryForm(
@@ -40,7 +39,7 @@ data class BeneficiaryForm(
     var channelId: Int? = null,
 
     @SerialName("country_code_id")
-    var countryCodeId: Int? = null,
+    var countryCodeId: String? = null,
 
     @SerialName("mobile_number")
     var mobileNumber: String? = null,

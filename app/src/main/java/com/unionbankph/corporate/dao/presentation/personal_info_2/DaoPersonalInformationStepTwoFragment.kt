@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.personal_info_2
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -17,16 +19,16 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
+import com.unionbankph.corporate.databinding.FragmentDaoPersonalInformationStep2Binding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_personal_information_step_2.*
 import java.util.*
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoPersonalInformationStepTwoFragment :
-    BaseFragment<DaoPersonalInformationStepTwoViewModel>(R.layout.fragment_dao_personal_information_step_2),
+    BaseFragment<FragmentDaoPersonalInformationStep2Binding, DaoPersonalInformationStepTwoViewModel>(),
     DaoActivity.ActionEvent, ImeOptionEditText.OnImeOptionListener {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
@@ -55,11 +57,6 @@ class DaoPersonalInformationStepTwoFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[DaoPersonalInformationStepTwoViewModel::class.java]
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -100,21 +97,21 @@ class DaoPersonalInformationStepTwoFragment :
         viewModel.loadDaoForm(daoActivity.viewModel.defaultDaoForm())
         viewModel.input.governmentIdNumberInput
             .subscribe {
-                tie_government_id.setTextNullable(it)
+                binding.tieGovernmentId.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.dateOfBirthInput
             .subscribe {
-                tie_date_of_birth.setText(it.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DATE))
+                binding.tieDateOfBirth.setText(it.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DATE))
             }.addTo(disposables)
         viewModel.input.placeOfBirthInput
             .subscribe {
-                tie_place_of_birth.setTextNullable(it)
+                binding.tiePlaceOfBirth.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.governmentIdTypeInput
             .subscribe {
-                tie_government_type.setText(it.value)
+                binding.tieGovernmentType.setText(it.value)
                 viewUtil.setEditTextMaxLength(
-                    tie_government_type,
+                    binding.tieGovernmentType,
                     resources.getInteger(
                         if (it.value == formatString(R.string.title_sss)) {
                             R.integer.max_length_sss
@@ -126,28 +123,28 @@ class DaoPersonalInformationStepTwoFragment :
             }.addTo(disposables)
         viewModel.input.nationalityInput
             .subscribe {
-                tie_nationality.setText(it.value)
+                binding.tieNationality.setText(it.value)
             }.addTo(disposables)
         viewModel.input.usCitizenshipInput
             .subscribe {
-                cb_us_citizenship.isChecked = !it
-                til_us_record_type.visibility(it)
-                til_us_record.visibility(it)
+                binding.cbUsCitizenship.isChecked = !it
+                binding.tilUsRecordType.visibility(it)
+                binding.tilUsRecord.visibility(it)
                 if (!it) {
-                    tie_us_record.setText(Constant.EMPTY)
-                    tie_us_record_type.setText(Constant.EMPTY)
+                    binding.tieUsRecord.setText(Constant.EMPTY)
+                    binding.tieUsRecordType.setText(Constant.EMPTY)
                 } else {
-                    tie_us_record_type.clear()
-                    tie_us_record.clear()
+                    binding.tieUsRecordType.clear()
+                    binding.tieUsRecord.clear()
                 }
             }.addTo(disposables)
         viewModel.input.recordTypeInput
             .subscribe {
-                tie_us_record_type.setText(it.value)
+                binding.tieUsRecordType.setText(it.value)
             }.addTo(disposables)
         viewModel.input.usRecordInput
             .subscribe {
-                tie_us_record.setText(it)
+                binding.tieUsRecord.setText(it)
             }.addTo(disposables)
         viewModel.isEditMode
             .subscribe {
@@ -165,8 +162,8 @@ class DaoPersonalInformationStepTwoFragment :
     private fun initImeOption() {
         val imeOptionEditText = ImeOptionEditText()
         imeOptionEditText.addEditText(
-            tie_place_of_birth,
-            tie_us_record
+            binding.tiePlaceOfBirth,
+            binding.tieUsRecord
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
@@ -176,7 +173,7 @@ class DaoPersonalInformationStepTwoFragment :
         eventBus.inputSyncEvent.flowable.subscribe {
             when (it.eventType) {
                 SingleSelectorTypeEnum.GOVERNMENT_ID.name -> {
-                    tie_government_id.clear()
+                    binding.tieGovernmentId.clear()
                     val selector = JsonHelper.fromJson<Selector>(it.payload)
                     viewModel.input.governmentIdTypeInput.onNext(selector)
                 }
@@ -196,7 +193,7 @@ class DaoPersonalInformationStepTwoFragment :
 //        tie_government_type.setOnClickListener {
 //            navigateSingleSelector(SingleSelectorTypeEnum.GOVERNMENT_ID.name)
 //        }
-        tie_date_of_birth.setOnClickListener {
+        binding.tieDateOfBirth.setOnClickListener {
             showDatePicker(
                 minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
                 maxDate = Calendar.getInstance(),
@@ -212,16 +209,16 @@ class DaoPersonalInformationStepTwoFragment :
                 }
             )
         }
-        tie_nationality.setOnClickListener {
+        binding.tieNationality.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.NATIONALITY.name)
         }
-        tie_us_record_type.setOnClickListener {
+        binding.tieUsRecordType.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.RECORD_TYPE.name)
         }
     }
 
     private fun initCheckListener() {
-        cb_us_citizenship.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbUsCitizenship.setOnCheckedChangeListener { _, isChecked ->
             viewModel.input.usCitizenshipInput.onNext(!isChecked)
         }
     }
@@ -245,12 +242,12 @@ class DaoPersonalInformationStepTwoFragment :
     }
 
     private fun refreshFields() {
-        tie_government_id.refresh()
-        tie_date_of_birth.refresh()
-        tie_place_of_birth.refresh()
-        tie_us_record_type.refresh()
-        tie_us_record.refresh()
-        tie_nationality.refresh()
+        binding.tieGovernmentId.refresh()
+        binding.tieDateOfBirth.refresh()
+        binding.tiePlaceOfBirth.refresh()
+        binding.tieUsRecordType.refresh()
+        binding.tieUsRecord.refresh()
+        binding.tieNationality.refresh()
     }
 
     private fun validateForm() {
@@ -259,42 +256,42 @@ class DaoPersonalInformationStepTwoFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.max_length_tin),
             maxLength = resources.getInteger(R.integer.max_length_tin),
-            editText = tie_government_id
+            editText = binding.tieGovernmentId
         )
         val dateOfBirthObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_date_of_birth
+            editText = binding.tieDateOfBirth
         )
         val placeOfBirthObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_place_of_birth
+            editText = binding.tiePlaceOfBirth
         )
         val usRecordTypeObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_us_record_type
+            editText = binding.tieUsRecordType
         )
         val usRecordTypeOtherObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_us_record
+            editText = binding.tieUsRecord
         )
         val nationalityObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_nationality
+            editText = binding.tieNationality
         )
         initSetError(governmentIdObservable)
         initSetError(dateOfBirthObservable)
@@ -348,10 +345,10 @@ class DaoPersonalInformationStepTwoFragment :
     }
 
     private fun clearFormFocus() {
-        constraint_layout.post {
+        binding.constraintLayout.post {
             viewUtil.dismissKeyboard(getAppCompatActivity())
-            constraint_layout.requestFocus()
-            constraint_layout.isFocusableInTouchMode = true
+            binding.constraintLayout.requestFocus()
+            binding.constraintLayout.isFocusableInTouchMode = true
         }
     }
 
@@ -368,9 +365,9 @@ class DaoPersonalInformationStepTwoFragment :
 
     private fun updateFreeTextFields() {
         viewModel.setPreTextValues(
-            tie_government_id.getTextNullable(),
-            tie_place_of_birth.getTextNullable(),
-            tie_us_record.getTextNullable()
+            binding.tieGovernmentId.getTextNullable(),
+            binding.tiePlaceOfBirth.getTextNullable(),
+            binding.tieUsRecord.getTextNullable()
         )
     }
 
@@ -378,4 +375,10 @@ class DaoPersonalInformationStepTwoFragment :
     companion object {
         const val EXTRA_IS_EDIT = "isEdit"
     }
+
+    override val viewModelClassType: Class<DaoPersonalInformationStepTwoViewModel>
+        get() = DaoPersonalInformationStepTwoViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoPersonalInformationStep2Binding
+        get() = FragmentDaoPersonalInformationStep2Binding::inflate
 }

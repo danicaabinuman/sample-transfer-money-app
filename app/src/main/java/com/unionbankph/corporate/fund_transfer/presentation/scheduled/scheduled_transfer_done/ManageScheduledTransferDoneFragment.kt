@@ -1,10 +1,7 @@
 package com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -25,6 +22,7 @@ import com.unionbankph.corporate.approval.presentation.approval_detail.ApprovalD
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.FragmentManageScheduledTransferOngoingBinding
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.ManageScheduledTransferActivity
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.ManageScheduledTransferController
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.ManageScheduledTransferViewModel
@@ -34,15 +32,13 @@ import com.unionbankph.corporate.fund_transfer.presentation.scheduled.ShowManage
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.ShowManageScheduledTransferError
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.ShowManageScheduledTransferLoading
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_manage_scheduled_transfer_ongoing.*
-import kotlinx.android.synthetic.main.widget_table_view.*
 import timber.log.Timber
 
 /**
  * Created by herald25santos on 12/03/2019
  */
 class ManageScheduledTransferDoneFragment :
-    BaseFragment<ManageScheduledTransferViewModel>(R.layout.fragment_manage_scheduled_transfer_ongoing),
+    BaseFragment<FragmentManageScheduledTransferOngoingBinding, ManageScheduledTransferViewModel>(),
     EpoxyAdapterCallback<Transaction> {
 
     private var snackBarProgressBar: Snackbar? = null
@@ -98,24 +94,20 @@ class ManageScheduledTransferDoneFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[ManageScheduledTransferViewModel::class.java]
         viewModel.state.observe(this, Observer {
 
             when (it) {
                 is ShowManageScheduledTransferLoading -> {
                     showLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView(),
-                        textViewState
+                        binding.textViewState
                     )
                 }
                 is ShowManageScheduledTransferDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
+                        binding.viewLoadingState.root,
                         getSwipeRefreshLayout(),
                         getRecyclerView()
                     )
@@ -193,7 +185,7 @@ class ManageScheduledTransferDoneFragment :
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        constraintLayout,
+                        binding.constraintLayout,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -218,13 +210,13 @@ class ManageScheduledTransferDoneFragment :
 
     private fun showEmptyState(data: MutableList<Transaction>) {
         if (isTableView()) {
-            linearLayoutRow.visibility(data.isNotEmpty())
+            binding.viewTable.linearLayoutRow.visibility(data.isNotEmpty())
         }
         if (data.isNotEmpty()) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.text = getString(R.string.title_no_inactive_scheduled_transfer)
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.text = getString(R.string.title_no_inactive_scheduled_transfer)
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -276,8 +268,8 @@ class ManageScheduledTransferDoneFragment :
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutManageScheduledTransfer.visibility(false)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutManageScheduledTransfer.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_manage_scheduled_transfer)
                     .toMutableList()
@@ -286,7 +278,7 @@ class ManageScheduledTransferDoneFragment :
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
@@ -296,10 +288,10 @@ class ManageScheduledTransferDoneFragment :
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewApprovalManageScheduledTransfer
+        if (isTableView()) binding.viewTable.recyclerViewTable else binding.recyclerViewApprovalManageScheduledTransfer
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutManageScheduledTransfer
+        if (isTableView()) binding.swipeRefreshLayoutTable else binding.swipeRefreshLayoutManageScheduledTransfer
 
     companion object {
 
@@ -311,4 +303,10 @@ class ManageScheduledTransferDoneFragment :
             return fragment
         }
     }
+
+    override val viewModelClassType: Class<ManageScheduledTransferViewModel>
+        get() = ManageScheduledTransferViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentManageScheduledTransferOngoingBinding
+        get() = FragmentManageScheduledTransferOngoingBinding::inflate
 }

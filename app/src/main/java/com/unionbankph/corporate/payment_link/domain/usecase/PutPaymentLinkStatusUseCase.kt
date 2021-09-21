@@ -26,7 +26,7 @@ constructor(
     ): Single<PutPaymentLinkStatusResponse> {
         return paymentLinkGateway.putPaymentLinkStatus(
             putPaymentLinkStatusContainerForm?.transactionId!!,
-            putPaymentLinkStatusContainerForm?.putPaymentLinkStatusForm
+            putPaymentLinkStatusContainerForm?.putPaymentLinkStatusForm!!
         )
     }
 

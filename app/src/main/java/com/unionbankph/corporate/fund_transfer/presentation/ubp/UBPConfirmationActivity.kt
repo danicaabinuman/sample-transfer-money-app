@@ -2,6 +2,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.ubp
 
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -32,15 +33,14 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrg
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.ActivityFundTransferConfirmationUbpBinding
 import com.unionbankph.corporate.fund_transfer.data.form.FundTransferUBPForm
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_fund_transfer_confirmation_ubp.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.concurrent.TimeUnit
 
 class UBPConfirmationActivity :
-    BaseActivity<UBPViewModel>(R.layout.activity_fund_transfer_confirmation_ubp),
+    BaseActivity<ActivityFundTransferConfirmationUbpBinding, UBPViewModel>(),
     OnTutorialListener {
 
     private var fundTransferUBPForm: FundTransferUBPForm? = null
@@ -49,7 +49,7 @@ class UBPConfirmationActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -74,7 +74,7 @@ class UBPConfirmationActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(buttonEdit)
+        RxView.clicks(binding.buttonEdit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -84,7 +84,7 @@ class UBPConfirmationActivity :
             }
             .addTo(disposables)
 
-        RxView.clicks(buttonSubmit)
+        RxView.clicks(binding.buttonSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -135,15 +135,15 @@ class UBPConfirmationActivity :
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.button_radius)
             when (view) {
-                buttonEdit -> {
-                    viewUtil.setFocusOnView(scrollView, buttonSubmit)
+                binding.buttonEdit -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.buttonSubmit)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        buttonSubmit,
+                        binding.buttonSubmit,
                         R.layout.frame_tutorial_lower_right,
                         radius,
                         false,
@@ -153,7 +153,7 @@ class UBPConfirmationActivity :
                     )
                 }
                 else -> {
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.UBP_CONFIRMATION, false)
                 }
             }
@@ -185,8 +185,8 @@ class UBPConfirmationActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_transfer_confirmation),
                         it.orgName
                     )
@@ -197,7 +197,6 @@ class UBPConfirmationActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[UBPViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowUBPLoading -> {
@@ -326,7 +325,7 @@ class UBPConfirmationActivity :
         fundTransferUBPForm: FundTransferUBPForm,
         account: Account
     ) {
-        textViewTransferFrom.text = Html.fromHtml(
+        binding.textViewTransferFrom.text = Html.fromHtml(
             String.format(
                 getString(R.string.params_account_detail),
                 account.name,
@@ -335,7 +334,7 @@ class UBPConfirmationActivity :
             )
         )
 
-        textViewTransferTo.text = if (fundTransferUBPForm.beneficiaryMasterForm == null) {
+        binding.textViewTransferTo.text = if (fundTransferUBPForm.beneficiaryMasterForm == null) {
             viewUtil.getAccountNumberFormat(fundTransferUBPForm.receiverAccountNumber)
         } else {
             Html.fromHtml(
@@ -350,7 +349,7 @@ class UBPConfirmationActivity :
             )
         }
 
-        textViewProposedTransferDate.text =
+        binding.textViewProposedTransferDate.text =
             if (fundTransferUBPForm.immediate!!)
                 getString(
                     R.string.title_immediately
@@ -360,11 +359,11 @@ class UBPConfirmationActivity :
                     fundTransferUBPForm.transferDate, ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
-        textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
+        binding.textViewAmount.text = AutoFormatUtil().formatWithTwoDecimalPlaces(
             fundTransferUBPForm.amount.toString(), account.currency
         )
 
-        textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
+        binding.textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee =
                 JsonHelper.fromJson<ServiceFee>(intent.getStringExtra(EXTRA_SERVICE_FEE))
             String.format(
@@ -378,8 +377,8 @@ class UBPConfirmationActivity :
             getString(R.string.value_service_fee_free)
         }
 
-        textViewChannel.text = intent.getStringExtra(EXTRA_ACCOUNT_TYPE)
-        textViewRemarks.text = viewUtil.getStringOrEmpty(fundTransferUBPForm.remarks)
+        binding.textViewChannel.text = intent.getStringExtra(EXTRA_ACCOUNT_TYPE)
+        binding.textViewRemarks.text = viewUtil.getStringOrEmpty(fundTransferUBPForm.remarks)
 
         val reminders = JsonHelper.fromListJson<String>(intent.getStringExtra(EXTRA_REMINDERS))
         if (reminders.isNotEmpty()) {
@@ -387,27 +386,27 @@ class UBPConfirmationActivity :
             reminders.forEach {
                 remindersContent.append("$it\n\n")
             }
-            tv_reminders.text = remindersContent
+            binding.tvReminders.text = remindersContent
         } else {
-            border_reminders.isInvisible = true
-            tv_reminders_title.isInvisible = true
-            tv_reminders.isVisible = false
+            binding.borderReminders.isInvisible = true
+            binding.tvRemindersTitle.isInvisible = true
+            binding.tvReminders.isVisible = false
         }
         if (fundTransferUBPForm.immediate!!) {
-            textViewStartDateTitle.visibility = View.GONE
-            textViewStartDate.visibility = View.GONE
-            view5.visibility = View.GONE
-            textViewFrequencyTitle.visibility = View.GONE
-            textViewFrequency.visibility = View.GONE
-            view6.visibility = View.GONE
-            textViewEndDateTitle.visibility = View.GONE
-            textViewEndDate.visibility = View.GONE
-            view7.visibility = View.GONE
-            textViewProposedTransferDateTitle.visibility = View.VISIBLE
-            textViewProposedTransferDate.visibility = View.VISIBLE
-            view4.visibility = View.VISIBLE
+            binding.textViewStartDateTitle.visibility = View.GONE
+            binding.textViewStartDate.visibility = View.GONE
+            binding.view5.visibility = View.GONE
+            binding.textViewFrequencyTitle.visibility = View.GONE
+            binding.textViewFrequency.visibility = View.GONE
+            binding.view6.visibility = View.GONE
+            binding.textViewEndDateTitle.visibility = View.GONE
+            binding.textViewEndDate.visibility = View.GONE
+            binding.view7.visibility = View.GONE
+            binding.textViewProposedTransferDateTitle.visibility = View.VISIBLE
+            binding.textViewProposedTransferDate.visibility = View.VISIBLE
+            binding.view4.visibility = View.VISIBLE
         } else {
-            textViewStartDate.text = viewUtil.getDateFormatByDateString(
+            binding.textViewStartDate.text = viewUtil.getDateFormatByDateString(
                 fundTransferUBPForm.transferDate, ViewUtil.DATE_FORMAT_ISO,
                 ViewUtil.DATE_FORMAT_DEFAULT
             )
@@ -417,35 +416,35 @@ class UBPConfirmationActivity :
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DATE
                 )
-                textViewEndDate.text = ("${fundTransferUBPForm.occurrencesText}\n(Until $endDate)")
+                binding.textViewEndDate.text = ("${fundTransferUBPForm.occurrencesText}\n(Until $endDate)")
             } else {
-                textViewEndDate.text = fundTransferUBPForm.occurrencesText
+                binding.textViewEndDate.text = fundTransferUBPForm.occurrencesText
             }
-            textViewFrequency.text = fundTransferUBPForm.frequency
+            binding.textViewFrequency.text = fundTransferUBPForm.frequency
             if (fundTransferUBPForm.frequency == getString(R.string.title_one_time)) {
-                textViewEndDate.visibility = View.GONE
-                textViewEndDateTitle.visibility = View.GONE
-                view7.visibility = View.GONE
-                textViewFrequencyTitle.visibility = View.GONE
-                textViewFrequency.visibility = View.GONE
-                view6.visibility = View.GONE
-                textViewStartDateTitle.visibility = View.GONE
-                textViewStartDate.visibility = View.GONE
-                view5.visibility = View.GONE
+                binding.textViewEndDate.visibility = View.GONE
+                binding.textViewEndDateTitle.visibility = View.GONE
+                binding.view7.visibility = View.GONE
+                binding.textViewFrequencyTitle.visibility = View.GONE
+                binding.textViewFrequency.visibility = View.GONE
+                binding.view6.visibility = View.GONE
+                binding.textViewStartDateTitle.visibility = View.GONE
+                binding.textViewStartDate.visibility = View.GONE
+                binding.view5.visibility = View.GONE
             } else {
-                textViewProposedTransferDateTitle.visibility = View.GONE
-                textViewProposedTransferDate.visibility = View.GONE
-                view4.visibility = View.GONE
+                binding.textViewProposedTransferDateTitle.visibility = View.GONE
+                binding.textViewProposedTransferDate.visibility = View.GONE
+                binding.view4.visibility = View.GONE
             }
         }
     }
 
     private fun startViewTutorial() {
-        viewUtil.setFocusOnView(scrollView, buttonEdit)
+        viewUtil.setFocusOnView(binding.scrollView, binding.buttonEdit)
         val radius = resources.getDimension(R.dimen.button_radius)
         tutorialEngineUtil.startTutorial(
             this,
-            buttonEdit,
+            binding.buttonEdit,
             R.layout.frame_tutorial_lower_left,
             radius,
             false,
@@ -462,4 +461,10 @@ class UBPConfirmationActivity :
         const val EXTRA_SERVICE_FEE = "service_fee"
         const val EXTRA_REMINDERS = "reminders"
     }
+
+    override val viewModelClassType: Class<UBPViewModel>
+        get() = UBPViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferConfirmationUbpBinding
+        get() = ActivityFundTransferConfirmationUbpBinding::inflate
 }

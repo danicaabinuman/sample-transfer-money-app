@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import com.jakewharton.rxbinding2.view.RxView
@@ -14,16 +15,9 @@ import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.util.BitmapUtil
 import com.unionbankph.corporate.app.util.FileUtil
+import com.unionbankph.corporate.databinding.ActivityOnboardingImagePreviewBinding
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_onboarding_image_preview.buttonRetake
-import kotlinx.android.synthetic.main.activity_onboarding_image_preview.buttonUseThis
-import kotlinx.android.synthetic.main.activity_onboarding_image_preview.imageViewCrop
-import kotlinx.android.synthetic.main.activity_onboarding_image_preview.iv_preview
-import kotlinx.android.synthetic.main.activity_onboarding_image_preview.tv_cancel
-import kotlinx.android.synthetic.main.activity_onboarding_image_preview.tv_done
-import kotlinx.android.synthetic.main.activity_onboarding_image_preview.viewToolbar
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.io.File
 import java.text.SimpleDateFormat
@@ -33,7 +27,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class OnboardingImagePreviewActivity :
-    BaseActivity<OnboardingCameraViewModel>(R.layout.activity_onboarding_image_preview) {
+    BaseActivity<ActivityOnboardingImagePreviewBinding, OnboardingCameraViewModel>() {
 
     @Inject
     lateinit var fileUtil: FileUtil
@@ -52,7 +46,7 @@ class OnboardingImagePreviewActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
@@ -113,7 +107,7 @@ class OnboardingImagePreviewActivity :
 
 
     private fun initListener() {
-        RxView.clicks(buttonUseThis)
+        RxView.clicks(binding.buttonUseThis)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -121,13 +115,13 @@ class OnboardingImagePreviewActivity :
             .subscribe {
                 uploadFile()
             }.addTo(disposables)
-        buttonRetake.setOnClickListener {
+        binding.buttonRetake.setOnClickListener {
             onBackPressed()
         }
-        tv_done.setOnClickListener {
+        binding.tvDone.setOnClickListener {
             onClickedDone()
         }
-        tv_cancel.setOnClickListener {
+        binding.tvCancel.setOnClickListener {
             onClickedCancel()
         }
     }
@@ -136,8 +130,8 @@ class OnboardingImagePreviewActivity :
         exitCroppingMode()
     }
     private fun onClickedDone() {
-        if (imageViewCrop.canRightCrop()) {
-            currentCroppedBitmap = imageViewCrop.crop()
+        if (binding.imageViewCrop.canRightCrop()) {
+            currentCroppedBitmap = binding.imageViewCrop.crop()
             exitCroppingMode()
         }
     }
@@ -145,34 +139,34 @@ class OnboardingImagePreviewActivity :
     private fun onCroppingMode() {
         isCroppedMode = false
         invalidateOptionsMenu()
-        viewUtil.startAnimateView(true, tv_cancel, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, tv_done, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, imageViewCrop, android.R.anim.fade_in)
-        viewUtil.startAnimateView(false, buttonUseThis, android.R.anim.fade_out)
-        viewUtil.startAnimateView(false, buttonRetake, android.R.anim.fade_out)
-        viewUtil.startAnimateView(false, iv_preview, android.R.anim.fade_out)
+        viewUtil.startAnimateView(true, binding.tvCancel, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.tvDone, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.imageViewCrop, android.R.anim.fade_in)
+        viewUtil.startAnimateView(false, binding.buttonUseThis, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.buttonRetake, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.ivPreview, android.R.anim.fade_out)
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.ARGB_8888
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFile(filePath, options)
         options.inJustDecodeBounds = false
         currentCroppedBitmap = BitmapFactory.decodeFile(filePath, options)
-        imageViewCrop.setImageToCrop(currentCroppedBitmap)
+        binding.imageViewCrop.setImageToCrop(currentCroppedBitmap)
     }
 
     private fun exitCroppingMode() {
         isCroppedMode = true
         invalidateOptionsMenu()
-        viewUtil.startAnimateView(false, tv_cancel, android.R.anim.fade_out)
-        viewUtil.startAnimateView(false, tv_done, android.R.anim.fade_out)
-        viewUtil.startAnimateView(false, imageViewCrop, android.R.anim.fade_out)
-        viewUtil.startAnimateView(true, buttonUseThis, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, buttonRetake, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, iv_preview, android.R.anim.fade_in)
-        iv_preview.loadImage(currentCroppedBitmap)
-        iv_preview.postDelayed(
+        viewUtil.startAnimateView(false, binding.tvCancel, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.tvDone, android.R.anim.fade_out)
+        viewUtil.startAnimateView(false, binding.imageViewCrop, android.R.anim.fade_out)
+        viewUtil.startAnimateView(true, binding.buttonUseThis, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.buttonRetake, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.ivPreview, android.R.anim.fade_in)
+        binding.ivPreview.loadImage(currentCroppedBitmap)
+        binding.ivPreview.postDelayed(
             {
-                iv_preview.zoomOut()
+                binding.ivPreview.zoomOut()
             }, 100
         )
     }
@@ -185,19 +179,19 @@ class OnboardingImagePreviewActivity :
 
 
     private fun initImagePreview() {
-        viewUtil.startAnimateView(true, buttonUseThis, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, buttonRetake, android.R.anim.fade_in)
-        viewUtil.startAnimateView(true, iv_preview, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.buttonUseThis, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.buttonRetake, android.R.anim.fade_in)
+        viewUtil.startAnimateView(true, binding.ivPreview, android.R.anim.fade_in)
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.ARGB_8888
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFile(filePath, options)
         options.inJustDecodeBounds = false
         currentCroppedBitmap = BitmapFactory.decodeFile(filePath, options)
-        iv_preview.loadImage(currentCroppedBitmap)
-        iv_preview.postDelayed(
+        binding.ivPreview.loadImage(currentCroppedBitmap)
+        binding.ivPreview.postDelayed(
             {
-                iv_preview.zoomOut()
+                binding.ivPreview.zoomOut()
             }, 100
         )
 
@@ -261,4 +255,9 @@ class OnboardingImagePreviewActivity :
     companion object {
         const val EXTRA_FILE_PATH = "file_path"
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOnboardingImagePreviewBinding
+        get() = ActivityOnboardingImagePreviewBinding::inflate
+    override val viewModelClassType: Class<OnboardingCameraViewModel>
+        get() = OnboardingCameraViewModel::class.java
 }

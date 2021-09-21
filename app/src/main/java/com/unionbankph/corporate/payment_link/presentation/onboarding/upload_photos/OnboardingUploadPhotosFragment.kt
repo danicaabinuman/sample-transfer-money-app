@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
-import kotlinx.android.synthetic.main.bottom_sheet_upload_photos.*
+import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
+import com.unionbankph.corporate.common.presentation.viewmodel.NegPosBottomSheetViewModel
+import com.unionbankph.corporate.databinding.BottomSheetUploadPhotosBinding
 
-class OnboardingUploadPhotosFragment : BottomSheetDialogFragment() {
+class OnboardingUploadPhotosFragment : BaseBottomSheetDialog<BottomSheetUploadPhotosBinding, NegPosBottomSheetViewModel>() {
 
     private var listener : OnOnboardingUploadPhotosFragmentInteraction? = null
 
@@ -24,12 +25,12 @@ class OnboardingUploadPhotosFragment : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        btnGallery.setOnClickListener {
+        binding.btnGallery.setOnClickListener {
             dismiss()
             listener?.openGallery()
         }
 
-        btnCamera.setOnClickListener {
+        binding.btnCamera.setOnClickListener {
             dismiss()
             listener?.openCamera()
         }
@@ -61,4 +62,11 @@ class OnboardingUploadPhotosFragment : BottomSheetDialogFragment() {
                 }
             }
     }
+
+    override val bindingBinder: (View) -> BottomSheetUploadPhotosBinding
+        get() = BottomSheetUploadPhotosBinding::bind
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_upload_photos
+    override val viewModelClassType: Class<NegPosBottomSheetViewModel>
+        get() = NegPosBottomSheetViewModel::class.java
 }

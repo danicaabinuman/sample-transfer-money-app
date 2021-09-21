@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.BaseAdapter
@@ -15,12 +16,11 @@ import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
+import com.unionbankph.corporate.databinding.ActivityOnboardingUploadPhotosBinding
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
-import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
 import java.io.File
 import java.util.*
 import javax.annotation.concurrent.ThreadSafe
@@ -28,7 +28,7 @@ import javax.inject.Inject
 import kotlin.concurrent.timerTask
 
 class OnboardingUploadPhotosActivity :
-    BaseActivity<OnboardingUploadPhotosViewModel>(R.layout.activity_onboarding_upload_photos),
+    BaseActivity<ActivityOnboardingUploadPhotosBinding,OnboardingUploadPhotosViewModel>(),
     OnboardingUploadPhotosFragment.OnOnboardingUploadPhotosFragmentInteraction,
     OnboardingDeletePhotosFragment.OnboardingDeletePhotosInteraction{
 
@@ -39,7 +39,7 @@ class OnboardingUploadPhotosActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
@@ -48,11 +48,6 @@ class OnboardingUploadPhotosActivity :
     }
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[OnboardingUploadPhotosViewModel::class.java]
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -74,13 +69,13 @@ class OnboardingUploadPhotosActivity :
     }
     
     private fun initOnClicks(){
-        btnAddPhotos.setOnClickListener {
+        binding.btnAddPhotos.setOnClickListener {
             showUploadPhotoDialog()
         }
-        btnAddPhotos2.setOnClickListener {
+        binding.btnAddPhotos2.setOnClickListener {
             showUploadPhotoDialog()
         }
-        btnNext.setOnClickListener {
+        binding.btnNext.setOnClickListener {
             showSnackbar()
         }
     }
@@ -108,41 +103,41 @@ class OnboardingUploadPhotosActivity :
 
     private fun initListener(){
         adapter = UploadPhotosCustomAdapter(this, uriArrayList)
-        gv.adapter = adapter
-        gv.setOnItemClickListener { parent, view, position, id ->
+        binding.gv.adapter = adapter
+        binding.gv.setOnItemClickListener { parent, view, position, id ->
             itemUri = uriArrayList[position]
-            ivFullscreenImage.setImageURI(itemUri)
-            clUploadPhotosIntro.visibility(false)
-            clSelectedPhotos.visibility(false)
-            btnSaveAndExit.visibility(false)
-            btnNext.visibility(false)
-            clDeleteSelectedPhoto.visibility(true)
-            btnDelete.visibility(true)
+            binding.ivFullscreenImage.setImageURI(itemUri)
+            binding.clUploadPhotosIntro.visibility(false)
+            binding.clSelectedPhotos.visibility(false)
+            binding.viewToolbar.btnSaveAndExit.visibility(false)
+            binding.btnNext.visibility(false)
+            binding.clDeleteSelectedPhoto.visibility(true)
+            binding.viewToolbar.btnDelete.visibility(true)
         }
-        btnDelete.setOnClickListener {
+        binding.viewToolbar.btnDelete.setOnClickListener {
             showDeletePhotoDialog()
         }
         if (uriArrayList.size == 6) {
-            btnAddPhotos2.visibility(false)
+            binding.btnAddPhotos2.visibility(false)
         }
 
     }
     private fun onClickDelete(){
         uriArrayList.remove(itemUri!!)
         adapter?.notifyDataSetChanged()
-        clDeleteSelectedPhoto.visibility(false)
-        btnDelete.visibility(false)
-        clSelectedPhotos.visibility(true)
-        btnNext.visibility(true)
-        btnSaveAndExit.visibility(true)
-        btnAddPhotos2.visibility(true)
+        binding.clDeleteSelectedPhoto.visibility(false)
+        binding.viewToolbar.btnDelete.visibility(false)
+        binding.clSelectedPhotos.visibility(true)
+        binding.btnNext.visibility(true)
+        binding.viewToolbar.btnSaveAndExit.visibility(true)
+        binding.btnAddPhotos2.visibility(true)
     }
 
     private fun buttonsVisibility(){
-        clUploadPhotosIntro.visibility(false)
-        clSelectedPhotos.visibility(true)
-        btnNext.visibility(true)
-        btnSaveAndExit.visibility(true)
+        binding.clUploadPhotosIntro.visibility(false)
+        binding.clSelectedPhotos.visibility(true)
+        binding.btnNext.visibility(true)
+        binding.viewToolbar.btnSaveAndExit.visibility(true)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -180,15 +175,19 @@ class OnboardingUploadPhotosActivity :
     }
 
     private fun showDeletePhotoDialog(){
-        val onboardingDeletePhotosFragment = OnboardingDeletePhotosFragment.newInstance()
-        onboardingDeletePhotosFragment.show(
-            supportFragmentManager,
-            OnboardingDeletePhotosFragment.TAG
+//        val onboardingDeletePhotosFragment = OnboardingDeletePhotosFragment.newInstance()
+//        onboardingDeletePhotosFragment.show(
+//            supportFragmentManager,
+//            OnboardingDeletePhotosFragment.TAG
+//        )
+        NewConfirmationBottomSheet.newInstance(
+            description = getString(R.string.title_delete_photo),
+            positiveButtonText = getString(R.string.btn_delete_this_photo)
         )
     }
 
     private fun showSnackbar(){
-        Snackbar.make(snackbar, "Uploading photo...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext).show()
+        Snackbar.make(binding.snackbar, "Uploading photo...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext).show()
         val intent = Intent(this, PaymentLinkChannelsActivity::class.java)
         Timer().schedule(timerTask {
             startActivity(intent)
@@ -237,13 +236,13 @@ class OnboardingUploadPhotosActivity :
     }
 
     override fun onBackPressed() {
-        if (clDeleteSelectedPhoto.isShown){
-            clDeleteSelectedPhoto.visibility = View.GONE
-            btnDelete.visibility = View.GONE
-            btnSaveAndExit.visibility = View.VISIBLE
-            clSelectedPhotos.visibility = View.VISIBLE
-            btnNext.visibility = View.VISIBLE
-        } else if (clSelectedPhotos.isShown || clUploadPhotosIntro.isShown){
+        if (binding.clDeleteSelectedPhoto.isShown){
+            binding.clDeleteSelectedPhoto.visibility = View.GONE
+            binding.viewToolbar.btnDelete.visibility = View.GONE
+            binding.viewToolbar.btnSaveAndExit.visibility = View.VISIBLE
+            binding.clSelectedPhotos.visibility = View.VISIBLE
+            binding.btnNext.visibility = View.VISIBLE
+        } else if (binding.clSelectedPhotos.isShown || binding.clUploadPhotosIntro.isShown){
             super.onBackPressed()
         }
     }
@@ -254,6 +253,11 @@ class OnboardingUploadPhotosActivity :
         const val LIST_OF_IMAGES_URI = "list_of_image_uri"
         const val EXTRA_SETUP_MERCHANT_DETAILS = "extra_setup_merchant_details"
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOnboardingUploadPhotosBinding
+        get() = ActivityOnboardingUploadPhotosBinding::inflate
+    override val viewModelClassType: Class<OnboardingUploadPhotosViewModel>
+        get() = OnboardingUploadPhotosViewModel::class.java
 
 
 }

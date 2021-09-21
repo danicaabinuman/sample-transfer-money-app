@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.update_password
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -23,17 +24,15 @@ import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.auth.presentation.otp.OTPActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
+import com.unionbankph.corporate.databinding.ActivityUpdatePasswordBinding
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_update_password.*
-import kotlinx.android.synthetic.main.widget_password_confirmation.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 class UpdatePasswordActivity :
-    BaseActivity<UpdatePasswordViewModel>(R.layout.activity_update_password) {
+    BaseActivity<ActivityUpdatePasswordBinding, UpdatePasswordViewModel>() {
 
     private lateinit var passwordToken: String
 
@@ -43,7 +42,7 @@ class UpdatePasswordActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -64,24 +63,22 @@ class UpdatePasswordActivity :
                 page = PAGE_RESET_PASSWORD
                 passwordToken = data.getQueryParameter("passwordToken") ?: ""
             } else if (data.toString().contains("activationId")) {
-                tvHeader.text = getString(R.string.title_nominate_password)
-                tvPasswordDesc.text = getString(R.string.desc_nominate_password)
+                binding.tvHeader.text = getString(R.string.title_nominate_password)
+                binding.tvPasswordDesc.text = getString(R.string.desc_nominate_password)
                 page = PAGE_NOMINATE_PASSWORD
                 activationId = data.getQueryParameter("activationId") ?: ""
             }
         } else {
-            initToolbar(toolbar, viewToolbar)
+            initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
             page = intent.getStringExtra(EXTRA_REQUEST_PAGE).notNullable()
             setDrawableBackButton(R.drawable.ic_close_white_24dp)
-            tilPassword.hint = getString(R.string.hint_new_password)
-            tilOldPassword.visibility = View.VISIBLE
+            binding.tilPassword.hint = getString(R.string.hint_new_password)
+            binding.tilOldPassword.visibility = View.VISIBLE
         }
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[UpdatePasswordViewModel::class.java]
 
         viewModel.state.observe(this, Observer {
             when (it) {
@@ -157,7 +154,7 @@ class UpdatePasswordActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(btnSubmit)
+        RxView.clicks(binding.btnSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -166,23 +163,23 @@ class UpdatePasswordActivity :
                 when (page) {
                     PAGE_UPDATE_PASSWORD -> viewModel.changePassword(
                         ChangePasswordForm(
-                            oldPassword = etOldPassword.text.toString(),
-                            newPassword = etPassword.text.toString().trim(),
-                            confirmNewPassword = etCPassword.text.toString().trim()
+                            oldPassword = binding.etOldPassword.text.toString(),
+                            newPassword = binding.etPassword.text.toString().trim(),
+                            confirmNewPassword = binding.etCPassword.text.toString().trim()
                         )
                     )
                     PAGE_RESET_PASSWORD -> viewModel.resetPasswordNew(
                         ResetPasswordForm(
                             passwordToken = passwordToken,
-                            password = etPassword.text.toString().trim(),
-                            passwordConfirm = etCPassword.text.toString().trim()
+                            password = binding.etPassword.text.toString().trim(),
+                            passwordConfirm = binding.etCPassword.text.toString().trim()
                         )
                     )
                     PAGE_NOMINATE_PASSWORD -> viewModel.nominatePassword(
                         activationPasswordForm = ActivationPasswordForm(
                             activationId = activationId
                         ),
-                        password = etPassword.text.toString().trim()
+                        password = binding.etPassword.text.toString().trim()
                     )
                 }
             }.addTo(disposables)
@@ -210,24 +207,24 @@ class UpdatePasswordActivity :
             isValueChanged = true,
             minLength = 8,
             maxLength = 30,
-            editText = etOldPassword
+            editText = binding.etOldPassword
         )
         val passwordObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = 8,
             maxLength = 30,
-            editText = etPassword
+            editText = binding.etPassword
         )
 
-        val cPasswordObservable = RxValidator.createFor(etCPassword)
+        val cPasswordObservable = RxValidator.createFor(binding.etCPassword)
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
-                    tilCPassword.hint
+                    binding.tilCPassword.hint
                 )
             )
-            .sameAs(etPassword, getString(R.string.error_compare_password))
+            .sameAs(binding.etPassword, getString(R.string.error_compare_password))
             .onValueChanged()
             .toObservable()
             .debounce {
@@ -237,7 +234,7 @@ class UpdatePasswordActivity :
                 )
             }
 
-        val passwordLimitObservable = RxValidator.createFor(etPassword)
+        val passwordLimitObservable = RxValidator.createFor(binding.etPassword)
             .minLength(8)
             .maxLength(30)
             .onValueChanged()
@@ -249,7 +246,7 @@ class UpdatePasswordActivity :
                 )
             }
 
-        val passwordAlphaObservable = RxValidator.createFor(etPassword)
+        val passwordAlphaObservable = RxValidator.createFor(binding.etPassword)
             .patternMatches(
                 getString(R.string.error_no_aplha),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_HAS_ALPHA)
@@ -263,7 +260,7 @@ class UpdatePasswordActivity :
                 )
             }
 
-        val passwordNumberObservable = RxValidator.createFor(etPassword)
+        val passwordNumberObservable = RxValidator.createFor(binding.etPassword)
             .patternMatches(
                 getString(R.string.error_no_number),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_HAS_NUMBER)
@@ -277,7 +274,7 @@ class UpdatePasswordActivity :
                 )
             }
 
-        val passwordSymbolObservable = RxValidator.createFor(etPassword)
+        val passwordSymbolObservable = RxValidator.createFor(binding.etPassword)
             .patternMatches(
                 getString(R.string.error_no_symbol),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_HAS_SYMBOL)
@@ -312,25 +309,25 @@ class UpdatePasswordActivity :
         passwordLimitObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, image_view_password_1) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword1) }
             .addTo(disposables)
 
         passwordAlphaObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, image_view_password_2) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword2) }
             .addTo(disposables)
 
         passwordNumberObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, image_view_password_3) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword3) }
             .addTo(disposables)
 
         passwordSymbolObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, image_view_password_4) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword4) }
             .addTo(disposables)
 
         (if (page == PAGE_UPDATE_PASSWORD)
@@ -357,7 +354,7 @@ class UpdatePasswordActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                btnSubmit.enableButton(it)
+                binding.btnSubmit.enableButton(it)
             }.addTo(disposables)
     }
 
@@ -391,4 +388,10 @@ class UpdatePasswordActivity :
         const val PAGE_NOMINATE_PASSWORD = "nominate_password"
         const val PAGE_UPDATE_PASSWORD = "update_password"
     }
+
+    override val viewModelClassType: Class<UpdatePasswordViewModel>
+        get() = UpdatePasswordViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityUpdatePasswordBinding
+        get() = ActivityUpdatePasswordBinding::inflate
 }

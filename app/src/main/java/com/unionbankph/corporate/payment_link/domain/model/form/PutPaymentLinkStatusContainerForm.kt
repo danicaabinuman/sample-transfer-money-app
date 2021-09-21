@@ -4,6 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 data class PutPaymentLinkStatusContainerForm(
-    var transactionId: String,
-    var putPaymentLinkStatusForm: PutPaymentLinkStatusForm
+    var transactionId: String? = null,
+    var putPaymentLinkStatusForm: PutPaymentLinkStatusForm? = null
 )

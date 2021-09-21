@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,15 +19,16 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.nullable
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
+import com.unionbankph.corporate.databinding.BottomSheetFingerprintBinding
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.bottom_sheet_fingerprint.*
 import timber.log.Timber
 
-class FingerprintBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout.bottom_sheet_fingerprint) {
+class FingerprintBottomSheet :
+    BaseBottomSheetDialog<BottomSheetFingerprintBinding, SettingsViewModel>() {
 
     private var onFingerPrintListener: OnFingerPrintListener? = null
 
@@ -38,7 +40,7 @@ class FingerprintBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSettingsError -> {
-                    (activity as BaseActivity<*>).handleOnError(it.throwable)
+                    (activity as BaseActivity<*,*>).handleOnError(it.throwable)
                 }
             }
         })
@@ -46,7 +48,7 @@ class FingerprintBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout
 
     override fun onViewsBound() {
         super.onViewsBound()
-        buttonCancel.setOnClickListener { this.dismiss() }
+        binding.buttonCancel.setOnClickListener { this.dismiss() }
         val bundle = arguments
         val token = bundle?.getString(EXTRA_TOKEN).notNullable()
         decrypt(token)
@@ -60,14 +62,14 @@ class FingerprintBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout
     private fun setStatusText(text: String?) {
         text?.let {
             val shake = AnimationUtils.loadAnimation(context, R.anim.anim_shake)
-            textViewFingerprintDesc.text = it
-            textViewFingerprintDesc.startAnimation(shake)
+            binding.textViewFingerprintDesc.text = it
+            binding.textViewFingerprintDesc.startAnimation(shake)
         }
     }
 
     private fun setStatusText() {
         if (!RxFingerprint.isAvailable(applicationContext)) {
-            textViewFingerprintTitle.text = formatString(R.string.title_fingerprint_not_detected)
+            binding.textViewFingerprintTitle.text = formatString(R.string.title_fingerprint_not_detected)
             setStatusText(formatString(R.string.msg_fingerprint_not_detected))
             viewModel.updateRecentUser(PromptTypeEnum.BIOMETRIC, false)
             viewModel.deleteFingerPrint()
@@ -153,7 +155,7 @@ class FingerprintBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout
 
     private fun resetRecentUserBiometric() {
         val message = formatString(R.string.msg_new_fingerprint_detected)
-        textViewFingerprintTitle.text = formatString(R.string.title_new_fingerprint_detected)
+        binding.textViewFingerprintTitle.text = formatString(R.string.title_new_fingerprint_detected)
         setStatusText(message)
         onFingerPrintListener?.onErrorFingerprint()
         viewModel.updateRecentUser(PromptTypeEnum.BIOMETRIC, false)
@@ -188,4 +190,13 @@ class FingerprintBottomSheet : BaseBottomSheetDialog<SettingsViewModel>(R.layout
         const val EXTRA_TOKEN = "token"
         const val EXTRA_TYPE = "type"
     }
+
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_fingerprint
+
+    override val viewModelClassType: Class<SettingsViewModel>
+        get() = SettingsViewModel::class.java
+
+    override val bindingBinder: (View) -> BottomSheetFingerprintBinding
+        get() = BottomSheetFingerprintBinding::bind
 }

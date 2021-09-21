@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.approval.presentation.approval_cwt_detail
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -17,16 +18,14 @@ import com.unionbankph.corporate.approval.presentation.approval_cwt.ShowBatchCWT
 import com.unionbankph.corporate.approval.presentation.approval_cwt.ShowBatchCWTDetailLoading
 import com.unionbankph.corporate.approval.presentation.approval_cwt.ShowBatchDetailCWTError
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityBatchCwtDetailBinding
+import com.unionbankph.corporate.databinding.ActivityBatchDetailBinding
 import com.unionbankph.corporate.fund_transfer.data.model.CWTDetail
 import com.unionbankph.corporate.fund_transfer.data.model.CWTItem
-import kotlinx.android.synthetic.main.activity_batch_cwt.linearLayoutCWT
-import kotlinx.android.synthetic.main.activity_batch_cwt.viewLoadingState
-import kotlinx.android.synthetic.main.activity_batch_cwt_detail.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 
 class BatchCWTDetailActivity :
-    BaseActivity<BatchCWTViewModel>(R.layout.activity_batch_cwt_detail) {
+    BaseActivity<ActivityBatchCwtDetailBinding, BatchCWTViewModel>() {
 
     private val type by lazyFast { intent.getStringExtra(EXTRA_TYPE) }
 
@@ -34,22 +33,20 @@ class BatchCWTDetailActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, cwtItem.title.notNullable())
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, cwtItem.title.notNullable())
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[BatchCWTViewModel::class.java]
         viewModel.batchStateLiveData.observe(this, Observer {
             when (it) {
                 is ShowBatchCWTDetailLoading -> {
-                    viewLoadingState.visibility(true)
-                    scrollView.visibility(false)
+                    binding.viewLoadingState.root.visibility(true)
+                    binding.scrollView.visibility(false)
                 }
                 is ShowBatchCWTDetailDismissLoading -> {
-                    viewLoadingState.visibility(false)
+                    binding.viewLoadingState.root.visibility(false)
                 }
                 is ShowBatchDetailCWTError -> {
                     handleOnError(it.throwable)
@@ -65,7 +62,7 @@ class BatchCWTDetailActivity :
     }
 
     private fun initCWTDetails(cwtHeaders: MutableList<CWTDetail>) {
-        scrollView.visibility(true)
+        binding.scrollView.visibility(true)
         cwtHeaders.forEachIndexed { index, cwtHeader ->
             val view = layoutInflater.inflate(R.layout.item_cwt_detail, null)
             val textViewCWTTitle = view.findViewById<TextView>(R.id.textViewCWTTitle)
@@ -75,7 +72,7 @@ class BatchCWTDetailActivity :
             viewBorderTop.visibility(index != 0)
             textViewCWTTitle.text = cwtHeader.display
             textViewCWT.text = cwtItemFindValue?.display.notEmpty()
-            linearLayoutCWT.addView(view)
+            binding.linearLayoutCWT.addView(view)
         }
     }
 
@@ -94,5 +91,11 @@ class BatchCWTDetailActivity :
         const val EXTRA_DATA = "data"
         const val EXTRA_TYPE = "type"
     }
+
+    override val viewModelClassType: Class<BatchCWTViewModel>
+        get() = BatchCWTViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBatchCwtDetailBinding
+        get() = ActivityBatchCwtDetailBinding::inflate
 
 }

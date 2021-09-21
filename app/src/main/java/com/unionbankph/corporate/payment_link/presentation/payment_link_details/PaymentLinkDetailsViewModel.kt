@@ -31,14 +31,14 @@ class LinkDetailsViewModel
     fun getPaymentLinkDetailsThenPut(referenceId: String, putStatus: String){
         getPaymentLinkByReferenceIdUseCase.execute(
                 getDisposableSingleObserver(
-                        {
+                        { paymentLinkReference ->
                             proceedWithPut(
-                                PutPaymentLinkStatusContainerForm(
-                                    it.transactionId!!,
-                                    PutPaymentLinkStatusForm(
-                                        putStatus
-                                    )
-                                )
+                                PutPaymentLinkStatusContainerForm().apply {
+                                    this.transactionId = paymentLinkReference.transactionId!!
+                                    this.putPaymentLinkStatusForm = PutPaymentLinkStatusForm().apply {
+                                        this.status = putStatus
+                                    }
+                                }
                             )
                         }, {
                     Timber.e(it, "getPaymentLinkDetails")

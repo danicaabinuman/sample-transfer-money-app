@@ -28,8 +28,9 @@ import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import kotlinx.android.synthetic.main.item_manage_scheduled_transfer.view.*
-import kotlinx.android.synthetic.main.row_manage_scheduled_transfer.view.*
+import com.unionbankph.corporate.databinding.ItemManageFrequentBillerBinding
+import com.unionbankph.corporate.databinding.ItemManageScheduledTransferBinding
+import com.unionbankph.corporate.databinding.RowManageScheduledTransferBinding
 
 class ManageScheduledTransferController
 constructor(
@@ -67,10 +68,10 @@ constructor(
                     )
                     hasSelected(transaction.hasSelected)
                     position(position)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@ManageScheduledTransferController.viewUtil)
+                    autoFormatUtil(this@ManageScheduledTransferController.autoFormatUtil)
+                    context(this@ManageScheduledTransferController.context)
+                    callbacks(this@ManageScheduledTransferController.callbacks)
                 }
             } else {
                 manageScheduledTransferItem {
@@ -78,10 +79,10 @@ constructor(
                     transactionJsonString(JsonHelper.toJson(transaction))
                     hasSelected(transaction.hasSelected)
                     position(position)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@ManageScheduledTransferController.viewUtil)
+                    autoFormatUtil(this@ManageScheduledTransferController.autoFormatUtil)
+                    context(this@ManageScheduledTransferController.context)
+                    callbacks(this@ManageScheduledTransferController.callbacks)
                 }
             }
         }
@@ -134,8 +135,8 @@ abstract class ManageScheduledTransferItemModel :
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
-            cardViewBatch.visibility =
+        holder.binding.apply {
+            viewCardViewBatch.root.visibility =
                 if (transaction.batchType == Constant.TYPE_BATCH)
                     View.VISIBLE
                 else
@@ -175,42 +176,22 @@ abstract class ManageScheduledTransferItemModel :
             )
             textViewFrequency.text = transaction.frequency
             textViewChannel.text = transaction.channel
-            itemViewHolder.setOnClickListener {
-                callbacks.onClickItem(itemViewHolder, transaction, position)
+            root.setOnClickListener {
+                callbacks.onClickItem(root, transaction, position)
             }
-            itemViewHolder.setOnLongClickListener {
-                callbacks.onLongClickItem(itemViewHolder, transaction, position)
+            root.setOnLongClickListener {
+                callbacks.onLongClickItem(root, transaction, position)
                 true
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutManageScheduledTransfer: ConstraintLayout
-        lateinit var cardViewBatch: View
-        lateinit var cardViewContent: androidx.cardview.widget.CardView
-        lateinit var imageViewIcon: ImageView
-        lateinit var textViewApprovalRemarks: TextView
-        lateinit var textViewCreatedBy: TextView
-        lateinit var textViewChannel: TextView
-        lateinit var textViewFrequency: TextView
-        lateinit var textViewAmount: TextView
-        lateinit var textViewTransferTo: TextView
-        lateinit var itemViewHolder: View
+
+        lateinit var binding: ItemManageScheduledTransferBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutManageScheduledTransfer =
-                itemView.constraintLayoutManageScheduledTransfer
-            cardViewBatch = itemView.cardViewBatch
-            cardViewContent = itemView.cardViewContent
-            imageViewIcon = itemView.imageViewIcon
-            textViewApprovalRemarks = itemView.textViewApprovalRemarks
-            textViewCreatedBy = itemView.textViewCreatedBy
-            textViewChannel = itemView.textViewChannel
-            textViewAmount = itemView.textViewAmount
-            textViewFrequency = itemView.textViewFrequency
-            textViewTransferTo = itemView.textViewTransferTo
-            itemViewHolder = itemView
+            binding = ItemManageScheduledTransferBinding.bind(itemView)
         }
     }
 }
@@ -246,7 +227,7 @@ abstract class ManageScheduledTransferRowModel :
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             textViewRowRemarks.text = if (transaction.batchType == Constant.TYPE_BATCH) {
                 if (transaction.remarks == "" || transaction.remarks == null)
@@ -274,35 +255,21 @@ abstract class ManageScheduledTransferRowModel :
                     R.color.colorTransparent
                 }
             )
-            itemView.setOnClickListener {
-                callbacks.onClickItem(itemView, transaction, position)
+            root.setOnClickListener {
+                callbacks.onClickItem(root, transaction, position)
             }
-            itemView.setOnLongClickListener {
-                callbacks.onLongClickItem(itemView, transaction, position)
+            root.setOnLongClickListener {
+                callbacks.onLongClickItem(root, transaction, position)
                 true
             }
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var linearLayoutRow: LinearLayout
-        lateinit var textViewRowRemarks: TextView
-        lateinit var textViewRowTransferTo: TextView
-        lateinit var textViewRowAmount: TextView
-        lateinit var textViewRowFrequency: TextView
-        lateinit var textViewRowChannel: TextView
-        lateinit var viewBorderTop: View
-        lateinit var itemView: View
+        lateinit var binding: RowManageScheduledTransferBinding
 
         override fun bindView(itemView: View) {
-            linearLayoutRow = itemView.linearLayoutRow
-            textViewRowRemarks = itemView.textViewRowRemarks
-            textViewRowTransferTo = itemView.textViewRowTransferTo
-            textViewRowAmount = itemView.textViewRowAmount
-            textViewRowFrequency = itemView.textViewRowFrequency
-            textViewRowChannel = itemView.textViewRowChannel
-            viewBorderTop = itemView.viewBorderTop
-            this.itemView = itemView
+            binding = RowManageScheduledTransferBinding.bind(itemView)
         }
     }
 }

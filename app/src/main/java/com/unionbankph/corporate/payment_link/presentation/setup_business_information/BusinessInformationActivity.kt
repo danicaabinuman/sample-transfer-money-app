@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -20,19 +21,12 @@ import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityBusinessInformationBinding
 import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
-import kotlinx.android.synthetic.main.activity_business_information.*
-import kotlinx.android.synthetic.main.activity_business_information.viewToolbar
-import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
-import kotlinx.android.synthetic.main.activity_request_payment.*
-import kotlinx.android.synthetic.main.spinner.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
-import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
 
 class BusinessInformationActivity :
-    BaseActivity<BusinessInformationViewModel>(R.layout.activity_business_information),
+    BaseActivity<ActivityBusinessInformationBinding,BusinessInformationViewModel>(),
     AdapterView.OnItemSelectedListener {
 
     var businessType =
@@ -57,7 +51,7 @@ class BusinessInformationActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
@@ -77,10 +71,6 @@ class BusinessInformationActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[BusinessInformationViewModel::class.java]
 
         viewModel.uiState.observe(this, Observer {
             it.getContentIfNotHandled().let { event ->
@@ -106,22 +96,22 @@ class BusinessInformationActivity :
         disableNextButton()
         requiredFields()
 
-        btn_lazada.setOnClickListener { btnLazadaClicked() }
-        btn_shopee.setOnClickListener { btnShopeeClicked() }
-        btn_facebook.setOnClickListener { btnFacebookClicked() }
-        btn_physical_store.setOnClickListener { btnPhysicalStoreClicked() }
-        btn_instagram.setOnClickListener { btnInstagramClicked() }
-        btn_website.setOnClickListener { btnWebsiteClicked() }
-        btn_others.setOnClickListener { btnOtherClicked() }
-        btn_increment.setOnClickListener { businessYearIncrementClicked() }
-        btn_years_decrement_active.setOnClickListener { businessYearDecrementClicked() }
-        btn_increment_branch_number.setOnClickListener { branchCounterIncrementClicked() }
-        btn_decrement_branch_number_active.setOnClickListener { branchCounterDecrementClicked() }
-        btn_next.setOnClickListener {
+        binding.btnLazada.setOnClickListener { btnLazadaClicked() }
+        binding.btnShopee.setOnClickListener { btnShopeeClicked() }
+        binding.btnFacebook.setOnClickListener { btnFacebookClicked() }
+        binding.btnPhysicalStore.setOnClickListener { btnPhysicalStoreClicked() }
+        binding.btnInstagram.setOnClickListener { btnInstagramClicked() }
+        binding.btnWebsite.setOnClickListener { btnWebsiteClicked() }
+        binding.btnOthers.setOnClickListener { btnOtherClicked() }
+        binding.btnIncrement.setOnClickListener { businessYearIncrementClicked() }
+        binding.btnYearsDecrementActive.setOnClickListener { businessYearDecrementClicked() }
+        binding.btnIncrementBranchNumber.setOnClickListener { branchCounterIncrementClicked() }
+        binding.btnDecrementBranchNumberActive.setOnClickListener { branchCounterDecrementClicked() }
+        binding.btnNext.setOnClickListener {
             retrieveInformationFromFields()
             btnNextClicked()
         }
-        btnSaveAndExit.setOnClickListener {
+        binding.viewToolbar.btnSaveAndExit.setOnClickListener {
             retrieveInformationFromFields()
 //            showDialogToDashboard()
             navigator.navigate(
@@ -141,7 +131,7 @@ class BusinessInformationActivity :
         val aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, businessType)
         aa.setDropDownViewResource(R.layout.spinner)
 
-        with(dropdownBusinessInformation) {
+        with(binding.dropdownBusinessInformation) {
             adapter = aa
             setSelection(0, false)
             onItemSelectedListener = this@BusinessInformationActivity
@@ -156,9 +146,9 @@ class BusinessInformationActivity :
         }
 
         if (position == 7) {
-            til_others_pls_specify.visibility = View.VISIBLE
+            binding.tilOthersPlsSpecify.visibility = View.VISIBLE
         } else {
-            til_others_pls_specify.visibility = View.GONE
+            binding.tilOthersPlsSpecify.visibility = View.GONE
         }
     }
 
@@ -168,28 +158,28 @@ class BusinessInformationActivity :
 
     private fun fromZeroCounter() {
 
-        if (tv_years_counter.text == "0") {
-            btn_years_decrement_active.visibility = View.GONE
-            btn_years_decrement_inactive.visibility = View.VISIBLE
+        if (binding.tvYearsCounter.text == "0") {
+            binding.btnYearsDecrementActive.visibility = View.GONE
+            binding.btnYearsDecrementInactive.visibility = View.VISIBLE
         } else {
-            btn_years_decrement_active.visibility = View.VISIBLE
-            btn_years_decrement_inactive.visibility = View.GONE
+            binding.btnYearsDecrementActive.visibility = View.VISIBLE
+            binding.btnYearsDecrementInactive.visibility = View.GONE
         }
 
-        if (tv_branch_counter.text == "1") {
-            btn_decrement_branch_number_active.visibility = View.GONE
-            btn_decrement_branch_number_inactive.visibility = View.VISIBLE
+        if (binding.tvBranchCounter.text == "1") {
+            binding.btnIncrementBranchNumber.visibility = View.GONE
+            binding.btnDecrementBranchNumberInactive.visibility = View.VISIBLE
         } else {
-            btn_decrement_branch_number_active.visibility = View.VISIBLE
-            btn_decrement_branch_number_inactive.visibility = View.GONE
+            binding.btnIncrementBranchNumber.visibility = View.VISIBLE
+            binding.btnDecrementBranchNumberInactive.visibility = View.GONE
         }
     }
 
     private fun businessYearIncrementClicked() {
 
-        var yearCounter = tv_years_counter.text.toString().toInt()
+        var yearCounter = binding.tvYearsCounter.text.toString().toInt()
         yearCounter++
-        tv_years_counter.text = yearCounter.toString()
+        binding.tvYearsCounter.text = yearCounter.toString()
 
         fromZeroCounter()
 
@@ -197,26 +187,26 @@ class BusinessInformationActivity :
 
     private fun businessYearDecrementClicked() {
 
-        var yearCounter = tv_years_counter.text.toString().toInt()
+        var yearCounter = binding.tvYearsCounter.text.toString().toInt()
         yearCounter--
-        tv_years_counter.text = yearCounter.toString()
+        binding.tvYearsCounter.text = yearCounter.toString()
 
         fromZeroCounter()
 
     }
 
     private fun branchCounterIncrementClicked() {
-        var branchCounter = tv_branch_counter.text.toString().toInt()
+        var branchCounter = binding.tvBranchCounter.text.toString().toInt()
         branchCounter++
-        tv_branch_counter.text = branchCounter.toString()
+        binding.tvBranchCounter.text = branchCounter.toString()
 
         fromZeroCounter()
     }
 
     private fun branchCounterDecrementClicked() {
-        var branchCounter = tv_branch_counter.text.toString().toInt()
+        var branchCounter = binding.tvBranchCounter.text.toString().toInt()
         branchCounter--
-        tv_branch_counter.text = branchCounter.toString()
+        binding.tvBranchCounter.text = branchCounter.toString()
 
         fromZeroCounter()
     }
@@ -225,20 +215,20 @@ class BusinessInformationActivity :
         lazadaCounter++
         val stateChecker = lazadaCounter % 2
         if (stateChecker == 1) {
-            btn_lazada.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            btn_lazada.setTextColor(Color.parseColor("#FF8200"))
-            tv_input_store_name.visibility = View.VISIBLE
-            divider_dashed.visibility = View.VISIBLE
-            tv_lazada_title.visibility = View.VISIBLE
-            til_lazada.visibility = View.VISIBLE
-            et_lazada.visibility = View.VISIBLE
+            binding.btnLazada.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnLazada.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreName.visibility = View.VISIBLE
+            binding.dividerDashed.visibility = View.VISIBLE
+            binding.tvLazadaTitle.visibility = View.VISIBLE
+            binding.tilLazada.visibility = View.VISIBLE
+            binding.etLazada.visibility = View.VISIBLE
         } else if (stateChecker == 0) {
-            btn_lazada.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            btn_lazada.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name.visibility = View.INVISIBLE
-            tv_lazada_title.visibility = View.GONE
-            til_lazada.visibility = View.GONE
-            et_lazada.visibility = View.GONE
+            binding.btnLazada.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnLazada.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreName.visibility = View.INVISIBLE
+            binding.tvLazadaTitle.visibility = View.GONE
+            binding.tilLazada.visibility = View.GONE
+            binding.etLazada.visibility = View.GONE
         }
 
     }
@@ -247,20 +237,20 @@ class BusinessInformationActivity :
         shopeeCounter++
         val stateChecker = shopeeCounter % 2
         if (stateChecker == 1) {
-            btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            btn_shopee.setTextColor(Color.parseColor("#FF8200"))
-            tv_input_store_name_shopee.visibility = View.VISIBLE
-            divider_dashed.visibility = View.VISIBLE
-            tv_shopee_title.visibility = View.VISIBLE
-            til_shopee.visibility = View.VISIBLE
-            et_shopee.visibility = View.VISIBLE
+            binding.btnShopee.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnShopee.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNameShopee.visibility = View.VISIBLE
+            binding.dividerDashed.visibility = View.VISIBLE
+            binding.tvShopeeTitle.visibility = View.VISIBLE
+            binding.tilShopee.visibility = View.VISIBLE
+            binding.etShopee.visibility = View.VISIBLE
         } else if (stateChecker == 0) {
-            btn_shopee.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            btn_shopee.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_shopee.visibility = View.INVISIBLE
-            tv_shopee_title.visibility = View.GONE
-            til_shopee.visibility = View.GONE
-            et_shopee.visibility = View.GONE
+            binding.btnShopee.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnShopee.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNameShopee.visibility = View.INVISIBLE
+            binding.tvShopeeTitle.visibility = View.GONE
+            binding.tilShopee.visibility = View.GONE
+            binding.etShopee.visibility = View.GONE
         }
     }
 
@@ -268,20 +258,20 @@ class BusinessInformationActivity :
         facebookCounter++
         val stateChecker = facebookCounter % 2
         if (stateChecker == 1) {
-            btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            btn_facebook.setTextColor(Color.parseColor("#FF8200"))
-            tv_input_store_name_facebook.visibility = View.VISIBLE
-            divider_dashed.visibility = View.VISIBLE
-            tv_facebook_title.visibility = View.VISIBLE
-            til_facebook.visibility = View.VISIBLE
-            et_facebook.visibility = View.VISIBLE
+            binding.btnFacebook.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnFacebook.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNameFacebook.visibility = View.VISIBLE
+            binding.dividerDashed.visibility = View.VISIBLE
+            binding.tvFacebookTitle.visibility = View.VISIBLE
+            binding.tilFacebook.visibility = View.VISIBLE
+            binding.etFacebook.visibility = View.VISIBLE
         } else if (stateChecker == 0) {
-            btn_facebook.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            btn_facebook.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_facebook.visibility = View.INVISIBLE
-            tv_facebook_title.visibility = View.GONE
-            til_facebook.visibility = View.GONE
-            et_facebook.visibility = View.GONE
+            binding.btnFacebook.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnFacebook.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNameFacebook.visibility = View.INVISIBLE
+            binding.tvFacebookTitle.visibility = View.GONE
+            binding.tilFacebook.visibility = View.GONE
+            binding.etFacebook.visibility = View.GONE
         }
     }
 
@@ -289,20 +279,20 @@ class BusinessInformationActivity :
         physicalStoreCounter++
         val stateChecker = physicalStoreCounter % 2
         if (stateChecker == 1) {
-            btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            btn_physical_store.setTextColor(Color.parseColor("#FF8200"))
-            tv_input_store_name_physical_store.visibility = View.VISIBLE
-            divider_dashed.visibility = View.VISIBLE
-            tv_physical_store.visibility = View.VISIBLE
-            til_physical_store.visibility = View.VISIBLE
-            et_physical_store.visibility = View.VISIBLE
+            binding.btnPhysicalStore.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnPhysicalStore.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNamePhysicalStore.visibility = View.VISIBLE
+            binding.dividerDashed.visibility = View.VISIBLE
+            binding.tvPhysicalStore.visibility = View.VISIBLE
+            binding.tilPhysicalStore.visibility = View.VISIBLE
+            binding.etPhysicalStore.visibility = View.VISIBLE
         } else if (stateChecker == 0) {
-            btn_physical_store.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            btn_physical_store.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_physical_store.visibility = View.INVISIBLE
-            tv_physical_store.visibility = View.GONE
-            til_physical_store.visibility = View.GONE
-            et_physical_store.visibility = View.GONE
+            binding.btnPhysicalStore.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnPhysicalStore.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNamePhysicalStore.visibility = View.INVISIBLE
+            binding.tvPhysicalStore.visibility = View.GONE
+            binding.tilPhysicalStore.visibility = View.GONE
+            binding.etPhysicalStore.visibility = View.GONE
         }
     }
 
@@ -310,20 +300,20 @@ class BusinessInformationActivity :
         instagramCounter++
         val stateChecker = instagramCounter % 2
         if (stateChecker == 1) {
-            btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            btn_instagram.setTextColor(Color.parseColor("#FF8200"))
-            tv_input_store_name_instagram.visibility = View.VISIBLE
-            divider_dashed.visibility = View.VISIBLE
-            tv_instagram_title.visibility = View.VISIBLE
-            til_instagram.visibility = View.VISIBLE
-            et_instagram.visibility = View.VISIBLE
+            binding.btnInstagram.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnInstagram.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNameInstagram.visibility = View.VISIBLE
+            binding.dividerDashed.visibility = View.VISIBLE
+            binding.tvInstagramTitle.visibility = View.VISIBLE
+            binding.tilInstagram.visibility = View.VISIBLE
+            binding.etInstagram.visibility = View.VISIBLE
         } else if (stateChecker == 0) {
-            btn_instagram.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            btn_instagram.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_instagram.visibility = View.INVISIBLE
-            tv_instagram_title.visibility = View.GONE
-            til_instagram.visibility = View.GONE
-            et_instagram.visibility = View.GONE
+            binding.btnInstagram.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnInstagram.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNameInstagram.visibility = View.INVISIBLE
+            binding.tvInstagramTitle.visibility = View.GONE
+            binding.tilInstagram.visibility = View.GONE
+            binding.etInstagram.visibility = View.GONE
         }
     }
 
@@ -331,20 +321,20 @@ class BusinessInformationActivity :
         websiteCounter++
         val stateChecker = websiteCounter % 2
         if (stateChecker == 1) {
-            btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            btn_website.setTextColor(Color.parseColor("#FF8200"))
-            tv_input_store_name_website.visibility = View.VISIBLE
-            divider_dashed.visibility = View.VISIBLE
-            tv_website_title.visibility = View.VISIBLE
-            til_website.visibility = View.VISIBLE
-            til_website.visibility = View.VISIBLE
+            binding.btnWebsite.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnWebsite.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNameWebsite.visibility = View.VISIBLE
+            binding.dividerDashed.visibility = View.VISIBLE
+            binding.tvWebsiteTitle.visibility = View.VISIBLE
+            binding.tilWebsite.visibility = View.VISIBLE
+            binding.etWebsite.visibility = View.VISIBLE
         } else if (stateChecker == 0) {
-            btn_website.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            btn_website.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_website.visibility = View.INVISIBLE
-            tv_website_title.visibility = View.GONE
-            til_website.visibility = View.GONE
-            et_website.visibility = View.GONE
+            binding.btnWebsite.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnWebsite.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNameWebsite.visibility = View.INVISIBLE
+            binding.tvWebsiteTitle.visibility = View.GONE
+            binding.tilWebsite.visibility = View.GONE
+            binding.etWebsite.visibility = View.GONE
         }
     }
 
@@ -352,35 +342,35 @@ class BusinessInformationActivity :
         otherCounter++
         val stateChecker = otherCounter % 2
         if (stateChecker == 1) {
-            btn_others.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            btn_others.setTextColor(Color.parseColor("#FF8200"))
-            tv_input_store_name_others.visibility = View.VISIBLE
-            divider_dashed.visibility = View.VISIBLE
-            tv_others_title.visibility = View.VISIBLE
-            til_others.visibility = View.VISIBLE
-            et_others.visibility = View.VISIBLE
+            binding.btnOthers.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnOthers.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNameOthers.visibility = View.VISIBLE
+            binding.dividerDashed.visibility = View.VISIBLE
+            binding.tvOthersTitle.visibility = View.VISIBLE
+            binding.tilOthers.visibility = View.VISIBLE
+            binding.etOthers.visibility = View.VISIBLE
         } else if (stateChecker == 0) {
-            btn_others.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            btn_others.setTextColor(Color.parseColor("#4A4A4A"))
-            tv_input_store_name_others.visibility = View.INVISIBLE
-            tv_others_title.visibility = View.GONE
-            til_others.visibility = View.GONE
-            et_others.visibility = View.GONE
+            binding.btnOthers.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnOthers.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNameOthers.visibility = View.INVISIBLE
+            binding.tvOthersTitle.visibility = View.GONE
+            binding.tilOthers.visibility = View.GONE
+            binding.etOthers.visibility = View.GONE
         }
     }
 
     private fun retrieveInformationFromFields() {
         val businessType = business
-        val storeProduct = et_product_of_services_offered.text.toString()
+        val storeProduct = binding.etProductOfServicesOffered.text.toString()
         val infoStatus = "draft"
-        val yearsInBusiness = tv_years_counter.text.toString().toInt()
-        val numberOfBranches = tv_branch_counter.text.toString().toInt()
-        val physicalStore = et_physical_store.text.toString()
-        val website = et_website.text.toString()
-        val lazadaUrl = et_lazada.text.toString()
-        val shopeeUrl = et_shopee.text.toString()
-        val facebookUrl = et_facebook.text.toString()
-        val instagramUrl = et_instagram.text.toString()
+        val yearsInBusiness = binding.tvYearsCounter.text.toString().toInt()
+        val numberOfBranches = binding.tvBranchCounter.text.toString().toInt()
+        val physicalStore = binding.etPhysicalStore.text.toString()
+        val website = binding.etWebsite.text.toString()
+        val lazadaUrl = binding.etLazada.text.toString()
+        val shopeeUrl = binding.etShopee.text.toString()
+        val facebookUrl = binding.etFacebook.text.toString()
+        val instagramUrl = binding.etInstagram.text.toString()
         val imageUrl1 = "testimage.jpg"
         val imageUrl2 = "testimage.jpg"
         val imageUrl3 = "testimage.jpg"
@@ -426,15 +416,15 @@ class BusinessInformationActivity :
     }
 
     private fun enableNextButton() {
-        btn_next?.isEnabled = true
+        binding.btnNext?.isEnabled = true
     }
 
     private fun disableNextButton() {
-        btn_next?.isEnabled = false
+        binding.btnNext?.isEnabled = false
     }
 
     private fun requiredFields() {
-        et_product_of_services_offered.addTextChangedListener(object : TextWatcher {
+        binding.etProductOfServicesOffered.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -448,13 +438,13 @@ class BusinessInformationActivity :
             }
 
         })
-        et_lazada.addTextChangedListener(object : TextWatcher {
+        binding.etLazada.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val lazadaLink = et_lazada.text.toString()
-                if (til_lazada.isShown && lazadaLink.isEmpty()) {
+                val lazadaLink = binding.etLazada.text.toString()
+                if (binding.tilLazada.isShown && lazadaLink.isEmpty()) {
                     disableNextButton()
                 } else if (lazadaLink.isNotEmpty()) {
                     enableNextButton()
@@ -466,14 +456,14 @@ class BusinessInformationActivity :
             }
 
         })
-        et_shopee.addTextChangedListener(object : TextWatcher {
+        binding.etShopee.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val shopeeLink = et_shopee.text.toString()
-                if (til_shopee.isShown && shopeeLink.isEmpty()) {
+                val shopeeLink = binding.etShopee.text.toString()
+                if (binding.tilShopee.isShown && shopeeLink.isEmpty()) {
                     disableNextButton()
                 } else if (shopeeLink.isNotEmpty()) {
                     enableNextButton()
@@ -486,14 +476,14 @@ class BusinessInformationActivity :
             }
 
         })
-        et_facebook.addTextChangedListener(object : TextWatcher {
+        binding.etFacebook.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val facebookLink = et_facebook.text.toString()
-                if (til_facebook.isShown && facebookLink.isEmpty()) {
+                val facebookLink = binding.etFacebook.text.toString()
+                if (binding.tilFacebook.isShown && facebookLink.isEmpty()) {
                     disableNextButton()
                 } else if (facebookLink.isNotEmpty()) {
                     enableNextButton()
@@ -506,14 +496,14 @@ class BusinessInformationActivity :
             }
 
         })
-        et_instagram.addTextChangedListener(object : TextWatcher {
+        binding.etInstagram.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val instagramLink = et_instagram.text.toString()
-                if (til_instagram.isShown && instagramLink.isEmpty()) {
+                val instagramLink = binding.etInstagram.text.toString()
+                if (binding.tilInstagram.isShown && instagramLink.isEmpty()) {
                     disableNextButton()
                 } else if (instagramLink.isNotEmpty()) {
                     enableNextButton()
@@ -526,14 +516,14 @@ class BusinessInformationActivity :
             }
 
         })
-        et_physical_store.addTextChangedListener(object : TextWatcher {
+        binding.etPhysicalStore.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val physicalStore = et_physical_store.text.toString()
-                if (til_physical_store.isShown && physicalStore.isEmpty()) {
+                val physicalStore = binding.etPhysicalStore.text.toString()
+                if (binding.tilPhysicalStore.isShown && physicalStore.isEmpty()) {
                     disableNextButton()
                 } else if (physicalStore.isNotEmpty()) {
                     enableNextButton()
@@ -546,14 +536,14 @@ class BusinessInformationActivity :
             }
 
         })
-        et_website.addTextChangedListener(object : TextWatcher {
+        binding.etWebsite.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val websiteLink = et_website.text.toString()
-                if (til_website.isShown && websiteLink.isEmpty()) {
+                val websiteLink = binding.etWebsite.text.toString()
+                if (binding.tilWebsite.isShown && websiteLink.isEmpty()) {
                     disableNextButton()
                 } else if (websiteLink.isNotEmpty()) {
                     enableNextButton()
@@ -592,4 +582,9 @@ class BusinessInformationActivity :
     companion object {
         var TAG = this::class.java.simpleName
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBusinessInformationBinding
+        get() = ActivityBusinessInformationBinding::inflate
+    override val viewModelClassType: Class<BusinessInformationViewModel>
+        get() = BusinessInformationViewModel::class.java
 }

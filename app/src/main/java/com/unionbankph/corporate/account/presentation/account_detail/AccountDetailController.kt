@@ -27,11 +27,9 @@ import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.HeaderAccountDetailsBinding
+import com.unionbankph.corporate.databinding.ItemRecentTransactionBinding
 import io.supercharge.shimmerlayout.ShimmerLayout
-import kotlinx.android.synthetic.main.header_account_details.view.*
-import kotlinx.android.synthetic.main.item_account.view.*
-import kotlinx.android.synthetic.main.item_recent_transaction.view.*
-import kotlinx.android.synthetic.main.widget_account_detail_fields.view.*
 
 class AccountDetailController
 constructor(
@@ -65,10 +63,10 @@ constructor(
             id(account.id)
             loadingAccount(account.isLoading)
             account(account)
-            viewUtil(viewUtil)
-            autoFormatUtil(autoFormatUtil)
-            context(context)
-            callbacks(callbacks)
+            viewUtil(this@AccountDetailController.viewUtil)
+            autoFormatUtil(this@AccountDetailController.autoFormatUtil)
+            context(this@AccountDetailController.context)
+            callbacks(this@AccountDetailController.callbacks)
         }
         records
             .take(3)
@@ -78,10 +76,10 @@ constructor(
                     position(position)
                     size(records.take(3).size)
                     record(record)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
-                    context(context)
-                    callbacks(callbacks)
+                    viewUtil(this@AccountDetailController.viewUtil)
+                    autoFormatUtil(this@AccountDetailController.autoFormatUtil)
+                    context(this@AccountDetailController.context)
+                    callbacks(this@AccountDetailController.callbacks)
                 }
             }
 
@@ -130,147 +128,106 @@ abstract class AccountDetailHeaderModel :
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        holder.textViewButton.text = viewUtil.getStringOrEmpty(account.name)
-        holder.textViewAccountNumber.text = viewUtil.getStringOrEmpty(
-            viewUtil.getAccountNumberFormat(account.accountNumber)
-        )
-        holder.textViewProductType.text = viewUtil.getStringOrDefaultString(
-            account.productCodeDesc,
-            context.getString(R.string.title_product_code_desc)
-        )
+        holder.binding.apply {
 
-        holder.textViewAccountNameDetail.text = viewUtil.getStringOrEmpty(account.name)
-        holder.textViewAccountNumberDetail.text = viewUtil.getStringOrEmpty(
-            viewUtil.getAccountNumberFormat(account.accountNumber)
-        )
-        holder.textViewAccountStatus.text = account.status?.description
-        holder.textViewAccountType.text = viewUtil.getStringOrEmpty(account.productCodeDesc)
-
-        val fundsInClearingBalance = autoFormatUtil.getBalance(
-            AccountBalanceTypeEnum.FUND_IN_CLEARING.value,
-            account.headers
-        )
-        if (account.productType.equals(ACCOUNT_TYPE_ODA)) {
-            val availableCredit = autoFormatUtil.getBalance(
-                AccountBalanceTypeEnum.AVAILABLE_CREDIT.value,
+            viewAccountHeader.textViewAccountNumber.text = viewUtil.getStringOrEmpty(
+                viewUtil.getAccountNumberFormat(account.accountNumber)
+            )
+            viewAccountHeader.textViewProductType.text = viewUtil.getStringOrDefaultString(
+                account.productCodeDesc,
+                context.getString(R.string.title_product_code_desc)
+            )
+            viewAccountDetails.textViewAccountNameDetail.text = viewUtil.getStringOrEmpty(account.name)
+            viewAccountDetails.textViewAccountNumberDetail.text = viewUtil.getStringOrEmpty(
+                viewUtil.getAccountNumberFormat(account.accountNumber)
+            )
+            viewAccountDetails.textViewAccountStatus.text = account.status?.description
+            viewAccountDetails.textViewAccountType.text = viewUtil.getStringOrEmpty(account.productCodeDesc)
+            val fundsInClearingBalance = autoFormatUtil.getBalance(
+                AccountBalanceTypeEnum.FUND_IN_CLEARING.value,
                 account.headers
             )
-            val outstandingBalance = autoFormatUtil.getBalance(
-                AccountBalanceTypeEnum.OUTSTANDING_BALANCE.value,
-                account.headers
-            )
-            holder.textViewAvailableBalanceTitle.text = availableCredit?.display
-            holder.textViewAvailableBalanceTitleDetail.text = availableCredit?.display
-            holder.textViewCurrentBalanceTitleDetail.text = outstandingBalance?.display
+            if (account.productType.equals(ACCOUNT_TYPE_ODA)) {
+                val availableCredit = autoFormatUtil.getBalance(
+                    AccountBalanceTypeEnum.AVAILABLE_CREDIT.value,
+                    account.headers
+                )
+                val outstandingBalance = autoFormatUtil.getBalance(
+                    AccountBalanceTypeEnum.OUTSTANDING_BALANCE.value,
+                    account.headers
+                )
+                viewAccountHeader.textViewAvailableBalanceTitle.text = availableCredit?.display
+                viewAccountDetails.textViewAvailableBalanceDetailTitle.text = availableCredit?.display
+                viewAccountDetails.textViewCurrentBalanceTitle.text = outstandingBalance?.display
 
-            holder.textViewAvailableBalance.text = availableCredit?.value ?: Constant.EMPTY
-            holder.textViewAvailableBalanceDetail.text = availableCredit?.value ?: Constant.EMPTY
-            holder.textViewCurrentBalanceDetail.text = outstandingBalance?.value ?: Constant.EMPTY
-            holder.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_orange)
-            holder.textViewAccountStatusTitle.visibility(false)
-            holder.textViewAccountStatus.visibility(false)
-            holder.view3.visibility(false)
-        } else {
-            val availableBalance = autoFormatUtil.getBalance(
-                AccountBalanceTypeEnum.AVAILABLE.value,
-                account.headers
-            )
-            val currentBalance = autoFormatUtil.getBalance(
-                AccountBalanceTypeEnum.CURRENT.value,
-                account.headers
-            )
-            holder.textViewAvailableBalanceTitle.text = availableBalance?.display
-            holder.textViewAvailableBalanceTitleDetail.text = availableBalance?.display
-            holder.textViewCurrentBalanceTitleDetail.text = currentBalance?.display
+                viewAccountHeader.textViewAvailableBalance.text = availableCredit?.value ?: Constant.EMPTY
+                viewAccountDetails.textViewAvailableBalanceDetail.text = availableCredit?.value ?: Constant.EMPTY
+                viewAccountDetails.textViewCurrentBalance.text = outstandingBalance?.value ?: Constant.EMPTY
+                viewAccountHeader.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_orange)
+                viewAccountDetails.textViewAccountStatusTitle.visibility(false)
+                viewAccountDetails.textViewAccountStatus.visibility(false)
+                viewAccountDetails.view3.visibility(false)
+            } else {
+                val availableBalance = autoFormatUtil.getBalance(
+                    AccountBalanceTypeEnum.AVAILABLE.value,
+                    account.headers
+                )
+                val currentBalance = autoFormatUtil.getBalance(
+                    AccountBalanceTypeEnum.CURRENT.value,
+                    account.headers
+                )
+                viewAccountHeader.textViewAvailableBalanceTitle.text = availableBalance?.display
+                viewAccountDetails.textViewAvailableBalanceDetailTitle.text = availableBalance?.display
+                viewAccountDetails.textViewCurrentBalanceTitle.text = currentBalance?.display
 
-            holder.textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
-            holder.textViewAvailableBalanceDetail.text = availableBalance?.value ?: Constant.EMPTY
-            holder.textViewCurrentBalanceDetail.text = currentBalance?.value ?: Constant.EMPTY
-            holder.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
-            holder.textViewAccountStatusTitle.visibility(true)
-            holder.textViewAccountStatus.visibility(true)
-            holder.view3.visibility(true)
-        }
+                viewAccountHeader.textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
+                viewAccountDetails.textViewAvailableBalanceDetail.text = availableBalance?.value ?: Constant.EMPTY
+                viewAccountDetails.textViewCurrentBalance.text = currentBalance?.value ?: Constant.EMPTY
+                viewAccountHeader.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
+                viewAccountDetails.textViewAccountStatusTitle.visibility(true)
+                viewAccountDetails.textViewAccountStatus.visibility(true)
+                viewAccountDetails.view3.visibility(true)
+            }
 
-        holder.textViewFundsClearingTitle.text = fundsInClearingBalance?.display
-        holder.textViewFundsClearing.text = fundsInClearingBalance?.value ?: Constant.EMPTY
+            viewAccountDetails.textViewFundsClearingTitle.text = fundsInClearingBalance?.display
+            viewAccountDetails.textViewFundsClearing.text = fundsInClearingBalance?.value ?: Constant.EMPTY
 
-        if (loadingAccount!!) {
-            holder.shimmerLayoutAmount.startShimmerAnimation()
-            holder.viewShimmer.visibility = View.VISIBLE
-            holder.textViewAvailableBalance.visibility = View.INVISIBLE
-            holder.textViewAvailableBalance.text =
-                context.formatString(R.string.value_default_zero_balance)
-        } else {
-            holder.shimmerLayoutAmount.stopShimmerAnimation()
-            holder.viewShimmer.visibility = View.GONE
-            holder.textViewAvailableBalance.visibility = View.VISIBLE
-        }
+            if (loadingAccount!!) {
+                viewAccountHeader.shimmerLayoutAmount.startShimmerAnimation()
+                viewAccountHeader.viewShimmer.visibility = View.VISIBLE
+                viewAccountHeader.textViewAvailableBalance.visibility = View.INVISIBLE
+                viewAccountHeader.textViewAvailableBalance.text =
+                    context.formatString(R.string.value_default_zero_balance)
+            } else {
+                viewAccountHeader.shimmerLayoutAmount.stopShimmerAnimation()
+                viewAccountHeader.viewShimmer.visibility = View.GONE
+                viewAccountHeader.textViewAvailableBalance.visibility = View.VISIBLE
+            }
 
-        holder.cardViewAll.setOnClickListener {
-            callbacks.onClickViewAll(account.id.toString())
+            cardViewAll.textViewAll.setOnClickListener {
+                callbacks.onClickViewAll(account.id.toString())
+            }
         }
     }
 
     override fun onViewAttachedToWindow(holder: Holder) {
-        if (loadingAccount!!) {
-            holder.shimmerLayoutAmount.startShimmerAnimation()
-        } else {
-            holder.shimmerLayoutAmount.stopShimmerAnimation()
+        holder.binding.apply {
+            if (loadingAccount!!) {
+                viewAccountHeader.shimmerLayoutAmount.startShimmerAnimation()
+            } else {
+                viewAccountHeader.shimmerLayoutAmount.stopShimmerAnimation()
+            }
         }
         super.onViewAttachedToWindow(holder)
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var cardViewAccount: View
-        lateinit var textViewButton: TextView
-        lateinit var textViewAccountNumber: TextView
-        lateinit var textViewAvailableBalanceTitle: TextView
-        lateinit var textViewAvailableBalance: TextView
-        lateinit var imageViewEdit: ImageView
-        lateinit var shimmerLayoutAmount: ShimmerLayout
 
-        lateinit var textViewAccountNameDetail: TextView
-        lateinit var textViewAccountNumberDetail: TextView
-        lateinit var textViewAccountType: TextView
-        lateinit var textViewProductType: TextView
-        lateinit var textViewAccountStatusTitle: TextView
-        lateinit var textViewAccountStatus: TextView
-
-        lateinit var textViewAvailableBalanceTitleDetail: TextView
-        lateinit var textViewCurrentBalanceTitleDetail: TextView
-        lateinit var textViewFundsClearingTitle: TextView
-        lateinit var textViewCurrentBalanceDetail: TextView
-        lateinit var textViewAvailableBalanceDetail: TextView
-        lateinit var textViewFundsClearing: TextView
-        lateinit var cardViewAll: View
-        lateinit var viewShimmer: View
-        lateinit var view3: View
+        lateinit var binding: HeaderAccountDetailsBinding
+            private set
 
         override fun bindView(itemView: View) {
-            cardViewAccount = itemView.viewAccountHeader
-            cardViewAll = itemView.cardViewAll
-            textViewButton = itemView.textViewCorporateName
-            textViewAccountNumber = itemView.textViewAccountNumber
-            textViewAvailableBalanceTitle = itemView.textViewAvailableBalanceTitle
-            textViewAvailableBalance = itemView.textViewAvailableBalance
-            imageViewEdit = itemView.imageViewEdit
-            shimmerLayoutAmount = itemView.shimmerLayoutAmount
-
-            textViewAccountNameDetail = itemView.textViewAccountNameDetail
-            textViewAccountNumberDetail = itemView.textViewAccountNumberDetail
-            textViewCurrentBalanceDetail = itemView.textViewCurrentBalance
-            textViewAvailableBalanceTitleDetail = itemView.textViewAvailableBalanceDetailTitle
-            textViewCurrentBalanceTitleDetail = itemView.textViewCurrentBalanceTitle
-            textViewFundsClearingTitle = itemView.textViewFundsClearingTitle
-            textViewAccountType = itemView.textViewAccountType
-            textViewProductType = itemView.textViewProductType
-            textViewAccountStatusTitle = itemView.textViewAccountStatusTitle
-            textViewAccountStatus = itemView.textViewAccountStatus
-            view3 = itemView.view3
-            textViewAvailableBalanceDetail = itemView.textViewAvailableBalanceDetail
-            textViewFundsClearing = itemView.textViewFundsClearing
-            viewShimmer = itemView.viewShimmer
+            binding = HeaderAccountDetailsBinding.bind(itemView)
         }
     }
 }
@@ -301,83 +258,79 @@ abstract class RecentTransactionItemModel :
     var size: Int? = null
 
     override fun bind(holder: Holder) {
-        super.bind(holder)
 
-        if (position == 0) {
-            if (size == 1) {
-                holder.viewBorder.visibility = View.GONE
-                holder.viewBorder2.visibility = View.GONE
-                holder.constraintLayoutItemRecent.background =
+        holder.binding.apply {
+            if (position == 0) {
+                if (size == 1) {
+                    viewBorder.visibility = View.GONE
+                    viewBorder2.visibility = View.GONE
+                    constraintLayoutItemRecent.background =
+                        ContextCompat.getDrawable(
+                            constraintLayoutItemRecent.context,
+                            R.drawable.bg_shadow
+                        )
+                } else {
+                    viewBorder.visibility = View.GONE
+                    viewBorder2.visibility = View.VISIBLE
+                    constraintLayoutItemRecent.background =
+                        ContextCompat.getDrawable(
+                            constraintLayoutItemRecent.context,
+                            R.drawable.bg_shadow_top
+                        )
+                }
+            } else if (position == (size?.minus(1))) {
+                viewBorder.visibility = View.GONE
+                viewBorder2.visibility = View.GONE
+                constraintLayoutItemRecent.background =
                     ContextCompat.getDrawable(
-                        holder.constraintLayoutItemRecent.context,
-                        R.drawable.bg_shadow
+                        constraintLayoutItemRecent.context,
+                        R.drawable.bg_shadow_bottom
                     )
             } else {
-                holder.viewBorder.visibility = View.GONE
-                holder.viewBorder2.visibility = View.VISIBLE
-                holder.constraintLayoutItemRecent.background =
+                viewBorder.visibility = View.GONE
+                viewBorder2.visibility = View.VISIBLE
+                constraintLayoutItemRecent.background =
                     ContextCompat.getDrawable(
-                        holder.constraintLayoutItemRecent.context,
-                        R.drawable.bg_shadow_top
+                        constraintLayoutItemRecent.context,
+                        R.drawable.bg_shadow_center
                     )
             }
-        } else if (position == (size?.minus(1))) {
-            holder.viewBorder.visibility = View.GONE
-            holder.viewBorder2.visibility = View.GONE
-            holder.constraintLayoutItemRecent.background =
-                ContextCompat.getDrawable(
-                    holder.constraintLayoutItemRecent.context,
-                    R.drawable.bg_shadow_bottom
+
+            textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
+                record.amount,
+                record.currency
+            )
+
+            textViewDate.text = viewUtil.getStringOrEmpty(
+                viewUtil.getDateFormatByDateString(
+                    record.postedDate,
+                    ViewUtil.DATE_FORMAT_ISO,
+                    ViewUtil.DATE_FORMAT_DEFAULT
                 )
-        } else {
-            holder.viewBorder.visibility = View.GONE
-            holder.viewBorder2.visibility = View.VISIBLE
-            holder.constraintLayoutItemRecent.background =
-                ContextCompat.getDrawable(
-                    holder.constraintLayoutItemRecent.context,
-                    R.drawable.bg_shadow_center
+            )
+
+            textViewTitle.text = viewUtil.getStringOrEmpty(record.tranDescription)
+
+            imageViewTransferType.setImageResource(
+                ConstantHelper.Drawable.getAccountTransactionType(
+                    record.transactionClass
                 )
+            )
+
+            constraintLayoutItemRecent.setOnClickListener {
+                callbacks.onClickItem(JsonHelper.toJson(record))
+            }
         }
 
-        holder.textViewAmount.text = autoFormatUtil.formatWithTwoDecimalPlaces(
-            record.amount,
-            record.currency
-        )
-        holder.textViewDate.text = viewUtil.getStringOrEmpty(
-            viewUtil.getDateFormatByDateString(
-                record.postedDate,
-                ViewUtil.DATE_FORMAT_ISO,
-                ViewUtil.DATE_FORMAT_DEFAULT
-            )
-        )
-        holder.textViewTitle.text = viewUtil.getStringOrEmpty(record.tranDescription)
-        holder.imageViewTransferType.setImageResource(
-            ConstantHelper.Drawable.getAccountTransactionType(
-                record.transactionClass
-            )
-        )
-        holder.constraintLayoutItemRecent.setOnClickListener {
-            callbacks.onClickItem(JsonHelper.toJson(record))
-        }
+        super.bind(holder)
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var viewBorder: View
-        lateinit var viewBorder2: View
-        lateinit var constraintLayoutItemRecent: ConstraintLayout
-        lateinit var textViewAmount: TextView
-        lateinit var textViewDate: TextView
-        lateinit var textViewTitle: TextView
-        lateinit var imageViewTransferType: ImageView
+
+        lateinit var binding: ItemRecentTransactionBinding
 
         override fun bindView(itemView: View) {
-            viewBorder = itemView.viewBorder
-            viewBorder2 = itemView.viewBorder2
-            constraintLayoutItemRecent = itemView.constraintLayoutItemRecent
-            textViewAmount = itemView.textViewAmount
-            textViewDate = itemView.textViewDate
-            textViewTitle = itemView.textViewTitle
-            imageViewTransferType = itemView.imageViewTransferType
+           binding = ItemRecentTransactionBinding.bind(itemView)
         }
     }
 }

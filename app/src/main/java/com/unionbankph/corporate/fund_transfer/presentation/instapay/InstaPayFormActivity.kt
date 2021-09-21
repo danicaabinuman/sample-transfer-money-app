@@ -3,10 +3,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.instapay
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -46,6 +43,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTu
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.corporate.data.model.Channel
+import com.unionbankph.corporate.databinding.ActivityFundTransferFormPesonetBinding
 import com.unionbankph.corporate.fund_transfer.data.form.FundTransferInstaPayForm
 import com.unionbankph.corporate.fund_transfer.data.model.Bank
 import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
@@ -54,18 +52,11 @@ import com.unionbankph.corporate.fund_transfer.presentation.bank.BankActivity
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer.ProposedTransferDateActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_fund_transfer_form_pesonet.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_edit_text_proposed_date.*
-import kotlinx.android.synthetic.main.widget_edit_text_purpose.*
-import kotlinx.android.synthetic.main.widget_edit_text_receiving_bank.*
-import kotlinx.android.synthetic.main.widget_edit_text_transfer_to.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import timber.log.Timber
 import java.util.regex.Pattern
 
 class InstaPayFormActivity :
-    BaseActivity<InstaPayViewModel>(R.layout.activity_fund_transfer_form_pesonet),
+    BaseActivity<ActivityFundTransferFormPesonetBinding, InstaPayViewModel>(),
     View.OnClickListener,
     OnTutorialListener,
     OnConfirmationPageCallBack,
@@ -99,7 +90,7 @@ class InstaPayFormActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
@@ -110,7 +101,6 @@ class InstaPayFormActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[InstaPayViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowInstaPayLoading -> {
@@ -154,8 +144,8 @@ class InstaPayFormActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_instapay),
                         it.orgName
                     )
@@ -187,7 +177,7 @@ class InstaPayFormActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        et_amount.setEnableAmount(false)
+        binding.etAmount.setEnableAmount(false)
         initChannelView(channel)
         tutorialEngineUtil.setOnTutorialListener(this)
     }
@@ -220,7 +210,7 @@ class InstaPayFormActivity :
             R.id.menu_help -> {
                 isClickedHelpTutorial = true
                 viewUtil.dismissKeyboard(this)
-                scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                 Handler().postDelayed(
                     {
                         startViewTutorial()
@@ -261,22 +251,22 @@ class InstaPayFormActivity :
             }
         }.addTo(disposables)
         viewUtil.setEditTextMaskListener(
-            textInputEditTextAccountNumber,
+            binding.textInputEditTextAccountNumber,
             getString(R.string.hint_other_bank_account_number_format)
         )
-        textInputEditTextTransferFrom.setOnClickListener(this)
-        textInputEditTextReceivingBank.setOnClickListener(this)
-        textInputEditTextPurpose.setOnClickListener(this)
-        imageViewBeneficiaryClose.setOnClickListener(this)
-        constraintLayoutProposedTransactionDate.setOnClickListener(this)
-        imageViewSelectedProposedTransactionDate.setOnClickListener(this)
+        binding.textInputEditTextTransferFrom.setOnClickListener(this)
+        binding.viewReceivingBankForm.textInputEditTextReceivingBank.setOnClickListener(this)
+        binding.viewPurpose.textInputEditTextPurpose.setOnClickListener(this)
+        binding.viewReceivingBankForm.imageViewBeneficiaryClose.setOnClickListener(this)
+        binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.setOnClickListener(this)
+        binding.viewProposedTransactionDate.imageViewSelectedProposedTransactionDate.setOnClickListener(this)
         imeOptionEditText =
             ImeOptionEditText()
         imeOptionEditText.addEditText(
-            textInputEditTextTransferTo,
-            textInputEditTextAccountNumber,
-            et_amount,
-            textInputEditTextRemarks
+            binding.viewTransferToForm.textInputEditTextTransferTo,
+            binding.textInputEditTextAccountNumber,
+            binding.etAmount,
+            binding.textInputEditTextRemarks
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
@@ -324,21 +314,21 @@ class InstaPayFormActivity :
 
     private fun showBeneficiaryDetails(it: BaseEvent<String>) {
         beneficiaryMaster = JsonHelper.fromJson(it.payload)
-        textViewBeneficiaryAddressTitle.visibility = View.GONE
-        textViewBeneficiaryAddress.visibility = View.GONE
-        textInputEditTextTransferTo.setText(beneficiaryMaster?.name)
-        textInputEditTextAccountNumber.setText(beneficiaryMaster?.accountNumber.formatAccountNumber())
-        textInputEditTextReceivingBank.setText(beneficiaryMaster?.bankDetails?.name)
-        textViewBeneficiaryCode.text = beneficiaryMaster?.code
-        textViewBeneficiaryName.text = beneficiaryMaster?.name
-        textViewBeneficiaryBankAccount.text = beneficiaryMaster?.accountNumber.formatAccountNumber()
-        textViewReceivingBank.text = beneficiaryMaster?.bankDetails?.name
+        binding.viewReceivingBankForm.textViewBeneficiaryAddressTitle.visibility = View.GONE
+        binding.viewReceivingBankForm.textViewBeneficiaryAddress.visibility = View.GONE
+        binding.viewTransferToForm.textInputEditTextTransferTo.setText(beneficiaryMaster?.name)
+        binding.textInputEditTextAccountNumber.setText(beneficiaryMaster?.accountNumber.formatAccountNumber())
+        binding.viewReceivingBankForm.textInputEditTextReceivingBank.setText(beneficiaryMaster?.bankDetails?.name)
+        binding.viewReceivingBankForm.textViewBeneficiaryCode.text = beneficiaryMaster?.code
+        binding.viewReceivingBankForm.textViewBeneficiaryName.text = beneficiaryMaster?.name
+        binding.viewReceivingBankForm.textViewBeneficiaryBankAccount.text = beneficiaryMaster?.accountNumber.formatAccountNumber()
+        binding.viewReceivingBankForm.textViewReceivingBank.text = beneficiaryMaster?.bankDetails?.name
         showBeneficiaryMasterField(true)
     }
 
     private fun showReceivingBank(it: BaseEvent<String>) {
         selectedBank = JsonHelper.fromJson(it.payload)
-        textInputEditTextReceivingBank.setText(selectedBank?.bank)
+        binding.viewReceivingBankForm.textInputEditTextReceivingBank.setText(selectedBank?.bank)
     }
 
     private fun showTransferFrom(account: Account?) {
@@ -347,11 +337,11 @@ class InstaPayFormActivity :
             selectedAccount = it
             permissionCollection = it.permissionCollection
             isEnableButton = true
-            et_amount.setCurrencySymbol(selectedAccount?.currency.notNullable(), true)
-            textInputEditTextTransferTo.text?.clear()
-            textInputEditTextAccountNumber.text?.clear()
-            textInputEditTextReceivingBank.text?.clear()
-            textInputEditTextTransferFrom.setText(
+            binding.etAmount.setCurrencySymbol(selectedAccount?.currency.notNullable(), true)
+            binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
+            binding.textInputEditTextAccountNumber.text?.clear()
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.text?.clear()
+            binding.textInputEditTextTransferFrom.setText(
                 (it.name + "\n" + it.accountNumber.formatAccountNumber())
             )
             invalidateOptionsMenu()
@@ -413,14 +403,14 @@ class InstaPayFormActivity :
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
             setDefaultViewTutorial(false)
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.field_radius)
             when (view) {
-                viewTutorialTransferFrom -> {
+                binding.viewTutorialTransferFrom -> {
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialTransferTo,
+                        binding.viewTutorialTransferTo,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -429,10 +419,10 @@ class InstaPayFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialTransferTo -> {
+                binding.viewTutorialTransferTo -> {
                     tutorialEngineUtil.startTutorial(
                         this,
-                        textInputLayoutAccountNumber,
+                        binding.textInputLayoutAccountNumber,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -441,11 +431,11 @@ class InstaPayFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                textInputLayoutAccountNumber -> {
-                    viewUtil.setFocusOnView(scrollView, viewReceivingBankForm)
+                binding.textInputLayoutAccountNumber -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewReceivingBankForm.root)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewReceivingBankForm,
+                        binding.viewReceivingBankForm.root,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -454,11 +444,11 @@ class InstaPayFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewReceivingBankForm -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialAmount)
+                binding.viewReceivingBankForm.root -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialAmount)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialAmount,
+                        binding.viewTutorialAmount,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -467,11 +457,11 @@ class InstaPayFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialAmount -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialProposedTransactionDate)
+                binding.viewTutorialAmount -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialProposedTransactionDate)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialProposedTransactionDate,
+                        binding.viewTutorialProposedTransactionDate,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -480,11 +470,11 @@ class InstaPayFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialProposedTransactionDate -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialPurpose)
+                binding.viewTutorialProposedTransactionDate -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialPurpose)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialPurpose,
+                        binding.viewTutorialPurpose,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -493,11 +483,11 @@ class InstaPayFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialPurpose -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialRemarks)
+                binding.viewTutorialPurpose -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialRemarks)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialRemarks,
+                        binding.viewTutorialRemarks,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -506,7 +496,7 @@ class InstaPayFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialRemarks -> {
+                binding.viewTutorialRemarks -> {
                     val buttonRadius = resources.getDimension(R.dimen.button_radius)
                     tutorialEngineUtil.startTutorial(
                         this,
@@ -521,7 +511,7 @@ class InstaPayFormActivity :
                 }
                 else -> {
                     setDefaultViewTutorial(false)
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.INSTAPAY_FORM, false)
                 }
             }
@@ -537,39 +527,39 @@ class InstaPayFormActivity :
 
     private fun setDefaultProposedDate(isShown: Boolean) {
         if (isShown && proposedTransferDate != null) {
-            textInputLayoutProposedTransactionDate.visibility = View.GONE
-            viewBorderProposedTransactionDate.visibility = View.GONE
-            imageViewProposedTransactionDate.visibility = View.GONE
-            constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
             if (proposedTransferDate?.frequency == getString(R.string.title_one_time)) {
-                textViewEndDateTitle.visibility = View.GONE
-                textViewEndDate.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.GONE
             } else {
-                textViewEndDateTitle.visibility = View.VISIBLE
-                textViewEndDate.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.VISIBLE
             }
         } else {
-            textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
-            textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
-            viewBorderProposedTransactionDate.visibility = View.VISIBLE
-            imageViewProposedTransactionDate.visibility = View.VISIBLE
-            constraintLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.GONE
         }
     }
 
     private fun setDefaultViewTutorial(isShown: Boolean) {
         if (!isShown && beneficiaryMaster != null) {
-            textInputLayoutTransferTo.visibility = View.GONE
-            imageViewTransferTo.visibility = View.GONE
-            textInputLayoutAccountNumber.visibility = View.GONE
-            textInputLayoutReceivingBank.visibility = View.GONE
-            constraintLayoutBeneficiary.visibility = View.VISIBLE
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.GONE
+            binding.textInputLayoutAccountNumber.visibility = View.GONE
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.GONE
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.VISIBLE
         } else {
-            textInputLayoutTransferTo.visibility = View.VISIBLE
-            imageViewTransferTo.visibility = View.VISIBLE
-            textInputLayoutAccountNumber.visibility = View.VISIBLE
-            textInputLayoutReceivingBank.visibility = View.VISIBLE
-            constraintLayoutBeneficiary.visibility = View.GONE
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.VISIBLE
+            binding.textInputLayoutAccountNumber.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.GONE
         }
         setDefaultProposedDate(!isShown)
     }
@@ -587,14 +577,14 @@ class InstaPayFormActivity :
                 selection = { _, index, text ->
                     purpose = purposes[index]
                     if (purpose?.description.equals("Others", true)) {
-                        this@InstaPayFormActivity.textInputLayoutLeavePurpose.visibility =
+                        this@InstaPayFormActivity.binding.viewPurpose.textInputLayoutLeavePurpose.visibility =
                             View.VISIBLE
-                        this@InstaPayFormActivity.textInputEditTextLeavePurpose.text?.clear()
+                        this@InstaPayFormActivity.binding.viewPurpose.textInputEditTextLeavePurpose.text?.clear()
                     } else {
-                        this@InstaPayFormActivity.textInputLayoutLeavePurpose.visibility = View.GONE
-                        this@InstaPayFormActivity.textInputEditTextLeavePurpose.setText("-")
+                        this@InstaPayFormActivity.binding.viewPurpose.textInputLayoutLeavePurpose.visibility = View.GONE
+                        this@InstaPayFormActivity.binding.viewPurpose.textInputEditTextLeavePurpose.setText("-")
                     }
-                    this@InstaPayFormActivity.textInputEditTextPurpose.setText(text.toString())
+                    this@InstaPayFormActivity.binding.viewPurpose.textInputEditTextPurpose.setText(text.toString())
                 })
         }
     }
@@ -605,14 +595,14 @@ class InstaPayFormActivity :
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextTransferFrom
+            binding.textInputEditTextTransferFrom
         )
         val transferToObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextTransferTo
+            binding.viewTransferToForm.textInputEditTextTransferTo
         )
         val accountNumberObservable =
             viewUtil.rxTextChanges(
@@ -620,7 +610,7 @@ class InstaPayFormActivity :
                 isValueChanged,
                 resources.getInteger(R.integer.min_length_account_number),
                 resources.getInteger(R.integer.max_length_field_100),
-                textInputEditTextAccountNumber,
+                binding.textInputEditTextAccountNumber,
                 customErrorMessage = formatString(
                     R.string.error_validation_custom_min_length,
                     formatString(R.string.title_account_number),
@@ -633,12 +623,12 @@ class InstaPayFormActivity :
                 isValueChanged,
                 resources.getInteger(R.integer.min_length_field),
                 resources.getInteger(R.integer.max_length_field_100),
-                textInputEditTextReceivingBank
+                binding.viewReceivingBankForm.textInputEditTextReceivingBank
             )
         val amountObservable = viewUtil.rxTextChangesAmount(
             true,
             isValueChanged,
-            et_amount,
+            binding.etAmount,
             RxValidator.PatternMatch(
                 formatString(R.string.error_input_valid_amount),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_VALID_AMOUNT)
@@ -658,7 +648,7 @@ class InstaPayFormActivity :
                 isValueChanged,
                 resources.getInteger(R.integer.min_length_field),
                 resources.getInteger(R.integer.max_length_field_100),
-                textInputEditTextPurpose
+                binding.viewPurpose.textInputEditTextPurpose
             )
 
         val leavePurposeObservable =
@@ -667,7 +657,7 @@ class InstaPayFormActivity :
                 isValueChanged,
                 resources.getInteger(R.integer.min_length_field),
                 resources.getInteger(R.integer.max_length_field_100),
-                textInputEditTextLeavePurpose
+                binding.viewPurpose.textInputEditTextLeavePurpose
             )
 
         initSetError(transferFromObservable)
@@ -711,130 +701,134 @@ class InstaPayFormActivity :
     }
 
     private fun initEditTextDefaultValue() {
-        if (textInputEditTextTransferFrom.length() != 0) {
-            textInputEditTextTransferFrom.setText(textInputEditTextTransferFrom.text.toString())
+        if (binding.textInputEditTextTransferFrom.length() != 0) {
+            binding.textInputEditTextTransferFrom.setText(binding.textInputEditTextTransferFrom.text.toString())
         }
-        if (textInputEditTextTransferTo.length() != 0) {
-            textInputEditTextTransferTo.setText(textInputEditTextTransferTo.text.toString())
+        if (binding.viewTransferToForm.textInputEditTextTransferTo.length() != 0) {
+            binding.viewTransferToForm.textInputEditTextTransferTo.setText(
+                binding.viewTransferToForm.textInputEditTextTransferTo.text.toString())
         }
-        if (textInputEditTextAccountNumber.length() != 0) {
-            textInputEditTextAccountNumber.setText(textInputEditTextAccountNumber.text.toString())
+        if (binding.textInputEditTextAccountNumber.length() != 0) {
+            binding.textInputEditTextAccountNumber.setText(binding.textInputEditTextAccountNumber.text.toString())
         }
-        if (textInputEditTextReceivingBank.length() != 0) {
-            textInputEditTextReceivingBank.setText(textInputEditTextReceivingBank.text.toString())
+        if (binding.viewReceivingBankForm.textInputEditTextReceivingBank.length() != 0) {
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.setText(
+                binding.viewReceivingBankForm.textInputEditTextReceivingBank.text.toString())
         }
-        if (et_amount.length() != 0) {
-            et_amount.setText(et_amount.text.toString())
+        if (binding.etAmount.length() != 0) {
+            binding.etAmount.setText(binding.etAmount.text.toString())
         }
-        if (textInputEditTextPurpose.length() != 0) {
-            textInputEditTextPurpose.setText(textInputEditTextPurpose.text.toString())
+        if (binding.viewPurpose.textInputEditTextPurpose.length() != 0) {
+            binding.viewPurpose.textInputEditTextPurpose.setText(
+                binding.viewPurpose.textInputEditTextPurpose.text.toString())
         }
-        if (textInputEditTextLeavePurpose.length() != 0) {
-            textInputEditTextLeavePurpose.setText(textInputEditTextLeavePurpose.text.toString())
+        if (binding.viewPurpose.textInputEditTextLeavePurpose.length() != 0) {
+            binding.viewPurpose.textInputEditTextLeavePurpose.setText(
+                binding.viewPurpose.textInputEditTextLeavePurpose.text.toString())
         }
     }
 
     private fun showBeneficiaryMasterField(isShown: Boolean) {
         if (isShown) {
-            textInputLayoutTransferTo.visibility = View.GONE
-            viewBorderTransferTo.visibility = View.GONE
-            imageViewTransferTo.visibility = View.GONE
-            textInputLayoutAccountNumber.visibility = View.GONE
-            textInputLayoutReceivingBank.visibility = View.GONE
-            constraintLayoutBeneficiary.visibility = View.VISIBLE
-            constraintLayoutBeneficiary.setOnClickListener {
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.viewBorderTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.GONE
+            binding.textInputLayoutAccountNumber.visibility = View.GONE
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.GONE
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.setOnClickListener {
                 navigateToBeneficiaryScreen()
             }
         } else {
             this.beneficiaryMaster = null
             this.selectedBank = null
-            textInputEditTextTransferTo.text?.clear()
-            textInputEditTextAccountNumber.text?.clear()
-            textInputEditTextReceivingBank.text?.clear()
-            textInputLayoutTransferTo.visibility = View.VISIBLE
-            viewBorderTransferTo.visibility = View.VISIBLE
-            imageViewTransferTo.visibility = View.VISIBLE
-            textInputLayoutAccountNumber.visibility = View.VISIBLE
-            textInputLayoutReceivingBank.visibility = View.VISIBLE
-            constraintLayoutBeneficiary.visibility = View.GONE
+            binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
+            binding.textInputEditTextAccountNumber.text?.clear()
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.text?.clear()
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.viewBorderTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.VISIBLE
+            binding.textInputLayoutAccountNumber.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.GONE
         }
     }
 
     private fun showProposedTransferDate(isShown: Boolean) {
         if (isShown) {
-            textInputLayoutProposedTransactionDate.visibility = View.GONE
-            viewBorderProposedTransactionDate.visibility = View.GONE
-            imageViewProposedTransactionDate.visibility = View.GONE
-            constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
             if (proposedTransferDate?.frequency == getString(R.string.title_one_time)) {
-                textViewEndDateTitle.visibility = View.GONE
-                textViewEndDate.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.GONE
             } else {
-                textViewEndDateTitle.visibility = View.VISIBLE
-                textViewEndDate.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.VISIBLE
             }
-            textViewStartDate.text =
+            binding.viewProposedTransactionDate.textViewStartDate.text =
                 viewUtil.getDateFormatByDateString(
                     proposedTransferDate?.startDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
-            textViewFrequency.text = proposedTransferDate?.frequency
+            binding.viewProposedTransactionDate.textViewFrequency.text = proposedTransferDate?.frequency
             if (proposedTransferDate?.endDate != null) {
                 val endDateDesc = viewUtil.getDateFormatByDateString(
                     proposedTransferDate?.endDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DATE
                 )
-                textViewEndDate.text =
+                binding.viewProposedTransactionDate.textViewEndDate.text =
                     ("${proposedTransferDate?.occurrencesText}\n(Until $endDateDesc)")
             } else {
-                textViewEndDate.text = proposedTransferDate?.occurrencesText
+                binding.viewProposedTransactionDate.textViewEndDate.text = proposedTransferDate?.occurrencesText
             }
         } else {
-            textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
-            textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
-            imageViewProposedTransactionDate.visibility = View.VISIBLE
-            constraintLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.GONE
         }
     }
 
     private fun setPermission(permissionCollection: PermissionCollection) {
         if (permissionCollection.hasAllowToCreateTransactionAdhoc) {
-            textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutAccountNumber.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutReceivingBank.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputEditTextTransferTo.isEnabled = true
-            textInputEditTextAccountNumber.isEnabled = true
-            textInputEditTextReceivingBank.isEnabled = true
-            viewImageViewBackground.background = null
+            binding.viewTransferToForm.textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.textInputLayoutAccountNumber.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewTransferToForm.textInputEditTextTransferTo.isEnabled = true
+            binding.textInputEditTextAccountNumber.isEnabled = true
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.isEnabled = true
+            binding.viewTransferToForm.viewImageViewBackground.background = null
         } else {
-            textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputLayoutAccountNumber.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputLayoutReceivingBank.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputEditTextTransferTo.isEnabled = false
-            textInputEditTextAccountNumber.isEnabled = false
-            textInputEditTextReceivingBank.isEnabled = false
-            viewImageViewBackground.background =
+            binding.viewTransferToForm.textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.textInputLayoutAccountNumber.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.viewTransferToForm.textInputEditTextTransferTo.isEnabled = false
+            binding.textInputEditTextAccountNumber.isEnabled = false
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.isEnabled = false
+            binding.viewTransferToForm.viewImageViewBackground.background =
                 ContextCompat.getDrawable(this, R.drawable.bg_edittext_right_form)
         }
 
         if (permissionCollection.hasAllowToCreateTransactionBeneficiaryMaster) {
-            imageViewTransferTo.setOnClickListener(this)
+            binding.viewTransferToForm.imageViewTransferTo.setOnClickListener(this)
         } else {
-            imageViewTransferTo.setOnClickListener(null)
+            binding.viewTransferToForm.imageViewTransferTo.setOnClickListener(null)
         }
 
         if (selectedAccount != null) {
-            textInputEditTextProposedTransactionDate.setOnClickListener(this)
-            imageViewProposedTransactionDate.setOnClickListener(this)
-            textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutPurpose.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorTransparent)
-            et_amount.setEnableAmount(true)
-            textInputEditTextProposedTransactionDate.isEnabled = true
-            textInputEditTextPurpose.isEnabled = true
-            textInputEditTextRemarks.isEnabled = true
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setOnClickListener(this)
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.setOnClickListener(this)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewPurpose.textInputLayoutPurpose.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.etAmount.setEnableAmount(true)
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.isEnabled = true
+            binding.viewPurpose.textInputEditTextPurpose.isEnabled = true
+            binding.textInputEditTextRemarks.isEnabled = true
         }
     }
 
@@ -983,24 +977,24 @@ class InstaPayFormActivity :
         fundTransferInstapayForm.referenceNumber = viewModel.uuid.value
         fundTransferInstapayForm.purposeDesc =
             if (purpose?.description.equals("Others", true))
-                textInputEditTextLeavePurpose.text.toString()
+                binding.viewPurpose.textInputEditTextLeavePurpose.text.toString()
             else purpose?.description
-        fundTransferInstapayForm.receivingBank = textInputEditTextReceivingBank.text.toString()
+        fundTransferInstapayForm.receivingBank = binding.viewReceivingBankForm.textInputEditTextReceivingBank.text.toString()
         fundTransferInstapayForm.instructions =
-            if (textInputEditTextLeavePurpose.text.toString() != "-")
-                textInputEditTextLeavePurpose.text.toString()
+            if (binding.viewPurpose.textInputEditTextLeavePurpose.text.toString() != "-")
+                binding.viewPurpose.textInputEditTextLeavePurpose.text.toString()
             else null
-        fundTransferInstapayForm.amount = et_amount.getNumericValue()
+        fundTransferInstapayForm.amount = binding.etAmount.getNumericValue()
         fundTransferInstapayForm.beneficiaryMasterForm =
             if (beneficiaryMaster != null)
                 ConstantHelper.Object.getBeneficiaryForm(this, beneficiaryMaster!!)
             else null
         fundTransferInstapayForm.beneficiaryMasterId = beneficiaryMaster?.id
-        fundTransferInstapayForm.beneficiaryName = textInputEditTextTransferTo.text.toString()
+        fundTransferInstapayForm.beneficiaryName = binding.viewTransferToForm.textInputEditTextTransferTo.text.toString()
         fundTransferInstapayForm.senderAccountNumber = selectedAccount?.accountNumber
         fundTransferInstapayForm.receiverAccountNumber =
-            textInputEditTextAccountNumber.text.toString().replace(" ", "")
-        fundTransferInstapayForm.remarks = textInputEditTextRemarks.text.toString()
+            binding.textInputEditTextAccountNumber.text.toString().replace(" ", "")
+        fundTransferInstapayForm.remarks =binding.textInputEditTextRemarks.text.toString()
         fundTransferInstapayForm.transferDate = proposedTransferDate?.startDate
         fundTransferInstapayForm.frequency = proposedTransferDate?.frequency
         fundTransferInstapayForm.occurrencesText = proposedTransferDate?.occurrencesText
@@ -1051,9 +1045,9 @@ class InstaPayFormActivity :
     }
 
     private fun initChannelView(channel: Channel) {
-        textViewChannel.visibility = View.GONE
-        imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        imageViewChannel.setImageResource(
+        binding.viewChannelHeader.textViewChannel.visibility = View.GONE
+        binding.viewChannelHeader.imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.viewChannelHeader.imageViewChannel.setImageResource(
             when {
                 channel.id == ChannelBankEnum.BILLS_PAYMENT.getChannelId() ->
                     R.drawable.ic_channel_bills_payment
@@ -1070,7 +1064,7 @@ class InstaPayFormActivity :
                 else -> R.drawable.ic_fund_transfer_other_banks_orange
             }
         )
-        textViewChannel.text = channel.contextChannel?.displayName
+        binding.viewChannelHeader.textViewChannel.text = channel.contextChannel?.displayName
         if (intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE) != null &&
             intent.getStringExtra(EXTRA_SERVICE_FEE) != null
         ) {
@@ -1078,9 +1072,9 @@ class InstaPayFormActivity :
                 intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE)
             )
             if (0.00 >= customServiceFee.value?.toDouble() ?: 0.00) {
-                textViewServiceFee.text = getString(R.string.value_service_fee_free)
+                binding.viewChannelHeader.textViewServiceFee.text = getString(R.string.value_service_fee_free)
             } else {
-                textViewServiceFee.text = formatString(
+                binding.viewChannelHeader.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         customServiceFee.value,
@@ -1088,18 +1082,18 @@ class InstaPayFormActivity :
                     )
                 )
             }
-            textViewServiceDiscountFee.visibility(true)
-            viewBorderServiceDiscountFee.visibility(true)
+            binding.viewChannelHeader.textViewServiceDiscountFee.visibility(true)
+            binding.viewChannelHeader.viewBorderServiceDiscountFee.visibility(true)
         } else {
-            textViewServiceDiscountFee.visibility(false)
-            viewBorderServiceDiscountFee.visibility(false)
+            binding.viewChannelHeader.textViewServiceDiscountFee.visibility(false)
+            binding.viewChannelHeader.viewBorderServiceDiscountFee.visibility(false)
         }
         if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(EXTRA_SERVICE_FEE)
             )
             if (intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE) != null) {
-                textViewServiceDiscountFee.text = formatString(
+                binding.viewChannelHeader.textViewServiceDiscountFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         serviceFee.value,
@@ -1107,7 +1101,7 @@ class InstaPayFormActivity :
                     )
                 )
             } else {
-                textViewServiceFee.text = formatString(
+                binding.viewChannelHeader.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         serviceFee.value,
@@ -1116,7 +1110,7 @@ class InstaPayFormActivity :
                 )
             }
         } else {
-            textViewServiceFee.text = getString(R.string.value_service_fee_free)
+            binding.viewChannelHeader.textViewServiceFee.text = getString(R.string.value_service_fee_free)
         }
     }
 
@@ -1125,7 +1119,7 @@ class InstaPayFormActivity :
         setDefaultViewTutorial(true)
         tutorialEngineUtil.startTutorial(
             this,
-            viewTutorialTransferFrom,
+            binding.viewTutorialTransferFrom,
             R.layout.frame_tutorial_upper_left,
             radius,
             false,
@@ -1136,8 +1130,8 @@ class InstaPayFormActivity :
     }
 
     private fun clearFormFocus() {
-        constraintLayoutParent.requestFocus()
-        constraintLayoutParent.isFocusableInTouchMode = true
+        binding.constraintLayoutParent.requestFocus()
+        binding.constraintLayoutParent.isFocusableInTouchMode = true
     }
 
     companion object {
@@ -1148,4 +1142,10 @@ class InstaPayFormActivity :
 
         const val TAG_VALIDATE_TIME_ZONE_DIALOG = "validate_time_zone_dialog"
     }
+
+    override val viewModelClassType: Class<InstaPayViewModel>
+        get() = InstaPayViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferFormPesonetBinding
+        get() = ActivityFundTransferFormPesonetBinding::inflate
 }

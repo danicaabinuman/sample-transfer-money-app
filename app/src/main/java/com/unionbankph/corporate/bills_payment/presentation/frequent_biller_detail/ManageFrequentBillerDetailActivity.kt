@@ -25,13 +25,12 @@ import com.unionbankph.corporate.bills_payment.data.model.FrequentBiller
 import com.unionbankph.corporate.bills_payment.presentation.frequent_biller_form.ManageFrequentBillerFormActivity
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityFrequentBillerDetailBinding
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_frequent_biller_detail.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 class ManageFrequentBillerDetailActivity :
-    BaseActivity<ManageFrequentBillerDetailViewModel>(R.layout.activity_frequent_biller_detail),
+    BaseActivity<ActivityFrequentBillerDetailBinding, ManageFrequentBillerDetailViewModel>(),
     OnConfirmationPageCallBack, View.OnClickListener {
 
     private var deleteBottomSheet: ConfirmationBottomSheet? = null
@@ -40,19 +39,19 @@ class ManageFrequentBillerDetailActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, getString(R.string.title_frequent_biller_details))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_frequent_biller_details))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonViewEditLog.setOnClickListener(this)
-        buttonEditDetails.setOnClickListener(this)
-        buttonDelete.setOnClickListener(this)
+        binding.buttonViewEditLog.setOnClickListener(this)
+        binding.buttonEditDetails.setOnClickListener(this)
+        binding.buttonDelete.setOnClickListener(this)
         eventBus.actionSyncEvent.flowable.subscribe {
             if (it.eventType == ActionSyncEvent.ACTION_UPDATE_FREQUENT_BILLER_DETAIL) {
-                scrollViewFrequentBillerDetail?.fullScroll(ScrollView.FOCUS_UP)
+                binding.scrollViewFrequentBillerDetail.fullScroll(ScrollView.FOCUS_UP)
                 val frequentBiller = JsonHelper.fromJson<FrequentBiller>(it.payload)
                 this.frequentBiller = frequentBiller
                 initViews()
@@ -62,18 +61,14 @@ class ManageFrequentBillerDetailActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[ManageFrequentBillerDetailViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowFrequentBillerDetailLoading -> {
-                    constraintLayout.visibility(false)
-                    viewLoadingState.visibility(true)
+                    binding.constraintLayout.visibility(false)
+                    binding.viewLoadingState.root.visibility(true)
                 }
                 is ShowFrequentBillerDetailDismissLoading -> {
-                    viewLoadingState.visibility(false)
+                    binding.viewLoadingState.root.visibility(false)
                 }
                 is ShowFrequentBillerDetailProgressBarLoading -> {
                     showProgressAlertDialog(ManageFrequentBillerDetailActivity::class.java.simpleName)
@@ -82,7 +77,7 @@ class ManageFrequentBillerDetailActivity :
                     dismissProgressAlertDialog()
                 }
                 is ShowBeneficiaryDetailGetFrequentBillerDetail -> {
-                    constraintLayout.visibility(true)
+                    binding.constraintLayout.visibility(true)
                     frequentBiller = it.data
                     initViews()
                 }
@@ -138,7 +133,7 @@ class ManageFrequentBillerDetailActivity :
     }
 
     private fun initViews() {
-        linearLayoutAllowedSourceAccounts.removeAllViews()
+        binding.linearLayoutAllowedSourceAccounts.removeAllViews()
         if (frequentBiller.accounts?.size.notNullable() > 3) {
             val viewAllowedSourceAccount =
                 LayoutInflater.from(context)
@@ -165,7 +160,7 @@ class ManageFrequentBillerDetailActivity :
             textView.setOnClickListener {
                 navigateSourceAccountScreen(frequentBiller)
             }
-            linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
+            binding.linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
         } else {
             frequentBiller.accounts?.forEachIndexed { index, account ->
                 val viewAllowedSourceAccount = LayoutInflater.from(context).inflate(
@@ -185,11 +180,11 @@ class ManageFrequentBillerDetailActivity :
                         View.GONE
                     else
                         View.VISIBLE
-                linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
+                binding.linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
             }
         }
 
-        linearLayoutBillerFields.removeAllViews()
+        binding.linearLayoutBillerFields.removeAllViews()
         frequentBiller.fields.sortedWith(compareBy { it.index }).forEach {
             val viewFields =
                 LayoutInflater.from(context).inflate(R.layout.item_textview_biller, null)
@@ -207,17 +202,17 @@ class ManageFrequentBillerDetailActivity :
             } else {
                 textView.text = it.value
             }
-            linearLayoutBillerFields.addView(viewFields)
+            binding.linearLayoutBillerFields.addView(viewFields)
         }
 
-        textViewCreatedDate.text = viewUtil.getDateFormatByDateString(
+        binding.textViewCreatedDate.text = viewUtil.getDateFormatByDateString(
             frequentBiller.createdDate,
             ViewUtil.DATE_FORMAT_ISO_WITHOUT_T,
             ViewUtil.DATE_FORMAT_DEFAULT
         )
-        textViewBillerAlias.text = frequentBiller.name
-        textViewCreatedBy.text = frequentBiller.createdBy
-        textViewBiller.text = frequentBiller.billerName
+        binding.textViewBillerAlias.text = frequentBiller.name
+        binding.textViewCreatedBy.text = frequentBiller.createdBy
+        binding.textViewBiller.text = frequentBiller.billerName
     }
 
     private fun navigateSourceAccountScreen(frequentBiller: FrequentBiller) {
@@ -338,4 +333,10 @@ class ManageFrequentBillerDetailActivity :
         const val EXTRA_ID = "id"
         const val TAG_DELETE_FREQUENT_BILLER_DIALOG = "delete_frequent_biller_dialog"
     }
+
+    override val viewModelClassType: Class<ManageFrequentBillerDetailViewModel>
+        get() = ManageFrequentBillerDetailViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFrequentBillerDetailBinding
+        get() = ActivityFrequentBillerDetailBinding::inflate
 }

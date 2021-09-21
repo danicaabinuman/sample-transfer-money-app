@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.*
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
@@ -12,16 +13,14 @@ import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.databinding.ActivityUploadDocumentsBinding
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
-import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.viewToolbar
-import kotlinx.android.synthetic.main.activity_upload_documents.*
-import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
 import java.io.File
 import java.util.*
 import kotlin.concurrent.timerTask
 
 class CardAcceptanceUploadDocumentsActivity :
-    BaseActivity<CardAcceptanceUploadDocumentsViewModel>(R.layout.activity_upload_documents),
+    BaseActivity<ActivityUploadDocumentsBinding,CardAcceptanceUploadDocumentsViewModel>(),
     CardAcceptanceUploadDocumentFragment.OnUploadBIRDocs {
 
     private var uploadBIRFragment: CardAcceptanceUploadDocumentFragment? = null
@@ -31,7 +30,7 @@ class CardAcceptanceUploadDocumentsActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
@@ -52,14 +51,14 @@ class CardAcceptanceUploadDocumentsActivity :
     override fun onViewsBound() {
         super.onViewsBound()
 
-        btnSaveAndExit.visibility = View.GONE
-        btnUploadBIRDocs.setOnClickListener {
+        binding.viewToolbar.btnSaveAndExit.visibility = View.GONE
+        binding.btnUploadBIRDocs.setOnClickListener {
             showbottomSheetDialog()
         }
-        btnNext.setOnClickListener {
-            if (clPreviewBIR.isShown){
-                clPreviewBIR.visibility = View.GONE
-                clUploadBIRDocs.visibility = View.VISIBLE
+        binding.btnNext.setOnClickListener {
+            if (binding.clPreviewBIR.isShown){
+                binding.clPreviewBIR.visibility = View.GONE
+                binding.clUploadBIRDocs.visibility = View.VISIBLE
             } else {
                 val snackbarView = findViewById<TextView>(R.id.snackbar)
                 val snackUploading = Snackbar.make(snackbarView, "Uploading document...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext)
@@ -107,8 +106,8 @@ class CardAcceptanceUploadDocumentsActivity :
                         imgView.setImageBitmap(bitmap)
                         rendererPage.close()
                         pdfRenderer.close()
-                        clPreviewBIR.visibility = View.VISIBLE
-                        btnNext.visibility = View.VISIBLE
+                        binding.clPreviewBIR.visibility = View.VISIBLE
+                        binding.btnNext.visibility = View.VISIBLE
 
                     }
 //                        val fileDescriptor = ParcelFileDescriptor.open(file, ParcelFileDescriptor.MODE_READ_ONLY)
@@ -146,6 +145,11 @@ class CardAcceptanceUploadDocumentsActivity :
         openFiles()
         uploadBIRFragment?.dismiss()
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityUploadDocumentsBinding
+        get() = ActivityUploadDocumentsBinding::inflate
+    override val viewModelClassType: Class<CardAcceptanceUploadDocumentsViewModel>
+        get() = CardAcceptanceUploadDocumentsViewModel::class.java
 }
 
 

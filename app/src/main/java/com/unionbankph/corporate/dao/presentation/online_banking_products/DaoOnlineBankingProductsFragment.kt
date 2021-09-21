@@ -1,16 +1,18 @@
 package com.unionbankph.corporate.dao.presentation.online_banking_products
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.dao.presentation.DaoActivity
-import kotlinx.android.synthetic.main.fragment_dao_online_banking_products.*
+import com.unionbankph.corporate.databinding.FragmentDaoOnlineBankingProductsBinding
 
 class DaoOnlineBankingProductsFragment :
-    BaseFragment<DaoOnlineBankingProductsViewModel>(R.layout.fragment_dao_online_banking_products),
+    BaseFragment<FragmentDaoOnlineBankingProductsBinding, DaoOnlineBankingProductsViewModel>(),
     DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
@@ -22,11 +24,6 @@ class DaoOnlineBankingProductsFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[DaoOnlineBankingProductsViewModel::class.java]
     }
 
     override fun onViewsBound() {
@@ -40,19 +37,19 @@ class DaoOnlineBankingProductsFragment :
     }
 
     private fun initCheckListener() {
-        cb_electronic_fund_transfer.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbElectronicFundTransfer.setOnCheckedChangeListener { _, isChecked ->
             viewModel.fundTransferInput.onNext(isChecked)
         }
-        cb_bills_payment.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbBillsPayment.setOnCheckedChangeListener { _, isChecked ->
             viewModel.billsPaymentInput.onNext(isChecked)
         }
-        cb_business_check.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbBusinessCheck.setOnCheckedChangeListener { _, isChecked ->
             viewModel.businessCheckInput.onNext(isChecked)
         }
-        cb_government_payments.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbGovernmentPayments.setOnCheckedChangeListener { _, isChecked ->
             viewModel.governmentPaymentsCheckInput.onNext(isChecked)
         }
-        cb_branch_transaction.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbBranchTransaction.setOnCheckedChangeListener { _, isChecked ->
             viewModel.branchTransactionCheckInput.onNext(isChecked)
         }
     }
@@ -68,4 +65,10 @@ class DaoOnlineBankingProductsFragment :
 
     override fun onClickNext() {
     }
+
+    override val viewModelClassType: Class<DaoOnlineBankingProductsViewModel>
+        get() = DaoOnlineBankingProductsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoOnlineBankingProductsBinding
+        get() = FragmentDaoOnlineBankingProductsBinding::inflate
 }

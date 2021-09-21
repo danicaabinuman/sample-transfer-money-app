@@ -101,6 +101,8 @@ import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryVie
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogViewModel
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsViewModel
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsViewModel
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedViewModel
+import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosViewModel
@@ -824,4 +826,18 @@ abstract class ViewModelModule {
         viewModel: OnboardingCameraViewModel
     ): ViewModel
 
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MerchantApplicationReceivedViewModel::class)
+    abstract fun merchantApplicationReceivedViewModel(
+        viewModel: MerchantApplicationReceivedViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MerchantApplicationRejectedViewModel::class)
+    abstract fun merchantApplicationRejectedViewModel(
+        viewModel: MerchantApplicationRejectedViewModel
+    ): ViewModel
 }

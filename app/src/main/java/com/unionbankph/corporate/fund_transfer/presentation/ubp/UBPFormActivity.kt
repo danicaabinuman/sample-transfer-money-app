@@ -3,10 +3,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.ubp
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -43,20 +40,17 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTu
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.corporate.data.model.Channel
+import com.unionbankph.corporate.databinding.ActivityFundTransferFormUbpBinding
 import com.unionbankph.corporate.fund_transfer.data.form.FundTransferUBPForm
 import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer.ProposedTransferDateActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_fund_transfer_form_ubp.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_edit_text_number_transfer_to.*
-import kotlinx.android.synthetic.main.widget_edit_text_proposed_date.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
+import timber.log.Timber
 import java.util.regex.Pattern
 
 class UBPFormActivity :
-    BaseActivity<UBPViewModel>(R.layout.activity_fund_transfer_form_ubp),
+    BaseActivity<ActivityFundTransferFormUbpBinding, UBPViewModel>(),
     View.OnClickListener,
     OnTutorialListener,
     OnConfirmationPageCallBack,
@@ -86,7 +80,7 @@ class UBPFormActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
@@ -117,7 +111,6 @@ class UBPFormActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[UBPViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowUBPLoading -> {
@@ -155,8 +148,8 @@ class UBPFormActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_ubp_channel),
                         it.orgName
                     )
@@ -168,8 +161,8 @@ class UBPFormActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        textInputLayoutTransferTo.hint = getString(R.string.hint_transfer_to)
-        et_amount.setEnableAmount(false)
+        binding.viewTransferToForm.textInputLayoutTransferTo.hint = getString(R.string.hint_transfer_to)
+        binding.etAmount.setEnableAmount(false)
         initChannelView(channel)
         tutorialEngineUtil.setOnTutorialListener(this)
     }
@@ -202,7 +195,7 @@ class UBPFormActivity :
             R.id.menu_help -> {
                 isClickedHelpTutorial = true
                 viewUtil.dismissKeyboard(this)
-                scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                 Handler().postDelayed(
                     {
                         startViewTutorial()
@@ -222,79 +215,85 @@ class UBPFormActivity :
         super.onInitializeListener()
         initEventBus()
         viewUtil.setEditTextMaskListener(
-            textInputEditTextTransferTo,
+            binding.viewTransferToForm.textInputEditTextTransferTo,
             getString(R.string.hint_account_number_format)
         )
         viewUtil.setEditTextMaxLength(
-            textInputEditTextTransferTo,
+            binding.viewTransferToForm.textInputEditTextTransferTo,
             resources.getInteger(R.integer.max_length_account_number_ubp)
         )
-        textInputEditTextTransferFrom.setOnClickListener(this)
-        imageViewBeneficiaryClose.setOnClickListener(this)
-        constraintLayoutProposedTransactionDate.setOnClickListener(this)
-        imageViewSelectedProposedTransactionDate.setOnClickListener(this)
-        constraintLayoutBeneficiary.setOnClickListener(this)
+        binding.textInputEditTextTransferFrom.setOnClickListener(this)
+        binding.viewTransferToForm.imageViewBeneficiaryClose.setOnClickListener(this)
+        binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.setOnClickListener(this)
+        binding.viewProposedTransactionDate.imageViewSelectedProposedTransactionDate.setOnClickListener(this)
+        binding.viewTransferToForm.constraintLayoutBeneficiary.setOnClickListener(this)
         imeOptionEditText =
             ImeOptionEditText()
         imeOptionEditText.addEditText(
-            textInputEditTextTransferTo,
-            et_amount,
-            textInputEditTextRemarks
+            binding.viewTransferToForm.textInputEditTextTransferTo,
+            binding.etAmount,
+            binding.textInputEditTextRemarks
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
     }
 
     private fun initEventBus() {
-        eventBus.inputSyncEvent.flowable.subscribe {
+        eventBus.inputSyncEvent.flowable.subscribe({
             if (it.eventType == InputSyncEvent.ACTION_INPUT_BENEFICIARY) {
                 showBeneficiaryDetails(it)
             } else if (it.eventType == InputSyncEvent.ACTION_INPUT_OWN_ACCOUNT) {
                 showBeneficiaryOwnAccount(it)
             }
-        }.addTo(disposables)
-        eventBus.accountSyncEvent.flowable.subscribe {
+        },{
+            Timber.e(it)
+        }).addTo(disposables)
+        eventBus.accountSyncEvent.flowable.subscribe({
             if (it.eventType == AccountSyncEvent.ACTION_UPDATE_SELECTED_ACCOUNT) {
                 showTransferFrom(it.payload)
             }
-        }.addTo(disposables)
-        eventBus.proposedTransferDateSyncEvent.flowable.subscribe {
+        },{
+            Timber.e(it)
+        }).addTo(disposables)
+        eventBus.proposedTransferDateSyncEvent.flowable.subscribe({
             if (it.eventType == ProposedTransferDateSyncEvent.ACTION_SET_PROPOSED_TRANSFER_DATE) {
                 showProposedTransactionDate(it)
             }
-        }.addTo(disposables)
+        },{
+            Timber.e(it)
+        }).addTo(disposables)
     }
 
     private fun showBeneficiaryDetails(it: BaseEvent<String>) {
         this.destinationAccount = null
         beneficiaryMaster = JsonHelper.fromJson(it.payload)
-        textViewBeneficiaryCodeTitle.visibility = View.VISIBLE
-        textViewBeneficiaryNameTitle.visibility = View.VISIBLE
-        textViewBeneficiaryBankAccountTitle.visibility = View.VISIBLE
-        textViewBeneficiaryBankAccount.visibility = View.VISIBLE
-        textInputEditTextTransferTo.setText(getString(R.string.value_empty_account_number))
-        textViewBeneficiaryCode.text = beneficiaryMaster?.code
-        textViewBeneficiaryName.text = beneficiaryMaster?.name
-        textViewBeneficiaryBankAccount.text = beneficiaryMaster?.accountNumber.formatAccountNumber()
+        binding.viewTransferToForm.textViewBeneficiaryCodeTitle.visibility = View.VISIBLE
+        binding.viewTransferToForm.textViewBeneficiaryNameTitle.visibility = View.VISIBLE
+        binding.viewTransferToForm.textViewBeneficiaryBankAccountTitle.visibility = View.VISIBLE
+        binding.viewTransferToForm.textViewBeneficiaryBankAccount.visibility = View.VISIBLE
+        binding.viewTransferToForm.textInputEditTextTransferTo.setText(getString(R.string.value_empty_account_number))
+        binding.viewTransferToForm.textViewBeneficiaryCode.text = beneficiaryMaster?.code
+        binding.viewTransferToForm.textViewBeneficiaryName.text = beneficiaryMaster?.name
+        binding.viewTransferToForm.textViewBeneficiaryBankAccount.text = beneficiaryMaster?.accountNumber.formatAccountNumber()
         showBeneficiaryMasterField(true)
     }
 
     private fun showBeneficiaryOwnAccount(it: BaseEvent<String>) {
         this.beneficiaryMaster = null
         this.destinationAccount = JsonHelper.fromJson(it.payload)
-        textInputEditTextTransferTo.setText(getString(R.string.value_empty_account_number))
-        textInputLayoutTransferTo.visibility = View.GONE
-        viewBorderTransferTo.visibility = View.GONE
-        imageViewTransferTo.visibility = View.GONE
-        constraintLayoutBeneficiary.visibility = View.VISIBLE
-        textViewBeneficiaryBankAccountTitle.visibility = View.VISIBLE
-        textViewBeneficiaryBankAccount.visibility = View.VISIBLE
-        textViewBeneficiaryCodeTitle.visibility = View.GONE
-        textViewBeneficiaryNameTitle.visibility = View.GONE
-        textViewBeneficiaryBankAccountTitle.visibility = View.GONE
-        textViewBeneficiaryBankAccount.visibility = View.GONE
-        textViewBeneficiaryCode.text = destinationAccount?.name
-        textViewBeneficiaryName.text = destinationAccount?.accountNumber.formatAccountNumber()
+        binding.viewTransferToForm.textInputEditTextTransferTo.setText(getString(R.string.value_empty_account_number))
+        binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.GONE
+        binding.viewTransferToForm.viewBorderTransferTo.visibility = View.GONE
+        binding.viewTransferToForm.imageViewTransferTo.visibility = View.GONE
+        binding.viewTransferToForm.constraintLayoutBeneficiary.visibility = View.VISIBLE
+        binding.viewTransferToForm.textViewBeneficiaryBankAccountTitle.visibility = View.VISIBLE
+        binding.viewTransferToForm.textViewBeneficiaryBankAccount.visibility = View.VISIBLE
+        binding.viewTransferToForm.textViewBeneficiaryCodeTitle.visibility = View.GONE
+        binding.viewTransferToForm.textViewBeneficiaryNameTitle.visibility = View.GONE
+        binding.viewTransferToForm.textViewBeneficiaryBankAccountTitle.visibility = View.GONE
+        binding.viewTransferToForm.textViewBeneficiaryBankAccount.visibility = View.GONE
+        binding.viewTransferToForm.textViewBeneficiaryCode.text = destinationAccount?.name
+        binding.viewTransferToForm.textViewBeneficiaryName.text = destinationAccount?.accountNumber.formatAccountNumber()
     }
 
     private fun showCancelTransactionBottomSheet() {
@@ -352,11 +351,11 @@ class UBPFormActivity :
             selectedAccount = it
             permissionCollection = it.permissionCollection
             isEnableButton = true
-            et_amount.setCurrencySymbol(it.currency.notNullable(), true)
-            textInputEditTextTransferFrom.setText(
+            binding.etAmount.setCurrencySymbol(it.currency.notNullable(), true)
+            binding.textInputEditTextTransferFrom.setText(
                 (it.name + "\n" + it.accountNumber.formatAccountNumber())
             )
-            textInputEditTextTransferTo.text?.clear()
+            binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
             invalidateOptionsMenu()
             setPermission(permissionCollection!!)
         }
@@ -407,15 +406,15 @@ class UBPFormActivity :
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
             setDefaultViewTutorial(false)
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.field_radius)
             when (view) {
-                viewTutorialTransferFrom -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialTransferTo)
+                binding.viewTutorialTransferFrom -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialTransferTo)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialTransferTo,
+                        binding.viewTutorialTransferTo,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -424,11 +423,11 @@ class UBPFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialTransferTo -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialAmount)
+                binding.viewTutorialTransferTo -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialAmount)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialAmount,
+                        binding.viewTutorialAmount,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -437,11 +436,11 @@ class UBPFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialAmount -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialProposedTransactionDate)
+                binding.viewTutorialAmount -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialProposedTransactionDate)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialProposedTransactionDate,
+                        binding.viewTutorialProposedTransactionDate,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -450,11 +449,11 @@ class UBPFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialProposedTransactionDate -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialRemarks)
+                binding.viewTutorialProposedTransactionDate -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialRemarks)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialRemarks,
+                        binding.viewTutorialRemarks,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -463,7 +462,7 @@ class UBPFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialRemarks -> {
+                binding.viewTutorialRemarks -> {
                     val buttonRadius = resources.getDimension(R.dimen.button_radius)
                     tutorialEngineUtil.startTutorial(
                         this,
@@ -478,7 +477,7 @@ class UBPFormActivity :
                 }
                 else -> {
                     setDefaultViewTutorial(false)
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.UBP_FORM, false)
                 }
             }
@@ -496,23 +495,23 @@ class UBPFormActivity :
         if (!isShown && proposedTransferDate != null &&
             proposedTransferDate?.immediately == false
         ) {
-            textInputLayoutProposedTransactionDate.visibility = View.GONE
-            viewBorderProposedTransactionDate.visibility = View.GONE
-            imageViewProposedTransactionDate.visibility = View.GONE
-            constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
             if (proposedTransferDate?.frequency == getString(R.string.title_one_time)) {
-                textViewEndDateTitle.visibility = View.GONE
-                textViewEndDate.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.GONE
             } else {
-                textViewEndDateTitle.visibility = View.VISIBLE
-                textViewEndDate.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.VISIBLE
             }
         } else {
-            textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
-            textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
-            viewBorderProposedTransactionDate.visibility = View.VISIBLE
-            imageViewProposedTransactionDate.visibility = View.VISIBLE
-            constraintLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.GONE
         }
     }
 
@@ -522,14 +521,14 @@ class UBPFormActivity :
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextTransferFrom
+            binding.textInputEditTextTransferFrom
         )
         val transferToObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.max_length_account_number_ubp),
             resources.getInteger(R.integer.max_length_account_number_ubp),
-            textInputEditTextTransferTo,
+            binding.viewTransferToForm.textInputEditTextTransferTo,
             customErrorMessage = formatString(
                 R.string.error_account_number_length,
                 resources.getInteger(R.integer.max_length_account_number_ubp_without_mask)
@@ -538,7 +537,7 @@ class UBPFormActivity :
         val amountObservable = viewUtil.rxTextChangesAmount(
             true,
             isValueChanged,
-            et_amount,
+            binding.etAmount,
             RxValidator.PatternMatch(
                 formatString(R.string.error_input_valid_amount),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_VALID_AMOUNT)
@@ -584,105 +583,109 @@ class UBPFormActivity :
     }
 
     private fun initEditTextDefaultValue() {
-        if (textInputEditTextTransferFrom.length() != 0) {
-            textInputEditTextTransferFrom.setText(textInputEditTextTransferFrom.text.toString())
+        if (binding.textInputEditTextTransferFrom.length() != 0) {
+            binding.textInputEditTextTransferFrom.setText(
+                binding.textInputEditTextTransferFrom.text.toString()
+            )
         }
-        if (textInputEditTextTransferTo.length() != 0) {
-            textInputEditTextTransferTo.setText(textInputEditTextTransferTo.text.toString())
+        if (binding.viewTransferToForm.textInputEditTextTransferTo.length() != 0) {
+            binding.viewTransferToForm.textInputEditTextTransferTo.setText(
+                binding.viewTransferToForm.textInputEditTextTransferTo.text.toString()
+            )
         }
-        if (et_amount.length() != 0) {
-            et_amount.setText(et_amount.text.toString())
+        if (binding.etAmount.length() != 0) {
+            binding.etAmount.setText(binding.etAmount.text.toString())
         }
     }
 
     private fun showBeneficiaryMasterField(isShown: Boolean) {
         if (isShown) {
-            textInputLayoutTransferTo.visibility = View.GONE
-            imageViewTransferTo.visibility = View.GONE
-            viewBorderTransferTo.visibility = View.GONE
-            constraintLayoutBeneficiary.visibility = View.VISIBLE
-            constraintLayoutBeneficiary.setOnClickListener {
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.viewBorderTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.constraintLayoutBeneficiary.visibility = View.VISIBLE
+            binding.viewTransferToForm.constraintLayoutBeneficiary.setOnClickListener {
                 navigateToBeneficiaryScreen()
             }
         } else {
             this.destinationAccount = null
             this.beneficiaryMaster = null
-            textInputEditTextTransferTo.text?.clear()
-            textInputLayoutTransferTo.visibility = View.VISIBLE
-            viewBorderTransferTo.visibility = View.VISIBLE
-            imageViewTransferTo.visibility = View.VISIBLE
-            constraintLayoutBeneficiary.visibility = View.GONE
+            binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.viewBorderTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.constraintLayoutBeneficiary.visibility = View.GONE
         }
     }
 
     private fun showProposedTransferDate(isShown: Boolean) {
         if (isShown) {
-            textInputLayoutProposedTransactionDate.visibility = View.GONE
-            viewBorderProposedTransactionDate.visibility = View.GONE
-            imageViewProposedTransactionDate.visibility = View.GONE
-            constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
             if (proposedTransferDate?.frequency == getString(R.string.title_one_time)) {
-                textViewEndDateTitle.visibility = View.GONE
-                textViewEndDate.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.GONE
             } else {
-                textViewEndDateTitle.visibility = View.VISIBLE
-                textViewEndDate.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.root.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.VISIBLE
             }
-            textViewStartDate.text =
+            binding.viewProposedTransactionDate.textViewStartDate.text =
                 viewUtil.getDateFormatByDateString(
                     proposedTransferDate?.startDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
-            textViewFrequency.text = proposedTransferDate?.frequency
+            binding.viewProposedTransactionDate.textViewFrequency.text = proposedTransferDate?.frequency
             if (proposedTransferDate?.endDate != null) {
                 val endDateDesc = viewUtil.getDateFormatByDateString(
                     proposedTransferDate?.endDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DATE
                 )
-                textViewEndDate.text =
+                binding.viewProposedTransactionDate.textViewEndDate.text =
                     ("${proposedTransferDate?.occurrencesText}\n(Until $endDateDesc)")
             } else {
-                textViewEndDate.text = proposedTransferDate?.occurrencesText
+                binding.viewProposedTransactionDate.textViewEndDate.text = proposedTransferDate?.occurrencesText
             }
         } else {
-            textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
-            textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
-            viewBorderProposedTransactionDate.visibility = View.VISIBLE
-            imageViewProposedTransactionDate.visibility = View.VISIBLE
-            constraintLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.GONE
         }
     }
 
     private fun setPermission(permissionCollection: PermissionCollection) {
         if (permissionCollection.hasAllowToCreateTransactionAdhoc) {
-            textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputEditTextTransferTo.isEnabled = true
-            viewImageViewBackground.background = null
+            binding.viewTransferToForm.textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewTransferToForm.textInputEditTextTransferTo.isEnabled = true
+            binding.viewTransferToForm.viewImageViewBackground.background = null
         } else {
-            textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputEditTextTransferTo.isEnabled = false
-            viewImageViewBackground.background =
+            binding.viewTransferToForm.textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.viewTransferToForm.textInputEditTextTransferTo.isEnabled = false
+            binding.viewTransferToForm.viewImageViewBackground.background =
                 ContextCompat.getDrawable(this, R.drawable.bg_edittext_right_form)
         }
 
         if (permissionCollection.hasAllowToCreateTransactionOwn ||
             permissionCollection.hasAllowToCreateTransactionBeneficiaryMaster
         ) {
-            imageViewTransferTo.setOnClickListener(this)
+            binding.viewTransferToForm.imageViewTransferTo.setOnClickListener(this)
         } else {
-            imageViewTransferTo.setOnClickListener(null)
+            binding.viewTransferToForm.imageViewTransferTo.setOnClickListener(null)
         }
 
         if (selectedAccount != null) {
-            textInputEditTextProposedTransactionDate.setOnClickListener(this)
-            imageViewProposedTransactionDate.setOnClickListener(this)
-            textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorTransparent)
-            et_amount.setEnableAmount(true)
-            textInputEditTextProposedTransactionDate.isEnabled = true
-            textInputEditTextRemarks.isEnabled = true
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setOnClickListener(this)
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.setOnClickListener(this)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.etAmount.setEnableAmount(true)
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.isEnabled = true
+            binding.textInputEditTextRemarks.isEnabled = true
         }
     }
 
@@ -821,20 +824,20 @@ class UBPFormActivity :
             FundTransferUBPForm()
         fundTransferUBPForm.channelId = channel.id.toString()
         fundTransferUBPForm.immediate = proposedTransferDate?.immediately
-        fundTransferUBPForm.amount = et_amount.getNumericValue()
+        fundTransferUBPForm.amount = binding.etAmount.getNumericValue()
         fundTransferUBPForm.senderAccountNumber = selectedAccount?.accountNumber
         fundTransferUBPForm.referenceNumber = viewModel.uuid.value
         fundTransferUBPForm.receiverAccountNumber =
             if (destinationAccount != null) {
                 destinationAccount?.accountNumber
             } else {
-                if (textInputEditTextTransferTo.text.toString() !=
+                if (binding.viewTransferToForm.textInputEditTextTransferTo.text.toString() !=
                     getString(R.string.value_empty_account_number)
                 )
-                    textInputEditTextTransferTo.text.toString().replace(" ", "")
+                    binding.viewTransferToForm.textInputEditTextTransferTo.text.toString().replace(" ", "")
                 else null
             }
-        fundTransferUBPForm.remarks = textInputEditTextRemarks.text.toString()
+        fundTransferUBPForm.remarks = binding.textInputEditTextRemarks.text.toString()
         fundTransferUBPForm.beneficiaryMasterForm =
             if (beneficiaryMaster != null)
                 ConstantHelper.Object.getBeneficiaryForm(this, beneficiaryMaster!!)
@@ -882,9 +885,9 @@ class UBPFormActivity :
     }
 
     private fun initChannelView(channel: Channel) {
-        textViewChannel.visibility = View.GONE
-        imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        imageViewChannel.setImageResource(
+        binding.viewChannelHeader.textViewChannel.visibility = View.GONE
+        binding.viewChannelHeader.imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.viewChannelHeader.imageViewChannel.setImageResource(
             when {
                 channel.id == ChannelBankEnum.BILLS_PAYMENT.getChannelId() ->
                     R.drawable.ic_channel_bills_payment
@@ -901,8 +904,8 @@ class UBPFormActivity :
                 else -> R.drawable.ic_fund_transfer_other_banks_orange
             }
         )
-        textViewChannel.text = channel.contextChannel?.displayName
-        textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
+        binding.viewChannelHeader.textViewChannel.text = channel.contextChannel?.displayName
+        binding.viewChannelHeader.textViewServiceFee.text = if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(EXTRA_SERVICE_FEE)
             )
@@ -923,7 +926,7 @@ class UBPFormActivity :
         setDefaultViewTutorial(true)
         tutorialEngineUtil.startTutorial(
             this,
-            viewTutorialTransferFrom,
+            binding.viewTutorialTransferFrom,
             R.layout.frame_tutorial_upper_left,
             radius,
             false,
@@ -934,8 +937,8 @@ class UBPFormActivity :
     }
 
     private fun clearFormFocus() {
-        constraintLayoutParent.requestFocus()
-        constraintLayoutParent.isFocusableInTouchMode = true
+        binding.constraintLayoutParent.requestFocus()
+        binding.constraintLayoutParent.isFocusableInTouchMode = true
     }
 
     companion object {
@@ -945,4 +948,10 @@ class UBPFormActivity :
 
         const val TAG_VALIDATE_TIME_ZONE_DIALOG = "validate_time_zone_dialog"
     }
+
+    override val viewModelClassType: Class<UBPViewModel>
+        get() = UBPViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferFormUbpBinding
+        get() = ActivityFundTransferFormUbpBinding::inflate
 }

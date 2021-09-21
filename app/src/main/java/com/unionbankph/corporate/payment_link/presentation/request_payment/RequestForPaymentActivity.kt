@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.AppCompatTextView
@@ -19,39 +20,32 @@ import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityRequestPaymentBinding
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountBottomSheet
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import io.supercharge.shimmerlayout.ShimmerLayout
-import kotlinx.android.synthetic.main.activity_no_available_accounts.*
-import kotlinx.android.synthetic.main.activity_request_payment.*
-import kotlinx.android.synthetic.main.activity_request_payment.errorMerchantDisabled
-import kotlinx.android.synthetic.main.activity_request_payment.ivBackButton
-import kotlinx.android.synthetic.main.activity_setup_payment_links.*
-import kotlinx.android.synthetic.main.dialog_failed_merchant_diasbled.*
-import kotlinx.android.synthetic.main.fragment_send_request.*
 import timber.log.Timber
 
-class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.layout.activity_request_payment),
+class RequestForPaymentActivity :
+    BaseActivity<ActivityRequestPaymentBinding, RequestForPaymentViewModel>(),
     AdapterView.OnItemSelectedListener,
-    NominateSettlementAccountBottomSheet.OnNominateSettlementAccountListener{
+    NominateSettlementAccountFragment.OnNominateSettlementAccountListener {
 
     private var accounts = mutableListOf<Account>()
-    var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
-    val NEW_SPINNER_ID = 1
-    var linkExpiry = "12 hours"
-    private var nominateSettlementAccountBottomSheet: NominateSettlementAccountBottomSheet? = null
+    private var time = arrayOf("6 hours", "12 hours", "1 day", "2 days", "3 days", "7 days")
+    private val NEW_SPINNER_ID = 1
+    private var linkExpiry = "12 hours"
+    private var nominateSettlementAccountFragment: NominateSettlementAccountFragment? = null
 
+    private var currentAccount: Account = Account()
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[RequestForPaymentViewModel::class.java]
+
     }
 
     override fun onViewsBound() {
@@ -66,31 +60,31 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         requiredFields()
         paymentLinkExpiry()
         finishRequestPayment()
-
     }
 
 
     private fun initViews(){
-        requestPaymentLoading.visibility = View.VISIBLE
+        binding.requestPaymentLoading.visibility = View.VISIBLE
 
-        include_settlement_account.setOnClickListener {
+        binding.includeSettlementAccount.root.setOnClickListener {
             openNominateAccounts()
         }
 
-        btnBackToDashboard.setOnClickListener {
+        binding.viewNoAccounts.btnBackToDashboard.setOnClickListener {
             finish()
         }
 
-        btnRequestPaymentGenerate.setOnClickListener{
-            val amount = et_amount.text.toString()
-            val paymentFor = et_paymentFor.text.toString()
-            val notes = et_notes.text.toString()
-            val mobileNumber = textInputEditTextMobileNumber.text.toString()
-            if(mobileNumber.isNotEmpty()){
+        binding.btnRequestPaymentGenerate.setOnClickListener {
+            val amount = binding.etAmount.text.toString()
+            val paymentFor = binding.etPaymentFor.text.toString()
+            val notes = binding.etNotes.text.toString()
+            val mobileNumber = binding.textInputEditTextMobileNumber.text.toString()
+
+            if (mobileNumber.isNotEmpty()) {
                 if(mobileNumber.length<10){
                     Toast.makeText(this@RequestForPaymentActivity, "Mobile Number length is invalid",Toast.LENGTH_SHORT).show()
                 }else{
-                    requestPaymentLoading.visibility = View.VISIBLE
+                    binding.requestPaymentLoading.visibility = View.VISIBLE
                     viewModel.preparePaymentLinkGeneration(
                         amount,
                         paymentFor,
@@ -99,8 +93,8 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                         mobileNumber
                     )
                 }
-            }else{
-                requestPaymentLoading.visibility = View.VISIBLE
+            } else {
+                binding.requestPaymentLoading.visibility = View.VISIBLE
                 viewModel.preparePaymentLinkGeneration(
                     amount,
                     paymentFor,
@@ -111,16 +105,17 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             }
         }
 
-        btnRequestPaymentCancel.setOnClickListener {
+        binding.btnRequestPaymentCancel.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
         }
 
-        btnCalculator.setOnClickListener{
-            val amountString = et_amount.text.toString()
+        binding.btnCalculator.setOnClickListener {
+            val amountString = binding.etAmount.text.toString()
             val amountChecker = amountString.replace("PHP","").replace(",","")
 
-            if(!amountString.isEmpty())btnCalculator.isEnabled
+            if(!amountString.isEmpty()) binding.btnCalculator.isEnabled
+
             val bundle = Bundle()
             bundle.putString(FeeCalculatorActivity.AMOUNT_VALUE, amountChecker)
 
@@ -136,35 +131,42 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     }
 
     private fun setupInputs(){
-        viewModel.getAccounts()
+        viewModel.getDefaultMerchantSettlementAccount()
     }
 
     private fun setupOutputs(){
         viewModel.linkDetailsResponse.observe(this, Observer {
-            requestPaymentLoading.visibility = View.GONE
+            binding.requestPaymentLoading.visibility = View.GONE
             navigateToLinkDetails(it)
         })
 
         viewModel._linkDetailsState.observe(this, Observer {
             when(it){
                 is ErrorMerchantDisabled -> {
-                    errorMerchantDisabled.visibility = View.VISIBLE
-                    btnErrorMerchantDisabled.setOnClickListener{
+                    binding.errorMerchantDisabled.visibility = View.VISIBLE
+                    binding.viewMerchantDisabled.btnErrorMerchantDisabled.setOnClickListener{
                         finish()
                     }
                 }
                 is ShowNoOtherAvailableAccounts -> {
-                    noOtherAvailableAccounts.visibility = View.VISIBLE
+                    binding.noOtherAvailableAccounts.visibility = View.VISIBLE
                 }
 
                 is ShowTheApproverPermissionRequired -> {
-                    theApproverPermissionRequired.visibility = View.VISIBLE
+                    binding.theApproverPermissionRequired.visibility = View.VISIBLE
                 }
             }
         })
 
+        viewModel.defaultMerchantSA.observe(this, Observer {
+            currentAccount = it
+            populateNominatedSettlementAccount(it)
+        })
+
         viewModel.soleAccount.observe(this, Observer {
-            requestPaymentLoading.visibility = View.GONE
+            currentAccount = it
+
+            binding.requestPaymentLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it)
             accounts = mutableListOf()
             accounts.add(it)
@@ -172,24 +174,28 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         })
 
         viewModel.accounts.observe(this, Observer {
-            requestPaymentLoading.visibility = View.GONE
+            binding.requestPaymentLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it.first())
             accounts = it
         })
 
         viewModel.accountsBalances.observe(this, Observer {
-            requestPaymentLoading.visibility = View.GONE
+            binding.requestPaymentLoading.visibility = View.GONE
             populateNominatedSettlementAccount(it.first())
+        })
+
+        viewModel.updateSettlementOnRequestPaymentResponse.observe(this, Observer {
+            populateNominatedSettlementAccount(currentAccount)
         })
 
         viewModel.uiState.observe(this, Observer {
             it.getContentIfNotHandled().let { event ->
                 when (event) {
                     is UiState.Loading -> {
-                        requestPaymentLoading.visibility = View.VISIBLE
+                        binding.requestPaymentLoading.visibility = View.VISIBLE
                     }
                     is UiState.Complete -> {
-                        requestPaymentLoading.visibility = View.GONE
+                        binding.requestPaymentLoading.visibility = View.GONE
                     }
                     is UiState.Error -> {
                         handleOnError(event.throwable)
@@ -202,8 +208,8 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     }
 
     private fun validateForm(){
-        val amountString = et_amount.text.toString()
-        val paymentForString = et_paymentFor.text.toString()
+        val amountString = binding.etAmount.text.toString()
+        val paymentForString = binding.etPaymentFor.text.toString()
 
         val amountChecker = amountString.replace("PHP","").replace(" ","")
 
@@ -219,25 +225,27 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
     }
 
     private fun buttonCalculatorDisabled(){
-        btnCalculator?.isEnabled = false
+        binding.btnCalculator?.isEnabled = false
     }
 
     private fun buttonCalculatorEnabled(){
-        btnCalculator?.isEnabled = true
+        binding.btnCalculator?.isEnabled = true
     }
 
-    private fun buttonDisable(){
-        btnRequestPaymentGenerate?.isEnabled = false
-        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.dsColorLightGray))
+    private fun buttonDisable() {
+        binding.btnRequestPaymentGenerate?.isEnabled = false
+        binding.btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button_disabled)
     }
 
     private fun buttonEnable(){
-        btnRequestPaymentGenerate?.isEnabled = true
-        btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnRequestPaymentGenerate?.isEnabled = true
+        binding.btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
     }
 
     private fun requiredFields(){
-        et_amount.addTextChangedListener(object : TextWatcher {
+        binding.etAmount.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -251,9 +259,9 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
                         amountDouble = cleanString.toDouble()
                         if(amountDouble < 100.00){
                             buttonCalculatorDisabled()
-                            til_amount.error = "Minimum amount is Php 100.00"
+                            binding.tilAmount.error = "Minimum amount is Php 100.00"
                         } else {
-                            til_amount.error = ""
+                            binding.tilAmount.error = ""
                             buttonCalculatorEnabled()
                         }
                     }catch (e: NumberFormatException){
@@ -265,16 +273,16 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             }
         })
 
-        et_paymentFor.addTextChangedListener(object : TextWatcher {
+        binding.etPaymentFor.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun afterTextChanged(s: Editable?) {
-                val length : Int = et_paymentFor.length()
+                val length : Int = binding.etPaymentFor.length()
                 val counter : String = length.toString()
-                tv_text_counter.text = counter
-                tv_text_counter.setHorizontallyScrolling(true)
+                binding.tvTextCounter.text = counter
+                binding.tvTextCounter.setHorizontallyScrolling(true)
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -282,7 +290,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             }
         })
 
-        textInputEditTextMobileNumber.addTextChangedListener(object : TextWatcher {
+        binding.textInputEditTextMobileNumber.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
                 }
@@ -302,7 +310,7 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
         var aa = ArrayAdapter(this, android.R.layout.simple_list_item_1, time)
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        with(dropdownPaymentLinkExport){
+        with(binding.dropdownPaymentLinkExport){
             adapter = aa
             setSelection(1, false)
             onItemSelectedListener = this@RequestForPaymentActivity
@@ -335,62 +343,59 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
 
     private fun openNominateAccounts(){
         if(accounts.size>1){
-            nominateSettlementAccountBottomSheet = NominateSettlementAccountBottomSheet.newInstance(JsonHelper.toJson(accounts))
-            nominateSettlementAccountBottomSheet?.setOnNominateSettlementAccountListener(this)
-            nominateSettlementAccountBottomSheet?.show(
+            nominateSettlementAccountFragment = NominateSettlementAccountFragment.newInstance(JsonHelper.toJson(accounts))
+            nominateSettlementAccountFragment?.setOnNominateSettlementAccountListener(this)
+            nominateSettlementAccountFragment?.show(
                 supportFragmentManager,
                 RequestForPaymentActivity::class.java.simpleName
             )
 
         }else{
-            noOtherAvailableAccounts.visibility = View.VISIBLE
+            binding.noOtherAvailableAccounts.visibility = View.VISIBLE
         }
 
     }
 
     private fun finishRequestPayment() {
-        ivBackButton.setOnClickListener {
+        binding.ivBackButton.setOnClickListener {
             finish()
         }
     }
 
     private fun clearAllFields(){
-        et_amount.text?.clear()
-        et_paymentFor.text?.clear()
-        et_notes.text?.clear()
-        textInputEditTextMobileNumber.text?.clear()
-        et_amount.requestFocus()
+        binding.etAmount.text?.clear()
+        binding.etPaymentFor.text?.clear()
+        binding.etNotes.text?.clear()
+        binding.textInputEditTextMobileNumber.text?.clear()
+        binding.etAmount.requestFocus()
     }
 
     private fun populateNominatedSettlementAccount(accountData: Account){
-        val tvCorporateName: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewCorporateName)
-        val tvAccountName: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAccountName)
-        val tvAccountNumber: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAccountNumber)
-        val tvAvailableBalance: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAvailableBalance)
-        val slAmount: ShimmerLayout = include_settlement_account.findViewById(R.id.shimmerLayoutAmount)
-        val viewShimmer: View = include_settlement_account.findViewById(R.id.viewShimmer)
+        binding.includeSettlementAccount.apply {
+            textViewCorporateName.text = accountData.name
+            textViewAccountNumber.text = accountData.accountNumber
+            textViewAccountName.text = accountData.productCodeDesc
 
-        tvCorporateName.text = accountData.name
-        tvAccountNumber.text = accountData.accountNumber
-        tvAccountName.text = accountData.productCodeDesc
-
-        accountData.headers.forEach{ header ->
-            header.name?.let { headerName ->
-                if(headerName.equals("CURBAL",true)){
-                    header.value?.let{ headerValue ->
-                        slAmount.stopShimmerAnimation()
-                        viewShimmer.visibility = View.GONE
-                        tvAvailableBalance.visibility = View.VISIBLE
-                        tvAvailableBalance.text = headerValue
+            accountData.headers.forEach{ header ->
+                header.name?.let { headerName ->
+                    if(headerName.equals("CURBAL",true)){
+                        header.value?.let{ headerValue ->
+                            shimmerLayoutAmount.stopShimmerAnimation()
+                            viewShimmer.visibility = View.GONE
+                            textViewAvailableBalance.visibility = View.VISIBLE
+                            textViewAvailableBalance.text = headerValue
+                        }
                     }
                 }
             }
         }
-
     }
 
     override fun onAccountSelected(account: Account) {
-        populateNominatedSettlementAccount(account)
+//        Timber.e()
+        currentAccount = account
+        // Call Put Merchant Here.
+        viewModel.updateDefaultSettlementAccount(account.accountNumber!!)
     }
 
 
@@ -410,10 +415,15 @@ class RequestForPaymentActivity : BaseActivity<RequestForPaymentViewModel>(R.lay
             }
         }
     }
+
     companion object {
         const val REQUEST_CODE = 1226
 
     }
 
+    override val viewModelClassType: Class<RequestForPaymentViewModel>
+        get() = RequestForPaymentViewModel::class.java
 
+    override val bindingInflater: (LayoutInflater) -> ActivityRequestPaymentBinding
+        get() = ActivityRequestPaymentBinding::inflate
 }

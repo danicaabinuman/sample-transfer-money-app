@@ -2,6 +2,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.pddts
 
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -33,15 +34,14 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrg
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
+import com.unionbankph.corporate.databinding.ActivityFundTransferConfirmationPesonetBinding
 import com.unionbankph.corporate.fund_transfer.data.form.FundTransferPesoNetForm
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_fund_transfer_confirmation_pesonet.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.concurrent.TimeUnit
 
 class PDDTSConfirmationActivity :
-    BaseActivity<PDDTSViewModel>(R.layout.activity_fund_transfer_confirmation_pesonet),
+    BaseActivity<ActivityFundTransferConfirmationPesonetBinding, PDDTSViewModel>(),
     OnTutorialListener {
 
     private var fundTransferPesoNetForm: FundTransferPesoNetForm? = null
@@ -50,7 +50,7 @@ class PDDTSConfirmationActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -74,7 +74,7 @@ class PDDTSConfirmationActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(buttonEdit)
+        RxView.clicks(binding.buttonEdit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -84,7 +84,7 @@ class PDDTSConfirmationActivity :
             }
             .addTo(disposables)
 
-        RxView.clicks(buttonSubmit)
+        RxView.clicks(binding.buttonSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -135,15 +135,15 @@ class PDDTSConfirmationActivity :
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.button_radius)
             when (view) {
-                buttonEdit -> {
-                    viewUtil.setFocusOnView(scrollView, buttonSubmit)
+                binding.buttonEdit -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.buttonSubmit)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        buttonSubmit,
+                        binding.buttonSubmit,
                         R.layout.frame_tutorial_lower_right,
                         radius,
                         false,
@@ -153,7 +153,7 @@ class PDDTSConfirmationActivity :
                     )
                 }
                 else -> {
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.PDDTS_CONFIRMATION, false)
                 }
             }
@@ -185,8 +185,8 @@ class PDDTSConfirmationActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_transfer_confirmation),
                         it.orgName
                     )
@@ -197,7 +197,6 @@ class PDDTSConfirmationActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[PDDTSViewModel::class.java]
         viewModel.state.observe(this, Observer {
 
             when (it) {
@@ -331,7 +330,7 @@ class PDDTSConfirmationActivity :
         fundTransferPesoNetForm: FundTransferPesoNetForm,
         account: Account
     ) {
-        textViewTransferFrom.text =
+        binding.textViewTransferFrom.text =
             Html.fromHtml(
                 String.format(
                     getString(R.string.params_account_detail),
@@ -341,7 +340,7 @@ class PDDTSConfirmationActivity :
                 )
             )
 
-        textViewTransferTo.text = if (fundTransferPesoNetForm.beneficiaryMasterForm == null) {
+        binding.textViewTransferTo.text = if (fundTransferPesoNetForm.beneficiaryMasterForm == null) {
             Html.fromHtml(
                 String.format(
                     getString(R.string.params_two_format),
@@ -360,13 +359,13 @@ class PDDTSConfirmationActivity :
                 )
             )
         }
-        textViewReceivingBank.text = if (fundTransferPesoNetForm.beneficiaryMasterForm == null) {
+        binding.textViewReceivingBank.text = if (fundTransferPesoNetForm.beneficiaryMasterForm == null) {
             fundTransferPesoNetForm.receivingBankName
         } else {
             fundTransferPesoNetForm.beneficiaryMasterForm?.beneficiaryBankName
         }
 
-        textViewProposedTransferDate.text =
+        binding.textViewProposedTransferDate.text =
             if (fundTransferPesoNetForm.immediate!!)
                 getString(R.string.title_immediately)
             else
@@ -375,7 +374,7 @@ class PDDTSConfirmationActivity :
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
-        textViewAmount.text =
+        binding.textViewAmount.text =
             AutoFormatUtil().formatWithTwoDecimalPlaces(
                 fundTransferPesoNetForm.amount.toString(),
                 account.currency
@@ -387,9 +386,9 @@ class PDDTSConfirmationActivity :
                 intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE)
             )
             if (0.00 >= customServiceFee.value?.toDouble() ?: 0.00) {
-                textViewServiceFee.text = getString(R.string.value_service_fee_free)
+                binding.textViewServiceFee.text = getString(R.string.value_service_fee_free)
             } else {
-                textViewServiceFee.text = formatString(
+                binding.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         customServiceFee.value,
@@ -397,18 +396,18 @@ class PDDTSConfirmationActivity :
                     )
                 )
             }
-            textViewServiceDiscountFee.visibility(true)
-            viewBorderServiceDiscountFee.visibility(true)
+            binding.textViewServiceDiscountFee.visibility(true)
+            binding.viewBorderServiceDiscountFee.visibility(true)
         } else {
-            textViewServiceDiscountFee.visibility(false)
-            viewBorderServiceDiscountFee.visibility(false)
+            binding.textViewServiceDiscountFee.visibility(false)
+            binding.viewBorderServiceDiscountFee.visibility(false)
         }
         if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(EXTRA_SERVICE_FEE)
             )
             if (intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE) != null) {
-                textViewServiceDiscountFee.text = formatString(
+                binding.textViewServiceDiscountFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         serviceFee.value,
@@ -416,7 +415,7 @@ class PDDTSConfirmationActivity :
                     )
                 )
             } else {
-                textViewServiceFee.text = formatString(
+                binding.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         serviceFee.value,
@@ -425,12 +424,12 @@ class PDDTSConfirmationActivity :
                 )
             }
         } else {
-            textViewServiceFee.text = getString(R.string.value_service_fee_free)
+            binding.textViewServiceFee.text = getString(R.string.value_service_fee_free)
         }
 
-        textViewChannel.text = intent.getStringExtra(EXTRA_ACCOUNT_TYPE)
-        textViewPurpose.text = fundTransferPesoNetForm.purposeDesc
-        textViewRemarks.text = viewUtil.getStringOrEmpty(fundTransferPesoNetForm.remarks)
+        binding.textViewChannel.text = intent.getStringExtra(EXTRA_ACCOUNT_TYPE)
+        binding.textViewPurpose.text = fundTransferPesoNetForm.purposeDesc
+        binding.textViewRemarks.text = viewUtil.getStringOrEmpty(fundTransferPesoNetForm.remarks)
 
         val reminders = JsonHelper.fromListJson<String>(intent.getStringExtra(EXTRA_REMINDERS))
         if (reminders.isNotEmpty()) {
@@ -438,27 +437,27 @@ class PDDTSConfirmationActivity :
             reminders.forEach {
                 remindersContent.append("$it\n\n")
             }
-            tv_reminders.text = remindersContent
+            binding.tvReminders.text = remindersContent
         } else {
-            border_reminders.isInvisible = true
-            tv_reminders_title.isInvisible = true
-            tv_reminders.isVisible = false
+            binding.borderReminders.isInvisible = true
+            binding.tvRemindersTitle.isInvisible = true
+            binding.tvReminders.isVisible = false
         }
         if (fundTransferPesoNetForm.immediate!!) {
-            textViewStartDateTitle.visibility = View.GONE
-            textViewStartDate.visibility = View.GONE
-            view5.visibility = View.GONE
-            textViewFrequencyTitle.visibility = View.GONE
-            textViewFrequency.visibility = View.GONE
-            view6.visibility = View.GONE
-            textViewEndDateTitle.visibility = View.GONE
-            textViewEndDate.visibility = View.GONE
-            view7.visibility = View.GONE
-            textViewProposedTransferDateTitle.visibility = View.VISIBLE
-            textViewProposedTransferDate.visibility = View.VISIBLE
-            view4.visibility = View.VISIBLE
+            binding.textViewStartDateTitle.visibility = View.GONE
+            binding.textViewStartDate.visibility = View.GONE
+            binding.view5.visibility = View.GONE
+            binding.textViewFrequencyTitle.visibility = View.GONE
+            binding.textViewFrequency.visibility = View.GONE
+            binding.view6.visibility = View.GONE
+            binding.textViewEndDateTitle.visibility = View.GONE
+            binding.textViewEndDate.visibility = View.GONE
+            binding.view7.visibility = View.GONE
+            binding.textViewProposedTransferDateTitle.visibility = View.VISIBLE
+            binding.textViewProposedTransferDate.visibility = View.VISIBLE
+            binding.view4.visibility = View.VISIBLE
         } else {
-            textViewStartDate.text =
+            binding.textViewStartDate.text =
                 viewUtil.getDateFormatByDateString(
                     fundTransferPesoNetForm.transferDate,
                     ViewUtil.DATE_FORMAT_ISO,
@@ -470,36 +469,36 @@ class PDDTSConfirmationActivity :
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DATE
                 )
-                textViewEndDate.text =
+                binding.textViewEndDate.text =
                     ("${fundTransferPesoNetForm.occurrencesText}\n(Until $endDate)")
             } else {
-                textViewEndDate.text = fundTransferPesoNetForm.occurrencesText
+                binding.textViewEndDate.text = fundTransferPesoNetForm.occurrencesText
             }
-            textViewFrequency.text = fundTransferPesoNetForm.frequency
+            binding.textViewFrequency.text = fundTransferPesoNetForm.frequency
             if (fundTransferPesoNetForm.frequency == getString(R.string.title_one_time)) {
-                textViewEndDate.visibility = View.GONE
-                textViewEndDateTitle.visibility = View.GONE
-                view7.visibility = View.GONE
-                textViewFrequencyTitle.visibility = View.GONE
-                textViewFrequency.visibility = View.GONE
-                view6.visibility = View.GONE
-                textViewStartDateTitle.visibility = View.GONE
-                textViewStartDate.visibility = View.GONE
-                view5.visibility = View.GONE
+                binding.textViewEndDate.visibility = View.GONE
+                binding.textViewEndDateTitle.visibility = View.GONE
+                binding.view7.visibility = View.GONE
+                binding.textViewFrequencyTitle.visibility = View.GONE
+                binding.textViewFrequency.visibility = View.GONE
+                binding.view6.visibility = View.GONE
+                binding.textViewStartDateTitle.visibility = View.GONE
+                binding.textViewStartDate.visibility = View.GONE
+                binding.view5.visibility = View.GONE
             } else {
-                textViewProposedTransferDateTitle.visibility = View.GONE
-                textViewProposedTransferDate.visibility = View.GONE
-                view4.visibility = View.GONE
+                binding.textViewProposedTransferDateTitle.visibility = View.GONE
+                binding.textViewProposedTransferDate.visibility = View.GONE
+                binding.view4.visibility = View.GONE
             }
         }
     }
 
     private fun startViewTutorial() {
-        viewUtil.setFocusOnView(scrollView, buttonEdit)
+        viewUtil.setFocusOnView(binding.scrollView, binding.buttonEdit)
         val radius = resources.getDimension(R.dimen.button_radius)
         tutorialEngineUtil.startTutorial(
             this,
-            buttonEdit,
+            binding.buttonEdit,
             R.layout.frame_tutorial_lower_left,
             radius,
             false,
@@ -517,4 +516,10 @@ class PDDTSConfirmationActivity :
         const val EXTRA_CUSTOM_SERVICE_FEE = "custom_service_fee"
         const val EXTRA_REMINDERS = "reminders"
     }
+
+    override val viewModelClassType: Class<PDDTSViewModel>
+        get() = PDDTSViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferConfirmationPesonetBinding
+        get() = ActivityFundTransferConfirmationPesonetBinding::inflate
 }

@@ -74,11 +74,62 @@
                     android:text="@string/desc_set_up_your_business_link"/>
 
                 <LinearLayout
+                    android:id="@+id/LLUniqueStoreHandle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginEnd="25dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:text="@string/title_unique_store_handle"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:text="@string/desc_personalize_your_store_handle"
+                        android:textColor="#C4C4C4"
+                        android:textSize="10sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/til_business_name"
+                        style="@style/TextInputLayoutForm"
+                        android:layout_width="match_parent"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_business_name"
+                            style="@style/TextInputEditTextForm3"
+                            android:layout_height="48dp"
+                            android:inputType="text"
+                            android:maxLength="50"
+                            android:hint="@string/hint_storehandle"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tvErrorMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        style="@style/error_appearance"
+                        android:text="This handle is no longer available. Please try another one."/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/LLWebsiteOrSocialMediaPages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="@dimen/grid_5_half"
                     android:layout_marginEnd="25dp"
                     android:orientation="vertical">
 
@@ -108,6 +159,7 @@
                             android:id="@+id/et_business_websites"
                             style="@style/TextInputEditTextForm2"
                             android:layout_height="48dp"
+                            android:maxLength="1000"
                             android:hint="@string/hint_website"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -149,6 +201,7 @@
                             style="@style/TextInputEditTextFormProducts"
                             android:layout_height="48dp"
                             android:inputType="text"
+                            android:maxLength="1000"
                             android:hint="@string/hint_product"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -310,7 +363,9 @@
         android:visibility="gone"
         android:focusable="true">
 
-        <include layout="@layout/activity_no_available_accounts"/>
+        <include
+            android:id="@+id/viewNoAvailableAccounts"
+            layout="@layout/activity_no_available_accounts"/>
     </FrameLayout>
     <FrameLayout
         android:id="@+id/approverPermissionRequired"
@@ -321,6 +376,8 @@
         android:visibility="gone"
         android:focusable="true">
 
-        <include layout="@layout/dialog_feature_unavailable"/>
+        <include
+            android:id="@+id/viewDialogFeatureUnavailable"
+            layout="@layout/dialog_feature_unavailable"/>
     </FrameLayout>
 </FrameLayout>

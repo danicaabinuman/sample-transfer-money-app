@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
-import kotlinx.android.synthetic.main.bottom_sheet_upload_bir.*
 
 class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
 
@@ -24,9 +23,9 @@ class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        btnAddDocument.setOnClickListener {
-            listener?.openFileManager()
-        }
+//        btnAddDocument.setOnClickListener {
+//            listener?.openFileManager()
+//        }
 
     }
 

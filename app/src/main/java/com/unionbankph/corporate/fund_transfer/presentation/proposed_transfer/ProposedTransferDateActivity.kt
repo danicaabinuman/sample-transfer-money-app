@@ -2,6 +2,7 @@ package com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer
 
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,13 +23,11 @@ import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.constant.TimeZoneEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.corporate.data.model.RecurrenceTypes
+import com.unionbankph.corporate.databinding.ActivityProposedTransferDateBinding
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog
 import com.wdullaer.materialdatetimepicker.time.Timepoint
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_proposed_transfer_date.*
-import kotlinx.android.synthetic.main.widget_edit_text_start_date.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -36,7 +35,7 @@ import kotlin.collections.ArrayList
  * Created by Herald Santos
  */
 class ProposedTransferDateActivity :
-    BaseActivity<ProposedTransferDateViewModel>(R.layout.activity_proposed_transfer_date),
+    BaseActivity<ActivityProposedTransferDateBinding, ProposedTransferDateViewModel>(),
     View.OnClickListener {
 
     private lateinit var proposedTransferDate: ProposedTransferDate
@@ -57,19 +56,17 @@ class ProposedTransferDateActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         if (intent.getStringExtra(EXTRA_PAGE) == PAGE_FUND_TRANSFER) {
-            setToolbarTitle(tvToolbar, getString(R.string.title_transaction_date))
+            setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_transaction_date))
         } else {
-            setToolbarTitle(tvToolbar, getString(R.string.title_proposed_payment_date))
+            setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_proposed_payment_date))
         }
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[ProposedTransferDateViewModel::class.java]
         viewModel.state.observe(this, androidx.lifecycle.Observer {
             when (it) {
                 is ShowProposedTransferDateLoading -> {
@@ -79,7 +76,7 @@ class ProposedTransferDateActivity :
                     dismissLoading()
                 }
                 is ShowGetRecurrenceTypes -> {
-                    constraintLayoutContent.visibility(true)
+                    binding.constraintLayoutContent.visibility(true)
                     recurrencesTypes = it.data
                     if (intent.getStringExtra(EXTRA_PTD) == null) {
                         setScheduledDate()
@@ -88,7 +85,7 @@ class ProposedTransferDateActivity :
                     }
                 }
                 is ShowProposedTransferDateError -> {
-                    constraintLayoutContent.visibility(false)
+                    binding.constraintLayoutContent.visibility(false)
                     handleOnError(it.throwable)
                 }
             }
@@ -97,7 +94,7 @@ class ProposedTransferDateActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
                 R.id.radioButtonImmediately -> {
                     proposedTransferDate.immediately = true
@@ -109,7 +106,7 @@ class ProposedTransferDateActivity :
                         if (intent.getStringExtra(EXTRA_BILLER_ID) == null &&
                             intent.getStringExtra(EXTRA_PAGE) == PAGE_BILLS_PAYMENT
                         ) {
-                            textViewNoteMsg.text = formatString(
+                            binding.textViewNoteMsg.text = formatString(
                                 R.string.desc_scheduled_payment_not_available,
                                 formatString(
                                     R.string.param_color,
@@ -127,9 +124,9 @@ class ProposedTransferDateActivity :
                 }
             }
         }
-        textInputEditTextEnds.setOnClickListener(this)
-        textInputEditTextStartDate.setOnClickListener(this)
-        textInputEditTextFrequency.setOnClickListener(this)
+        binding.textInputEditTextEnds.setOnClickListener(this)
+        binding.viewStartDate.textInputEditTextStartDate.setOnClickListener(this)
+        binding.textInputEditTextFrequency.setOnClickListener(this)
     }
 
     override fun onViewsBound() {
@@ -172,8 +169,8 @@ class ProposedTransferDateActivity :
      * Permission to enable scheduled payment
      */
     private fun hasPermissionScheduledPayment(hasPermission: Boolean) {
-        constraintLayoutScheduled.isVisible = hasPermission
-        textViewNoteMsg.isVisible = !hasPermission
+        binding.constraintLayoutScheduled.isVisible = hasPermission
+        binding.textViewNoteMsg.isVisible = !hasPermission
         viewModel.isEnabledButton.onNext(hasPermission)
     }
 
@@ -181,7 +178,7 @@ class ProposedTransferDateActivity :
      * Initial view setup
      */
     private fun setupViews() {
-        radioButtonScheduled.isEnabled = intent.getBooleanExtra(EXTRA_ENABLED_SCHEDULED, true)
+        binding.radioButtonScheduled.isEnabled = intent.getBooleanExtra(EXTRA_ENABLED_SCHEDULED, true)
         setImmediate()
     }
 
@@ -201,9 +198,9 @@ class ProposedTransferDateActivity :
      */
     private fun setImmediate() {
         viewModel.isEnabledButton.onNext(true)
-        constraintLayoutScheduled.isVisible = false
-        textViewNoteMsg.isVisible = true
-        textViewNoteMsg.text = formatString(
+        binding.constraintLayoutScheduled.isVisible = false
+        binding.textViewNoteMsg.isVisible = true
+        binding.textViewNoteMsg.text = formatString(
             R.string.msg_note,
             formatString(
                 R.string.param_color,
@@ -247,7 +244,7 @@ class ProposedTransferDateActivity :
                 calendarStartDate.timeInMillis,
                 DateFormatEnum.DATE_FORMAT_ISO_Z.value
             )
-            textInputEditTextFrequency.setText(recurrencesType.name)
+            binding.textInputEditTextFrequency.setText(recurrencesType.name)
         }
     }
 
@@ -319,7 +316,7 @@ class ProposedTransferDateActivity :
                             calendarStartDate,
                             DateFormatEnum.DATE_FORMAT_ISO_Z.value
                         )
-                        textInputEditTextEnds.setText(currentOccurrencesText)
+                        binding.textInputEditTextEnds.setText(currentOccurrencesText)
                     }
                 )
             }
@@ -332,13 +329,13 @@ class ProposedTransferDateActivity :
     private fun setCurrentData() {
         proposedTransferDate = JsonHelper.fromJson(intent.getStringExtra(EXTRA_PTD))
         if (proposedTransferDate.immediately!!) {
-            radioButtonImmediately.isChecked = true
+            binding.radioButtonImmediately.isChecked = true
             setImmediate()
-            constraintLayoutScheduled.visibility = View.GONE
+            binding.constraintLayoutScheduled.visibility = View.GONE
         } else {
             hasPermissionScheduledPayment(true)
-            radioButtonScheduled.isChecked = true
-            textInputEditTextFrequency.setText(proposedTransferDate.frequency)
+            binding.radioButtonScheduled.isChecked = true
+            binding.textInputEditTextFrequency.setText(proposedTransferDate.frequency)
             recurrencesType = RecurrenceTypes(
                 proposedTransferDate.recurrenceTypeId,
                 proposedTransferDate.frequency
@@ -354,18 +351,18 @@ class ProposedTransferDateActivity :
                 currentOccurrences = proposedTransferDate.occurrences ?: 1
                 currentOccurrencesText =
                     proposedTransferDate.occurrencesText ?: OCCURRENCE_DEFAULT_VALUE
-                textInputEditTextEnds.setText(currentOccurrencesText)
-                textViewStartDate.setText(R.string.title_start_date)
-                textViewTip.setText(R.string.title_note)
-                textViewEndDate.visibility = View.VISIBLE
-                textInputLayoutEnds.visibility = View.VISIBLE
+                binding.textInputEditTextEnds.setText(currentOccurrencesText)
+                binding.textViewStartDate.setText(R.string.title_start_date)
+                binding.textViewTip.setText(R.string.title_note)
+                binding.textViewEndDate.visibility = View.VISIBLE
+                binding.textInputLayoutEnds.visibility = View.VISIBLE
                 setOccurrencesEndDate()
             } else {
-                textViewStartDate.setText(R.string.title_transaction_date)
-                textViewTip.setText(R.string.title_tip)
-                textViewTipMsg.setText(R.string.msg_tip)
-                textViewEndDate.visibility = View.GONE
-                textInputLayoutEnds.visibility = View.GONE
+                binding.textViewStartDate.setText(R.string.title_transaction_date)
+                binding.textViewTip.setText(R.string.title_tip)
+                binding.textViewTipMsg.setText(R.string.msg_tip)
+                binding.textViewEndDate.visibility = View.GONE
+                binding.textInputLayoutEnds.visibility = View.GONE
             }
         }
     }
@@ -394,24 +391,24 @@ class ProposedTransferDateActivity :
                     proposedTransferDate.recurrenceTypeId = recurrencesType.id
                     if (text.toString().equals(FREQUENCY_TYPE_ONE_TIME, true)) {
                         proposedTransferDate.endDate = null
-                        this@ProposedTransferDateActivity.textViewStartDate.setText(R.string.title_transaction_date)
-                        this@ProposedTransferDateActivity.textViewTip.setText(R.string.title_tip)
-                        this@ProposedTransferDateActivity.textViewTipMsg.setText(R.string.msg_tip)
-                        this@ProposedTransferDateActivity.textViewEndDate.visibility = View.GONE
-                        this@ProposedTransferDateActivity.textInputLayoutEnds.visibility = View.GONE
-                        this@ProposedTransferDateActivity.textInputEditTextEnds.text?.clear()
+                        this@ProposedTransferDateActivity.binding.textViewStartDate.setText(R.string.title_transaction_date)
+                        this@ProposedTransferDateActivity.binding.textViewTip.setText(R.string.title_tip)
+                        this@ProposedTransferDateActivity.binding.textViewTipMsg.setText(R.string.msg_tip)
+                        this@ProposedTransferDateActivity.binding.textViewEndDate.visibility = View.GONE
+                        this@ProposedTransferDateActivity.binding.textInputLayoutEnds.visibility = View.GONE
+                        this@ProposedTransferDateActivity.binding.textInputEditTextEnds.text?.clear()
                     } else {
-                        this@ProposedTransferDateActivity.textViewStartDate.setText(R.string.title_start_date)
-                        this@ProposedTransferDateActivity.textViewTip.setText(R.string.title_note)
-                        this@ProposedTransferDateActivity.textViewEndDate.visibility = View.VISIBLE
-                        this@ProposedTransferDateActivity.textInputLayoutEnds.visibility =
+                        this@ProposedTransferDateActivity.binding.textViewStartDate.setText(R.string.title_start_date)
+                        this@ProposedTransferDateActivity.binding.textViewTip.setText(R.string.title_note)
+                        this@ProposedTransferDateActivity.binding.textViewEndDate.visibility = View.VISIBLE
+                        this@ProposedTransferDateActivity.binding.textInputLayoutEnds.visibility =
                             View.VISIBLE
-                        this@ProposedTransferDateActivity.textInputEditTextEnds.setText(
+                        this@ProposedTransferDateActivity.binding.textInputEditTextEnds.setText(
                             currentOccurrencesText
                         )
                         setOccurrencesEndDate()
                     }
-                    this@ProposedTransferDateActivity.textInputEditTextFrequency.setText(text)
+                    this@ProposedTransferDateActivity.binding.textInputEditTextFrequency.setText(text)
                 })
         }
     }
@@ -429,8 +426,8 @@ class ProposedTransferDateActivity :
             listItems(
                 items = recurrenceNames,
                 selection = { _, _, text ->
-                    this@ProposedTransferDateActivity.textInputEditTextEnds.setText(text)
-                    this@ProposedTransferDateActivity.textViewTip.setText(R.string.title_note)
+                    this@ProposedTransferDateActivity.binding.textInputEditTextEnds.setText(text)
+                    this@ProposedTransferDateActivity.binding.textViewTip.setText(R.string.title_note)
                     currentOccurrencesText = text.toString()
                     proposedTransferDate.occurrencesText = currentOccurrencesText
                     currentOccurrences = trimOccurrences(text.toString())
@@ -450,7 +447,7 @@ class ProposedTransferDateActivity :
             calendarOccurrenceDate,
             DateFormatEnum.DATE_FORMAT_ISO_Z.value
         )
-        textViewTipMsg.text =
+        binding.textViewTipMsg.text =
             formatString(
                 R.string.msg_tip_3,
                 recurrencesType.name?.toLowerCase(),
@@ -495,12 +492,12 @@ class ProposedTransferDateActivity :
     }
 
     private fun showLoading() {
-        constraintLayoutContent.visibility(false)
-        viewLoadingState.visibility(true)
+        binding.constraintLayoutContent.visibility(false)
+        binding.viewLoadingState.root.visibility(true)
     }
 
     private fun dismissLoading() {
-        viewLoadingState.visibility(false)
+        binding.viewLoadingState.root.visibility(false)
     }
 
     private fun setTextInputEditTextTransferDate() {
@@ -513,7 +510,7 @@ class ProposedTransferDateActivity :
             calendarStartDate.timeInMillis,
             DateFormatEnum.DATE_FORMAT_DEFAULT.value
         )
-        textInputEditTextStartDate.setText(
+        binding.viewStartDate.textInputEditTextStartDate.setText(
             if (!viewUtil.isGMTPlus8()) formatString(
                 R.string.param_gmt_8_value,
                 startDate
@@ -556,4 +553,10 @@ class ProposedTransferDateActivity :
         const val FREQUENCY_TYPE_ONE_TIME = "One-time"
         const val OCCURRENCE_DEFAULT_VALUE = "After 2 occurrences"
     }
+
+    override val viewModelClassType: Class<ProposedTransferDateViewModel>
+        get() = ProposedTransferDateViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityProposedTransferDateBinding
+        get() = ActivityProposedTransferDateBinding::inflate
 }
