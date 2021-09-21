@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorWhite">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MatchParent"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_welcome_name"
+            style="@style/SMEHeadlineH2"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/grid_4"
+            android:gravity="center"
+            tools:text="Welcome, Davis!"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/msme_content_spacing"
+            android:layout_marginEnd="@dimen/msme_content_spacing"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/SMEHeadlineH2"
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="@string/msg_before_we_begin"
+            app:layout_constraintTop_toBottomOf="@id/txt_welcome_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/imageViewContent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewContent"
+            style="@style/MatchConstraint"
+            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:layout_marginTop="@dimen/grid_5"
+            app:srcCompat="@drawable/bg_ic_terms_and_condition"
+            app:layout_constraintTop_toBottomOf="@id/tv_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintWidth_percent="0.3"
+
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_desc"
+            style="@style/SMEBody"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:gravity="center"
+            android:text="@string/msg_here_are_few_terms"
+            android:layout_marginTop="@dimen/grid_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewContent"
+
+             />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_tnc_reminder_next"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginBottom="@dimen/grid_2"
+            android:text="@string/action_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

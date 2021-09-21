@@ -28,22 +28,13 @@ import com.unionbankph.corporate.auth.data.form.ResetPasswordForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordResendOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordVerifyForm
-import com.unionbankph.corporate.auth.data.model.Auth
-import com.unionbankph.corporate.auth.data.model.ConfirmationEmailDto
-import com.unionbankph.corporate.auth.data.model.ECredLoginDto
-import com.unionbankph.corporate.auth.data.model.ECredLoginOTPDto
-import com.unionbankph.corporate.auth.data.model.ECredMergeSubmitDto
-import com.unionbankph.corporate.auth.data.model.ECredSubmitDto
-import com.unionbankph.corporate.auth.data.model.ECredSubmitOTPDto
-import com.unionbankph.corporate.auth.data.model.LoginMigrationDto
-import com.unionbankph.corporate.auth.data.model.MigrationSubmitDto
-import com.unionbankph.corporate.auth.data.model.NominateEmailDto
-import com.unionbankph.corporate.auth.data.model.PasswordToken
-import com.unionbankph.corporate.auth.data.model.UserDetails
-import com.unionbankph.corporate.auth.data.model.VerifyResetPass
+import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.auth.data.source.remote.AuthRemote
 import com.unionbankph.corporate.auth.data.source.remote.client.AuthApiClient
+import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
+import com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
+import com.unionbankph.corporate.user_creation.data.form.ValidateContactInfoForm
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -199,6 +190,33 @@ constructor(
         return authApiClient.resetPassNew(
             BuildConfig.CLIENT_API_VERSION,
             resetPasswordForm
+        )
+    }
+
+    override fun userCreationValidateContact(
+        validateContactInfoForm: ValidateContactInfoForm
+    ): Single<Response<ContactValidityResponse>> {
+        return authApiClient.userCreationValidateContact(
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            validateContactInfoForm
+        )
+    }
+
+    override fun userCreationValidateOTP(
+        verifyOTPForm: VerifyOTPForm
+    ): Single<Response<UserCreationOTPVerified>> {
+        return authApiClient.userCreationValidateOTP(
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            verifyOTPForm
+        )
+    }
+
+    override fun userCreationNominatePassword(
+        form: UcNominatePasswordForm
+    ): Single<Response<UserCreationOTPVerified>> {
+        return authApiClient.userCreationNominatePassword(
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            form
         )
     }
 

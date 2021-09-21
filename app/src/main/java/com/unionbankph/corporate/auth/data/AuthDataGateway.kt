@@ -5,10 +5,13 @@ import com.unionbankph.corporate.auth.data.form.*
 import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.auth.data.source.local.AuthCache
 import com.unionbankph.corporate.auth.data.source.remote.AuthRemote
+import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
 import com.unionbankph.corporate.common.domain.provider.ResponseProvider
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
+import com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
+import com.unionbankph.corporate.user_creation.data.form.ValidateContactInfoForm
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -192,6 +195,25 @@ constructor(
         resetPasswordForm: ResetPasswordForm
     ): Single<Message> {
         return authRemote.resetPassNew(resetPasswordForm)
+            .flatMap { responseProvider.executeResponseSingle(it) }
+    }
+
+    override fun userCreationValidateContact(
+        validateContactInfoForm: ValidateContactInfoForm
+    ): Single<ContactValidityResponse> {
+        return authRemote.userCreationValidateContact(validateContactInfoForm)
+            .flatMap { responseProvider.executeResponseSingle(it) }
+    }
+
+    override fun userCreationValidateOTP(verifyOTPForm: VerifyOTPForm): Single<UserCreationOTPVerified> {
+        return authRemote.userCreationValidateOTP(verifyOTPForm)
+            .flatMap { responseProvider.executeResponseSingle(it) }
+    }
+
+    override fun userCreationNominatePassword(
+        form: UcNominatePasswordForm
+    ): Single<UserCreationOTPVerified> {
+        return authRemote.userCreationNominatePassword(form)
             .flatMap { responseProvider.executeResponseSingle(it) }
     }
 

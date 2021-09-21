@@ -11,11 +11,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.gms.auth.api.phone.SmsRetriever
-import com.google.android.material.appbar.AppBarLayout
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
@@ -31,6 +29,7 @@ import com.unionbankph.corporate.auth.data.form.*
 import com.unionbankph.corporate.auth.data.model.Auth
 import com.unionbankph.corporate.auth.data.model.ECredLoginDto
 import com.unionbankph.corporate.auth.data.model.ECredLoginOTPDto
+import com.unionbankph.corporate.auth.data.model.UserCreationOTPVerified
 import com.unionbankph.corporate.auth.presentation.migration.MigrationMainActivity
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity
 import com.unionbankph.corporate.bills_payment.presentation.bills_payment_summary.BillsPaymentSummaryActivity
@@ -44,7 +43,8 @@ import com.unionbankph.corporate.fund_transfer.presentation.pesonet.PesoNetSumma
 import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftSummaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPSummaryActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
-import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountActivity
+import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
+import com.unionbankph.corporate.trial_account.presentation.TrialAccountActivity
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -127,6 +127,9 @@ class OTPActivity :
                 is ShowOTPError -> {
                     pinCodeEditText.clearPinCode()
                     handleOnError(it.throwable)
+                }
+                is ShowVerifyUserCreationOTPSuccess -> {
+                    navigateBackToUserCreationScreen(it.userCreationOTPSuccess)
                 }
             }
         })
@@ -347,6 +350,9 @@ class OTPActivity :
             PAGE_FUND_TRANSFER_INSTAPAY,
             PAGE_FUND_TRANSFER_SWIFT -> {
                 viewModel.resendOTPFundTransfer(ResendOTPForm(auth.requestId))
+            }
+            PAGE_USER_CREATION -> {
+                showSMEGenericError()
             }
         }
     }
@@ -823,7 +829,37 @@ class OTPActivity :
                     pinCodeEditText.getPinCode()
                 )
             }
+            PAGE_USER_CREATION -> {
+                viewModel.userCreationValidateOTP(
+                    VerifyOTPForm(
+                        auth.requestId,
+                        pinCodeEditText.getPinCode()
+                    )
+                )
+            }
         }
+    }
+
+    private fun navigateBackToUserCreationScreen(response: UserCreationOTPVerified) {
+        val bundle = Bundle().apply {
+            putBoolean(UserCreationActivity.EXTRA_FROM_OTP, true)
+            putString(
+                UserCreationActivity.EXTRA_FORM,
+                intent.getStringExtra(EXTRA_OPEN_ACCOUNT_FORM)
+            )
+            putString(
+                UserCreationActivity.EXTRA_VERIFICATION_TOKEN,
+                response.accessToken
+            )
+        }
+        intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
+        navigator.navigateClearStacks(
+            this,
+            UserCreationActivity::class.java,
+            bundle,
+            true,
+            Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     private fun initStartResendCodeCount(seconds: Int) {
@@ -943,6 +979,7 @@ class OTPActivity :
         const val EXTRA_SECURITY_FORM = "security_form"
         const val EXTRA_SERVICE_FEE = "service_fee"
         const val EXTRA_CUSTOM_SERVICE_FEE = "custom_service_fee"
+        const val EXTRA_OPEN_ACCOUNT_FORM = "open_account_form"
 
         const val PAGE_LOGIN = "login"
         const val PAGE_MIGRATION = "migration"
@@ -956,6 +993,7 @@ class OTPActivity :
         const val PAGE_FUND_TRANSFER_PDDTS = "fund_transfer_pddts"
         const val PAGE_FUND_TRANSFER_SWIFT = "fund_transfer_swift"
         const val PAGE_BILLS_PAYMENT = "bills_payment"
+        const val PAGE_USER_CREATION = "user_creation"
 
         const val REQ_USER_CONSENT = 100
     }

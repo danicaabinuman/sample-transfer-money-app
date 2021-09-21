@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchParent"
+    android:padding="@dimen/grid_1"
+    android:background="@color/colorWhite"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:id="@+id/constraintLayout1">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearlayout"
+        style="@style/MatchWrapParent"
+        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_1"
+        android:layout_marginStart="@dimen/grid_1"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ic_contact_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:background="@drawable/bg_ic_contact_info"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/SMEHeadlineH2"
+            android:layout_width="match_parent"
+            android:text="@string/header_contact_info"
+            android:layout_alignBaseline="@id/ic_contact_info"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearlayout2"
+        style="@style/MatchWrapParent"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_9_half"
+        android:layout_marginEnd="@dimen/grid_1"
+        android:gravity="center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearlayout"
+
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+        style="@style/SMESubtitle2"
+        android:text="@string/title_contact_info" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_email"
+            style="@style/SMECaption"
+            android:layout_marginTop="@dimen/grid_3_half"
+            android:text="@string/title_email_address" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            style="@style/TextInputLayoutFormThin"
+            android:hint="@string/hint_email_address_small_letter"
+            android:layout_marginTop="@dimen/grid_1"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                style="@style/TextInputLayoutFormThinEditText"
+                android:singleLine="true"
+                android:nextFocusDown="@id/et_mobile"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:hint="@string/hint_email_address_small_letter"
+                android:digits="@string/digits_alpha_numeric_symbols_email_no_space"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_mobile"
+            style="@style/SMECaption"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:text="@string/title_mobile_number" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            style="@style/MatchWrapParent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutPrefix"
+                android:layout_height="wrap_content"
+                android:layout_width="@dimen/grid_10"
+                style="@style/TextInputLayoutFormThin"
+                android:layout_marginTop="@dimen/grid_1"
+                app:hintEnabled="false"
+                app:errorTextAppearance="@style/ZeroTextSizeAppearance"
+                android:focusableInTouchMode="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_country_code"
+                    style="@style/TextInputLayoutFormThinEditText"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:hint="@string/country_code_63"
+                    android:text="@string/country_code_63"
+                    android:focusable="false"
+                    android:maxLength="@integer/max_length_country_code"
+                    android:inputType="phone"
+                    android:digits="@string/digits_country_code"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutMobileNumber"
+                android:layout_height="wrap_content"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/grid_1"
+                style="@style/TextInputLayoutFormThin"
+                android:hint="@string/hint_e_g_9900008987"
+                android:layout_marginTop="@dimen/grid_1"
+                app:errorTextAppearance="@style/ZeroTextSizeAppearance"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_mobile"
+                    android:singleLine="true"
+                    style="@style/TextInputLayoutFormThinEditText"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:hint="@string/hint_e_g_9900008987"
+                    android:maxLength="@integer/max_length_check_number"
+                    android:digits="@string/digits_only"
+                    android:inputType="phone" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/textViewMobileNumberError"
+            style="@style/SMECaption"
+            android:layout_width="match_parent"
+            android:textColor="@color/colorErrorColor"
+            android:paddingStart="@dimen/grid_3_half"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:text="Mobile number error"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonNext"
+        style="@style/SMEPrimaryButtonLarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_1"
+        android:layout_marginBottom="@dimen/grid_1"
+        android:enabled="true"
+        android:text="@string/action_next"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

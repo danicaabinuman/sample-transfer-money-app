@@ -15,8 +15,13 @@ class RxValidator private constructor(private val et: EditText) {
     private val externalValidators = ArrayList<Validator<EditText>>()
     private var changeEmitter: Observable<String>? = null
 
-    fun onFocusChanged(): RxValidator {
-        this.changeEmitter = RxView.focusChanges(et).skip(1).filter { hasFocus -> !hasFocus }
+    fun onFocusChanged(hasSkip: Boolean = true): RxValidator {
+        val skipCount = when (hasSkip) {
+            true -> 1
+            else -> 0
+        }
+
+        this.changeEmitter = RxView.focusChanges(et).skip(skipCount.toLong()).filter { hasFocus -> !hasFocus }
             .map { aBoolean -> et.text.toString() }
         return this
     }

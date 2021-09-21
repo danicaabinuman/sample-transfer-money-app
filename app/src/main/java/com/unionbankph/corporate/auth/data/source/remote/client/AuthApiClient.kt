@@ -27,20 +27,10 @@ import com.unionbankph.corporate.auth.data.form.ResetPasswordForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordResendOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordVerifyForm
-import com.unionbankph.corporate.auth.data.model.Auth
-import com.unionbankph.corporate.auth.data.model.ConfirmationEmailDto
-import com.unionbankph.corporate.auth.data.model.ECredLoginDto
-import com.unionbankph.corporate.auth.data.model.ECredLoginOTPDto
-import com.unionbankph.corporate.auth.data.model.ECredMergeSubmitDto
-import com.unionbankph.corporate.auth.data.model.ECredSubmitDto
-import com.unionbankph.corporate.auth.data.model.ECredSubmitOTPDto
-import com.unionbankph.corporate.auth.data.model.LoginMigrationDto
-import com.unionbankph.corporate.auth.data.model.MigrationSubmitDto
-import com.unionbankph.corporate.auth.data.model.NominateEmailDto
-import com.unionbankph.corporate.auth.data.model.PasswordToken
-import com.unionbankph.corporate.auth.data.model.UserDetails
-import com.unionbankph.corporate.auth.data.model.VerifyResetPass
+import com.unionbankph.corporate.auth.data.model.*
+import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
+import com.unionbankph.corporate.user_creation.data.form.ValidateContactInfoForm
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.Body
@@ -155,6 +145,30 @@ interface AuthApiClient {
         @Body
         resetPasswordForm: ResetPasswordForm
     ): Single<Response<Message>>
+
+    @POST("msme/api/{api_version}/corporate-users/validate-corporate-user")
+    fun userCreationValidateContact(
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        validateContactInfoForm: ValidateContactInfoForm
+    ): Single<Response<ContactValidityResponse>>
+
+    @PUT("msme/api/{api_version}/corporate-users/validate-otp")
+    fun userCreationValidateOTP(
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        verifyOTPForm: VerifyOTPForm
+    ): Single<Response<UserCreationOTPVerified>>
+
+    @PUT("msme/api/{api_version}/corporate-users/set-password")
+    fun userCreationNominatePassword(
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        form: com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
+    ): Single<Response<UserCreationOTPVerified>>
 
     @POST("api/{api_version}/config/policy")
     fun privacyPolicy(

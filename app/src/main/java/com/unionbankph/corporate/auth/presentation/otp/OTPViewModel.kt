@@ -19,7 +19,7 @@ import com.unionbankph.corporate.auth.data.form.ResetPasswordResendOTPForm
 import com.unionbankph.corporate.auth.data.model.Auth
 import com.unionbankph.corporate.auth.data.model.ECredLoginDto
 import com.unionbankph.corporate.auth.data.model.ECredLoginOTPDto
-import com.unionbankph.corporate.auth.data.model.UserDetails
+import com.unionbankph.corporate.auth.data.model.UserCreationOTPVerified
 import com.unionbankph.corporate.bills_payment.data.gateway.BillsPaymentGateway
 import com.unionbankph.corporate.bills_payment.data.model.BillsPaymentVerify
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
@@ -362,6 +362,23 @@ class OTPViewModel @Inject constructor(
                 }).addTo(disposables)
     }
 
+    fun userCreationValidateOTP(verifyOTPForm: VerifyOTPForm) {
+        authGateway.userCreationValidateOTP(verifyOTPForm)
+//            .flatMap { authGateway.saveCredential(it).toSingle { it } }
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .doOnSubscribe { _otpState.value = ShowOTPLoading }
+            .subscribe(
+                {
+                    _otpState.value = ShowVerifyUserCreationOTPSuccess(it)
+                }, {
+                    Timber.e(it, "userOTP Failed")
+                    _otpState.value = ShowOTPDismissLoading
+                    _otpState.value = ShowOTPError(it)
+                }
+            ).addTo(disposables)
+    }
+
     fun countDownTimer(period: Long, time: Long) {
         Observable.interval(period, TimeUnit.SECONDS)
             .subscribeOn(schedulerProvider.computation())
@@ -416,3 +433,8 @@ data class ShowOTPError(val throwable: Throwable) : OTPState()
 data class ShowOTPSettingsVerifySuccess(
     val otpSettingsDto: OTPSettingsDto
 ) : OTPState()
+
+data class ShowVerifyUserCreationOTPSuccess(
+    val userCreationOTPSuccess: UserCreationOTPVerified
+) : OTPState()
+

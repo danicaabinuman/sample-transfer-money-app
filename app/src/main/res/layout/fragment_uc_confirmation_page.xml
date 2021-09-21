@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchParent"
+    android:background="@color/colorWhite">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MatchParent"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewContent"
+            style="@style/MatchConstraint"
+            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:layout_marginTop="@dimen/grid_5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/bg_oa_confirm"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintWidth_percent="0.3"
+
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCongrats"
+            style="@style/SMEHeadlineH2"
+            android:layout_gravity="center"
+            android:text="@string/title_congratulations"
+            android:textColor="@color/colorSMEMediumOrange"
+            app:layout_constraintBottom_toTopOf="@id/tvDesc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewContent"
+            app:layout_constraintVertical_bias="1"
+            android:layout_marginTop="@dimen/grid_5"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDesc"
+            style="@style/SMEBody"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/msme_content_spacing"
+            android:layout_marginStart="@dimen/msme_content_spacing"
+            android:layout_marginTop="@dimen/grid_1_half"
+            android:gravity="center"
+            android:text="@string/desc_confirmation_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCongrats"
+            android:layout_marginBottom="@dimen/grid_5"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonNext"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_marginEnd="@dimen/msme_content_spacing"
+            android:layout_marginBottom="21dp"
+            android:layout_marginStart="@dimen/msme_content_spacing"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/title_continue_dashboard"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
