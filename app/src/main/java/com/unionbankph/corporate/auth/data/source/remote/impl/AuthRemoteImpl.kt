@@ -33,7 +33,8 @@ import com.unionbankph.corporate.auth.data.source.remote.AuthRemote
 import com.unionbankph.corporate.auth.data.source.remote.client.AuthApiClient
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
-import com.unionbankph.corporate.open_account.data.form.ValidateContactInfoForm
+import com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
+import com.unionbankph.corporate.user_creation.data.form.ValidateContactInfoForm
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -192,21 +193,30 @@ constructor(
         )
     }
 
-    override fun validateContactInfo(
+    override fun userCreationValidateContact(
         validateContactInfoForm: ValidateContactInfoForm
     ): Single<Response<ContactValidityResponse>> {
-        return authApiClient.validateContactInfo(
+        return authApiClient.userCreationValidateContact(
             BuildConfig.MSME_CLIENT_API_VERSION,
             validateContactInfoForm
         )
     }
 
-    override fun verifyUserCreationOTP(
+    override fun userCreationValidateOTP(
         verifyOTPForm: VerifyOTPForm
     ): Single<Response<UserCreationOTPVerified>> {
-        return authApiClient.verifyUserCreationOTP(
+        return authApiClient.userCreationValidateOTP(
             BuildConfig.MSME_CLIENT_API_VERSION,
             verifyOTPForm
+        )
+    }
+
+    override fun userCreationNominatePassword(
+        form: UcNominatePasswordForm
+    ): Single<Response<UserCreationOTPVerified>> {
+        return authApiClient.userCreationNominatePassword(
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            form
         )
     }
 

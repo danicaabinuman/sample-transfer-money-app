@@ -4,10 +4,8 @@ import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.content.IntentSender
-import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.os.Bundle
-import android.text.method.PasswordTransformationMethod
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -18,7 +16,6 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.google.android.material.snackbar.Snackbar
@@ -58,9 +55,8 @@ import com.unionbankph.corporate.common.presentation.constant.URLDataEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.selection.DaoSelectionActivity
-import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
 import com.unionbankph.corporate.databinding.FragmentLoginBinding
-import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
+import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
@@ -861,7 +857,7 @@ class LoginFragment :
     private fun navigateRegisterMSME(){
         navigator.navigate(
             getAppCompatActivity(),
-            OpenAccountActivity::class.java,
+            UserCreationActivity::class.java,
             null,
             isClear = false,
             isAnimated = true,

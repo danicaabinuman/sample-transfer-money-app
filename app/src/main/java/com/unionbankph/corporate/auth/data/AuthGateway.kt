@@ -30,7 +30,8 @@ import com.unionbankph.corporate.auth.data.form.ResetPasswordVerifyForm
 import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
-import com.unionbankph.corporate.open_account.data.form.ValidateContactInfoForm
+import com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
+import com.unionbankph.corporate.user_creation.data.form.ValidateContactInfoForm
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -73,8 +74,9 @@ interface AuthGateway {
     fun nominatePasswordResentOTP(nominatePasswordResendOTPForm: NominatePasswordResendOTPForm): Single<Auth>
     fun nominatePassword(nominatePasswordForm: NominatePasswordForm): Single<Auth>
 
-    fun validateContactInfo(validateContactInfoForm: ValidateContactInfoForm) : Single<ContactValidityResponse>
-    fun verifyUserCreationOTP(verifyOTPForm: VerifyOTPForm) : Single<UserCreationOTPVerified>
+    fun userCreationValidateContact(validateContactInfoForm: ValidateContactInfoForm) : Single<ContactValidityResponse>
+    fun userCreationValidateOTP(verifyOTPForm: VerifyOTPForm) : Single<UserCreationOTPVerified>
+    fun userCreationNominatePassword(form: UcNominatePasswordForm) : Single<UserCreationOTPVerified>
 
     fun nominateEmailMigration(
         temporaryCorporateUserId: String,

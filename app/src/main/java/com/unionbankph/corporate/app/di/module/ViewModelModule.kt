@@ -126,13 +126,13 @@ import com.unionbankph.corporate.settings.presentation.selector.SelectorViewMode
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorViewModel
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenViewModel
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordViewModel
-import com.unionbankph.corporate.open_account.presentation.OpenAccountViewModel
-import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameViewModel
-import com.unionbankph.corporate.open_account.presentation.tnc_reminder.TNCReminderViewModel
-import com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoViewModel
-import com.unionbankph.corporate.open_account.presentation.nominate_password.OaNominatePasswordViewModel
-import com.unionbankph.corporate.open_account.presentation.personalise_settings.OAPersonaliseSettingsViewModel
-import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountViewModel
+import com.unionbankph.corporate.user_creation.presentation.UserCreationViewModel
+import com.unionbankph.corporate.user_creation.presentation.enter_name.UcEnterNameViewModel
+import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.UcTNCReminderViewModel
+import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.UcEnterContactInfoViewModel
+import com.unionbankph.corporate.user_creation.presentation.nominate_password.UcNominatePasswordViewModel
+import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsViewModel
+import com.unionbankph.corporate.trial_account.presentation.TrialAccountViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
 import dagger.Binds
 import dagger.Module
@@ -803,23 +803,23 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(OpenAccountViewModel::class)
+    @ViewModelKey(UserCreationViewModel::class)
     abstract fun userCreationViewModel(
-        viewModel: OpenAccountViewModel
+        viewModel: UserCreationViewModel
     ): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(OAEnterNameViewModel::class)
+    @ViewModelKey(UcEnterNameViewModel::class)
     abstract fun ucEnterNameViewModel(
-        viewModel: OAEnterNameViewModel
+        viewModel: UcEnterNameViewModel
     ): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(TNCReminderViewModel::class)
+    @ViewModelKey(UcTNCReminderViewModel::class)
     abstract fun tncReminderViewModel(
-        viewModel: TNCReminderViewModel
+        viewModelUc: UcTNCReminderViewModel
     ): ViewModel
 
     @Binds
@@ -830,9 +830,9 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(OAEnterContactInfoViewModel::class)
+    @ViewModelKey(UcEnterContactInfoViewModel::class)
     abstract fun oaEnterContactInfoViewModel(
-        viewModel: OAEnterContactInfoViewModel): ViewModel
+        viewModel: UcEnterContactInfoViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -843,16 +843,16 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(OAPersonaliseSettingsViewModel::class)
+    @ViewModelKey(UcPersonaliseSettingsViewModel::class)
     abstract fun oaPersonaliseSettingsViewModel(
-        viewModel: OAPersonaliseSettingsViewModel
+        viewModel: UcPersonaliseSettingsViewModel
     ): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(OaNominatePasswordViewModel::class)
+    @ViewModelKey(UcNominatePasswordViewModel::class)
     abstract fun oaNominatePasswordViewModel(
-        viewModel: OaNominatePasswordViewModel
+        viewModel: UcNominatePasswordViewModel
     ): ViewModel
 
     @Binds
