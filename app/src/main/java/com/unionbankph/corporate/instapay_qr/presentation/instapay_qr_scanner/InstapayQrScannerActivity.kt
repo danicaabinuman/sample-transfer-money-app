@@ -19,11 +19,6 @@ class InstapayQrScannerActivity :
         initCamera()
     }
 
-    override fun onStart() {
-        super.onStart()
-        initCamera()
-    }
-
     fun initViews(){
 
         binding.btnUploadQr.setOnClickListener {
@@ -36,7 +31,7 @@ class InstapayQrScannerActivity :
     }
 
     private fun initCamera() {
-        binding.cameraView.open()
+        binding.cameraView.setLifecycleOwner(this)
     }
 
     private fun openGallery(){
