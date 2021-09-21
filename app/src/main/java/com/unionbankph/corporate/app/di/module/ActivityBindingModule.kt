@@ -117,8 +117,8 @@ import com.unionbankph.corporate.settings.presentation.splash.SplashFrameOnboard
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity
-import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
-import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountActivity
+import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
+import com.unionbankph.corporate.trial_account.presentation.TrialAccountActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import dagger.Module
@@ -583,7 +583,7 @@ abstract class ActivityBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun userCreationActivity(): OpenAccountActivity
+    abstract fun userCreationActivity(): UserCreationActivity
 
     @PerActivity
     @ContributesAndroidInjector

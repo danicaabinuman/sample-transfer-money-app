@@ -636,7 +636,7 @@
             android:launchMode="standard" />
 
         <activity
-            android:name=".open_account.presentation.OpenAccountActivity"
+            android:name=".user_creation.presentation.UserCreationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
@@ -651,7 +651,7 @@
             android:launchMode="standard"/>
 
         <activity
-            android:name=".open_account.presentation.trial_account.TrialAccountActivity"
+            android:name="com.unionbankph.corporate.trial_account.presentation.TrialAccountActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"/>
 

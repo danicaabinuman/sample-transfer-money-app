@@ -53,8 +53,8 @@ import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoard
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
-import com.unionbankph.corporate.open_account.presentation.confirmation_message.OAConfirmationMessageFragment
-import com.unionbankph.corporate.open_account.presentation.enter_contact_info.OAEnterContactInfoFragment
+import com.unionbankph.corporate.user_creation.presentation.confirmation_message.UcConfirmationMessageFragment
+import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.UcEnterContactInfoFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
@@ -77,13 +77,13 @@ import com.unionbankph.corporate.settings.presentation.splash.SplashEndFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashFragment
 import com.unionbankph.corporate.settings.presentation.splash.SplashOnboardingFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
-import com.unionbankph.corporate.open_account.presentation.enter_name.OAEnterNameFragment
-import com.unionbankph.corporate.open_account.presentation.nominate_password.OaNominatePasswordFragment
-import com.unionbankph.corporate.open_account.presentation.reminder.OAReminderFragment
-import com.unionbankph.corporate.open_account.presentation.select_account.OAAccountSelection
-import com.unionbankph.corporate.open_account.presentation.tnc.OATNCFragment
-import com.unionbankph.corporate.open_account.presentation.tnc_reminder.OATNCReminderFragment
-import com.unionbankph.corporate.open_account.presentation.personalise_settings.OAPersonaliseSettingsFragment
+import com.unionbankph.corporate.user_creation.presentation.enter_name.UcEnterNameFragment
+import com.unionbankph.corporate.user_creation.presentation.nominate_password.UcNominatePasswordFragment
+import com.unionbankph.corporate.user_creation.presentation.reminder.UcReminderFragment
+import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelection
+import com.unionbankph.corporate.user_creation.presentation.tnc.UcTNCFragment
+import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.UcTNCReminderFragment
+import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsFragment
 import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
 import dagger.Module
@@ -383,23 +383,23 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun oaReminderFragment(): OAReminderFragment
+    abstract fun ucReminderFragment(): UcReminderFragment
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun oaEnterNameFragment(): OAEnterNameFragment
+    abstract fun ucEnterNameFragment(): UcEnterNameFragment
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun accountSelectionFragment(): OAAccountSelection
+    abstract fun accountSelectionFragment(): UcAccountSelection
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun tncReminderFragment(): OATNCReminderFragment
+    abstract fun tncReminderFragment(): UcTNCReminderFragment
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun tncFragment(): OATNCFragment
+    abstract fun tncFragment(): UcTNCFragment
 
     @PerActivity
     @ContributesAndroidInjector
@@ -407,19 +407,19 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun oaEnterContactInfoFragment(): OAEnterContactInfoFragment
+    abstract fun ucEnterContactInfoFragment(): UcEnterContactInfoFragment
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun oaNominatePasswordFragment(): OaNominatePasswordFragment
+    abstract fun ucNominatePasswordFragment(): UcNominatePasswordFragment
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun oaPersonaliseSettingsFragment(): OAPersonaliseSettingsFragment
+    abstract fun ucPersonaliseSettingsFragment(): UcPersonaliseSettingsFragment
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun oaConfirmationMessageFragment(): OAConfirmationMessageFragment
+    abstract fun ucConfirmationMessageFragment(): UcConfirmationMessageFragment
 
     @PerActivity
     @ContributesAndroidInjector

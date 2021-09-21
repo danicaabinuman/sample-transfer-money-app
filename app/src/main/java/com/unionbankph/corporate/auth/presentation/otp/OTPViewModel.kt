@@ -362,8 +362,8 @@ class OTPViewModel @Inject constructor(
                 }).addTo(disposables)
     }
 
-    fun verifyUserCreationOTP(verifyOTPForm: VerifyOTPForm) {
-        authGateway.verifyUserCreationOTP(verifyOTPForm)
+    fun userCreationValidateOTP(verifyOTPForm: VerifyOTPForm) {
+        authGateway.userCreationValidateOTP(verifyOTPForm)
 //            .flatMap { authGateway.saveCredential(it).toSingle { it } }
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())

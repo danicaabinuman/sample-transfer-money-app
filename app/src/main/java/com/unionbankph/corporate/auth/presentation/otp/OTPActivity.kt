@@ -43,8 +43,8 @@ import com.unionbankph.corporate.fund_transfer.presentation.pesonet.PesoNetSumma
 import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftSummaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPSummaryActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
-import com.unionbankph.corporate.open_account.presentation.OpenAccountActivity
-import com.unionbankph.corporate.open_account.presentation.trial_account.TrialAccountActivity
+import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
+import com.unionbankph.corporate.trial_account.presentation.TrialAccountActivity
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -830,7 +830,7 @@ class OTPActivity :
                 )
             }
             PAGE_USER_CREATION -> {
-                viewModel.verifyUserCreationOTP(
+                viewModel.userCreationValidateOTP(
                     VerifyOTPForm(
                         auth.requestId,
                         pinCodeEditText.getPinCode()
@@ -842,20 +842,20 @@ class OTPActivity :
 
     private fun navigateBackToUserCreationScreen(response: UserCreationOTPVerified) {
         val bundle = Bundle().apply {
-            putBoolean(OpenAccountActivity.EXTRA_FROM_OTP, true)
+            putBoolean(UserCreationActivity.EXTRA_FROM_OTP, true)
             putString(
-                OpenAccountActivity.EXTRA_FORM,
+                UserCreationActivity.EXTRA_FORM,
                 intent.getStringExtra(EXTRA_OPEN_ACCOUNT_FORM)
             )
             putString(
-                OpenAccountActivity.EXTRA_VERIFICATION_TOKEN,
+                UserCreationActivity.EXTRA_VERIFICATION_TOKEN,
                 response.accessToken
             )
         }
         intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
         navigator.navigateClearStacks(
             this,
-            OpenAccountActivity::class.java,
+            UserCreationActivity::class.java,
             bundle,
             true,
             Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT

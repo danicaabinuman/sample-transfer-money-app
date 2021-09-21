@@ -4,7 +4,8 @@ import com.unionbankph.corporate.auth.data.form.*
 import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
-import com.unionbankph.corporate.open_account.data.form.ValidateContactInfoForm
+import com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
+import com.unionbankph.corporate.user_creation.data.form.ValidateContactInfoForm
 import io.reactivex.Single
 import retrofit2.Response
 
@@ -56,12 +57,16 @@ interface AuthRemote {
         resetPasswordForm: ResetPasswordForm
     ): Single<Response<Message>>
 
-    fun validateContactInfo(
+    fun userCreationValidateContact(
         validateContactInfoForm: ValidateContactInfoForm
     ): Single<Response<ContactValidityResponse>>
 
-    fun verifyUserCreationOTP(
+    fun userCreationValidateOTP(
         verifyOTPForm: VerifyOTPForm
+    ): Single<Response<UserCreationOTPVerified>>
+
+    fun userCreationNominatePassword(
+        form: UcNominatePasswordForm
     ): Single<Response<UserCreationOTPVerified>>
 
     fun nominatePasswordActivation(
