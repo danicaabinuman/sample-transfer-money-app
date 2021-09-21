@@ -197,6 +197,22 @@
         <item name="android:maxLines">10</item>
     </style>
 
+    <style name="TextViewDarkDetailForm" parent="TextViewDark">
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="textColor">#6D6D6D</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:maxLines">10</item>
+    </style>
+
+    <style name="TextViewDarkHeadForm" parent="TextViewDark">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="textColor">#4B4948</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:maxLines">10</item>
+    </style>
+
     <style name="TextViewOrangeForm" parent="TextViewOrange">
         <item name="android:textSize">@dimen/text_10</item>
         <item name="layout_constraintHorizontal_bias">0.5</item>
@@ -454,6 +470,14 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/colorGray</item>
+        <item name="popupTheme">?appBarTheme</item>
+        <item name="android:theme">?appBarTheme</item>
+    </style>
+
+    <style name="InstapayQrAppBarLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#FFF3E5</item>
         <item name="popupTheme">?appBarTheme</item>
         <item name="android:theme">?appBarTheme</item>
     </style>

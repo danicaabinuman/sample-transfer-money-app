@@ -32,15 +32,15 @@ class InstapayQrSplashActivity :
         setViewPager()
 
         binding.btnAllow.setOnClickListener {
-
-            continueToNextScreen()
-
+            initPermission()
         }
 
         binding.btnNotNow.setOnClickListener {
-
             finish()
+        }
 
+        binding.btnBack.setOnClickListener {
+            finish()
         }
     }
 
@@ -86,7 +86,6 @@ class InstapayQrSplashActivity :
     }
 
     private fun continueToNextScreen(){
-//        initPermission()
         val intent = Intent(this, InstapayQrScannerActivity::class.java)
         startActivity(intent)
     }
