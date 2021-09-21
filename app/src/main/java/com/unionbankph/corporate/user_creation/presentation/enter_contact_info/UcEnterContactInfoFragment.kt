@@ -38,7 +38,7 @@ import java.util.regex.Pattern
 class UcEnterContactInfoFragment :
     BaseFragment<FragmentUcEnterContactInfoBinding, UcEnterContactInfoViewModel>() {
 
-    private val openAccountActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
+    private val userCreationActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
 
     private val formDisposable = CompositeDisposable()
 
@@ -93,13 +93,13 @@ class UcEnterContactInfoFragment :
         })
 
         viewModel.navigateResult.observe(viewLifecycleOwner, EventObserver{
-            openAccountActivity.setContactInput(viewModel.input)
+            userCreationActivity.setContactInput(viewModel.input)
             navigateToOTPScreen(it)
         })
 
-        val hasValue = openAccountActivity.viewModel.hasContactInput.hasValue()
+        val hasValue = userCreationActivity.viewModel.hasContactInput.hasValue()
         if (hasValue && !viewModel.isLoadedScreen.hasValue()) {
-            openAccountActivity.viewModel.contactInput.let {
+            userCreationActivity.viewModel.contactInput.let {
                 viewModel.setExistingContactInfoInput(it)
             }
         } else {
@@ -109,7 +109,7 @@ class UcEnterContactInfoFragment :
 
 
     private fun initViewBinding() {
-        viewModel.loadDefaultForm(openAccountActivity.getDefaultForm())
+        viewModel.loadDefaultForm(userCreationActivity.getDefaultForm())
         viewModel.input.emailInput
             .subscribe {
                 binding.etEmail.setText(it)
@@ -200,7 +200,7 @@ class UcEnterContactInfoFragment :
         if (viewModel.hasValidForm()) {
             updatePreTextValues()
             viewModel.onClickedNext(
-                openAccountActivity.getDefaultForm()
+                userCreationActivity.getDefaultForm()
             )
         } else {
             refreshFields()
@@ -299,7 +299,7 @@ class UcEnterContactInfoFragment :
         val action = UcEnterContactInfoFragmentDirections.actionEnterContactToOtp(
             request = JsonHelper.toJson(auth),
             page = OTPActivity.PAGE_USER_CREATION,
-            openAccountForm = JsonHelper.toJson(openAccountActivity.getDefaultForm())
+            openAccountForm = JsonHelper.toJson(userCreationActivity.getDefaultForm())
         )
 
         findNavController().navigate(action)
@@ -307,7 +307,7 @@ class UcEnterContactInfoFragment :
 
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            openAccountActivity.popBackStack()
+            userCreationActivity.popBackStack()
         }
     }
 

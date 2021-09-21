@@ -18,12 +18,12 @@ import com.unionbankph.corporate.user_creation.presentation.UserCreationViewMode
 class UcAccountSelection :
     BaseFragment<FragmentUcAccountSelectionBinding, UserCreationViewModel>() {
 
-    private val openAccountActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
+    private val userCreationActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        openAccountActivity.setIsScreenScrollable(false)
+        userCreationActivity.setIsScreenScrollable(false)
         handleOnBackPressed()
     }
 

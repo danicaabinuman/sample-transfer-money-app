@@ -13,7 +13,6 @@ import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.getTextNullable
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.extension.refresh
-import com.unionbankph.corporate.app.common.extension.runPostDelayed
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
@@ -28,7 +27,7 @@ import io.reactivex.rxkotlin.addTo
 class UcEnterNameFragment :
     BaseFragment<FragmentUcEnterNameBinding, UcEnterNameViewModel>() {
 
-    private val openAccountActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
+    private val userCreationActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
 
     private val formDisposable = CompositeDisposable()
 
@@ -78,13 +77,13 @@ class UcEnterNameFragment :
         })
 
         viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
-            openAccountActivity.setNameInput(it)
+            userCreationActivity.setNameInput(it)
             findNavController().navigate(R.id.action_enter_name_to_tnc_reminder)
         })
 
-        val hasValue = openAccountActivity.viewModel.hasNameInput.hasValue()
+        val hasValue = userCreationActivity.viewModel.hasNameInput.hasValue()
         if (hasValue && !viewModel.isLoadedScreen.hasValue()) {
-            openAccountActivity.viewModel.nameInput.let {
+            userCreationActivity.viewModel.nameInput.let {
                 viewModel.setExistingNameInput(it)
             }
         } else {
@@ -93,7 +92,7 @@ class UcEnterNameFragment :
     }
 
     private fun initViewBinding() {
-        viewModel.loadDefaultForm(openAccountActivity.getDefaultForm())
+        viewModel.loadDefaultForm(userCreationActivity.getDefaultForm())
         viewModel.input.firstNameInput
             .subscribe {
                 binding.editTextFirstName.setText(it)
@@ -192,7 +191,7 @@ class UcEnterNameFragment :
 
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            openAccountActivity.popBackStack()
+            userCreationActivity.popBackStack()
         }
     }
 

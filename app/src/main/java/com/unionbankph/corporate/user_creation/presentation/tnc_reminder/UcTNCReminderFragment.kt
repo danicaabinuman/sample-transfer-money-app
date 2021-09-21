@@ -21,12 +21,12 @@ import java.util.concurrent.TimeUnit
 class UcTNCReminderFragment :
     BaseFragment<FragmentUcTncReminderBinding, UcTNCReminderViewModel>() {
 
-    private val openAccountActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
+    private val userCreationActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        openAccountActivity.setIsScreenScrollable(false)
+        userCreationActivity.setIsScreenScrollable(false)
     }
 
     override fun onViewModelBound() {
@@ -64,9 +64,9 @@ class UcTNCReminderFragment :
             }
         })
 
-        val hasValue = openAccountActivity.viewModel.hasNameInput.hasValue()
+        val hasValue = userCreationActivity.viewModel.hasNameInput.hasValue()
         if (hasValue && !viewModel.isLoadedScreen.hasValue()) {
-            openAccountActivity.viewModel.nameInput.let {
+            userCreationActivity.viewModel.nameInput.let {
                 viewModel.setName(it)
             }
         }
@@ -76,7 +76,7 @@ class UcTNCReminderFragment :
 
     private fun initBinding() {
         Handler().post {
-            viewModel.loadName(openAccountActivity.getDefaultForm())
+            viewModel.loadName(userCreationActivity.getDefaultForm())
             viewModel.input.firstNameInput
                 .subscribe {
                     binding.txtWelcomeName.text = formatString(R.string.welcome_reminder, it)

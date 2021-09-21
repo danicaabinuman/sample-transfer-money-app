@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 class UcConfirmationMessageFragment :
     BaseFragment<FragmentUcConfirmationPageBinding, UserCreationViewModel>() {
 
-    private val openAccountActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
+    private val userCreationActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -37,9 +37,9 @@ class UcConfirmationMessageFragment :
     }
 
     private fun initViews(){
-        openAccountActivity.setIsScreenScrollable(false)
+        userCreationActivity.setIsScreenScrollable(false)
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
-        openAccountActivity.onBackPressedDispatcher.addCallback(viewLifecycleOwner) {}
+        userCreationActivity.onBackPressedDispatcher.addCallback(viewLifecycleOwner) {}
     }
 
     private fun initOnClick(){

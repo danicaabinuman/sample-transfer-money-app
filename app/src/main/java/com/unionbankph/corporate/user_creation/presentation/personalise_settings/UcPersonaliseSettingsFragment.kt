@@ -19,11 +19,11 @@ class UcPersonaliseSettingsFragment :
     BaseFragment<FragmentUcPersonaliseSettingsBinding, UcPersonaliseSettingsViewModel>()  {
     private val formDisposable = CompositeDisposable()
 
-    private val openAccountActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
+    private val userCreationActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        openAccountActivity.setIsScreenScrollable(false)
+        userCreationActivity.setIsScreenScrollable(false)
     }
 
     override fun onViewsBound() {

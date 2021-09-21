@@ -34,7 +34,7 @@ class UcNominatePasswordFragment :
 
     private val formDisposable = CompositeDisposable()
 
-    private val openAccountActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
+    private val userCreationActivity by lazyFast { getAppCompatActivity() as UserCreationActivity }
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -44,7 +44,7 @@ class UcNominatePasswordFragment :
 
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            openAccountActivity.popBackStack()
+            userCreationActivity.popBackStack()
         }
     }
 
@@ -88,7 +88,7 @@ class UcNominatePasswordFragment :
         binding.buttonNext.setOnClickListener {
             viewModel.onClickedNext(
                 binding.textInputEditTextPassword.text.toString(),
-                openAccountActivity.getOTPSuccessToken()
+                userCreationActivity.getOTPSuccessToken()
             )
         }
     }
