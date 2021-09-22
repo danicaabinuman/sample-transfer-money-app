@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentSender
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -110,8 +109,6 @@ class LoginFragment :
             }.addTo(disposables)
         viewModel.token
             .subscribe {
-                Log.e("token","string: "+it)
-                Log.e("token","RxFingerprint.isAvailable: "+RxFingerprint.isAvailable(getAppCompatActivity()))
                 if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "") }
                 else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
                         .BIOMETRIC_SUCCESS) { showFaceIDImageView(it !="") }
