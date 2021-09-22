@@ -10,6 +10,7 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricPrompt
@@ -89,6 +90,7 @@ class LoginFragment :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         setMargins(binding.textViewVersion, 0, getStatusBarHeight(), 0, 0)
+        initViewBackPressedLogin()
     }
 
     override fun onViewsBound() {
@@ -107,9 +109,10 @@ class LoginFragment :
             }.addTo(disposables)
         viewModel.token
             .subscribe {
-                if(BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
+                if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "") }
+                else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
                         .BIOMETRIC_SUCCESS) { showFaceIDImageView(it !="") }
-                else if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "") }
+
             }.addTo(disposables)
         viewModel.fullName
             .subscribe {
@@ -240,7 +243,6 @@ class LoginFragment :
         }
     }
 
-
     override fun onCompleteFingerprint(token: String) {
         viewModel.userLoginFingerPrint(
             LoginFingerprintForm(fingerprintToken = token, udid = settingsUtil.getUdId())
@@ -326,6 +328,21 @@ class LoginFragment :
                     getAppCompatActivity().finish()
                 }
             )
+        }
+    }
+
+    private fun initViewBackPressedLogin(){
+        if(!isSME){binding.imageViewBackground.visibility(true)}
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if(binding.MSMEbtnLogin.visibility == View.VISIBLE && isSME){
+                binding.MSMEbtnLogin.visibility(false)
+                binding.MSMEForgotPassword.visibility(false)
+                binding.llEmailSME.visibility(false)
+                binding.llPasswordSME.visibility(false)
+                initFreshLogin()
+            }else{
+                getAppCompatActivity().finish()
+            }
         }
     }
 
@@ -707,12 +724,7 @@ class LoginFragment :
     }
 
     private fun showFingerPrint(token: String) {
-        if(BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
-                .BIOMETRIC_SUCCESS
-            && !isShownInUpdateApp
-            && App.isActivityVisible()){
-            biometricPrompt(token)
-        }else if (RxFingerprint.isHardwareDetected(getAppCompatActivity())
+        if (RxFingerprint.isAvailable(getAppCompatActivity())
             && !isShownInUpdateApp
             && App.isActivityVisible()
         ) {
@@ -725,6 +737,11 @@ class LoginFragment :
                 childFragmentManager,
                 LoginActivity::class.java.simpleName
             )
+        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS
+            && !isShownInUpdateApp
+            && App.isActivityVisible()){
+            biometricPrompt(token)
         }
     }
 
