@@ -441,10 +441,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     private fun initEncryptedBiometric(token: String) {
-        if(BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
-                .BIOMETRIC_SUCCESS){
-            viewModel.setTokenFingerPrint(token)
-        }else if(RxFingerprint.isAvailable(this)){
+        if(RxFingerprint.isAvailable(this)){
             val fingerprintBottomSheet = FingerprintBottomSheet.newInstance(
                 token,
                 FingerprintBottomSheet.ENCRYPT_TYPE
@@ -455,8 +452,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 FingerprintBottomSheet.EXTRA_TOKEN,
                 token
             )
+        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS){
+            viewModel.setTokenFingerPrint(token)
         }
-
 
     }
 
@@ -1151,20 +1150,20 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     fun showFingerprintBottomSheet() {
-        if(BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
+        if(RxFingerprint.isAvailable(this)){
+            fingerprintBottomSheet = ConfirmationBottomSheet.newInstance(
+                R.drawable.ic_fingerprint_white_48dp,
+                getString(R.string.title_enable_fingerprint),
+                getString(R.string.desc_fingerprint),
+                getString(R.string.action_link),
+                getString(R.string.action_not_now)
+            )
+        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
                 .BIOMETRIC_SUCCESS){
             fingerprintBottomSheet = ConfirmationBottomSheet.newInstance(
                 R.drawable.ic_fingerprint_white_48dp,
                 getString(R.string.title_enable_face_id),
                 getString(R.string.desc_face_id),
-                getString(R.string.action_link),
-                getString(R.string.action_not_now)
-            )
-        }else if(RxFingerprint.isAvailable(this)){
-            fingerprintBottomSheet = ConfirmationBottomSheet.newInstance(
-                R.drawable.ic_fingerprint_white_48dp,
-                getString(R.string.title_enable_fingerprint),
-                getString(R.string.desc_fingerprint),
                 getString(R.string.action_link),
                 getString(R.string.action_not_now)
             )
