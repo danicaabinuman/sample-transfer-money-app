@@ -6,16 +6,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
 import com.unionbankph.corporate.app.common.extension.lazyFast
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.ChipItemModel
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.generic_item_1.GenericItemModel
+import com.unionbankph.corporate.app.common.extension.toGenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.GenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.SMEChipCallback
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.BottomSheetDashboardMoreBinding
 
 class DashboardMoreBottomSheet :
-    BaseBottomSheetDialog<BottomSheetDashboardMoreBinding, DashboardFragmentViewModel>() {
+    BaseBottomSheetDialog<BottomSheetDashboardMoreBinding, DashboardFragmentViewModel>(),
+    SMEChipCallback {
 
     private var moreBottomSheetState = MoreBottomSheetState()
+
+    private lateinit var lastSelectedFilter: String
 
     private val controller by lazyFast {
         DashboardMoreController(requireContext(), viewUtil)
@@ -36,6 +40,7 @@ class DashboardMoreBottomSheet :
 
         binding.recyclerViewMoreOptions.setController(controller)
 
+        controller.setChipCallback(this)
         controller.setData(moreBottomSheetState)
 //        controller.setDashboardAdapterCallbacks(this)
 //        controller.setAccountAdapterCallbacks(this)
@@ -47,7 +52,8 @@ class DashboardMoreBottomSheet :
             requireActivity(),
             MORE_BOTTOM_SHEET_FILTER_ITEMS
         )
-        val filterItems = JsonHelper.fromListJson<ChipItemModel>(parseFilterListFromJson)
+        val filterItems = JsonHelper.fromListJson<GenericItem>(parseFilterListFromJson)
+        lastSelectedFilter = filterItems[0].id!!
 
         moreBottomSheetState.apply {
             this.filters = filterItems
@@ -60,29 +66,31 @@ class DashboardMoreBottomSheet :
         }
     }
 
-    private fun getActionItems(): MutableList<GenericItemModel> {
+    private fun getActionItems(): MutableList<GenericItem> {
         val actionList = arguments?.getParcelableArrayList<ActionItem>(
             EXTRA_ACTION_LIST
         )?.toMutableList() ?: mutableListOf()
 
-        val genericItemList = mutableListOf<GenericItemModel>()
+        val genericItemList = mutableListOf<GenericItem>()
 
-        actionList.forEach {
+        actionList.forEach { actionItem ->
             genericItemList.add(
-                GenericItemModel().apply {
-                    this.id = it.id
-                    this.label = it.label?.replace("\r\n", " ")?.replace("\n", " ")
-                    this.caption = it.caption
-                    this.action = it.action
-                    this.src = "ic_dashboard_" + it.src
-                    this.isEnabled = it.isEnabled
-                }
+                actionItem.toGenericItem()
             )
         }
 
         genericItemList.removeAll { it.id == Constant.DASHBOARD_ACTION_MORE } // Remove [More] Item
 
         return genericItemList
+    }
+
+    override fun onChipClicked(genericSelection: GenericItem, position: Int) {
+        moreBottomSheetState.apply {
+            filters[lastFilterSelected!!].apply { isSelected = false }
+            filters[position].apply { isSelected = true }
+            lastFilterSelected = position
+        }
+        controller.setData(moreBottomSheetState)
     }
 
     companion object {

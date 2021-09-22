@@ -6,21 +6,41 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.ItemSmeChipBinding
+import timber.log.Timber
 
 @EpoxyModelClass
 abstract class SMEChipModel: EpoxyModelWithHolder<SMEChipModel.Holder>() {
 
     @EpoxyAttribute
-    lateinit var model: ChipItemModel
+    lateinit var model: String
+
+    @EpoxyAttribute
+    lateinit var position: String
+
+    @EpoxyAttribute
+    lateinit var callback: SMEChipCallback
+
 
     override fun getDefaultLayout(): Int {
         return R.layout.item_sme_chip
     }
 
     override fun bind(holder: Holder) {
+
+        Timber.e("bind $position " + model)
+
+        val chipModel = JsonHelper.fromJson<GenericItem>(model)
+
         holder.binding.apply {
-            chipItem.text = model.label
+            chip.text = chipModel.title
+            chip.isClickable = !chipModel.isSelected!!
+            chip.isEnabled = !chipModel.isSelected!!
+
+            chip.setOnClickListener {
+                callback.onChipClicked(chipModel, position.toInt())
+            }
         }
     }
 
@@ -32,4 +52,8 @@ abstract class SMEChipModel: EpoxyModelWithHolder<SMEChipModel.Holder>() {
             binding = ItemSmeChipBinding.bind(itemView)
         }
     }
+}
+
+interface SMEChipCallback {
+    fun onChipClicked(genericSelection: GenericItem, position: Int) = Unit
 }

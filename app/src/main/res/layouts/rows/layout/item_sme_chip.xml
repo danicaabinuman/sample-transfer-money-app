@@ -3,12 +3,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorTransparent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chipItem"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/SMEPrimaryButtonSmall"
+        tools:enabled="false"
         tools:text="Test"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

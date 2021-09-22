@@ -7,6 +7,7 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.GenericItem
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.databinding.ItemGenericItem1Binding
 
@@ -14,7 +15,7 @@ import com.unionbankph.corporate.databinding.ItemGenericItem1Binding
 abstract class GenericItem1Model : EpoxyModelWithHolder<GenericItem1Model.Holder>() {
 
     @EpoxyAttribute
-    lateinit var model: GenericItemModel
+    lateinit var model: GenericItem
 
     @EpoxyAttribute
     lateinit var context: Context
@@ -32,8 +33,8 @@ abstract class GenericItem1Model : EpoxyModelWithHolder<GenericItem1Model.Holder
 
             imageViewIcon.setImageResource(imageSourceId)
 
-            textViewLabel.text = model.label
-            textViewCaption.text = model.caption
+            textViewLabel.text = model.title
+            textViewCaption.text = model.subtitle
         }
     }
 

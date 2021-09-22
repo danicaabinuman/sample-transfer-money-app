@@ -3,11 +3,13 @@ package com.unionbankph.corporate.app.dashboard.fragment
 import android.content.Context
 import com.airbnb.epoxy.*
 import com.unionbankph.corporate.BuildConfig
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.SMEChipCallback
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.SMEChipModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.SMEChipModel
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.generic_item_1.GenericItem1Model_
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 
 class DashboardMoreController
 constructor(
@@ -17,7 +19,7 @@ constructor(
 
     private lateinit var dashboardAdapterCallback: DashboardAdapterCallback
 
-    private lateinit var accountAdapterCallback: AccountAdapterCallback
+    private lateinit var mChipCallback: SMEChipCallback
 
     init {
         if (BuildConfig.DEBUG) {
@@ -28,11 +30,14 @@ constructor(
     override fun buildModels(data: MoreBottomSheetState?) {
 
         val filterModels = mutableListOf<SMEChipModel>()
-        data?.filters?.forEach {
+
+        data?.filters?.forEachIndexed { index, item ->
             filterModels.add(
                 SMEChipModel_()
-                    .id(it.id)
-                    .model(it)
+                    .id(item.id)
+                    .position(index.toString())
+                    .callback(mChipCallback)
+                    .model(JsonHelper.toJson(item))
             )
         }
 
@@ -48,6 +53,10 @@ constructor(
                 .model(it)
                 .addTo(this)
         }
+    }
+
+    fun setChipCallback(chipCallback: SMEChipCallback) {
+        this.mChipCallback = chipCallback
     }
 
     override fun onExceptionSwallowed(exception: RuntimeException) {

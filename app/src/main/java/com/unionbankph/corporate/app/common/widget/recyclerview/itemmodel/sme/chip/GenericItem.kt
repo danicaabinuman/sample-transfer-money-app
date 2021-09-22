@@ -3,10 +3,12 @@ package com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.c
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ChipItemModel(
+data class GenericItem(
     var id: String? = null,
-    var label: String? = null,
+    var title: String? = null,
+    var subtitle: String? = null,
     var action: String? = null,
-    var isSelected: Boolean = false,
-    var isEnabled: Boolean = true
+    var src: String? = null,
+    var isSelected: Boolean? = null,
+    var isEnabled: Boolean? = null
 )

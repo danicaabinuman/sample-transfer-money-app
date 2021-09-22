@@ -2,8 +2,7 @@ package com.unionbankph.corporate.app.dashboard.fragment
 
 import android.os.Parcelable
 import com.unionbankph.corporate.account.data.model.Account
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.ChipItemModel
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.generic_item_1.GenericItemModel
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.GenericItem
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
@@ -33,6 +32,7 @@ data class ActionItem(
 
 @Serializable
 data class MoreBottomSheetState(
-    var filters: MutableList<ChipItemModel>? = null,
-    var actions: MutableList<GenericItemModel>? = null
+    var lastFilterSelected: Int? = 0,
+    var filters: MutableList<GenericItem> = mutableListOf(),
+    var actions: MutableList<GenericItem> = mutableListOf()
 )

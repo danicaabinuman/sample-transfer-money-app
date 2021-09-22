@@ -1,28 +1,28 @@
 [
   {
     "id": "all",
-    "label": "All",
+    "title": "All",
     "action": "filter_all",
     "isSelected": true,
     "isEnabled": true
   },
   {
     "id": "payment",
-    "label": "Payment",
+    "title": "Payment",
     "action": "filter_payment",
     "isSelected": false,
     "isEnabled": true
   },
   {
     "id": "loans",
-    "label": "Loans",
+    "title": "Loans",
     "action": "filter_loans",
     "isSelected": false,
     "isEnabled": true
   },
   {
     "id": "transactions",
-    "label": "Transactions",
+    "title": "Transactions",
     "action": "filter_transaction",
     "isSelected": false,
     "isEnabled": true
