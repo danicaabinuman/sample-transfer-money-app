@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
@@ -106,9 +107,9 @@ class LoginFragment :
             }.addTo(disposables)
         viewModel.token
             .subscribe {
-                if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "")
-                }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                if(BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
                         .BIOMETRIC_SUCCESS) { showFaceIDImageView(it !="") }
+                else if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "") }
             }.addTo(disposables)
         viewModel.fullName
             .subscribe {
@@ -706,7 +707,12 @@ class LoginFragment :
     }
 
     private fun showFingerPrint(token: String) {
-        if (RxFingerprint.isHardwareDetected(getAppCompatActivity())
+        if(BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
+                .BIOMETRIC_SUCCESS
+            && !isShownInUpdateApp
+            && App.isActivityVisible()){
+            biometricPrompt(token)
+        }else if (RxFingerprint.isHardwareDetected(getAppCompatActivity())
             && !isShownInUpdateApp
             && App.isActivityVisible()
         ) {
@@ -719,11 +725,6 @@ class LoginFragment :
                 childFragmentManager,
                 LoginActivity::class.java.simpleName
             )
-        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
-                .BIOMETRIC_SUCCESS
-            && !isShownInUpdateApp
-            && App.isActivityVisible()){
-            biometricPrompt(token)
         }
     }
 
@@ -1092,7 +1093,7 @@ class LoginFragment :
     }
 
     private fun biometricPrompt(token: String){
-        if (BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+        if (BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
                 .BIOMETRIC_SUCCESS) {
             val executor = ContextCompat.getMainExecutor(applicationContext)
             val biometricPrompt =
@@ -1101,7 +1102,7 @@ class LoginFragment :
                         override fun onAuthenticationError(errorCode: Int,
                                                            errString: CharSequence) {
                             if(errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
-                                if ((BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                                if ((BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
                                         .BIOMETRIC_SUCCESS) &&
                                     sharedPreferenceUtil.fingerPrintTokenSharedPref().get() != ""
                                 ) {
@@ -1121,6 +1122,7 @@ class LoginFragment :
                 .setSubtitle(applicationContext.getString(R.string.confirm_fingerprint_description))
                 .setNegativeButtonText(applicationContext.getString(R.string.action_use_password))
                 .setConfirmationRequired(false)
+                .setAllowedAuthenticators(BIOMETRIC_WEAK)
                 .build()
             biometricPrompt.authenticate(promptInfo)
         }

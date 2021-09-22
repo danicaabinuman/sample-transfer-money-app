@@ -98,16 +98,16 @@ class SecurityFragment :
 
     override fun onResume() {
         super.onResume()
-        if (RxFingerprint.isAvailable(applicationContext)) {
-            viewModel.getTokenFingerPrint()
-            binding.constraintLayoutBiometric.visibility(true)
-            binding.viewBorderFingerPrint.visibility(true)
-        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+        if(BiometricManager.from(applicationContext).canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK) == BiometricManager
                 .BIOMETRIC_SUCCESS){
             viewModel.getTokenFingerPrint()
             binding.constraintLayoutBiometric.visibility(true)
-//            text_view_biometric_title.text = getString(R.string.title_face_id)
-//            text_view_biometric.text = getString(R.string.msg_face_id)
+            binding.textViewBiometricTitle.text = getString(R.string.title_face_id)
+            binding.textViewBiometric.text = getString(R.string.msg_face_id)
+            binding.viewBorderFingerPrint.visibility(true)
+        }else if (RxFingerprint.isAvailable(applicationContext)) {
+            viewModel.getTokenFingerPrint()
+            binding.constraintLayoutBiometric.visibility(true)
             binding.viewBorderFingerPrint.visibility(true)
         } else {
             binding.constraintLayoutBiometric.visibility(false)
@@ -132,7 +132,20 @@ class SecurityFragment :
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (!isSkipTutorial && view == binding.constraintLayoutOTP &&
-            RxFingerprint.isAvailable(getAppCompatActivity())) {
+            BiometricManager.from(applicationContext).canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK) == BiometricManager
+                .BIOMETRIC_SUCCESS) {
+            tutorialEngineUtil.startTutorial(
+                getAppCompatActivity(),
+                binding.constraintLayoutBiometric,
+                R.layout.frame_tutorial_upper_left,
+                0f,
+                false,
+                getString(R.string.msg_tutorial_setting_fingerprint),
+                GravityEnum.BOTTOM,
+                OverlayAnimationEnum.ANIM_EXPLODE
+            )
+        }else if(!isSkipTutorial && view == binding.constraintLayoutOTP &&
+            RxFingerprint.isAvailable(getAppCompatActivity())){
             tutorialEngineUtil.startTutorial(
                 getAppCompatActivity(),
                 binding.constraintLayoutBiometric,
@@ -199,7 +212,9 @@ class SecurityFragment :
                 return@setOnCheckedChangeListener
             }
             if (isChecked) {
-                if (RxFingerprint.hasEnrolledFingerprints(activity!!) || BiometricManager.from(requireActivity()).canAuthenticate() == BiometricManager
+                if (RxFingerprint.hasEnrolledFingerprints(activity!!) || BiometricManager.from(requireActivity()).canAuthenticate(
+                        BiometricManager.Authenticators.BIOMETRIC_WEAK
+                    ) == BiometricManager
                         .BIOMETRIC_SUCCESS) {
                     (activity as DashboardActivity).showFingerprintBottomSheet()
                 } else {
