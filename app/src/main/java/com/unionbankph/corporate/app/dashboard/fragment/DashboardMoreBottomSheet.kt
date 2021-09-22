@@ -31,7 +31,6 @@ class DashboardMoreBottomSheet :
         initDefaultActionFilter()
         initDefaultActions()
         initRecyclerView()
-
     }
 
     private fun initRecyclerView() {
@@ -41,9 +40,9 @@ class DashboardMoreBottomSheet :
         binding.recyclerViewMoreOptions.setController(controller)
 
         controller.setChipCallback(this)
-        controller.setData(moreBottomSheetState)
 //        controller.setDashboardAdapterCallbacks(this)
 //        controller.setAccountAdapterCallbacks(this)
+        controller.setData(moreBottomSheetState)
     }
 
     private fun initDefaultActionFilter() {

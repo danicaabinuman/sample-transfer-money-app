@@ -8,9 +8,8 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/chip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/SMEPrimaryButtonSmall"
+        style="@style/SMEChipButton"
+        android:textAppearance="@style/SMEBody"
         tools:enabled="false"
         tools:text="Test"/>
 

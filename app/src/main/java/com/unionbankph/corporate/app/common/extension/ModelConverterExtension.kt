@@ -5,7 +5,7 @@ import com.unionbankph.corporate.app.dashboard.fragment.ActionItem
 
 fun ActionItem.toGenericItem(): GenericItem = GenericItem().apply {
     id = this@toGenericItem.id
-    title = this@toGenericItem.label
+    title = this@toGenericItem.label?.replace("\r\n", " ")?.replace("\n", " ")
     subtitle = this@toGenericItem.caption
     action = this@toGenericItem.action
     src = "ic_dashboard_" + this@toGenericItem.src

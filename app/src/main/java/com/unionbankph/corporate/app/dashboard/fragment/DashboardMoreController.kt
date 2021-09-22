@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.app.dashboard.fragment
 
 import android.content.Context
+import androidx.annotation.DimenRes
 import com.airbnb.epoxy.*
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.SMEChipCallback
@@ -37,13 +38,14 @@ constructor(
                     .id(item.id)
                     .position(index.toString())
                     .callback(mChipCallback)
-                    .model(JsonHelper.toJson(item))
+                    .model(item)
             )
         }
 
         carousel {
             this.id("selection-filters")
             this.models(filterModels)
+            this.padding(Carousel.Padding.dp(18,12,12,12,8))
         }
 
         data?.actions?.forEach {

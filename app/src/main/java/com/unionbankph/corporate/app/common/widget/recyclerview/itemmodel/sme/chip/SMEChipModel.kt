@@ -14,7 +14,7 @@ import timber.log.Timber
 abstract class SMEChipModel: EpoxyModelWithHolder<SMEChipModel.Holder>() {
 
     @EpoxyAttribute
-    lateinit var model: String
+    lateinit var model: GenericItem
 
     @EpoxyAttribute
     lateinit var position: String
@@ -29,13 +29,10 @@ abstract class SMEChipModel: EpoxyModelWithHolder<SMEChipModel.Holder>() {
 
     override fun bind(holder: Holder) {
 
-        Timber.e("bind $position " + model)
-
-        val chipModel = JsonHelper.fromJson<GenericItem>(model)
+        val chipModel = model
 
         holder.binding.apply {
-            chip.text = chipModel.title
-            chip.isClickable = !chipModel.isSelected!!
+            chip.text = chipModel.title?.uppercase()
             chip.isEnabled = !chipModel.isSelected!!
 
             chip.setOnClickListener {

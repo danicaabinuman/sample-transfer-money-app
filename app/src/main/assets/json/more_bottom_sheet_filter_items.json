@@ -26,5 +26,33 @@
     "action": "filter_transaction",
     "isSelected": false,
     "isEnabled": true
+  },
+  {
+    "id": "all2",
+    "title": "All",
+    "action": "filter_all",
+    "isSelected": false,
+    "isEnabled": true
+  },
+  {
+    "id": "payment2",
+    "title": "Payment",
+    "action": "filter_payment",
+    "isSelected": false,
+    "isEnabled": true
+  },
+  {
+    "id": "loans2",
+    "title": "Loans",
+    "action": "filter_loans",
+    "isSelected": false,
+    "isEnabled": true
+  },
+  {
+    "id": "transactions2",
+    "title": "Transactions",
+    "action": "filter_transaction",
+    "isSelected": false,
+    "isEnabled": true
   }
 ]
