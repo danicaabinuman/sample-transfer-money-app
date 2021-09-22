@@ -2,19 +2,20 @@ package com.unionbankph.corporate.payment_link.presentation.request_payment.fee_
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
+import com.unionbankph.corporate.databinding.ActivityFeeCalculatorBinding
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
-import kotlinx.android.synthetic.main.activity_fee_calculator.*
 import timber.log.Timber
 import java.lang.NumberFormatException
 import java.text.DecimalFormat
 
 class FeeCalculatorActivity :
-    BaseActivity<FeeCalculatorViewModel>(R.layout.activity_fee_calculator) {
+    BaseActivity<ActivityFeeCalculatorBinding, FeeCalculatorViewModel>() {
 
     private var fromWhatTab : String? = null
 
@@ -37,16 +38,16 @@ class FeeCalculatorActivity :
         var grossAmountDouble = grossAmountPutExtra.toDouble()
 
 
-        tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
-        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
+        binding.tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
+        binding.tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
+        binding.tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
 
-        btnUB.setOnClickListener { btnUBOnClicked() }
-        btnInstapay.setOnClickListener { btnInstapayOnClicked() }
-        btnCreditDebitCard.setOnClickListener { btnCreditDebitCardOnClicked() }
-        btnEWallet.setOnClickListener { btnEWalletOnClicked() }
-        btnOverTheCounter.setOnClickListener { btnOverTheCounterOnClicked() }
-        btnClose.setOnClickListener { returnToRequestPayment() }
+        binding.btnUB.setOnClickListener { btnUBOnClicked() }
+        binding.btnInstapay.setOnClickListener { btnInstapayOnClicked() }
+        binding.btnCreditDebitCard.setOnClickListener { btnCreditDebitCardOnClicked() }
+        binding.btnEWallet.setOnClickListener { btnEWalletOnClicked() }
+        binding.btnOverTheCounter.setOnClickListener { btnOverTheCounterOnClicked() }
+        binding.btnClose.setOnClickListener { returnToRequestPayment() }
     }
 
     private fun initIntentData(){
@@ -65,65 +66,65 @@ class FeeCalculatorActivity :
         val grossAmountPutExtra = intent.getStringExtra(AMOUNT_VALUE).toString()
         var grossAmountDouble = grossAmountPutExtra.toDouble()
 
-        tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
+        binding.tvGrossAmountFeeCalculator.text = amountFormat.format(grossAmountDouble)
 
         val feeCalculatorValueModel = FeeCalculatorValueModel(0.00)
 
-        if (btnUB.isPressed){
+        if (binding.btnUB.isPressed){
             feeAmount = feeCalculatorValueModel.ubOnlineFee
             netAmount = grossAmountDouble - feeAmount
 
-            btnUB.background = getDrawable(R.drawable.bg_fee_payment_method_active)
-            btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnUB.background = getDrawable(R.drawable.bg_fee_payment_method_active)
+            binding.btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
-        } else if (btnInstapay.isPressed){
+        } else if (binding.btnInstapay.isPressed){
             feeAmount = feeCalculatorValueModel.instapay
             netAmount = grossAmountDouble - feeAmount
 
-            btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnInstapay.background = getDrawable(R.drawable.bg_fee_payment_method_active)
-            btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnInstapay.background = getDrawable(R.drawable.bg_fee_payment_method_active)
+            binding.btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
-        } else if (btnCreditDebitCard.isPressed){
+        } else if (binding.btnCreditDebitCard.isPressed){
             feeAmount = ((grossAmountDouble * (feeCalculatorValueModel.cardPercentageFee/100)) + feeCalculatorValueModel.card)
             netAmount = grossAmountDouble - feeAmount
 
-            btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_payment_method_active)
-            btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_payment_method_active)
+            binding.btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
-        } else if (btnEWallet.isPressed){
+        } else if (binding.btnEWallet.isPressed){
             feeAmount = ((grossAmountDouble * (feeCalculatorValueModel.eWalletPercentageFee/100)) + feeCalculatorValueModel.eWallet)
             netAmount = grossAmountDouble - feeAmount
 
-            btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnEWallet.background = getDrawable(R.drawable.bg_fee_payment_method_active)
-            btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnEWallet.background = getDrawable(R.drawable.bg_fee_payment_method_active)
+            binding.btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
-        } else if (btnOverTheCounter.isPressed){
+        } else if (binding.btnOverTheCounter.isPressed){
             feeAmount = feeCalculatorValueModel.otc
             netAmount = grossAmountDouble - feeAmount
 
-            btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
-            btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_payment_method_active)
+            binding.btnUB.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnCreditDebitCard.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnEWallet.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
+            binding.btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_payment_method_active)
 
         }
 
 
-        tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
-        tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
+        binding.tvNetAmountFeeCalculator.text = amountFormat.format(netAmount)
+        binding.tvFeeAmountFeeCalculator.text = feeFormat.format(feeAmount)
 
     }
 
@@ -170,6 +171,12 @@ class FeeCalculatorActivity :
         const val AMOUNT_VALUE = "VALUE"
         const val FROM_WHAT_TAB = "from_what_tab"
     }
+
+    override val viewModelClassType: Class<FeeCalculatorViewModel>
+        get() = FeeCalculatorViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFeeCalculatorBinding
+        get() = ActivityFeeCalculatorBinding::inflate
 
 
 }

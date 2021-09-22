@@ -2,6 +2,8 @@ package com.unionbankph.corporate.auth.presentation.migration.nominate_password
 
 import android.os.Bundle
 import android.text.Html
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
@@ -22,14 +24,13 @@ import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationError
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationLoading
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationNominatePassword
 import com.unionbankph.corporate.auth.presentation.migration.ShowMigrationSaveECredPayload
+import com.unionbankph.corporate.databinding.FragmentNominatePasswordBinding
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_nominate_password.*
-import kotlinx.android.synthetic.main.widget_password_confirmation.*
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
-class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragment_nominate_password) {
+class NominatePasswordFragment : BaseFragment<FragmentNominatePasswordBinding, MigrationViewModel>() {
 
     private val migrationMainActivity by lazyFast { (activity as MigrationMainActivity) }
 
@@ -37,7 +38,6 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MigrationViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowMigrationLoading -> {
@@ -69,11 +69,11 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        buttonNext.setOnClickListener {
+        binding.buttonNext.setOnClickListener {
             if (migrationMainActivity.getType() == MigrationMainActivity.TYPE_ECREDITING) {
                 viewModel.saveECredPayload(
                     ECredForm(
-                        password = editTextPassword.text.toString()
+                        password = binding.editTextPassword.text.toString()
                             .trim()
                     )
                 )
@@ -81,7 +81,7 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
                 viewModel.nominatePasswordMigration(
                     loginMigrationDto.temporaryCorporateUserId.notNullable(),
                     MigrationNominatePasswordForm(
-                        editTextPassword.text.toString().trim(),
+                        binding.editTextPassword.text.toString().trim(),
                         loginMigrationDto.migrationToken
                     )
                 )
@@ -92,7 +92,7 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
     private fun initEventBus() {
         eventBus.actionSyncEvent.flowable.subscribe {
             if (it.eventType == ActionSyncEvent.ACTION_UPDATE_EMAIL_MIGRATION) {
-                tvPasswordDesc.text = Html.fromHtml(
+                binding.tvPasswordDesc.text = Html.fromHtml(
                     String.format(
                         getString(R.string.param_msg_nominate_password),
                         it.payload!!
@@ -109,12 +109,12 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
             isValueChanged = true,
             minLength = 8,
             maxLength = 30,
-            editText = editTextPassword
+            editText = binding.editTextPassword
         )
 
-        val cPasswordObservable = RxValidator.createFor(editTextConfirmPassword)
+        val cPasswordObservable = RxValidator.createFor(binding.editTextConfirmPassword)
             .nonEmpty(getString(R.string.error_this_field))
-            .sameAs(editTextPassword, getString(R.string.error_compare_password))
+            .sameAs(binding.editTextPassword, getString(R.string.error_compare_password))
             .onValueChanged()
             .toObservable()
             .debounce {
@@ -124,7 +124,7 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
                 )
             }
 
-        val passwordLimitObservable = RxValidator.createFor(editTextPassword)
+        val passwordLimitObservable = RxValidator.createFor(binding.editTextPassword)
             .minLength(8)
             .maxLength(30)
             .onValueChanged()
@@ -136,7 +136,7 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
                 )
             }
 
-        val passwordAlphaObservable = RxValidator.createFor(editTextPassword)
+        val passwordAlphaObservable = RxValidator.createFor(binding.editTextPassword)
             .patternMatches(
                 getString(R.string.error_no_aplha),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_HAS_ALPHA)
@@ -150,7 +150,7 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
                 )
             }
 
-        val passwordNumericObservable = RxValidator.createFor(editTextPassword)
+        val passwordNumericObservable = RxValidator.createFor(binding.editTextPassword)
             .patternMatches(
                 getString(R.string.error_no_number),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_HAS_NUMBER)
@@ -164,7 +164,7 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
                 )
             }
 
-        val passwordSymbolObservable = RxValidator.createFor(editTextPassword)
+        val passwordSymbolObservable = RxValidator.createFor(binding.editTextPassword)
             .patternMatches(
                 getString(R.string.error_no_symbol),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_HAS_SYMBOL)
@@ -193,25 +193,25 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
         passwordLimitObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, image_view_password_1) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword1) }
             .addTo(disposables)
 
         passwordAlphaObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, image_view_password_2) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword2) }
             .addTo(disposables)
 
         passwordNumericObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, image_view_password_3) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword3) }
             .addTo(disposables)
 
         passwordSymbolObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
-            .subscribe { viewUtil.setPasswordConfirmError(it, image_view_password_4) }
+            .subscribe { viewUtil.setPasswordConfirmError(it, binding.viewPasswordConfirmation.imageViewPassword4) }
             .addTo(disposables)
 
         RxCombineValidator(
@@ -227,7 +227,7 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                buttonNext.enableButton(it)
+                binding.buttonNext.enableButton(it)
             }.addTo(disposables)
     }
 
@@ -246,4 +246,10 @@ class NominatePasswordFragment : BaseFragment<MigrationViewModel>(R.layout.fragm
             return fragment
         }
     }
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNominatePasswordBinding
+        get() = FragmentNominatePasswordBinding::inflate
 }

@@ -31,7 +31,7 @@ class EBillingGenerateViewModel
     val qrCodeFile: LiveData<File> get() = _shareEBilling
 
     fun parseEBillingForm(eBillingForm: EBillingForm?) {
-        _eBillingForm.value = eBillingForm
+        _eBillingForm.value = eBillingForm!!
     }
 
     fun generateQRCode(qrCode: String) {

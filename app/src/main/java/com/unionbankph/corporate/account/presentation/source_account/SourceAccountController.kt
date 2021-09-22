@@ -18,7 +18,7 @@ import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import kotlinx.android.synthetic.main.item_source_account.view.*
+import com.unionbankph.corporate.databinding.ItemSourceAccountBinding
 
 class SourceAccountController
 constructor(
@@ -31,6 +31,7 @@ constructor(
 
     @AutoModel
     lateinit var errorAccountFooterModel: ErrorAccountFooterModel_
+
 
     private lateinit var accountAdapterCallback: AccountAdapterCallback
 
@@ -47,9 +48,9 @@ constructor(
                 position(index)
                 accountString(JsonHelper.toJson(account))
                 hasSelected(account.isSelected)
-                callbacks(accountAdapterCallback)
-                viewUtil(viewUtil)
-                context(context)
+                callbacks(this@SourceAccountController.accountAdapterCallback)
+                viewUtil(this@SourceAccountController.viewUtil)
+                context(this@SourceAccountController.context)
             }
         }
 
@@ -96,7 +97,7 @@ abstract class SourceAccountItemModel : EpoxyModelWithHolder<SourceAccountItemMo
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             account.isSelected = hasSelected
             if (account.isViewableCheckBox) {
                 checkBoxSourceAccount.isChecked = hasSelected
@@ -126,16 +127,10 @@ abstract class SourceAccountItemModel : EpoxyModelWithHolder<SourceAccountItemMo
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutSourceAccount: ConstraintLayout
-        lateinit var checkBoxSourceAccount: CheckBox
-        lateinit var textViewAccountName: TextView
-        lateinit var textViewAccountNumber: TextView
+        lateinit var binding: ItemSourceAccountBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutSourceAccount = itemView.constraintLayoutSourceAccount
-            checkBoxSourceAccount = itemView.checkBoxSourceAccount
-            textViewAccountName = itemView.textViewAccountName
-            textViewAccountNumber = itemView.textViewAccountNumber
+            binding = ItemSourceAccountBinding.bind(itemView)
         }
     }
 }

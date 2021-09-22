@@ -21,17 +21,10 @@ import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_yes_accept_card_payments.viewToolbar
-import kotlinx.android.synthetic.main.activity_yes_accept_card_payments.*
-import kotlinx.android.synthetic.main.fragment_dao_company_information_step_2.*
-import kotlinx.android.synthetic.main.layout_on_added_affiliation.*
-import kotlinx.android.synthetic.main.layout_on_added_affiliation.view.*
-import kotlinx.android.synthetic.main.spinner_card_payments_affiliation_1.*
-import kotlinx.android.synthetic.main.spinner_card_payments_affiliation_1.view.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.*
+import com.unionbankph.corporate.databinding.ActivityYesAcceptCardPaymentsBinding
 
-class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewModel>(R.layout.activity_yes_accept_card_payments) {
+class YesAcceptCardPaymentsActivity : BaseActivity<ActivityYesAcceptCardPaymentsBinding,YesAcceptCardPaymentsViewModel>() {
 
     var counter = 0
     var affiliationCounter = 0
@@ -39,7 +32,7 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorSMEMediumOrange, true)
     }
 
@@ -56,12 +49,6 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
     override fun onViewModelBound() {
         super.onViewModelBound()
 
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[YesAcceptCardPaymentsViewModel::class.java]
-
     }
 
     override fun onInitializeListener() {
@@ -77,15 +64,15 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
 
         addAffiliation()
 
-        viewModel.dateOfIncorporationInput
-            .subscribe {
-                tie_date_of_incorporation.setText(
-                    viewUtil.getDateFormatByCalendar(
-                        it,
-                        DateFormatEnum.DATE_FORMAT_DATE.value
-                    )
-                )
-            }.addTo(disposables)
+//        viewModel.dateOfIncorporationInput
+//            .subscribe {
+//                tie_date_of_incorporation.setText(
+//                    viewUtil.getDateFormatByCalendar(
+//                        it,
+//                        DateFormatEnum.DATE_FORMAT_DATE.value
+//                    )
+//                )
+//            }.addTo(disposables)
 
     }
 
@@ -121,8 +108,8 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
     private fun addAffiliation(){
         var addAffiliationFields: View
         val container: LinearLayout = findViewById(R.id.llAddedAffiliations)
-        toggleAffiliation.text = "Affiliation $fieldCount"
-        toggleAffiliation.setOnClickListener {
+        binding.toggleAffiliation.text = "Affiliation $fieldCount"
+        binding.toggleAffiliation.setOnClickListener {
             val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             addAffiliationFields = layoutInflater.inflate(R.layout.layout_on_added_affiliation, null)
             container.addView(addAffiliationFields, container.childCount)
@@ -130,46 +117,46 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
             fieldCount++
             affiliationCounter++
 
-            toggleAffiliation.text = "Affiliation $fieldCount"
-            addAffiliationFields.btnAffiliation.text = "Affiliation $affiliationCounter"
-
-            val index = container.indexOfChild(addAffiliationFields)
-
-                btnAffiliation.setOnClickListener {
-
-                    var uniqueId = container.id
-                    counter++
-                    val checker = counter % 2
-                    if (checker == 1){
-                        addAffiliationFields.showAffiliationLayout.visibility = View.VISIBLE
-                        addAffiliationFields.rlAffiliation.setBackgroundResource(R.drawable.bg_transparent_orange_border_radius_8dp)
-                        addAffiliationFields.tie_date_of_issue.setOnClickListener {
-                            showDatePicker(
-                                minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
-                                maxDate = Calendar.getInstance(),
-                                callback = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                                    viewModel.dateOfIncorporationInput.onNext(
-                                        Calendar.getInstance().apply {
-                                            set(year, monthOfYear, dayOfMonth)
-                                        }
-                                    )
-                                }
-                            )
-                        }
-
-                    } else if (checker == 0){
-                        addAffiliationFields.showAffiliationLayout.visibility = View.GONE
-                        addAffiliationFields.rlAffiliation.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    }
-
-            }
-
-            val affiliationCount = container.childCount
-
-            if (affiliationCount == 9){
-                toggleAffiliation.visibility = View.GONE
-            }
-
+            binding.toggleAffiliation.text = "Affiliation $fieldCount"
+//            addAffiliationFields.btnAffiliation.text = "Affiliation $affiliationCounter"
+//
+//            val index = container.indexOfChild(addAffiliationFields)
+//
+//                btnAffiliation.setOnClickListener {
+//
+//                    var uniqueId = container.id
+//                    counter++
+//                    val checker = counter % 2
+//                    if (checker == 1){
+//                        addAffiliationFields.showAffiliationLayout.visibility = View.VISIBLE
+//                        addAffiliationFields.rlAffiliation.setBackgroundResource(R.drawable.bg_transparent_orange_border_radius_8dp)
+//                        addAffiliationFields.tie_date_of_issue.setOnClickListener {
+//                            showDatePicker(
+//                                minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
+//                                maxDate = Calendar.getInstance(),
+//                                callback = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+//                                    viewModel.dateOfIncorporationInput.onNext(
+//                                        Calendar.getInstance().apply {
+//                                            set(year, monthOfYear, dayOfMonth)
+//                                        }
+//                                    )
+//                                }
+//                            )
+//                        }
+//
+//                    } else if (checker == 0){
+//                        addAffiliationFields.showAffiliationLayout.visibility = View.GONE
+//                        addAffiliationFields.rlAffiliation.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//                    }
+//
+//            }
+//
+//            val affiliationCount = container.childCount
+//
+//            if (affiliationCount == 9){
+//                toggleAffiliation.visibility = View.GONE
+//            }
+//
 
         }
 
@@ -185,15 +172,15 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
 //                }
 //            }
 //        )
-        btnAffiliation.setOnClickListener {
-            if (affiliation.visibility == View.GONE){
-//                expand(relativeLayout)
-                affiliation.visibility = View.VISIBLE
-            } else {
-//                collapse(relativeLayout)
-                affiliation.visibility = View.GONE
-            }
-        }
+//        btnAffiliation.setOnClickListener {
+//            if (affiliation.visibility == View.GONE){
+////                expand(relativeLayout)
+//                affiliation.visibility = View.VISIBLE
+//            } else {
+////                collapse(relativeLayout)
+//                affiliation.visibility = View.GONE
+//            }
+//        }
     }
 
     private fun expand(layout: RelativeLayout){
@@ -205,16 +192,16 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
     }
 
     private fun buttonNextEnable(){
-        btnNext.isEnabled = true
-        btnNext.setBackgroundResource(R.drawable.bg_gradient_orange_radius4)
-        btnNext.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnNext.isEnabled = true
+        binding.btnNext.setBackgroundResource(R.drawable.bg_gradient_orange_radius4)
+        binding.btnNext.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
         navigateToUploadDocuments()
     }
 
     private fun buttonNextDisable(){
-        btnNext.isEnabled = false
-        btnNext.setBackgroundResource(R.drawable.bg_gray_radius4_width1)
-        btnNext.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorBlack10))
+        binding.btnNext.isEnabled = false
+        binding.btnNext.setBackgroundResource(R.drawable.bg_gray_radius4_width1)
+        binding.btnNext.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorBlack10))
     }
 
     fun checkedNoAffiliation(view: View) {
@@ -236,10 +223,15 @@ class YesAcceptCardPaymentsActivity : BaseActivity<YesAcceptCardPaymentsViewMode
     }
 
     private fun navigateToUploadDocuments(){
-        btnNext.setOnClickListener {
+        binding.btnNext.setOnClickListener {
             val intent = Intent(this, CardAcceptanceUploadDocumentsActivity::class.java)
             startActivity(intent)
         }
 
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityYesAcceptCardPaymentsBinding
+        get() = ActivityYesAcceptCardPaymentsBinding::inflate
+    override val viewModelClassType: Class<YesAcceptCardPaymentsViewModel>
+        get() = YesAcceptCardPaymentsViewModel::class.java
 }

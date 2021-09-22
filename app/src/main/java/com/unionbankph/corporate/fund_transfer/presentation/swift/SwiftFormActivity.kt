@@ -47,6 +47,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTu
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.corporate.data.model.Channel
+import com.unionbankph.corporate.databinding.ActivityFundTransferFormSwiftBinding
 import com.unionbankph.corporate.fund_transfer.data.form.FundTransferSwiftForm
 import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
 import com.unionbankph.corporate.fund_transfer.data.model.Purpose
@@ -55,18 +56,11 @@ import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selectio
 import com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer.ProposedTransferDateActivity
 import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_fund_transfer_form_swift.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_edit_text_proposed_date.*
-import kotlinx.android.synthetic.main.widget_edit_text_purpose.*
-import kotlinx.android.synthetic.main.widget_edit_text_swift_receiving_bank.*
-import kotlinx.android.synthetic.main.widget_edit_text_transfer_to.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.regex.Pattern
 import javax.annotation.concurrent.ThreadSafe
 
 class SwiftFormActivity :
-    BaseActivity<SwiftViewModel>(R.layout.activity_fund_transfer_form_swift),
+    BaseActivity<ActivityFundTransferFormSwiftBinding, SwiftViewModel>(),
     View.OnClickListener,
     OnTutorialListener,
     OnConfirmationPageCallBack,
@@ -100,7 +94,7 @@ class SwiftFormActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
@@ -135,8 +129,8 @@ class SwiftFormActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         formatString(R.string.title_swift),
                         it.orgName
                     )
@@ -147,7 +141,6 @@ class SwiftFormActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[SwiftViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowSwiftLoading -> {
@@ -188,7 +181,7 @@ class SwiftFormActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        et_amount.setEnableAmount(false)
+        binding.etAmount.setEnableAmount(false)
         initChannelView(channel)
         tutorialEngineUtil.setOnTutorialListener(this)
     }
@@ -220,7 +213,7 @@ class SwiftFormActivity :
             }
             R.id.menu_help -> {
                 isClickedHelpTutorial = true
-                scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                 Handler().postDelayed(
                     {
                         startViewTutorial()
@@ -239,21 +232,21 @@ class SwiftFormActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        textInputEditTextTransferFrom.setOnClickListener(this)
-        textInputEditTextReceivingBank.setOnClickListener(this)
-        textInputEditTextPurpose.setOnClickListener(this)
-        imageViewBeneficiaryClose.setOnClickListener(this)
-        constraintLayoutProposedTransactionDate.setOnClickListener(this)
-        imageViewSelectedProposedTransactionDate.setOnClickListener(this)
+        binding.textInputEditTextTransferFrom.setOnClickListener(this)
+        binding.viewReceivingBankForm.textInputEditTextReceivingBank.setOnClickListener(this)
+        binding.viewPurpose.textInputEditTextPurpose.setOnClickListener(this)
+        binding.viewReceivingBankForm.imageViewBeneficiaryClose.setOnClickListener(this)
+        binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.setOnClickListener(this)
+        binding.viewProposedTransactionDate.imageViewSelectedProposedTransactionDate.setOnClickListener(this)
 
         imeOptionEditText =
             ImeOptionEditText()
         imeOptionEditText.addEditText(
-            textInputEditTextTransferTo,
-            textInputEditTextAccountNumber,
-            textInputEditTextBeneficiaryAddress,
-            et_amount,
-            textInputEditTextRemarks
+            binding.viewTransferToForm.textInputEditTextTransferTo,
+            binding.textInputEditTextAccountNumber,
+            binding.textInputEditTextBeneficiaryAddress,
+            binding.etAmount,
+            binding.textInputEditTextRemarks
         )
         imeOptionEditText.setOnImeOptionListener(this)
         imeOptionEditText.startListener()
@@ -330,11 +323,11 @@ class SwiftFormActivity :
             selectedAccount = it
             permissionCollection = it.permissionCollection
             isEnableButton = true
-            et_amount.setCurrencySymbol(it.currency.notNullable(), true)
-            textInputEditTextTransferTo.text?.clear()
-            textInputEditTextAccountNumber.text?.clear()
-            textInputEditTextBeneficiaryAddress.text?.clear()
-            textInputEditTextTransferFrom.setText(
+            binding.etAmount.setCurrencySymbol(it.currency.notNullable(), true)
+            binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
+            binding.textInputEditTextAccountNumber.text?.clear()
+            binding.textInputEditTextBeneficiaryAddress.text?.clear()
+            binding.textInputEditTextTransferFrom.setText(
                 (it.name + "\n" + it.accountNumber.formatAccountNumber())
             )
             invalidateOptionsMenu()
@@ -344,43 +337,43 @@ class SwiftFormActivity :
 
     private fun showReceivingBank(it: BaseEvent<String>) {
         swiftBank = JsonHelper.fromJson(it.payload)
-        textInputEditTextReceivingBank.setText(swiftBank?.bankName)
-        textViewSwiftCode.text = viewUtil.getStringOrEmpty(swiftBank?.swiftBicCode)
-        textViewReceivingBank.text = viewUtil.getStringOrEmpty(swiftBank?.bankName)
-        textViewBankAddress.text = swiftBank?.let {
+        binding.viewReceivingBankForm.textInputEditTextReceivingBank.setText(swiftBank?.bankName)
+        binding.viewReceivingBankForm.textViewSwiftCode.text = viewUtil.getStringOrEmpty(swiftBank?.swiftBicCode)
+        binding.viewReceivingBankForm.textViewReceivingBank.text = viewUtil.getStringOrEmpty(swiftBank?.bankName)
+        binding.viewReceivingBankForm.textViewBankAddress.text = swiftBank?.let {
             if (it.address1 == null && it.address2 == null) {
                 Constant.EMPTY
             } else {
                 it.address1.notNullable() + it.address2.notNullable()
             }
         }
-        textViewCountry.text = swiftBank?.country
+        binding.viewReceivingBankForm.textViewCountry.text = swiftBank?.country
         showReceivingBank(true)
     }
 
     private fun showBeneficiaryDetails(it: BaseEvent<String>) {
         beneficiaryMaster = JsonHelper.fromJson(it.payload)
-        textInputEditTextTransferTo.setText(beneficiaryMaster?.name)
-        textInputEditTextAccountNumber.setText(beneficiaryMaster?.accountNumber)
-        textInputEditTextReceivingBank.setText(beneficiaryMaster?.swiftBankDetails?.bankName)
-        textInputEditTextBeneficiaryAddress.setText(beneficiaryMaster?.address)
-        textViewBeneficiaryCode.text = viewUtil.getStringOrEmpty(beneficiaryMaster?.code)
-        textViewBeneficiaryName.text = viewUtil.getStringOrEmpty(beneficiaryMaster?.name)
-        textViewAccountNumber.text = beneficiaryMaster?.accountNumber.formatAccountNumber()
-        textViewBeneficiaryAddress.text =
+        binding.viewTransferToForm.textInputEditTextTransferTo.setText(beneficiaryMaster?.name)
+        binding.textInputEditTextAccountNumber.setText(beneficiaryMaster?.accountNumber)
+        binding.viewReceivingBankForm.textInputEditTextReceivingBank.setText(beneficiaryMaster?.swiftBankDetails?.bankName)
+        binding.textInputEditTextBeneficiaryAddress.setText(beneficiaryMaster?.address)
+        binding.viewReceivingBankForm.textViewBeneficiaryCode.text = viewUtil.getStringOrEmpty(beneficiaryMaster?.code)
+        binding.viewReceivingBankForm.textViewBeneficiaryName.text = viewUtil.getStringOrEmpty(beneficiaryMaster?.name)
+        binding.viewReceivingBankForm.textViewAccountNumber.text = beneficiaryMaster?.accountNumber.formatAccountNumber()
+        binding.viewReceivingBankForm.textViewBeneficiaryAddress.text =
             viewUtil.getStringOrEmpty(beneficiaryMaster?.address)
-        textViewSwiftCode.text =
+        binding.viewReceivingBankForm.textViewSwiftCode.text =
             viewUtil.getStringOrEmpty(beneficiaryMaster?.swiftBankDetails?.swiftBicCode)
-        textViewReceivingBank.text =
+        binding.viewReceivingBankForm.textViewReceivingBank.text =
             viewUtil.getStringOrEmpty(beneficiaryMaster?.swiftBankDetails?.bankName)
-        textViewBankAddress.text = beneficiaryMaster?.swiftBankDetails?.let {
+        binding.viewReceivingBankForm.textViewBankAddress.text = beneficiaryMaster?.swiftBankDetails?.let {
             if (it.address1 == null && it.address2 == null) {
                 Constant.EMPTY
             } else {
                 it.address1.notNullable() + it.address2.notNullable()
             }
         }
-        textViewCountry.text =
+        binding.viewReceivingBankForm.textViewCountry.text =
             viewUtil.getStringOrEmpty(beneficiaryMaster?.swiftBankDetails?.country)
         swiftBank = null
         showBeneficiaryMasterField(true)
@@ -444,14 +437,14 @@ class SwiftFormActivity :
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
             setDefaultViewTutorial(false)
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.field_radius)
             when (view) {
-                viewTutorialTransferFrom -> {
+                binding.viewTutorialTransferFrom -> {
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialTransferTo,
+                        binding.viewTutorialTransferTo,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -460,10 +453,10 @@ class SwiftFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialTransferTo -> {
+                binding.viewTutorialTransferTo -> {
                     tutorialEngineUtil.startTutorial(
                         this,
-                        textInputLayoutAccountNumber,
+                        binding.textInputLayoutAccountNumber,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -472,11 +465,11 @@ class SwiftFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                textInputLayoutAccountNumber -> {
-                    viewUtil.setFocusOnView(scrollView, textInputLayoutBeneficiaryAddress)
+                binding.textInputLayoutAccountNumber -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.textInputLayoutBeneficiaryAddress)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        textInputLayoutBeneficiaryAddress,
+                        binding.textInputLayoutBeneficiaryAddress,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -485,11 +478,11 @@ class SwiftFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                textInputLayoutBeneficiaryAddress -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialReceiving)
+                binding.textInputLayoutBeneficiaryAddress -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialReceiving)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialReceiving,
+                        binding.viewTutorialReceiving,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -498,11 +491,11 @@ class SwiftFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialReceiving -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialAmount)
+                binding.viewTutorialReceiving -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialAmount)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialAmount,
+                        binding.viewTutorialAmount,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -511,11 +504,11 @@ class SwiftFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialAmount -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialProposedTransactionDate)
+                binding.viewTutorialAmount -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialProposedTransactionDate)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialProposedTransactionDate,
+                        binding.viewTutorialProposedTransactionDate,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -524,11 +517,11 @@ class SwiftFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialProposedTransactionDate -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialPurpose)
+                binding.viewTutorialProposedTransactionDate -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialPurpose)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialPurpose,
+                        binding.viewTutorialPurpose,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -537,11 +530,11 @@ class SwiftFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialPurpose -> {
-                    viewUtil.setFocusOnView(scrollView, viewTutorialRemarks)
+                binding.viewTutorialPurpose -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialRemarks)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        viewTutorialRemarks,
+                        binding.viewTutorialRemarks,
                         R.layout.frame_tutorial_lower_left,
                         radius,
                         false,
@@ -550,7 +543,7 @@ class SwiftFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                viewTutorialRemarks -> {
+                binding.viewTutorialRemarks -> {
                     val buttonRadius = resources.getDimension(R.dimen.button_radius)
                     tutorialEngineUtil.startTutorial(
                         this,
@@ -565,7 +558,7 @@ class SwiftFormActivity :
                 }
                 else -> {
                     setDefaultViewTutorial(false)
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                     // tutorialViewModel.setTutorial(TutorialScreenEnum.SWIFT_FORM, false)
                 }
             }
@@ -581,58 +574,58 @@ class SwiftFormActivity :
 
     private fun setDefaultProposedDate(isShown: Boolean) {
         if (isShown && proposedTransferDate != null) {
-            textInputLayoutProposedTransactionDate.visibility = View.GONE
-            viewBorderProposedTransactionDate.visibility = View.GONE
-            imageViewProposedTransactionDate.visibility = View.GONE
-            constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
             if (proposedTransferDate?.frequency == getString(R.string.title_one_time)) {
-                textViewEndDateTitle.visibility = View.GONE
-                textViewEndDate.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.GONE
             } else {
-                textViewEndDateTitle.visibility = View.VISIBLE
-                textViewEndDate.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.VISIBLE
             }
         } else {
-            textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
-            textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
-            viewBorderProposedTransactionDate.visibility = View.VISIBLE
-            imageViewProposedTransactionDate.visibility = View.VISIBLE
-            constraintLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.GONE
         }
     }
 
     private fun setDefaultViewTutorial(isShown: Boolean) {
         if (!isShown && beneficiaryMaster != null) {
-            constraintLayoutBeneficiary.visibility = View.VISIBLE
-            textInputLayoutTransferTo.visibility = View.GONE
-            viewBorderTransferTo.visibility = View.GONE
-            imageViewTransferTo.visibility = View.GONE
-            textInputLayoutAccountNumber.visibility = View.GONE
-            textInputLayoutBeneficiaryAddress.visibility = View.GONE
-            textInputLayoutReceivingBank.visibility = View.GONE
-            textViewBeneficiaryCodeTitle.visibility = View.VISIBLE
-            textViewBeneficiaryCode.visibility = View.VISIBLE
-            textViewBeneficiaryNameTitle.visibility = View.VISIBLE
-            textViewBeneficiaryName.visibility = View.VISIBLE
-            textViewAccountNumberTitle.visibility = View.VISIBLE
-            textViewAccountNumber.visibility = View.VISIBLE
-            textViewBeneficiaryAddressTitle.visibility = View.VISIBLE
-            textViewBeneficiaryAddress.visibility = View.VISIBLE
-            textViewCountryTitle.visibility = View.VISIBLE
-            textViewCountry.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.VISIBLE
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.viewBorderTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.GONE
+            binding.textInputLayoutAccountNumber.visibility = View.GONE
+            binding.textInputLayoutBeneficiaryAddress.visibility = View.GONE
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewBeneficiaryCodeTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryCode.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryNameTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryName.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewAccountNumberTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewAccountNumber.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryAddressTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryAddress.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewCountryTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewCountry.visibility = View.VISIBLE
         } else {
             if (swiftBank != null) {
-                textInputLayoutReceivingBank.visibility = View.GONE
-                constraintLayoutBeneficiary.visibility = View.VISIBLE
+                binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.GONE
+                binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.VISIBLE
             } else {
-                textInputLayoutReceivingBank.visibility = View.VISIBLE
-                constraintLayoutBeneficiary.visibility = View.GONE
+                binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.VISIBLE
+                binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.GONE
             }
-            textInputLayoutTransferTo.visibility = View.VISIBLE
-            viewBorderTransferTo.visibility = View.VISIBLE
-            imageViewTransferTo.visibility = View.VISIBLE
-            textInputLayoutAccountNumber.visibility = View.VISIBLE
-            textInputLayoutBeneficiaryAddress.visibility = View.VISIBLE
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.viewBorderTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.VISIBLE
+            binding.textInputLayoutAccountNumber.visibility = View.VISIBLE
+            binding.textInputLayoutBeneficiaryAddress.visibility = View.VISIBLE
         }
         setDefaultProposedDate(!isShown)
     }
@@ -650,13 +643,13 @@ class SwiftFormActivity :
                 selection = { _, index, text ->
                     purpose = purposes[index]
                     if (purpose?.description.equals("Others", true)) {
-                        this@SwiftFormActivity.textInputLayoutLeavePurpose.visibility = View.VISIBLE
-                        this@SwiftFormActivity.textInputEditTextLeavePurpose.text?.clear()
+                        this@SwiftFormActivity.binding.viewPurpose.textInputLayoutLeavePurpose.visibility = View.VISIBLE
+                        this@SwiftFormActivity.binding.viewPurpose.textInputEditTextLeavePurpose.text?.clear()
                     } else {
-                        this@SwiftFormActivity.textInputLayoutLeavePurpose.visibility = View.GONE
-                        this@SwiftFormActivity.textInputEditTextLeavePurpose.setText("-")
+                        this@SwiftFormActivity.binding.viewPurpose.textInputLayoutLeavePurpose.visibility = View.GONE
+                        this@SwiftFormActivity.binding.viewPurpose.textInputEditTextLeavePurpose.setText("-")
                     }
-                    this@SwiftFormActivity.textInputEditTextPurpose.setText(text.toString())
+                    this@SwiftFormActivity.binding.viewPurpose.textInputEditTextPurpose.setText(text.toString())
                 })
         }
     }
@@ -667,14 +660,14 @@ class SwiftFormActivity :
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextTransferFrom
+            binding.textInputEditTextTransferFrom
         )
         val transferToObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextTransferTo
+            binding.viewTransferToForm.textInputEditTextTransferTo
         )
         val accountNumberObservable =
             viewUtil.rxTextChanges(
@@ -682,7 +675,7 @@ class SwiftFormActivity :
                 isValueChanged,
                 resources.getInteger(R.integer.min_length_account_number),
                 resources.getInteger(R.integer.max_length_field_100),
-                textInputEditTextAccountNumber,
+                binding.textInputEditTextAccountNumber,
                 customErrorMessage = formatString(
                     R.string.error_validation_custom_min_length,
                     formatString(R.string.title_account_number),
@@ -695,7 +688,7 @@ class SwiftFormActivity :
                 isValueChanged,
                 resources.getInteger(R.integer.min_length_field),
                 resources.getInteger(R.integer.max_length_field_100),
-                textInputEditTextBeneficiaryAddress
+                binding.textInputEditTextBeneficiaryAddress
             )
         val receivingBankObservable =
             viewUtil.rxTextChanges(
@@ -703,12 +696,12 @@ class SwiftFormActivity :
                 isValueChanged,
                 resources.getInteger(R.integer.min_length_field),
                 resources.getInteger(R.integer.max_length_field_100),
-                textInputEditTextReceivingBank
+                binding.viewReceivingBankForm.textInputEditTextReceivingBank
             )
         val amountObservable = viewUtil.rxTextChangesAmount(
             true,
             isValueChanged,
-            et_amount,
+            binding.etAmount,
             RxValidator.PatternMatch(
                 formatString(R.string.error_input_valid_amount),
                 Pattern.compile(ViewUtil.REGEX_FORMAT_VALID_AMOUNT)
@@ -728,7 +721,7 @@ class SwiftFormActivity :
                 isValueChanged,
                 resources.getInteger(R.integer.min_length_field),
                 resources.getInteger(R.integer.max_length_field_100),
-                textInputEditTextPurpose
+                binding.viewPurpose.textInputEditTextPurpose
             )
 
         val leavePurposeOservable =
@@ -737,7 +730,7 @@ class SwiftFormActivity :
                 isValueChanged,
                 resources.getInteger(R.integer.min_length_field),
                 resources.getInteger(R.integer.max_length_field_100),
-                textInputEditTextLeavePurpose
+                binding.viewPurpose.textInputEditTextLeavePurpose
             )
 
         initSetError(transferFromObservable)
@@ -783,116 +776,132 @@ class SwiftFormActivity :
     }
 
     private fun initEditTextDefaultValue() {
-        if (textInputEditTextTransferFrom.length() != 0) {
-            textInputEditTextTransferFrom.setText(textInputEditTextTransferFrom.text.toString())
+        if (binding.textInputEditTextTransferFrom.length() != 0) {
+            binding.textInputEditTextTransferFrom.setText(
+                binding.textInputEditTextTransferFrom.text.toString()
+            )
         }
-        if (textInputEditTextTransferTo.length() != 0) {
-            textInputEditTextTransferTo.setText(textInputEditTextTransferTo.text.toString())
+        if (binding.viewTransferToForm.textInputEditTextTransferTo.length() != 0) {
+            binding.viewTransferToForm.textInputEditTextTransferTo.setText(
+                binding.viewTransferToForm.textInputEditTextTransferTo.text.toString()
+            )
         }
-        if (textInputEditTextAccountNumber.length() != 0) {
-            textInputEditTextAccountNumber.setText(textInputEditTextAccountNumber.text.toString())
+        if (binding.textInputEditTextAccountNumber.length() != 0) {
+            binding.textInputEditTextAccountNumber.setText(
+                binding.textInputEditTextAccountNumber.text.toString()
+            )
         }
-        if (textInputEditTextBeneficiaryAddress.length() != 0) {
-            textInputEditTextBeneficiaryAddress.setText(textInputEditTextBeneficiaryAddress.text.toString())
+        if (binding.textInputEditTextBeneficiaryAddress.length() != 0) {
+            binding.textInputEditTextBeneficiaryAddress.setText(
+                binding.textInputEditTextBeneficiaryAddress.text.toString()
+            )
         }
-        if (textInputEditTextReceivingBank.length() != 0) {
-            textInputEditTextReceivingBank.setText(textInputEditTextReceivingBank.text.toString())
+        if (binding.viewReceivingBankForm.textInputEditTextReceivingBank.length() != 0) {
+            binding.viewReceivingBankForm. textInputEditTextReceivingBank.setText(
+                binding.viewReceivingBankForm.textInputEditTextReceivingBank.text.toString()
+            )
         }
-        if (et_amount.length() != 0) {
-            et_amount.setText(et_amount.text.toString())
+        if (binding.etAmount.length() != 0) {
+            binding.etAmount.setText(
+                binding.etAmount.text.toString()
+            )
         }
-        if (textInputEditTextPurpose.length() != 0) {
-            textInputEditTextPurpose.setText(textInputEditTextPurpose.text.toString())
+        if (binding.viewPurpose.textInputEditTextPurpose.length() != 0) {
+            binding.viewPurpose.textInputEditTextPurpose.setText(
+                binding.viewPurpose.textInputEditTextPurpose.text.toString()
+            )
         }
-        if (textInputEditTextLeavePurpose.length() != 0) {
-            textInputEditTextLeavePurpose.setText(textInputEditTextLeavePurpose.text.toString())
+        if (binding.viewPurpose.textInputEditTextLeavePurpose.length() != 0) {
+            binding.viewPurpose.textInputEditTextLeavePurpose.setText(
+                binding.viewPurpose.textInputEditTextLeavePurpose.text.toString()
+            )
         }
     }
 
     private fun showBeneficiaryMasterField(isShown: Boolean) {
         if (isShown) {
-            constraintLayoutBeneficiary.visibility = View.VISIBLE
-            textInputLayoutTransferTo.visibility = View.GONE
-            viewBorderTransferTo.visibility = View.GONE
-            imageViewTransferTo.visibility = View.GONE
-            textInputLayoutAccountNumber.visibility = View.GONE
-            textInputLayoutBeneficiaryAddress.visibility = View.GONE
-            textInputLayoutReceivingBank.visibility = View.GONE
-            textViewBeneficiaryCodeTitle.visibility = View.VISIBLE
-            textViewBeneficiaryCode.visibility = View.VISIBLE
-            textViewBeneficiaryNameTitle.visibility = View.VISIBLE
-            textViewBeneficiaryName.visibility = View.VISIBLE
-            textViewAccountNumberTitle.visibility = View.VISIBLE
-            textViewAccountNumber.visibility = View.VISIBLE
-            textViewBeneficiaryAddressTitle.visibility = View.VISIBLE
-            textViewBeneficiaryAddress.visibility = View.VISIBLE
-            textViewCountryTitle.visibility = View.VISIBLE
-            textViewCountry.visibility = View.VISIBLE
-            constraintLayoutBeneficiary.setOnClickListener {
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.VISIBLE
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.viewBorderTransferTo.visibility = View.GONE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.GONE
+            binding.textInputLayoutAccountNumber.visibility = View.GONE
+            binding.textInputLayoutBeneficiaryAddress.visibility = View.GONE
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewBeneficiaryCodeTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryCode.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryNameTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryName.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewAccountNumberTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewAccountNumber.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryAddressTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryAddress.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewCountryTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewCountry.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.setOnClickListener {
                 navigateToBeneficiaryScreen()
             }
         } else {
             this.beneficiaryMaster = null
             this.swiftBank = null
-            textInputEditTextTransferTo.text?.clear()
-            textInputEditTextAccountNumber.text?.clear()
-            textInputEditTextBeneficiaryAddress.text?.clear()
-            textInputEditTextReceivingBank.text?.clear()
-            textInputLayoutTransferTo.visibility = View.VISIBLE
-            viewBorderTransferTo.visibility = View.VISIBLE
-            imageViewTransferTo.visibility = View.VISIBLE
-            textInputLayoutAccountNumber.visibility = View.VISIBLE
-            textInputLayoutBeneficiaryAddress.visibility = View.VISIBLE
-            textInputLayoutReceivingBank.visibility = View.VISIBLE
-            constraintLayoutBeneficiary.visibility = View.GONE
+            binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
+            binding.textInputEditTextAccountNumber.text?.clear()
+            binding.textInputEditTextBeneficiaryAddress.text?.clear()
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.text?.clear()
+            binding.viewTransferToForm.textInputLayoutTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.viewBorderTransferTo.visibility = View.VISIBLE
+            binding.viewTransferToForm.imageViewTransferTo.visibility = View.VISIBLE
+            binding.textInputLayoutAccountNumber.visibility = View.VISIBLE
+            binding.textInputLayoutBeneficiaryAddress.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.GONE
         }
     }
 
     private fun showProposedTransferDate(isShown: Boolean) {
         if (isShown) {
-            textInputLayoutProposedTransactionDate.visibility = View.GONE
-            viewBorderProposedTransactionDate.visibility = View.GONE
-            imageViewProposedTransactionDate.visibility = View.GONE
-            constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.VISIBLE
             if (proposedTransferDate?.frequency == getString(R.string.title_one_time)) {
-                textViewEndDateTitle.visibility = View.GONE
-                textViewEndDate.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.GONE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.GONE
             } else {
-                textViewEndDateTitle.visibility = View.VISIBLE
-                textViewEndDate.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDateTitle.visibility = View.VISIBLE
+                binding.viewProposedTransactionDate.textViewEndDate.visibility = View.VISIBLE
             }
-            textViewStartDate.text =
+            binding.viewProposedTransactionDate.textViewStartDate.text =
                 viewUtil.getDateFormatByDateString(
                     proposedTransferDate?.startDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DEFAULT
                 )
-            textViewFrequency.text = proposedTransferDate?.frequency
+            binding.viewProposedTransactionDate.textViewFrequency.text = proposedTransferDate?.frequency
             if (proposedTransferDate?.endDate != null) {
                 val endDateDesc = viewUtil.getDateFormatByDateString(
                     proposedTransferDate?.endDate,
                     ViewUtil.DATE_FORMAT_ISO,
                     ViewUtil.DATE_FORMAT_DATE
                 )
-                textViewEndDate.text =
+                binding.viewProposedTransactionDate.textViewEndDate.text =
                     ("${proposedTransferDate?.occurrencesText}\n(Until $endDateDesc)")
             } else {
-                textViewEndDate.text = proposedTransferDate?.occurrencesText
+                binding.viewProposedTransactionDate.textViewEndDate.text = proposedTransferDate?.occurrencesText
             }
         } else {
-            textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
-            textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
-            viewBorderProposedTransactionDate.visibility = View.VISIBLE
-            imageViewProposedTransactionDate.visibility = View.VISIBLE
-            constraintLayoutProposedTransactionDate.visibility = View.GONE
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setText(R.string.title_immediately)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.viewBorderProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.visibility = View.VISIBLE
+            binding.viewProposedTransactionDate.constraintLayoutProposedTransactionDate.visibility = View.GONE
         }
     }
 
     private fun showReceivingBank(isShown: Boolean) {
         val constraintLayoutBeneficiaryParams =
-            constraintLayoutBeneficiary.layoutParams as ViewGroup.MarginLayoutParams
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.layoutParams as ViewGroup.MarginLayoutParams
         val textViewSwiftCodeTitleParams =
-            textViewSwiftCodeTitle.layoutParams as ViewGroup.MarginLayoutParams
+            binding.viewReceivingBankForm.textViewSwiftCodeTitle.layoutParams as ViewGroup.MarginLayoutParams
         if (isShown) {
             constraintLayoutBeneficiaryParams.setMargins(
                 constraintLayoutBeneficiaryParams.leftMargin,
@@ -906,17 +915,17 @@ class SwiftFormActivity :
                 textViewSwiftCodeTitleParams.rightMargin,
                 textViewSwiftCodeTitleParams.bottomMargin
             )
-            constraintLayoutBeneficiary.visibility = View.VISIBLE
-            textInputLayoutReceivingBank.visibility = View.GONE
-            textViewBeneficiaryCodeTitle.visibility = View.GONE
-            textViewBeneficiaryCode.visibility = View.GONE
-            textViewBeneficiaryNameTitle.visibility = View.GONE
-            textViewBeneficiaryName.visibility = View.GONE
-            textViewAccountNumberTitle.visibility = View.GONE
-            textViewAccountNumber.visibility = View.GONE
-            textViewBeneficiaryAddressTitle.visibility = View.GONE
-            textViewBeneficiaryAddress.visibility = View.GONE
-            constraintLayoutBeneficiary.setOnClickListener {
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewBeneficiaryCodeTitle.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewBeneficiaryCode.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewBeneficiaryNameTitle.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewBeneficiaryName.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewAccountNumberTitle.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewAccountNumber.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewBeneficiaryAddressTitle.visibility = View.GONE
+            binding.viewReceivingBankForm.textViewBeneficiaryAddress.visibility = View.GONE
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.setOnClickListener {
                 navigateToSwiftBanks()
             }
         } else {
@@ -932,62 +941,62 @@ class SwiftFormActivity :
                 textViewSwiftCodeTitleParams.rightMargin,
                 textViewSwiftCodeTitleParams.bottomMargin
             )
-            textInputEditTextReceivingBank.text?.clear()
-            constraintLayoutBeneficiary.visibility = View.GONE
-            textInputLayoutReceivingBank.visibility = View.VISIBLE
-            textViewBeneficiaryCodeTitle.visibility = View.VISIBLE
-            textViewBeneficiaryCode.visibility = View.VISIBLE
-            textViewBeneficiaryNameTitle.visibility = View.VISIBLE
-            textViewBeneficiaryName.visibility = View.VISIBLE
-            textViewAccountNumberTitle.visibility = View.VISIBLE
-            textViewAccountNumber.visibility = View.VISIBLE
-            textViewBeneficiaryAddressTitle.visibility = View.VISIBLE
-            textViewBeneficiaryAddress.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.text?.clear()
+            binding.viewReceivingBankForm.constraintLayoutBeneficiary.visibility = View.GONE
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryCodeTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryCode.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryNameTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryName.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewAccountNumberTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewAccountNumber.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryAddressTitle.visibility = View.VISIBLE
+            binding.viewReceivingBankForm.textViewBeneficiaryAddress.visibility = View.VISIBLE
         }
     }
 
     private fun setPermission(permissionCollection: PermissionCollection) {
         if (permissionCollection.hasAllowToCreateTransactionAdhoc) {
-            textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutAccountNumber.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutReceivingBank.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutBeneficiaryAddress.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputEditTextTransferTo.isEnabled = true
-            textInputEditTextAccountNumber.isEnabled = true
-            textInputEditTextBeneficiaryAddress.isEnabled = true
-            textInputEditTextReceivingBank.isEnabled = true
-            viewImageViewBackground.background = null
+            binding.viewTransferToForm.textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.textInputLayoutAccountNumber.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.textInputLayoutBeneficiaryAddress.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewTransferToForm.textInputEditTextTransferTo.isEnabled = true
+            binding.textInputEditTextAccountNumber.isEnabled = true
+            binding.textInputEditTextBeneficiaryAddress.isEnabled = true
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.isEnabled = true
+            binding.viewTransferToForm.viewImageViewBackground.background = null
         } else {
-            textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputLayoutAccountNumber.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputLayoutReceivingBank.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputLayoutBeneficiaryAddress.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
-            textInputEditTextTransferTo.isEnabled = false
-            textInputEditTextAccountNumber.isEnabled = false
-            textInputEditTextBeneficiaryAddress.isEnabled = false
-            textInputEditTextReceivingBank.isEnabled = false
-            viewImageViewBackground.background =
+            binding.viewTransferToForm.textInputLayoutTransferTo.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.textInputLayoutAccountNumber.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.viewReceivingBankForm.textInputLayoutReceivingBank.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.textInputLayoutBeneficiaryAddress.setBoxBackgroundColorResource(R.color.colorDisableTextInputEditText)
+            binding.viewTransferToForm.textInputEditTextTransferTo.isEnabled = false
+            binding.textInputEditTextAccountNumber.isEnabled = false
+            binding.textInputEditTextBeneficiaryAddress.isEnabled = false
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.isEnabled = false
+            binding.viewTransferToForm.viewImageViewBackground.background =
                 ContextCompat.getDrawable(this, R.drawable.bg_edittext_right_form)
         }
 
         if (permissionCollection.hasAllowToCreateTransactionBeneficiaryMaster) {
-            imageViewTransferTo.setOnClickListener(this)
+            binding.viewTransferToForm.imageViewTransferTo.setOnClickListener(this)
         } else {
-            imageViewTransferTo.setOnClickListener(null)
+            binding.viewTransferToForm.imageViewTransferTo.setOnClickListener(null)
         }
 
         if (selectedAccount != null) {
-            textInputEditTextProposedTransactionDate.setOnClickListener(this)
-            imageViewProposedTransactionDate.setOnClickListener(this)
-            textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutPurpose.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutLeavePurpose.setBoxBackgroundColorResource(R.color.colorTransparent)
-            textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorTransparent)
-            et_amount.setEnableAmount(true)
-            textInputEditTextProposedTransactionDate.isEnabled = true
-            textInputEditTextPurpose.isEnabled = true
-            textInputEditTextLeavePurpose.isEnabled = true
-            textInputEditTextRemarks.isEnabled = true
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.setOnClickListener(this)
+            binding.viewProposedTransactionDate.imageViewProposedTransactionDate.setOnClickListener(this)
+            binding.viewProposedTransactionDate.textInputLayoutProposedTransactionDate.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewPurpose.textInputLayoutPurpose.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.viewPurpose.textInputLayoutLeavePurpose.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.textInputLayoutRemarks.setBoxBackgroundColorResource(R.color.colorTransparent)
+            binding.etAmount.setEnableAmount(true)
+            binding.viewProposedTransactionDate.textInputEditTextProposedTransactionDate.isEnabled = true
+            binding.viewPurpose.textInputEditTextPurpose.isEnabled = true
+            binding.viewPurpose.textInputEditTextLeavePurpose.isEnabled = true
+            binding.textInputEditTextRemarks.isEnabled = true
         }
     }
 
@@ -1119,12 +1128,12 @@ class SwiftFormActivity :
         fundTransferSwiftForm.purpose = purpose?.code
         fundTransferSwiftForm.purposeDesc =
             if (purpose?.description.equals("Others", true))
-                textInputEditTextLeavePurpose.text.toString()
+                binding.viewPurpose.textInputEditTextLeavePurpose.text.toString()
             else purpose?.description
         fundTransferSwiftForm.swiftCode =
             if (swiftBank != null) swiftBank?.swiftBicCode
             else beneficiaryMaster?.swiftBankDetails?.swiftBicCode
-        fundTransferSwiftForm.receivingBank = textInputEditTextReceivingBank.text.toString()
+        fundTransferSwiftForm.receivingBank = binding.viewReceivingBankForm.textInputEditTextReceivingBank.text.toString()
         fundTransferSwiftForm.receivingBankAddress = swiftBank?.let {
             if (it.address1 == null && it.address2 == null) {
                 Constant.EMPTY
@@ -1133,22 +1142,22 @@ class SwiftFormActivity :
             }
         }
         fundTransferSwiftForm.instructions =
-            if (textInputEditTextLeavePurpose.text.toString() != "-")
-                textInputEditTextLeavePurpose.text.toString()
+            if (binding.viewPurpose.textInputEditTextLeavePurpose.text.toString() != "-")
+                binding.viewPurpose.textInputEditTextLeavePurpose.text.toString()
             else null
-        fundTransferSwiftForm.amount = et_amount.getNumericValue()
+        fundTransferSwiftForm.amount = binding.etAmount.getNumericValue()
         fundTransferSwiftForm.beneficiaryMasterForm =
             if (beneficiaryMaster != null)
                 ConstantHelper.Object.getSwiftBeneficiaryForm(beneficiaryMaster!!)
             else null
         fundTransferSwiftForm.beneficiaryMasterId = beneficiaryMaster?.id
-        fundTransferSwiftForm.beneficiaryName = textInputEditTextTransferTo.text.toString()
+        fundTransferSwiftForm.beneficiaryName = binding.viewTransferToForm.textInputEditTextTransferTo.text.toString()
         fundTransferSwiftForm.beneficiaryAddress =
-            textInputEditTextBeneficiaryAddress.text.toString()
+            binding.textInputEditTextBeneficiaryAddress.text.toString()
         fundTransferSwiftForm.senderAccountNumber = selectedAccount?.accountNumber
         fundTransferSwiftForm.receiverAccountNumber =
-            textInputEditTextAccountNumber.text.toString().replace(" ", "")
-        fundTransferSwiftForm.remarks = textInputEditTextRemarks.text.toString()
+            binding.textInputEditTextAccountNumber.text.toString().replace(" ", "")
+        fundTransferSwiftForm.remarks = binding.textInputEditTextRemarks.text.toString()
         fundTransferSwiftForm.transferDate = proposedTransferDate?.startDate
         fundTransferSwiftForm.frequency = proposedTransferDate?.frequency
         fundTransferSwiftForm.occurrencesText = proposedTransferDate?.occurrencesText
@@ -1206,16 +1215,16 @@ class SwiftFormActivity :
     }
 
     private fun initChannelView(channel: Channel) {
-        textInputEditTextAccountNumber.setCompoundDrawablesWithIntrinsicBounds(
+        binding.textInputEditTextAccountNumber.setCompoundDrawablesWithIntrinsicBounds(
             0,
             0,
             R.drawable.ic_warning_circle_orange,
             0
         )
-        textInputEditTextAccountNumber.setOnTouchListener(View.OnTouchListener { _, event ->
+        binding.textInputEditTextAccountNumber.setOnTouchListener(View.OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= textInputEditTextAccountNumber.right -
-                    textInputEditTextAccountNumber.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
+                if (event.rawX >= binding.textInputEditTextAccountNumber.right -
+                    binding.textInputEditTextAccountNumber.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
                 ) {
                     showSwiftAccountNumberToolTip()
                     return@OnTouchListener true
@@ -1223,9 +1232,9 @@ class SwiftFormActivity :
             }
             false
         })
-        textViewChannel.visibility = View.GONE
-        imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        imageViewChannel.setImageResource(
+        binding.viewChannelHeader.textViewChannel.visibility = View.GONE
+        binding.viewChannelHeader.imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.viewChannelHeader.imageViewChannel.setImageResource(
             when (channel.id) {
                 ChannelBankEnum.BILLS_PAYMENT.getChannelId() ->
                     R.drawable.ic_channel_bills_payment
@@ -1242,7 +1251,7 @@ class SwiftFormActivity :
                 else -> R.drawable.ic_fund_transfer_other_banks_orange
             }
         )
-        textViewChannel.text = channel.contextChannel?.displayName
+        binding.viewChannelHeader.textViewChannel.text = channel.contextChannel?.displayName
         if (intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE) != null &&
             intent.getStringExtra(EXTRA_SERVICE_FEE) != null
         ) {
@@ -1250,9 +1259,9 @@ class SwiftFormActivity :
                 intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE)
             )
             if (0.00 >= customServiceFee.value?.toDouble() ?: 0.00) {
-                textViewServiceFee.text = getString(R.string.value_service_fee_free)
+                binding.viewChannelHeader.textViewServiceFee.text = getString(R.string.value_service_fee_free)
             } else {
-                textViewServiceFee.text = formatString(
+                binding.viewChannelHeader.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         customServiceFee.value,
@@ -1260,18 +1269,18 @@ class SwiftFormActivity :
                     )
                 )
             }
-            textViewServiceDiscountFee.visibility(true)
-            viewBorderServiceDiscountFee.visibility(true)
+            binding.viewChannelHeader.textViewServiceDiscountFee.visibility(true)
+            binding.viewChannelHeader.viewBorderServiceDiscountFee.visibility(true)
         } else {
-            textViewServiceDiscountFee.visibility(false)
-            viewBorderServiceDiscountFee.visibility(false)
+            binding.viewChannelHeader.textViewServiceDiscountFee.visibility(false)
+            binding.viewChannelHeader.viewBorderServiceDiscountFee.visibility(false)
         }
         if (intent.getStringExtra(EXTRA_SERVICE_FEE) != null) {
             val serviceFee = JsonHelper.fromJson<ServiceFee>(
                 intent.getStringExtra(EXTRA_SERVICE_FEE)
             )
             if (intent.getStringExtra(EXTRA_CUSTOM_SERVICE_FEE) != null) {
-                textViewServiceDiscountFee.text = formatString(
+                binding.viewChannelHeader.textViewServiceDiscountFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         serviceFee.value,
@@ -1279,7 +1288,7 @@ class SwiftFormActivity :
                     )
                 )
             } else {
-                textViewServiceFee.text = formatString(
+                binding.viewChannelHeader.textViewServiceFee.text = formatString(
                     R.string.value_service,
                     autoFormatUtil.formatWithTwoDecimalPlaces(
                         serviceFee.value,
@@ -1288,7 +1297,7 @@ class SwiftFormActivity :
                 )
             }
         } else {
-            textViewServiceFee.text = getString(R.string.value_service_fee_free)
+            binding.viewChannelHeader.textViewServiceFee.text = getString(R.string.value_service_fee_free)
         }
     }
 
@@ -1317,7 +1326,7 @@ class SwiftFormActivity :
         setDefaultViewTutorial(true)
         tutorialEngineUtil.startTutorial(
             this,
-            viewTutorialTransferFrom,
+            binding.viewTutorialTransferFrom,
             R.layout.frame_tutorial_upper_left,
             radius,
             false,
@@ -1328,8 +1337,8 @@ class SwiftFormActivity :
     }
 
     private fun clearFormFocus() {
-        constraintLayoutParent.requestFocus()
-        constraintLayoutParent.isFocusableInTouchMode = true
+        binding.constraintLayoutParent.requestFocus()
+        binding.constraintLayoutParent.isFocusableInTouchMode = true
     }
 
     @ThreadSafe
@@ -1343,4 +1352,10 @@ class SwiftFormActivity :
 
         const val DRAWABLE_RIGHT = 2
     }
+
+    override val viewModelClassType: Class<SwiftViewModel>
+        get() = SwiftViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityFundTransferFormSwiftBinding
+        get() = ActivityFundTransferFormSwiftBinding::inflate
 }

@@ -4,6 +4,7 @@ import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantFo
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
@@ -71,6 +72,19 @@ interface PaymentLinkApiClient {
         getRMOBusinessInformationForm: GetRMOBusinessInformationForm
     ): Single<Response<GetRMOBusinessInformationResponse>>
 
+    @PUT("msme/api/{api_version}/merchant/accounts")
+    fun updateSettlementOnRequestPayment(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm
+    ): Single<Response<UpdateSettlementOnRequestPaymentResponse>>
 
     @GET("msme/api/{api_version}/payment-links")
     fun getPaymentLinkListPaginated(
@@ -106,7 +120,7 @@ interface PaymentLinkApiClient {
             referenceNumber: String
     ): Single<Response<GetPaymentLinkListPaginatedResponse>>
 
-    @GET("msme/api/{api_version}/payment-link/{reference_id}")
+    @GET("msme-staging/api/{api_version}/payment-link/{reference_id}")
     fun getPaymentLinkByReferenceId(
         @Header("Authorization")
         accessToken: String,

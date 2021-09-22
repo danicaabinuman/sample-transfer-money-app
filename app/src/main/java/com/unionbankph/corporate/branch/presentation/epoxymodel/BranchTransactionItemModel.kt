@@ -20,7 +20,7 @@ import com.unionbankph.corporate.branch.presentation.constant.BranchVisitTypeEnu
 import com.unionbankph.corporate.branch.presentation.model.BranchTransactionForm
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import kotlinx.android.synthetic.main.item_branch_transaction.view.*
+import com.unionbankph.corporate.databinding.ItemBranchTransactionBinding
 
 @EpoxyModelClass(layout = R.layout.item_branch_transaction)
 abstract class BranchTransactionItemModel :
@@ -56,7 +56,7 @@ abstract class BranchTransactionItemModel :
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             checkBoxBranchTransaction.isChecked = hasSelected
             viewItemState.setContextCompatBackgroundColor(
@@ -113,24 +113,11 @@ abstract class BranchTransactionItemModel :
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutBranchTransaction: ConstraintLayout
-        lateinit var checkBoxBranchTransaction: MaterialCheckBox
-        lateinit var textViewTypeOfCheck: AppCompatTextView
-        lateinit var textViewAccountNumber: AppCompatTextView
-        lateinit var textViewRemarks: AppCompatTextView
-        lateinit var textViewAmount: AppCompatTextView
-        lateinit var viewBorderTop: View
-        lateinit var viewItemState: View
+
+        lateinit var binding: ItemBranchTransactionBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutBranchTransaction = itemView.constraintLayoutBranchTransaction
-            checkBoxBranchTransaction = itemView.checkBoxBranchTransaction
-            textViewTypeOfCheck = itemView.textViewTypeOfCheck
-            textViewAccountNumber = itemView.textViewAccountNumber
-            textViewRemarks = itemView.textViewRemarks
-            textViewAmount = itemView.textViewAmount
-            viewBorderTop = itemView.viewBorderTop
-            viewItemState = itemView.viewItemState
+            binding = ItemBranchTransactionBinding.bind(itemView)
         }
     }
 }

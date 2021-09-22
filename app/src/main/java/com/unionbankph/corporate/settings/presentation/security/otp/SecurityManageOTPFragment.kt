@@ -1,8 +1,9 @@
 package com.unionbankph.corporate.settings.presentation.security.otp
 
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -11,6 +12,7 @@ import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.FragmentSettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.databinding.FragmentSecurityManageOtpBinding
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsViewModel
 import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettingsDismissLoading
 import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettingsError
@@ -18,16 +20,13 @@ import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettin
 import com.unionbankph.corporate.settings.presentation.general.ShowGeneralSettingsLoading
 import com.unionbankph.corporate.settings.presentation.general.ShowLoginHasTOTPAccess
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_security_manage_otp.*
 import java.util.concurrent.TimeUnit
 
 class SecurityManageOTPFragment :
-    BaseFragment<GeneralSettingsViewModel>(R.layout.fragment_security_manage_otp) {
+    BaseFragment<FragmentSecurityManageOtpBinding, GeneralSettingsViewModel>() {
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[GeneralSettingsViewModel::class.java]
 
         viewModel.state.observe(this, Observer {
             when (it) {
@@ -43,8 +42,8 @@ class SecurityManageOTPFragment :
                 }
                 is ShowLoginHasTOTPAccess -> {
                     if (!it.isTrustedDevice) {
-                        constraintLayoutGenerateOTP.visibility(false)
-                        viewBorderBottom.visibility(false)
+                        binding.constraintLayoutGenerateOTP.visibility(false)
+                        binding.viewBorderBottom.visibility(false)
                     }
                 }
                 is ShowGeneralSettingsGetOTPType -> {
@@ -70,7 +69,7 @@ class SecurityManageOTPFragment :
     override fun onInitializeListener() {
         super.onInitializeListener()
         initEventBus()
-        RxView.clicks(constraintLayoutEnableOTP)
+        RxView.clicks(binding.constraintLayoutEnableOTP)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -80,7 +79,7 @@ class SecurityManageOTPFragment :
                     BaseEvent(FragmentSettingsSyncEvent.ACTION_CLICK_SECURITY_ENABLE_OTP)
                 )
             }.addTo(disposables)
-        RxView.clicks(constraintLayoutReceiveOTP)
+        RxView.clicks(binding.constraintLayoutReceiveOTP)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -91,7 +90,7 @@ class SecurityManageOTPFragment :
                 )
             }.addTo(disposables)
 
-        RxView.clicks(constraintLayoutGenerateOTP)
+        RxView.clicks(binding.constraintLayoutGenerateOTP)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -107,8 +106,8 @@ class SecurityManageOTPFragment :
         eventBus.actionSyncEvent.flowable.subscribe {
             if (it.eventType == ActionSyncEvent.ACTION_UPDATE_OTP_SETTINGS) {
                 val isShowGenerateOTP = it.payload == "1"
-                constraintLayoutGenerateOTP.visibility(isShowGenerateOTP)
-                viewBorderBottom.visibility(isShowGenerateOTP)
+                binding.constraintLayoutGenerateOTP.visibility(isShowGenerateOTP)
+                binding.viewBorderBottom.visibility(isShowGenerateOTP)
             } else if (it.eventType == ActionSyncEvent.ACTION_UPDATE_RECEIVE_OTP) {
                 setTextViewOTPType(it.payload)
             }
@@ -116,20 +115,20 @@ class SecurityManageOTPFragment :
     }
 
     private fun showLoading() {
-        constraintLayoutContent.visibility(false)
-        viewLoadingState.visibility(true)
+        binding.constraintLayoutContent.visibility(false)
+        binding.viewLoadingState.viewLoadingLayout.visibility(true)
     }
 
     private fun dismissLoading() {
-        viewLoadingState.visibility(false)
+        binding.viewLoadingState.viewLoadingLayout.visibility(false)
     }
 
     private fun showContent(isShown: Boolean) {
-        constraintLayoutContent.visibility(isShown)
+        binding.constraintLayoutContent.visibility(isShown)
     }
 
     private fun setTextViewOTPType(type: String?) {
-        textViewReceiveOTP.text = formatString(
+        binding.textViewReceiveOTP.text = formatString(
             R.string.msg_receive_otp,
             formatString(
                 R.string.param_color,
@@ -142,4 +141,10 @@ class SecurityManageOTPFragment :
             )
         ).toHtmlSpan()
     }
+
+    override val viewModelClassType: Class<GeneralSettingsViewModel>
+        get() = GeneralSettingsViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentSecurityManageOtpBinding
+        get() = FragmentSecurityManageOtpBinding::inflate
 }

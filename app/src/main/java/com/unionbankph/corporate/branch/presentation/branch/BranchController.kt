@@ -27,9 +27,9 @@ constructor(
             branchItem {
                 id(branch.id)
                 branch(branch)
-                callbacks(callbacks)
-                context(context)
-                viewUtil(viewUtil)
+                callbacks(this@BranchController.callbacks)
+                context(this@BranchController.context)
+                viewUtil(this@BranchController.viewUtil)
                 position(position)
             }
         }

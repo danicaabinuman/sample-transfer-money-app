@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.single_selector
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -21,12 +22,9 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScroll
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.loadingFooter
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivitySelectorBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_selector.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
-import kotlinx.serialization.enumFromName
 import java.util.concurrent.TimeUnit
 import javax.annotation.concurrent.ThreadSafe
 
@@ -34,12 +32,12 @@ import javax.annotation.concurrent.ThreadSafe
  * Created by herald25santos on 2020-02-18
  */
 class SingleSelectorActivity :
-    BaseActivity<SingleSelectorViewModel>(R.layout.activity_selector),
+    BaseActivity<ActivitySelectorBinding, SingleSelectorViewModel>(),
     EpoxyAdapterCallback<Selector> {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolBar)
+        initToolbar(binding.viewToolBar.toolbar, binding.viewToolBar.appBarLayout)
     }
 
     override fun onViewsBound() {
@@ -50,16 +48,14 @@ class SingleSelectorActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        imageViewClearText.setOnClickListener {
-            editTextSearch.text?.clear()
+        binding.viewSearchLayout.imageViewClearText.setOnClickListener {
+            binding.viewSearchLayout.editTextSearch.text?.clear()
         }
         initRxSearchEventListener()
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[SingleSelectorViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -67,12 +63,12 @@ class SingleSelectorActivity :
                         updateController()
                     } else {
                         showLoading(
-                            viewLoadingState,
-                            srl_selector,
-                            rv_selector,
-                            textViewState
+                            binding.viewLoadingState.root,
+                            binding.srlSelector,
+                            binding.rvSelector,
+                            binding.textViewState
                         )
-                        if (viewLoadingState.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     }
@@ -82,9 +78,9 @@ class SingleSelectorActivity :
                         updateController()
                     } else {
                         dismissLoading(
-                            viewLoadingState,
-                            srl_selector,
-                            rv_selector
+                            binding.viewLoadingState.root,
+                            binding.srlSelector,
+                            binding.rvSelector,
                         )
                     }
                 }
@@ -118,7 +114,7 @@ class SingleSelectorActivity :
 
     private fun init() {
         intent.getBooleanExtra(EXTRA_HAS_SEARCH, false).let {
-            view_search_layout.visibility(it)
+            binding.viewSearchLayout.root.visibility(it)
         }
     }
 
@@ -127,17 +123,17 @@ class SingleSelectorActivity :
         viewModel.hasAPIRequest
             .subscribe {
                 if (it) {
-                    srl_selector.apply {
+                    binding.srlSelector.apply {
                         setColorSchemeResources(getAccentColor())
                         setOnRefreshListener {
                             fetchSingleSelector(true)
                         }
                     }
                     val linearLayoutManager = getLinearLayoutManager()
-                    rv_selector.layoutManager = linearLayoutManager
-                    rv_selector.addOnScrollListener(paginationScrollListener(linearLayoutManager))
+                    binding.rvSelector.layoutManager = linearLayoutManager
+                    binding.rvSelector.addOnScrollListener(paginationScrollListener(linearLayoutManager))
                 } else {
-                    srl_selector.apply {
+                    binding.srlSelector.apply {
                         setColorSchemeResources(getAccentColor())
                         isRefreshing = false
                         isEnabled = false
@@ -147,8 +143,8 @@ class SingleSelectorActivity :
         viewModel.selector
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                val singleSelectorTypeEnum = enumFromName(SingleSelectorTypeEnum::class, it)
-                setToolbarTitle(tvToolbar, singleSelectorTypeEnum.value)
+                val singleSelectorTypeEnum = enumValueOf<SingleSelectorTypeEnum>(it)
+                setToolbarTitle(binding.viewToolBar.tvToolbar, singleSelectorTypeEnum.value)
             }.addTo(disposables)
         fetchSingleSelector(true)
     }
@@ -179,7 +175,7 @@ class SingleSelectorActivity :
     private fun updateController(
         data: MutableList<Selector> = viewModel.items.value.notNullable()
     ) {
-        rv_selector.withModels {
+        binding.rvSelector.withModels {
             data.forEachIndexed { index, selector ->
                 singleSelectorItem {
                     id(selector.id)
@@ -208,16 +204,16 @@ class SingleSelectorActivity :
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                editTextSearch.clearFocus()
+                binding.viewSearchLayout.editTextSearch.clearFocus()
                 viewUtil.dismissKeyboard(this)
                 fetchSingleSelector(true)
                 return@OnEditorActionListener true
             }
             false
         })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -225,7 +221,7 @@ class SingleSelectorActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     if (viewModel.isPaginated.value == true) {
                         viewModel.pageable.filter = filter.text().toString().nullable()
@@ -240,15 +236,15 @@ class SingleSelectorActivity :
 
     private fun showEmptyState(data: MutableList<Selector>) {
         if (data.size > 0) {
-            if (textViewState?.visibility == View.VISIBLE) textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun scrollToTop() {
-        rv_selector.post {
-            rv_selector.scrollToPosition(0)
+        binding.rvSelector.post {
+            binding.rvSelector.scrollToPosition(0)
         }
     }
 
@@ -275,4 +271,10 @@ class SingleSelectorActivity :
         const val EXTRA_HAS_SEARCH = "hasSearch"
         const val EXTRA_PARAM = "param"
     }
+
+    override val viewModelClassType: Class<SingleSelectorViewModel>
+        get() = SingleSelectorViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivitySelectorBinding
+        get() = ActivitySelectorBinding::inflate
 }

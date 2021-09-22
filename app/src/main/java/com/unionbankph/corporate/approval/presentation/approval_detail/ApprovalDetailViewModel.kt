@@ -32,7 +32,6 @@ import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.subjects.BehaviorSubject
-import kotlinx.serialization.enumFromName
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -318,7 +317,7 @@ class ApprovalDetailViewModel @Inject constructor(
             }
         }
         val description =
-            enumFromName(TransactionStatusEnum::class, branchVisitDto.status.notEmpty())
+            enumValueOf<TransactionStatusEnum>(branchVisitDto.status.notEmpty())
 
         transaction.transactionStatus = ContextualClassStatus(
             type = branchVisitDto.status,

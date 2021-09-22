@@ -36,10 +36,10 @@ constructor(
                     checkDepositActivityLogItem {
                         id(checkDepositActivityLog.id)
                         checkDepositActivityLog(checkDepositActivityLog)
-                        context(context)
+                        context(this@CheckDepositActivityLogController.context)
                         hasEnd(totalItems == currentItem)
                         hasStart(headerPosition == 0 && position == 0)
-                        viewUtil(viewUtil)
+                        viewUtil(this@CheckDepositActivityLogController.viewUtil)
                         position(position)
                     }
                 }

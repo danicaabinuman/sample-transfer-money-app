@@ -6,6 +6,7 @@ import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantFo
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
@@ -70,6 +71,19 @@ class PaymentLinkRemoteImpl
             BuildConfig.MSME_CLIENT_SECRET,
             BuildConfig.MSME_CLIENT_API_VERSION,
             getRMOBusinessInformationForm
+        )
+    }
+
+    override fun updateSettlementOnRequestPayment(
+        accessToken: String,
+        updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm
+    ): Single<Response<UpdateSettlementOnRequestPaymentResponse>> {
+        return paymentLinkApiClient.updateSettlementOnRequestPayment(
+            accessToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            updateSettlementOnRequestPaymentForm
         )
     }
 
@@ -144,6 +158,8 @@ class PaymentLinkRemoteImpl
             BuildConfig.MSME_CLIENT_API_VERSION
         )
     }
+
+
 
 
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.provider.Settings
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -11,15 +12,15 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.common.presentation.viewmodel.GeneralViewModel
-import kotlinx.android.synthetic.main.activity_generate_totp.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
+import com.unionbankph.corporate.databinding.ActivityGenerateTotpBinding
 import org.jboss.aerogear.security.otp.Totp
 import org.jboss.aerogear.security.otp.api.Clock
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class TOTPActivity : BaseActivity<GeneralViewModel>(R.layout.activity_generate_totp) {
+class TOTPActivity :
+    BaseActivity<ActivityGenerateTotpBinding, GeneralViewModel>() {
 
     private lateinit var totp: Totp
 
@@ -29,14 +30,14 @@ class TOTPActivity : BaseActivity<GeneralViewModel>(R.layout.activity_generate_t
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         initStyle()
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     private fun initStyle() {
         if (isSME) {
-            circularProgressBar.progressBackgroundColor =
+            binding.circularProgressBar.progressBackgroundColor =
                 ContextCompat.getColor(this, R.color.colorGrey)
         }
     }
@@ -44,7 +45,7 @@ class TOTPActivity : BaseActivity<GeneralViewModel>(R.layout.activity_generate_t
     override fun onViewsBound() {
         super.onViewsBound()
 
-        textViewGenerateOTPDesc.text = formatString(
+        binding.textViewGenerateOTPDesc.text = formatString(
             if (isSME) {
                 R.string.msg_generate_totp_sme
             } else {
@@ -56,10 +57,10 @@ class TOTPActivity : BaseActivity<GeneralViewModel>(R.layout.activity_generate_t
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonDeviceSettings.setOnClickListener {
+        binding.buttonDeviceSettings.setOnClickListener {
             startActivityForResult(Intent(Settings.ACTION_DATE_SETTINGS), REQUEST_CODE_SETTINGS)
         }
-        buttonReceiveViaSms.setOnClickListener {
+        binding.buttonReceiveViaSms.setOnClickListener {
         }
     }
 
@@ -92,12 +93,12 @@ class TOTPActivity : BaseActivity<GeneralViewModel>(R.layout.activity_generate_t
 
     private fun initDateAndTime() {
         if (settingsUtil.isTimeAutomatic()) {
-            constraintLayoutGenerateTOTP.visibility = View.VISIBLE
-            constraintLayoutFailedGenerateTOTP.visibility = View.GONE
+            binding.constraintLayoutGenerateTOTP.visibility = View.VISIBLE
+            binding.constraintLayoutFailedGenerateTOTP.visibility = View.GONE
             initTOTP()
         } else {
-            constraintLayoutFailedGenerateTOTP.visibility = View.VISIBLE
-            constraintLayoutGenerateTOTP.visibility = View.GONE
+            binding.constraintLayoutFailedGenerateTOTP.visibility = View.VISIBLE
+            binding.constraintLayoutGenerateTOTP.visibility = View.GONE
         }
     }
 
@@ -117,28 +118,28 @@ class TOTPActivity : BaseActivity<GeneralViewModel>(R.layout.activity_generate_t
                     resources.getInteger(R.integer.time_interval_totp_code) - currentSeconds
             }
         }
-        circularProgressBar.setProgress(
+        binding.circularProgressBar.setProgress(
             TimeUnit.SECONDS.toMillis(currentSeconds.toLong()).toDouble(),
             COUNTDOWN_DURATION.toDouble()
         )
-        circularProgressBar.setProgressTextAdapter {
+        binding.circularProgressBar.setProgressTextAdapter {
             TimeUnit.MILLISECONDS.toSeconds(it.toLong()).toString()
         }
         startTimer(currentSeconds)
     }
 
     private fun startTimer(seconds: Int) {
-        circularProgressBar.isAnimationEnabled = true
+        binding.circularProgressBar.isAnimationEnabled = true
         countDownTimer = object : CountDownTimer(
             TimeUnit.SECONDS.toMillis(seconds.toLong()),
             COUNTDOWN_STEP.toLong()
         ) {
             override fun onTick(millisUntilFinished: Long) {
-                circularProgressBar.setProgress(
+                binding.circularProgressBar.setProgress(
                     millisUntilFinished.toDouble(),
                     COUNTDOWN_DURATION.toDouble()
                 )
-                circularProgressBar.setProgressTextAdapter {
+                binding.circularProgressBar.setProgressTextAdapter {
                     TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished).toString()
                 }
             }
@@ -159,7 +160,7 @@ class TOTPActivity : BaseActivity<GeneralViewModel>(R.layout.activity_generate_t
     private fun updateOTP() {
         val otpCode = totp.now()
         Timber.d("otpCode: %s", otpCode)
-        textViewOTPCode.text = String.format(
+        binding.textViewOTPCode.text = String.format(
             getString(R.string.param_totp_code),
             otpCode[0],
             otpCode[1],
@@ -175,4 +176,10 @@ class TOTPActivity : BaseActivity<GeneralViewModel>(R.layout.activity_generate_t
         const val COUNTDOWN_STEP = 100 // only 100 ms for smoother action
         const val REQUEST_CODE_SETTINGS = 1
     }
+
+    override val viewModelClassType: Class<GeneralViewModel>
+        get() = GeneralViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityGenerateTotpBinding
+        get() = ActivityGenerateTotpBinding::inflate
 }

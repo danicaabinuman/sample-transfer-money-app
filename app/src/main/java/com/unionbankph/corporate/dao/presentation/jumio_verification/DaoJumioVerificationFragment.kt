@@ -4,6 +4,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
@@ -25,12 +27,12 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
+import com.unionbankph.corporate.databinding.FragmentDaoJumioVerificationBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_jumio_verification.*
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoJumioVerificationFragment :
-    BaseFragment<DaoJumioVerificationViewModel>(R.layout.fragment_dao_jumio_verification),
+    BaseFragment<FragmentDaoJumioVerificationBinding, DaoJumioVerificationViewModel>(),
     DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
@@ -39,10 +41,6 @@ class DaoJumioVerificationFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[DaoJumioVerificationViewModel::class.java]
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -105,33 +103,33 @@ class DaoJumioVerificationFragment :
     }
 
     private fun initClickListener() {
-        cv_passport.setOnClickListener {
+        binding.cvPassport.setOnClickListener {
             viewModel.input.tempIdTypeInput.onNext(formatString(R.string.title_passport))
             netVerifySDK.setPreselectedDocumentTypes(
                 arrayListOf<NVDocumentType>(NVDocumentType.PASSPORT)
             )
             showJumioToolTip()
         }
-        cv_drivers_license.setOnClickListener {
+        binding.cvDriversLicense.setOnClickListener {
             viewModel.input.tempIdTypeInput.onNext(formatString(R.string.title_drivers_license))
             netVerifySDK.setPreselectedDocumentTypes(
                 arrayListOf<NVDocumentType>(NVDocumentType.DRIVER_LICENSE)
             )
             showJumioToolTip()
         }
-        cv_sss_id.setOnClickListener {
+        binding.cvSssId.setOnClickListener {
             viewModel.input.tempIdTypeInput.onNext(formatString(R.string.title_sss_id))
             setVerificationIdTypes()
         }
-        cv_prc_id.setOnClickListener {
+        binding.cvPrcId.setOnClickListener {
             viewModel.input.tempIdTypeInput.onNext(formatString(R.string.title_prc_id))
             setVerificationIdTypes()
         }
-        cv_postal_id.setOnClickListener {
+        binding.cvPostalId.setOnClickListener {
             viewModel.input.tempIdTypeInput.onNext(formatString(R.string.title_postal_id))
             setVerificationIdTypes()
         }
-        cv_umid.setOnClickListener {
+        binding.cvUmid.setOnClickListener {
             viewModel.input.tempIdTypeInput.onNext(formatString(R.string.title_umid_id))
             setVerificationIdTypes()
         }
@@ -179,40 +177,40 @@ class DaoJumioVerificationFragment :
 
     private fun enableItems(isEnabled: Boolean) {
         daoActivity.setEnableButton(!isEnabled)
-        cv_drivers_license.setEnableView(isEnabled)
-        cv_passport.setEnableView(isEnabled)
-        cv_sss_id.setEnableView(isEnabled)
-        cv_prc_id.setEnableView(isEnabled)
-        cv_postal_id.setEnableView(isEnabled)
-        cv_umid.setEnableView(isEnabled)
-        tv_jumio_desc.visibility(!isEnabled)
+        binding.cvDriversLicense.setEnableView(isEnabled)
+        binding.cvPassport.setEnableView(isEnabled)
+        binding.cvSssId.setEnableView(isEnabled)
+        binding.cvPrcId.setEnableView(isEnabled)
+        binding.cvPostalId.setEnableView(isEnabled)
+        binding.cvUmid.setEnableView(isEnabled)
+        binding.tvJumioDesc.visibility(!isEnabled)
     }
 
     private fun setCheckedState(idType: String) {
-        iv_drivers_license.setImageResource(R.drawable.ic_arrow_orange_right)
-        iv_passport.setImageResource(R.drawable.ic_arrow_orange_right)
-        iv_sss_id.setImageResource(R.drawable.ic_arrow_orange_right)
-        iv_prc_id.setImageResource(R.drawable.ic_arrow_orange_right)
-        iv_postal_id.setImageResource(R.drawable.ic_arrow_orange_right)
-        iv_umid.setImageResource(R.drawable.ic_arrow_orange_right)
+        binding.ivDriversLicense.setImageResource(R.drawable.ic_arrow_orange_right)
+        binding.ivPassport.setImageResource(R.drawable.ic_arrow_orange_right)
+        binding.ivSssId.setImageResource(R.drawable.ic_arrow_orange_right)
+        binding.ivPrcId.setImageResource(R.drawable.ic_arrow_orange_right)
+        binding.ivPostalId.setImageResource(R.drawable.ic_arrow_orange_right)
+        binding.ivUmid.setImageResource(R.drawable.ic_arrow_orange_right)
         when (idType) {
             formatString(R.string.title_drivers_license) -> {
-                iv_drivers_license.setImageResource(R.drawable.ic_solid_check_orange)
+                binding.ivDriversLicense.setImageResource(R.drawable.ic_solid_check_orange)
             }
             formatString(R.string.title_passport) -> {
-                iv_passport.setImageResource(R.drawable.ic_solid_check_orange)
+                binding.ivPassport.setImageResource(R.drawable.ic_solid_check_orange)
             }
             formatString(R.string.title_sss_id) -> {
-                iv_sss_id.setImageResource(R.drawable.ic_solid_check_orange)
+                binding.ivSssId.setImageResource(R.drawable.ic_solid_check_orange)
             }
             formatString(R.string.title_prc_id) -> {
-                iv_prc_id.setImageResource(R.drawable.ic_solid_check_orange)
+                binding.ivPrcId.setImageResource(R.drawable.ic_solid_check_orange)
             }
             formatString(R.string.title_postal_id) -> {
-                iv_postal_id.setImageResource(R.drawable.ic_solid_check_orange)
+                binding.ivPostalId.setImageResource(R.drawable.ic_solid_check_orange)
             }
             formatString(R.string.title_umid_id) -> {
-                iv_umid.setImageResource(R.drawable.ic_solid_check_orange)
+                binding.ivUmid.setImageResource(R.drawable.ic_solid_check_orange)
             }
         }
     }
@@ -263,7 +261,7 @@ class DaoJumioVerificationFragment :
         netVerifySDK.setPreselectedDocumentVariant(NVDocumentVariant.PLASTIC)
         netVerifySDK.setEnableVerification(true)
         netVerifySDK.setEnableIdentityVerification(true)
-        netVerifySDK.setEnableEMRTD(true)
+//        netVerifySDK.setEnableEMRTD(true)
         netVerifySDK.sendDebugInfoToJumio(true)
     }
 
@@ -336,4 +334,10 @@ class DaoJumioVerificationFragment :
     companion object {
         const val EXTRA_IS_EDIT = "isEdit"
     }
+
+    override val viewModelClassType: Class<DaoJumioVerificationViewModel>
+        get() = DaoJumioVerificationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoJumioVerificationBinding
+        get() = FragmentDaoJumioVerificationBinding::inflate
 }

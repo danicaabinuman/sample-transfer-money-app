@@ -22,9 +22,9 @@ import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
+import com.unionbankph.corporate.databinding.ItemCheckDepositBinding
+import com.unionbankph.corporate.databinding.RowCheckDepositBinding
 import com.unionbankph.corporate.mcd.data.model.CheckDeposit
-import kotlinx.android.synthetic.main.item_check_deposit.view.*
-import kotlinx.android.synthetic.main.row_check_deposit.view.*
 
 class CheckDepositController
 constructor(
@@ -57,20 +57,20 @@ constructor(
                 checkDepositRow {
                     id(checkDeposit.id)
                     checkDeposit(checkDeposit)
-                    callbacks(callbacks)
-                    context(context)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
+                    callbacks(this@CheckDepositController.callbacks)
+                    context(this@CheckDepositController.context)
+                    viewUtil(this@CheckDepositController.viewUtil)
+                    autoFormatUtil(this@CheckDepositController.autoFormatUtil)
                     position(position)
                 }
             } else {
                 checkDepositItem {
                     id(checkDeposit.id)
                     checkDeposit(checkDeposit)
-                    callbacks(callbacks)
-                    context(context)
-                    viewUtil(viewUtil)
-                    autoFormatUtil(autoFormatUtil)
+                    callbacks(this@CheckDepositController.callbacks)
+                    context(this@CheckDepositController.context)
+                    viewUtil(this@CheckDepositController.viewUtil)
+                    autoFormatUtil(this@CheckDepositController.autoFormatUtil)
                     position(position)
                 }
             }
@@ -116,7 +116,7 @@ abstract class CheckDepositItemModel : EpoxyModelWithHolder<CheckDepositItemMode
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             textViewRemarks.text = checkDeposit.remarks ?: context.formatString(
                 R.string.params_check_deposit_to,
                 viewUtil.getAccountNumberFormat(checkDeposit.targetAccount)
@@ -149,24 +149,11 @@ abstract class CheckDepositItemModel : EpoxyModelWithHolder<CheckDepositItemMode
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var cardView: CardView
-        lateinit var textViewRemarks: AppCompatTextView
-        lateinit var textViewCreatedBy: AppCompatTextView
-        lateinit var textViewCheckNumber: AppCompatTextView
-        lateinit var textViewAmount: AppCompatTextView
-        lateinit var textViewDateOnCheck: AppCompatTextView
-        lateinit var textViewDepositTo: AppCompatTextView
-        lateinit var textViewStatus: AppCompatTextView
+
+        lateinit var binding: ItemCheckDepositBinding
 
         override fun bindView(itemView: View) {
-            cardView = itemView.cardView
-            textViewRemarks = itemView.textViewRemarks
-            textViewCreatedBy = itemView.textViewCreatedBy
-            textViewCheckNumber = itemView.textViewCheckNumber
-            textViewAmount = itemView.textViewAmount
-            textViewDateOnCheck = itemView.textViewDateOnCheck
-            textViewDepositTo = itemView.textViewDepositTo
-            textViewStatus = itemView.textViewStatus
+            binding = ItemCheckDepositBinding.bind(itemView)
         }
     }
 }
@@ -194,7 +181,7 @@ abstract class CheckDepositRowModel : EpoxyModelWithHolder<CheckDepositRowModel.
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.apply {
+        holder.binding.apply {
             viewBorderTop.visibility(position == 0)
             textViewRowRemarks.text = context.formatString(
                 R.string.params_check_deposit_to,
@@ -222,31 +209,11 @@ abstract class CheckDepositRowModel : EpoxyModelWithHolder<CheckDepositRowModel.
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var linearLayoutRow: LinearLayout
-        lateinit var viewBackgroundRow: View
-        lateinit var imageViewRowIcon: ImageView
-        lateinit var textViewRowRemarks: TextView
-        lateinit var textViewRowCheckNumber: TextView
-        lateinit var textViewRowDepositTo: TextView
-        lateinit var textViewRowAmount: TextView
-        lateinit var textViewRowDateOnCheck: TextView
-        lateinit var textViewRowChannel: TextView
-        lateinit var textViewRowStatus: TextView
-        lateinit var viewBorderTop: View
-        lateinit var itemView: View
+
+        lateinit var binding: RowCheckDepositBinding
 
         override fun bindView(itemView: View) {
-            linearLayoutRow = itemView.linearLayoutRow
-            viewBackgroundRow = itemView.viewBackgroundRow
-            imageViewRowIcon = itemView.imageViewRowIcon
-            textViewRowRemarks = itemView.textViewRowRemarks
-            textViewRowCheckNumber = itemView.textViewRowCheckNumber
-            textViewRowDepositTo = itemView.textViewRowDepositTo
-            textViewRowDateOnCheck = itemView.textViewRowDateOnCheck
-            textViewRowAmount = itemView.textViewRowAmount
-            textViewRowStatus = itemView.textViewRowStatus
-            viewBorderTop = itemView.viewBorderTop
-            this.itemView = itemView
+            binding = RowCheckDepositBinding.bind(itemView)
         }
     }
 }

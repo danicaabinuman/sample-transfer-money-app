@@ -7,24 +7,31 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
-import kotlinx.android.synthetic.main.item_state.view.*
+import com.unionbankph.corporate.databinding.ItemStateBinding
 
-@EpoxyModelClass(layout = R.layout.item_state)
+@EpoxyModelClass()
 abstract class ItemStateModel : EpoxyModelWithHolder<ItemStateModel.Holder>() {
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.item_state
+    }
 
     @EpoxyAttribute
     var message: String? = null
 
     override fun bind(holder: Holder) {
         super.bind(holder)
-        holder.textViewEmptyState.text = message
+        holder.binding.apply {
+            textViewEmptyState.text = message
+        }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var textViewEmptyState: TextView
+
+        lateinit var binding: ItemStateBinding
 
         override fun bindView(itemView: View) {
-            textViewEmptyState = itemView.textViewEmptyState
+            binding = ItemStateBinding.bind(itemView)
         }
     }
 }

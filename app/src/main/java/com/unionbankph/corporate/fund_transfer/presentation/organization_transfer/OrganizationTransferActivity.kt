@@ -6,6 +6,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -42,20 +43,16 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTu
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity
+import com.unionbankph.corporate.databinding.ActivityOrganizationTransferBinding
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_list.ManageBeneficiaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.ManageScheduledTransferActivity
 import com.unionbankph.corporate.general.data.model.TransactionFilterForm
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_organization_transfer.*
-import kotlinx.android.synthetic.main.widget_badge_small.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_table_view.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import java.util.concurrent.TimeUnit
 
 class OrganizationTransferActivity :
-    BaseActivity<OrganizationTransferViewModel>(R.layout.activity_organization_transfer),
+    BaseActivity<ActivityOrganizationTransferBinding, OrganizationTransferViewModel>(),
     OnTutorialListener,
     EpoxyAdapterCallback<Transaction>, OnConfirmationPageCallBack {
 
@@ -79,7 +76,7 @@ class OrganizationTransferActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -123,8 +120,8 @@ class OrganizationTransferActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         getString(R.string.title_fund_transfer),
                         it.orgName
                     )
@@ -135,10 +132,6 @@ class OrganizationTransferActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[OrganizationTransferViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -146,12 +139,12 @@ class OrganizationTransferActivity :
                         showEndlessProgressBar()
                     } else {
                         showLoading(
-                            viewLoadingState,
+                            binding.viewLoadingState.root,
                             getSwipeRefreshLayout(),
                             getRecyclerView(),
-                            textViewState
+                            binding.textViewState
                         )
-                        if (viewLoadingState.visibility == View.VISIBLE) {
+                        if (binding.viewLoadingState.root.visibility == View.VISIBLE) {
                             updateController(mutableListOf())
                         }
                     }
@@ -161,7 +154,7 @@ class OrganizationTransferActivity :
                         dismissEndlessProgressBar()
                     } else {
                         dismissLoading(
-                            viewLoadingState,
+                            binding.viewLoadingState.root,
                             getSwipeRefreshLayout(),
                             getRecyclerView()
                         )
@@ -188,9 +181,9 @@ class OrganizationTransferActivity :
         })
         viewModel.onlyCreateTransaction.observe(this, Observer {
             if (it) {
-                fabFundTransfer.menuIconView.setImageResource(R.drawable.ic_card_white)
+                binding.fabFundTransfer.menuIconView.setImageResource(R.drawable.ic_card_white)
             } else {
-                fabFundTransfer.menuIconView.setImageResource(R.drawable.ic_plus_white)
+                binding.fabFundTransfer.menuIconView.setImageResource(R.drawable.ic_plus_white)
             }
         })
         fetchTransactionHistory(true)
@@ -211,8 +204,8 @@ class OrganizationTransferActivity :
                 true
             }
             R.id.menu_help -> {
-                if (fabFundTransfer.isOpened) {
-                    fabFundTransfer.toggle(true)
+                if (binding.fabFundTransfer.isOpened) {
+                    binding.fabFundTransfer.toggle(true)
                 }
                 isClickedHelpTutorial = true
                 viewModel.getOrganizationTransfersTestData()
@@ -223,8 +216,8 @@ class OrganizationTransferActivity :
     }
 
     override fun onBackPressed() {
-        if (fabFundTransfer.isOpened) {
-            fabFundTransfer.toggle(true)
+        if (binding.fabFundTransfer.isOpened) {
+            binding.fabFundTransfer.toggle(true)
         } else {
             onBackPressed(false)
             overridePendingTransition(R.anim.anim_no_change, R.anim.anim_slide_down)
@@ -242,30 +235,30 @@ class OrganizationTransferActivity :
                 fetchTransactionHistory(true)
             }
         }
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
 
-        RxView.clicks(imageViewFilter)
+        RxView.clicks(binding.viewSearchLayout.imageViewFilter)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
                 navigateTransactionFilterScreen()
-                if (fabFundTransfer.isOpened) {
-                    fabFundTransfer.toggle(true)
+                if (binding.fabFundTransfer.isOpened) {
+                    binding.fabFundTransfer.toggle(true)
                 }
             }.addTo(disposables)
     }
 
     private fun init() {
-        imageViewFilter.visibility(true)
+        binding.viewSearchLayout.imageViewFilter.visibility(true)
     }
 
     private fun initBinding() {
@@ -281,18 +274,19 @@ class OrganizationTransferActivity :
             .subscribe {
                 it.count?.let {
                     val hasBadge = it > 0
-                    viewBadgeCount.visibility(hasBadge)
-                    textViewBadgeCount.text = it.toString()
-                    textViewBadgeCount.setContextCompatBackground(R.drawable.circle_solid_orange)
+                    binding.viewSearchLayout.viewBadgeCount.root.visibility(hasBadge)
+                    binding.viewSearchLayout.viewBadgeCount.textViewBadgeCount.text = it.toString()
+                    binding.viewSearchLayout.viewBadgeCount.textViewBadgeCount
+                        .setContextCompatBackground(R.drawable.circle_solid_orange)
                     if (hasBadge) {
-                        imageViewFilter.setImageResource(R.drawable.ic_filter_orange)
+                        binding.viewSearchLayout.imageViewFilter.setImageResource(R.drawable.ic_filter_orange)
                     } else {
-                        imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
+                        binding.viewSearchLayout.imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
                     }
                 }
                 if (it.count == null) {
-                    imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
-                    viewBadgeCount.visibility(false)
+                    binding.viewSearchLayout.imageViewFilter.setImageResource(R.drawable.ic_filter_gray)
+                    binding.viewSearchLayout.viewBadgeCount.root.visibility(false)
                 }
             }.addTo(disposables)
     }
@@ -301,7 +295,7 @@ class OrganizationTransferActivity :
         eventBus.actionSyncEvent.flowable.subscribe {
             when (it.eventType) {
                 ActionSyncEvent.ACTION_UPDATE_TRANSACTION_LIST -> {
-                    if (viewLoadingState.visibility != View.VISIBLE) {
+                    if (binding.viewLoadingState.root.visibility != View.VISIBLE) {
                         getSwipeRefreshLayout().isRefreshing = true
                     }
                     fetchTransactionHistory(true)
@@ -324,16 +318,18 @@ class OrganizationTransferActivity :
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        binding.viewSearchLayout.editTextSearch
+            .setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                editTextSearch.clearFocus()
+                binding.viewSearchLayout.editTextSearch.clearFocus()
                 viewUtil.dismissKeyboard(this@OrganizationTransferActivity)
                 fetchTransactionHistory(true)
                 return@OnEditorActionListener true
             }
             false
         })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -341,7 +337,7 @@ class OrganizationTransferActivity :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused) {
                     viewModel.pageable.filter = filter.text().toString().nullable()
                     fetchTransactionHistory(true)
@@ -403,9 +399,9 @@ class OrganizationTransferActivity :
                     getFirstItemTutorial() -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            fabFundTransfer.menuIconView,
+                            binding.fabFundTransfer.menuIconView,
                             R.layout.frame_tutorial_lower_right,
-                            fabFundTransfer.menuIconView.height.toFloat() +
+                            binding.fabFundTransfer.menuIconView.height.toFloat() +
                                     resources.getDimension(R.dimen.content_spacing),
                             true,
                             getString(R.string.msg_tutorial_fund_transfer_create),
@@ -413,19 +409,19 @@ class OrganizationTransferActivity :
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    fabFundTransfer.menuIconView -> {
+                    binding.fabFundTransfer.menuIconView -> {
                         tutorialEngineUtil.startTutorial(
                             this,
-                            imageViewFilter,
+                            binding.viewSearchLayout.imageViewFilter,
                             R.layout.frame_tutorial_upper_right,
-                            getCircleFloatSize(imageViewFilter),
+                            getCircleFloatSize(binding.viewSearchLayout.imageViewFilter),
                             true,
                             getString(R.string.msg_tutorial_fund_transfer_filter),
                             GravityEnum.BOTTOM,
                             OverlayAnimationEnum.ANIM_EXPLODE
                         )
                     }
-                    imageViewFilter -> {
+                    binding.viewSearchLayout.imageViewFilter -> {
                         clearTutorial()
                     }
                 }
@@ -469,10 +465,10 @@ class OrganizationTransferActivity :
 
     private fun initFabButton() {
         val set = AnimatorSet()
-        val scaleOutX = ObjectAnimator.ofFloat(fabFundTransfer.menuIconView, "scaleX", 1.0f, 0.2f)
-        val scaleOutY = ObjectAnimator.ofFloat(fabFundTransfer.menuIconView, "scaleY", 1.0f, 0.2f)
-        val scaleInX = ObjectAnimator.ofFloat(fabFundTransfer.menuIconView, "scaleX", 0.2f, 1.0f)
-        val scaleInY = ObjectAnimator.ofFloat(fabFundTransfer.menuIconView, "scaleY", 0.2f, 1.0f)
+        val scaleOutX = ObjectAnimator.ofFloat(binding.fabFundTransfer.menuIconView, "scaleX", 1.0f, 0.2f)
+        val scaleOutY = ObjectAnimator.ofFloat(binding.fabFundTransfer.menuIconView, "scaleY", 1.0f, 0.2f)
+        val scaleInX = ObjectAnimator.ofFloat(binding.fabFundTransfer.menuIconView, "scaleX", 0.2f, 1.0f)
+        val scaleInY = ObjectAnimator.ofFloat(binding.fabFundTransfer.menuIconView, "scaleY", 0.2f, 1.0f)
         scaleOutX.duration = 50
         scaleOutY.duration = 50
         scaleInX.duration = 150
@@ -480,58 +476,58 @@ class OrganizationTransferActivity :
         set.play(scaleOutX).with(scaleOutY)
         set.play(scaleInX).with(scaleInY).after(scaleOutX)
         set.interpolator = OvershootInterpolator(2f)
-        fabFundTransfer.menuIconView.id = R.id.imageViewMakeATransfer
-        fabFundTransfer.iconToggleAnimatorSet = set
-        fabFundTransfer.setClosedOnTouchOutside(true)
+        binding.fabFundTransfer.menuIconView.id = R.id.imageViewMakeATransfer
+        binding.fabFundTransfer.iconToggleAnimatorSet = set
+        binding.fabFundTransfer.setClosedOnTouchOutside(true)
         initFabButtonListener(scaleInX)
     }
 
     private fun initFabButtonListener(scaleInX: ObjectAnimator) {
         scaleInX.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {
-                if (fabFundTransfer.isOpened) {
-                    fabFundTransfer.menuIconView.setImageResource(R.drawable.ic_plus_white)
+                if (binding.fabFundTransfer.isOpened) {
+                    binding.fabFundTransfer.menuIconView.setImageResource(R.drawable.ic_plus_white)
                 } else {
                     initMakeTransferFab()
                     if (!viewModel.hasViewBeneficiaryPermission.value.notNullable()) {
-                        fabMenuManageBeneficiaries.labelVisibility = View.GONE
-                        fabMenuManageBeneficiaries.visibility = View.GONE
+                        binding.fabMenuManageBeneficiaries.labelVisibility = View.GONE
+                        binding.fabMenuManageBeneficiaries.visibility = View.GONE
                     }
                     if (!viewModel.hasScheduledTransferPermission.value.notNullable()) {
-                        fabMenuManageScheduledTransfer.labelVisibility = View.GONE
-                        fabMenuManageScheduledTransfer.visibility = View.GONE
+                        binding.fabMenuManageScheduledTransfer.labelVisibility = View.GONE
+                        binding.fabMenuManageScheduledTransfer.visibility = View.GONE
                     }
                 }
             }
         })
-        fabFundTransfer.setOnMenuButtonClickListener {
+        binding.fabFundTransfer.setOnMenuButtonClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000)
                 return@setOnMenuButtonClickListener
-            if (fabFundTransfer.isOpened) {
+            if (binding.fabFundTransfer.isOpened) {
                 navigateChannelBankScreen()
             } else {
                 if (viewModel.onlyCreateTransaction.value.notNullable()) {
                     navigateChannelBankScreen()
                 } else {
-                    fabFundTransfer.toggle(true)
+                    binding.fabFundTransfer.toggle(true)
                 }
             }
         }
-        fabMenuManageBeneficiaries.setOnClickListener {
+        binding.fabMenuManageBeneficiaries.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             navigateManageBeneficiaryScreen()
-            fabFundTransfer.toggle(true)
+            binding.fabFundTransfer.toggle(true)
         }
-        fabMenuManageScheduledTransfer.setOnClickListener {
+        binding.fabMenuManageScheduledTransfer.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             navigateManageScheduledTransferScreen()
-            fabFundTransfer.toggle(true)
+            binding.fabFundTransfer.toggle(true)
         }
     }
 
     private fun initMakeTransferFab() {
-        fabFundTransfer.menuButtonLabelText = getString(R.string.title_make_transfer)
-        fabFundTransfer.menuIconView.setImageResource(R.drawable.ic_card_white)
+        binding.fabFundTransfer.menuButtonLabelText = getString(R.string.title_make_transfer)
+        binding.fabFundTransfer.menuIconView.setImageResource(R.drawable.ic_card_white)
     }
 
     private fun navigateManageScheduledTransferScreen() {
@@ -601,7 +597,7 @@ class OrganizationTransferActivity :
         if (!viewModel.hasCreateTransaction.value.notNullable()) {
             showPermissionAccountBottomSheet()
         } else {
-            fabFundTransfer.toggle(false)
+            binding.fabFundTransfer.toggle(false)
             val bundle = Bundle()
             bundle.putString(ChannelActivity.EXTRA_PAGE, ChannelActivity.PAGE_FUND_TRANSFER)
             navigator.navigate(
@@ -632,7 +628,7 @@ class OrganizationTransferActivity :
             if (isTableView()) {
                 if (snackBarProgressBar == null) {
                     snackBarProgressBar = viewUtil.showCustomSnackBar(
-                        constraintLayout,
+                        binding.constraintLayout,
                         R.layout.widget_snackbar_progressbar,
                         Snackbar.LENGTH_INDEFINITE
                     )
@@ -656,12 +652,12 @@ class OrganizationTransferActivity :
 
     private fun showEmptyState(data: MutableList<Transaction>) {
         if (isTableView()) {
-            linearLayoutRow.visibility(data.size > 0)
+            binding.viewTable.linearLayoutRow.visibility(data.size > 0)
         }
         if (data.size > 0) {
-            if (textViewState?.visibility == View.VISIBLE) textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE) binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
@@ -706,7 +702,7 @@ class OrganizationTransferActivity :
         getRecyclerView().visibility(true)
         getRecyclerViewTutorial().visibility(false)
         getRecyclerViewTutorial().setController(organizationTransferTutorialController)
-        if (viewLoadingState.visibility != View.VISIBLE) {
+        if (binding.viewLoadingState.root.visibility != View.VISIBLE) {
             showEmptyState(getTransactionsLiveData())
         }
     }
@@ -721,7 +717,7 @@ class OrganizationTransferActivity :
         if (!isInitial) {
             getRecyclerView().visibility(false)
             if (isTableView()) {
-                linearLayoutRow.visibility(true)
+                binding.viewTable.linearLayoutRow.visibility(true)
             }
             updateTutorialController()
             viewUtil.animateRecyclerView(getRecyclerViewTutorial(), true)
@@ -736,8 +732,8 @@ class OrganizationTransferActivity :
 
     private fun initHeaderRow() {
         if (isTableView()) {
-            swipeRefreshLayoutTable.visibility(true)
-            swipeRefreshLayoutOrganizationTransfer.visibility(false)
+            binding.swipeRefreshLayoutTable.visibility(true)
+            binding.swipeRefreshLayoutOrganizationTransfer.visibility(false)
             val headers =
                 resources.getStringArray(R.array.array_headers_organization_transfers)
                     .toMutableList()
@@ -746,19 +742,28 @@ class OrganizationTransferActivity :
                 val textViewHeader =
                     viewRowHeader.findViewById<AppCompatTextView>(R.id.textViewHeader)
                 textViewHeader.text = it
-                linearLayoutRow.addView(viewRowHeader)
+                binding.viewTable.linearLayoutRow.addView(viewRowHeader)
             }
         }
     }
 
     private fun getRecyclerView() =
-        if (isTableView()) recyclerViewTable else recyclerViewOrganizationTransfer
+        if (isTableView())
+            binding.viewTable.recyclerViewTable
+        else
+            binding.recyclerViewOrganizationTransfer
 
     private fun getRecyclerViewTutorial() =
-        if (isTableView()) recyclerViewTableTutorial else recyclerViewTutorial
+        if (isTableView())
+            binding.viewTable.recyclerViewTableTutorial
+        else
+            binding.recyclerViewTutorial
 
     private fun getSwipeRefreshLayout() =
-        if (isTableView()) swipeRefreshLayoutTable else swipeRefreshLayoutOrganizationTransfer
+        if (isTableView())
+            binding.swipeRefreshLayoutTable
+        else
+            binding.swipeRefreshLayoutOrganizationTransfer
 
     private fun showProcessingStatusRestrictionDialog() {
         val processingStatusRestrictionDialog = ConfirmationBottomSheet.newInstance(
@@ -800,5 +805,11 @@ class OrganizationTransferActivity :
             this::class.java.simpleName
         )
     }
+
+    override val viewModelClassType: Class<OrganizationTransferViewModel>
+        get() = OrganizationTransferViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOrganizationTransferBinding
+        get() = ActivityOrganizationTransferBinding::inflate
 
 }

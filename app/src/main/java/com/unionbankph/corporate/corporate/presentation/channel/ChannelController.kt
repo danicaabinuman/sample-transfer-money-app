@@ -19,7 +19,7 @@ import com.unionbankph.corporate.common.data.model.SectionedData
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
 import com.unionbankph.corporate.corporate.data.model.Channel
-import kotlinx.android.synthetic.main.item_channel.view.*
+import com.unionbankph.corporate.databinding.ItemChannelBinding
 
 
 class ChannelController
@@ -51,8 +51,8 @@ constructor(
                     id(channel.id)
                     channel(channel)
                     hasStart(position == 0)
-                    context(context)
-                    callbacks(callbacks)
+                    context(this@ChannelController.context)
+                    callbacks(this@ChannelController.callbacks)
                 }
             }
         }
@@ -91,10 +91,10 @@ abstract class ChannelItemModel : EpoxyModelWithHolder<ChannelItemModel.Holder>(
         super.bind(holder)
 
         if (!hasStart) {
-            holder.viewBorder1.visibility = View.GONE
+            holder.binding.viewBorder1.visibility = View.GONE
         }
 
-        holder.textViewChannel.text = channel.contextChannel?.displayName
+        holder.binding.textViewChannel.text = channel.contextChannel?.displayName
 
         val channelDescription = StringBuilder()
         channelDescription.append("<ul>")
@@ -104,13 +104,13 @@ abstract class ChannelItemModel : EpoxyModelWithHolder<ChannelItemModel.Holder>(
             )
         }
         channelDescription.append("</ul>")
-        holder.textViewChannelDesc.text =
+        holder.binding.textViewChannelDesc.text =
             channelDescription
                 .toString()
                 .trimIndent()
                 .supportBullets(context)
 
-        holder.imageViewChannel.setImageResource(
+        holder.binding.imageViewChannel.setImageResource(
             when (channel.id) {
                 ChannelBankEnum.BILLS_PAYMENT.getChannelId() ->
                     R.drawable.ic_channel_bills_payment
@@ -134,10 +134,10 @@ abstract class ChannelItemModel : EpoxyModelWithHolder<ChannelItemModel.Holder>(
         when (channel.id) {
             ChannelBankEnum.INSTAPAY.getChannelId(),
             ChannelBankEnum.PESONET.getChannelId() -> {
-                holder.imageViewChannel.setPadding(0, 0, 0, 0)
+                holder.binding.imageViewChannel.setPadding(0, 0, 0, 0)
             }
             else -> {
-                holder.imageViewChannel.setPadding(
+                holder.binding.imageViewChannel.setPadding(
                     context.resources.getDimension(R.dimen.content_spacing_half).toInt(),
                     context.resources.getDimension(R.dimen.content_spacing_half).toInt(),
                     context.resources.getDimension(R.dimen.content_spacing_half).toInt(),
@@ -145,28 +145,17 @@ abstract class ChannelItemModel : EpoxyModelWithHolder<ChannelItemModel.Holder>(
                 )
             }
         }
-        holder.viewChannel.setOnClickListener {
+        holder.binding.root.setOnClickListener {
             callbacks.onClickItem(it, channel, position)
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutItemChannel: ConstraintLayout
-        lateinit var imageViewChannel: ImageView
-        lateinit var textViewChannel: TextView
-        lateinit var textViewChannelDesc: TextView
-        lateinit var viewChannel: View
-        lateinit var viewBorder1: View
-        lateinit var viewBorder2: View
+
+        lateinit var binding : ItemChannelBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutItemChannel = itemView.constraintLayoutItemChannel
-            imageViewChannel = itemView.imageViewChannel
-            textViewChannel = itemView.textViewChannel
-            textViewChannelDesc = itemView.textViewChannelDesc
-            viewBorder1 = itemView.viewBorder1
-            viewBorder2 = itemView.viewBorder2
-            viewChannel = itemView
+            binding = ItemChannelBinding.bind(itemView)
         }
     }
 }

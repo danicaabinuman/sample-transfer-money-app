@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.dao.presentation.personal_info_1
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
@@ -25,20 +27,18 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
+import com.unionbankph.corporate.databinding.FragmentDaoPersonalInformationStep1Binding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_dao_personal_information_step_1.*
-import kotlinx.android.synthetic.main.item_textview_biller.*
-import kotlinx.android.synthetic.main.widget_country_code.*
 import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoPersonalInformationStepOneFragment :
-    BaseFragment<DaoPersonalInformationStepOneViewModel>(R.layout.fragment_dao_personal_information_step_1),
+    BaseFragment<FragmentDaoPersonalInformationStep1Binding, DaoPersonalInformationStepOneViewModel>(),
     DaoActivity.ActionEvent {
 
     private val daoActivity by lazyFast { getAppCompatActivity() as DaoActivity }
@@ -69,11 +69,6 @@ class DaoPersonalInformationStepOneFragment :
     }
 
     private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[DaoPersonalInformationStepOneViewModel::class.java]
         viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -110,7 +105,7 @@ class DaoPersonalInformationStepOneFragment :
             results.emailAddressErrorMessage?.let {
                 viewUtil.setError(
                     RxValidationResult.createImproper(
-                        tie_email_address,
+                        binding.tieEmailAddress,
                         it.notNullable()
                     )
                 )
@@ -118,7 +113,7 @@ class DaoPersonalInformationStepOneFragment :
             results.mobileNumberErrorMessage?.let {
                 viewUtil.setError(
                     RxValidationResult.createImproper(
-                        tie_business_mobile_number,
+                        binding.tieBusinessMobileNumber,
                         it.notNullable()
                     )
                 )
@@ -139,23 +134,23 @@ class DaoPersonalInformationStepOneFragment :
         viewModel.loadDaoForm(daoActivity.viewModel.defaultDaoForm())
         viewModel.input.salutationInput
             .subscribe {
-                tie_salutation.setText(it.value)
+                binding.tieSalutation.setText(it.value)
             }.addTo(disposables)
         viewModel.input.firstNameInput
             .subscribe {
-                tie_first_name.setText(it)
+                binding.tieFirstName.setText(it)
             }.addTo(disposables)
         viewModel.input.middleNameInput
             .subscribe {
-                tie_middle_name.setText(it)
+                binding.tieMiddleName.setText(it)
             }.addTo(disposables)
         viewModel.input.lastNameInput
             .subscribe {
-                tie_last_name.setText(it)
+                binding.tieLastName.setText(it)
             }.addTo(disposables)
         viewModel.input.emailAddressInput
             .subscribe {
-                tie_email_address.setText(it)
+                binding.tieEmailAddress.setText(it)
             }.addTo(disposables)
         viewModel.input.countryCodeInput
             .subscribe {
@@ -163,15 +158,15 @@ class DaoPersonalInformationStepOneFragment :
             }.addTo(disposables)
         viewModel.input.businessMobileNumberInput
             .subscribe {
-                tie_business_mobile_number.setText(it)
+                binding.tieBusinessMobileNumber.setText(it)
             }.addTo(disposables)
         viewModel.input.genderInput
             .subscribe {
-                tie_gender.setText(it.value)
+                binding.tieGender.setText(it.value)
             }.addTo(disposables)
         viewModel.input.civilStatusInput
             .subscribe {
-                tie_civil_status.setText(it.value)
+                binding.tieCivilStatus.setText(it.value)
             }.addTo(disposables)
         viewModel.isEditMode
             .subscribe {
@@ -220,16 +215,16 @@ class DaoPersonalInformationStepOneFragment :
     }
 
     private fun initClickListener() {
-        tie_salutation.setOnClickListener {
+        binding.tieSalutation.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.SALUTATION.name)
         }
-        tie_gender.setOnClickListener {
+        binding.tieGender.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.GENDER.name)
         }
-        tie_civil_status.setOnClickListener {
+        binding.tieCivilStatus.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.CIVIL_STATUS.name)
         }
-        tie_country_code.setOnClickListener {
+        binding.viewCountryCode.tieCountryCode.setOnClickListener {
             findNavController().navigate(R.id.action_country_activity)
         }
     }
@@ -245,25 +240,25 @@ class DaoPersonalInformationStepOneFragment :
     }
 
     private fun refreshFields() {
-        tie_salutation.refresh()
-        tie_first_name.refresh()
-        tie_middle_name.refresh()
-        tie_last_name.refresh()
-        tie_email_address.refresh()
-        tie_business_mobile_number.refresh()
-        tie_gender.refresh()
-        tie_civil_status.refresh()
+        binding.tieSalutation.refresh()
+        binding.tieFirstName.refresh()
+        binding.tieMiddleName.refresh()
+        binding.tieLastName.refresh()
+        binding.tieEmailAddress.refresh()
+        binding.tieBusinessMobileNumber.refresh()
+        binding.tieGender.refresh()
+        binding.tieCivilStatus.refresh()
     }
 
     private fun refreshClearFields() {
-        tie_salutation.refreshClear()
-        tie_first_name.refreshClear()
-        tie_middle_name.refreshClear()
-        tie_last_name.refreshClear()
-        tie_email_address.refreshClear()
-        tie_business_mobile_number.refreshClear()
-        tie_gender.refreshClear()
-        tie_civil_status.refreshClear()
+        binding.tieSalutation.refreshClear()
+        binding.tieFirstName.refreshClear()
+        binding.tieMiddleName.refreshClear()
+        binding.tieLastName.refreshClear()
+        binding.tieEmailAddress.refreshClear()
+        binding.tieBusinessMobileNumber.refreshClear()
+        binding.tieGender.refreshClear()
+        binding.tieCivilStatus.refreshClear()
     }
 
     private fun validateForm(isCountryPH: Boolean) {
@@ -273,27 +268,27 @@ class DaoPersonalInformationStepOneFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_salutation
+            editText = binding.tieSalutation
         )
         val firstNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_first_name
+            editText = binding.tieFirstName
         )
         val lastNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_last_name
+            editText = binding.tieLastName
         )
-        val emailAddressObservable = RxValidator.createFor(tie_email_address)
+        val emailAddressObservable = RxValidator.createFor(binding.tieEmailAddress)
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
-                    til_email_address.hint
+                    binding.tieEmailAddress.hint
                 )
             )
             .email(getString(R.string.error_invalid_email_address))
@@ -308,11 +303,11 @@ class DaoPersonalInformationStepOneFragment :
             }
         val businessMobileNumberObservable =
             if (isCountryPH) {
-                RxValidator.createFor(tie_business_mobile_number)
+                RxValidator.createFor(binding.tieBusinessMobileNumber)
                     .nonEmpty(
                         String.format(
                             getString(R.string.error_specific_field),
-                            tie_business_mobile_number.hint
+                            binding.tieBusinessMobileNumber.hint
                         )
                     )
                     .patternMatches(
@@ -341,7 +336,7 @@ class DaoPersonalInformationStepOneFragment :
                     isValueChanged = true,
                     minLength = resources.getInteger(R.integer.min_length_field),
                     maxLength = resources.getInteger(R.integer.max_length_field_100),
-                    editText = tie_business_mobile_number
+                    editText = binding.tieBusinessMobileNumber
                 )
             }
         val civilStatusObservable = viewUtil.rxTextChanges(
@@ -349,14 +344,14 @@ class DaoPersonalInformationStepOneFragment :
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_civil_status
+            editText = binding.tieCivilStatus
         )
         val genderObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_100),
-            editText = tie_gender
+            editText = binding.tieGender
         )
         initError(salutationObservable)
         initError(firstNameObservable)
@@ -404,9 +399,9 @@ class DaoPersonalInformationStepOneFragment :
 
     private fun showCountryDetails(countryCode: CountryCode?) {
         validateForm(Constant.getDefaultCountryCode().code == countryCode?.code)
-        tie_business_mobile_number.clear()
+        binding.tieBusinessMobileNumber.clear()
         viewUtil.setEditTextMaxLength(
-            tie_business_mobile_number,
+            binding.tieBusinessMobileNumber,
             resources.getInteger(
                 if (Constant.getDefaultCountryCode().code == countryCode?.code) {
                     R.integer.max_length_mobile_number_ph
@@ -415,8 +410,8 @@ class DaoPersonalInformationStepOneFragment :
                 }
             )
         )
-        tie_country_code.setText(countryCode?.callingCode)
-        imageViewFlag.setImageResource(
+        binding.viewCountryCode.tieCountryCode.setText(countryCode?.callingCode)
+        binding.viewCountryCode.imageViewFlag.setImageResource(
             viewUtil.getDrawableById("ic_flag_${countryCode?.code?.toLowerCase()}")
         )
         refreshClearFields()
@@ -443,10 +438,10 @@ class DaoPersonalInformationStepOneFragment :
     }
 
     private fun clearFormFocus() {
-        constraint_layout.post {
+        binding.constraintLayout.post {
             viewUtil.dismissKeyboard(getAppCompatActivity())
-            constraint_layout.requestFocus()
-            constraint_layout.isFocusableInTouchMode = true
+            binding.constraintLayout.requestFocus()
+            binding.constraintLayout.isFocusableInTouchMode = true
         }
     }
 
@@ -478,11 +473,11 @@ class DaoPersonalInformationStepOneFragment :
         clearFormFocus()
         if (viewModel.hasValidForm()) {
             viewModel.setPreTextValues(
-                tie_first_name.getTextNullable(),
-                tie_middle_name.getTextNullable(),
-                tie_last_name.getTextNullable(),
-                tie_email_address.getTextNullable(),
-                tie_business_mobile_number.getTextNullable()
+                binding.tieFirstName.getTextNullable(),
+                binding.tieMiddleName.getTextNullable(),
+                binding.tieLastName.getTextNullable(),
+                binding.tieEmailAddress.getTextNullable(),
+                binding.tieBusinessMobileNumber.getTextNullable()
             )
             viewModel.onClickedNext()
         } else {
@@ -496,4 +491,10 @@ class DaoPersonalInformationStepOneFragment :
         const val EXTRA_IS_EDIT = "isEdit"
         const val TAG_CANCEL_DAO_DIALOG = "cancel_dao"
     }
+
+    override val viewModelClassType: Class<DaoPersonalInformationStepOneViewModel>
+        get() = DaoPersonalInformationStepOneViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDaoPersonalInformationStep1Binding
+        get() = FragmentDaoPersonalInformationStep1Binding::inflate
 }

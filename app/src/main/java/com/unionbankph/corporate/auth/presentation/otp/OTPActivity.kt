@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.otp
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.widget.EditText
@@ -33,6 +34,7 @@ import com.unionbankph.corporate.bills_payment.presentation.bills_payment_summar
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityOtpBinding
 import com.unionbankph.corporate.fund_transfer.presentation.instapay.InstaPaySummaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.pddts.PDDTSSummaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.pesonet.PesoNetSummaryActivity
@@ -40,9 +42,6 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftSummaryAc
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPSummaryActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_otp.*
-import kotlinx.android.synthetic.main.widget_pin_code.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
@@ -50,7 +49,7 @@ import java.util.concurrent.TimeUnit
  * Created by Herald Santos
  */
 class OTPActivity :
-    BaseActivity<OTPViewModel>(R.layout.activity_otp),
+    BaseActivity<ActivityOtpBinding, OTPViewModel>(),
     PincodeEditText.OnOTPCallback {
 
     private val page by lazyFast { intent.getStringExtra(EXTRA_REQUEST_PAGE) }
@@ -63,13 +62,12 @@ class OTPActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[OTPViewModel::class.java]
+
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowOTPLoading -> {
@@ -127,7 +125,7 @@ class OTPActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        RxView.clicks(btnSubmit)
+        RxView.clicks(binding.btnSubmit)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -135,7 +133,7 @@ class OTPActivity :
             .subscribe {
                 submitTransaction()
             }.addTo(disposables)
-        RxView.clicks(btnResend)
+        RxView.clicks(binding.btnResend)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -208,15 +206,15 @@ class OTPActivity :
         pinCodeEditText =
             PincodeEditText(
                 this,
-                parentLayout,
-                btnSubmit,
-                editTextHidden,
-                etPin1,
-                etPin2,
-                etPin3,
-                etPin4,
-                etPin5,
-                etPin6
+                binding.parentLayout,
+                binding.btnSubmit,
+                binding.editTextHidden,
+                binding.viewPinCode.etPin1,
+                binding.viewPinCode.etPin2,
+                binding.viewPinCode.etPin3,
+                binding.viewPinCode.etPin4,
+                binding.viewPinCode.etPin5,
+                binding.viewPinCode.etPin6
             )
         pinCodeEditText.setOnOTPCallback(this)
         when (page) {
@@ -737,7 +735,7 @@ class OTPActivity :
     }
 
     private fun initStartResendCodeCount(timer: Int) {
-        tvResend.text = formatString(
+        binding.tvResend.text = formatString(
             R.string.desc_resend_code_seconds,
             formatString(
                 R.string.param_color,
@@ -748,8 +746,8 @@ class OTPActivity :
     }
 
     private fun initEnableResendButton(isEnabled: Boolean) {
-        btnResend.isEnabled = isEnabled
-        btnResend.alpha = if (isEnabled) 1.0F else 0.5F
+        binding.btnResend.isEnabled = isEnabled
+        binding.btnResend.alpha = if (isEnabled) 1.0F else 0.5F
     }
 
     private fun navigateDashboardScreen() {
@@ -793,13 +791,13 @@ class OTPActivity :
         viewModel.otpType.onNext(auth.otpType ?: LOGIN_TYPE_SMS)
         if (isTOTPScreen(loginType)) {
             initEnableResendButton(true)
-            tvVerifyAccountDesc.text = formatString(R.string.desc_verify_account_totp)
-            textViewDidNotReceived.text = formatString(R.string.desc_cannot_generate_code)
-            textViewDidNotReceived.visibility(true)
-            tvResend.visibility(false)
-            btnResend.text = formatString(R.string.action_receive_via_otp)
+            binding.tvVerifyAccountDesc.text = formatString(R.string.desc_verify_account_totp)
+            binding.textViewDidNotReceived.text = formatString(R.string.desc_cannot_generate_code)
+            binding.textViewDidNotReceived.visibility(true)
+            binding.tvResend.visibility(false)
+            binding.btnResend.text = formatString(R.string.action_receive_via_otp)
         } else {
-            tvVerifyAccountDesc.text = formatString(
+            binding.tvVerifyAccountDesc.text = formatString(
                 R.string.desc_verify_account_sms,
                 formatString(
                     R.string.param_color,
@@ -813,11 +811,11 @@ class OTPActivity :
                 resources.getInteger(R.integer.resend_otp_code_period).toLong(),
                 resources.getInteger(R.integer.resend_otp_code_count).toLong()
             )
-            textViewDidNotReceived.text = formatString(R.string.desc_did_not_receive_code)
-            btnResend.text = formatString(R.string.action_resend_code)
-            textViewDidNotReceived.visibility(true)
-            tvResend.visibility(true)
-            btnResend.visibility(true)
+            binding.textViewDidNotReceived.text = formatString(R.string.desc_did_not_receive_code)
+            binding.btnResend.text = formatString(R.string.action_resend_code)
+            binding.textViewDidNotReceived.visibility(true)
+            binding.tvResend.visibility(true)
+            binding.btnResend.visibility(true)
         }
     }
 
@@ -850,4 +848,10 @@ class OTPActivity :
         const val PAGE_FUND_TRANSFER_SWIFT = "fund_transfer_swift"
         const val PAGE_BILLS_PAYMENT = "bills_payment"
     }
+
+    override val viewModelClassType: Class<OTPViewModel>
+        get() = OTPViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOtpBinding
+        get() = ActivityOtpBinding::inflate
 }

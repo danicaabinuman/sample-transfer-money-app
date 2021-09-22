@@ -15,7 +15,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
-import kotlinx.android.synthetic.main.item_country.view.*
+import com.unionbankph.corporate.databinding.ItemCountryBinding
 
 class CountryController
 constructor(
@@ -37,9 +37,9 @@ constructor(
                 id(countryCode.id)
                 countryCode(countryCode)
                 position(index)
-                viewUtil(viewUtil)
-                callbacks(callbacks)
-                context(context)
+                viewUtil(this@CountryController.viewUtil)
+                callbacks(this@CountryController.callbacks)
+                context(this@CountryController.context)
             }
         }
     }
@@ -75,31 +75,24 @@ abstract class CountryItemModel : EpoxyModelWithHolder<CountryItemModel.Holder>(
 
     override fun bind(holder: Holder) {
         if (position != 0) {
-            holder.viewBorderTop.visibility = View.GONE
+            holder.binding.viewBorderTop.visibility = View.GONE
         }
-        holder.textViewName.text = countryCode.name
-        holder.textViewCallingCode.text = countryCode.callingCode
-        holder.imageViewFlag.setImageResource(
+        holder.binding.textViewName.text = countryCode.name
+        holder.binding.textViewCallingCode.text = countryCode.callingCode
+        holder.binding.imageViewFlag.setImageResource(
             viewUtil.getDrawableById("ic_flag_${countryCode.code?.toLowerCase()}")
         )
-        holder.constraintLayoutItem.setOnClickListener {
-            callbacks.onClickItem(holder.constraintLayoutItem, countryCode, position)
+        holder.binding.constraintLayoutItem.setOnClickListener {
+            callbacks.onClickItem(holder.binding.constraintLayoutItem, countryCode, position)
         }
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var constraintLayoutItem: ConstraintLayout
-        lateinit var viewBorderTop: View
-        lateinit var imageViewFlag: ImageView
-        lateinit var textViewCallingCode: TextView
-        lateinit var textViewName: TextView
+
+        lateinit var binding: ItemCountryBinding
 
         override fun bindView(itemView: View) {
-            constraintLayoutItem = itemView.constraintLayoutItem
-            viewBorderTop = itemView.viewBorderTop
-            imageViewFlag = itemView.imageViewFlag
-            textViewCallingCode = itemView.textViewCallingCode
-            textViewName = itemView.textViewName
+            binding = ItemCountryBinding.bind(itemView)
         }
     }
 }

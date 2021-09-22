@@ -40,6 +40,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowGeneralGetOrg
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.corporate.data.model.Channel
+import com.unionbankph.corporate.databinding.ActivityManageBeneficiaryFormBinding
 import com.unionbankph.corporate.fund_transfer.data.form.BeneficiaryForm
 import com.unionbankph.corporate.fund_transfer.data.model.Bank
 import com.unionbankph.corporate.fund_transfer.data.model.BeneficiaryDetailDto
@@ -50,16 +51,10 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBank
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import com.unionbankph.corporate.settings.presentation.country.CountryActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_manage_beneficiary_form.*
-import kotlinx.android.synthetic.main.item_edittext_bank_details.*
-import kotlinx.android.synthetic.main.widget_channel_header.*
-import kotlinx.android.synthetic.main.widget_edit_text_allowed_source_account.*
-import kotlinx.android.synthetic.main.widget_edit_text_mobile_number.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import timber.log.Timber
 
 class ManageBeneficiaryFormActivity :
-    BaseActivity<ManageBeneficiaryFormViewModel>(R.layout.activity_manage_beneficiary_form),
+    BaseActivity<ActivityManageBeneficiaryFormBinding, ManageBeneficiaryFormViewModel>(),
     View.OnClickListener,
     TextView.OnEditorActionListener,
     OnTutorialListener,
@@ -85,7 +80,7 @@ class ManageBeneficiaryFormActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
     }
 
     override fun onViewsBound() {
@@ -121,8 +116,8 @@ class ManageBeneficiaryFormActivity :
             when (it) {
                 is ShowGeneralGetOrganizationName -> {
                     setToolbarTitle(
-                        textViewTitle,
-                        textViewCorporationName,
+                        binding.viewToolbar.textViewTitle,
+                        binding.viewToolbar.textViewCorporationName,
                         String.format(
                             if (isCreationForm())
                                 getString(R.string.title_create_beneficiary)
@@ -142,10 +137,6 @@ class ManageBeneficiaryFormActivity :
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[ManageBeneficiaryFormViewModel::class.java]
         viewModel.stateManageBeneficiaryForm.observe(this, Observer {
             when (it) {
                 is ShowManageBeneficiaryFormLoading -> {
@@ -192,7 +183,7 @@ class ManageBeneficiaryFormActivity :
             R.id.menu_help -> {
                 isClickedHelpTutorial = true
                 viewUtil.dismissKeyboard(this)
-                scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                 Handler().postDelayed(
                     {
                         startViewTutorial()
@@ -272,15 +263,15 @@ class ManageBeneficiaryFormActivity :
 
     override fun onEndedTutorial(view: View?, viewTarget: View) {
         if (isSkipTutorial) {
-            scrollView.post { scrollView.smoothScrollTo(0, 0) }
+            binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
         } else {
             val radius = resources.getDimension(R.dimen.field_radius)
             when (view) {
-                viewTutorialAllowedSourceAccounts -> {
-                    viewUtil.setFocusOnView(scrollView, textInputLayoutBeneficiaryCode)
+                binding.viewTutorialAllowedSourceAccounts -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.textInputLayoutBeneficiaryCode)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        textInputLayoutBeneficiaryCode,
+                        binding.textInputLayoutBeneficiaryCode,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -289,11 +280,11 @@ class ManageBeneficiaryFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                textInputLayoutBeneficiaryCode -> {
-                    viewUtil.setFocusOnView(scrollView, textInputLayoutBeneficiaryName)
+                binding.textInputLayoutBeneficiaryCode -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.textInputLayoutBeneficiaryName)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        textInputLayoutBeneficiaryName,
+                        binding.textInputLayoutBeneficiaryName,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -302,11 +293,11 @@ class ManageBeneficiaryFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                textInputLayoutBeneficiaryName -> {
-                    viewUtil.setFocusOnView(scrollView, textInputLayoutAccountNumber)
+                binding.textInputLayoutBeneficiaryName -> {
+                    viewUtil.setFocusOnView(binding.scrollView, binding.textInputLayoutAccountNumber)
                     tutorialEngineUtil.startTutorial(
                         this,
-                        textInputLayoutAccountNumber,
+                        binding.textInputLayoutAccountNumber,
                         R.layout.frame_tutorial_upper_left,
                         radius,
                         false,
@@ -315,15 +306,15 @@ class ManageBeneficiaryFormActivity :
                         OverlayAnimationEnum.ANIM_EXPLODE
                     )
                 }
-                textInputLayoutAccountNumber -> {
+                binding.textInputLayoutAccountNumber -> {
                     if (channel.id == ChannelBankEnum.UBP_TO_UBP.getChannelId()) {
                         startButtonSaveTutorial()
                     } else {
                         if (channel.id == ChannelBankEnum.SWIFT.getChannelId()) {
-                            viewUtil.setFocusOnView(scrollView, textInputLayoutBeneficiaryAddress)
+                            viewUtil.setFocusOnView(binding.scrollView, binding.textInputLayoutBeneficiaryAddress)
                             tutorialEngineUtil.startTutorial(
                                 this,
-                                textInputLayoutBeneficiaryAddress,
+                                binding.textInputLayoutBeneficiaryAddress,
                                 R.layout.frame_tutorial_lower_left,
                                 radius,
                                 false,
@@ -336,14 +327,14 @@ class ManageBeneficiaryFormActivity :
                         }
                     }
                 }
-                textInputLayoutBeneficiaryAddress -> {
+                binding.textInputLayoutBeneficiaryAddress -> {
                     startBankDetailsTutorial()
                 }
-                viewTutorialBankDetails -> {
+                binding.viewTutorialBankDetails -> {
                     startButtonSaveTutorial()
                 }
                 buttonAction -> {
-                    scrollView.post { scrollView.smoothScrollTo(0, 0) }
+                    binding.scrollView.post { binding.scrollView.smoothScrollTo(0, 0) }
                 }
             }
         }
@@ -374,10 +365,10 @@ class ManageBeneficiaryFormActivity :
 
     private fun startBankDetailsTutorial() {
         val radius = resources.getDimension(R.dimen.field_radius)
-        viewUtil.setFocusOnView(scrollView, viewTutorialBankDetails)
+        viewUtil.setFocusOnView(binding.scrollView, binding.viewTutorialBankDetails)
         tutorialEngineUtil.startTutorial(
             this,
-            viewTutorialBankDetails,
+            binding.viewTutorialBankDetails,
             R.layout.frame_tutorial_lower_left,
             radius,
             false,
@@ -389,17 +380,17 @@ class ManageBeneficiaryFormActivity :
 
     private fun initKeyboardActionEvent() {
         if (channel.id == ChannelBankEnum.SWIFT.getChannelId()) {
-            textInputEditTextBeneficiaryAddress.setOnEditorActionListener(this)
+            binding.textInputEditTextBeneficiaryAddress.setOnEditorActionListener(this)
         } else if (channel.id != ChannelBankEnum.UBP_TO_UBP.getChannelId()) {
-            textInputEditTextAccountNumber.setOnEditorActionListener(this)
+            binding.textInputEditTextAccountNumber.setOnEditorActionListener(this)
         }
     }
 
     private fun initClickEvent() {
-        textInputEditTextAllowedSourceAccounts.setOnClickListener(this)
-        linearLayoutAllowedSourceAccounts.setOnClickListener(this)
-        textInputEditTextReceivingBank.setOnClickListener(this)
-        constraintLayoutCountryCode.setOnClickListener(this)
+        binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts.setOnClickListener(this)
+        binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.setOnClickListener(this)
+        binding.viewBankDetails.textInputEditTextReceivingBank.setOnClickListener(this)
+        binding.viewMobileNumber.constraintLayoutCountryCode.setOnClickListener(this)
     }
 
     private fun initEventBus() {
@@ -422,8 +413,8 @@ class ManageBeneficiaryFormActivity :
     }
 
     private fun showCountryDetails(countryCode: CountryCode?) {
-        textViewCallingCode.text = countryCode?.callingCode
-        imageViewFlag.setImageResource(
+        binding.viewMobileNumber.textViewCallingCode.text = countryCode?.callingCode
+        binding.viewMobileNumber.imageViewFlag.setImageResource(
             viewUtil.getDrawableById("ic_flag_${countryCode?.code?.toLowerCase()}")
         )
     }
@@ -432,12 +423,12 @@ class ManageBeneficiaryFormActivity :
         sourceAccounts: MutableList<Account>,
         totalElements: Int
     ) {
-        linearLayoutAllowedSourceAccounts.removeAllViews()
-        textInputEditTextAllowedSourceAccounts.setText("-")
-        textInputLayoutAllowedSourceAccounts.visibility = View.GONE
-        linearLayoutAllowedSourceAccounts.visibility = View.VISIBLE
-        imageViewClose.visibility = View.VISIBLE
-        imageViewClose.setOnClickListener {
+        binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.removeAllViews()
+        binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts.setText("-")
+        binding.viewAllowedSourceAccounts.textInputLayoutAllowedSourceAccounts.visibility = View.GONE
+        binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.visibility = View.VISIBLE
+        binding.viewAllowedSourceAccounts.imageViewClose.visibility = View.VISIBLE
+        binding.viewAllowedSourceAccounts.imageViewClose.setOnClickListener {
             clearAllowedSourceAccounts()
         }
 
@@ -458,7 +449,7 @@ class ManageBeneficiaryFormActivity :
                 ),
                 formatString(R.string.title_beneficiary)
             ).toHtmlSpan()
-            linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
+            binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
         } else {
             sourceAccounts.forEach {
                 val viewAllowedSourceAccount =
@@ -469,7 +460,7 @@ class ManageBeneficiaryFormActivity :
                     viewAllowedSourceAccount.findViewById<TextView>(R.id.textViewAccountNumber)
                 textViewAccountName.text = it.name
                 textViewAccountNumber.text = viewUtil.getAccountNumberFormat(it.accountNumber)
-                linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
+                binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.addView(viewAllowedSourceAccount)
             }
         }
     }
@@ -551,16 +542,16 @@ class ManageBeneficiaryFormActivity :
 
     private fun clearAllowedSourceAccounts() {
         viewModel.clearSourceAccounts()
-        linearLayoutAllowedSourceAccounts.visibility = View.GONE
-        imageViewClose.visibility = View.GONE
-        textInputLayoutAllowedSourceAccounts.visibility = View.VISIBLE
-        textInputEditTextAllowedSourceAccounts.text?.clear()
+        binding.viewAllowedSourceAccounts.linearLayoutAllowedSourceAccounts.visibility = View.GONE
+        binding.viewAllowedSourceAccounts.imageViewClose.visibility = View.GONE
+        binding.viewAllowedSourceAccounts.textInputLayoutAllowedSourceAccounts.visibility = View.VISIBLE
+        binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts.text?.clear()
     }
 
     private fun initFields(channel: Channel) {
         initKeyboardActionEvent()
         viewUtil.setEditTextMaxLength(
-            textInputEditTextAccountNumber,
+            binding.textInputEditTextAccountNumber,
             when (channel.id) {
                 ChannelBankEnum.UBP_TO_UBP.getChannelId() -> {
                     resources.getInteger(R.integer.max_length_account_number_ubp)
@@ -575,7 +566,7 @@ class ManageBeneficiaryFormActivity :
         )
         if (channel.id != ChannelBankEnum.SWIFT.getChannelId()) {
             viewUtil.setEditTextMaskListener(
-                textInputEditTextAccountNumber,
+                binding.textInputEditTextAccountNumber,
                 if (channel.id == ChannelBankEnum.UBP_TO_UBP.getChannelId()) {
                     getString(R.string.hint_account_number_format)
                 } else {
@@ -583,7 +574,7 @@ class ManageBeneficiaryFormActivity :
                 }
             )
         }
-        textInputLayoutReceivingBank.hint =
+        binding.viewBankDetails.textInputLayoutReceivingBank.hint =
             if (channel.id == ChannelBankEnum.SWIFT.getChannelId()) {
                 getString(R.string.hint_swift_receiving_bank)
             } else {
@@ -592,19 +583,19 @@ class ManageBeneficiaryFormActivity :
         imeOptionEditText =
             ImeOptionEditText()
         imeOptionEditText.addEditText(
-            textInputEditTextBeneficiaryCode,
-            textInputEditTextBeneficiaryName,
-            textInputEditTextAccountNumber,
-            textInputEditTextBeneficiaryAddress,
-            textInputEditTextBeneficiaryEmailAddress,
-            editTextMobileNumber
+            binding.textInputEditTextBeneficiaryCode,
+            binding.textInputEditTextBeneficiaryName,
+            binding.textInputEditTextAccountNumber,
+            binding.textInputEditTextBeneficiaryAddress,
+            binding.textInputEditTextBeneficiaryEmailAddress,
+            binding.viewMobileNumber.editTextMobileNumber
         )
         imeOptionEditText.setOnImeOptionListener(this)
-        setRightIconEditText(textInputEditTextBeneficiaryCode)
-        textInputEditTextBeneficiaryCode.setOnTouchListener(View.OnTouchListener { _, event ->
+        setRightIconEditText(binding.textInputEditTextBeneficiaryCode)
+        binding.textInputEditTextBeneficiaryCode.setOnTouchListener(View.OnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
-                if (event.rawX >= textInputEditTextBeneficiaryCode.right -
-                    textInputEditTextBeneficiaryCode.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
+                if (event.rawX >= binding.textInputEditTextBeneficiaryCode.right -
+                    binding.textInputEditTextBeneficiaryCode.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
                 ) {
                     showToolTip(
                         formatString(R.string.title_beneficiary_code),
@@ -616,22 +607,22 @@ class ManageBeneficiaryFormActivity :
             false
         })
         if (channel.id == ChannelBankEnum.SWIFT.getChannelId()) {
-            viewUtil.setInputType(textInputEditTextAccountNumber, "string")
+            viewUtil.setInputType(binding.textInputEditTextAccountNumber, "string")
             viewUtil.setEditTextFilter(
-                textInputEditTextAccountNumber,
+                binding.textInputEditTextAccountNumber,
                 ViewUtil.REGEX_FORMAT_ALPHA_NUMERIC
             )
             viewUtil.setEditTextMaxLength(
-                textInputEditTextAccountNumber,
+                binding.textInputEditTextAccountNumber,
                 resources.getInteger(R.integer.max_length_account_number_swift_banks)
             )
-            textInputLayoutBeneficiaryAddress.visibility = View.VISIBLE
-            imeOptionEditText.addEditText(textInputEditTextBeneficiaryAddress)
-            setRightIconEditText(textInputEditTextAccountNumber)
-            textInputEditTextAccountNumber.setOnTouchListener(View.OnTouchListener { _, event ->
+            binding.textInputLayoutBeneficiaryAddress.visibility = View.VISIBLE
+            imeOptionEditText.addEditText(binding.textInputEditTextBeneficiaryAddress)
+            setRightIconEditText(binding.textInputEditTextAccountNumber)
+            binding.textInputEditTextAccountNumber.setOnTouchListener(View.OnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_UP) {
-                    if (event.rawX >= textInputEditTextAccountNumber.right -
-                        textInputEditTextAccountNumber.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
+                    if (event.rawX >= binding.textInputEditTextAccountNumber.right -
+                        binding.textInputEditTextAccountNumber.compoundDrawables[DRAWABLE_RIGHT].bounds.width()
                     ) {
                         showToolTip(
                             formatString(R.string.title_swift_account_number),
@@ -644,8 +635,8 @@ class ManageBeneficiaryFormActivity :
             })
         }
         if (channel.id == ChannelBankEnum.UBP_TO_UBP.getChannelId()) {
-            textViewBankDetails.visibility = View.GONE
-            viewBankDetails.visibility = View.GONE
+            binding.textViewBankDetails.visibility = View.GONE
+            binding.viewBankDetails.root.visibility = View.GONE
         }
         imeOptionEditText.startListener()
     }
@@ -665,35 +656,35 @@ class ManageBeneficiaryFormActivity :
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextAllowedSourceAccounts
+            binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts
         )
         val textInputEditTextBeneficiaryNameObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextBeneficiaryName
+            binding.textInputEditTextBeneficiaryName
         )
         val textInputEditTextAccountNumberObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextAccountNumber
+            binding.textInputEditTextAccountNumber
         )
         val textInputEditTextBeneficiaryAddressObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextBeneficiaryAddress
+            binding.textInputEditTextBeneficiaryAddress
         )
         val textInputEditTextReceivingBankObservable = viewUtil.rxTextChanges(
             true,
             isValueChanged,
             resources.getInteger(R.integer.min_length_field),
             resources.getInteger(R.integer.max_length_field_100),
-            textInputEditTextReceivingBank
+            binding.viewBankDetails.textInputEditTextReceivingBank
         )
 //        val textInputEditTextBeneficiaryMobileNumberObservable = viewUtil.rxTextChanges(
 //            true,
@@ -761,35 +752,35 @@ class ManageBeneficiaryFormActivity :
 
     private fun initEditTextDefaultValue() {
         if (isActivatedValidationForm) {
-            if (textInputEditTextAllowedSourceAccounts.length() != 0) {
-                textInputEditTextAllowedSourceAccounts.setText(
-                    textInputEditTextAllowedSourceAccounts.text.toString()
+            if (binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts.length() != 0) {
+                binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts.setText(
+                    binding.viewAllowedSourceAccounts.textInputEditTextAllowedSourceAccounts.text.toString()
                 )
             }
-            if (textInputEditTextBeneficiaryName.length() != 0) {
-                textInputEditTextBeneficiaryName.setText(textInputEditTextBeneficiaryName.text.toString())
+            if (binding.textInputEditTextBeneficiaryName.length() != 0) {
+                binding.textInputEditTextBeneficiaryName.setText(binding.textInputEditTextBeneficiaryName.text.toString())
             }
-            if (textInputEditTextAccountNumber.length() != 0) {
-                textInputEditTextAccountNumber.setText(textInputEditTextAccountNumber.text.toString())
+            if (binding.textInputEditTextAccountNumber.length() != 0) {
+                binding.textInputEditTextAccountNumber.setText(binding.textInputEditTextAccountNumber.text.toString())
             }
-            if (textInputEditTextBeneficiaryAddress.length() != 0) {
-                textInputEditTextBeneficiaryAddress.setText(textInputEditTextBeneficiaryAddress.text.toString())
+            if (binding.textInputEditTextBeneficiaryAddress.length() != 0) {
+                binding.textInputEditTextBeneficiaryAddress.setText(binding.textInputEditTextBeneficiaryAddress.text.toString())
             }
-            if (textInputEditTextReceivingBank.length() != 0) {
-                textInputEditTextReceivingBank.setText(textInputEditTextReceivingBank.text.toString())
+            if (binding.viewBankDetails.textInputEditTextReceivingBank.length() != 0) {
+                binding.viewBankDetails.textInputEditTextReceivingBank.setText(binding.viewBankDetails.textInputEditTextReceivingBank.text.toString())
             }
         }
     }
 
     private fun setBackgroundEditTextMobileNumber() {
         if (isFocusedEditTextMobileNumber) {
-            constraintLayoutMobileNumber.background =
+            binding.viewMobileNumber.constraintLayoutMobileNumber.background =
                 ContextCompat.getDrawable(
                     this,
                     R.drawable.bg_edittext_form_focused
                 )
         } else {
-            constraintLayoutMobileNumber.background =
+            binding.viewMobileNumber.constraintLayoutMobileNumber.background =
                 ContextCompat.getDrawable(
                     this,
                     R.drawable.bg_edittext_form
@@ -800,15 +791,15 @@ class ManageBeneficiaryFormActivity :
     private fun showSwiftBankDetails(swiftBank: SwiftBank) {
         this.swiftBank = swiftBank
         val constraintLayoutBankDetails =
-            viewBankDetails.findViewById<ConstraintLayout>(R.id.constraintLayoutBankDetails)
-        val textViewSwiftCode = viewBankDetails.findViewById<TextView>(R.id.textViewSwiftCode)
+            binding.viewBankDetails.constraintLayoutBankDetails
+        val textViewSwiftCode = binding.viewBankDetails.textViewSwiftCode
         val textViewReceivingBank =
-            viewBankDetails.findViewById<TextView>(R.id.textViewReceivingBank)
-        val textViewBankAddress = viewBankDetails.findViewById<TextView>(R.id.textViewBankAddress)
-        val textViewCountry = viewBankDetails.findViewById<TextView>(R.id.textViewCountry)
-        val imageViewClose = viewBankDetails.findViewById<ImageView>(R.id.imageViewBeneficiaryClose)
-        textInputLayoutReceivingBank.visibility = View.GONE
-        textInputEditTextReceivingBank.setText(swiftBank.bankName)
+            binding.viewBankDetails.textViewReceivingBank
+        val textViewBankAddress = binding.viewBankDetails.textViewBankAddress
+        val textViewCountry = binding.viewBankDetails.textViewCountry
+        val imageViewClose = binding.viewBankDetails.imageViewBeneficiaryClose
+        binding.viewBankDetails.textInputLayoutReceivingBank.visibility = View.GONE
+        binding.viewBankDetails.textInputEditTextReceivingBank.setText(swiftBank.bankName)
         textViewSwiftCode.text = viewUtil.getStringOrEmpty(swiftBank.swiftBicCode)
         textViewReceivingBank.text = viewUtil.getStringOrEmpty(swiftBank.bankName)
         textViewBankAddress.text = swiftBank.let {
@@ -824,8 +815,8 @@ class ManageBeneficiaryFormActivity :
         }
         imageViewClose.setOnClickListener {
             constraintLayoutBankDetails.visibility = View.GONE
-            textInputEditTextReceivingBank.text?.clear()
-            textInputLayoutReceivingBank.visibility = View.VISIBLE
+            binding.viewBankDetails.textInputEditTextReceivingBank.text?.clear()
+            binding.viewBankDetails.textInputLayoutReceivingBank.visibility = View.VISIBLE
         }
         constraintLayoutBankDetails.visibility = View.VISIBLE
     }
@@ -887,14 +878,14 @@ class ManageBeneficiaryFormActivity :
                     if (beneficiary.accounts != null) {
                         viewModel.onSetSourceAccountsFromEdit(beneficiary.accounts.notNullable())
                     }
-                    textInputEditTextBeneficiaryCode.setText(beneficiary.code)
-                    textInputEditTextBeneficiaryName.setText(beneficiary.name)
-                    textInputEditTextAccountNumber.setText(beneficiary.accountNumber)
-                    textInputEditTextBeneficiaryEmailAddress.setText(beneficiary.emailAddress)
-                    editTextMobileNumber.setText(beneficiary.mobileNumber)
+                    binding.textInputEditTextBeneficiaryCode.setText(beneficiary.code)
+                    binding.textInputEditTextBeneficiaryName.setText(beneficiary.name)
+                    binding.textInputEditTextAccountNumber.setText(beneficiary.accountNumber)
+                    binding.textInputEditTextBeneficiaryEmailAddress.setText(beneficiary.emailAddress)
+                    binding.viewMobileNumber.editTextMobileNumber.setText(beneficiary.mobileNumber)
                     showCountryDetails(countryCode)
                     if (channel.id == ChannelBankEnum.SWIFT.getChannelId()) {
-                        textInputEditTextBeneficiaryAddress.setText(beneficiary.address)
+                        binding.textInputEditTextBeneficiaryAddress.setText(beneficiary.address)
                     }
                 }
             }
@@ -903,18 +894,18 @@ class ManageBeneficiaryFormActivity :
 
     private fun showBankDetails(bank: Bank) {
         this.bank = bank
-        textInputEditTextReceivingBank.setText(bank.bank)
+        binding.viewBankDetails.textInputEditTextReceivingBank.setText(bank.bank)
     }
 
     private fun submitForm() {
         clearFormFocus()
         val beneficiaryForm = BeneficiaryForm()
-        beneficiaryForm.code = textInputEditTextBeneficiaryCode.text.toString()
-        beneficiaryForm.name = textInputEditTextBeneficiaryName.text.toString()
+        beneficiaryForm.code = binding.textInputEditTextBeneficiaryCode.text.toString()
+        beneficiaryForm.name = binding.textInputEditTextBeneficiaryName.text.toString()
         beneficiaryForm.emailAddress =
-            textInputEditTextBeneficiaryEmailAddress.getEditTextNullable()
+            binding.textInputEditTextBeneficiaryEmailAddress.getEditTextNullable()
         beneficiaryForm.accountNumber =
-            textInputEditTextAccountNumber.text.toString().replace(" ", "")
+            binding.textInputEditTextAccountNumber.text.toString().replace(" ", "")
         beneficiaryForm.swiftCode = if (swiftBank != null) swiftBank?.swiftBicCode else null
         when (channel.id) {
             ChannelBankEnum.PESONET.getChannelId() -> {
@@ -927,11 +918,11 @@ class ManageBeneficiaryFormActivity :
                 beneficiaryForm.instapayCode = bank?.instapayCode
             }
         }
-        beneficiaryForm.mobileNumber = editTextMobileNumber.getEditTextNullable()
-        beneficiaryForm.countryCodeId = countryCode.id
+        beneficiaryForm.mobileNumber = binding.viewMobileNumber.editTextMobileNumber.getEditTextNullable()
+        beneficiaryForm.countryCodeId = countryCode.id.toString()
         beneficiaryForm.address =
-            if (textInputEditTextBeneficiaryAddress != null)
-                textInputEditTextBeneficiaryAddress?.text.toString()
+            if (binding.textInputEditTextBeneficiaryAddress != null)
+                binding.textInputEditTextBeneficiaryAddress.text.toString()
             else null
         beneficiaryForm.channelId = channel.id
         beneficiaryForm.bankName =
@@ -1025,9 +1016,9 @@ class ManageBeneficiaryFormActivity :
     }
 
     private fun initChannelView(channel: Channel) {
-        textViewChannel.visibility = View.GONE
-        imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        imageViewChannel.setImageResource(
+        binding.viewChannelHeader.textViewChannel.visibility = View.GONE
+        binding.viewChannelHeader.imageViewChannel.layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.viewChannelHeader.imageViewChannel.setImageResource(
             when {
                 channel.id == ChannelBankEnum.BILLS_PAYMENT.getChannelId() ->
                     R.drawable.ic_channel_bills_payment
@@ -1044,8 +1035,8 @@ class ManageBeneficiaryFormActivity :
                 else -> R.drawable.ic_fund_transfer_other_banks_orange
             }
         )
-        textViewServiceFeeTitle.visibility(false)
-        textViewServiceFee.visibility(false)
+        binding.viewChannelHeader.textViewServiceFeeTitle.visibility(false)
+        binding.viewChannelHeader.textViewServiceFee.visibility(false)
     }
 
     private fun showSaveChangesBottomSheet() {
@@ -1103,7 +1094,7 @@ class ManageBeneficiaryFormActivity :
         val radius = resources.getDimension(R.dimen.field_radius)
         tutorialEngineUtil.startTutorial(
             this,
-            viewTutorialAllowedSourceAccounts,
+            binding.viewTutorialAllowedSourceAccounts,
             R.layout.frame_tutorial_upper_left,
             radius,
             false,
@@ -1114,8 +1105,8 @@ class ManageBeneficiaryFormActivity :
     }
 
     private fun clearFormFocus() {
-        constraintLayoutParent.requestFocus()
-        constraintLayoutParent.isFocusableInTouchMode = true
+        binding.constraintLayoutParent.requestFocus()
+        binding.constraintLayoutParent.isFocusableInTouchMode = true
     }
 
     private fun isCreationForm() = intent.getStringExtra(EXTRA_TYPE) == TYPE_CREATE
@@ -1130,4 +1121,10 @@ class ManageBeneficiaryFormActivity :
 
         const val DRAWABLE_RIGHT = 2
     }
+
+    override val viewModelClassType: Class<ManageBeneficiaryFormViewModel>
+        get() = ManageBeneficiaryFormViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityManageBeneficiaryFormBinding
+        get() = ActivityManageBeneficiaryFormBinding::inflate
 }

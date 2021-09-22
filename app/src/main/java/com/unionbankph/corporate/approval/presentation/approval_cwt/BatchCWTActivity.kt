@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.approval.presentation.approval_cwt
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -16,14 +17,13 @@ import com.unionbankph.corporate.approval.presentation.approval_cwt_detail.Batch
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityBatchCwtBinding
 import com.unionbankph.corporate.fund_transfer.data.model.CWTDetail
 import com.unionbankph.corporate.fund_transfer.data.model.CWTItem
-import kotlinx.android.synthetic.main.activity_batch_cwt.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 
 class BatchCWTActivity :
-    BaseActivity<BatchCWTViewModel>(R.layout.activity_batch_cwt),
+    BaseActivity<ActivityBatchCwtBinding, BatchCWTViewModel>(),
     EpoxyAdapterCallback<CWTItem> {
 
     private val pageable by lazyFast { Pageable() }
@@ -43,9 +43,9 @@ class BatchCWTActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setToolbarTitle(
-            tvToolbar, formatString(
+            binding.viewToolbar.tvToolbar, formatString(
                 if (type == BATCH_TYPE_CWT) {
                     R.string.title_creditable_withholding_tax
                 } else {
@@ -58,26 +58,27 @@ class BatchCWTActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)[BatchCWTViewModel::class.java]
         viewModel.batchStateLiveData.observe(this, Observer {
             when (it) {
                 is ShowBatchCWTLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutCWT,
-                        recyclerViewCWT,
-                        textViewState
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutCWT,
+                        binding.recyclerViewCWT,
+                        binding.textViewState
                     )
                 }
                 is ShowBatchCWTDismissLoading -> {
-                    dismissLoading(viewLoadingState, swipeRefreshLayoutCWT, recyclerViewCWT)
+                    dismissLoading(
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutCWT,
+                        binding.recyclerViewCWT)
                 }
                 is ShowBatchCWTDetailLoading -> {
-                    viewHeaderLoadingState.visibility(true)
+                    binding.viewHeaderLoadingState.root.visibility(true)
                 }
                 is ShowBatchCWTDetailDismissLoading -> {
-                    viewHeaderLoadingState.visibility(false)
+                    binding.viewHeaderLoadingState.root.visibility(false)
                 }
                 is ShowBatchCWTEndlessLoading -> {
                     pageable.isLoadingPagination = true
@@ -88,7 +89,7 @@ class BatchCWTActivity :
                     updateController()
                 }
                 is ShowBatchDetailCWTError -> {
-                    scrollView.visibility(false)
+                    binding.scrollView.visibility(false)
                     handleOnError(it.throwable)
                 }
                 is ShowBatchCWTError -> {
@@ -102,8 +103,8 @@ class BatchCWTActivity :
                     cwt = cwtItems
                     if (pageable.isLastPage) {
                         if (cwt.size == 1) {
-                            swipeRefreshLayoutCWT.visibility(false)
-                            viewUtil.startAnimateView(true, scrollView, android.R.anim.fade_in)
+                            binding.swipeRefreshLayoutCWT.visibility(false)
+                            viewUtil.startAnimateView(true, binding.scrollView, android.R.anim.fade_in)
                             viewModel.getFundTransferCWTHeader(type.notNullable())
                         } else {
                             showEmptyState()
@@ -133,7 +134,7 @@ class BatchCWTActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        swipeRefreshLayoutCWT.apply {
+        binding.swipeRefreshLayoutCWT.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getBatchDetailCWT(true)
@@ -179,9 +180,9 @@ class BatchCWTActivity :
     }
 
     private fun initCWTDetails(cwtHeaders: MutableList<CWTDetail>) {
-        scrollView.visibility(true)
-        linearLayoutCWT.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        linearLayoutCWT.requestLayout()
+        binding.scrollView.visibility(true)
+        binding.linearLayoutCWT.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        binding.linearLayoutCWT.requestLayout()
         cwtHeaders.forEachIndexed { index, cwtHeader ->
             val view = layoutInflater.inflate(R.layout.item_cwt_detail, null)
             val textViewCWTTitle = view.findViewById<TextView>(R.id.textViewCWTTitle)
@@ -191,7 +192,7 @@ class BatchCWTActivity :
             viewBorderTop.visibility(index != 0)
             textViewCWTTitle.text = cwtHeader.display
             textViewCWT.text = cwtItemFindValue?.display.notEmpty()
-            linearLayoutCWT.addView(view)
+            binding.linearLayoutCWT.addView(view)
         }
     }
 
@@ -202,8 +203,8 @@ class BatchCWTActivity :
 
     private fun initRecyclerView() {
         val linearLayoutManager = getLinearLayoutManager()
-        recyclerViewCWT.layoutManager = linearLayoutManager
-        recyclerViewCWT.addOnScrollListener(
+        binding.recyclerViewCWT.layoutManager = linearLayoutManager
+        binding.recyclerViewCWT.addOnScrollListener(
             object : PaginationScrollListener(linearLayoutManager) {
                 override val totalPageCount: Int
                     get() = pageable.totalPageCount
@@ -219,27 +220,28 @@ class BatchCWTActivity :
                 }
             }
         )
-        recyclerViewCWT.setController(controller)
+        binding.recyclerViewCWT.setController(controller)
         controller.setEpoxyAdapterCallback(this)
     }
 
     private fun showEmptyState() {
-        textViewState.text = formatString(
+        binding.textViewState.text = formatString(
             if (type == BATCH_TYPE_CWT)
                 R.string.title_no_creditable_withholding_tax
             else
                 R.string.title_no_additional_information
         )
         if (cwt.size > 0) {
-            if (textViewState?.visibility == View.VISIBLE) textViewState?.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
-            textViewState?.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun scrollToTop() {
-        recyclerViewCWT.post {
-            recyclerViewCWT.smoothScrollToPosition(0)
+        binding.recyclerViewCWT.post {
+            binding.recyclerViewCWT.smoothScrollToPosition(0)
         }
     }
 
@@ -264,5 +266,11 @@ class BatchCWTActivity :
         const val EXTRA_TYPE = "type"
         const val EXTRA_REFERENCE_ID = "reference_id"
     }
+
+    override val viewModelClassType: Class<BatchCWTViewModel>
+        get() = BatchCWTViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityBatchCwtBinding
+        get() = ActivityBatchCwtBinding::inflate
 
 }

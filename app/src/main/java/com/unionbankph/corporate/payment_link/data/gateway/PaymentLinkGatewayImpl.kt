@@ -10,12 +10,14 @@ import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantFo
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationResponse
 import com.unionbankph.corporate.settings.data.source.local.SettingsCache
 import io.reactivex.Single
+import retrofit2.Response
 import javax.inject.Inject
 
 class PaymentLinkGatewayImpl
@@ -29,13 +31,10 @@ class PaymentLinkGatewayImpl
     override fun generatePaymentLink(generatePaymentLinkForm: GeneratePaymentLinkForm): Single<GeneratePaymentLinkResponse> {
 
         val role = cacheManager.getObject(CacheManager.ROLE) as? Role
-        var orgName = "Test Org 6247 2"
-        if(role?.organizationName != null){
-        }
-        generatePaymentLinkForm.organizationName = orgName
+        generatePaymentLinkForm.organizationName = role?.organizationName
 
-        var corporateUser = JsonHelper.fromJson<CorporateUser>(cacheManager.get(CacheManager.CORPORATE_USER))
-        if(corporateUser?.id != null){
+        val corporateUser = JsonHelper.fromJson<CorporateUser>(cacheManager.get(CacheManager.CORPORATE_USER))
+        if(corporateUser.id != null){
             generatePaymentLinkForm.corporateId = corporateUser.id
         }
 
@@ -61,6 +60,17 @@ class PaymentLinkGatewayImpl
             }
             .flatMap { smeResponseProvider.executeResponseSingle(it) }
 
+    }
+
+    override fun updateSettlementOnRequestPayment(updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm): Single<UpdateSettlementOnRequestPaymentResponse> {
+        return settingsCache.getAccessToken()
+            .flatMap {
+                paymentLinkRemote.updateSettlementOnRequestPayment(
+                    it,
+                    updateSettlementOnRequestPaymentForm
+                )
+            }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
 
@@ -128,13 +138,8 @@ class PaymentLinkGatewayImpl
     }
 
     override fun validateMerchantByOrganization(): Single<ValidateMerchantByOrganizationResponse> {
-
         return settingsCache.getAccessToken()
-            .flatMap {
-                paymentLinkRemote.validateMerchantByOrganization(
-                    it
-                )
-            }
+            .flatMap { paymentLinkRemote.validateMerchantByOrganization(it) }
             .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 

@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
-import kotlinx.android.synthetic.main.bottom_sheet_onboarding_delete_photo.*
+import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
+import com.unionbankph.corporate.common.presentation.viewmodel.NegPosBottomSheetViewModel
+import com.unionbankph.corporate.databinding.BottomSheetOnboardingDeletePhotoBinding
 
-class OnboardingDeletePhotosFragment : BottomSheetDialogFragment() {
+class OnboardingDeletePhotosFragment :
+    BaseBottomSheetDialog<BottomSheetOnboardingDeletePhotoBinding, NegPosBottomSheetViewModel>() {
 
     private var listener : OnboardingDeletePhotosInteraction? = null
     override fun onCreateView(
@@ -23,7 +25,7 @@ class OnboardingDeletePhotosFragment : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        btn_delete.setOnClickListener {
+        binding.btnDelete.setOnClickListener {
             this.dismiss()
             listener?.deletePhoto()
         }
@@ -52,4 +54,11 @@ class OnboardingDeletePhotosFragment : BottomSheetDialogFragment() {
                 }
             }
     }
+
+    override val bindingBinder: (View) -> BottomSheetOnboardingDeletePhotoBinding
+        get() = BottomSheetOnboardingDeletePhotoBinding::bind
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_onboarding_delete_photo
+    override val viewModelClassType: Class<NegPosBottomSheetViewModel>
+        get() = NegPosBottomSheetViewModel::class.java
 }

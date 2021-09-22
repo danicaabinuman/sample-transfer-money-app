@@ -2,7 +2,7 @@ package com.unionbankph.corporate.notification.data.model
 
 import android.os.Parcelable
 import com.unionbankph.corporate.common.presentation.constant.NotificationLogTypeEnum
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

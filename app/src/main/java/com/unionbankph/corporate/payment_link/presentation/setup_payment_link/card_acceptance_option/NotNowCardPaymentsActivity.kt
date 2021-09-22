@@ -2,6 +2,8 @@ package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.c
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -21,21 +23,20 @@ import com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoForma
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityNotNowAcceptCardPaymentsBinding
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.ReviewAndSubmitActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountBottomSheet
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.supercharge.shimmerlayout.ShimmerLayout
-import kotlinx.android.synthetic.main.activity_not_now_accept_card_payments.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 
 class NotNowCardPaymentsActivity :
-    BaseActivity<NotNowCardPaymentsViewModel>(R.layout.activity_not_now_accept_card_payments),
-    NominateSettlementAccountBottomSheet.OnNominateSettlementAccountListener {
+    BaseActivity<ActivityNotNowAcceptCardPaymentsBinding,NotNowCardPaymentsViewModel>(),
+    NominateSettlementAccountFragment.OnNominateSettlementAccountListener {
 
     private lateinit var buttonAction: Button
 
@@ -53,7 +54,7 @@ class NotNowCardPaymentsActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.dsColorMediumOrange,
@@ -63,10 +64,6 @@ class NotNowCardPaymentsActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[NotNowCardPaymentsViewModel::class.java]
 
         viewModel.eligibleAccount.observe(this, Observer {
             when (it) {
@@ -99,8 +96,8 @@ class NotNowCardPaymentsActivity :
         initMonthVolumeViews()
         initAverageTransactionViews()
 
-        buttonSelectAccount.setOnClickListener { openNominateAccounts() }
-        include_settlement_account.setOnClickListener { openNominateAccounts() }
+        binding.buttonSelectAccount.setOnClickListener { openNominateAccounts() }
+        binding.includeSettlementAccount.root.setOnClickListener { openNominateAccounts() }
 
         viewModel.getAccounts()
 
@@ -126,8 +123,8 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun initMonthVolumeViews() {
-        editTextMonthlyVolume = viewMonthlyVolume.findViewById(R.id.autoFormatEditText)
-        seekBarMonthlyVolume = viewMonthlyVolume.findViewById(R.id.seekBar)
+        editTextMonthlyVolume = binding.viewMonthlyVolume.autoFormatEditText
+        seekBarMonthlyVolume = binding.viewMonthlyVolume.seekBar
 
         seekBarMonthlyVolume.max = SLIDER_MAX_STEP
         seekBarMonthlyVolume.progress = SLIDER_DEFAULT_STEP
@@ -162,8 +159,8 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun initAverageTransactionViews() {
-        editTextTransactionAmount = viewTransactionAmount.findViewById(R.id.autoFormatEditText1)
-        seekBarTransactionAmount = viewTransactionAmount.findViewById(R.id.seekBar1)
+        editTextTransactionAmount = binding.viewTransactionAmount.autoFormatEditText1
+        seekBarTransactionAmount = binding.viewTransactionAmount.seekBar1
 
         seekBarTransactionAmount.max = TRANSACTION_SLIDER_MAX_STEP
         seekBarTransactionAmount.progress = TRANSACTION_SLIDER_DEFAULT_STEP
@@ -249,7 +246,7 @@ class NotNowCardPaymentsActivity :
 
     private fun selectAccount() {
         val nominateSettlementAccountBottomSheet =
-            NominateSettlementAccountBottomSheet.newInstance(JsonHelper.toJson(accountList))
+            NominateSettlementAccountFragment.newInstance(JsonHelper.toJson(accountList))
         nominateSettlementAccountBottomSheet.setOnNominateSettlementAccountListener(this)
         nominateSettlementAccountBottomSheet.show(
             supportFragmentManager,
@@ -258,13 +255,13 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun displayDefaultAccount(account: Account) {
-        buttonSelectAccount.visibility = View.GONE
+        binding.buttonSelectAccount.visibility = View.GONE
         populateNominatedSettlementAccount(account)
         this.account = account
     }
 
     private fun showAccountSelectionButton(accountsResponse: MutableList<Account>) {
-        buttonSelectAccount.visibility = View.VISIBLE
+        binding.buttonSelectAccount.visibility = View.VISIBLE
         accountList = accountsResponse
     }
 
@@ -309,27 +306,20 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun populateNominatedSettlementAccount(accountData: Account) {
-        buttonSelectAccount.visibility = View.GONE
-        include_settlement_account.visibility = View.VISIBLE
-        val tvCorporateName: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewCorporateName)
-        val tvAccountName: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAccountName)
-        val tvAccountNumber: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAccountNumber)
-        val tvAvailableBalance: AppCompatTextView = include_settlement_account.findViewById(R.id.textViewAvailableBalance)
-        val slAmount: ShimmerLayout = include_settlement_account.findViewById(R.id.shimmerLayoutAmount)
-        val viewShimmer: View = include_settlement_account.findViewById(R.id.viewShimmer)
+        binding.includeSettlementAccount.apply {
+            textViewCorporateName.text = accountData.name
+            textViewAccountNumber.text = accountData.accountNumber
+            textViewAccountName.text = accountData.productCodeDesc
 
-        tvCorporateName.text = accountData.name
-        tvAccountNumber.text = accountData.accountNumber
-        tvAccountName.text = accountData.productCodeDesc
-
-        accountData.headers.forEach{ header ->
-            header.name?.let { headerName ->
-                if(headerName.equals("CURBAL",true)){
-                    header.value?.let{ headerValue ->
-                        slAmount.stopShimmerAnimation()
-                        viewShimmer.visibility = View.GONE
-                        tvAvailableBalance.visibility = View.VISIBLE
-                        tvAvailableBalance.text = headerValue
+            accountData.headers.forEach{ header ->
+                header.name?.let { headerName ->
+                    if(headerName.equals("CURBAL",true)){
+                        header.value?.let{ headerValue ->
+                            shimmerLayoutAmount.stopShimmerAnimation()
+                            viewShimmer.visibility = View.GONE
+                            textViewAvailableBalance.visibility = View.VISIBLE
+                            textViewAvailableBalance.text = headerValue
+                        }
                     }
                 }
             }
@@ -339,14 +329,14 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun disableReviewDetailsButton(){
-        btnReviewDetails?.isEnabled = false
+        binding.btnReviewDetails.isEnabled = false
     }
 
     private fun enableReviewDetailsButton(){
-        btnReviewDetails?.isEnabled = true
+        binding.btnReviewDetails.isEnabled = true
     }
     private fun navigateToReviewDetails(){
-        btnReviewDetails.setOnClickListener {
+        binding.btnReviewDetails.setOnClickListener {
             val intent = Intent(this, ReviewAndSubmitActivity::class.java)
             startActivity(intent)
         }
@@ -362,4 +352,9 @@ class NotNowCardPaymentsActivity :
         const val SLIDER_MIN_VALUE = 10000
         const val REQUEST_CODE = 200
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityNotNowAcceptCardPaymentsBinding
+        get() = ActivityNotNowAcceptCardPaymentsBinding::inflate
+    override val viewModelClassType: Class<NotNowCardPaymentsViewModel>
+        get() = NotNowCardPaymentsViewModel::class.java
 }

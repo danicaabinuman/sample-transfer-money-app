@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
-import kotlinx.android.synthetic.main.bottom_sheet_upload_bir.*
+import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
+import com.unionbankph.corporate.common.presentation.viewmodel.NegPosBottomSheetViewModel
+import com.unionbankph.corporate.databinding.BottomSheetUploadBirBinding
 
-class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
+class CardAcceptanceUploadDocumentFragment : BaseBottomSheetDialog<BottomSheetUploadBirBinding, NegPosBottomSheetViewModel>() {
 
     private var listener: OnUploadDocs? = null
 
@@ -24,16 +25,16 @@ class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        btnTakeBIRPhoto.setOnClickListener {
+        binding.btnTakeBIRPhoto.setOnClickListener {
             dismiss()
             listener?.openCamera()
         }
 
-        btnAddBIRPhoto.setOnClickListener {
+        binding.btnAddBIRPhoto.setOnClickListener {
             listener?.openGallery()
         }
 
-        btnAddDocument.setOnClickListener {
+        binding.btnAddDocument.setOnClickListener {
             listener?.openFileManager()
         }
 
@@ -63,5 +64,12 @@ class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
                 }
             }
     }
+
+    override val bindingBinder: (View) -> BottomSheetUploadBirBinding
+        get() = BottomSheetUploadBirBinding::bind
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_upload_bir
+    override val viewModelClassType: Class<NegPosBottomSheetViewModel>
+        get() = NegPosBottomSheetViewModel::class.java
 
 }

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.presentation.migration.nominate_migration_success
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
@@ -23,22 +24,21 @@ import com.unionbankph.corporate.auth.presentation.migration.migration_selection
 import com.unionbankph.corporate.common.data.model.ApiError
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityNominateMigrationSuccessBinding
 import com.unionbankph.corporate.settings.data.form.VerifyEmailAddressForm
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsDismissLoading
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsLoading
-import kotlinx.android.synthetic.main.activity_nominate_migration_success.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 
 class NominateMigrationSuccessActivity :
-    BaseActivity<MigrationViewModel>(R.layout.activity_nominate_migration_success) {
+    BaseActivity<ActivityNominateMigrationSuccessBinding, MigrationViewModel>() {
 
     private lateinit var settingsViewModel: SettingsViewModel
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
@@ -72,7 +72,6 @@ class NominateMigrationSuccessActivity :
     }
 
     private fun initMigrationViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MigrationViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowMigrationLoading -> {
@@ -82,12 +81,12 @@ class NominateMigrationSuccessActivity :
                     dismissInitialLoading()
                 }
                 is ShowMigrationConfirmEmail -> {
-                    textViewEmailTakenTitle.text = it.confirmationEmailDto.message
-                    textViewEmailTakenDesc.text = it.confirmationEmailDto.description
+                    binding.textViewEmailTakenTitle.text = it.confirmationEmailDto.message
+                    binding.textViewEmailTakenDesc.text = it.confirmationEmailDto.description
                 }
                 is ShowMigrationECredConfirmEmail -> {
-                    textViewEmailTakenTitle.text = formatString(R.string.title_migration_successful)
-                    textViewEmailTakenDesc.text = formatString(R.string.msg_migration_successful)
+                    binding.textViewEmailTakenTitle.text = formatString(R.string.title_migration_successful)
+                    binding.textViewEmailTakenDesc.text = formatString(R.string.msg_migration_successful)
                 }
                 is ShowMigrationError -> {
                     showErrorResult(it.throwable)
@@ -97,7 +96,7 @@ class NominateMigrationSuccessActivity :
     }
 
     private fun showErrorResult(throwable: Throwable) {
-        scrollViewContent.visibility = View.GONE
+        binding.scrollViewContent.visibility = View.GONE
         try {
             val intent = intent
             val action = intent.action
@@ -106,35 +105,35 @@ class NominateMigrationSuccessActivity :
             if (action == null || data == null) return
             if (data.toString().contains(HOOK_ECRED)) {
                 if (apiError.errorCode == ECRED_MIGRATION_COMPLETE) {
-                    imageViewLogo.setImageResource(R.drawable.logo_migration_already_migrated)
-                    textViewEmailTakenTitle.text =
+                    binding.imageViewLogo.setImageResource(R.drawable.logo_migration_already_migrated)
+                    binding.textViewEmailTakenTitle.text =
                         formatString(R.string.title_account_already_migrated)
-                    textViewEmailTakenDesc.text =
+                    binding. textViewEmailTakenDesc.text =
                         formatString(R.string.msg_migration_already_migrated)
                 } else {
-                    imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
-                    textViewEmailTakenTitle.text =
+                    binding.imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
+                    binding.textViewEmailTakenTitle.text =
                         formatString(R.string.title_migration_link_expired)
-                    textViewEmailTakenDesc.text = formatString(R.string.msg_migration_link_expired)
+                    binding.textViewEmailTakenDesc.text = formatString(R.string.msg_migration_link_expired)
                 }
             } else {
                 val errorMessage = apiError.errors[0].message.notNullable()
                 val errorDescription = apiError.errors[0].description.notNullable()
                 val errorCode = apiError.errors[0].code.notNullable()
-                textViewEmailTakenTitle.text = errorMessage
-                textViewEmailTakenDesc.text = errorDescription
+                binding.textViewEmailTakenTitle.text = errorMessage
+                binding.textViewEmailTakenDesc.text = errorDescription
                 when (errorCode) {
                     "MGRYSN-00" -> {
-                        imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
+                        binding.imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
                     }
                     "MGRYSN-01" -> {
-                        imageViewLogo.setImageResource(R.drawable.logo_migration_already_migrated)
+                        binding.imageViewLogo.setImageResource(R.drawable.logo_migration_already_migrated)
                     }
                     "MGRYSN-02" -> {
-                        imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
+                        binding.imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
                     }
                     "MGRYSN-03" -> {
-                        imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
+                        binding.imageViewLogo.setImageResource(R.drawable.logo_migration_expired)
                     }
                 }
             }
@@ -145,10 +144,10 @@ class NominateMigrationSuccessActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        buttonLogin.setOnClickListener {
+        binding.buttonLogin.setOnClickListener {
             userLogout()
         }
-        buttonMigrateAnotherAccount.setOnClickListener {
+        binding.buttonMigrateAnotherAccount.setOnClickListener {
             navigator.navigateClearStacks(
                 this,
                 MigrationSelectionActivity::class.java,
@@ -190,13 +189,13 @@ class NominateMigrationSuccessActivity :
     }
 
     private fun dismissInitialLoading() {
-        viewLoadingState.visibility = View.GONE
-        scrollViewContent.visibility = View.VISIBLE
+        binding.viewLoadingState.root.visibility = View.GONE
+        binding.scrollViewContent.visibility = View.VISIBLE
     }
 
     private fun showInitialLoading() {
-        viewLoadingState.visibility = View.VISIBLE
-        scrollViewContent.visibility = View.GONE
+        binding.viewLoadingState.root.visibility = View.VISIBLE
+        binding.scrollViewContent.visibility = View.GONE
     }
 
     private fun initConfirmationEmail() {
@@ -240,4 +239,10 @@ class NominateMigrationSuccessActivity :
         const val PARAM_CONFIRMATION_TOKEN = "confirmation_token"
         const val PARAM_CONFIRMATION_ID = "confirmationId"
     }
+
+    override val viewModelClassType: Class<MigrationViewModel>
+        get() = MigrationViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityNominateMigrationSuccessBinding
+        get() = ActivityNominateMigrationSuccessBinding::inflate
 }

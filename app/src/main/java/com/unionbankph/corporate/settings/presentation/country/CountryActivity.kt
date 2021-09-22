@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.settings.presentation.country
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -19,13 +20,12 @@ import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.common.presentation.callback.EpoxyAdapterCallback
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.databinding.ActivityCountriesBinding
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_countries.*
-import kotlinx.android.synthetic.main.widget_search_layout.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
 import java.util.concurrent.TimeUnit
 
-class CountryActivity : BaseActivity<CountryViewModel>(R.layout.activity_countries),
+class CountryActivity :
+    BaseActivity<ActivityCountriesBinding, CountryViewModel>(),
                         EpoxyAdapterCallback<CountryCode> {
 
     private val controller by lazyFast { CountryController(this, viewUtil) }
@@ -34,14 +34,14 @@ class CountryActivity : BaseActivity<CountryViewModel>(R.layout.activity_countri
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
-        setToolbarTitle(tvToolbar, getString(R.string.title_mobile_country_code))
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_mobile_country_code))
         setDrawableBackButton(R.drawable.ic_close_white_24dp)
     }
 
     override fun onViewsBound() {
         super.onViewsBound()
-        textViewState.text = getString(R.string.title_no_country)
+        binding.textViewState.text = getString(R.string.title_no_country)
         initRecyclerView()
     }
 
@@ -54,15 +54,15 @@ class CountryActivity : BaseActivity<CountryViewModel>(R.layout.activity_countri
     override fun onInitializeListener() {
         super.onInitializeListener()
         initRxSearchEventListener()
-        RxView.clicks(imageViewClearText)
+        RxView.clicks(binding.viewSearchLayout.imageViewClearText)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                editTextSearch.text?.clear()
+                binding.viewSearchLayout.editTextSearch.text?.clear()
             }.addTo(disposables)
-        swipeRefreshLayoutCountries.apply {
+        binding.swipeRefreshLayoutCountries.apply {
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 viewModel.getCountries()
@@ -96,29 +96,29 @@ class CountryActivity : BaseActivity<CountryViewModel>(R.layout.activity_countri
 
     private fun showEmptyState(data: MutableList<CountryCode>) {
         if (data.size > 0) {
-            if (textViewState.visibility == View.VISIBLE) textViewState.visibility = View.GONE
+            if (binding.textViewState.visibility == View.VISIBLE)
+                binding.textViewState.visibility = View.GONE
         } else {
-            textViewState.visibility = View.VISIBLE
+            binding.textViewState.visibility = View.VISIBLE
         }
     }
 
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[CountryViewModel::class.java]
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowCountryLoading -> {
                     showLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutCountries,
-                        recyclerViewCountries,
-                        textViewState
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutCountries,
+                        binding.recyclerViewCountries,
+                        binding.textViewState
                     )
                 }
                 is ShowCountryDismissLoading -> {
                     dismissLoading(
-                        viewLoadingState,
-                        swipeRefreshLayoutCountries,
-                        recyclerViewCountries
+                        binding.viewLoadingState.root,
+                        binding.swipeRefreshLayoutCountries,
+                        binding.recyclerViewCountries
                     )
                 }
                 is ShowCountryGetCountries -> {
@@ -135,7 +135,7 @@ class CountryActivity : BaseActivity<CountryViewModel>(R.layout.activity_countri
 
     private fun initRecyclerView() {
         controller.setAdapterCallbacks(this)
-        recyclerViewCountries.setController(controller)
+        binding.recyclerViewCountries.setController(controller)
     }
 
     private fun getCountries() {
@@ -143,17 +143,17 @@ class CountryActivity : BaseActivity<CountryViewModel>(R.layout.activity_countri
     }
 
     private fun initRxSearchEventListener() {
-        editTextSearch.setOnEditorActionListener(
+        binding.viewSearchLayout.editTextSearch.setOnEditorActionListener(
             TextView.OnEditorActionListener { v, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    filterList(editTextSearch.text.toString())
-                    editTextSearch.clearFocus()
+                    filterList(binding.viewSearchLayout.editTextSearch.text.toString())
+                    binding.viewSearchLayout.editTextSearch.clearFocus()
                     viewUtil.dismissKeyboard(this)
                     return@OnEditorActionListener true
                 }
                 false
             })
-        RxTextView.textChangeEvents(editTextSearch)
+        RxTextView.textChangeEvents(binding.viewSearchLayout.editTextSearch)
             .debounce(
                 resources.getInteger(R.integer.time_edit_text_search_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -161,7 +161,7 @@ class CountryActivity : BaseActivity<CountryViewModel>(R.layout.activity_countri
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
-                imageViewClearText.visibility(filter.text().isNotEmpty())
+                binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
                 if (filter.view().isFocused && countries.isNotEmpty()) {
                     filterList(filter.text().toString())
                 }
@@ -191,4 +191,10 @@ class CountryActivity : BaseActivity<CountryViewModel>(R.layout.activity_countri
         SETTINGS_SCREEN,
         MIGRATION_SCREEN
     }
+
+    override val viewModelClassType: Class<CountryViewModel>
+        get() = CountryViewModel::class.java
+
+    override val bindingInflater: (LayoutInflater) -> ActivityCountriesBinding
+        get() = ActivityCountriesBinding::inflate
 }

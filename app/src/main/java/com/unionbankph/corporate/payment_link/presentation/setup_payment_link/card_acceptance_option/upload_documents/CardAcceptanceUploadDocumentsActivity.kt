@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.*
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.BaseAdapter
@@ -22,26 +23,17 @@ import com.unionbankph.corporate.app.util.FileUtil
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
-import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.viewToolbar
-import kotlinx.android.synthetic.main.activity_upload_documents.*
-import kotlinx.android.synthetic.main.activity_upload_documents.btnNext
-import kotlinx.android.synthetic.main.layout_gallery_preview.*
-import kotlinx.android.synthetic.main.layout_preview_docs.*
-import kotlinx.android.synthetic.main.layout_preview_docs.btnEdit
-import kotlinx.android.synthetic.main.layout_preview_docs.btnNavigateBackToUploadDocs
-import kotlinx.android.synthetic.main.layout_preview_docs.ivBackButton
-import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
-import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.toolbar
 import java.util.ArrayList
 import javax.annotation.concurrent.ThreadSafe
 import javax.inject.Inject
+import com.unionbankph.corporate.databinding.ActivityUploadDocumentsBinding
+import java.io.File
+import java.util.*
+import kotlin.concurrent.timerTask
 
 class CardAcceptanceUploadDocumentsActivity :
-    BaseActivity<CardAcceptanceUploadDocumentsViewModel>(R.layout.activity_upload_documents),
+    BaseActivity<ActivityUploadDocumentsBinding,CardAcceptanceUploadDocumentsViewModel>(),
     CardAcceptanceUploadDocumentFragment.OnUploadDocs {
-
-    @Inject
-    lateinit var fileUtil: FileUtil
 
     private var uploadBIRFragment: CardAcceptanceUploadDocumentFragment? = null
     lateinit var imgView: ImageView
@@ -51,7 +43,7 @@ class CardAcceptanceUploadDocumentsActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
@@ -71,25 +63,20 @@ class CardAcceptanceUploadDocumentsActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[CardAcceptanceUploadDocumentsViewModel::class.java]
 
     }
     override fun onViewsBound() {
         super.onViewsBound()
         init()
 
-        btnSaveAndExit.visibility = View.GONE
-        btnUploadBIRDocs.setOnClickListener {
+        binding.viewToolbar.btnSaveAndExit.visibility = View.GONE
+        binding.btnUploadBIRDocs.setOnClickListener {
             showbottomSheetDialog()
         }
-        btnNext.setOnClickListener {
-            if (clPreviewBIR.isShown){
-                clPreviewBIR.visibility = View.GONE
-                clUploadBIRDocs.visibility = View.VISIBLE
+        binding.btnNext.setOnClickListener {
+            if (binding.includePreviewBIRDocs.clPreviewBIR.isShown){
+                binding.includePreviewBIRDocs.clPreviewBIR.visibility = View.GONE
+                binding.clUploadBIRDocs.visibility = View.VISIBLE
             } else {
                 val snackbarView = findViewById<TextView>(R.id.snackbar)
                 val snackUploading = Snackbar.make(snackbarView, "Uploading document...", Snackbar.LENGTH_LONG).setAnchorView(R.id.btnNext)
@@ -124,60 +111,60 @@ class CardAcceptanceUploadDocumentsActivity :
 
 
     private fun layoutVisibility(){
-        viewToolbar.visibility = View.GONE
-        popupPreviewDocsFromCamera.visibility = View.VISIBLE
+        binding.viewToolbar.root.visibility = View.GONE
+        binding.popupPreviewDocsFromCamera.visibility = View.VISIBLE
 
-        ivBackButton.setOnClickListener {
-            popupPreviewDocsFromCamera.visibility = View.GONE
-            viewToolbar.visibility = View.VISIBLE
-            clUploadBIRDocs.visibility = View.VISIBLE
+        binding.includePreviewBIRDocs.ivBackButton.setOnClickListener {
+            binding.popupPreviewDocsFromCamera.visibility = View.GONE
+            binding.viewToolbar.root.visibility = View.VISIBLE
+            binding.clUploadBIRDocs.visibility = View.VISIBLE
         }
 
-        btnEdit.setOnClickListener {
+        binding.includePreviewBIRDocs.btnEdit.setOnClickListener {
             showbottomSheetDialog()
         }
 
-        btnNavigateBackToUploadDocs.setOnClickListener {
-            popupPreviewDocsFromCamera.visibility = View.GONE
-            viewToolbar.visibility = View.VISIBLE
-            clUploadBIRDocs.visibility = View.VISIBLE
-            btnNext.visibility = View.VISIBLE
+        binding.includePreviewBIRDocs.btnNavigateBackToUploadDocs.setOnClickListener {
+            binding.popupPreviewDocsFromCamera.visibility = View.GONE
+            binding.viewToolbar.root.visibility = View.VISIBLE
+            binding.clUploadBIRDocs.visibility = View.VISIBLE
+            binding.btnNext.visibility = View.VISIBLE
         }
     }
 
     private fun layoutVisibilityFromGallery(){
-        viewToolbar.visibility = View.GONE
-        popupPreviewDocsFromGallery.visibility = View.VISIBLE
+        binding.viewToolbar.root.visibility = View.GONE
+        binding.popupPreviewDocsFromGallery.visibility = View.VISIBLE
 
-        ivBackButton1.setOnClickListener {
-            popupPreviewDocsFromGallery.visibility = View.GONE
-            viewToolbar.visibility = View.VISIBLE
-            clUploadBIRDocs.visibility = View.VISIBLE
+        binding.includePreviewBIRPhoto.ivBackButton1.setOnClickListener {
+            binding.popupPreviewDocsFromGallery.visibility = View.GONE
+            binding.viewToolbar.root.visibility = View.VISIBLE
+            binding.clUploadBIRDocs.visibility = View.VISIBLE
         }
 
-        btnEdit1.setOnClickListener {
+        binding.includePreviewBIRPhoto.btnEdit1.setOnClickListener {
             showbottomSheetDialog()
         }
 
-        btnNavigateBackToUploadDocs1.setOnClickListener {
-            popupPreviewDocsFromGallery.visibility = View.GONE
-            viewToolbar.visibility = View.VISIBLE
-            clUploadBIRDocs.visibility = View.VISIBLE
-            btnNext.visibility = View.VISIBLE
+        binding.includePreviewBIRPhoto.btnNavigateBackToUploadDocs1.setOnClickListener {
+            binding.popupPreviewDocsFromGallery.visibility = View.GONE
+            binding.viewToolbar.root.visibility = View.VISIBLE
+            binding.clUploadBIRDocs.visibility = View.VISIBLE
+            binding.btnNext.visibility = View.VISIBLE
         }
     }
 
     private fun initAdapterListener(){
         adapter = UploadDocumentsAdapter(this, uriArrayList)
-        gvDocs.adapter = adapter
+        binding.includePreviewBIRDocs.gvDocs.adapter = adapter
 
     }
 
     private fun layoutVisibilityWhenInvalidFiles(){
-        popupPreviewDocsFromGallery.visibility = View.GONE
-        viewToolbar.visibility = View.VISIBLE
-        clUploadBIRDocs.visibility = View.VISIBLE
-        btnNext.visibility = View.GONE
+        binding.popupPreviewDocsFromGallery.visibility = View.GONE
+        binding.viewToolbar.root.visibility = View.VISIBLE
+        binding.clUploadBIRDocs.visibility = View.VISIBLE
+        binding.btnNext.visibility = View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -220,7 +207,7 @@ class CardAcceptanceUploadDocumentsActivity :
             GALLERY_REQUEST_CODE ->
                 if (resultCode == RESULT_OK){
                     if (data?.data != null){
-                        clUploadBIRDocs.visibility = View.GONE
+                        binding.clUploadBIRDocs.visibility = View.GONE
                         layoutVisibilityFromGallery()
 
                         val imageUri = data.data!!
@@ -253,7 +240,6 @@ class CardAcceptanceUploadDocumentsActivity :
                                 }
                             ).show()
                         }
-
                         imgView.setImageURI(imageUri)
                     }
 
@@ -346,6 +332,11 @@ class CardAcceptanceUploadDocumentsActivity :
         const val IMAGE_PNG = "image/png"
         const val DOCU_PDF = "application/pdf"
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityUploadDocumentsBinding
+        get() = ActivityUploadDocumentsBinding::inflate
+    override val viewModelClassType: Class<CardAcceptanceUploadDocumentsViewModel>
+        get() = CardAcceptanceUploadDocumentsViewModel::class.java
 }
 
 

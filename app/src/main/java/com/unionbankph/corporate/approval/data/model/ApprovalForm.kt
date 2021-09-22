@@ -17,5 +17,5 @@ data class ApprovalForm(
     val batchIds: MutableList<String> = mutableListOf(),
     
     @SerialName("transaction_reference_numbers")
-    val transactionReferenceNumbers: MutableList<String> = mutableListOf()
+    val transactionReferenceNumbers: MutableList<String>? = null
 )
