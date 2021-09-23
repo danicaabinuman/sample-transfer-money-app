@@ -34,6 +34,10 @@ class BillingDetailsViewModel @Inject constructor(
         get() =
             _paymentLogsResponse
 
+    private val _paymentLogsState = MutableLiveData<PaymentLogsState>()
+
+    val paymentLogsState : LiveData<PaymentLogsState> get() = _paymentLogsState
+
     fun initBundleData(referenceNumber: String) {
 
         getPaymentLinkByReferenceIdUseCase.execute(
@@ -54,10 +58,14 @@ class BillingDetailsViewModel @Inject constructor(
             params = referenceNumber
         ).addTo(disposables)
 
+    }
+
+    fun getPaymentLogs() {
         getPaymentLogsUseCase.execute(
             getDisposableSingleObserver(
                 {
                     _paymentLogsResponse.value = it
+                    _paymentLogsState.value = ShouldShowRecyclerView(true)
                 }, {
                     Timber.e(it, "getPaymentLogs")
                     _uiState.value = Event(UiState.Error(it))
@@ -69,7 +77,12 @@ class BillingDetailsViewModel @Inject constructor(
                 _uiState.value = Event(UiState.Complete)
             }
         )
-
     }
 
 }
+
+sealed class PaymentLogsState
+
+data class ShouldShowRecyclerView(val shouldShow : Boolean  ) : PaymentLogsState()
+
+data class Error(val throwable: Throwable) : PaymentLogsState()

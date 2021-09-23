@@ -67,6 +67,22 @@ class BillingDetailsActivity :
                 }
             }
         })
+
+        viewModel.paymentLogsResponse.observe(this, {
+
+        })
+
+        viewModel.paymentLogsState.observe(this, {
+            when (it) {
+                is ShouldShowRecyclerView -> {
+                    binding.rvPaymentLogs.visibility = View.VISIBLE
+                }
+
+                is Error -> {
+                    handleOnError(it.throwable)
+                }
+            }
+        })
     }
 
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse) {
