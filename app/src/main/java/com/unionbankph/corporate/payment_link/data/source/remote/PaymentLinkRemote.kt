@@ -26,4 +26,6 @@ interface PaymentLinkRemote {
 
     fun updateSettlementOnRequestPayment(accessToken: String, updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm) : Single<Response<UpdateSettlementOnRequestPaymentResponse>>
 
+    fun getPaymentLogs(accessToken: String, referenceId: String) : Single<Response<GetPaymentLogsResponse>>
+
 }

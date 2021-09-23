@@ -130,4 +130,17 @@ interface PaymentLinkApiClient {
         apiVersion: String
     ): Single<Response<ValidateMerchantByOrganizationResponse>>
 
+    @GET("msme/api/{api_version}/payment-logs/{reference_id}")
+    fun getPaymentLogs(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Path("reference_id")
+        referenceId: String
+    ): Single<Response<GetPaymentLogsResponse>>
 }

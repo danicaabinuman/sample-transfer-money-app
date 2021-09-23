@@ -43,10 +43,10 @@ class BillingDetailsActivity :
 
     private fun setupInputs() {
 
-        val referenceNmber = intent.getStringExtra(EXTRA_REFERENCE_NUMBER).toString()
+        val referenceNumber = intent.getStringExtra(EXTRA_REFERENCE_NUMBER).toString()
         binding.billingDetailsLoading.visibility = View.VISIBLE
         viewModel.initBundleData(
-            referenceNmber
+            referenceNumber
         )
 
     }
