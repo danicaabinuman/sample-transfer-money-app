@@ -59,7 +59,7 @@ interface AuthRemote {
 
     fun userCreationValidateContact(
         validateContactInfoForm: ValidateContactInfoForm
-    ): Single<Response<ContactValidityResponse>>
+    ): Single<Response<Auth>>
 
     fun userCreationValidateOTP(
         verifyOTPForm: VerifyOTPForm
@@ -68,6 +68,10 @@ interface AuthRemote {
     fun userCreationNominatePassword(
         form: UcNominatePasswordForm
     ): Single<Response<UserCreationOTPVerified>>
+
+    fun userCreationResendOTP(
+        form: ResendOTPForm
+    ): Single<Response<Auth>>
 
     fun nominatePasswordActivation(
         activationPasswordForm: ActivationPasswordForm

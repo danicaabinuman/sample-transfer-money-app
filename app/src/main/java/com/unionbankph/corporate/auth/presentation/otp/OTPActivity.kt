@@ -352,7 +352,7 @@ class OTPActivity :
                 viewModel.resendOTPFundTransfer(ResendOTPForm(auth.requestId))
             }
             PAGE_USER_CREATION -> {
-                showSMEGenericError()
+                viewModel.userCreationResendOTP(ResendOTPForm(auth.requestId))
             }
         }
     }

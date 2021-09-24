@@ -23,7 +23,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.auth.data.model.Auth
-import com.unionbankph.corporate.auth.data.model.ContactValidityResponse
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.data.model.ApiError
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
@@ -286,18 +285,10 @@ class UcEnterContactInfoFragment :
         }
     }
 
-    private fun navigateToOTPScreen(response: ContactValidityResponse) {
-
-        val auth = Auth().apply {
-            this.type = response.type
-            this.requestId = response.requestId
-            this.validity = response.validity
-            this.otpType = response.otpType
-            this.mobileNumber = response.mobileNumber
-        }
+    private fun navigateToOTPScreen(response: Auth) {
 
         val action = UcEnterContactInfoFragmentDirections.actionEnterContactToOtp(
-            request = JsonHelper.toJson(auth),
+            request = JsonHelper.toJson(response),
             page = OTPActivity.PAGE_USER_CREATION,
             openAccountForm = JsonHelper.toJson(userCreationActivity.getDefaultForm())
         )

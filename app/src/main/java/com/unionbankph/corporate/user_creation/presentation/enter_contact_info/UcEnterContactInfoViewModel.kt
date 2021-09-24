@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.auth.data.AuthGateway
-import com.unionbankph.corporate.auth.data.model.ContactValidityResponse
+import com.unionbankph.corporate.auth.data.model.Auth
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.user_creation.data.UserCreationForm
@@ -47,9 +47,9 @@ class UcEnterContactInfoViewModel @Inject constructor(
         var mobileInput: String? = ""
     }
 
-    private val _navigateResult = MutableLiveData<Event<ContactValidityResponse>>()
+    private val _navigateResult = MutableLiveData<Event<Auth>>()
 
-    val navigateResult: LiveData<Event<ContactValidityResponse>> get() = _navigateResult
+    val navigateResult: LiveData<Event<Auth>> get() = _navigateResult
 
     fun onClickedNext(defaultForm: UserCreationForm) {
         val contactInfoForm = contactInfoForm.apply {

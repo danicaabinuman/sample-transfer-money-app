@@ -195,7 +195,7 @@ constructor(
 
     override fun userCreationValidateContact(
         validateContactInfoForm: ValidateContactInfoForm
-    ): Single<Response<ContactValidityResponse>> {
+    ): Single<Response<Auth>> {
         return authApiClient.userCreationValidateContact(
             BuildConfig.MSME_CLIENT_API_VERSION,
             validateContactInfoForm
@@ -215,6 +215,14 @@ constructor(
         form: UcNominatePasswordForm
     ): Single<Response<UserCreationOTPVerified>> {
         return authApiClient.userCreationNominatePassword(
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            form
+        )
+    }
+
+    override fun userCreationResendOTP(form: ResendOTPForm
+    ): Single<Response<Auth>> {
+        return authApiClient.userCreationResendOTP(
             BuildConfig.MSME_CLIENT_API_VERSION,
             form
         )

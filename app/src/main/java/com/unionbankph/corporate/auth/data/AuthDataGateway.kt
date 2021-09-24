@@ -200,7 +200,7 @@ constructor(
 
     override fun userCreationValidateContact(
         validateContactInfoForm: ValidateContactInfoForm
-    ): Single<ContactValidityResponse> {
+    ): Single<Auth> {
         return authRemote.userCreationValidateContact(validateContactInfoForm)
             .flatMap { responseProvider.executeResponseSingle(it) }
     }
@@ -214,6 +214,13 @@ constructor(
         form: UcNominatePasswordForm
     ): Single<UserCreationOTPVerified> {
         return authRemote.userCreationNominatePassword(form)
+            .flatMap { responseProvider.executeResponseSingle(it) }
+    }
+
+    override fun userCreationResendOTP(
+        form: ResendOTPForm
+    ): Single<Auth> {
+        return authRemote.userCreationResendOTP(form)
             .flatMap { responseProvider.executeResponseSingle(it) }
     }
 
