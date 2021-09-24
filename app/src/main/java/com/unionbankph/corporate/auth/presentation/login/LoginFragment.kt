@@ -10,7 +10,9 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
@@ -88,6 +90,7 @@ class LoginFragment :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         setMargins(binding.textViewVersion, 0, getStatusBarHeight(), 0, 0)
+        initViewBackPressedLogin()
     }
 
     override fun onViewsBound() {
@@ -106,9 +109,10 @@ class LoginFragment :
             }.addTo(disposables)
         viewModel.token
             .subscribe {
-                if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "")
-                }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "") }
+                else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
                         .BIOMETRIC_SUCCESS) { showFaceIDImageView(it !="") }
+
             }.addTo(disposables)
         viewModel.fullName
             .subscribe {
@@ -239,7 +243,6 @@ class LoginFragment :
         }
     }
 
-
     override fun onCompleteFingerprint(token: String) {
         viewModel.userLoginFingerPrint(
             LoginFingerprintForm(fingerprintToken = token, udid = settingsUtil.getUdId())
@@ -325,6 +328,21 @@ class LoginFragment :
                     getAppCompatActivity().finish()
                 }
             )
+        }
+    }
+
+    private fun initViewBackPressedLogin(){
+        if(!isSME){binding.imageViewBackground.visibility(true)}
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if(binding.MSMEbtnLogin.visibility == View.VISIBLE && isSME){
+                binding.MSMEbtnLogin.visibility(false)
+                binding.MSMEForgotPassword.visibility(false)
+                binding.llEmailSME.visibility(false)
+                binding.llPasswordSME.visibility(false)
+                initFreshLogin()
+            }else{
+                getAppCompatActivity().finish()
+            }
         }
     }
 
@@ -706,7 +724,7 @@ class LoginFragment :
     }
 
     private fun showFingerPrint(token: String) {
-        if (RxFingerprint.isHardwareDetected(getAppCompatActivity())
+        if (RxFingerprint.isAvailable(getAppCompatActivity())
             && !isShownInUpdateApp
             && App.isActivityVisible()
         ) {
@@ -1092,7 +1110,7 @@ class LoginFragment :
     }
 
     private fun biometricPrompt(token: String){
-        if (BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+        if (BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
                 .BIOMETRIC_SUCCESS) {
             val executor = ContextCompat.getMainExecutor(applicationContext)
             val biometricPrompt =
@@ -1101,7 +1119,7 @@ class LoginFragment :
                         override fun onAuthenticationError(errorCode: Int,
                                                            errString: CharSequence) {
                             if(errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
-                                if ((BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                                if ((BiometricManager.from(applicationContext).canAuthenticate(BIOMETRIC_WEAK) == BiometricManager
                                         .BIOMETRIC_SUCCESS) &&
                                     sharedPreferenceUtil.fingerPrintTokenSharedPref().get() != ""
                                 ) {
@@ -1121,6 +1139,7 @@ class LoginFragment :
                 .setSubtitle(applicationContext.getString(R.string.confirm_fingerprint_description))
                 .setNegativeButtonText(applicationContext.getString(R.string.action_use_password))
                 .setConfirmationRequired(false)
+                .setAllowedAuthenticators(BIOMETRIC_WEAK)
                 .build()
             biometricPrompt.authenticate(promptInfo)
         }

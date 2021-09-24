@@ -1,10 +1,15 @@
 package com.unionbankph.corporate.settings.presentation.splash
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewTreeObserver
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.runPostDelayed
+import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
@@ -20,6 +25,7 @@ class SplashStartedScreenActivity :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initTransparency()
+        initViews()
     }
 
     override fun onViewModelBound() {
@@ -56,6 +62,57 @@ class SplashStartedScreenActivity :
             onBackPressed()
         }
     }
+
+    private fun initViews(){
+        if(isSME){
+            initAnimationLogo()
+        }else{
+            binding.constraintLayoutContent.visibility = View.VISIBLE
+            binding.imageViewBackground.visibility = View.VISIBLE
+            binding.imageViewLogoAnimate.root.visibility = View.GONE
+        }
+    }
+
+    private fun initAnimationLogo() {
+        binding.imageViewLogo.root.viewTreeObserver.addOnGlobalLayoutListener(
+            object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    binding.imageViewLogo.root.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    runPostDelayed(
+                        {
+                            animateContent()
+                        }, 1000
+                    )
+                }
+            }
+        )
+    }
+
+    private fun animateContent() {
+        runPostDelayed(
+            {
+                viewUtil.startAnimateView(true, binding.constraintLayoutContent, android.R.anim.fade_in)
+            }, 400
+        )
+        val location = IntArray(2)
+        binding.imageViewLogo.root.getLocationOnScreen(location)
+        val y = location[1]
+        val objectAnimator =
+            ObjectAnimator.ofFloat(binding.imageViewLogoAnimate.root, "y", y.toFloat())
+        objectAnimator.duration = resources.getInteger(R.integer.anim_duration_medium).toLong()
+        objectAnimator.start()
+        runPostDelayed(
+            {
+                binding.imageViewLogo.root.visibility = View.VISIBLE
+                runPostDelayed(
+                    {
+                        binding.imageViewLogoAnimate.root.visibility = View.GONE
+                    }, 100
+                )
+            }, 1000
+        )
+    }
+
 
     override val viewModelClassType: Class<SplashStartedScreenViewModel>
         get() = SplashStartedScreenViewModel::class.java

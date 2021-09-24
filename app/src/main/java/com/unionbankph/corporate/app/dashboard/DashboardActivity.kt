@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -455,7 +456,6 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 .BIOMETRIC_SUCCESS){
             viewModel.setTokenFingerPrint(token)
         }
-
 
     }
 
