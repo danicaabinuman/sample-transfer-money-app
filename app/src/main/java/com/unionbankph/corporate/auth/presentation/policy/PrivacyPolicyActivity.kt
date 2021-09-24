@@ -139,6 +139,8 @@ class PrivacyPolicyActivity :
             )
             binding.cbTnc.visibility(false)
             binding.cbPrivacy.visibility(false)
+        } else if (intent.getStringExtra(EXTRA_REQUEST_PAGE) == PAGE_DAO) {
+            binding.cbUbAccOpening.visibility(true)
         }
     }
 
@@ -178,7 +180,8 @@ class PrivacyPolicyActivity :
             )
             .subscribe {
                 if (viewModel.isCheckedPrivacyAgreement.value == false ||
-                    viewModel.isCheckedTNCAgreement.value == false
+                    viewModel.isCheckedTNCAgreement.value == false ||
+                    isNotCheckedUBAccountOpeningAgreement()
                 ) {
                     showBottomSheetError()
                 } else {
@@ -197,12 +200,20 @@ class PrivacyPolicyActivity :
             }.addTo(disposables)
     }
 
+    private fun isNotCheckedUBAccountOpeningAgreement() : Boolean {
+        return (intent.getStringExtra(EXTRA_REQUEST_PAGE) == PAGE_DAO &&
+                viewModel.isCheckedUBAccountOpeningAgreement.value == false)
+    }
+
     private fun initCheckListener() {
         binding.cbTnc.setOnCheckedChangeListener { _, isChecked ->
             viewModel.isCheckedTNCAgreement.onNext(isChecked)
         }
         binding.cbPrivacy.setOnCheckedChangeListener { _, isChecked ->
             viewModel.isCheckedPrivacyAgreement.onNext(isChecked)
+        }
+        binding.cbUbAccOpening.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.isCheckedUBAccountOpeningAgreement.onNext(isChecked)
         }
     }
 

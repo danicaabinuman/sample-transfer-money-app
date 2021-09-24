@@ -20,6 +20,7 @@ class PrivacyPolicyViewModel @Inject constructor(
 
     val isCheckedTNCAgreement = BehaviorSubject.createDefault(false)
     val isCheckedPrivacyAgreement = BehaviorSubject.createDefault(false)
+    val isCheckedUBAccountOpeningAgreement = BehaviorSubject.createDefault(false)
     val isClickedNext = BehaviorSubject.createDefault(false)
 
     fun daoAgreement() {
