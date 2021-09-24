@@ -1,17 +1,23 @@
 package com.unionbankph.corporate.payment_link.presentation.billing_details
 
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.bills_payment.presentation.frequent_biller_form.ManageFrequentBillerFormActivity
+import com.unionbankph.corporate.common.presentation.constant.Constant
+import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivityBillingDetailsBinding
 import com.unionbankph.corporate.payment_link.domain.model.PaymentLogsModel
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkByReferenceIdResponse
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLogsResponse
+import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import timber.log.Timber
 import java.lang.NumberFormatException
 import java.text.DecimalFormat
@@ -31,33 +37,25 @@ class BillingDetailsActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
+
+        initEvents()
+        initREcyclerView()
         setupInputs()
-//        binding.btnViewMore.setOnClickListener{
-//            val intent = Intent(this@BillingDetailsActivity, ActivityLogsActivity::class.java)
-//            startActivity(intent)
-//        }
-
-        backButton()
-        initViews()
-
     }
 
-    private fun backButton() {
-        binding.btnBack.setOnClickListener() {
-            finish()
-        }
+    private fun initEvents() {
+
+        binding.btnBack.setOnClickListener { onBackPressed() }
+
+        binding.cardViewMore.root.setOnClickListener { navigateToActivityLogs() }
     }
 
     private fun setupInputs() {
-
         val referenceNumber = intent.getStringExtra(EXTRA_REFERENCE_NUMBER).toString()
-//        binding.billingDetailsLoading.visibility = View.VISIBLE
         viewModel.initBundleData(referenceNumber)
     }
 
-    private fun initViews(){
-
-
+    private fun initREcyclerView(){
         mAdapter = PaymentHistoryAdapter(applicationContext)
         binding.rvPaymentLogs.layoutManager = getLinearLayoutManager()
         binding.rvPaymentLogs.adapter = mAdapter
@@ -66,19 +64,6 @@ class BillingDetailsActivity :
     }
 
     private fun setupOutputs() {
-//        viewModel.paymentLinkDetailsResponse.observe(this, Observer {
-//            binding.billingDetailsLoading.visibility = View.GONE
-//            updatePaymentLinkDetails(it)
-//        })
-//
-//        viewModel.paymentLogsResponse.observe(this, {
-//            Timber.e("paymentLogsResponse " + JsonHelper.toJson(it))
-//            if(it.records?.size!! > 0){
-//                mAdapter.appendData(it.records!!)
-//            }else{
-//
-//            }
-//        })
 
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
@@ -96,16 +81,27 @@ class BillingDetailsActivity :
 
         viewModel.state.observe(this, {
             updatePaymentLinkDetails(it.paymentDetails!!)
-            mAdapter.appendData(it.paymentLogs!!)
+            mAdapter.appendData(it.paymentLogs?.take(3) ?: mutableListOf())
 //            initLogs(it.paymentLogs ?: mutableListOf())
         })
     }
 
-//    private fun initLogs(logs: MutableList<PaymentLogsModel>) {
-//        if (logs.count() > 0) {
-//            bind.
-//        }
-//    }
+    private fun navigateToActivityLogs() {
+        val bundle = Bundle().apply {
+            putString(
+                ActivityLogsActivity.EXTRA_ACTIVITY_LOGS,
+                JsonHelper.toJson(viewModel.state.value?.paymentLogs)
+            )
+        }
+        navigator.navigate(
+            this,
+            ActivityLogsActivity::class.java,
+            bundle,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
 
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse) {
         var grossAmountString = "0.00"
@@ -156,122 +152,13 @@ class BillingDetailsActivity :
         binding.tvPayorName.text = response.payorDetails?.fullName
         binding.tvPayorEmail.text = response.payorDetails?.emailAddress
         binding.tvPayorContactNumber.text = response.payorDetails?.mobileNumber
-        var paymentMethod = response.payorDetails?.paymentMethod
+        val paymentMethod = response.payorDetails?.paymentMethod
 
-        binding.apply {
-            if (paymentMethod == "INSTAPAY") {
-                instapayLogo.visibility = View.VISIBLE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-            } else if (paymentMethod == "GCASH") {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-                gcashLogo.visibility = View.VISIBLE
-            } else if (paymentMethod == "GRABPAY") {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.VISIBLE
-                gcashLogo.visibility = View.GONE
-            } else if (paymentMethod == "UB ONLINE") {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.VISIBLE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            } else if (paymentMethod == "CEBUANALHUILLIER") {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.VISIBLE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            } else if (paymentMethod == "PALAWAN") {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.VISIBLE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            } else if (paymentMethod == "LBC") {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.VISIBLE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            } else if (paymentMethod == "ECPAY") {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.VISIBLE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            } else if (paymentMethod == "BAYADCENTER") {
-                instapayLogo.visibility = View.VISIBLE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            } else {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-
-                if (paymentMethod.toString() == "ECPY") {
-                    paymentMethodText.text = "EcPay"
-                } else if (paymentMethod.toString() == "BAYD") {
-                    paymentMethodText.text = "Bayad Center"
-                } else if (paymentMethod.toString() == "PLWN") {
-                    paymentMethodText.text = "Palawan"
-                } else if (paymentMethod.toString() == "CEBL") {
-                    paymentMethodText.text = "Cebuana"
-                }
-                paymentMethodText.visibility = View.VISIBLE
-            }
-        }
+        binding.imageViewLogo.setImageResource(
+            ConstantHelper.Drawable.getPaymentMethodLogo(
+            paymentMethod ?: Constant.PaymentMethod.UNKNOWN
+            )
+        )
 
         binding.apply {
             tvRefNumber.text = response.paymentDetails?.referenceNo

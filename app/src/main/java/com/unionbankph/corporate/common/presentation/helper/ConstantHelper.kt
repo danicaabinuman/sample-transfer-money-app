@@ -89,6 +89,30 @@ class ConstantHelper {
                     }
                 }
             }
+
+            fun getPaymentMethodLogo(type: String): Int {
+                return when (type) {
+                    Constant.PaymentMethod.INSTAPAY ->
+                        R.drawable.ic_fund_transfer_instapay
+                    Constant.PaymentMethod.GRABPAY ->
+                        R.drawable.ic_grabpay
+                    Constant.PaymentMethod.UB_ONLINE ->
+                        R.drawable.ic_ub_orange
+                    Constant.PaymentMethod.GCASH ->
+                        R.drawable.ic_gcash
+                    Constant.PaymentMethod.BAYAD_CENTER ->
+                        R.drawable.bayad_center_logo
+                    Constant.PaymentMethod.ECPAY ->
+                        R.drawable.ecpay_logo
+                    Constant.PaymentMethod.LBC ->
+                        R.drawable.lbc_logo
+                    Constant.PaymentMethod.PALAWAN ->
+                        R.drawable.palawan_logo
+                    Constant.PaymentMethod.CEBUANA_LHUILLER ->
+                        R.drawable.cebuana_logo
+                    else -> 0
+                }
+            }
         }
     }
 

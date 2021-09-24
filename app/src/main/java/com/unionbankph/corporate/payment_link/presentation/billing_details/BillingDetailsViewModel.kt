@@ -23,18 +23,6 @@ class BillingDetailsViewModel @Inject constructor(
     private val getBillingDetailsUseCase: GetBillingDetailsUseCase
 ) : BaseViewModel()  {
 
-//    private val _paymentLinkDetailsResponse = MutableLiveData<GetPaymentLinkByReferenceIdResponse>()
-//
-//    val paymentLinkDetailsResponse: LiveData<GetPaymentLinkByReferenceIdResponse>
-//        get() =
-//            _paymentLinkDetailsResponse
-//
-//    private val _paymentLogsResponse = MutableLiveData<GetPaymentLogsResponse>()
-//
-//    val paymentLogsResponse : LiveData<GetPaymentLogsResponse>
-//        get() =
-//            _paymentLogsResponse
-
     private val _state = MutableLiveData<BillingDetailsState>()
 
     val state: LiveData<BillingDetailsState> get() = _state

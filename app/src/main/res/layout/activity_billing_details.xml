@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    android:layout_height="match_parent"
+<FrameLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
 
@@ -29,8 +29,9 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnBack"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="@dimen/image_view_icon_large_size"
+            android:layout_height="@dimen/image_view_icon_large_size"
+            android:padding="@dimen/grid_1"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="20dp"
             app:srcCompat="@drawable/ic_back_button_gray" />
@@ -38,8 +39,9 @@
         <TextView
             android:id="@+id/tvReferenceNumberTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="ABCD-12345-09876"
+            android:gravity="center"
             android:textColor="#4B4948"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -202,6 +204,14 @@
                         android:textColor="#4B4948"
                         android:textSize="12sp"
                         android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imageViewLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/grid_2"
+                        android:maxWidth="@dimen/grid_10"
+                        android:adjustViewBounds="true"
+                        tools:src="@drawable/ic_grabpay"/>
 
                     <ImageView
                         android:id="@+id/instapayLogo"

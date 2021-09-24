@@ -132,4 +132,19 @@ class Constant {
             const val SSS_SERVICE_ID = "7779"
         }
     }
+
+    class PaymentMethod {
+        companion object {
+            const val INSTAPAY = "INSTAPAY"
+            const val UB_ONLINE = "UB ONLINE"
+            const val BAYAD_CENTER = "BAYADCENTER"
+            const val ECPAY = "ECPAY"
+            const val LBC = "LBC"
+            const val PALAWAN = "PALAWAN"
+            const val CEBUANA_LHUILLER = "CEBUANALHUILLIER"
+            const val GRABPAY = "GRABPAY"
+            const val GCASH = "GCASH"
+            const val UNKNOWN = "Unknown"
+        }
+    }
 }
