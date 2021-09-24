@@ -611,18 +611,17 @@
                 android:id="@+id/rvPaymentLogs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:background="@color/jumio_white"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/jumio_white"
-                android:orientation="vertical">
-                <include layout="@layout/item_payment_history"/>
-                <include layout="@layout/item_payment_history"/>
-                <include layout="@layout/item_payment_history"/>
-            </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/jumio_white"-->
+<!--                android:orientation="vertical">-->
+<!--                <include layout="@layout/item_payment_history"/>-->
+<!--                <include layout="@layout/item_payment_history"/>-->
+<!--                <include layout="@layout/item_payment_history"/>-->
+<!--            </LinearLayout>-->
 
 
         </LinearLayout>

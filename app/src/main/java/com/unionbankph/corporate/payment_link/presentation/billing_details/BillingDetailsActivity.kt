@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.Observer
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivityBillingDetailsBinding
+import com.unionbankph.corporate.payment_link.domain.model.PaymentLogsModel
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkByReferenceIdResponse
+import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLogsResponse
 import timber.log.Timber
 import java.lang.NumberFormatException
 import java.text.DecimalFormat
@@ -17,21 +21,24 @@ import java.util.*
 class BillingDetailsActivity :
     BaseActivity<ActivityBillingDetailsBinding, BillingDetailsViewModel>() {
 
+    lateinit var mAdapter: PaymentHistoryAdapter
+
     override fun onViewModelBound() {
         super.onViewModelBound()
+        Timber.e("onViewModelBound Test")
+        setupOutputs()
     }
 
     override fun onViewsBound() {
         super.onViewsBound()
-
+        setupInputs()
 //        binding.btnViewMore.setOnClickListener{
 //            val intent = Intent(this@BillingDetailsActivity, ActivityLogsActivity::class.java)
 //            startActivity(intent)
 //        }
 
         backButton()
-        setupInputs()
-        setupOutputs()
+        initViews()
 
     }
 
@@ -44,46 +51,61 @@ class BillingDetailsActivity :
     private fun setupInputs() {
 
         val referenceNumber = intent.getStringExtra(EXTRA_REFERENCE_NUMBER).toString()
-        binding.billingDetailsLoading.visibility = View.VISIBLE
-        viewModel.initBundleData(
-            referenceNumber
-        )
+//        binding.billingDetailsLoading.visibility = View.VISIBLE
+        viewModel.initBundleData(referenceNumber)
+    }
 
+    private fun initViews(){
+
+
+        mAdapter = PaymentHistoryAdapter(applicationContext)
+        binding.rvPaymentLogs.layoutManager = getLinearLayoutManager()
+        binding.rvPaymentLogs.adapter = mAdapter
+        binding.rvPaymentLogs.visibility = View.VISIBLE
+        Timber.e("initViews shiiing")
     }
 
     private fun setupOutputs() {
-        viewModel.paymentLinkDetailsResponse.observe(this, Observer {
-            binding.billingDetailsLoading.visibility = View.GONE
-            updatePaymentLinkDetails(it)
-        })
+//        viewModel.paymentLinkDetailsResponse.observe(this, Observer {
+//            binding.billingDetailsLoading.visibility = View.GONE
+//            updatePaymentLinkDetails(it)
+//        })
+//
+//        viewModel.paymentLogsResponse.observe(this, {
+//            Timber.e("paymentLogsResponse " + JsonHelper.toJson(it))
+//            if(it.records?.size!! > 0){
+//                mAdapter.appendData(it.records!!)
+//            }else{
+//
+//            }
+//        })
 
-        viewModel.uiState.observe(this, Observer {
-            it.getContentIfNotHandled().let { event ->
-                when (event) {
-                    is UiState.Error -> {
-                        binding.billingDetailsLoading.visibility = View.GONE
-                        handleOnError(event.throwable)
-                    }
-                }
-            }
-        })
-
-        viewModel.paymentLogsResponse.observe(this, {
-
-        })
-
-        viewModel.paymentLogsState.observe(this, {
+        viewModel.uiState.observe(this, EventObserver {
             when (it) {
-                is ShouldShowRecyclerView -> {
-                    binding.rvPaymentLogs.visibility = View.VISIBLE
+                is UiState.Loading -> {
+                    showProgressAlertDialog(this::class.java.simpleName)
                 }
-
-                is Error -> {
+                is UiState.Complete -> {
+                    dismissProgressAlertDialog()
+                }
+                is UiState.Error -> {
                     handleOnError(it.throwable)
                 }
             }
         })
+
+        viewModel.state.observe(this, {
+            updatePaymentLinkDetails(it.paymentDetails!!)
+            mAdapter.appendData(it.paymentLogs!!)
+//            initLogs(it.paymentLogs ?: mutableListOf())
+        })
     }
+
+//    private fun initLogs(logs: MutableList<PaymentLogsModel>) {
+//        if (logs.count() > 0) {
+//            bind.
+//        }
+//    }
 
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse) {
         var grossAmountString = "0.00"
@@ -320,7 +342,6 @@ class BillingDetailsActivity :
         binding.tvLinkExpiry.text = expiryDateString
 
     }
-
 
     companion object {
         const val EXTRA_REFERENCE_NUMBER = "extra_reference_number"

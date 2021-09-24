@@ -1,11 +1,14 @@
 package com.unionbankph.corporate.payment_link.domain.model
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
 
+@Serializable
 data class PaymentLogsModel(
 
-    @SerialName ("loginId")
-    var loginId: String? = null,
+    @SerialName ("logId")
+    var logId: Int? = null,
 
     @SerialName ("transactionId")
     var transactionId: String? = null,
@@ -13,8 +16,11 @@ data class PaymentLogsModel(
     @SerialName ("referenceNo")
     var referenceNo: String? = null,
 
+    @SerialName ("amount")
+    var amount: Double? = null,
+
     @SerialName ("fee")
-    var fee: String? = null,
+    var fee: Int? = null,
 
     @SerialName ("status")
     var status: String? = null,
