@@ -167,7 +167,6 @@ class RequestForPaymentActivity :
             currentAccount = it
 
             binding.requestPaymentLoading.visibility = View.GONE
-            populateNominatedSettlementAccount(it)
             accounts = mutableListOf()
             accounts.add(it)
 
@@ -175,13 +174,14 @@ class RequestForPaymentActivity :
 
         viewModel.accounts.observe(this, Observer {
             binding.requestPaymentLoading.visibility = View.GONE
-            populateNominatedSettlementAccount(it.first())
             accounts = it
         })
 
         viewModel.accountsBalances.observe(this, Observer {
             binding.requestPaymentLoading.visibility = View.GONE
-            populateNominatedSettlementAccount(it.first())
+            accounts = it
+            this.currentAccount = accounts.find { it.id == this.currentAccount.id }?.copy()!!
+            populateNominatedSettlementAccount(currentAccount)
         })
 
         viewModel.updateSettlementOnRequestPaymentResponse.observe(this, Observer {
