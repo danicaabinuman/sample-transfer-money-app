@@ -90,7 +90,7 @@ class LoginFragment :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         setMargins(binding.textViewVersion, 0, getStatusBarHeight(), 0, 0)
-        initViewBackPressedLogin()
+        //initViewBackPressedLogin()
     }
 
     override fun onViewsBound() {
