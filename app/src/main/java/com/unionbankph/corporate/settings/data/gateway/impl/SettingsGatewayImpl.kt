@@ -201,7 +201,7 @@ constructor(
         return settingsCache.setNewUserDetected(isNewUserDetected)
     }
 
-    override fun hasTOTP(): Single<Boolean> {
+    override fun hasTOTP(): Maybe<Boolean> {
         return settingsCache.hasTOTP()
     }
 

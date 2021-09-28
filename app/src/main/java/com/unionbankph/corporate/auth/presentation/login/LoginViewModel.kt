@@ -40,6 +40,8 @@ class LoginViewModel @Inject constructor(
 
     val isTrustedDeviceOutput = BehaviorSubject.createDefault(false)
 
+    val enableBiometricLogin = BehaviorSubject.createDefault(false)
+
     val token = BehaviorSubject.createDefault("")
 
     val fullName = BehaviorSubject.create<String>()
@@ -48,17 +50,21 @@ class LoginViewModel @Inject constructor(
 
     val cdaoFeature = BehaviorSubject.createDefault(true)
 
-    fun hasFingerPrint() {
+    fun hasFingerPrintAndTOTP() {
         settingsGateway.getFingerprintToken()
             .zipWith(settingsGateway.getFingerprintFullname()) { t1, t2 -> Pair(t1, t2) }
             .zipWith(settingsGateway.getFingerprintEmail()) { t1, t2 -> Pair(t1, t2) }
+            .zipWith(settingsGateway.hasTOTP()) { t1, t2 -> Pair(t1,t2) }
             .subscribeOn(schedulerProvider.newThread())
             .observeOn(schedulerProvider.ui())
             .subscribe(
                 {
-                    token.onNext(it.first.first)
-                    fullName.onNext(it.first.second)
-                    emailAddress.onNext(it.second)
+                    token.onNext(it.first.first.first)
+                    fullName.onNext(it.first.first.second)
+                    emailAddress.onNext(it.first.second)
+                    isTrustedDeviceOutput.onNext(it.second)
+                    enableBiometricLogin.onNext(it.second && token.value?.isNotEmpty() ?: false)
+
                 }, {
                     Timber.e(it, "hasFingerPrint Failed")
                     _loginState.value = ShowLoginError(it)
@@ -168,20 +174,6 @@ class LoginViewModel @Inject constructor(
                     _loginState.value = ShowLoginFingerprintSuccess
                 }, {
                     Timber.e(it, "userLoginFingerPrint Failed")
-                    _loginState.value = ShowLoginError(it)
-                })
-            .addTo(disposables)
-    }
-
-    fun hasTOTP() {
-        settingsGateway.hasTOTP()
-            .subscribeOn(schedulerProvider.newThread())
-            .observeOn(schedulerProvider.ui())
-            .subscribe(
-                {
-                    isTrustedDeviceOutput.onNext(it)
-                }, {
-                    Timber.e(it, "hasTOTP Failed")
                     _loginState.value = ShowLoginError(it)
                 })
             .addTo(disposables)

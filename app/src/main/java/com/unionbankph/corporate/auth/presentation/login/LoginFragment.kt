@@ -107,11 +107,11 @@ class LoginFragment :
             .subscribe {
                 if(!isSME) {binding.buttonGenerateOTP.visibility(it)}
             }.addTo(disposables)
-        viewModel.token
+        viewModel.enableBiometricLogin
             .subscribe {
-                if(RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(it != "") }
-                else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
-                        .BIOMETRIC_SUCCESS) { showFaceIDImageView(it !="") }
+                if(it && RxFingerprint.isAvailable(getAppCompatActivity())) { showFingerprintImageView(viewModel.token.value != "") }
+                else if(it && BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                        .BIOMETRIC_SUCCESS) { showFaceIDImageView(viewModel.token.value !="") }
 
             }.addTo(disposables)
         viewModel.fullName
@@ -121,13 +121,12 @@ class LoginFragment :
         viewModel.emailAddress
             .subscribe {
                 getEditTextUsername().setText(it)
-                val fingerPrintToken = viewModel.token.value.notNullable()
                 if (getAppCompatActivity().intent.getBooleanExtra(EXTRA_SPLASH_SCREEN, true)) {
                     initAnimationLogo()
                     runPostDelayed(
                         {
                             if (it != "") {
-                                fingerprintViews(fingerPrintToken)
+                                fingerprintViews()
                             } else {
                                 initFreshLogin()
                             }
@@ -142,7 +141,7 @@ class LoginFragment :
                         android.R.anim.fade_in
                     )
                     if (it != "") {
-                        fingerprintViews(fingerPrintToken)
+                        fingerprintViews()
                     } else {
                         initFreshLogin()
                     }
@@ -354,8 +353,7 @@ class LoginFragment :
         checkUpdates()
         clearCache()
         initListener()
-        viewModel.hasFingerPrint()
-        viewModel.hasTOTP()
+        viewModel.hasFingerPrintAndTOTP()
         viewModel.refreshNotificationTokenIfNull()
         if (isSME) {
             binding.imageViewBackground.visibility(false)
@@ -499,7 +497,7 @@ class LoginFragment :
         binding.buttonGenerateOTP.visibility(false)
     }
 
-    private fun fingerprintViews(token: String) {
+    private fun fingerprintViews() {
         val tilUsernameParams = binding.tilUsername.layoutParams as ViewGroup.MarginLayoutParams
         val buttonLoginParams = binding.buttonLogin.layoutParams as ViewGroup.MarginLayoutParams
         tilUsernameParams.setMargins(
@@ -537,18 +535,18 @@ class LoginFragment :
         binding.tvSignUp.visibility(false)
         binding.textViewMigration.visibility(false)
 
-        if (token != "") {
+        if (viewModel.enableBiometricLogin.value!!) {
             if (getAppCompatActivity().intent.getBooleanExtra(EXTRA_SPLASH_SCREEN, true)
                 && !isShownInitialFingerprint
             ) {
                 runPostDelayed(
                     {
                         isShownInitialFingerprint = true
-                        showFingerPrint(token)
+                        showFingerPrint()
                     }, 1500
                 )
             } else {
-                showFingerPrint(token)
+                showFingerPrint()
             }
         }
     }
@@ -723,13 +721,13 @@ class LoginFragment :
         viewUtil.showKeyboard(getAppCompatActivity())
     }
 
-    private fun showFingerPrint(token: String) {
+    private fun showFingerPrint() {
         if (RxFingerprint.isAvailable(getAppCompatActivity())
             && !isShownInUpdateApp
             && App.isActivityVisible()
         ) {
             fingerprintBottomSheet = FingerprintBottomSheet.newInstance(
-                token,
+                viewModel.token.value!!,
                 FingerprintBottomSheet.DECRYPT_TYPE
             )
             fingerprintBottomSheet?.setOnFingerPrintListener(this)
@@ -741,7 +739,7 @@ class LoginFragment :
                 .BIOMETRIC_SUCCESS
             && !isShownInUpdateApp
             && App.isActivityVisible()){
-            biometricPrompt(token)
+            biometricPrompt(viewModel.token.value!!)
         }
     }
 
@@ -938,7 +936,7 @@ class LoginFragment :
             )
             .subscribe {
                 viewUtil.dismissKeyboard(getAppCompatActivity())
-                fingerprintViews(viewModel.token.value.notNullable())
+                fingerprintViews()
             }.addTo(disposables)
 
         RxView.clicks(binding.imgFingerPrintMSME)
@@ -948,7 +946,7 @@ class LoginFragment :
             )
             .subscribe {
                 viewUtil.dismissKeyboard(getAppCompatActivity())
-                fingerprintViews(viewModel.token.value.notNullable())
+                fingerprintViews()
             }.addTo(disposables)
 
     }
@@ -961,7 +959,7 @@ class LoginFragment :
             )
             .subscribe {
                 viewUtil.dismissKeyboard(getAppCompatActivity())
-                fingerprintViews(viewModel.token.value.notNullable())
+                fingerprintViews()
             }.addTo(disposables)
     }
 

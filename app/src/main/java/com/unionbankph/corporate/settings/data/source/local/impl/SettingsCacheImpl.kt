@@ -187,8 +187,8 @@ constructor(
         }
     }
 
-    override fun hasTOTP(): Single<Boolean> {
-        return Single.fromCallable {
+    override fun hasTOTP(): Maybe<Boolean> {
+        return Maybe.fromCallable {
             sharedPreferenceUtil.totpTokenPref().get() != ""
         }
     }
