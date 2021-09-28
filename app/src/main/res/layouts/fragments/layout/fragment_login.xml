@@ -260,7 +260,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/textViewFullname"
                     android:layout_marginStart="@dimen/content_spacing"
                     android:layout_marginEnd="@dimen/content_spacing"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
 
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/SMECaption"
@@ -349,8 +350,6 @@
                     android:textAllCaps="true"
                     android:text="@string/title_login"
                     android:visibility="gone"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintVertical_chainStyle="packed"
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -362,10 +361,8 @@
                     android:text="@string/title_forgot_password"
                     app:layout_constraintBottom_toTopOf="@+id/imgFingerPrintMSME"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/MSMEbtnLogin"
-                    app:layout_constraintVertical_chainStyle="packed"
                     android:textAllCaps="true"
                     android:visibility="gone"
                     android:textStyle="bold"
@@ -471,7 +468,7 @@
             android:id="@+id/textViewLearnMore"
             style="@style/TextViewTheme"
             android:layout_marginTop="@dimen/content_spacing"
-            android:layout_marginBottom="@dimen/grid_8"
+            android:layout_marginBottom="@dimen/content_spacing"
             android:padding="@dimen/text_view_padding"
             android:text="@string/title_learn_more"
             android:textAllCaps="true"
