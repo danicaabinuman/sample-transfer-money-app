@@ -460,10 +460,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     private fun initDashboardViews(role: Role) {
-        this.role = role
-//        if (!isSME) {
         removeElevation(binding.viewToolbar.appBarLayout)
-//        }
+
+        this.role = role
         role.let {
             binding.viewToolbar.textViewCorporationName.text = it.organizationName
             binding.viewToolbar.viewBadge.textViewInitial.text =

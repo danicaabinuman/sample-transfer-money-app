@@ -55,7 +55,7 @@ interface SettingsCache {
 
     fun setNewUserDetected(isNewUserDetected: Boolean): Completable
 
-    fun hasTOTP(): Single<Boolean>
+    fun hasTOTP(): Maybe<Boolean>
 
     fun setTOTPToken(token: String): Completable
 
