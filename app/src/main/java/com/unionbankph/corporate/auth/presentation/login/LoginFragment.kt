@@ -87,10 +87,12 @@ class LoginFragment :
 
     private var isShownInUpdateApp: Boolean = false
 
+    private var fullName: String = ""
+
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         setMargins(binding.textViewVersion, 0, getStatusBarHeight(), 0, 0)
-        //initViewBackPressedLogin()
+        initViewBackPressedLogin()
     }
 
     override fun onViewsBound() {
@@ -116,6 +118,7 @@ class LoginFragment :
             }.addTo(disposables)
         viewModel.fullName
             .subscribe {
+                fullName = it
                 binding.textViewFullname.text = it
             }.addTo(disposables)
         viewModel.emailAddress
@@ -333,7 +336,7 @@ class LoginFragment :
     private fun initViewBackPressedLogin(){
         if(!isSME){binding.imageViewBackground.visibility(true)}
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if(binding.MSMEbtnLogin.visibility == View.VISIBLE && isSME){
+            if(fullName == "" && binding.MSMEbtnLogin.visibility == View.VISIBLE && isSME){
                 binding.MSMEbtnLogin.visibility(false)
                 binding.MSMEForgotPassword.visibility(false)
                 binding.llEmailSME.visibility(false)
@@ -485,8 +488,6 @@ class LoginFragment :
             binding.tilUsername.visibility(true)
             binding.tilPassword.visibility(true)
             binding.buttonLogin.visibility(true)
-            //binding.cardViewEmail.visibility(false)
-            //binding.cardViewPassword.visibility(false)
             binding.llEmailSME.visibility(false)
             binding.llPasswordSME.visibility(false)
             binding.textViewMigration.visibility(true)
@@ -574,21 +575,10 @@ class LoginFragment :
             ),
             buttonLoginParams.rightMargin, buttonLoginParams.bottomMargin
         )
-        buttonLoginParams.setMargins(
-            buttonLoginParams.leftMargin,
-            resources.getDimensionPixelSize(
-                if (App.isSME()) R.dimen.content_spacing_small else R.dimen.content_spacing
-            ),
-            buttonLoginParamsMSME.rightMargin, buttonLoginParams.bottomMargin
-        )
         val constraintSet = ConstraintSet()
         constraintSet.connect(
             binding.tvSignUp.id, ConstraintSet.TOP,
             binding.buttonLogin.id, ConstraintSet.BOTTOM
-        )
-        constraintSet.connect(
-            binding.MSMEbtnLogin.id, ConstraintSet.TOP,
-            binding.MSMEForgotPassword.id, ConstraintSet.BOTTOM
         )
         constraintSet.clone(binding.constraintLayout)
         if (isSME) {
@@ -610,7 +600,7 @@ class LoginFragment :
             binding.imgFingerPrintMSME.setVisible(false)
             binding.imgFaceIDMSME.setVisible(false)
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
-            binding.MSMEbtnLogin.enableButtonMSME(false)
+            if(getEditTextUsername().length()==0 || getEditTextPassword().length()==0){binding.MSMEbtnLogin.enableButtonMSME(false)}
             viewUtil.startAnimateView(true, binding.tvUbCaption, android.R.anim.fade_in)
             viewUtil.startAnimateView(true, binding.llEmailSME, android.R.anim.fade_in)
             viewUtil.startAnimateView(true, binding.llPasswordSME, android.R.anim.fade_in)
@@ -619,8 +609,6 @@ class LoginFragment :
         } else {
             binding.tilUsername.visibility(true)
             binding.tilPassword.visibility(true)
-            //binding.cardViewEmail.visibility(false)
-            //binding.cardViewPassword.visibility(false)
             binding.llEmailSME.visibility(false)
             binding.llPasswordSME.visibility(false)
             binding.tvSignUp.visibility(true)
@@ -669,31 +657,14 @@ class LoginFragment :
             buttonLoginParams.rightMargin,
             buttonLoginParams.bottomMargin
         )
-        buttonLoginParamsMSME.setMargins(
-            buttonLoginParams.leftMargin,
-            resources.getDimensionPixelSize(
-                if (isSME) {
-                    R.dimen.content_spacing_half
-                } else {
-                    R.dimen.content_spacing
-                }
-            ),
-            buttonLoginParams.rightMargin,
-            buttonLoginParams.bottomMargin
-        )
         val constraintSet = ConstraintSet()
         constraintSet.connect(
             binding.tvSignUp.id, ConstraintSet.TOP,
             binding.buttonLogin.id, ConstraintSet.BOTTOM
         )
-        constraintSet.connect(
-            binding.MSMEbtnLogin.id, ConstraintSet.TOP,
-            binding.MSMEForgotPassword.id, ConstraintSet.BOTTOM
-        )
         constraintSet.clone(binding.constraintLayout)
         if (isSME) {
             binding.llPasswordSME.visibility(true)
-            //binding.cardViewPassword.visibility(true)
             binding.tilPassword.visibility(false)
             binding.tvForgotPassword.visibility(false)
             binding.MSMEbtnLogin.visibility(true)
@@ -705,9 +676,6 @@ class LoginFragment :
             binding.tvUbCaption.visibility(true)
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
             binding.MSMEbtnLogin.enableButtonMSME(false)
-            //binding.tvSignUp.text = formatString(R.string.action_sign_up).toHtmlSpan()
-            //binding.tvSignUp.visibility(viewModel.cdaoFeature.value.notNullable())
-            //setOnClickListenerSignUp()
         } else {
             binding.tilPassword.visibility(true)
             binding.tvSignUp.visibility(true)
@@ -715,8 +683,6 @@ class LoginFragment :
             binding.buttonLogin.loginEnableButton(false)
             binding.textViewMigration.visibility = View.GONE
         }
-
-
         getEditTextPassword().requestFocus()
         viewUtil.showKeyboard(getAppCompatActivity())
     }
