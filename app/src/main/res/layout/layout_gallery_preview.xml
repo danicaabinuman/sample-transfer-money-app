@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:padding="@dimen/grid_2"
-        android:background="@color/dsColorExtraLightGray"
+        android:background="@color/colorWhite"
         app:layout_constraintTop_toBottomOf="@id/llToolbar1"
         app:layout_constraintStart_toStartOf="parent">
 

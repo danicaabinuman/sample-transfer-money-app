@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="@string/main_branch"
-        android:textColor="#4A4A4A"
+        android:textColor="#9B9B9B"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_physical_store" />
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/grid_1"
-        android:text="+ Add another address"
+        android:text="@string/add_another_address"
         android:textColor="@color/colorSMEMediumOrange"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/branchContainer"/>

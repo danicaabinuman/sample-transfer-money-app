@@ -74,11 +74,11 @@ class OnboardingUploadPhotosActivity :
 
     private fun initOnClicks(){
         binding.btnAddPhotos.setOnClickListener {
-            showUploadPhotoDialog()
+//            showUploadPhotoDialog()
             captureImageViaCamera()
         }
         binding.btnAddPhotos2.setOnClickListener {
-            showUploadPhotoDialog()
+//            showUploadPhotoDialog()
             captureImageViaCamera()
         }
         binding.btnNext.setOnClickListener {
@@ -137,6 +137,7 @@ class OnboardingUploadPhotosActivity :
         binding.viewToolbar.btnDelete.visibility(false)
         binding.clSelectedPhotos.visibility(true)
         binding.btnNext.visibility(true)
+        binding.btnNext.isEnabled = false
         binding.viewToolbar.btnSaveAndExit.visibility(true)
         binding.btnAddPhotos2.visibility(true)
     }
@@ -245,15 +246,15 @@ class OnboardingUploadPhotosActivity :
     }
 
     private fun showDeletePhotoDialog(){
-//        val onboardingDeletePhotosFragment = OnboardingDeletePhotosFragment.newInstance()
-//        onboardingDeletePhotosFragment.show(
-//            supportFragmentManager,
-//            OnboardingDeletePhotosFragment.TAG
-//        )
-        NewConfirmationBottomSheet.newInstance(
-            description = getString(R.string.title_delete_photo),
-            positiveButtonText = getString(R.string.btn_delete_this_photo)
+        val onboardingDeletePhotosFragment = OnboardingDeletePhotosFragment.newInstance()
+        onboardingDeletePhotosFragment.show(
+            supportFragmentManager,
+            OnboardingDeletePhotosFragment.TAG
         )
+//        NewConfirmationBottomSheet.newInstance(
+//            description = getString(R.string.title_delete_photo),
+//            positiveButtonText = getString(R.string.btn_delete_this_photo)
+//        )
     }
 
     private fun showSnackbar(){

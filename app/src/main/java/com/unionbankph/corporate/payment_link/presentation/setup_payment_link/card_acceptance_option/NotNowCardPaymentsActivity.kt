@@ -17,6 +17,7 @@ import com.jakewharton.rxbinding2.widget.SeekBarProgressChangeEvent
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
@@ -306,6 +307,8 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun populateNominatedSettlementAccount(accountData: Account) {
+        binding.buttonSelectAccount.visibility(false)
+        binding.includeSettlementAccount.root.visibility(true)
         binding.includeSettlementAccount.apply {
             textViewCorporateName.text = accountData.name
             textViewAccountNumber.text = accountData.accountNumber

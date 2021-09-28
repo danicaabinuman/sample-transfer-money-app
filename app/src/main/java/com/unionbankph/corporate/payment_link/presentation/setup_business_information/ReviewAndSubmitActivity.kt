@@ -1,23 +1,20 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_business_information
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
-import kotlinx.android.synthetic.main.activity_business_information.viewToolbar
-import kotlinx.android.synthetic.main.activity_review_and_submit.*
-import kotlinx.android.synthetic.main.item_review_business_info.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
+import com.unionbankph.corporate.databinding.ActivityReviewAndSubmitBinding
 
-class ReviewAndSubmitActivity:BaseActivity<ReviewAndSubmitViewModel>(R.layout.activity_review_and_submit) {
+class ReviewAndSubmitActivity:BaseActivity<ActivityReviewAndSubmitBinding,ReviewAndSubmitViewModel>() {
 
     var counter = 0
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
@@ -39,11 +36,6 @@ class ReviewAndSubmitActivity:BaseActivity<ReviewAndSubmitViewModel>(R.layout.ac
     override fun onViewModelBound() {
         super.onViewModelBound()
 
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                viewModelFactory
-            )[ReviewAndSubmitViewModel::class.java]
     }
 
     override fun onViewsBound() {
@@ -56,60 +48,60 @@ class ReviewAndSubmitActivity:BaseActivity<ReviewAndSubmitViewModel>(R.layout.ac
 
     private fun toggleReviewAndSubmitFields(){
 
-        btnReviewBusinessInfo.setOnClickListener {
+        binding.btnReviewBusinessInfo.setOnClickListener {
             counter++
             val state = counter % 2
             if (state == 1){
-                layout_details_business_info.visibility = View.VISIBLE
+                binding.layoutDetailsBusinessInfo.root.visibility = View.VISIBLE
             } else if (state == 0){
-                layout_details_business_info.visibility = View.GONE
+                binding.layoutDetailsBusinessInfo.root.visibility = View.GONE
             }
         }
 
-        btnReviewOtherBusinessInfo.setOnClickListener {
+        binding.btnReviewOtherBusinessInfo.setOnClickListener {
             counter++
             val state = counter % 2
             if (state == 1){
-                layout_details_other_business_info.visibility = View.VISIBLE
+                binding.layoutDetailsOtherBusinessInfo.root.visibility = View.VISIBLE
             } else if (state == 0){
-                layout_details_other_business_info.visibility = View.GONE
+                binding.layoutDetailsOtherBusinessInfo.root.visibility = View.GONE
             }
         }
 
-        btnReviewProductsOrServices.setOnClickListener {
+        binding.btnReviewProductsOrServices.setOnClickListener {
             counter++
             val state = counter % 2
             if (state == 1){
-                layout_details_products_or_services.visibility = View.VISIBLE
+                binding.layoutDetailsProductsOrServices.root.visibility = View.VISIBLE
             } else if (state == 0){
-                layout_details_products_or_services.visibility = View.GONE
+                binding.layoutDetailsProductsOrServices.root.visibility = View.GONE
             }
         }
 
-        btnReviewCardAcceptance.setOnClickListener {
+        binding.btnReviewCardAcceptance.setOnClickListener {
             counter++
             val state = counter % 2
             if (state == 1){
-                layout_details_card_acceptance.visibility = View.VISIBLE
+                binding.layoutDetailsCardAcceptance.root.visibility = View.VISIBLE
             } else if (state == 0){
-                layout_details_card_acceptance.visibility = View.GONE
+                binding.layoutDetailsCardAcceptance.root.visibility = View.GONE
             }
         }
 
-        btnReviewTransactionInformation.setOnClickListener {
+        binding.btnReviewTransactionInformation.setOnClickListener {
             counter++
             val state = counter % 2
             if (state == 1){
-                layout_details_transaction_info.visibility = View.VISIBLE
+                binding.layoutDetailsTransactionInfo.root.visibility = View.VISIBLE
             } else if (state == 0){
-                layout_details_transaction_info.visibility = View.GONE
+                binding.layoutDetailsTransactionInfo.root.visibility = View.GONE
             }
         }
 
     }
 
     private fun editBusinessInfoFields(){
-        btnEditBusinessInfo.setOnClickListener {
+        binding.layoutDetailsBusinessInfo.btnEditBusinessInfo.setOnClickListener {
             val bundle = Bundle()
             bundle.putString(BusinessInformationActivity.FROM_BUSINESS_INFO_BUTTON, EDIT_BUSINESS_INFO_BUTTON)
 
@@ -128,5 +120,10 @@ class ReviewAndSubmitActivity:BaseActivity<ReviewAndSubmitViewModel>(R.layout.ac
         const val EDIT_BUSINESS_INFO_BUTTON = "edit_business_info_button"
         const val EDIT_OTHER_BUSINESS_INFO_BUTTON = "edit_other_business_info_button"
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityReviewAndSubmitBinding
+        get() = ActivityReviewAndSubmitBinding::inflate
+    override val viewModelClassType: Class<ReviewAndSubmitViewModel>
+        get() = ReviewAndSubmitViewModel::class.java
 
 }

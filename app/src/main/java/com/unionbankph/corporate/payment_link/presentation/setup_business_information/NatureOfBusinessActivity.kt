@@ -4,33 +4,28 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_business_information.*
-import kotlinx.android.synthetic.main.activity_business_information.viewToolbar
-import kotlinx.android.synthetic.main.activity_nature_of_business.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.textViewTitle
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.toolbar
-import kotlinx.android.synthetic.main.widget_transparent_rmo_appbar.*
+import com.unionbankph.corporate.databinding.ActivityNatureOfBusinessBinding
 
 class NatureOfBusinessActivity :
-    BaseActivity<NatureOfBusinessViewModel>(R.layout.activity_nature_of_business){
+    BaseActivity<ActivityNatureOfBusinessBinding,NatureOfBusinessViewModel>(){
 
     var natureOfBusiness = arrayOf("Advertising Services", "Airline Tickets", "Apparel", "Automotive/Industrial", "Charities", "Clothing", "Consultancy")
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
             true
         )
-        setToolbarTitle(textViewTitle, "Nature of Business")
+        setToolbarTitle(binding.viewToolbar.textViewTitle, getString(R.string.nature_of_business))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -45,15 +40,15 @@ class NatureOfBusinessActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        btnSaveAndExit.visibility = View.GONE
+        binding.viewToolbar.btnSaveAndExit.visibility = View.GONE
         initListView()
     }
 
     private fun initListView(){
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, natureOfBusiness)
-        listview.adapter = adapter
+        binding.listview.adapter = adapter
 
-        et_search_nature_of_business.addTextChangedListener(object : TextWatcher{
+        binding.etSearchNatureOfBusiness.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -68,12 +63,20 @@ class NatureOfBusinessActivity :
 
         })
 
-        listview.setOnItemClickListener { parent, view, position, id ->
+        binding.listview.setOnItemClickListener { parent, view, position, id ->
             val selectedItem = adapter.getItem(position)
             val intent = Intent(this@NatureOfBusinessActivity, BusinessInformationActivity::class.java)
-            intent.putExtra("selected", selectedItem)
+            intent.putExtra(SELECTED_NATURE_OF_BUSINESS, selectedItem)
             startActivity(intent)
         }
 
     }
+
+    companion object{
+        const val SELECTED_NATURE_OF_BUSINESS = "selected_nature_of_business"
+    }
+    override val bindingInflater: (LayoutInflater) -> ActivityNatureOfBusinessBinding
+        get() = ActivityNatureOfBusinessBinding::inflate
+    override val viewModelClassType: Class<NatureOfBusinessViewModel>
+        get() = NatureOfBusinessViewModel::class.java
 }

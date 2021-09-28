@@ -188,7 +188,9 @@
         android:clickable="true"
         android:visibility="gone"
         android:focusable="true">
-        <include layout="@layout/layout_preview_docs"/>
+        <include
+            android:id="@+id/includePreviewBIRDocs"
+            layout="@layout/layout_preview_docs"/>
     </FrameLayout>
 
     <FrameLayout
@@ -198,7 +200,9 @@
         android:clickable="true"
         android:visibility="gone"
         android:focusable="true">
-        <include layout="@layout/layout_gallery_preview"/>
+        <include
+            android:id="@+id/includePreviewBIRPhoto"
+            layout="@layout/layout_gallery_preview"/>
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

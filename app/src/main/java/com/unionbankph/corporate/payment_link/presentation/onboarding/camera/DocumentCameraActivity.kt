@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
@@ -21,15 +22,10 @@ import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.util.BitmapUtil
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.databinding.ActivityOnboardingCameraBinding
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_onboarding_camera.*
-import kotlinx.android.synthetic.main.activity_onboarding_camera.viewToolbar
-import kotlinx.android.synthetic.main.activity_onboarding_upload_photos.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.*
-import kotlinx.android.synthetic.main.widget_transparent_appbar.toolbar
-import kotlinx.android.synthetic.main.widget_transparent_org_appbar.*
 import timber.log.Timber
 import java.io.File
 import java.text.SimpleDateFormat
@@ -37,14 +33,14 @@ import java.util.*
 import javax.inject.Inject
 
 class DocumentCameraActivity :
-    BaseActivity<DocumentCameraViewModel>(R.layout.activity_onboarding_camera) {
+    BaseActivity<ActivityOnboardingCameraBinding,DocumentCameraViewModel>() {
 
     @Inject
     lateinit var bitmapUtil: BitmapUtil
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(toolbar, viewToolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
@@ -54,10 +50,6 @@ class DocumentCameraActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel = ViewModelProviders.of(
-            this,
-            viewModelFactory
-        )[DocumentCameraViewModel::class.java]
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Loading -> {
@@ -84,9 +76,9 @@ class DocumentCameraActivity :
         viewModel.isFlashOn
             .subscribe {
                 if (it) {
-                    cameraView.flash = Flash.TORCH
+                    binding.cameraView.flash = Flash.TORCH
                 } else {
-                    cameraView.flash = Flash.OFF
+                    binding.cameraView.flash = Flash.OFF
                 }
                 invalidateOptionsMenu()
             }.addTo(disposables)
@@ -94,9 +86,9 @@ class DocumentCameraActivity :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
-        imageViewCapture.setOnClickListener {
+        binding.imageViewCapture.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
-            cameraView.takePicture()
+            binding.cameraView.takePicture()
         }
     }
 
@@ -154,7 +146,7 @@ class DocumentCameraActivity :
 
     private fun initCameraView() {
         CameraLogger.setLogLevel(CameraLogger.LEVEL_VERBOSE)
-        with(cameraView) {
+        with(binding.cameraView) {
             setLifecycleOwner(this@DocumentCameraActivity)
             addCameraListener(cameraViewListener)
         }
@@ -165,7 +157,7 @@ class DocumentCameraActivity :
             .request(Manifest.permission.CAMERA)
             .subscribe { granted ->
                 if (granted) {
-                    cameraView.open()
+                    binding.cameraView.open()
                 } else {
                     initCheckPermission()
                 }
@@ -210,4 +202,9 @@ class DocumentCameraActivity :
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
     }
+
+    override val bindingInflater: (LayoutInflater) -> ActivityOnboardingCameraBinding
+        get() = ActivityOnboardingCameraBinding::inflate
+    override val viewModelClassType: Class<DocumentCameraViewModel>
+        get() = DocumentCameraViewModel::class.java
 }

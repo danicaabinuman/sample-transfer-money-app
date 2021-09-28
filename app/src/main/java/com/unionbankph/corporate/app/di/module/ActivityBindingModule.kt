@@ -89,7 +89,6 @@ import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewAct
 import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryActivity
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraActivity
@@ -101,9 +100,7 @@ import com.unionbankph.corporate.payment_link.presentation.create_merchant.Merch
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.NatureOfBusinessActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.ReviewAndSubmitActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.SubmitApplicationActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.*
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
@@ -623,4 +620,8 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun merchantApplicationReceivedActivity(): MerchantApplicationReceivedActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessInformation2ndScreenActivity(): BusinessInformation2ndScreenActivity
 }

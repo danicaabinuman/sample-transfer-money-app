@@ -2111,7 +2111,7 @@
     <string name="tc_tat_content_3e">Termination of the Bank’s agreement/s with the Card brands; or</string>
     <string name="tc_tat_content_3f">Upon lawful orders of pertinent government authorities.</string>
     <string name="tc_tat_content_4">In addition to the foregoing, the Bank may terminate this Agreement for any cause without penalty, by giving the other Party at least thirty (30) days’ written notice prior to the intended date of termination.</string>
-    
+
     <string name="tc_eot_content_1">Upon termination of this Agreement:</string>
     <string name="tc_eot_content_1a">the Parties agree upon written request to immediately return all Proprietary Work, Confidential Information and all copies thereof belonging to the other party, within its possession or control; and</string>
     <string name="tc_eot_content_1b">all obligations incurred or existing against the Merchant, and all rights vested or accrued under this Agreement, shall survive the termination of this Agreement.</string>
@@ -2172,7 +2172,7 @@
     <string name="tc_lol_content_6">The Bank will, in providing the UnionBank Payment Gateway Service, rely upon information, instructions, and services from the Merchant, its employees, and agents and financial and credit institutions, and other third parties. Merchant fully assumes the risk associated with errors in such information, instructions and services provided that the Bank has accurately transmitted the data and/or complied with authorized instructions.</string>
     <string name="tc_lol_content_7">IN NO EVENT WILL THE BANK’S TOTAL LIABILITY ARISING OUT OF THIS AGREEMENT EXCEED THE LESSER OF THE FEES PAID TO THE BANK BY MERCHANT UNDER THIS AGREEMENT WITHIN THE 12 MONTH PERIOD PRIOR TO THE EVENT WHICH GAVE RISE TO THE CLAIM FOR DAMAGES OR PHP 20,000 FOR REGISTERED MERCHANT AND PHP 10,000</string>
     <string name="tc_lol_content_8">FOR UNREGISTERED MERCHANT. IN NO EVENT WILL THE BANK OR ITS LICENSORS HAVE ANY LIABILITY TO MASTER MERCHANT OR ANY OTHER PARTY FOR ANY LOST OPPORTUNITY OR PROFITS, COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, OR FOR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR SPECIAL DAMAGES ARISING OUT OF THIS AGREEMENT, UNDER ANY CAUSE OF ACTION OR THEORY OF LIABILITY (INCLUDING NEGLIGENCE), AND WHETHER OR NOT THE BANK HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THESE LIMITATIONS WILL APPLY NOTWITHSTANDING ANY FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.</string>
-    
+
     <string name="tc_indemnification_content_1">Merchant shall indemnify and hold the Bank, its directors, officers, employees and agents harmless from and against, and defend any claim, suit or proceeding and pay any settlement amounts or damages awarded by a court of final jurisdiction arising out of claims (i) resulting from the willful acts, omissions or negligence of Merchant, its employees or agents; (ii) relating to any claims filed in respect of infringement of a third party right in connection with the Software and/or Service; and (iii) resulting from non-compliance with PCI-DSS and Cards brand ruling, or (iv) resulting from non-compliance with its undertakings in this Agreement.</string>
     <string name="tc_indemnification_content_2">The Bank will be entitled to have full conduct of all proceedings and negotiations relating to any such claim and in its discretion to accept, dispute, compromise, or otherwise deal with the same and shall be under no liability in respect thereof to the merchant and the Merchant shall provide any and all assistance in connection with such claim that the Bank may require.</string>
 
@@ -2184,7 +2184,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
 \n\nIn case of such events, the time for performance required by either party under this Agreement shall be suspended for any period during which the performance is prevented by the event</string>
 
     <string name="tc_mh_content">In the event that the Merchant has concerns regarding the payment gateway and its usage, the Merchant may contact UnionBank’s Customer Corporate Care by phone: (02) 667-2668 or by Email: union3c@unionbankph.com, Monday-Friday 8:30-5:30 (except holidays).</string>
-    
+
     <string name="tc_general_content_1">The Parties are independent contractors. No agency, partnership, joint-venture or formal business organization of any kind is created by this Agreement and neither Party shall have the right to bind the other, or represent to any person that it has the right to do so. Merchant shall conduct its activities under this Agreement as its own principal and not as agent of the Bank.</string>
     <string name="tc_general_content_2">No waiver of any breach of this Agreement shall be deemed to be a waiver of any other or of any subsequent breach. The failure of either Party to enforce at any time any of the provisions of this Agreement shall in no way be interpreted as a waiver of such provision.</string>
     <string name="tc_general_content_3">Unless otherwise provided in this Agreement, all remedies shall be cumulative and in addition to and not in lieu of any other remedies to either Party at law, in equity, or otherwise. Furthermore, there shall be no obligation upon either Party to exercise a specific remedy.</string>
@@ -2298,7 +2298,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="years_in_business">Years in business</string>
     <string name="how_long_have_you_been_in_nbusiness">How long have you been in\nbusiness?</string>
     <string name="details_products_offered">What products or services are you offering and what kind of customers are you targeting?</string>
-    <string name="products_of_services_offered">Products or Services Offered</string>
+    <string name="products_of_services_offered">Products or Services</string>
     <string name="nature_of_business">Nature of Business</string>
     <string name="we_want_to_know_more_about_your_business">We want to know more about your business</string>
     <string name="indicate_0_if_less_than_1_year">Indicate 0 if less than 1 year</string>
@@ -2325,4 +2325,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="try_again">TRY AGAIN</string>
     <string name="feature_unavailable_detail">Sorry, this feature is not available for your organization. Please Contact business@unionbankph.com for further assistance.</string>
     <string name="okay_upper_case">OKAY</string>
+    <string name="add_another_address">+ Add another address</string>
 </resources>
