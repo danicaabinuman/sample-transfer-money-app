@@ -359,9 +359,18 @@ class LoginFragment :
         viewModel.hasFingerPrintAndTOTP()
         viewModel.refreshNotificationTokenIfNull()
         if (isSME) {
+            binding.textViewMigration.text = formatString(R.string.desc_migration_login_msme).toHtmlSpan()
+            binding.textViewLearnMore.setTypeface(binding.textViewLearnMore.typeface, Typeface.BOLD)
             binding.imageViewBackground.visibility(false)
             binding.tvSignUp.text = formatString(R.string.action_sign_up).toHtmlSpan()
         } else {
+            val textViewLearnMoreParams = binding.textViewLearnMore.layoutParams as ViewGroup.MarginLayoutParams
+            textViewLearnMoreParams.setMargins(
+                textViewLearnMoreParams.leftMargin,
+                textViewLearnMoreParams.topMargin,
+                textViewLearnMoreParams.rightMargin,
+                resources.getDimensionPixelSize(R.dimen.grid_6)
+            )
             binding.tvSignUp.text = formatString(R.string.title_forgot_password).uppercase()
             binding.tvSignUp.setTypeface(binding.tvSignUp.typeface, Typeface.BOLD)
         }
@@ -556,7 +565,6 @@ class LoginFragment :
         val tilUsernameParams = binding.tilUsername.layoutParams as ViewGroup.MarginLayoutParams
         val tilPasswordParams = binding.tilPassword.layoutParams as ViewGroup.MarginLayoutParams
         val buttonLoginParams = binding.buttonLogin.layoutParams as ViewGroup.MarginLayoutParams
-        val buttonLoginParamsMSME = binding.MSMEbtnLogin.layoutParams as ViewGroup.MarginLayoutParams
         tilUsernameParams.setMargins(
             tilUsernameParams.leftMargin,
             resources.getDimensionPixelSize(R.dimen.content_group_spacing),
@@ -592,20 +600,19 @@ class LoginFragment :
             binding.bgSignupIllustration.visibility(false)
             binding.ivbgOrange.visibility(false)
             binding.ivWhitebg.visibility(false)
-            //binding.tvSignUp.text = formatString(R.string.action_sign_up).toHtmlSpan()
-            //binding.tvSignUp.visibility(viewModel.cdaoFeature.value.notNullable())
-            //setOnClickListenerSignUp()
             binding.buttonLogin.visibility(false)
             binding.tvSignUp.visibility(false)
             binding.imgFingerPrintMSME.setVisible(false)
             binding.imgFaceIDMSME.setVisible(false)
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
+            binding.textViewFullname.setVisible(false)
+            binding.tvUbCaption.setVisible(false)
+            binding.textViewLearnMore.setVisible(true)
+            binding.llEmailSME.setVisible(true)
+            binding.llPasswordSME.setVisible(true)
+            binding.MSMEbtnLogin.setVisible(true)
+            binding.MSMEForgotPassword.setVisible(true)
             if(getEditTextUsername().length()==0 || getEditTextPassword().length()==0){binding.MSMEbtnLogin.enableButtonMSME(false)}
-            viewUtil.startAnimateView(true, binding.tvUbCaption, android.R.anim.fade_in)
-            viewUtil.startAnimateView(true, binding.llEmailSME, android.R.anim.fade_in)
-            viewUtil.startAnimateView(true, binding.llPasswordSME, android.R.anim.fade_in)
-            viewUtil.startAnimateView(true, binding.MSMEbtnLogin, android.R.anim.fade_in)
-            viewUtil.startAnimateView(true, binding.MSMEForgotPassword, android.R.anim.fade_in)
         } else {
             binding.tilUsername.visibility(true)
             binding.tilPassword.visibility(true)
@@ -615,10 +622,12 @@ class LoginFragment :
             binding.buttonLogin.visibility(true)
             binding.buttonLogin.text = formatString(R.string.action_login)
             binding.buttonLogin.loginEnableButton(false)
-            binding.textViewMigration.visibility(true)
+            binding.textViewFullname.visibility(false)
+
         }
+        binding.textViewMigration.visibility(true)
         binding.textViewWelcomeBack.visibility(false)
-        binding.textViewFullname.visibility(false)
+
 
 
         if (getEditTextUsername().length() > 0) {
@@ -632,7 +641,6 @@ class LoginFragment :
         val tilUsernameParams = binding.tilUsername.layoutParams as ViewGroup.MarginLayoutParams
         val tilPasswordParams = binding.tilPassword.layoutParams as ViewGroup.MarginLayoutParams
         val buttonLoginParams = binding.buttonLogin.layoutParams as ViewGroup.MarginLayoutParams
-        val buttonLoginParamsMSME = binding.MSMEbtnLogin.layoutParams as ViewGroup.MarginLayoutParams
         tilUsernameParams.setMargins(
             tilUsernameParams.leftMargin,
             resources.getDimensionPixelSize(R.dimen.content_group_spacing),
@@ -673,9 +681,10 @@ class LoginFragment :
             binding.imgFingerPrintMSME.visibility(false)
             binding.imgFaceIDMSME.visibility(false)
             binding.tvUbCaption.visibility(false)
-            binding.tvUbCaption.visibility(true)
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
             binding.MSMEbtnLogin.enableButtonMSME(false)
+            binding.textViewMigration.visibility(true)
+            binding.textViewLearnMore.visibility(true)
         } else {
             binding.tilPassword.visibility(true)
             binding.tvSignUp.visibility(true)
