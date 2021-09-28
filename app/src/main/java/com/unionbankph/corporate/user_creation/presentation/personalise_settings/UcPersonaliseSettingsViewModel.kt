@@ -51,7 +51,7 @@ class UcPersonaliseSettingsViewModel @Inject constructor(
             .addTo(disposables)
     }
 
-    fun getNotifications() {
+    fun getNotifications(isChecked: Boolean) {
         notificationGateway.getNotifications()
             .map {
                 NotificationDto(
@@ -64,7 +64,11 @@ class UcPersonaliseSettingsViewModel @Inject constructor(
             .doOnSubscribe { _uiState.value = Event(UiState.Loading) }
             .doFinally { _uiState.value = Event(UiState.Complete) }
             .subscribe(
-                { _settingsState.value = ShowNotificationData(it)
+                {
+                    postNotificationSettings(
+                        NotificationForm(
+                        it.notifications.sortedBy { it.notificationId }.toMutableList(),
+                            isChecked))
                 }, {
                     Timber.e(it, "getNotifications Failed")
                     _uiState.value = Event(UiState.Error(it))
@@ -72,7 +76,7 @@ class UcPersonaliseSettingsViewModel @Inject constructor(
             .addTo(disposables)
     }
 
-    /*fun updateNotificationSettings(notificationForm: NotificationForm) {
+    fun postNotificationSettings(notificationForm: NotificationForm) {
         notificationGateway.updateNotificationSettings(notificationForm)
             .map {
                 NotificationDto(
@@ -87,27 +91,13 @@ class UcPersonaliseSettingsViewModel @Inject constructor(
             .doFinally { _uiState.value = Event(UiState.Complete) }
             .subscribe(
                 {
-                    if (notificationForm.notifications.size == 1) {
-                        eventBus.resultSyncEvent.emmit(
-                            BaseEvent(
-                                ResultSyncEvent.ACTION_UPDATE_NOTIFICATION,
-                                JsonHelper.toJson(it)
-                            )
-                        )
-                    }
-                    _notificationState.value =
-                        ShowNotificationData(
-                            it
-                        )
+
                 }, {
                     Timber.e(it, "updateNotificationSettings Failed")
-                    _notificationState.value =
-                        ShowNotificationError(
-                            it
-                        )
+                    _uiState.value = Event(UiState.Error(it))
                 })
             .addTo(disposables)
-    }*/
+    }
 
     sealed class SettingsState
     object ShowTOTPSubscription : SettingsState()
