@@ -276,12 +276,12 @@ class BusinessInformation2ndScreenActivity :
 
                 val tv = addBranchFields.findViewById<TextView>(R.id.tv_branch_number)
                 val branchCount = container.childCount
-                if (branchCount <= 98) {
+                if (branchCount <= 99) {
                     branchCounter++
-//                addBranchFields.tv_branch_number.text = getString(R.string.branch) + " " + branchCounter
                     tv.text = getString(R.string.branch) + " " + branchCounter
-                } else if (branchCount == 99) {
-                    binding.physicalStore.btnAddBranchAddress.visibility = View.GONE
+                }
+                if (branchCount == 99) {
+                    binding.physicalStore.btnAddBranchAddress.visibility(false)
                 }
             }
         } else if (stateChecker == 0) {
@@ -476,8 +476,8 @@ class BusinessInformation2ndScreenActivity :
                 container.addView(addOtherStoreFields, container.childCount)
 
                 val storeCount = container.childCount
-                if (storeCount == 98) {
-                    binding.others.btnAddAnotherStore.visibility = View.GONE
+                if (storeCount == 99) {
+                    binding.others.btnAddAnotherStore.visibility(false)
                 }
             }
         } else if (stateChecker == 0) {
@@ -556,12 +556,18 @@ class BusinessInformation2ndScreenActivity :
             android.R.layout.simple_list_item_1,
             orderFulfillment
         ) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view: TextView = super.getView(position, convertView, parent) as TextView
+                if (position == 0){
+                    view.setTextColor(Color.GRAY)
+                }
+                return view
+            }
             override fun getDropDownView(
                 position: Int,
                 convertView: View?,
                 parent: ViewGroup
             ): View {
-//                return super.getDropDownView(position, convertView, parent)
                 val view: TextView =
                     super.getDropDownView(position, convertView, parent) as TextView
                 if (position == 0) {
