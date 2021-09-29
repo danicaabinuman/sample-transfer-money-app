@@ -666,6 +666,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name=".account_setup.presentation.AccountSetupActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
         <!-- Others -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

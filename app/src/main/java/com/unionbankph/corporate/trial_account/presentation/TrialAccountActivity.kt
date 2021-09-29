@@ -7,12 +7,9 @@ import android.view.View
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
-import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
-import com.unionbankph.corporate.auth.presentation.migration.migration_form.MigrationFormActivity
-import com.unionbankph.corporate.auth.presentation.migration.migration_merge.MigrationMergeActivity
 import com.unionbankph.corporate.databinding.ActivityTrialAccountSetupBinding
 
 class TrialAccountActivity :
