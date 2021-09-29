@@ -24,6 +24,7 @@ import com.unionbankph.corporate.auth.presentation.migration.nominate_verify.Nom
 import com.unionbankph.corporate.auth.presentation.migration.nominate_welcome.NominateWelcomeFragment
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyFragment
 import com.unionbankph.corporate.auth.presentation.policy.TermsAndConditionsFragment
+import com.unionbankph.corporate.auth.presentation.totp.TOTPBottomSheet
 import com.unionbankph.corporate.bills_payment.presentation.biller.biller_all.AllBillerFragment
 import com.unionbankph.corporate.bills_payment.presentation.biller.frequent_biller.FrequentBillerFragment
 import com.unionbankph.corporate.dao.presentation.business_registration_papers.DaoBusinessRegistrationPapersFragment
@@ -433,4 +434,8 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun bottomSheetUploadBir(): CardAcceptanceUploadDocumentFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun totpBottomSheet(): TOTPBottomSheet
 }

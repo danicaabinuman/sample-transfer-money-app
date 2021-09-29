@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchWrapParent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintFingerprint"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/grid_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/SMESubtitle1"
+            android:layout_marginTop="@dimen/grid_3"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:text="@string/title_one_time_password_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewOTP"
+            style="@style/SMEHeadlineH2"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/grid_3_half"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:gravity="center"
+            tools:text="1 2 3 4 5 6"
+            android:textColor="@color/dsColorMediumOrange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+        <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+            android:id="@+id/circularProgressBar"
+            android:layout_width="@dimen/circular_progress_bar_size_small"
+            android:layout_height="@dimen/circular_progress_bar_size_small"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/grid_3"
+            app:enableProgressAnimation="false"
+            app:fillBackground="false"
+            app:layout_constraintTop_toBottomOf="@id/textViewOTP"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:progressBackgroundColor="@color/colorTransparent"
+            app:progressCap="round"
+            app:progressColor="@color/dsColorMediumOrange"
+            app:progressBackgroundStrokeWidth="@dimen/grid_1_half"
+            app:progressStrokeWidth="@dimen/grid_1_half"
+            app:textColor="@color/dsColorDarkGray"
+            app:textSize="@dimen/text_12"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonCancel"
+            style="@style/SMESecondaryButtonSmall"
+            android:text="@string/action_cancel"
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:layout_marginStart="@dimen/grid_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/buttonContinue"
+            app:layout_constraintTop_toTopOf="@id/buttonContinue"
+            app:layout_constraintBottom_toBottomOf="@id/buttonContinue"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonContinue"
+            style="@style/SMEPrimaryButtonSmall"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_4"
+            android:layout_marginBottom="@dimen/grid_3"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/action_continue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/buttonCancel"
+            app:layout_constraintTop_toBottomOf="@+id/circularProgressBar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
