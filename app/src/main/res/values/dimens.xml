@@ -319,6 +319,7 @@
     <dimen name="navigation_bottom_text_size_active">11dp</dimen>
 
     <dimen name="circular_progress_bar_size">@dimen/grid_13</dimen>
+    <dimen name="circular_progress_bar_size_small">@dimen/grid_5</dimen>
     <dimen name="circular_progress_bar_line_size">@dimen/grid_1</dimen>
     <dimen name="table_row_width">@dimen/grid_24</dimen>
     <dimen name="table_row_height">@dimen/grid_10</dimen>
