@@ -76,16 +76,6 @@ class UcAccountSelection :
         binding.btnContinueExistingAccountApplication.setOnClickListener {
             findNavController().navigate(R.id.action_dao_selection_activity)
         }
-        binding.btnExistingUbAccount.setOnClickListener {
-            navigator.navigate(
-                getAppCompatActivity(),
-                AccountSetupActivity::class.java,
-                null,
-                isClear = false,
-                isAnimated = true,
-                transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
-            )
-        }
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentUcAccountSelectionBinding
