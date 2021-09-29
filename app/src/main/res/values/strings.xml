@@ -2552,5 +2552,13 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="try_again">TRY AGAIN</string>
     <string name="feature_unavailable_detail">Sorry, this feature is not available for your organization. Please Contact business@unionbankph.com for further assistance.</string>
     <string name="okay_upper_case">OKAY</string>
+    <string name="title_select_account_type">Select your business type</string>
+    <string name="desc_select_account_type">Before you can process payments, we need to learn\nmore information about your business.</string>
+    <string name="desc_sole_prop">Select this business type if you are the only owner of\nthe business, and you are registered with the DTI.</string>
+    <string name="title_individual">Individual</string>
+    <string name="title_sole_proprietorship_msme">Sole Proprietor</string>
+    <string name="desc_partnership">Select this business type if your business is owned by two\nor more individuals or partners, and it is registered with the\nSEC.</string>
+    <string name="desc_corporation">Select this business type if your business is owned by two\nor more individuals or partners, and it is registered with the\nSEC. Only one partner is allowed to start the application\n process. Other partners will be sent an email for signatory\nverification.</string>
+
 
 </resources>

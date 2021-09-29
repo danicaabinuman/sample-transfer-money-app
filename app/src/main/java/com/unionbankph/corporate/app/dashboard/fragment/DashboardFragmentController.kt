@@ -68,6 +68,7 @@ constructor(
     }
 
     override fun buildModels(dashboardViewState: DashboardViewState, pageable: Pageable) {
+        dashboardViewState.accounts = mutableListOf()
         val isRefreshed = dashboardViewState.isScreenRefreshed
         val accountSize = dashboardViewState.accounts.size
         val hasInitialFetchError = dashboardViewState.hasInitialFetchError

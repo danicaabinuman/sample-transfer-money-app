@@ -2,6 +2,7 @@ package com.unionbankph.corporate.app.di.module
 
 import com.unionbankph.corporate.account.presentation.account_list.AccountFragment
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
+import com.unionbankph.corporate.account_setup.presentation.select_account.AsAccountSelectionFragment
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
@@ -62,7 +63,6 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.pa
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsFragment
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
-import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsFragment
 import com.unionbankph.corporate.settings.presentation.notification.NotificationDetailFragment
@@ -424,10 +424,6 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun faceIDBottomSheet(): FaceIDBottomSheet
-
-    @PerActivity
-    @ContributesAndroidInjector
     abstract fun bottomSheetUploadPhotos(): OnboardingUploadPhotosFragment
 
 
@@ -438,4 +434,9 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun totpBottomSheet(): TOTPBottomSheet
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asAccountSelectionFragment(): AsAccountSelectionFragment
+
 }

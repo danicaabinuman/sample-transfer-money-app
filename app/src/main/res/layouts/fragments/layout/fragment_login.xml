@@ -329,7 +329,7 @@
                             android:layout_width="match_parent"
                             style="@style/TextInputLayoutFormThinEditText"
                             android:digits="@string/digits_with_restriction"
-                            android:hint="@string/hide_password"
+                            android:hint="@string/password"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             />

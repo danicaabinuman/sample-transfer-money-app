@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.presentation.account_detail.AccountDetailActivity
+import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
@@ -366,6 +367,14 @@ class DashboardFragment :
     }
 
     override fun onContinueAccountSetup() {
+        navigator.navigate(
+            getAppCompatActivity(),
+            AccountSetupActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
         Timber.e("onContinueAccountSetup clicked")
     }
 

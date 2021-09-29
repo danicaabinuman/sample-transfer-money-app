@@ -9,6 +9,7 @@ import com.unionbankph.corporate.account.presentation.account_list.AccountViewMo
 import com.unionbankph.corporate.account.presentation.account_selection.AccountSelectionViewModel
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountViewModel
 import com.unionbankph.corporate.account.presentation.source_account.SourceAccountViewModel
+import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragmentViewModel
 import com.unionbankph.corporate.app.di.ViewModelFactory
@@ -844,7 +845,7 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(UcPersonaliseSettingsViewModel::class)
-    abstract fun oaPersonaliseSettingsViewModel(
+    abstract fun ucPersonaliseSettingsViewModel(
         viewModel: UcPersonaliseSettingsViewModel
     ): ViewModel
 
@@ -860,5 +861,12 @@ abstract class ViewModelModule {
     @ViewModelKey(TrialAccountViewModel::class)
     abstract fun trialAccountViewModel(
         viewModel: TrialAccountViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AccountSetupViewModel::class)
+    abstract fun accountSetupViewModel(
+        viewModel: AccountSetupViewModel
     ): ViewModel
 }
