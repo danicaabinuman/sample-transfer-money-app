@@ -35,8 +35,7 @@ class AsAccountSelectionFragment : BaseFragment<FragmentAsAccountSelectionBindin
 
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            navigateDashboardScreen()
-            viewModel.clearCache()
+           navigateDashboardScreen()
             return@addCallback
         }
     }
