@@ -35,8 +35,7 @@ class AsAccountSelectionFragment : BaseFragment<FragmentAsAccountSelectionBindin
 
     private fun handleOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            navigateDashboardScreen()
-            viewModel.clearCache()
+           navigateDashboardScreen()
             return@addCallback
         }
     }
@@ -100,7 +99,7 @@ class AsAccountSelectionFragment : BaseFragment<FragmentAsAccountSelectionBindin
         when(checkedId){
             R.id.radioButtonIndividual -> {
                 binding.textViewAccountLabel.text = getString(R.string.title_individual)
-                binding.textViewAccountDesc.text = getString(R.string.desc_sole_prop)
+                binding.textViewAccountDesc.text = getString(R.string.desc_individual)
                 binding.radioButtonSoleProp.isChecked = false
                 binding.radioButtonPartnerShip.isChecked = false
                 binding.radioButtonCorp.isChecked = false
