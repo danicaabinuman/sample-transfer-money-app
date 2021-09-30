@@ -28,7 +28,7 @@ class BillingDetailsViewModel @Inject constructor(
     val state: LiveData<BillingDetailsState> get() = _state
 
     fun initBundleData(referenceNumber: String) {
-    Timber.e("initBundleData")
+    Timber.e("initBundleData1" + referenceNumber)
         getBillingDetailsUseCase.execute(
             getDisposableSingleObserver(
                 {
@@ -47,6 +47,7 @@ class BillingDetailsViewModel @Inject constructor(
             },
             params = referenceNumber
         ).addTo(disposables)
+        Timber.e("initBundleData2" + referenceNumber)
 
     }
 }

@@ -51,7 +51,7 @@ class PaymentHistoryAdapter : RecyclerView.Adapter<PaymentHistoryAdapter.Payment
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentHistoryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_payment_history, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_payment_history_with_date, parent, false)
 
         return PaymentHistoryViewHolder(view)
     }

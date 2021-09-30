@@ -232,7 +232,6 @@
 
     <style name="TextViewDarkHeaderDetail" parent="TextViewDarkForm">
         <item name="android:textAllCaps">true</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextViewOrangeHeaderDetail" parent="TextViewOrangeForm">

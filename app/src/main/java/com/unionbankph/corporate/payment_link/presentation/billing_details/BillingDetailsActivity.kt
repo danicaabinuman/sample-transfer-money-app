@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.payment_link.presentation.billing_details
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.unionbankph.corporate.payment_link.domain.model.PaymentLogsModel
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkByReferenceIdResponse
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLogsResponse
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
+import com.unionbankph.corporate.payment_link.presentation.activity_logs.PaymentHistoryLogsAdapter
 import timber.log.Timber
 import java.lang.NumberFormatException
 import java.text.DecimalFormat
@@ -27,7 +29,7 @@ import java.util.*
 class BillingDetailsActivity :
     BaseActivity<ActivityBillingDetailsBinding, BillingDetailsViewModel>() {
 
-    lateinit var mAdapter: PaymentHistoryAdapter
+    private lateinit var mAdapter: PaymentHistoryLogsAdapter
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -39,8 +41,9 @@ class BillingDetailsActivity :
         super.onViewsBound()
 
         initEvents()
-        initREcyclerView()
+        initRecyclerView()
         setupInputs()
+        buttonViewMore()
     }
 
     private fun initEvents() {
@@ -55,8 +58,9 @@ class BillingDetailsActivity :
         viewModel.initBundleData(referenceNumber)
     }
 
-    private fun initREcyclerView(){
-        mAdapter = PaymentHistoryAdapter(applicationContext)
+    private fun initRecyclerView(){
+
+        mAdapter = PaymentHistoryLogsAdapter(context, PaymentHistoryLogsAdapter.BILLING_ADAPTER)
         binding.rvPaymentLogs.layoutManager = getLinearLayoutManager()
         binding.rvPaymentLogs.adapter = mAdapter
         binding.rvPaymentLogs.visibility = View.VISIBLE
@@ -92,6 +96,7 @@ class BillingDetailsActivity :
                 ActivityLogsActivity.EXTRA_ACTIVITY_LOGS,
                 JsonHelper.toJson(viewModel.state.value?.paymentLogs)
             )
+            Timber.e("navigateToActivityLogs " + JsonHelper.toJson(viewModel.state.value?.paymentLogs))
         }
         navigator.navigate(
             this,
@@ -228,6 +233,10 @@ class BillingDetailsActivity :
         }
         binding.tvLinkExpiry.text = expiryDateString
 
+    }
+
+    private fun buttonViewMore(){
+        binding.cardViewMore.root.setOnClickListener { navigateToActivityLogs() }
     }
 
     companion object {

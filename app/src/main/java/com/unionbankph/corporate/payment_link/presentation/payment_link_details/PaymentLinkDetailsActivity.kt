@@ -17,6 +17,7 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivityLinkDetailsBinding
 import com.unionbankph.corporate.payment_link.domain.model.response.GeneratePaymentLinkResponse
+import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
