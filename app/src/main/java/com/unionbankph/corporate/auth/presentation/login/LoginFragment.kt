@@ -465,12 +465,9 @@ class LoginFragment :
             .observeOn(schedulerProvider.ui())
             .subscribe {
                 isValidForm = it
-                if(isSME){
-                    binding.MSMEbtnLogin.enableButtonMSME(it)
-                }else{
+                if(!isSME){
                     binding.buttonLogin.loginEnableButton(it)
                 }
-
             }.addTo(disposables)
     }
 
@@ -612,8 +609,7 @@ class LoginFragment :
             binding.llPasswordSME.setVisible(true)
             binding.MSMEbtnLogin.setVisible(true)
             binding.MSMEForgotPassword.setVisible(true)
-            if(getEditTextUsername().length()==0 || getEditTextPassword().length()==0){binding.MSMEbtnLogin.enableButtonMSME(false)}
-        } else {
+            } else {
             binding.tilUsername.visibility(true)
             binding.tilPassword.visibility(true)
             binding.llEmailSME.visibility(false)
@@ -682,7 +678,6 @@ class LoginFragment :
             binding.imgFaceIDMSME.visibility(false)
             binding.tvUbCaption.visibility(false)
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
-            binding.MSMEbtnLogin.enableButtonMSME(false)
             binding.textViewMigration.visibility(true)
             binding.textViewLearnMore.visibility(true)
         } else {
