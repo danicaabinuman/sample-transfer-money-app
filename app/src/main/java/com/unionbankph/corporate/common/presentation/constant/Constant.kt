@@ -56,7 +56,8 @@ class Constant {
 
         const val ACTION_SESSION_TIMEOUT = "session_timeout"
 
-        fun getDefaultCountryCode() = CountryCode(175, "Philippines", "PH", 1, 1, "63")
+        const val COUNTRY_CODE_ID_PH = 175
+        fun getDefaultCountryCode() = CountryCode(COUNTRY_CODE_ID_PH, "Philippines", "PH", 1, 1, "63")
 
         fun getDefaultCountryDao() = Selector(id = "204", value = "PHILIPPINES")
 
