@@ -28,4 +28,6 @@ interface PaymentLinkGateway {
 
     fun updateSettlementOnRequestPayment(updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm) : Single<UpdateSettlementOnRequestPaymentResponse>
 
+    fun getPaymentLogs(referenceId: String) : Single<GetPaymentLogsResponse>
+
 }

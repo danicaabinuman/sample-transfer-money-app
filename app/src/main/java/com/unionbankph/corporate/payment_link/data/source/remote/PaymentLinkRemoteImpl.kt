@@ -129,7 +129,17 @@ class PaymentLinkRemoteImpl
         )
     }
 
-
-
+    override fun getPaymentLogs(
+        accessToken: String,
+        referenceId: String
+    ): Single<Response<GetPaymentLogsResponse>> {
+        return paymentLinkApiClient.getPaymentLogs(
+            accessToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            referenceId
+        )
+    }
 
 }

@@ -7,36 +7,39 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.payment_link.domain.model.PaymentLogsModel
+import timber.log.Timber
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
 class PaymentHistoryAdapter : RecyclerView.Adapter<PaymentHistoryAdapter.PaymentHistoryViewHolder> {
 
-    var mData = mutableListOf<BillingDetailsViewModel>()
-//    var mContext = Context? = null
+    var mData = mutableListOf<PaymentLogsModel>()
+    var mContext : Context? = null
 
             constructor(context: Context){
-//                mContext = context
+                mContext = context
                 mData = mutableListOf()
             }
 
-    var onItemClick: ((BillingDetailsViewModel) -> Unit)? = null
+    var onItemClick: ((PaymentLogsModel) -> Unit)? = null
 
     fun clearData(){
         mData = mutableListOf()
         notifyDataSetChanged()
     }
 
-    fun appendData(data : List<BillingDetailsViewModel>){
+    fun appendData(data : List<PaymentLogsModel>){
         mData.addAll(data)
         notifyDataSetChanged()
     }
 
     inner class PaymentHistoryViewHolder(view : View): RecyclerView.ViewHolder(view) {
 
-        val tvRemarks: TextView = view.findViewById(R.id.tv_view_remarks)
-        val tvHistoryCode: TextView = view.findViewById(R.id.tv_history_code)
-        val tvAmount: TextView = view.findViewById(R.id.tv_payment_history_amount)
+        val tvPaymentType: TextView = view.findViewById(R.id.tv_payment_type)
+        val tvTransactionId: TextView = view.findViewById(R.id.tv_transaction_id)
+        val tvStatus: TextView = view.findViewById(R.id.tv_payment_history_status)
         val tvDate: TextView = view.findViewById(R.id.tv_payment_history_date)
 
         init {
@@ -48,7 +51,7 @@ class PaymentHistoryAdapter : RecyclerView.Adapter<PaymentHistoryAdapter.Payment
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentHistoryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_payment_history, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_payment_history_with_date, parent, false)
 
         return PaymentHistoryViewHolder(view)
     }
@@ -62,9 +65,21 @@ class PaymentHistoryAdapter : RecyclerView.Adapter<PaymentHistoryAdapter.Payment
         formatter.timeZone = TimeZone.getDefault()
 
         var dateCreated = "UNAVAILABLE"
+        item.createdDate?.let {
+            dateCreated = it
+            try {
+                dateCreated = formatter.format(parser.parse(item.createdDate))
+            } catch (e: Exception){
+                Timber.e("Date Error on Payment Logs")
+            }
+        }
+        holder.tvDate.text = dateCreated
+        holder.tvStatus.text = item.status
+        holder.tvPaymentType.text = item.paymentMethodName
+        holder.tvTransactionId.text = item.transactionId
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return mData.size
     }
 }
