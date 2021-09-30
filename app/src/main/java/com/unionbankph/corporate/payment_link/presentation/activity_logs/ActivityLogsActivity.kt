@@ -25,7 +25,13 @@ class ActivityLogsActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
+        initEvents()
         initRecyclerView()
+    }
+
+    private fun initEvents(){
+
+        binding.btnBack.setOnClickListener { onBackPressed() }
     }
 
     private fun initRecyclerView(){

@@ -11,6 +11,10 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.extension.convertDateToDesireFormat
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.payment_link.domain.model.PaymentLogsModel
+import timber.log.Timber
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PaymentHistoryLogsAdapter(
     context: Context,
@@ -41,7 +45,7 @@ class PaymentHistoryLogsAdapter(
             PaymentLogsModel().apply {
                 this.logId = 262
                 this.paymentMethodName = "Created by Roger Mango"
-                this.createdDate = "2021-09-21T05:55:11Z"
+                this.modifiedDate = "2021-09-21T05:55:11Z"
                 this.status = "FAILED"
                 this.transactionId = "2109210143550"
             }
@@ -50,7 +54,7 @@ class PaymentHistoryLogsAdapter(
             PaymentLogsModel().apply {
                 this.logId = 263
                 this.paymentMethodName = "UB Online"
-                this.createdDate = "2021-09-23T07:30:11Z"
+                this.modifiedDate = "2021-09-23T07:30:11Z"
                 this.status = "PAID"
                 this.transactionId = "XASDS@#@#"
             }
@@ -59,7 +63,7 @@ class PaymentHistoryLogsAdapter(
             PaymentLogsModel().apply {
                 this.logId = 263
                 this.paymentMethodName = "Online Sabong"
-                this.createdDate = "2021-09-30T06:55:11Z"
+                this.modifiedDate = "2021-09-30T06:55:11Z"
             }
         )
 
@@ -119,14 +123,30 @@ class PaymentHistoryLogsAdapter(
 
     @SuppressLint("SetTextI18n")
     private fun dateGroup(holder : PaymentHistoryViewHolder, item: PaymentLogsModel, pos: Int) {
-        val formattedThreeDate = item.createdDate
+        val formattedThreeDate = item.modifiedDate
             .convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_THREE_DATE)
 
-        val formattedTime = item.createdDate
-            .convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_TIME)
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
+        parser.timeZone = TimeZone.getTimeZone("UTC")
+        val formatter = SimpleDateFormat("hh:mm aa", Locale.ENGLISH)
+        formatter.timeZone = TimeZone.getDefault()
 
-        val formattedFullDate = item.createdDate
+
+        var formattedTime = "UNAVAILABLE"
+
+        item.modifiedDate?.let {
+            formattedTime = it
+            try {
+                formattedTime = formatter.format(parser.parse(item.modifiedDate))
+            } catch (e: Exception){
+                Timber.e("Date Error on Payment Logs")
+            }
+        }
+
+        val formattedFullDate = item.modifiedDate
             .convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DATE)
+
+        Timber.e("Date group " + formattedTime )
 
         holder.tvDate.text = "$formattedThreeDate at $formattedTime"
         holder.tvDateLog.text = formattedFullDate

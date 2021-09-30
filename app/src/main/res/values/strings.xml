@@ -2303,4 +2303,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="qr_code">QR Code</string>
     <string name="instapay_qr_detail">Place the QR code in the center of the square. It will scan the QR code automatically.</string>
     <string name="title_view_more">View More</string>
+    <string name="activity_log">Activity Log</string>
 </resources>
