@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite">
+    android:background="@color/colorWhite"
+    android:animateLayoutChanges="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/MatchParent"
@@ -49,7 +50,8 @@
             android:layout_marginStart="@dimen/grid_1"
             android:layout_marginTop="@dimen/content_spacing"
             android:layout_marginEnd="@dimen/grid_1"
-            android:background="@color/dsColorLightOrange"
+            android:background="@drawable/bg_gradient_orange_radius4"
+            android:backgroundTint="@color/dsColorLightOrange"
             android:padding="@dimen/grid_1"
             android:paddingBottom="@dimen/grid_1"
             app:layout_constraintEnd_toEndOf="parent"

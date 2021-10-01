@@ -3,11 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainNavigation"
-    app:startDestination="@+id/account_setup_fragment">
+    app:startDestination="@+id/business_type_fragment">
 
     <fragment
-        android:id="@+id/account_setup_fragment"
-        android:name="com.unionbankph.corporate.account_setup.presentation.select_account.AsAccountSelectionFragment"
-        tools:layout="@layout/fragment_as_account_selection">
+        android:id="@+id/business_type_fragment"
+        android:name="com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment"
+        tools:layout="@layout/fragment_as_business_type">
+
+        <action
+            android:id="@+id/action_business_type_to_account_type"
+            app:destination="@id/business_account_type_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
     </fragment>
+
+    <fragment
+        android:id="@+id/business_account_type_fragment"
+        android:name="com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment"
+        tools:layout="@layout/fragment_as_business_account_type">
+
+        <action
+            android:id="@+id/action_business_account_type_to_reminders"
+            app:destination="@id/reminders_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/reminders_fragment"
+        android:name="com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment"
+        tools:layout="@layout/fragment_as_reminders"/>
+
 </navigation>

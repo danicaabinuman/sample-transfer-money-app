@@ -12,7 +12,6 @@ import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.bus.event.AccountSyncEvent
-import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.TransactSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
@@ -25,7 +24,6 @@ import com.unionbankph.corporate.common.domain.exception.JsonParseException
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.constant.Constant
-import com.unionbankph.corporate.common.presentation.constant.TutorialScreenEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.FragmentDashboardBinding
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity

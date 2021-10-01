@@ -1,10 +1,10 @@
-package com.unionbankph.corporate.account_setup.presentation.select_account
+package com.unionbankph.corporate.account_setup.presentation.business_type
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
@@ -17,12 +17,11 @@ import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.constant.Constant
-import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.databinding.FragmentAsAccountSelectionBinding
-import io.reactivex.rxkotlin.addTo
+import com.unionbankph.corporate.databinding.FragmentAsBusinessTypeBinding
 
-class AsAccountSelectionFragment : BaseFragment<FragmentAsAccountSelectionBinding, AccountSetupViewModel>() {
+class AsBusinessTypeFragment
+    : BaseFragment<FragmentAsBusinessTypeBinding, AccountSetupViewModel>() {
 
     private val accountSetupActivity by lazyFast { getAppCompatActivity() as AccountSetupActivity }
 
@@ -65,77 +64,77 @@ class AsAccountSelectionFragment : BaseFragment<FragmentAsAccountSelectionBindin
                 }
             }
         })
+
+        updateUI(accountSetupActivity.getExistingBusinessType())
     }
-
-
 
     override fun onInitializeListener() {
         super.onInitializeListener()
 
-        binding.buttonNext.setOnClickListener { attemptSubmit() }
+        binding.buttonNext.setOnClickListener { onNextClicked() }
 
         binding.radioButtonIndividual.setOnClickListener {
-            viewModel.setupAccountType.onNext(0)
-            initRadioButtonListener(it.id)
+            onBusinessTypeSelected(Constant.BusinessType.INDIVIDUAL)
         }
         binding.radioButtonSoleProp.setOnClickListener {
-            viewModel.setupAccountType.onNext(1)
-            initRadioButtonListener(it.id)
+            onBusinessTypeSelected(Constant.BusinessType.SOLE_PROP)
         }
         binding.radioButtonPartnerShip.setOnClickListener {
-            viewModel.setupAccountType.onNext(2)
-            initRadioButtonListener(it.id)
+            onBusinessTypeSelected(Constant.BusinessType.PARTNERSHIP)
         }
         binding.radioButtonCorp.setOnClickListener {
-            viewModel.setupAccountType.onNext(3)
-            initRadioButtonListener(it.id)
+            onBusinessTypeSelected(Constant.BusinessType.CORPORATION)
         }
-
     }
 
-    private fun initRadioButtonListener(checkedId: Int) {
-        binding.constraintLayout.visibility(true)
-        binding.buttonNext.enableButtonMSME(true)
-        when(checkedId){
-            R.id.radioButtonIndividual -> {
+    private fun onBusinessTypeSelected(type: Int) {
+        accountSetupActivity.setBusinessType(type)
+        updateUI(type)
+    }
+
+    private fun updateUI(businessType: Int) {
+
+//        if (businessType >= 0) {
+//            binding.constraintLayout.slideDown()
+//        }
+
+        binding.constraintLayout.visibility(businessType >= 0)
+        binding.buttonNext.enableButtonMSME(businessType >= 0)
+
+        when(businessType){
+            Constant.BusinessType.INDIVIDUAL -> {
                 binding.textViewAccountLabel.text = getString(R.string.title_individual)
                 binding.textViewAccountDesc.text = getString(R.string.desc_individual)
                 binding.radioButtonSoleProp.isChecked = false
                 binding.radioButtonPartnerShip.isChecked = false
                 binding.radioButtonCorp.isChecked = false
             }
-            R.id.radioButtonSoleProp -> {
+            Constant.BusinessType.SOLE_PROP -> {
                 binding.textViewAccountLabel.text = getString(R.string.title_sole_proprietorship_msme)
                 binding.textViewAccountDesc.text = getString(R.string.desc_sole_prop)
                 binding.radioButtonIndividual.isChecked = false
                 binding.radioButtonPartnerShip.isChecked = false
                 binding.radioButtonCorp.isChecked = false
             }
-            R.id.radioButtonPartnerShip -> {
+            Constant.BusinessType.PARTNERSHIP -> {
                 binding.textViewAccountLabel.text = getString(R.string.title_partnership)
                 binding.textViewAccountDesc.text = getString(R.string.desc_partnership)
                 binding.radioButtonIndividual.isChecked = false
                 binding.radioButtonSoleProp.isChecked = false
                 binding.radioButtonCorp.isChecked = false
             }
-            R.id.radioButtonCorp -> {
+            Constant.BusinessType.CORPORATION -> {
                 binding.textViewAccountLabel.text = getString(R.string.title_corporation)
                 binding.textViewAccountDesc.text = getString(R.string.desc_corporation)
                 binding.radioButtonIndividual.isChecked = false
                 binding.radioButtonSoleProp.isChecked = false
                 binding.radioButtonPartnerShip.isChecked = false
             }
-
         }
     }
 
-    private fun attemptSubmit(){
-        when(viewModel.setupAccountType.value){
-            0 -> {}
-            1 -> {}
-            2 -> {}
-            3 -> {}
-        }
+    private fun onNextClicked() {
+        findNavController().navigate(R.id.action_business_type_to_account_type)
     }
 
     private fun navigateDashboardScreen() {
@@ -154,10 +153,9 @@ class AsAccountSelectionFragment : BaseFragment<FragmentAsAccountSelectionBindin
         )
     }
 
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAsBusinessTypeBinding
+        get() = FragmentAsBusinessTypeBinding::inflate
 
-
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAsAccountSelectionBinding
-        get() = FragmentAsAccountSelectionBinding::inflate
     override val viewModelClassType: Class<AccountSetupViewModel>
         get() = AccountSetupViewModel::class.java
 }
