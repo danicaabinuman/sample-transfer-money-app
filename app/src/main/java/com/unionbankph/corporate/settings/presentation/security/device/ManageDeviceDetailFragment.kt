@@ -28,6 +28,7 @@ import com.unionbankph.corporate.databinding.FragmentManageDeviceDetailBinding
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.data.model.Device
 import com.unionbankph.corporate.settings.data.model.LastAccessed
+import timber.log.Timber
 
 class ManageDeviceDetailFragment :
     BaseFragment<FragmentManageDeviceDetailBinding, ManageDevicesViewModel>(),
@@ -114,6 +115,9 @@ class ManageDeviceDetailFragment :
                     }
                 }
                 is ShowManageClearTOTPToken -> {
+                    eventBus.actionSyncEvent.emmit(
+                        BaseEvent(ActionSyncEvent.ACTION_UPDATE_OTP_SETTINGS, "0")
+                    )
                     viewModel.logout()
                 }
                 is ShowManageLogoutUser -> {
