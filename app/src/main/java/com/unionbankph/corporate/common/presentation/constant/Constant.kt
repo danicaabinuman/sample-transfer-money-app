@@ -56,7 +56,8 @@ class Constant {
 
         const val ACTION_SESSION_TIMEOUT = "session_timeout"
 
-        fun getDefaultCountryCode() = CountryCode(175, "Philippines", "PH", 1, 1, "63")
+        const val COUNTRY_CODE_ID_PH = 175
+        fun getDefaultCountryCode() = CountryCode(COUNTRY_CODE_ID_PH, "Philippines", "PH", 1, 1, "63")
 
         fun getDefaultCountryDao() = Selector(id = "204", value = "PHILIPPINES")
 
@@ -130,6 +131,21 @@ class Constant {
         companion object {
             const val BIR_SERVICE_ID = "7868"
             const val SSS_SERVICE_ID = "7779"
+        }
+    }
+
+    class PaymentMethod {
+        companion object {
+            const val INSTAPAY = "INSTAPAY"
+            const val UB_ONLINE = "UB ONLINE"
+            const val BAYAD_CENTER = "BAYADCENTER"
+            const val ECPAY = "ECPAY"
+            const val LBC = "LBC"
+            const val PALAWAN = "PALAWAN"
+            const val CEBUANA_LHUILLER = "CEBUANALHUILLIER"
+            const val GRABPAY = "GRABPAY"
+            const val GCASH = "GCASH"
+            const val UNKNOWN = "Unknown"
         }
     }
 }

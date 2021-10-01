@@ -117,6 +117,18 @@ class PaymentLinkGatewayImpl
                 .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
+    override fun getPaymentLogs(referenceId: String): Single<GetPaymentLogsResponse> {
+
+        return settingsCache.getAccessToken()
+            .flatMap {
+                paymentLinkRemote.getPaymentLogs(
+                    it,
+                    referenceId
+                )
+            }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
+    }
+
 
     override fun putPaymentLinkStatus(
             transactionId: String,
