@@ -402,7 +402,6 @@
                 android:id="@+id/til_order_fulfillment"
                 style="@style/Spinner.DropDownOrange"
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/grid_1"
                 app:layout_constraintTop_toBottomOf="@id/tv_order_fulfillment">
 
                 <RelativeLayout

@@ -3,38 +3,29 @@ package com.unionbankph.corporate.payment_link.presentation.setup_business_infor
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.content.res.AssetFileDescriptor
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.pdf.PdfRenderer
-import android.os.Build
 import android.os.Bundle
-import android.os.ParcelFileDescriptor
-import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import androidx.core.view.children
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
+import com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
 import com.unionbankph.corporate.databinding.ActivityBusinessInformationBinding
-import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.NatureOfBusinessActivity.Companion.SELECTED_NATURE_OF_BUSINESS
 
 class BusinessInformationActivity :
@@ -44,6 +35,16 @@ class BusinessInformationActivity :
     private var info = GetRMOBusinessInformationResponse()
 
     private var fromWhatButton: String? = null
+
+    private lateinit var editTextYears : AutoFormatEditText
+    private lateinit var editTextEmployee : AutoFormatEditText
+    private lateinit var editTextBranch : AutoFormatEditText
+    private lateinit var buttonAddYears : ImageButton
+    private lateinit var buttonMinusYears : ImageButton
+    private lateinit var buttonAddEmployee : ImageButton
+    private lateinit var buttonMinusEmployee : ImageButton
+    private lateinit var buttonAddBranch : ImageButton
+    private lateinit var buttonMinusBranch : ImageButton
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -88,10 +89,17 @@ class BusinessInformationActivity :
 
         initViews()
         natureOfBusiness()
-        fromZeroCounter()
     }
 
     private fun initViews() {
+
+        disableNextButton()
+        firstScreenFieldChecker()
+        yearsInBusiness()
+        employeeCount()
+        branchCount()
+
+//        getBusinessInformation()
 
         fromWhatButton = intent.getStringExtra(FROM_BUSINESS_INFO_BUTTON)
         if (fromWhatButton == null) {
@@ -101,17 +109,6 @@ class BusinessInformationActivity :
 
         }
 
-        disableNextButton()
-        firstScreenFieldChecker()
-//        getBusinessInformation()
-
-
-        binding.btnIncrement.setOnClickListener { businessYearIncrementClicked() }
-        binding.btnYearsDecrementActive.setOnClickListener { businessYearDecrementClicked() }
-        binding.btnIncrementBranchNumber.setOnClickListener { branchCounterIncrementClicked() }
-        binding.btnDecrementBranchNumberActive.setOnClickListener { branchCounterDecrementClicked() }
-        binding.btnEmployeeIncrement.setOnClickListener { employeeNumberIncrement() }
-        binding.btnEmployeeDecrementActive.setOnClickListener { employeeNumberDecrement() }
         binding.btnNext.setOnClickListener {
 //            retrieveInformationFromFields()
             btnNextClicked()
@@ -151,11 +148,11 @@ class BusinessInformationActivity :
     }
 
     private fun displayBusinessInfo(info: GetRMOBusinessInformationResponse) {
-        val tvProductsAndServices: TextView = findViewById(R.id.tv_product_of_services_offered)
-        val tvYearsOfBusiness: TextView = findViewById(R.id.tv_years_counter)
+        val productsAndServices: TextView = findViewById(R.id.tv_product_of_services_offered)
+        val yearsOfBusiness: TextView = findViewById(R.id.et_years_counter)
 
-        tvProductsAndServices.text = info.merchantDetails!!.storeProduct.toString()
-        tvYearsOfBusiness.text = info.merchantDetails!!.yearsInBusiness.toString()
+        productsAndServices.text = info.merchantDetails!!.storeProduct.toString()
+        yearsOfBusiness.text = info.merchantDetails!!.yearsInBusiness.toString()
     }
 
     private fun natureOfBusiness() {
@@ -190,127 +187,202 @@ class BusinessInformationActivity :
         })
     }
 
-    private fun fromZeroCounter() {
+    private fun yearsInBusiness() {
+        editTextYears = binding.etYearsCounter
+        buttonAddYears = binding.btnYearsIncrement
+        buttonMinusYears = binding.btnYearsDecrementActive
 
-        if (binding.tvYearsCounter.text == "0") {
-            binding.btnYearsDecrementActive.visibility = View.GONE
-            binding.btnYearsDecrementInactive.visibility = View.VISIBLE
-        } else {
-            binding.btnYearsDecrementActive.visibility = View.VISIBLE
-            binding.btnYearsDecrementInactive.visibility = View.GONE
+        var years = editTextYears.text.toString().toInt()
+
+        buttonAddYears.setOnClickListener {
+            years++
+            editTextYears.setText(years.toString())
+            if (years > 0){
+                binding.btnYearsDecrementInactive.visibility(false)
+                binding.btnYearsDecrementActive.visibility(true)
+            }
         }
 
-        if (binding.tvEmployeeCounter.text == "1") {
-            binding.btnEmployeeDecrementActive.visibility = View.GONE
-            binding.btnEmployeeDecrementInactive.visibility = View.VISIBLE
-        } else {
-            binding.btnEmployeeDecrementActive.visibility = View.VISIBLE
-            binding.btnEmployeeDecrementInactive.visibility = View.GONE
+        buttonMinusYears.setOnClickListener {
+            years--
+            editTextYears.setText(years.toString())
+            if (years == 0){
+                binding.btnYearsDecrementInactive.visibility(true)
+                binding.btnYearsDecrementActive.visibility(false)
+            }
         }
 
-        if (binding.tvBranchCounter.text == "1") {
-            binding.btnDecrementBranchNumberActive.visibility = View.GONE
-            binding.btnDecrementBranchNumberInactive.visibility = View.VISIBLE
-        } else {
-            binding.btnDecrementBranchNumberActive.visibility = View.VISIBLE
-            binding.btnDecrementBranchNumberInactive.visibility = View.GONE
+        editTextYears.doOnTextChanged { text, start, before, count ->
+
+            buttonAddYears.setOnClickListener {
+                var add = text.toString().toInt()
+                add++
+                editTextYears.setText(add.toString())
+                editTextYears.clearFocus()
+                if (add > 0){
+                    binding.btnYearsDecrementInactive.visibility(false)
+                    binding.btnYearsDecrementActive.visibility(true)
+                }
+                if (add > 99){
+                    editTextYears.setText("99")
+                }
+            }
+
+            buttonMinusYears.setOnClickListener {
+                editTextYears.clearFocus()
+                var minus = text.toString().toInt()
+                minus--
+                if (minus == 0){
+                    editTextYears.setText(minus.toString())
+                    binding.btnYearsDecrementInactive.visibility(true)
+                    binding.btnYearsDecrementActive.visibility(false)
+                } else {
+                    editTextYears.setText(minus.toString())
+                    binding.btnYearsDecrementInactive.visibility(false)
+                    binding.btnYearsDecrementActive.visibility(true)
+                }
+            }
+
+//            if (years > 0){
+//                binding.btnYearsDecrementInactive.visibility(false)
+//                binding.btnYearsDecrementActive.visibility(true)
+//            } else if (years == 0){
+//                binding.btnYearsDecrementInactive.visibility(true)
+//                binding.btnYearsDecrementActive.visibility(false)
+//            } else if (years > 99){
+//                editTextYears.setText("99")
+//            }
+
+        }
+
+    }
+
+    private fun employeeCount(){
+        editTextEmployee = binding.etEmployeeCounter
+        buttonAddEmployee = binding.btnEmployeeIncrement
+        buttonMinusEmployee = binding.btnEmployeeDecrementActive
+
+        var employee = editTextEmployee.text.toString().toInt()
+
+        buttonAddEmployee.setOnClickListener {
+            employee++
+            editTextEmployee.setText(employee.toString())
+            if (employee > 0){
+                binding.btnEmployeeDecrementInactive.visibility(false)
+                binding.btnEmployeeDecrementActive.visibility(true)
+            }
+        }
+
+        buttonMinusEmployee.setOnClickListener {
+            employee--
+            editTextEmployee.setText(employee.toString())
+            if (employee == 1){
+                binding.btnEmployeeDecrementInactive.visibility(true)
+                binding.btnEmployeeDecrementActive.visibility(false)
+            }
+        }
+
+        editTextEmployee.doOnTextChanged { text, start, before, count ->
+            buttonAddEmployee.setOnClickListener {
+                var add = text.toString().toInt()
+                add++
+                editTextEmployee.setText(add.toString())
+                editTextEmployee.clearFocus()
+                if (add > 1){
+                    binding.btnEmployeeDecrementInactive.visibility(false)
+                    binding.btnEmployeeDecrementActive.visibility(true)
+                }
+                if (add > 99){
+                    editTextEmployee.setText("99")
+                }
+            }
+
+            buttonMinusEmployee.setOnClickListener {
+                editTextEmployee.clearFocus()
+                var minus = text.toString().toInt()
+                minus--
+                if (minus == 1){
+                    editTextEmployee.setText(minus.toString())
+                    binding.btnEmployeeDecrementInactive.visibility(true)
+                    binding.btnEmployeeDecrementActive.visibility(false)
+                }
+            }
+
+//            if (employee > 0){
+//                binding.btnEmployeeDecrementInactive.visibility(false)
+//                binding.btnEmployeeDecrementActive.visibility(true)
+//            } else if (employee == 0){
+//                binding.btnEmployeeDecrementInactive.visibility(true)
+//                binding.btnEmployeeDecrementActive.visibility(false)
+//            } else if (employee > 99){
+//                editTextYears.setText("99")
+//            }
+
         }
     }
 
-    private fun businessYearIncrementClicked() {
+    private fun branchCount(){
+        editTextBranch = binding.etBranchCounter
+        buttonAddBranch = binding.btnIncrementBranchNumber
+        buttonMinusBranch = binding.btnDecrementBranchNumberActive
 
-        var yearCounter = binding.tvYearsCounter.text.toString().toInt()
-        yearCounter++
-        binding.tvYearsCounter.text = yearCounter.toString()
+        var branch = editTextBranch.text.toString().toInt()
 
-        fromZeroCounter()
+        buttonAddBranch.setOnClickListener {
+            branch++
+            editTextBranch.setText(branch.toString())
+            if (branch > 0){
+                binding.btnDecrementBranchNumberInactive.visibility(false)
+                binding.btnDecrementBranchNumberActive.visibility(true)
+            }
+        }
 
-    }
+        buttonMinusBranch.setOnClickListener {
+            branch--
+            editTextBranch.setText(branch.toString())
+            if (branch == 1){
+                binding.btnDecrementBranchNumberInactive.visibility(true)
+                binding.btnDecrementBranchNumberActive.visibility(false)
+            }
+        }
 
-    private fun businessYearDecrementClicked() {
+        editTextBranch.doOnTextChanged { text, start, before, count ->
+            buttonAddBranch.setOnClickListener {
+                var add = text.toString().toInt()
+                add++
+                editTextBranch.setText(add.toString())
+                editTextBranch.clearFocus()
+                if (add > 1){
+                    binding.btnDecrementBranchNumberInactive.visibility(false)
+                    binding.btnDecrementBranchNumberActive.visibility(true)
+                }
+                if (add > 99){
+                    editTextBranch.setText("99")
+                }
+                editTextBranch.clearFocus()
+            }
 
-        var yearCounter = binding.tvYearsCounter.text.toString().toInt()
-        yearCounter--
-        binding.tvYearsCounter.text = yearCounter.toString()
+            buttonMinusBranch.setOnClickListener {
+                var minus = text.toString().toInt()
+                minus--
+                if (minus == 1){
+                    editTextBranch.setText(minus.toString())
+                    binding.btnDecrementBranchNumberInactive.visibility(true)
+                    binding.btnDecrementBranchNumberActive.visibility(false)
+                }
+                editTextBranch.clearFocus()
+            }
 
-        fromZeroCounter()
-
-    }
-
-    private fun branchCounterIncrementClicked() {
-        var branchCounter = binding.tvBranchCounter.text.toString().toInt()
-        branchCounter++
-        binding.tvBranchCounter.text = branchCounter.toString()
-
-        fromZeroCounter()
-    }
-
-    private fun branchCounterDecrementClicked() {
-        var branchCounter = binding.tvBranchCounter.text.toString().toInt()
-        branchCounter--
-        binding.tvBranchCounter.text = branchCounter.toString()
-
-        fromZeroCounter()
-    }
-
-    private fun employeeNumberIncrement() {
-        var employeeCounter = binding.tvEmployeeCounter.text.toString().toInt()
-        employeeCounter++
-        binding.tvEmployeeCounter.text = employeeCounter.toString()
-
-        fromZeroCounter()
-    }
-
-    private fun employeeNumberDecrement() {
-        var employeeCounter = binding.tvEmployeeCounter.text.toString().toInt()
-        employeeCounter--
-        binding.tvEmployeeCounter.text = employeeCounter.toString()
-
-        fromZeroCounter()
+        }
     }
 
     private fun putInformationFromFields() {
-//        val businessType = binding.searchNatureOfBusiness.text.toString()
-//        val storeProduct = binding.etProductOfServicesOffered.text.toString()
-//        val infoStatus = "draft"
-//        val yearsInBusiness = binding.tvYearsCounter.text.toString().toInt()
-//        val numberOfBranches = binding.tvBranchCounter.text.toString().toInt()
-//        val physicalStore = binding.physicalStore.etPhysicalStore.text.toString()
-//        val website = binding.website.etWebsite.text.toString()
-//        val lazadaUrl = binding.lazada.etLazada.text.toString()
-//        val shopeeUrl = binding.shopee.etShopee.text.toString()
-//        val facebookUrl = binding.facebook.etFacebook.text.toString()
-//        val instagramUrl = binding.instagram.etInstagram.text.toString()
-//        val imageUrl1 = "testimage.jpg"
-//        val imageUrl2 = "testimage.jpg"
-//        val imageUrl3 = "testimage.jpg"
-//        val imageUrl4 = "testimage.jpg"
-//        val imageUrl5 = "testimage.jpg"
-//        val imageUrl6 = "testimage.jpg"
-//
-//
-//        viewModel.submitBusinessInformation(
-//            RMOBusinessInformationForm(
-//                businessType,
-//                storeProduct,
-//                infoStatus,
-//                yearsInBusiness,
-//                numberOfBranches,
-//                physicalStore,
-//                website,
-//                lazadaUrl,
-//                shopeeUrl,
-//                facebookUrl,
-//                instagramUrl,
-//                imageUrl1,
-//                imageUrl2,
-//                imageUrl3,
-//                imageUrl4,
-//                imageUrl5,
-//                imageUrl6
-//            )
-//        )
-
+        val businessType = binding.searchNatureOfBusiness.text.toString()
+        val storeProduct = binding.etProductOfServicesOffered.text.toString()
+        val infoStatus = "draft"
+        val yearsInBusiness = binding.etYearsCounter.text.toString().toInt()
+        val numberOfEmployees = binding.etEmployeeCounter.text.toString().toInt()
+        val numberOfBranches = binding.etBranchCounter.text.toString().toInt()
     }
 
     private fun btnNextClicked() {
@@ -380,8 +452,6 @@ class BusinessInformationActivity :
 
         const val FROM_BUSINESS_INFO_BUTTON = "from_business_info_button"
         const val FROM_BUSINESS_INFO = "from_business_info"
-
-        const val SHAREDPREF_IS_ONBOARDED = "sharedpref_is_onboarded"
     }
 
     override val bindingInflater: (LayoutInflater) -> ActivityBusinessInformationBinding
