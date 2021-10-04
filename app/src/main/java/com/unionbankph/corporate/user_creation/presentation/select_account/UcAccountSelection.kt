@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
@@ -14,7 +13,6 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.FragmentUcAccountSelectionBinding
-import com.unionbankph.corporate.ebilling.presentation.generate.EBillingGenerateActivity
 import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
 import com.unionbankph.corporate.user_creation.presentation.UserCreationViewModel
 

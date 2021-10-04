@@ -49,8 +49,6 @@ class DashboardFragmentViewModel
     val pageable = Pageable()
     private var initialDashboardActionList = mutableListOf<ActionItem>()
 
-    var testCounter = 0
-
     init {
         _dashboardViewState.value = DashboardViewState(
             name = "Hello",

@@ -166,4 +166,20 @@ class Constant {
             const val BIRTH_DATE = "BIRTHDATE_MISMATCHED"
         }
     }
+
+    class BusinessType {
+        companion object {
+            const val INDIVIDUAL = 0
+            const val SOLE_PROP = 1
+            const val PARTNERSHIP = 2
+            const val CORPORATION = 3
+        }
+    }
+
+    class BusinessAccountType {
+        companion object {
+            const val STARTER = 101
+            const val CHECK = 102
+        }
+    }
 }

@@ -2,7 +2,9 @@ package com.unionbankph.corporate.app.di.module
 
 import com.unionbankph.corporate.account.presentation.account_list.AccountFragment
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
-import com.unionbankph.corporate.account_setup.presentation.select_account.AsAccountSelectionFragment
+import com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
@@ -437,6 +439,13 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun asAccountSelectionFragment(): AsAccountSelectionFragment
+    abstract fun asAccountSelectionFragment(): AsBusinessTypeFragment
 
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asBusinessAccountTypeFragment(): AsBusinessAccountTypeFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asRemindersFragment(): AsRemindersFragment
 }

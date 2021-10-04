@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:padding="@dimen/grid_1"
+    android:background="@color/colorWhite"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1.0">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewHeader"
+        style="@style/SMEHeadlineH2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_1"
+        android:text="@string/title_select_business_account_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutStarter"
+        android:background="@drawable/bg_button_with_icon_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_7_half"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_1"
+        app:layout_constraintTop_toBottomOf="@id/textViewHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewStarterTitle"
+            style="@style/SMESubtitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
+            android:layout_marginStart="@dimen/grid_3_half"
+            android:layout_marginEnd="@dimen/grid_3_half"
+            android:text="@string/title_business_starter"
+            android:textColor="@color/colorInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/viewStarterBullet1"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/image_view_x_padding"
+            android:background="@drawable/circle_solid_orange"
+            app:layout_constraintEnd_toStartOf="@id/textStarterViewBullet1"
+            app:layout_constraintStart_toStartOf="@id/textViewStarterTitle"
+            app:layout_constraintTop_toTopOf="@id/textStarterViewBullet1" />
+
+        <TextView
+            android:id="@+id/textStarterViewBullet1"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/starter_initial_deposit"
+            android:textColor="#4B4948"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/viewStarterBullet1"
+            app:layout_constraintTop_toBottomOf="@id/textViewStarterTitle" />
+
+        <View
+            android:id="@+id/viewStarterBullet2"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="@dimen/image_view_x_padding"
+            android:background="@drawable/circle_solid_orange"
+            app:layout_constraintEnd_toStartOf="@id/textStarterViewBullet2"
+            app:layout_constraintStart_toStartOf="@id/viewStarterBullet1"
+            app:layout_constraintTop_toTopOf="@id/textStarterViewBullet2" />
+
+        <TextView
+            android:id="@+id/textStarterViewBullet2"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/starter_minimum_bal"
+            android:textColor="#4B4948"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/viewStarterBullet2"
+            app:layout_constraintTop_toBottomOf="@id/textStarterViewBullet1" />
+
+        <ImageView
+            android:id="@+id/imageViewStarter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_business_starter"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintTop_toTopOf="@id/textStarterViewBullet1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutCheck"
+        android:background="@drawable/bg_button_with_icon_default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_5_half"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_1"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayoutStarter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewCheckTitle"
+            style="@style/SMESubtitle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
+            android:layout_marginStart="@dimen/grid_3_half"
+            android:layout_marginEnd="@dimen/grid_3_half"
+            android:text="@string/title_business_check"
+            android:textColor="@color/colorInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:id="@+id/viewCheckBullet1"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/image_view_x_padding"
+            android:background="@drawable/circle_solid_orange"
+            app:layout_constraintEnd_toStartOf="@id/textCheckViewBullet1"
+            app:layout_constraintStart_toStartOf="@id/textViewCheckTitle"
+            app:layout_constraintTop_toTopOf="@id/textCheckViewBullet1" />
+
+        <TextView
+            android:id="@+id/textCheckViewBullet1"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/check_initial_deposit"
+            android:textColor="#4B4948"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/viewCheckBullet1"
+            app:layout_constraintTop_toBottomOf="@id/textViewCheckTitle" />
+
+        <View
+            android:id="@+id/viewCheckBullet2"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="@dimen/image_view_x_padding"
+            android:background="@drawable/circle_solid_orange"
+            app:layout_constraintEnd_toStartOf="@id/textCheckViewBullet2"
+            app:layout_constraintStart_toStartOf="@id/viewCheckBullet1"
+            app:layout_constraintTop_toTopOf="@id/textCheckViewBullet2" />
+
+        <TextView
+            android:id="@+id/textCheckViewBullet2"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/check_minimum_bal"
+            android:textColor="#4B4948"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/viewCheckBullet2"
+            app:layout_constraintTop_toBottomOf="@id/textCheckViewBullet1" />
+
+        <View
+            android:id="@+id/viewCheckBullet3"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="@dimen/image_view_x_padding"
+            android:background="@drawable/circle_solid_orange"
+            app:layout_constraintEnd_toStartOf="@id/textCheckViewBullet3"
+            app:layout_constraintStart_toStartOf="@id/viewCheckBullet1"
+            app:layout_constraintTop_toTopOf="@id/textCheckViewBullet3" />
+
+        <TextView
+            android:id="@+id/textCheckViewBullet3"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/check_free_check_writing_software"
+            android:textColor="#4B4948"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/viewCheckBullet3"
+            app:layout_constraintTop_toBottomOf="@id/textCheckViewBullet2" />
+
+        <ImageView
+            android:id="@+id/imageViewCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_business_check"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintTop_toTopOf="@id/textCheckViewBullet2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonNext"
+        style="@style/SMEPrimaryButtonLarge"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_1"
+        android:layout_marginBottom="@dimen/grid_1"
+        android:enabled="false"
+        android:text="@string/action_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

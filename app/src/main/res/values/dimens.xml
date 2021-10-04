@@ -274,6 +274,7 @@
     <dimen name="list_padding_top_search_view">6dp</dimen>
 
     <dimen name="circle_icon_size">@dimen/grid_7</dimen>
+    <dimen name="circle_icon_size_2">@dimen/grid_5_half</dimen>
 
     <dimen name="dialog_progress">100dp</dimen>
 

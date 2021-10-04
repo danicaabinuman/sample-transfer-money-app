@@ -758,6 +758,7 @@
     <string name="title_postal_id">Postal ID</string>
     <string name="title_posted_date">Posted Date</string>
     <string name="title_umid_id">UMID ID</string>
+    <string name="title_sss_umid">SSS / UMID</string>
     <string name="title_tooltip_jumio">How to take the correct photo</string>
     <string name="title_congratulations">Congratulations!</string>
     <string name="title_verification_completed">Verification Completed</string>
@@ -1116,6 +1117,7 @@
     <string name="action_select_account">Select account</string>
     <string name="action_save_and_exit">Save and Exit</string>
     <string name="action_personalise_experience">Personalise Experience</string>
+    <string name="action_begin_account_setup">Begin Account Setup</string>
 
 
     <string name="error_message">Error message from resources</string>
@@ -2552,6 +2554,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="feature_unavailable_detail">Sorry, this feature is not available for your organization. Please Contact business@unionbankph.com for further assistance.</string>
     <string name="okay_upper_case">OKAY</string>
     <string name="title_select_account_type">Select your business type</string>
+    <string name="title_select_business_account_type">Choose the type of account that you want</string>
     <string name="desc_select_account_type">Before you can process payments, we need to learn more information about your business.</string>
     <string name="desc_sole_prop">Select this business type if you are the only owner of the business, and you are registered with the DTI.</string>
     <string name="title_individual">Individual</string>
@@ -2559,4 +2562,14 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_sole_proprietorship_msme">Sole Proprietor</string>
     <string name="desc_partnership">Select this business type if your business is owned by two or more individuals or partners, and it is registered with the SEC.</string>
     <string name="desc_corporation">Select this business type if your business is owned by two or more individuals or partners, and it is registered with the SEC. Only one partner is allowed to start the application process. Other partners will be sent an email for signatory verification.</string>
+    <string name="starter_initial_deposit">Initial deposit of PHP 5,000</string>
+    <string name="starter_minimum_bal">Minimum balance of PHP 5,000</string>
+    <string name="check_initial_deposit">Initial deposit of PHP 100,000</string>
+    <string name="check_minimum_bal">Minimum balance of PHP 100,000</string>
+    <string name="check_free_check_writing_software">FREE checkwriting software</string>
+    <string name="title_just_a_few_reminders">Just a few reminders before we start</string>
+    <string name="account_setup_reminder_1">It is recommended that you finish the application once started; however, you may exit at any time and continue later. Make sure you have a strong and secure internet connection during the application.</string>
+    <string name="account_setup_reminder_2">Prepare a valid ID for scanning and verification and ensure that the details you will provide in the application matches the details written on your ID.</string>
+    <string name="account_setup_reminder_3">We will be validating your identity through a selfie. We advise you to have sufficient lighting during this step.</string>
+
 </resources>
