@@ -10,6 +10,9 @@ data class DashboardViewState(
     var accountButtonText: String? = null,
     var isScreenRefreshed: Boolean = true,
     var hasInitialFetchError: Boolean = true,
+    var isOnTrialMode: Boolean = true,
+    var hasLoans: Boolean = false,
+    var hasEarnings: Boolean = false,
     var errorMessage: String? = null,
 
     var actionList: MutableList<ActionItem> = mutableListOf(),
@@ -22,4 +25,14 @@ data class ActionItem(
     var label: String? = null,
     var isVisible: Boolean = false,
     var isEnabled: Boolean = true
+)
+
+@Serializable
+data class FeatureCardItem(
+    var id: String? = null,
+    var featureTitle: String? = null,
+    var cardTitle: String? = null,
+    var cardContent: String? = null,
+    var cardFooter: String? = null,
+    var action: String? = null
 )

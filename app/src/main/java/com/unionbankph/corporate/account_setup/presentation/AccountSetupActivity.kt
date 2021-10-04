@@ -80,14 +80,10 @@ class AccountSetupActivity :
     }
 
     fun setIsScreenScrollable(isScrollable: Boolean) {
-        val elevation = when (isScrollable) {
-            true -> TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics)
-            else -> 0f
+        binding.appBarLayout.apply {
+            if (isScrollable) removeElevation(this)
+            else addElevation(this)
         }
-
-        supportActionBar?.elevation = elevation
-        binding.appBarLayout.elevation = elevation
     }
 
     fun popBackStack() {

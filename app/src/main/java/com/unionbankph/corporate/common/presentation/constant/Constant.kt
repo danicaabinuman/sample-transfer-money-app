@@ -69,6 +69,9 @@ class Constant {
         const val DASHBOARD_ACTION_ADD_ACCOUNT = "add_account"
         const val DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS = "view_all_account"
 
+        const val DASHBOARD_ACTION_DEFAULT_LOANS = "default_loans"
+        const val DASHBOARD_ACTION_DEFAULT_EARNINGS = "default_earnings"
+
         fun getDefaultCountryCode() = CountryCode(175, "Philippines", "PH", 1, 1, "63")
 
         fun getDefaultCountryDao() = Selector(id = "204", value = "PHILIPPINES")

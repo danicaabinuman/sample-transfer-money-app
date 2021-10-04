@@ -73,6 +73,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         resources.getStringArray(R.array.array_dashboard_header).toMutableList()
     }
 
+    var isOnTrialMode = false
+
     private lateinit var ahNotificationBuilder: AHNotification.Builder
 
     private var organizationBadgeCount: BadgeCount? = null
@@ -238,6 +240,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 showLogoutBottomSheet()
             }.addTo(disposables)
         binding.viewToolbar.imageViewHelp.setOnClickListener {
+            if (isOnTrialMode) return@setOnClickListener
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
             when (binding.bottomNavigationBTR.currentItem) {
@@ -274,6 +277,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
+                if (isOnTrialMode) return@subscribe
                 navigateOrganizationScreen()
             }.addTo(disposables)
 
@@ -283,6 +287,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
+                if (isOnTrialMode) return@subscribe
                 binding.viewPagerBTR.setCurrentItem(5, true)
                 adapter?.notifyDataSetChanged()
                 binding.viewToolbar.viewNotificationBadge.root.visibility = View.GONE
@@ -705,6 +710,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
+        if (isOnTrialMode) return false
+
         if (!wasSelected) {
             viewModel.getOrganizationNotification(role?.organizationId.notNullable())
             if ((isBackButtonFragmentSettings &&

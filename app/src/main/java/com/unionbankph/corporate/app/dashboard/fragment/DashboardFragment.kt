@@ -48,6 +48,10 @@ class DashboardFragment :
 
     private lateinit var settingsViewModel: SettingsViewModel
 
+    private val isOnTrialMode by lazyFast {
+        (activity as DashboardActivity).isOnTrialMode
+    }
+
     private val controller by lazyFast {
         DashboardFragmentController(applicationContext, viewUtil, autoFormatUtil)
     }
@@ -60,6 +64,7 @@ class DashboardFragment :
             initListener()
             initViewModel()
 
+            initTrialMode()
             initSettingsViewModel()
             initActionsSettings()
         }
@@ -149,6 +154,10 @@ class DashboardFragment :
             )
             settingsViewModel.isEnabledFeature(FeaturesEnum.MOBILE_CHECK_DEPOSIT_VIEW)
         }
+    }
+
+    private fun initTrialMode() {
+        viewModel.setScreenIsOnTrialMode(isOnTrialMode)
     }
 
     private fun initViewModel() {
@@ -257,6 +266,8 @@ class DashboardFragment :
     }
 
     override fun onDashboardActionEmit(actionId: String, isEnabled: Boolean) {
+        if (isOnTrialMode) return
+
         when (actionId) {
             Constant.DASHBOARD_ACTION_TRANSFER_FUNDS -> {
                 if (isEnabled) {
@@ -352,6 +363,12 @@ class DashboardFragment :
             }
             Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS -> {
                 (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
+            }
+            Constant.DASHBOARD_ACTION_DEFAULT_LOANS -> {
+                Timber.e("Default Loans Clicked")
+            }
+            Constant.DASHBOARD_ACTION_DEFAULT_EARNINGS -> {
+                Timber.e("Default Earnings Clicked")
             }
         }
     }
