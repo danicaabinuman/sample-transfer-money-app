@@ -104,6 +104,13 @@ class ConstantHelper {
                     else -> R.drawable.ic_dashboard_more // Constant.DASHBOARD_ACTION_MORE
                 }
             }
+
+            fun getFeatureCardIcon(action: String): Int {
+                return when (action) {
+                    Constant.DASHBOARD_ACTION_DEFAULT_LOANS -> R.drawable.bg_default_loans
+                    else -> R.drawable.bg_default_earnings // Constant.DASHBOARD_ACTION_DEFAULT_EARNINGS
+                }
+            }
         }
     }
 
@@ -234,9 +241,12 @@ class ConstantHelper {
                 }
             }
 
-            fun getDashboardAccountButtonText(context: Context, accountSize: Int, isRefreshed: Boolean) : String {
+            fun getDashboardAccountButtonText(context: Context,
+                                              accountSize: Int,
+                                              isTrialMode: Boolean,
+                                              isRefreshed: Boolean) : String {
                 return when {
-                    accountSize == 0 && !isRefreshed -> context.getString(R.string.action_add)
+                    accountSize == 0 && !isRefreshed || isTrialMode -> context.getString(R.string.action_add)
                     accountSize > 0 && !isRefreshed -> context.getString(R.string.title_view_accounts)
                     else -> ""
                 }

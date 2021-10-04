@@ -400,16 +400,14 @@ class OTPViewModel @Inject constructor(
     }
 
     fun attemptShowTOTPDialog() {
-        settingsGateway.getFingerprintToken()
-            .zipWith(settingsGateway.hasTOTP())
+        settingsGateway.hasTOTP()
             .subscribeOn(schedulerProvider.newThread())
             .observeOn(schedulerProvider.ui())
             .doOnSubscribe { _otpState.value = ShowOTPLoading }
             .doFinally { _otpState.value = ShowOTPDismissLoading }
             .subscribe(
                 {
-                    val isTOTPEnabled = (it.first.isNotEmpty() && it.second)
-                    _otpState.value = ShowTOTPBottomSheet(isTOTPEnabled)
+                    _otpState.value = ShowTOTPBottomSheet(it)
                 }, {
                     Timber.e(it, "attemptShowTOTPDialog Failed")
                     _otpState.value = ShowOTPError(it)
