@@ -81,8 +81,8 @@ class AccountSetupActivity :
 
     fun setIsScreenScrollable(isScrollable: Boolean) {
         binding.appBarLayout.apply {
-            if (isScrollable) removeElevation(this)
-            else addElevation(this)
+            if (isScrollable) addElevation(this)
+            else removeElevation(this)
         }
     }
 
