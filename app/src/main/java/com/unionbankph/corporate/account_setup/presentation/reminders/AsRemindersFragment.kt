@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
+import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
 import com.unionbankph.corporate.app.base.BaseFragment
@@ -29,8 +31,12 @@ class AsRemindersFragment
         super.onInitializeListener()
 
         binding.buttonNext.setOnClickListener {
-
+            onNextClicked()
         }
+    }
+
+    private fun onNextClicked() {
+        findNavController().navigate(R.id.action_reminders_to_terms_of_service)
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAsRemindersBinding

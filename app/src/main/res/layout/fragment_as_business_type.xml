@@ -88,7 +88,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/textViewAccountLabel"
-                        style="@style/SMEBody"
+                        style="@style/SMESubtitle2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/grid_1"
@@ -96,7 +96,9 @@
                         app:layout_constraintBottom_toBottomOf="@id/imageNotice"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/imageNotice"
-                        app:layout_constraintTop_toTopOf="@id/imageNotice" />
+                        app:layout_constraintTop_toTopOf="@id/imageNotice"
+                        android:textSize="@dimen/text_14"
+                       />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/textViewAccountDesc"

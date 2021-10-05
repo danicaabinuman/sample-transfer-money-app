@@ -2571,5 +2571,8 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="account_setup_reminder_1">It is recommended that you finish the application once started; however, you may exit at any time and continue later. Make sure you have a strong and secure internet connection during the application.</string>
     <string name="account_setup_reminder_2">Prepare a valid ID for scanning and verification and ensure that the details you will provide in the application matches the details written on your ID.</string>
     <string name="account_setup_reminder_3">We will be validating your identity through a selfie. We advise you to have sufficient lighting during this step.</string>
+    <string name="title_terms_of_service">Terms of Service</string>
+    <string name="title_terms_of_service_caps">TERMS OF SERVICE</string>
+    <string name="title_privacy_policy_caps">PRIVACY POLICY</string>
 
 </resources>
