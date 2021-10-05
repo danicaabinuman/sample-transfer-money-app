@@ -8,26 +8,13 @@
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_scan_qr"
+        app:srcCompat="@drawable/ic_generate_qr"
         android:paddingStart="@dimen/grid_7_half"
         android:paddingEnd="@dimen/grid_7_half"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/allow_camera"
-        style="@style/SMESubtitle2"
-        android:paddingStart="@dimen/grid_7_half"
-        android:paddingEnd="@dimen/grid_7_half"
-        android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo"/>
-
-
-
+        app:layout_constraintTop_toTopOf="parent"
+        android:translationX="15dp"
+        android:translationY="-40dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

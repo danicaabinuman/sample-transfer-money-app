@@ -60,6 +60,8 @@ class InstapayQrSplashActivity :
     fun setViewPager(){
 
         val fragments: ArrayList<Fragment> = arrayListOf(
+            TransferFunds(),
+            GenerateQrCode(),
             AllowPhoneCamera()
         )
 
@@ -75,10 +77,26 @@ class InstapayQrSplashActivity :
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 when(position) {
-                    0,1 -> {
+                    0 -> {
+                        binding.btnAllow.visibility = View.GONE
+                        binding.btnNotNow.visibility = View.GONE
+                        binding.tabIndicator.visibility = View.VISIBLE
+                        binding.tvDetail.text = "Transfer funds easily by scanning any Instapay QR codes."
+                        binding.btnSkip.visibility = View.VISIBLE
+                    }
+                    1 -> {
+                        binding.btnAllow.visibility = View.GONE
+                        binding.btnNotNow.visibility = View.GONE
+                        binding.tabIndicator.visibility = View.VISIBLE
+                        binding.tvDetail.text = "Generate your own QR Codes to conveniently receive Instapay Fund Transfers."
+                        binding.btnSkip.visibility = View.VISIBLE
+                    }
+                    2 -> {
                         binding.btnAllow.visibility = View.VISIBLE
                         binding.btnNotNow.visibility = View.VISIBLE
                         binding.tabIndicator.visibility = View.GONE
+                        binding.tvDetail.text = "Allow us to use your phone’s camera to scan other Instapay QR Codes"
+                        binding.btnSkip.visibility = View.GONE
                     }
                 }
             }
