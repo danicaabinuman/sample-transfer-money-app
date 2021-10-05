@@ -5,6 +5,9 @@ import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFrag
 import com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment
+import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsPrivacyPolicyViewPager
+import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceFragment
+import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceViewPager
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
@@ -448,4 +451,17 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun asRemindersFragment(): AsRemindersFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asTermsOfServiceFragment(): AsTermsOfServiceFragment
+
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asTermsOfServiceViewPager(): AsTermsOfServiceViewPager
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asPrivacyPolicyViewPager(): AsPrivacyPolicyViewPager
 }

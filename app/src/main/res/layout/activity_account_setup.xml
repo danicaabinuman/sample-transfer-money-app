@@ -18,6 +18,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvToolbar"
+                 android:textSize="@dimen/text_18"
                 style="@style/TextViewThemeLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

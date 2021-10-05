@@ -38,6 +38,20 @@
     <fragment
         android:id="@+id/reminders_fragment"
         android:name="com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment"
-        tools:layout="@layout/fragment_as_reminders"/>
+        tools:layout="@layout/fragment_as_reminders"
+        >
+        <action
+            android:id="@+id/action_reminders_to_terms_of_service"
+            app:destination="@id/terms_of_service_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/terms_of_service_fragment"
+        android:name="com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceFragment"
+        tools:layout="@layout/fragment_as_terms_of_service"/>
 
 </navigation>

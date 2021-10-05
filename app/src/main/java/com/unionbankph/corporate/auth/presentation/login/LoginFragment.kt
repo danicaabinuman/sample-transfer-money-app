@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentSender
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -119,7 +120,7 @@ class LoginFragment :
         viewModel.fullName
             .subscribe {
                 fullName = it
-                binding.textViewFullname.text = it
+                getTextViewFullName().text = it
             }.addTo(disposables)
         viewModel.emailAddress
             .subscribe {
@@ -519,6 +520,7 @@ class LoginFragment :
             buttonLoginParams.rightMargin,
             buttonLoginParams.bottomMargin
         )
+        binding.textViewInitial.text = viewUtil.getCorporateOrganizationInitial(fullName)
         if (isSME) {
             binding.MSMEbtnLogin.visibility(true)
             binding.tvUbCaption.visibility(true)
@@ -527,14 +529,15 @@ class LoginFragment :
             binding.buttonLogin.visibility(false)
             binding.textViewWelcomeBack.visibility(false)
             binding.MSMEbtnLogin.text = getString(R.string.use_password)
+            binding.viewBadgeLayout.visibility(true)
         }else{
             binding.textViewWelcomeBack.visibility(true)
             binding.buttonLogin.visibility(true)
             binding.buttonLogin.text = getString(R.string.use_password)
 
         }
+        getTextViewFullName().visibility(true)
         binding.tvForgotPassword.visibility(false)
-        binding.textViewFullname.visibility(true)
         binding.llEmailSME.visibility(false)
         binding.llPasswordSME.visibility(false)
         binding.tilUsername.visibility(false)
@@ -602,13 +605,13 @@ class LoginFragment :
             binding.imgFingerPrintMSME.setVisible(false)
             binding.imgFaceIDMSME.setVisible(false)
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
-            binding.textViewFullname.setVisible(false)
             binding.tvUbCaption.setVisible(false)
             binding.textViewLearnMore.setVisible(true)
             binding.llEmailSME.setVisible(true)
             binding.llPasswordSME.setVisible(true)
             binding.MSMEbtnLogin.setVisible(true)
             binding.MSMEForgotPassword.setVisible(true)
+            binding.viewBadgeLayout.visibility(false)
             } else {
             binding.tilUsername.visibility(true)
             binding.tilPassword.visibility(true)
@@ -618,9 +621,9 @@ class LoginFragment :
             binding.buttonLogin.visibility(true)
             binding.buttonLogin.text = formatString(R.string.action_login)
             binding.buttonLogin.loginEnableButton(false)
-            binding.textViewFullname.visibility(false)
 
         }
+        getTextViewFullName().visibility(false)
         binding.textViewMigration.visibility(true)
         binding.textViewWelcomeBack.visibility(false)
 
@@ -888,7 +891,7 @@ class LoginFragment :
     }
 
     private fun initClickTextViewFullname() {
-        RxView.clicks(binding.textViewFullname)
+        RxView.clicks(getTextViewFullName())
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -899,17 +902,7 @@ class LoginFragment :
     }
 
     private fun initClickImgFingerPrint() {
-        RxView.clicks(binding.imgFingerPrint)
-            .throttleFirst(
-                resources.getInteger(R.integer.time_button_debounce).toLong(),
-                TimeUnit.MILLISECONDS
-            )
-            .subscribe {
-                viewUtil.dismissKeyboard(getAppCompatActivity())
-                fingerprintViews()
-            }.addTo(disposables)
-
-        RxView.clicks(binding.imgFingerPrintMSME)
+        RxView.clicks(getFingerPrint())
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -1002,12 +995,7 @@ class LoginFragment :
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe {
-                if(isSME){
-                    binding.imgFingerPrintMSME.visibility(it)
-                }else{
-                    binding.imgFingerPrint.visibility(it)
-                }
-
+                getFingerPrint().visibility(it)
             }.addTo(disposables)
     }
 
@@ -1116,6 +1104,10 @@ class LoginFragment :
     private fun getEditTextUsername() = if (App.isSME())  binding.etUsernameSME else binding.etUsername
 
     private fun getEditTextPassword() = if (App.isSME()) binding.etPasswordSME else binding.etPassword
+
+    private fun getTextViewFullName() = if (App.isSME()) binding.textViewFullnameMSME else binding.textViewFullname
+
+    private fun getFingerPrint() = if (App.isSME()) binding.imgFingerPrintMSME else binding.imgFingerPrint
 
     companion object {
         const val EXTRA_SPLASH_SCREEN = "splash_screen"
