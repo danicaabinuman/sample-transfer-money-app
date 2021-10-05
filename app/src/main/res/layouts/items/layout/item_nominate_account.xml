@@ -26,11 +26,11 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewCorporateName"
                 style="@style/TextViewThemeAccountTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textStyle="bold"
-                android:text="ABC SAMPLE CORPORATION"
+                android:text="ABC SAMPLE CORPORATION "
                 android:textColor="@color/colorWhite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewAccountName"
                 style="@style/TextViewThemeAccountTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_marginTop="@dimen/content_spacing_small"
                 android:ellipsize="end"
                 android:maxLines="1"

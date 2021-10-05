@@ -342,7 +342,7 @@ class RequestForPaymentActivity :
     }
 
     private fun openNominateAccounts(){
-        if(accounts.size>1){
+        if(accounts.size>0){
             nominateSettlementAccountFragment = NominateSettlementAccountFragment.newInstance(JsonHelper.toJson(accounts))
             nominateSettlementAccountFragment?.setOnNominateSettlementAccountListener(this)
             nominateSettlementAccountFragment?.show(
