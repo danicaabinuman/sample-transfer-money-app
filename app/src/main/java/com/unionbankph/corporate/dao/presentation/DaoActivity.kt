@@ -20,6 +20,7 @@ import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.dao.domain.model.SignatoryDetail
@@ -148,6 +149,7 @@ class DaoActivity :
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.dao_navigation)
         if (intent.getBooleanExtra(EXTRA_PRIVACY_POLICY, false)) {
+            showBasicInfoReminder()
             graph.setStartDestination(R.id.dao_personal_information_step_one_fragment)
             navHostFragment.navController.graph = graph
             viewModel.getSignatoryDetailsFromCache()
@@ -268,6 +270,18 @@ class DaoActivity :
 
     fun setSignatoriesDetail(signatoryDetail: SignatoryDetail) {
         viewModel.setSignatoriesDetail(signatoryDetail)
+    }
+
+    fun showBasicInfoReminder() {
+        val bundle = Bundle()
+        navigator.navigate(
+            this,
+            DaoBasicInfoReminderActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     interface ActionEvent {

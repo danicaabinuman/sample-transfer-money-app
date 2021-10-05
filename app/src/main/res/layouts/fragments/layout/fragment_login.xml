@@ -33,6 +33,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginTop="@dimen/grid_9_half"
                 android:id="@+id/constraint_layout"
                 style="@style/MatchWrapParent"
                 android:layout_gravity="center"
@@ -56,7 +57,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textViewWelcomeBack"
                     style="@style/TextViewTheme"
-                    android:layout_marginTop="@dimen/content_margin"
+                    android:layout_marginTop="@dimen/content_buttons_spacing_large"
                     android:text="@string/title_welcome_back"
                     android:textColor="@color/colorLightGray"
                     android:visibility="visible"
@@ -96,6 +97,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.cardview.widget.CardView
+                    android:layout_marginTop="@dimen/content_buttons_spacing_large"
                     android:id="@+id/cardViewEmail"
                     style="@style/CardViewEditText"
                     android:layout_width="@dimen/match_constraint"
@@ -162,6 +164,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.cardview.widget.CardView
+                    android:layout_marginTop="@dimen/content_buttons_spacing_large"
                     android:id="@+id/cardViewPassword"
                     style="@style/CardViewEditText"
                     android:layout_width="@dimen/match_constraint"
@@ -241,7 +244,7 @@
                     android:id="@+id/btn_open_business_account"
                     style="@style/RoundedButtonOrange"
                     android:layout_marginLeft="@dimen/content_margin"
-                    android:layout_marginTop="@dimen/content_spacing_large"
+                    android:layout_marginTop="@dimen/content_buttons_spacing_large"
                     android:layout_marginRight="@dimen/content_margin"
                     android:text="@string/action_open_a_business_account"
                     android:visibility="gone"
@@ -317,6 +320,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_sign_up"
                     app:srcCompat="@drawable/ic_fingerprint_white_48dp"
+                    app:tint="?colorImage" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imgFaceID"
+                    style="@style/WrapContent"
+                    android:layout_width="@dimen/image_view_login_fingerprint_size"
+                    android:layout_height="@dimen/image_view_login_fingerprint_size"
+                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_sign_up"
+                    app:srcCompat="@drawable/face_id_white"
                     app:tint="?colorImage" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

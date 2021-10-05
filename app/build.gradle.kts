@@ -236,6 +236,7 @@ dependencies {
     implementation(Libraries.smartCropper)
     implementation(Libraries.stv)
     kapt(Libraries.epoxyProcessor)
+    implementation(Libraries.biometric)
 
     // Third party SDK
     implementation(Libraries.jumioCore)

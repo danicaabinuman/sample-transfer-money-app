@@ -9,5 +9,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ValidateNominatedUserDto(
     @SerialName("results")
-    var results: Map<String, Results> = mapOf()
+//    var results: Map<String, Results> = mapOf()
+    var results: MutableList<Results>? = mutableListOf()
 )

@@ -47,7 +47,7 @@
             android:id="@+id/viewPager"
             style="@style/MatchConstraint"
             android:layout_marginBottom="@dimen/content_spacing_half"
-            app:layout_constraintBottom_toTopOf="@+id/cb_tnc"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCheckBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -62,36 +62,55 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/bg_shadow"/>
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/cb_tnc"
-            android:layout_width="@dimen/match_constraint"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCheckBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/content_spacing_half"
-            android:layout_marginEnd="@dimen/content_spacing_half"
-            android:minHeight="@dimen/button_small_size"
-            android:text="@string/desc_dao_agreement_tnc"
-            android:textColor="@color/colorInfo"
-            android:textSize="@dimen/text_12"
-            app:buttonTint="?colorAccent"
-            app:layout_constraintBottom_toTopOf="@id/cb_privacy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/cb_privacy"
-            android:layout_width="@dimen/match_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/content_spacing_half"
-            android:layout_marginEnd="@dimen/content_spacing_half"
+            android:orientation="vertical"
             android:layout_marginBottom="@dimen/content_spacing_half"
-            android:minHeight="@dimen/button_small_size"
-            android:text="@string/desc_dao_agreement_privacy"
-            android:textColor="@color/colorInfo"
-            android:textSize="@dimen/text_12"
-            app:buttonTint="?colorAccent"
             app:layout_constraintBottom_toTopOf="@id/buttonAccept"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" >
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cb_privacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                android:minHeight="@dimen/button_small_size"
+                android:text="@string/desc_dao_agreement_privacy"
+                android:textColor="@color/colorInfo"
+                android:textSize="@dimen/text_12"
+                app:buttonTint="?colorAccent"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cb_tnc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                android:minHeight="@dimen/button_small_size"
+                android:text="@string/desc_dao_agreement_tnc"
+                android:textColor="@color/colorInfo"
+                android:textSize="@dimen/text_12"
+                app:buttonTint="?colorAccent"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/cb_ub_acc_opening"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/content_spacing_half"
+                android:layout_marginEnd="@dimen/content_spacing_half"
+                android:layout_marginBottom="@dimen/content_spacing_half"
+                android:minHeight="@dimen/button_small_size"
+                android:text="@string/desc_dao_confirmation_agreement"
+                android:textColor="@color/colorInfo"
+                android:textSize="@dimen/text_12"
+                android:visibility="gone"
+                app:buttonTint="?colorAccent"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonAccept"

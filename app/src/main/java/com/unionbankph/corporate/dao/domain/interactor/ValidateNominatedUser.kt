@@ -17,12 +17,12 @@ constructor(
     postExecutionThread: PostExecutionThread,
     private val responseProvider: ResponseProvider,
     private val daoGateway: DaoGateway
-) : SingleUseCase<Map<String, Results>, ValidateNominatedUserForm?>(
+) : SingleUseCase<MutableList<Results>, ValidateNominatedUserForm?>(
     threadExecutor,
     postExecutionThread
 ) {
 
-    override fun buildUseCaseObservable(params: ValidateNominatedUserForm?): Single<Map<String, Results>> {
+    override fun buildUseCaseObservable(params: ValidateNominatedUserForm?): Single<MutableList<Results>> {
         return daoGateway.getAccessToken()
             .flatMap {
                 params?.let { params ->

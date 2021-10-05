@@ -18,6 +18,8 @@
     <string name="use_password">Use password</string>
     <string name="password">Password</string>
     <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="confirm_fingerprint_description">Confirm login with your biometrics</string>
+    <string name="touch_the_fingerprint_sensor">Touch the fingerprint sensor</string>
     <string name="fingerprint_hint">Touch sensor</string>
     <string name="password_description">Enter your store password to continue</string>
     <string name="purchase">Purchase</string>
@@ -80,6 +82,7 @@
     <string name="title_forgot_password">Forgot Password</string>
     <string name="title_lets_get_started">Let\'s Get Started!</string>
     <string name="title_login_with_fingerprint">Login with Fingerprint</string>
+    <string name="title_login_in_using_biometrics">Log in using biometrics</string>
     <string name="title_fingerprint_not_detected">Fingerprint Not Detected</string>
     <string name="title_new_fingerprint_detected">New Fingerprint Detected</string>
     <string name="title_session_time_out">Your session is about to expire</string>
@@ -389,7 +392,7 @@
     <string name="title_notification_1003">There is a transaction pending my approval</string>
     <string name="title_notification_1004">A transaction I approved changes status</string>
     <string name="title_notification_1005">Any changes are made to my organization.</string>
-    <string name="title_no_fingerprint">No Stored Fingerprint</string>
+    <string name="title_no_fingerprint">No Stored Fingerprint/Face ID</string>
     <string name="title_source_account">Source Account</string>
     <string name="title_source_name">Source Account Name</string>
     <string name="title_source_number">Source Account Number</string>
@@ -754,6 +757,7 @@
     <string name="title_congratulations">Congratulations!</string>
     <string name="title_verification_completed">Verification Completed</string>
     <string name="title_dao_result_skip">Thank you for applying for a UnionBank Account</string>
+    <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
     <string name="title_payment_methods">Payment Methods</string>
     <string name="fees_and_charges">Fees &amp; Charges</string>
 
@@ -975,7 +979,7 @@
     <string name="desc_dao_branch_transaction">Make your branch experience hassle-free. Schedule your cash and check deposits in advance.</string>
     <string name="desc_dao_confirmation_agreement">I agree to the UnionBank Account Opening Terms &amp; Conditions.</string>
     <string name="desc_confirm_your_details">Please review the information before submitting your application form.</string>
-    <string name="desc_dao_agreement_tnc">I agree to the Business Banking Terms &amp; Conditions</string>
+    <string name="desc_dao_agreement_tnc">I agree to the Business Banking Terms &amp; Conditions.</string>
     <string name="desc_dao_agreement_privacy">I agree to the UnionBank Privacy Policy</string>
     <string name="desc_contact_us">
         <![CDATA[
@@ -1125,7 +1129,7 @@
     <string name="error_msg_under_maintenance">We are currently undergoing system maintenance. Please check back in a bit.</string>
     <string name="dao_error_mismatch_response">ID details do not match.</string>
     <string name="error_multiple_posting">This transaction has already been processed. Please return to the transaction dashboard to view the final status of the transaction.</string>
-
+    <string name="error_mismatched_with_id_field">%1$s must match with the ID.</string>
 
     <string name="msg_check_deposit_camera_tips_1">Place the check against a dark background</string>
     <string name="msg_check_deposit_camera_tips_2">Move camera on top of the check</string>
@@ -1163,7 +1167,7 @@
     <string name="msg_exit_dao">You are about to leave the account opening form. Any unsaved changes will be lost. Would you like to proceed?</string>
     <string name="msg_go_back">Are you sure you want to go back? Your entries in this page will be lost.</string>
     <string name="msg_cancel_bills_payment_transaction">You are about to leave the Bills Payment Form. Any unsaved changes will be lost. Would you like to proceed?</string>
-    <string name="msg_no_fingerprint">There was no Fingerprint data found stored in the system.</string>
+    <string name="msg_no_fingerprint">There was no Fingerprint/Face ID data found stored in the system.</string>
     <string name="msg_success_approval">Transaction successfully approved.</string>
     <string name="msg_rejected_approval">Transaction successfully rejected.</string>
     <string name="msg_transaction_successfully_cancelled">Transaction successfully cancelled.</string>
@@ -2214,6 +2218,28 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="merchant_disabled_information">Unable to generate new link, your merchant is currently disabled.</string>
     <string name="text_okay">Okay</string>
     <string name="fee_calculator_details">Fees will change depending on the payment method selected by your customer. Select the cards below to see the Net Amount.</string>
+    <string name="hi">Hi %1$s!</string>
+
+    <!--FaceID-->
+    <string name="title_login_in_using_faceid">Log in with Face ID</string>
+    <string name="desc_look_directly_at_your_camera">Look directly at your font camera to\nuse Face ID</string>
+    <string name="msg_face_id_not_recognized">Face ID not recognized, try again!</string>
+    <string name="msg_face_id_not_detected">Your previously saved face ID is no longer detected on this device. Login with your password to continue.</string>
+    <string name="msg_new_face_id_detected">A new face ID was detected. Login with your password to link this new face ID.</string>
+    <string name="title_face_id_not_detected">Face ID Not Detected</string>
+    <string name="title_new_face_id_detected">New Face ID Detected</string>
+    <string name="title_enable_face_id">Enable Face ID</string>
+    <string name="desc_face_id">
+        <![CDATA[
+        Do you want to enable Face ID authentication to access UnionBank Business Banking?
+        <br>
+        <br>
+        Face ID can be used to access your account. We do not recommend this if you are sharing this device.
+        ]]>
+    </string>
+    <string name="title_face_id">Face ID</string>
+    <string name="msg_face_id">All face ID data stored on this device can be used to access your account</string>
+
     <string name="these_are_the_payment_channels_available_for_you">These are the payment channels available for you</string>
     <string name="your_customers_will_be_able_to_pay_you_using_any_one_of_the_channels_listed_below">Your customers will be able to pay you using any one of the channels listed below.</string>
     <string name="unionbank_online">UnionBank Online</string>
@@ -2305,4 +2331,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="instapay_qr_detail">Place the QR code in the center of the square. It will scan the QR code automatically.</string>
     <string name="title_view_more">View More</string>
     <string name="activity_log">Activity Log</string>
+
 </resources>

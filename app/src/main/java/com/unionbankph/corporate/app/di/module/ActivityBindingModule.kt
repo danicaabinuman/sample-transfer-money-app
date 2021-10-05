@@ -43,6 +43,7 @@ import com.unionbankph.corporate.branch.presentation.transactionlist.BranchTrans
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity
 import com.unionbankph.corporate.dao.presentation.DaoActivity
+import com.unionbankph.corporate.dao.presentation.DaoBasicInfoReminderActivity
 import com.unionbankph.corporate.dao.presentation.selection.DaoSelectionActivity
 import com.unionbankph.corporate.dao.presentation.signature_preview.DaoSignaturePreviewActivity
 import com.unionbankph.corporate.ebilling.presentation.confirmation.EBillingConfirmationActivity
@@ -547,6 +548,10 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun feeCalculatorActivity(): FeeCalculatorActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun daoBasicInfoReminderActivity(): DaoBasicInfoReminderActivity
 
     @PerActivity
     @ContributesAndroidInjector
