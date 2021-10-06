@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardViewSetupAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/msme_content_spacing"
+        android:layout_marginTop="@dimen/grid_1">
+
+        <ImageView
+            android:id="@+id/apply_loans_iv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/image_view_on_boarding_height"
+            android:padding="@dimen/grid_4"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bg_loan_graph" />
+
+        <TextView
+            android:id="@+id/apply_loans_tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/header_apply_up_to"
+            android:layout_marginTop="@dimen/grid_1"
+            app:layout_constraintTop_toBottomOf="@+id/apply_loans_iv_header" />
+
+        <TextView
+            android:id="@+id/apply_loans_tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/description_apply_up_to"
+            app:layout_constraintTop_toBottomOf="@+id/apply_loans_tv_header" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_loans_b_apply_now"
+            style="@style/SMEPrimaryButtonLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/grid_4"
+            app:layout_constraintTop_toBottomOf="@+id/apply_loans_tv_description"
+            android:textAllCaps="true"
+            android:text="@string/action_apply_now"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_loans_b_reference_code"
+            style="@style/SMESecondaryButtonLarge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/grid_2"
+            app:layout_constraintTop_toBottomOf="@+id/apply_loans_b_apply_now"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:textAllCaps="true"
+            android:text="@string/action_reference_code"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

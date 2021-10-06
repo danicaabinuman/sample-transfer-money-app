@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.applyloan.FinanceWithUs" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_finance_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_finance_tv_title"
+            style="@style/TextViewDarkForm"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/content_spacing"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{item.title}"
+            tools:text="@string/others"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_finance_ubmsme_tv_title"
+            style="@style/TextViewDarkForm"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_width="0dp"
+            tools:text="@string/others"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@+id/guideLine_parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_sub_parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_finance_ubmsme_iv_ubmsme"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="@dimen/grid_5_half"
+            tools:src="@drawable/ds_check_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/border_salutation"
+            app:layout_constraintStart_toEndOf="@+id/guideLine_parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_sub_parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_finance_others_tv_title"
+            style="@style/TextViewDarkForm"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_width="0dp"
+            tools:text="@string/others"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_sub_parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_finance_others_iv_others"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="@dimen/grid_5_half"
+            tools:src="@drawable/ds_check_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/border_salutation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_sub_parent" />
+
+        <View
+            android:id="@+id/border_salutation"
+            style="@style/BorderHorizontal"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:background="@drawable/bg_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_finance_tv_title" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLine_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.35"
+            android:orientation="vertical"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_sub_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.65"
+            android:orientation="vertical"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

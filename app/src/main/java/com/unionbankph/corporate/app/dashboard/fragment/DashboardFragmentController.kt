@@ -124,6 +124,7 @@ constructor(
         }
 
         loansModel
+            .callbacks(dashboardAdapterCallback)
             .addTo(this)
 
         earningsModel

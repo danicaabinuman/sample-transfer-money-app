@@ -11,7 +11,7 @@
         android:id="@+id/textViewFeatureTitle"
         android:layout_width="match_parent"
         style="@style/SMESubtitle2"
-        android:text="@string/title_loans"
+        android:text="@string/title_long_terms"
         android:layout_marginStart="@dimen/grid_2"
         android:layout_marginEnd="@dimen/grid_2"
         app:layout_constraintStart_toStartOf="parent"

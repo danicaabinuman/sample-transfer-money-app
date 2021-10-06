@@ -67,11 +67,16 @@ class UcAccountSelection :
     }
 
     private fun initClickListener() {
-        binding.btnOpenAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_selection_to_reminder)
-        }
-        binding.btnContinueExistingAccountApplication.setOnClickListener {
-            findNavController().navigate(R.id.action_dao_selection_activity)
+        binding.apply {
+            btnOpenAccount.setOnClickListener {
+                findNavController().navigate(R.id.action_selection_to_reminder)
+            }
+            btnContinueExistingAccountApplication.setOnClickListener {
+                findNavController().navigate(R.id.action_dao_selection_activity)
+            }
+            btnExistingUbAccount.setOnClickListener {
+                findNavController().navigate(R.id.action_selection_to_dashboardActivity)
+            }
         }
     }
 

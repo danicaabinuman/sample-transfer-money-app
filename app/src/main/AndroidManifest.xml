@@ -660,6 +660,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name="com.unionbankph.corporate.loan.LoanActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
         <!-- Others -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"

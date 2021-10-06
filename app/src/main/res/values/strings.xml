@@ -2133,7 +2133,7 @@
     <string name="tc_tat_content_3e">Termination of the Bank’s agreement/s with the Card brands; or</string>
     <string name="tc_tat_content_3f">Upon lawful orders of pertinent government authorities.</string>
     <string name="tc_tat_content_4">In addition to the foregoing, the Bank may terminate this Agreement for any cause without penalty, by giving the other Party at least thirty (30) days’ written notice prior to the intended date of termination.</string>
-    
+
     <string name="tc_eot_content_1">Upon termination of this Agreement:</string>
     <string name="tc_eot_content_1a">the Parties agree upon written request to immediately return all Proprietary Work, Confidential Information and all copies thereof belonging to the other party, within its possession or control; and</string>
     <string name="tc_eot_content_1b">all obligations incurred or existing against the Merchant, and all rights vested or accrued under this Agreement, shall survive the termination of this Agreement.</string>
@@ -2194,7 +2194,7 @@
     <string name="tc_lol_content_6">The Bank will, in providing the UnionBank Payment Gateway Service, rely upon information, instructions, and services from the Merchant, its employees, and agents and financial and credit institutions, and other third parties. Merchant fully assumes the risk associated with errors in such information, instructions and services provided that the Bank has accurately transmitted the data and/or complied with authorized instructions.</string>
     <string name="tc_lol_content_7">IN NO EVENT WILL THE BANK’S TOTAL LIABILITY ARISING OUT OF THIS AGREEMENT EXCEED THE LESSER OF THE FEES PAID TO THE BANK BY MERCHANT UNDER THIS AGREEMENT WITHIN THE 12 MONTH PERIOD PRIOR TO THE EVENT WHICH GAVE RISE TO THE CLAIM FOR DAMAGES OR PHP 20,000 FOR REGISTERED MERCHANT AND PHP 10,000</string>
     <string name="tc_lol_content_8">FOR UNREGISTERED MERCHANT. IN NO EVENT WILL THE BANK OR ITS LICENSORS HAVE ANY LIABILITY TO MASTER MERCHANT OR ANY OTHER PARTY FOR ANY LOST OPPORTUNITY OR PROFITS, COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, OR FOR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR SPECIAL DAMAGES ARISING OUT OF THIS AGREEMENT, UNDER ANY CAUSE OF ACTION OR THEORY OF LIABILITY (INCLUDING NEGLIGENCE), AND WHETHER OR NOT THE BANK HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THESE LIMITATIONS WILL APPLY NOTWITHSTANDING ANY FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.</string>
-    
+
     <string name="tc_indemnification_content_1">Merchant shall indemnify and hold the Bank, its directors, officers, employees and agents harmless from and against, and defend any claim, suit or proceeding and pay any settlement amounts or damages awarded by a court of final jurisdiction arising out of claims (i) resulting from the willful acts, omissions or negligence of Merchant, its employees or agents; (ii) relating to any claims filed in respect of infringement of a third party right in connection with the Software and/or Service; and (iii) resulting from non-compliance with PCI-DSS and Cards brand ruling, or (iv) resulting from non-compliance with its undertakings in this Agreement.</string>
     <string name="tc_indemnification_content_2">The Bank will be entitled to have full conduct of all proceedings and negotiations relating to any such claim and in its discretion to accept, dispute, compromise, or otherwise deal with the same and shall be under no liability in respect thereof to the merchant and the Merchant shall provide any and all assistance in connection with such claim that the Bank may require.</string>
 
@@ -2206,7 +2206,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
 \n\nIn case of such events, the time for performance required by either party under this Agreement shall be suspended for any period during which the performance is prevented by the event</string>
 
     <string name="tc_mh_content">In the event that the Merchant has concerns regarding the payment gateway and its usage, the Merchant may contact UnionBank’s Customer Corporate Care by phone: (02) 667-2668 or by Email: union3c@unionbankph.com, Monday-Friday 8:30-5:30 (except holidays).</string>
-    
+
     <string name="tc_general_content_1">The Parties are independent contractors. No agency, partnership, joint-venture or formal business organization of any kind is created by this Agreement and neither Party shall have the right to bind the other, or represent to any person that it has the right to do so. Merchant shall conduct its activities under this Agreement as its own principal and not as agent of the Bank.</string>
     <string name="tc_general_content_2">No waiver of any breach of this Agreement shall be deemed to be a waiver of any other or of any subsequent breach. The failure of either Party to enforce at any time any of the provisions of this Agreement shall in no way be interpreted as a waiver of such provision.</string>
     <string name="tc_general_content_3">Unless otherwise provided in this Agreement, all remedies shall be cumulative and in addition to and not in lieu of any other remedies to either Party at law, in equity, or otherwise. Furthermore, there shall be no obligation upon either Party to exercise a specific remedy.</string>
@@ -2339,7 +2339,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hello_what_is_your_name">Hello, what is your name?</string>
     <string name="user_creation_input_reminder">Before we begin, please ensure that the following details in your application matches with details in your ID:</string>
     <string name="hello_name">Hello, %1$s!</string>
-    
+
     <string name="user_creation_title_reminder">Before we begin, please ensure that the\nfollowing details in your application matches\nwith details in your ID:</string>
     <string name="desc_user_creation_reminders">
         <![CDATA[
@@ -2459,7 +2459,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_entire_agreement">ENTIRE AGREEMENT</string>
     <string name="desc_entire_agreement">This Agreement, along with the Addendum hereto, constitutes the entire understanding and agreement of the parties with regard to the subject matter hereof. It may be varied, modified, altered, or amended after the date of execution hereof. Any variations, modifications, alteration, or amendments shall be communicated to the User through the System. All previous negotiations, undertakings, contracts, or agreements between the parties on the subject matter hereof are deemed superseded, cancelled, or revoked as of the date of execution hereof.</string>
     <string name="no_account_desc">To enjoy full features, finish your account setup</string>
-    <string name="loans_card_title">Access credit up to PHP 5M</string>
+    <string name="loans_card_title">Access credit up to PHP 1M</string>
     <string name="loans_card_desc">Financing services made for business owners.</string>
     <string name="loans_card_button">Apply for a loan</string>
     <string name="earnings_card_title">Monitor your earnings</string>
@@ -2551,5 +2551,31 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="try_again">TRY AGAIN</string>
     <string name="feature_unavailable_detail">Sorry, this feature is not available for your organization. Please Contact business@unionbankph.com for further assistance.</string>
     <string name="okay_upper_case">OKAY</string>
+
+
+    <string name="header_apply_up_to">Avail up to PHP 1M</string>
+    <string name="description_apply_up_to">With minimal documentary requirements, fast approval &amp; auto-crediting of funds.</string>
+    <string name="action_apply_now">Apply Now</string>
+    <string name="action_reference_code">I have a reference code</string>
+    <string name="title_key_features">Key Features</string>
+    <string name="title_finance_with_us">Why Finance with Us?</string>
+    <string name="title_long_terms">Long Terms</string>
+    <string name="title_eligible_to_apply">Who are Eligible to Apply?</string>
+    <string name="title_common_questions">Common Questions</string>
+    <string name="title_low_interest_rates">Low Interest Rates</string>
+    <string name="title_easy_application">Easy Application</string>
+    <string name="title_fast_approval">Fast Approval</string>
+    <string name="title_auto_disbursement">Auto Disbursement</string>
+    <string name="header_ubmsme">UBMSME</string>
+    <string name="note_finance_with_us">*Based on timely submission of required information &amp; documents by the customer as well as an average document verification</string>
+    <string name="title_simple_and_online_application">Simple &amp; online application</string>
+    <string name="title_no_hidden_fees">No hidden fees</string>
+    <string name="title_fast_processing">Fast processing &amp; convenient access</string>
+    <string name="title_time_taken">Time taken to apply</string>
+    <string name="title_money_in_account">Money in account</string>
+    <string name="title_mins">Minutes</string>
+    <string name="title_days">Days</string>
+    <string name="title_five_days">5 Days *</string>
+    <string name="title_thirty_days">30 Day</string>
 
 </resources>
