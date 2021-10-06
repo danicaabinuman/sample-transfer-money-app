@@ -17,6 +17,7 @@ import com.takusemba.spotlight.Spotlight
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.visibility
+import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.BiometricSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.FragmentSettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
@@ -41,6 +42,8 @@ class SecurityFragment :
     BaseFragment<FragmentSecurityBinding, GeneralSettingsViewModel>(),
     OnTutorialListener {
 
+    private var fingerprintToken = ""
+
     override fun onViewModelBound() {
         super.onViewModelBound()
         initTutorialViewModel()
@@ -52,10 +55,13 @@ class SecurityFragment :
         viewModel.state.observe(this, Observer {
             when (it) {
                 is ShowGeneralSettingsGetToken -> {
+                    fingerprintToken = it.token
                     binding.switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
-                    binding.switchBiometric.isChecked = it.token != ""
+                    binding.switchBiometric.isEnabled = it.isTrustedDevice
+                    binding.switchBiometric.isChecked = it.token != "" && it.isTrustedDevice
                 }
                 is ShowGeneralSettingsClearToken -> {
+                    fingerprintToken = ""
                     binding.switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
                     binding.switchBiometric.isChecked = false
                 }
@@ -201,7 +207,7 @@ class SecurityFragment :
                 return@setOnCheckedChangeListener
             }
             if (isChecked) {
-                if (RxFingerprint.hasEnrolledFingerprints(activity!!) || BiometricManager.from(requireActivity()).canAuthenticate(
+                if (RxFingerprint.hasEnrolledFingerprints(requireContext()) || BiometricManager.from(requireActivity()).canAuthenticate(
                     ) == BiometricManager
                         .BIOMETRIC_SUCCESS) {
                     (activity as DashboardActivity).showFingerprintBottomSheet()
@@ -251,6 +257,14 @@ class SecurityFragment :
         eventBus.fragmentSettingsSyncEvent.flowable.subscribe {
             if (it.eventType == FragmentSettingsSyncEvent.ACTION_CLICK_HELP_SECURITY) {
                 startViewTutorial()
+            }
+        }.addTo(disposables)
+        eventBus.actionSyncEvent.flowable.subscribe {
+            if (it.eventType == ActionSyncEvent.ACTION_UPDATE_OTP_SETTINGS) {
+                val isShowGenerateOTP = it.payload == "1"
+                binding.switchBiometric.tag = GeneralSettingsViewModel::class.java.simpleName
+                binding.switchBiometric.isEnabled = isShowGenerateOTP
+                binding.switchBiometric.isChecked = isShowGenerateOTP && fingerprintToken.isNotEmpty()
             }
         }.addTo(disposables)
     }

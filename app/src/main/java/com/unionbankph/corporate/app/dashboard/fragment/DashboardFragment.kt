@@ -34,6 +34,7 @@ import com.unionbankph.corporate.databinding.FragmentDashboardBinding
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import com.unionbankph.corporate.loan.LoanActivity
+import com.unionbankph.corporate.loan.LoanActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.settings.data.constant.PermissionNameEnum
@@ -54,6 +55,10 @@ class DashboardFragment :
     AccountAdapterCallback{
 
     private lateinit var settingsViewModel: SettingsViewModel
+
+    private val isOnTrialMode by lazyFast {
+        (activity as DashboardActivity).isOnTrialMode
+    }
 
     private val controller by lazyFast {
         DashboardFragmentController(applicationContext, viewUtil, autoFormatUtil)
@@ -155,6 +160,10 @@ class DashboardFragment :
             )
             settingsViewModel.isEnabledFeature(FeaturesEnum.MOBILE_CHECK_DEPOSIT_VIEW)
         }
+    }
+
+    private fun initTrialMode() {
+        viewModel.setScreenIsOnTrialMode(isOnTrialMode)
     }
 
     private fun initViewModel() {
@@ -263,6 +272,8 @@ class DashboardFragment :
     }
 
     override fun onDashboardActionEmit(actionId: String, isEnabled: Boolean) {
+        if (isOnTrialMode) return
+
         when (actionId) {
             Constant.DASHBOARD_ACTION_TRANSFER_FUNDS -> {
                 if (isEnabled) {
@@ -359,6 +370,12 @@ class DashboardFragment :
             Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS -> {
                 (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
             }
+            Constant.DASHBOARD_ACTION_DEFAULT_LOANS -> {
+                Timber.e("Default Loans Clicked")
+            }
+            Constant.DASHBOARD_ACTION_DEFAULT_EARNINGS -> {
+                Timber.e("Default Earnings Clicked")
+            }
         }
     }
 
@@ -382,6 +399,14 @@ class DashboardFragment :
     }
 
     override fun onContinueAccountSetup() {
+        navigator.navigate(
+            getAppCompatActivity(),
+            AccountSetupActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
         Timber.e("onContinueAccountSetup clicked")
     }
 

@@ -32,6 +32,7 @@ import com.unionbankph.corporate.auth.data.model.ECredLoginOTPDto
 import com.unionbankph.corporate.auth.data.model.UserCreationOTPVerified
 import com.unionbankph.corporate.auth.presentation.migration.MigrationMainActivity
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyActivity
+import com.unionbankph.corporate.auth.presentation.totp.TOTPBottomSheet
 import com.unionbankph.corporate.bills_payment.presentation.bills_payment_summary.BillsPaymentSummaryActivity
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
@@ -72,6 +73,7 @@ class OTPActivity :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
+        removeElevation(binding.viewToolbar.appBarLayout)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.colorSMEMediumOrange,
@@ -130,6 +132,9 @@ class OTPActivity :
                 }
                 is ShowVerifyUserCreationOTPSuccess -> {
                     navigateBackToUserCreationScreen(it.userCreationOTPSuccess)
+                }
+                is ShowTOTPBottomSheet -> {
+                    attemptShowTOTPBottomSheet(it.isTOTPEnabled)
                 }
             }
         })
@@ -221,7 +226,6 @@ class OTPActivity :
 
     private fun getOTPFromMessage(message: String?) {
         // This will match any 6 digit number in the message
-        // This will match any 6 digit number in the message
         val pattern: Pattern = Pattern.compile("(|^)\\d{6}")
         val matcher: Matcher = pattern.matcher(message)
         if (matcher.find()) {
@@ -300,7 +304,8 @@ class OTPActivity :
                 binding.viewPinCode.etPin3,
                 binding.viewPinCode.etPin4,
                 binding.viewPinCode.etPin5,
-                binding.viewPinCode.etPin6
+                binding.viewPinCode.etPin6,
+                requestFocus = false
             )
         pinCodeEditText.setOnOTPCallback(this)
         when (page) {
@@ -940,6 +945,8 @@ class OTPActivity :
             binding.tvResendTimer.setVisible(false)
             binding.btnResend.text = formatString(R.string.action_receive_via_otp)
             binding.buttonGenerateOTP.visibility(true)
+
+            viewModel.attemptShowTOTPDialog()
         } else {
             binding.tvVerifyAccountDesc.text = formatString(
                 R.string.desc_verify_account_sms,
@@ -962,6 +969,23 @@ class OTPActivity :
             binding.btnResend.visibility(true)
             binding.buttonGenerateOTP.visibility(false)
         }
+    }
+
+    private fun attemptShowTOTPBottomSheet(isTOTPEnabled: Boolean) {
+        if (isTOTPEnabled && settingsUtil.isTimeAutomatic()) {
+            showTOTPBottomSheet()
+        }
+    }
+
+    private fun showTOTPBottomSheet() {
+        val totpBottomSheet = TOTPBottomSheet()
+        totpBottomSheet.isCancelable = false
+        totpBottomSheet.setCallbackListener(
+            onPositiveClick = { totp ->
+                binding.editTextHidden.setText(totp)
+            }
+        )
+        totpBottomSheet.show(supportFragmentManager, TOTPBottomSheet::class.java.simpleName)
     }
 
     private fun isTOTPScreen(loginType: String?): Boolean = loginType == LOGIN_TYPE_TOTP

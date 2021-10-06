@@ -49,17 +49,24 @@ class DashboardFragmentViewModel
     val pageable = Pageable()
     private var initialDashboardActionList = mutableListOf<ActionItem>()
 
-    var testCounter = 0
-
     init {
         _dashboardViewState.value = DashboardViewState(
             name = "Hello",
             accountButtonText = "",
             isScreenRefreshed = true,
+            isOnTrialMode = false,
+            hasLoans = false,
+            hasEarnings = true,
             hasInitialFetchError = false,
             actionList = mutableListOf(),
             accounts = mutableListOf()
         )
+    }
+
+    fun setScreenIsOnTrialMode(isTrialMode: Boolean) {
+        _dashboardViewState.value = _dashboardViewState.value?.also {
+            it.isOnTrialMode = isTrialMode
+        }
     }
 
     fun getCorporateUserOrganization(isInitialLoading: Boolean) {

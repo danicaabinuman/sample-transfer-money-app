@@ -48,7 +48,6 @@ import com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterF
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
-import com.unionbankph.corporate.loan.applyloan.LoansFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
@@ -433,6 +432,34 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun bottomSheetUploadBir(): CardAcceptanceUploadDocumentFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun totpBottomSheet(): TOTPBottomSheet
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asAccountSelectionFragment(): AsBusinessTypeFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asBusinessAccountTypeFragment(): AsBusinessAccountTypeFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asRemindersFragment(): AsRemindersFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asTermsOfServiceFragment(): AsTermsOfServiceFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asTermsOfServiceViewPager(): AsTermsOfServiceViewPager
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asPrivacyPolicyViewPager(): AsPrivacyPolicyViewPager
 
     @PerActivity
     @ContributesAndroidInjector

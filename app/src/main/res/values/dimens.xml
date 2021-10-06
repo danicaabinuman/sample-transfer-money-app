@@ -275,6 +275,7 @@
     <dimen name="list_padding_top_search_view">6dp</dimen>
 
     <dimen name="circle_icon_size">@dimen/grid_7</dimen>
+    <dimen name="circle_icon_size_2">@dimen/grid_5_half</dimen>
 
     <dimen name="dialog_progress">100dp</dimen>
 
@@ -320,6 +321,7 @@
     <dimen name="navigation_bottom_text_size_active">11dp</dimen>
 
     <dimen name="circular_progress_bar_size">@dimen/grid_13</dimen>
+    <dimen name="circular_progress_bar_size_small">@dimen/grid_11_half</dimen>
     <dimen name="circular_progress_bar_line_size">@dimen/grid_1</dimen>
     <dimen name="table_row_width">@dimen/grid_24</dimen>
     <dimen name="table_row_height">@dimen/grid_10</dimen>

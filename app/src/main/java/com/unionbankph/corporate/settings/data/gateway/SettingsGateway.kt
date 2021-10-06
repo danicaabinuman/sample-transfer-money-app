@@ -63,7 +63,7 @@ interface SettingsGateway {
 
     fun getOTPSettings(): Single<OTPSettingsDto>
 
-    fun hasTOTP(): Single<Boolean>
+    fun hasTOTP(): Maybe<Boolean>
 
     fun hasNotificationToken(): Single<Boolean>
 

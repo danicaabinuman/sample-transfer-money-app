@@ -9,6 +9,7 @@ import com.unionbankph.corporate.account.presentation.account_list.AccountViewMo
 import com.unionbankph.corporate.account.presentation.account_selection.AccountSelectionViewModel
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountViewModel
 import com.unionbankph.corporate.account.presentation.source_account.SourceAccountViewModel
+import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragmentViewModel
 import com.unionbankph.corporate.app.di.ViewModelFactory
@@ -88,8 +89,6 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
-import com.unionbankph.corporate.loan.LoanMainViewModel
-import com.unionbankph.corporate.loan.applyloan.LoansViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationViewModel
@@ -863,6 +862,13 @@ abstract class ViewModelModule {
     abstract fun trialAccountViewModel(
         viewModel: TrialAccountViewModel
     ): ViewModel
+
+/*    @Binds
+    @IntoMap
+    @ViewModelKey(AccountSetupViewModel::class)
+    abstract fun accountSetupViewModel(
+        viewModel: AccountSetupViewModel
+    ): ViewModel*/
 
     @Binds
     @IntoMap

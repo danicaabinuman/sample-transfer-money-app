@@ -5,6 +5,7 @@ import com.unionbankph.corporate.account.presentation.account_history.AccountTra
 import com.unionbankph.corporate.account.presentation.account_history_detail.AccountTransactionHistoryDetailsActivity
 import com.unionbankph.corporate.account.presentation.account_selection.AccountSelectionActivity
 import com.unionbankph.corporate.account.presentation.source_account.SourceAccountActivity
+import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.di.scope.PerActivity
 import com.unionbankph.corporate.approval.presentation.approval_activity_log.ActivityLogActivity
@@ -609,6 +610,10 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun merchantApplicationRejectedActivity(): MerchantApplicationRejectedActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun accountSetupActivity(): AccountSetupActivity
 
     @PerActivity
     @ContributesAndroidInjector

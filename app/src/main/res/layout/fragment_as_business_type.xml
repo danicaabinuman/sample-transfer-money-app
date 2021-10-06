@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:animateLayoutChanges="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/MatchParent"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewHeader"
+            style="@style/SMEHeadlineH2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:text="@string/title_select_account_type"
+            android:textColor="@color/colorInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewDesc"
+            style="@style/SMEBodyMediumGray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:text="@string/desc_select_account_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewHeader" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            style="@style/MatchConstraint"
+            android:layout_marginTop="@dimen/grid_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDesc"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="@dimen/grid_1"
+            app:layout_constraintBottom_toTopOf="@id/buttonNext">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                style="@style/MatchWrapParent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_layout"
+                    style="@style/MatchWrapParent"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:background="@drawable/bg_gradient_orange_radius4"
+                    android:backgroundTint="@color/dsColorLightOrange"
+                    android:padding="@dimen/grid_1"
+                    android:paddingBottom="@dimen/grid_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewDesc"
+                    app:layout_constraintBottom_toTopOf="@id/tableLayout"
+                    android:visibility="gone"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageNotice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:src="@drawable/ic_warning_circle_orange"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/dsColorMediumOrange" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAccountLabel"
+                        style="@style/SMESubtitle2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/grid_1"
+                        android:text="@string/title_sole_proprietorship"
+                        app:layout_constraintBottom_toBottomOf="@id/imageNotice"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageNotice"
+                        app:layout_constraintTop_toTopOf="@id/imageNotice"
+                        android:textSize="@dimen/text_14"
+                       />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/textViewAccountDesc"
+                        style="@style/SMECaption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/grid_1"
+                        android:paddingBottom="@dimen/grid_1"
+                        android:text="@string/desc_corporation"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewAccountLabel" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
+                    style="@style/MatchWrapParent"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_layout"
+                    >
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <RadioButton
+                            android:id="@+id/radioButtonIndividual"
+                            style="@style/SMECheckableButtonWithIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="@dimen/content_spacing"
+                            android:layout_weight="1"
+                            android:drawableTop="@drawable/ic_man"
+                            android:text="@string/title_individual"
+                            android:textAlignment="center" />
+                        <RadioButton
+                            android:id="@+id/radioButtonSoleProp"
+                            style="@style/SMECheckableButtonWithIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:drawableTop="@drawable/ic_soleproprietorship"
+                            android:text="@string/title_sole_proprietorship_msme"
+                            android:textAlignment="center"
+                            />
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/content_spacing">
+                        <RadioButton
+                            android:id="@+id/radioButtonPartnerShip"
+                            style="@style/SMECheckableButtonWithIcon"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/content_spacing"
+                            android:layout_weight="1"
+                            android:drawableTop="@drawable/ic_partnership"
+                            android:text="@string/title_partnership"
+                            android:textAlignment="center" />
+
+                        <RadioButton
+                            android:id="@+id/radioButtonCorp"
+                            style="@style/SMECheckableButtonWithIcon"
+                            android:layout_width="0sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableTop="@drawable/ic_corporate"
+                            android:text="@string/title_corporation"
+                            android:textAlignment="center" />
+                    </TableRow>
+                </TableLayout>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonNext"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:enabled="false"
+            android:text="@string/action_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
