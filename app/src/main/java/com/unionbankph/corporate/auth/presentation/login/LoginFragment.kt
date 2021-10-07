@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentSender
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -299,6 +298,13 @@ class LoginFragment :
                 is ShowLoginUserGetEmailAddress -> {
                     getEditTextUsername().setText(it.email)
                 }
+                is ClickRegisterSuccess -> {
+                    navigateRegisterMSME()
+                }
+
+                is ClickInitialLoginSuccess -> {
+                    loginViews()
+                }
                 // Errors
                 is ShowLoginConnectivityError -> {
                     showErrorAndExit(message = it.throwable.message.notEmpty())
@@ -337,7 +343,7 @@ class LoginFragment :
     private fun initViewBackPressedLogin(){
         if(!isSME){binding.imageViewBackground.visibility(true)}
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if(fullName == "" && binding.MSMEbtnLogin.visibility == View.VISIBLE && isSME){
+            if(fullName.isEmpty() && binding.MSMEbtnLogin.visibility == View.VISIBLE && isSME){
                 binding.MSMEbtnLogin.visibility(false)
                 binding.MSMEForgotPassword.visibility(false)
                 binding.llEmailSME.visibility(false)
@@ -407,10 +413,19 @@ class LoginFragment :
             navigatePasswordRecoveryScreen()
         }
         binding.MSMESignUp.setOnClickListener {
-            navigateRegisterMSME()
+            if (!sharedPreferenceUtil.isLaunched().get()) {
+                viewModel.onClickRegister()
+            }else{
+                navigateRegisterMSME()
+            }
+
         }
         binding.MSMEFirstLogin.setOnClickListener {
-            loginViews()
+            if (!sharedPreferenceUtil.isLaunched().get()) {
+                viewModel.onClickInitialLogin()
+            }else{
+                loginViews()
+            }
 
         }
         binding.MSMEForgotPassword.setOnClickListener {
