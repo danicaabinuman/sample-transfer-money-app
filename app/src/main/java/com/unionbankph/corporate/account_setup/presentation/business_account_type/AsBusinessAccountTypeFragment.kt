@@ -25,6 +25,10 @@ class AsBusinessAccountTypeFragment :
         super.afterLayout(savedInstanceState)
 
         accountSetupActivity.setIsScreenScrollable(false)
+        accountSetupActivity.setToolbarButtonType(AccountSetupActivity.BUTTON_SAVE_EXIT)
+        accountSetupActivity.showToolbarButton(true)
+        accountSetupActivity.showProgress(true)
+        accountSetupActivity.setProgressValue(2)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             accountSetupActivity.popBackStack()

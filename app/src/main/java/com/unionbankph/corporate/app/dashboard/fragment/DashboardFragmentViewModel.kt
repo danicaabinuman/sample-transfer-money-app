@@ -5,31 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.account.data.gateway.AccountGateway
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.account.domain.form.GetAccountsBalances
-import com.unionbankph.corporate.account.presentation.account_list.*
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.platform.bus.data.DataBus
-import com.unionbankph.corporate.app.common.platform.events.Event
-import com.unionbankph.corporate.app.dashboard.Error
-import com.unionbankph.corporate.app.dashboard.Success
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
-import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
-import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.corporate.domain.gateway.CorporateGateway
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
-import com.unionbankph.corporate.settings.domain.constant.FeaturesEnum
-import com.unionbankph.corporate.settings.presentation.ShowSettingsError
-import com.unionbankph.corporate.settings.presentation.ShowSettingsGetCorporateUser
 import io.reactivex.Flowable
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class DashboardFragmentViewModel
@@ -42,7 +31,7 @@ class DashboardFragmentViewModel
 ) : BaseViewModel() {
 
     private val _dashboardViewState = MutableLiveData<DashboardViewState>()
-    val dashboardViewState = _dashboardViewState
+    val dashboardViewState: LiveData<DashboardViewState> get() = _dashboardViewState
 
     private var getAccountsPaginated: Disposable? = null
 

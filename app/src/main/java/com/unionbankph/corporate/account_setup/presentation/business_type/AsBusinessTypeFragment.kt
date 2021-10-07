@@ -29,6 +29,10 @@ class AsBusinessTypeFragment
         super.afterLayout(savedInstanceState)
 
         accountSetupActivity.setIsScreenScrollable(false)
+        accountSetupActivity.showProgress(true)
+        accountSetupActivity.showToolbarButton(false)
+        accountSetupActivity.setProgressValue(1)
+
         handleOnBackPressed()
     }
 
