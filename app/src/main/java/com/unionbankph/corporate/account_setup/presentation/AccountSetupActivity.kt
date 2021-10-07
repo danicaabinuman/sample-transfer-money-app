@@ -135,16 +135,19 @@ class AccountSetupActivity :
         inflater.inflate(R.menu.menu_toolbar, menu)
         val toolbarButtonType = viewModel.toolbarState.value?.buttonType
 
-        val menuActionButton = when (toolbarButtonType) {
-            BUTTON_SAVE_EXIT -> menu.findItem(R.id.menu_save_and_exit_button)
-            else -> menu.findItem(R.id.menu_retake_button)
-        }
+        val menuActionButton: MenuItem?
 
-        val menuView = menuActionButton.actionView
-        toolbarButton = menuView.findViewById(R.id.toolbarButton)
-        toolbarButton.text = when (toolbarButtonType) {
-            BUTTON_SAVE_EXIT -> getString(R.string.save_and_exit)
-            else -> getString(R.string.action_retake)
+        when (toolbarButtonType) {
+            BUTTON_SAVE_EXIT -> {
+                menuActionButton = menu.findItem(R.id.menu_save_and_exit_button)
+                toolbarButton = menuActionButton.actionView.findViewById(R.id.toolbarButton)
+                toolbarButton.text = getString(R.string.save_and_exit)
+            }
+            else -> {
+                menuActionButton = menu.findItem(R.id.menu_retake_button)
+                toolbarButton = menuActionButton.actionView.findViewById(R.id.toolbarButton)
+                toolbarButton.text = getString(R.string.action_retake)
+            }
         }
 
         menuActionButton.isVisible = viewModel.toolbarState.value?.isButtonShow ?: false
