@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchParent"
+    android:padding="@dimen/grid_1"
+    android:background="@color/colorWhite"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1.0">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewHeader"
+        style="@style/SMEHeadlineH2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_1"
+        android:text="@string/title_just_a_few_reminders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewReminder1"
+        android:layout_width="@dimen/circle_icon_size_2"
+        android:layout_height="@dimen/circle_icon_size_2"
+        android:src="@drawable/ic_check_circle_orange"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_4"
+        app:layout_constraintTop_toBottomOf="@id/textViewHeader"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textViewReminder1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/SMEBody"
+        android:text="@string/account_setup_reminder_1"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_9_half"
+        app:layout_constraintStart_toEndOf="@id/imageViewReminder1"
+        app:layout_constraintTop_toTopOf="@id/imageViewReminder1"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewReminder2"
+        android:layout_width="@dimen/circle_icon_size_2"
+        android:layout_height="@dimen/circle_icon_size_2"
+        android:src="@drawable/ic_check_circle_orange"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_3"
+        app:layout_constraintTop_toBottomOf="@id/textViewReminder1"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textViewReminder2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/SMEBody"
+        android:text="@string/account_setup_reminder_2"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_9_half"
+        app:layout_constraintStart_toEndOf="@id/imageViewReminder2"
+        app:layout_constraintTop_toTopOf="@id/imageViewReminder2"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/viewBullet1"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_marginTop="@dimen/grid_3"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_bias="0"
+        android:background="@drawable/circle_solid_orange"
+        app:layout_constraintEnd_toStartOf="@id/textViewBullet1"
+        app:layout_constraintStart_toStartOf="@id/viewBullet2"
+        app:layout_constraintTop_toBottomOf="@id/textViewReminder2"/>
+
+    <TextView
+        android:id="@+id/textViewBullet1"
+        style="@style/SMEBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:text="@string/title_passport"
+        android:textColor="#4B4948"
+        app:layout_constraintTop_toTopOf="@id/viewBullet1"
+        app:layout_constraintBottom_toBottomOf="@id/viewBullet1"
+        app:layout_constraintEnd_toStartOf="@id/guideLine"
+        app:layout_constraintStart_toEndOf="@id/viewBullet1"/>
+
+    <View
+        android:id="@+id/viewBullet2"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_marginTop="@dimen/grid_3_half"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_bias="1"
+        android:background="@drawable/circle_solid_orange"
+        app:layout_constraintEnd_toStartOf="@id/textViewBullet2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewBullet1"/>
+
+    <TextView
+        android:id="@+id/textViewBullet2"
+        style="@style/SMEBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_3"
+        android:text="@string/title_drivers_license"
+        android:textColor="#4B4948"
+        app:layout_constraintTop_toTopOf="@id/viewBullet2"
+        app:layout_constraintBottom_toBottomOf="@id/viewBullet2"
+        app:layout_constraintEnd_toStartOf="@id/guideLine"
+        app:layout_constraintStart_toEndOf="@id/viewBullet2"/>
+
+    <View
+        android:id="@+id/viewBullet3"
+        android:layout_width="9dp"
+        android:layout_height="9dp"
+        android:layout_marginTop="@dimen/grid_3_half"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_bias="0"
+        android:background="@drawable/circle_solid_orange"
+        app:layout_constraintEnd_toStartOf="@id/textViewBullet3"
+        app:layout_constraintStart_toStartOf="@id/viewBullet2"
+        app:layout_constraintTop_toBottomOf="@id/textViewBullet2"/>
+
+    <TextView
+        android:id="@+id/textViewBullet3"
+        style="@style/SMEBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:layout_marginStart="@dimen/grid_1"
+        android:text="@string/title_sss_umid"
+        android:textColor="#4B4948"
+        app:layout_constraintTop_toTopOf="@id/viewBullet3"
+        app:layout_constraintBottom_toBottomOf="@id/viewBullet3"
+        app:layout_constraintEnd_toStartOf="@id/guideLine"
+        app:layout_constraintStart_toEndOf="@id/viewBullet3"/>
+
+<!--    <View-->
+<!--        android:id="@+id/viewBullet4"-->
+<!--        android:layout_width="9dp"-->
+<!--        android:layout_height="9dp"-->
+<!--        android:background="@drawable/circle_solid_orange"-->
+<!--        app:layout_constraintHorizontal_chainStyle="packed"-->
+<!--        android:layout_marginStart="@dimen/grid_1"-->
+<!--        app:layout_constraintHorizontal_bias="0"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/textViewBullet4"-->
+<!--        app:layout_constraintStart_toEndOf="@id/guideLine"-->
+<!--        app:layout_constraintTop_toTopOf="@id/viewBullet1"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/viewBullet1"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewBullet4"-->
+<!--        style="@style/SMEBody"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="@dimen/grid_1"-->
+<!--        android:layout_marginEnd="@dimen/grid_2"-->
+<!--        android:text="@string/title_passport"-->
+<!--        android:textColor="#4B4948"-->
+<!--        app:layout_constraintTop_toTopOf="@id/viewBullet4"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/viewBullet4"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@id/viewBullet4"/>-->
+
+<!--    <View-->
+<!--        android:id="@+id/viewBullet5"-->
+<!--        android:layout_width="9dp"-->
+<!--        android:layout_height="9dp"-->
+<!--        android:background="@drawable/circle_solid_orange"-->
+<!--        app:layout_constraintHorizontal_chainStyle="packed"-->
+<!--        android:layout_marginStart="@dimen/grid_1"-->
+<!--        app:layout_constraintHorizontal_bias="0"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/textViewBullet5"-->
+<!--        app:layout_constraintStart_toEndOf="@id/guideLine"-->
+<!--        app:layout_constraintTop_toTopOf="@id/viewBullet2"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/viewBullet2"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewBullet5"-->
+<!--        style="@style/SMEBody"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="@dimen/grid_1"-->
+<!--        android:layout_marginEnd="@dimen/grid_2"-->
+<!--        android:text="@string/title_umid"-->
+<!--        android:textColor="#4B4948"-->
+<!--        app:layout_constraintTop_toTopOf="@id/viewBullet5"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/viewBullet5"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@id/viewBullet5"/>-->
+
+    <ImageView
+        android:id="@+id/imageViewReminder3"
+        android:layout_width="@dimen/circle_icon_size_2"
+        android:layout_height="@dimen/circle_icon_size_2"
+        android:src="@drawable/ic_check_circle_orange"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_3"
+        app:layout_constraintTop_toBottomOf="@id/textViewBullet3"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/textViewReminder3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/SMEBody"
+        android:text="@string/account_setup_reminder_3"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_9_half"
+        app:layout_constraintStart_toEndOf="@id/imageViewReminder3"
+        app:layout_constraintTop_toTopOf="@id/imageViewReminder3"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="percent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonNext"
+        style="@style/SMEPrimaryButtonLarge"
+        android:layout_marginStart="@dimen/grid_1"
+        android:layout_marginEnd="@dimen/grid_1"
+        android:layout_marginBottom="@dimen/grid_1"
+        android:text="@string/action_begin_account_setup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

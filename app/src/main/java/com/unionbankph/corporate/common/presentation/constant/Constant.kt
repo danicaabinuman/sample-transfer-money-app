@@ -73,6 +73,9 @@ class Constant {
         const val DASHBOARD_ACTION_ADD_ACCOUNT = "add_account"
         const val DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS = "view_all_account"
 
+        const val DASHBOARD_ACTION_DEFAULT_LOANS = "default_loans"
+        const val DASHBOARD_ACTION_DEFAULT_EARNINGS = "default_earnings"
+
         fun getDefaultCountryCode() = CountryCode(175, "Philippines", "PH", 1, 1, "63")
 
         fun getDefaultCountryDao() = Selector(id = "204", value = "PHILIPPINES")
@@ -168,6 +171,22 @@ class Constant {
             const val FIRST_NAME = "FIRSTNAME_MISMATCHED"
             const val LAST_NAME = "LASTNAME_MISMATCHED"
             const val BIRTH_DATE = "BIRTHDATE_MISMATCHED"
+        }
+    }
+
+    class BusinessType {
+        companion object {
+            const val INDIVIDUAL = 0
+            const val SOLE_PROP = 1
+            const val PARTNERSHIP = 2
+            const val CORPORATION = 3
+        }
+    }
+
+    class BusinessAccountType {
+        companion object {
+            const val STARTER = 101
+            const val CHECK = 102
         }
     }
 }

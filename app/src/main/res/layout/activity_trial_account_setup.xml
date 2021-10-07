@@ -50,9 +50,14 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     style="@style/WrapContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/msme_content_spacing"
                     android:layout_marginBottom="@dimen/msme_content_spacing"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_2"
                     app:srcCompat="@drawable/bg_iv_trial_account" />
 
                 <androidx.appcompat.widget.AppCompatTextView

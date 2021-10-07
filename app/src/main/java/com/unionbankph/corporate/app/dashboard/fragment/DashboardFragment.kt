@@ -7,11 +7,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.presentation.account_detail.AccountDetailActivity
+import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.bus.event.AccountSyncEvent
-import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.TransactSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
@@ -24,7 +24,6 @@ import com.unionbankph.corporate.common.domain.exception.JsonParseException
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.constant.Constant
-import com.unionbankph.corporate.common.presentation.constant.TutorialScreenEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.FragmentDashboardBinding
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
@@ -49,6 +48,10 @@ class DashboardFragment :
 
     private lateinit var settingsViewModel: SettingsViewModel
 
+    private val isOnTrialMode by lazyFast {
+        (activity as DashboardActivity).isOnTrialMode
+    }
+
     private val controller by lazyFast {
         DashboardFragmentController(applicationContext, viewUtil, autoFormatUtil)
     }
@@ -61,6 +64,7 @@ class DashboardFragment :
             initListener()
             initViewModel()
 
+            initTrialMode()
             initSettingsViewModel()
             initActionsSettings()
         }
@@ -150,6 +154,10 @@ class DashboardFragment :
             )
             settingsViewModel.isEnabledFeature(FeaturesEnum.MOBILE_CHECK_DEPOSIT_VIEW)
         }
+    }
+
+    private fun initTrialMode() {
+        viewModel.setScreenIsOnTrialMode(isOnTrialMode)
     }
 
     private fun initViewModel() {
@@ -258,6 +266,8 @@ class DashboardFragment :
     }
 
     override fun onDashboardActionEmit(actionId: String, isEnabled: Boolean) {
+        if (isOnTrialMode) return
+
         when (actionId) {
             Constant.DASHBOARD_ACTION_TRANSFER_FUNDS -> {
                 if (isEnabled) {
@@ -357,6 +367,12 @@ class DashboardFragment :
             Constant.DASHBOARD_ACTION_MORE -> {
                 openMoreDashboardActions()
             }
+            Constant.DASHBOARD_ACTION_DEFAULT_LOANS -> {
+                Timber.e("Default Loans Clicked")
+            }
+            Constant.DASHBOARD_ACTION_DEFAULT_EARNINGS -> {
+                Timber.e("Default Earnings Clicked")
+            }
         }
     }
 
@@ -376,6 +392,14 @@ class DashboardFragment :
     }
 
     override fun onContinueAccountSetup() {
+        navigator.navigate(
+            getAppCompatActivity(),
+            AccountSetupActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
         Timber.e("onContinueAccountSetup clicked")
     }
 

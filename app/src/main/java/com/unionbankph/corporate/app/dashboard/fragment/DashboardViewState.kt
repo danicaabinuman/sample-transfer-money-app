@@ -12,6 +12,9 @@ data class DashboardViewState(
     var accountButtonText: String? = null,
     var isScreenRefreshed: Boolean = true,
     var hasInitialFetchError: Boolean = true,
+    var isOnTrialMode: Boolean = true,
+    var hasLoans: Boolean = false,
+    var hasEarnings: Boolean = false,
     var errorMessage: String? = null,
 
     var actionList: MutableList<ActionItem> = mutableListOf(),
@@ -35,4 +38,14 @@ data class MoreBottomSheetState(
     var lastFilterSelected: Int? = 0,
     var filters: MutableList<GenericItem> = mutableListOf(),
     var actions: MutableList<GenericItem> = mutableListOf()
+)
+
+@Serializable
+data class FeatureCardItem(
+    var id: String? = null,
+    var featureTitle: String? = null,
+    var cardTitle: String? = null,
+    var cardContent: String? = null,
+    var cardFooter: String? = null,
+    var action: String? = null
 )

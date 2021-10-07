@@ -33,6 +33,7 @@ import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import com.unionbankph.corporate.settings.data.model.OTPSettingsDto
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.zipWith
 import io.reactivex.subjects.BehaviorSubject
 import timber.log.Timber
 import java.util.*
@@ -379,6 +380,41 @@ class OTPViewModel @Inject constructor(
             ).addTo(disposables)
     }
 
+    fun userCreationResendOTP(resendOTPForm: ResendOTPForm) {
+        authGateway.userCreationResendOTP(resendOTPForm)
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .doOnSubscribe { _otpState.value = ShowOTPResendLoading }
+            .doFinally { _otpState.value = ShowOTPDismissLoading }
+            .subscribe(
+                {
+                    if (otpType.value.notNullable() == TYPE_SMS) {
+                        isClickedResendOTP.onNext(true)
+                    }
+                    _otpState.value = ShowOTPSuccessResend(it)
+                }, {
+                    Timber.d(it, "userCreationResendOTP Failed")
+                    _otpState.value = ShowOTPError(it)
+                }
+            ).addTo(disposables)
+    }
+
+    fun attemptShowTOTPDialog() {
+        settingsGateway.hasTOTP()
+            .subscribeOn(schedulerProvider.newThread())
+            .observeOn(schedulerProvider.ui())
+            .doOnSubscribe { _otpState.value = ShowOTPLoading }
+            .doFinally { _otpState.value = ShowOTPDismissLoading }
+            .subscribe(
+                {
+                    _otpState.value = ShowTOTPBottomSheet(it)
+                }, {
+                    Timber.e(it, "attemptShowTOTPDialog Failed")
+                    _otpState.value = ShowOTPError(it)
+                })
+            .addTo(disposables)
+    }
+
     fun countDownTimer(period: Long, time: Long) {
         Observable.interval(period, TimeUnit.SECONDS)
             .subscribeOn(schedulerProvider.computation())
@@ -407,6 +443,11 @@ object ShowOTPResendLoading : OTPState()
 data class ShowOTPCompleteTimer(
     val isClickedResendOTP: Boolean
 ) : OTPState()
+
+data class ShowTOTPBottomSheet(
+    val isTOTPEnabled: Boolean
+) : OTPState()
+
 
 data class ShowOTPSuccessFundTransfer(
     val fundTransferVerify: FundTransferVerify

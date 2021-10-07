@@ -152,7 +152,7 @@ interface AuthApiClient {
         apiVersion: String,
         @Body
         validateContactInfoForm: ValidateContactInfoForm
-    ): Single<Response<ContactValidityResponse>>
+    ): Single<Response<Auth>>
 
     @PUT("msme/api/{api_version}/corporate-users/validate-otp")
     fun userCreationValidateOTP(
@@ -169,6 +169,14 @@ interface AuthApiClient {
         @Body
         form: com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
     ): Single<Response<UserCreationOTPVerified>>
+
+    @POST("msme/api/{api_version}/corporate-users/resend-otp")
+    fun userCreationResendOTP(
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        verifyOTPForm: ResendOTPForm
+    ): Single<Response<Auth>>
 
     @POST("api/{api_version}/config/policy")
     fun privacyPolicy(

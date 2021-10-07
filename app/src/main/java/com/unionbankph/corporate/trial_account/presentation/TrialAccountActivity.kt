@@ -3,6 +3,7 @@ package com.unionbankph.corporate.trial_account.presentation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
@@ -14,11 +15,13 @@ import com.unionbankph.corporate.databinding.ActivityTrialAccountSetupBinding
 class TrialAccountActivity :
     BaseActivity<ActivityTrialAccountSetupBinding, TrialAccountViewModel>()  {
 
+    private var onBackPressedEvent: OnBackPressedEvent? = null
+
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initToolbar(binding.toolbar, binding.appBarLayout)
         setToolbarTitle(binding.tvToolbar, formatString(R.string.title_cotinue_account_setup))
-        setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorDarkOrange, true)
+        setDrawableBackButton(R.drawable.ic_close_orange, R.color.colorDarkOrange, true)
 
     }
 
@@ -57,6 +60,19 @@ class TrialAccountActivity :
             true,
             Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
+    }
+
+    override fun onBackPressed() {
+        onBackPressedEvent?.onBackPressed()
+        navigateDashboardScreen()
+    }
+
+    interface OnBackPressedEvent {
+        fun onBackPressed() = Unit
+    }
+
+    fun setOnBackPressedEvent(onBackPressedEvent: OnBackPressedEvent) {
+        this.onBackPressedEvent = onBackPressedEvent
     }
 
     override val bindingInflater: (LayoutInflater) -> ActivityTrialAccountSetupBinding

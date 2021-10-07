@@ -74,9 +74,10 @@ interface AuthGateway {
     fun nominatePasswordResentOTP(nominatePasswordResendOTPForm: NominatePasswordResendOTPForm): Single<Auth>
     fun nominatePassword(nominatePasswordForm: NominatePasswordForm): Single<Auth>
 
-    fun userCreationValidateContact(validateContactInfoForm: ValidateContactInfoForm) : Single<ContactValidityResponse>
+    fun userCreationValidateContact(validateContactInfoForm: ValidateContactInfoForm) : Single<Auth>
     fun userCreationValidateOTP(verifyOTPForm: VerifyOTPForm) : Single<UserCreationOTPVerified>
     fun userCreationNominatePassword(form: UcNominatePasswordForm) : Single<UserCreationOTPVerified>
+    fun userCreationResendOTP(form: ResendOTPForm) : Single<Auth>
 
     fun nominateEmailMigration(
         temporaryCorporateUserId: String,

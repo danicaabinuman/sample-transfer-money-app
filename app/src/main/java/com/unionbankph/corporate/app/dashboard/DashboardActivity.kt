@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -71,6 +72,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     private val headerDashboard by lazyFast {
         resources.getStringArray(R.array.array_dashboard_header).toMutableList()
     }
+
+    var isOnTrialMode = false
 
     private lateinit var ahNotificationBuilder: AHNotification.Builder
 
@@ -237,6 +240,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 showLogoutBottomSheet()
             }.addTo(disposables)
         binding.viewToolbar.imageViewHelp.setOnClickListener {
+            if (isOnTrialMode) return@setOnClickListener
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
             when (binding.bottomNavigationBTR.currentItem) {
@@ -273,6 +277,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
+                if (isOnTrialMode) return@subscribe
                 navigateOrganizationScreen()
             }.addTo(disposables)
 
@@ -282,6 +287,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
+                if (isOnTrialMode) return@subscribe
                 binding.viewPagerBTR.setCurrentItem(5, true)
                 adapter?.notifyDataSetChanged()
                 binding.viewToolbar.viewNotificationBadge.root.visibility = View.GONE
@@ -456,14 +462,12 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             viewModel.setTokenFingerPrint(token)
         }
 
-
     }
 
     private fun initDashboardViews(role: Role) {
-        this.role = role
-//        if (!isSME) {
         removeElevation(binding.viewToolbar.appBarLayout)
-//        }
+
+        this.role = role
         role.let {
             binding.viewToolbar.textViewCorporationName.text = it.organizationName
             binding.viewToolbar.viewBadge.textViewInitial.text =
@@ -706,6 +710,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
+        if (isOnTrialMode) return false
+
         if (!wasSelected) {
             viewModel.getOrganizationNotification(role?.organizationId.notNullable())
             if ((isBackButtonFragmentSettings &&

@@ -23,6 +23,12 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"
+        android:required="false"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
+        android:required="false"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+        android:required="false"/>
 
     <uses-feature
         android:name="android.hardware.fingerprint"
@@ -657,6 +663,11 @@
 
         <activity
             android:name=".payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".account_setup.presentation.AccountSetupActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 

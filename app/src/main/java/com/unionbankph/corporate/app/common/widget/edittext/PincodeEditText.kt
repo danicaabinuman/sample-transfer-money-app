@@ -27,7 +27,8 @@ class PincodeEditText(
     private val etPin3: EditText,
     private val etPin4: EditText,
     private val etPin5: EditText,
-    private val etPin6: EditText
+    private val etPin6: EditText,
+    requestFocus: Boolean = true
 ) : View.OnKeyListener, View.OnTouchListener {
 
     private lateinit var onOTPCallback: OnOTPCallback
@@ -51,7 +52,8 @@ class PincodeEditText(
         etPin4.setOnClickListener(null)
         etPin5.setOnClickListener(null)
         etPin6.setOnClickListener(null)
-        editTextHidden.requestFocus()
+
+        if (requestFocus) editTextHidden.requestFocus()
     }
 
     private inner class PinCodeTextWatcher(private val view: View) : TextWatcher {

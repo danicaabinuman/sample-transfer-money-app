@@ -8,6 +8,7 @@ import com.unionbankph.corporate.settings.data.form.OTPTypeForm
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import com.unionbankph.corporate.settings.data.model.OTPTypeDto
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.zipWith
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -40,13 +41,15 @@ class GeneralSettingsViewModel @Inject constructor(
 
     fun getTokenFingerPrint() {
         settingsGateway.getFingerprintToken()
+            .zipWith(settingsGateway.hasTOTP())
             .subscribeOn(schedulerProvider.newThread())
             .observeOn(schedulerProvider.ui())
             .subscribe(
                 {
                     _generalSettingsState.value =
                         ShowGeneralSettingsGetToken(
-                            it
+                            it.first,
+                            it.second
                         )
                 }, {
                     Timber.d(it, "setFingerPrint Failed")
@@ -149,7 +152,7 @@ object ShowGeneralSettingsClearToken : GeneralSettingsState()
 
 data class ShowGeneralSettingsGetOTPType(val otpTypeDto: OTPTypeDto) : GeneralSettingsState()
 
-data class ShowGeneralSettingsGetToken(val token: String) : GeneralSettingsState()
+data class ShowGeneralSettingsGetToken(val token: String, val isTrustedDevice: Boolean) : GeneralSettingsState()
 
 data class ShowLoginHasTOTPAccess(val isTrustedDevice: Boolean) : GeneralSettingsState()
 
