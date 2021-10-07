@@ -13,6 +13,7 @@ import com.unionbankph.corporate.auth.data.model.Auth
 import com.unionbankph.corporate.auth.data.model.UserDetails
 import com.unionbankph.corporate.common.domain.exception.NoConnectivityException
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import com.unionbankph.corporate.settings.domain.constant.FeaturesEnum
 import io.reactivex.Completable
@@ -199,6 +200,41 @@ class LoginViewModel @Inject constructor(
                 })
             .addTo(disposables)
     }
+
+    fun onClickRegister() {
+        settingsGateway.setUdid()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .doOnSubscribe { _loginState.value = ShowLoginLoading }
+            .doFinally { _loginState.value = ShowLoginDismissLoading }
+            .subscribe(
+                {
+                    _loginState.value = ClickRegisterSuccess
+                }, {
+                    Timber.e(it, "onClickedNext failed")
+                    _loginState.value = ShowLoginError(it)
+                }
+            )
+            .addTo(disposables)
+    }
+
+    fun onClickInitialLogin() {
+        settingsGateway.setUdid()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .doOnSubscribe { _loginState.value = ShowLoginLoading }
+            .doFinally { _loginState.value = ShowLoginDismissLoading }
+            .subscribe(
+                {
+                    _loginState.value = ClickInitialLoginSuccess
+                }, {
+                    Timber.e(it, "onClickedNext failed")
+                    _loginState.value = ShowLoginError(it)
+                }
+            )
+            .addTo(disposables)
+    }
+
 }
 
 sealed class LoginState
@@ -214,6 +250,10 @@ object ShowLoginSkipOTPSuccess : LoginState()
 object ShowLoginNoPrivacyPolicy : LoginState()
 
 object ShowLoginHasNotificationToken : LoginState()
+
+object ClickRegisterSuccess : LoginState()
+
+object ClickInitialLoginSuccess : LoginState()
 
 data class ShowLoginSuccess(val auth: Auth) : LoginState()
 
