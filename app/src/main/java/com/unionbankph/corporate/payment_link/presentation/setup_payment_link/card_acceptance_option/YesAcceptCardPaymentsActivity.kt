@@ -5,18 +5,20 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.showDatePicker
+import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
@@ -51,61 +53,14 @@ class YesAcceptCardPaymentsActivity : BaseActivity<ActivityYesAcceptCardPayments
 
     }
 
-    override fun onInitializeListener() {
-        super.onInitializeListener()
-
-        initClickListener()
-    }
     override fun onViewsBound() {
         super.onViewsBound()
 
-//        showAffiliation1()
         buttonNextDisable()
-
-        addAffiliation()
-
-//        viewModel.dateOfIncorporationInput
-//            .subscribe {
-//                tie_date_of_incorporation.setText(
-//                    viewUtil.getDateFormatByCalendar(
-//                        it,
-//                        DateFormatEnum.DATE_FORMAT_DATE.value
-//                    )
-//                )
-//            }.addTo(disposables)
-
+        onAddingAffiliation()
     }
 
-//    private fun showAffiliation1(){
-//
-//        spAffiliation1.setOnClickListener {
-//            counter++
-//            val checker = counter % 2
-//            if (checker == 1){
-//                layoutAffiliation1.visibility = View.VISIBLE
-//                spAffiliation1.setBackgroundResource(R.drawable.bg_transparent_orange_border_radius_8dp)
-//            } else if (checker == 0){
-//                layoutAffiliation1.visibility = View.GONE
-//                spAffiliation1.setBackgroundResource(R.drawable.bg_rectangle_white)
-//            }
-//
-//        }
-//    }
-//
-//    private fun showAffiliations(){
-//        spAffiliation1.visibility = View.VISIBLE
-////        btnAffiliation2.visibility = View.VISIBLE
-//    }
-//
-//    private fun hideAffiliations(){
-//        spAffiliation1.visibility = View.INVISIBLE
-////        btnAffiliation2.visibility = View.INVISIBLE
-//    }
-
-    private fun initClickListener(){
-
-    }
-    private fun addAffiliation(){
+    private fun onAddingAffiliation(){
         var addAffiliationFields: View
         val container: LinearLayout = findViewById(R.id.llAddedAffiliations)
         binding.toggleAffiliation.text = "Affiliation $fieldCount"
@@ -118,69 +73,65 @@ class YesAcceptCardPaymentsActivity : BaseActivity<ActivityYesAcceptCardPayments
             affiliationCounter++
 
             binding.toggleAffiliation.text = "Affiliation $fieldCount"
-//            addAffiliationFields.btnAffiliation.text = "Affiliation $affiliationCounter"
-//
-//            val index = container.indexOfChild(addAffiliationFields)
-//
-//                btnAffiliation.setOnClickListener {
-//
-//                    var uniqueId = container.id
-//                    counter++
-//                    val checker = counter % 2
-//                    if (checker == 1){
-//                        addAffiliationFields.showAffiliationLayout.visibility = View.VISIBLE
-//                        addAffiliationFields.rlAffiliation.setBackgroundResource(R.drawable.bg_transparent_orange_border_radius_8dp)
-//                        addAffiliationFields.tie_date_of_issue.setOnClickListener {
-//                            showDatePicker(
-//                                minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
-//                                maxDate = Calendar.getInstance(),
-//                                callback = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-//                                    viewModel.dateOfIncorporationInput.onNext(
-//                                        Calendar.getInstance().apply {
-//                                            set(year, monthOfYear, dayOfMonth)
-//                                        }
-//                                    )
-//                                }
-//                            )
-//                        }
-//
-//                    } else if (checker == 0){
-//                        addAffiliationFields.showAffiliationLayout.visibility = View.GONE
-//                        addAffiliationFields.rlAffiliation.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//                    }
-//
-//            }
-//
-//            val affiliationCount = container.childCount
-//
-//            if (affiliationCount == 9){
-//                toggleAffiliation.visibility = View.GONE
-//            }
-//
+            val btnAffiliation = addAffiliationFields.findViewById<Button>(R.id.btnAffiliation)
+            btnAffiliation.text = "Affiliation $affiliationCounter"
 
+            val datePicker = addAffiliationFields.findViewById<TextInputEditText>(R.id.tie_date_of_issue)
+            datePicker.setOnClickListener {
+                showDatePicker(
+                    minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
+                    maxDate = Calendar.getInstance(),
+                    callback = { _, year, monthOfYear, dayOfMonth ->
+                        viewModel.dateOfIncorporationInput.onNext(
+                            Calendar.getInstance().apply {
+                                set(year, monthOfYear, dayOfMonth)
+                            }
+                        )
+                    }
+                )
+                viewModel.dateOfIncorporationInput
+                    .subscribe {
+                        datePicker.setText(
+                            viewUtil.getDateFormatByCalendar(
+                                it,
+                                DateFormatEnum.DATE_FORMAT_DATE.value
+                            )
+                        )
+                    }.addTo(disposables)
+
+            }
+
+            btnAffiliation.setOnClickListener {
+                    val affiliationLayout = addAffiliationFields.findViewById<View>(R.id.showAffiliationLayout)
+                    val rl = addAffiliationFields.findViewById<RelativeLayout>(R.id.rlAffiliation)
+
+                    counter++
+                    val checker = counter % 2
+                    if (checker == 1){
+                        affiliationLayout.visibility(true)
+                        rl.setBackgroundResource(R.drawable.bg_transparent_orange_border_radius_8dp)
+
+                    } else if (checker == 0){
+                        affiliationLayout.visibility(false)
+                        rl.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    }
+
+            }
+
+            val affiliationCount = container.childCount
+            if (affiliationCount == 9){
+                binding.toggleAffiliation.visibility(false)
+            }
+
+            val removeAffiliation = addAffiliationFields.findViewById<Button>(R.id.btnRemoveAffiliation)
+            removeAffiliation.setOnClickListener {
+                val index = container.indexOfChild(addAffiliationFields)
+                container.removeViewAt(index)
+                fieldCount--
+                binding.toggleAffiliation.text = "Affiliation $fieldCount"
+            }
         }
 
-    }
-
-    private fun onSelectedAffiliation(){
-//        val relativeLayout: RelativeLayout = findViewById(R.id.rlAffiliation)
-//        relativeLayout.viewTreeObserver.addOnPreDrawListener( object: ViewTreeObserver.OnPreDrawListener {
-//                override fun onPreDraw(): Boolean {
-//                    relativeLayout.viewTreeObserver.removeOnPreDrawListener(this)
-//                    relativeLayout.visibility = View.GONE
-//                    return true
-//                }
-//            }
-//        )
-//        btnAffiliation.setOnClickListener {
-//            if (affiliation.visibility == View.GONE){
-////                expand(relativeLayout)
-//                affiliation.visibility = View.VISIBLE
-//            } else {
-////                collapse(relativeLayout)
-//                affiliation.visibility = View.GONE
-//            }
-//        }
     }
 
     private fun expand(layout: RelativeLayout){
@@ -212,10 +163,10 @@ class YesAcceptCardPaymentsActivity : BaseActivity<ActivityYesAcceptCardPayments
                 R.id.cb_NoOtherAffiliation -> {
                     if (checked){
                         buttonNextEnable()
-//                        hideAffiliations()
+                        binding.toggleAffiliation.isEnabled = false
                     } else {
                         buttonNextDisable()
-//                        showAffiliations()
+                        binding.toggleAffiliation.isEnabled = true
                     }
                 }
             }
