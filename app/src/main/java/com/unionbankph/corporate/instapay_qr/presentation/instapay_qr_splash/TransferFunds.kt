@@ -10,7 +10,7 @@ import com.unionbankph.corporate.R
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class AllowPhoneCamera : Fragment() {
+class TransferFunds : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -28,7 +28,7 @@ class AllowPhoneCamera : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_instapay_allow_camera, container, false)
+        return inflater.inflate(R.layout.fragment_instapay_transfer_funds, container, false)
     }
 
     companion object {
