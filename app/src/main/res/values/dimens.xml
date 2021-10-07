@@ -32,6 +32,7 @@
     <dimen name="grid_21">168dp</dimen>
     <dimen name="grid_22">176dp</dimen>
     <dimen name="grid_23">184dp</dimen>
+    <dimen name="grid_23_190">190dp</dimen>
     <dimen name="grid_24">200dp</dimen>
     <dimen name="grid_25">208dp</dimen>
     <dimen name="grid_26">216dp</dimen>

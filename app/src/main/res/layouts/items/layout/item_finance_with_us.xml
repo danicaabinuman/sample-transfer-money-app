@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="item"
             type="com.unionbankph.corporate.loan.applyloan.FinanceWithUs" />
@@ -20,7 +22,9 @@
             style="@style/TextViewDarkForm"
             android:layout_marginTop="@dimen/grid_5_half"
             android:layout_width="@dimen/match_constraint"
-            android:layout_marginStart="@dimen/content_spacing"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine_parent"
             app:layout_constraintStart_toStartOf="parent"
             android:text="@{item.title}"
             tools:text="@string/others"
@@ -31,18 +35,25 @@
             style="@style/TextViewDarkForm"
             android:layout_marginTop="@dimen/grid_5_half"
             android:layout_width="0dp"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
             tools:text="@string/others"
             android:gravity="center"
+            android:layout_height="wrap_content"
+            android:text="@{item.ubmsmeTitle}"
+            android:visibility="@{item.ubmsmeTitle == null ? View.GONE: View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@+id/guideLine_parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_sub_parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/item_finance_ubmsme_iv_ubmsme"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:padding="@dimen/grid_5_half"
             tools:src="@drawable/ds_check_icon"
+            setDrawable="@{item.ubmsmeIcon}"
+            android:visibility="@{item.ubmsmeIcon == null ? View.GONE: View.VISIBLE}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/border_salutation"
             app:layout_constraintStart_toEndOf="@+id/guideLine_parent"
@@ -53,7 +64,12 @@
             style="@style/TextViewDarkForm"
             android:layout_marginTop="@dimen/grid_5_half"
             android:layout_width="0dp"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
             tools:text="@string/others"
+            android:layout_height="wrap_content"
+            android:text="@{item.othersTitle}"
+            android:visibility="@{item.othersTitle == null ? View.GONE: View.VISIBLE}"
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/guideline_sub_parent"
@@ -61,9 +77,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/item_finance_others_iv_others"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:padding="@dimen/grid_5_half"
+            setDrawable="@{item.othersIcon}"
+            android:visibility="@{item.othersIcon == null ? View.GONE: View.VISIBLE}"
             tools:src="@drawable/ds_check_icon"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/border_salutation"
@@ -83,7 +101,7 @@
             android:id="@+id/guideLine_parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.35"
+            app:layout_constraintGuide_percent="0.3"
             android:orientation="vertical"/>
 
         <androidx.constraintlayout.widget.Guideline

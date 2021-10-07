@@ -2,6 +2,12 @@ package com.unionbankph.corporate.app.di.module
 
 import com.unionbankph.corporate.account.presentation.account_list.AccountFragment
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
+import com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment
+import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsPrivacyPolicyViewPager
+import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceFragment
+import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceViewPager
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
@@ -24,6 +30,7 @@ import com.unionbankph.corporate.auth.presentation.migration.nominate_verify.Nom
 import com.unionbankph.corporate.auth.presentation.migration.nominate_welcome.NominateWelcomeFragment
 import com.unionbankph.corporate.auth.presentation.policy.PrivacyPolicyFragment
 import com.unionbankph.corporate.auth.presentation.policy.TermsAndConditionsFragment
+import com.unionbankph.corporate.auth.presentation.totp.TOTPBottomSheet
 import com.unionbankph.corporate.bills_payment.presentation.biller.biller_all.AllBillerFragment
 import com.unionbankph.corporate.bills_payment.presentation.biller.frequent_biller.FrequentBillerFragment
 import com.unionbankph.corporate.dao.presentation.business_registration_papers.DaoBusinessRegistrationPapersFragment
@@ -48,6 +55,7 @@ import com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterF
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
+import com.unionbankph.corporate.loan.applyloan.LoansFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
@@ -61,7 +69,6 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.pa
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsFragment
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
-import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsFragment
 import com.unionbankph.corporate.settings.presentation.notification.NotificationDetailFragment
@@ -421,9 +428,9 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun ucConfirmationMessageFragment(): UcConfirmationMessageFragment
 
-    @PerActivity
+    /*@PerActivity
     @ContributesAndroidInjector
-    abstract fun faceIDBottomSheet(): FaceIDBottomSheet
+    abstract fun faceIDBottomSheet(): FaceIDBottomSheet*/
 
     @PerActivity
     @ContributesAndroidInjector

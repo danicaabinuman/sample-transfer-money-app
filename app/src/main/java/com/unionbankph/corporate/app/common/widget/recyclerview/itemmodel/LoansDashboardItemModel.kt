@@ -21,9 +21,9 @@ abstract class LoansDashboardItemModel : EpoxyModelWithHolder<LoansDashboardItem
     }
 
     override fun bind(holder: Holder) {
-        holder.binding.loansBApplyLoans.setOnClickListener {
+        /*holder.binding.loansBApplyLoans.setOnClickListener {
             callbacks.onApplyLoans()
-        }
+        }*/
     }
 
     class Holder: EpoxyHolder() {

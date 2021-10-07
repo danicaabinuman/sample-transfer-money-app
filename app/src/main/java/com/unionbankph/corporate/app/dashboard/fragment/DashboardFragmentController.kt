@@ -30,6 +30,9 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.ItemDashboardActionGroupBinding
 import com.unionbankph.corporate.databinding.ItemDashboardActionsBinding
 import com.unionbankph.corporate.databinding.ItemDashboardHeaderBinding
+import com.unionbankph.corporate.databinding.ItemFeatureCardBinding
+import com.unionbankph.corporate.loan.applyloan.keyFeaturesItem
+import timber.log.Timber
 
 class DashboardFragmentController
 constructor(
@@ -372,7 +375,10 @@ abstract class FeatureCardModel : EpoxyModelWithHolder<FeatureCardModel.Holder>(
                 ConstantHelper.Drawable.getFeatureCardIcon(featureItem.action!!)
             )
             cardViewFeature.setOnClickListener {
-                callbacks.onDashboardActionEmit(featureItem.action!!, true)
+                //callbacks.onDashboardActionEmit(featureItem.action!!, true)
+            }
+            textViewCardFooter.setOnClickListener {
+                callbacks.onApplyLoans()
             }
         }
     }

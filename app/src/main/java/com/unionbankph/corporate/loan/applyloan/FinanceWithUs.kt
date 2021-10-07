@@ -43,17 +43,17 @@ data class FinanceWithUs (
                     id = 3,
                     title = context.getString(R.string.title_time_taken),
                     ubmsmeTitle = context.getString(R.string.title_mins),
-                    ubmsmeIcon = 0,
+                    ubmsmeIcon = null,
                     othersTitle = context.getString(R.string.title_days),
-                    othersIcon = 0
+                    othersIcon = null
                 ),
                 FinanceWithUs(
                     id = 4,
                     title = context.getString(R.string.title_time_taken),
                     ubmsmeTitle = context.getString(R.string.title_five_days),
-                    ubmsmeIcon = 0,
+                    ubmsmeIcon = null,
                     othersTitle = context.getString(R.string.title_thirty_days),
-                    othersIcon = 0
+                    othersIcon = null
                 )
             )
         }

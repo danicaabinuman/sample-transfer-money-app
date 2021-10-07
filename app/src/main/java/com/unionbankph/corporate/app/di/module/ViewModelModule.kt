@@ -89,6 +89,8 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
+import com.unionbankph.corporate.loan.LoanMainViewModel
+import com.unionbankph.corporate.loan.applyloan.LoansViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationViewModel

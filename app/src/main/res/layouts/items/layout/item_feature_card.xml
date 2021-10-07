@@ -61,25 +61,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideLine"/>
 
-            <TextView
+            <Button
                 android:id="@+id/textViewCardFooter"
                 style="@style/SMETertiaryButtonLarge"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:gravity="start"
                 android:layout_height="wrap_content"
                 android:minHeight="0dp"
-                android:enabled="false"
                 android:paddingBottom="@dimen/grid_1_half"
                 android:paddingTop="@dimen/grid_1_half"
                 android:textColor="@color/dsColorMediumOrange"
-                android:layout_marginStart="@dimen/grid_2"
                 android:layout_marginBottom="@dimen/grid_2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:text="@string/earnings_card_button"
                 android:layout_marginTop="@dimen/grid_3_half"
                 app:layout_constraintTop_toBottomOf="@id/textViewCardContent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideLine"/>
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageViewIcon"
@@ -130,8 +127,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

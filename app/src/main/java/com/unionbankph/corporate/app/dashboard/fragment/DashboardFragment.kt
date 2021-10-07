@@ -1,39 +1,33 @@
 package com.unionbankph.corporate.app.dashboard.fragment
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
-import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.presentation.account_detail.AccountDetailActivity
+import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.bus.event.AccountSyncEvent
-import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.TransactSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScrollListener
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
-import com.unionbankph.corporate.approval.presentation.approval_detail.ApprovalDetailActivity
 import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.branch.presentation.list.BranchVisitActivity
 import com.unionbankph.corporate.common.domain.exception.JsonParseException
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.constant.Constant
-import com.unionbankph.corporate.common.presentation.constant.TutorialScreenEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.FragmentDashboardBinding
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
-import com.unionbankph.corporate.loan.LoanActivity
 import com.unionbankph.corporate.loan.LoanActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
@@ -47,7 +41,6 @@ import com.unionbankph.corporate.transact.presentation.transact.TransactScreenEn
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, DashboardFragmentViewModel>(),
