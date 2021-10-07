@@ -403,8 +403,6 @@ class OTPViewModel @Inject constructor(
         settingsGateway.hasTOTP()
             .subscribeOn(schedulerProvider.newThread())
             .observeOn(schedulerProvider.ui())
-            .doOnSubscribe { _otpState.value = ShowOTPLoading }
-            .doFinally { _otpState.value = ShowOTPDismissLoading }
             .subscribe(
                 {
                     _otpState.value = ShowTOTPBottomSheet(it)
