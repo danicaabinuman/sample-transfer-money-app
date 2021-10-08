@@ -3,10 +3,7 @@ package com.unionbankph.corporate.app.dashboard.fragment
 import android.content.Context
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import com.airbnb.epoxy.*
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
@@ -20,6 +17,7 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoansD
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.EarningsDashboardItemModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.NoAccountItemModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.AccountItemErrorModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -27,10 +25,7 @@ import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCall
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import com.unionbankph.corporate.databinding.ItemDashboardActionGroupBinding
-import com.unionbankph.corporate.databinding.ItemDashboardActionsBinding
-import com.unionbankph.corporate.databinding.ItemDashboardHeaderBinding
-import com.unionbankph.corporate.databinding.ItemFeatureCardBinding
+import com.unionbankph.corporate.databinding.*
 
 class DashboardFragmentController
 constructor(
@@ -130,9 +125,9 @@ constructor(
             .callbacks(accountAdapterCallback)
             .addIf(isRefreshed && hasInitialFetchError, this)
 
-        actionGroup {
-            id("dashboard-action-group")
-            dashboardItemsString(JsonHelper.toJson(dashboardViewState.actionList))
+        megaMenuContainer {
+            id("mega-menu-carousel")
+            menuItemListString(JsonHelper.toJson(dashboardViewState.megaMenuList))
             callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
         }
 
@@ -263,72 +258,72 @@ abstract class DashboardHeaderModel: EpoxyModelWithHolder<DashboardHeaderModel.H
 }
 
 @EpoxyModelClass
-abstract class ActionGroupModel: EpoxyModelWithHolder<ActionGroupModel.Holder>() {
+abstract class MegaMenuContainer: EpoxyModelWithHolder<MegaMenuContainer.Holder>() {
 
     @EpoxyAttribute
-    lateinit var dashboardItemsString: String
+    lateinit var menuItemListString: String
 
     @EpoxyAttribute
     lateinit var callbacks: DashboardAdapterCallback
 
     override fun getDefaultLayout(): Int {
-        return R.layout.item_dashboard_action_group
+        return R.layout.item_mega_menu_container
     }
 
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        val dashboardActionList = JsonHelper.fromListJson<ActionItem>(dashboardItemsString)
-        val dashboardActionModelList : MutableList<ActionModel_> = mutableListOf()
+        val megaMenuList = JsonHelper.fromListJson<GenericMenuItem>(menuItemListString)
+        val megaMenuModels : MutableList<MegaMenuModel_> = mutableListOf()
 
-        dashboardActionList
-            .filter { actionItem -> actionItem.isVisible }
+        megaMenuList
+            .filter { item -> item.isVisible!! }
             .forEach {
-                dashboardActionModelList.add(
-                    ActionModel_()
+                megaMenuModels.add(
+                    MegaMenuModel_()
                         .id(it.id)
-                        .dashboardItemString(JsonHelper.toJson(it))
+                        .menuItemString(JsonHelper.toJson(it))
                         .callbacks(callbacks)
             )
         }
 
-        holder.binding.dashboardGroupContainer
-            .setModels(dashboardActionModelList)
+        holder.binding.menuMenuContainer
+            .setModels(megaMenuModels)
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var binding: ItemDashboardActionGroupBinding
+        lateinit var binding: ItemMegaMenuContainerBinding
 
         override fun bindView(itemView: View) {
-            binding = ItemDashboardActionGroupBinding.bind(itemView)
+            binding = ItemMegaMenuContainerBinding.bind(itemView)
         }
     }
 }
 
 @EpoxyModelClass
-abstract class ActionModel : EpoxyModelWithHolder<ActionModel.Holder>() {
+abstract class MegaMenuModel : EpoxyModelWithHolder<MegaMenuModel.Holder>() {
 
     @EpoxyAttribute
-    lateinit var dashboardItemString: String
+    lateinit var menuItemString: String
 
     @EpoxyAttribute
     lateinit var callbacks: DashboardAdapterCallback
 
     override fun getDefaultLayout(): Int {
-        return R.layout.item_dashboard_actions
+        return R.layout.item_mega_menu
     }
 
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        val dashboardItem = JsonHelper.fromJson<ActionItem>(dashboardItemString)
+        val dashboardItem = JsonHelper.fromJson<GenericMenuItem>(menuItemString)
 
         holder.binding.constraintLayoutRoot.setOnClickListener {
             callbacks.onDashboardActionEmit(
                 dashboardItem.id.toString(),
-                dashboardItem.isEnabled)
+                dashboardItem.isEnabled ?: false)
         }
-        holder.binding.textViewLabel.text = dashboardItem.label
+        holder.binding.textViewLabel.text = dashboardItem.title
         holder.binding.imageViewIcon.setImageResource(
             ConstantHelper.Drawable.getDashboardActionIcon(
                 dashboardItem.id!!
@@ -337,10 +332,10 @@ abstract class ActionModel : EpoxyModelWithHolder<ActionModel.Holder>() {
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var binding: ItemDashboardActionsBinding
+        lateinit var binding: ItemMegaMenuBinding
 
         override fun bindView(itemView: View) {
-            binding = ItemDashboardActionsBinding.bind(itemView)
+            binding = ItemMegaMenuBinding.bind(itemView)
         }
     }
 }

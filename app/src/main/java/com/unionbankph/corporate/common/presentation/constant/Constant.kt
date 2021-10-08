@@ -1,11 +1,14 @@
 package com.unionbankph.corporate.common.presentation.constant
 
+import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.settings.presentation.form.Selector
 
 class Constant {
 
     companion object {
+
+        const val PACKAGE_NAME = BuildConfig.APPLICATION_ID
 
         const val UNIONBANK_ONLY = "UNIONBANK_ONLY"
         const val OTHER_BANKS = "OTHER_BANKS"
@@ -65,6 +68,7 @@ class Constant {
         const val DASHBOARD_ACTION_MANAGE_EXPENSES = "manage_expenses"
         const val DASHBOARD_ACTION_E_BILLING = "e_billing"
         const val DASHBOARD_ACTION_MORE = "more"
+        const val DASHBOARD_ACTION_GENERATE_OTP = "generate_otp"
 
         const val DASHBOARD_ACTION_ADD_ACCOUNT = "add_account"
         const val DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS = "view_all_account"

@@ -8,6 +8,7 @@ import com.unionbankph.corporate.account.domain.form.GetAccountsBalances
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.platform.bus.data.DataBus
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
@@ -36,7 +37,6 @@ class DashboardFragmentViewModel
     private var getAccountsPaginated: Disposable? = null
 
     val pageable = Pageable()
-    private var initialDashboardActionList = mutableListOf<ActionItem>()
 
     init {
         _dashboardViewState.value = DashboardViewState(
@@ -47,7 +47,7 @@ class DashboardFragmentViewModel
             hasLoans = false,
             hasEarnings = true,
             hasInitialFetchError = false,
-            actionList = mutableListOf(),
+            megaMenuList = mutableListOf(),
             accounts = mutableListOf()
         )
     }
@@ -267,17 +267,15 @@ class DashboardFragmentViewModel
             ).addTo(disposables)
     }
 
-    fun setActionItems(dashboardActionItems: MutableList<ActionItem>) {
-        initialDashboardActionList = dashboardActionItems
-
+    fun setMenuItems(menuMenuItems: MutableList<GenericMenuItem>) {
         _dashboardViewState.value = _dashboardViewState.value?.also {
-            it.actionList = dashboardActionItems
+            it.megaMenuList = menuMenuItems
         }
     }
 
-    fun showDashboardActionItem(actionId: String, isEnabled: Boolean) {
+    fun showMenuItem(menuId: String, isEnabled: Boolean) {
         _dashboardViewState.value = _dashboardViewState.value?.also { it ->
-            it.actionList.find { it.id == actionId }.also {
+            it.megaMenuList.find { it.id == menuId }.also {
                 it?.isVisible = true
                 it?.isEnabled = isEnabled
             }

@@ -11,8 +11,8 @@
     android:background="@color/colorWhite"
     android:elevation="1dp">
 
-    <com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.DashboardActionCarousel
-        android:id="@+id/dashboardGroupContainer"
+    <com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.MegaMenuCarousel
+        android:id="@+id/menuMenuContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/grid_2"
