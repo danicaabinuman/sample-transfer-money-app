@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     style="@style/MatchParent">
 
@@ -16,18 +17,41 @@
             android:id="@+id/toolbar"
             style="@style/ToolbarTransparent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvToolbar"
-                 android:textSize="@dimen/text_18"
-                style="@style/TextViewThemeLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:textStyle="bold" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvToolbar"
+                    style="@style/SMESubtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/request_payment"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_action"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="3dp"
+        android:max="100"
+        android:progress="20"
+        android:progressDrawable="@drawable/progress_sme_orange"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/accountSetupNavHostFragment"
@@ -38,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintTop_toBottomOf="@id/progress_action"
         app:navGraph="@navigation/account_setup_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

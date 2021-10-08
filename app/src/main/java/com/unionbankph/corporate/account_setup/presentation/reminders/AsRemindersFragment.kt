@@ -21,6 +21,10 @@ class AsRemindersFragment
         super.afterLayout(savedInstanceState)
 
         accountSetupActivity.setIsScreenScrollable(false)
+        accountSetupActivity.setToolbarButtonType(AccountSetupActivity.BUTTON_CLOSE)
+        accountSetupActivity.showToolbarButton(true)
+        accountSetupActivity.showProgress(true)
+        accountSetupActivity.setProgressValue(3)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             accountSetupActivity.popBackStack()

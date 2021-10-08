@@ -34,14 +34,7 @@ class SplashStartedScreenActivity :
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Success -> {
-                    navigator.navigate(
-                        this,
-                        SplashFrameOnboardingActivity::class.java,
-                        null,
-                        isClear = true,
-                        isAnimated = true,
-                        transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
-                    )
+                    navigateOnboardingScreen()
                 }
                 is UiState.Loading -> {
                     showProgressAlertDialog(this::class.java.simpleName)
@@ -56,7 +49,8 @@ class SplashStartedScreenActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
         binding.btnLetsGo.setOnClickListener {
-            viewModel.onClickedLetsGo()
+            navigateOnboardingScreen()
+            //viewModel.onClickedLetsGo()
         }
         binding.tvNoThanks.setOnClickListener {
             onBackPressed()
@@ -71,6 +65,17 @@ class SplashStartedScreenActivity :
             binding.imageViewBackground.visibility = View.VISIBLE
             binding.imageViewLogoAnimate.root.visibility = View.GONE
         }
+    }
+
+    private fun navigateOnboardingScreen(){
+        navigator.navigate(
+            this,
+            SplashFrameOnboardingActivity::class.java,
+            null,
+            isClear = true,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     private fun initAnimationLogo() {

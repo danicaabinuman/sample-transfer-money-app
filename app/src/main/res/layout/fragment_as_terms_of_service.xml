@@ -1,57 +1,1174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorWhite"
-    style="@style/MatchParent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/MatchParent"
-        android:orientation="vertical"
-        android:padding="@dimen/grid_1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
-        <com.google.android.material.tabs.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabIndicatorColor="#FF8200"
-            app:tabIndicatorHeight="3dp"
-            app:tabSelectedTextColor="#FF8200"
-            android:id="@+id/tlTermsOfService"
-            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabTextColor="#BFBFBF"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </com.google.android.material.tabs.TabLayout>
-
-
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPagerTermsOfService"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/buttonNext"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tlTermsOfService"
-        android:layout_marginBottom="@dimen/content_spacing"/>
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:elevation="@dimen/grid_1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonNext"
-            style="@style/SMEPrimaryButtonLarge"
-            android:layout_marginStart="@dimen/grid_1"
-            android:layout_marginEnd="@dimen/grid_1"
-            android:layout_marginBottom="@dimen/grid_1"
-            android:enabled="false"
-            android:text="@string/agree_and_continue"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/SMEHeadlineH2"
+            android:id="@+id/title_tnc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fl_tnc"
+            android:elevation="@dimen/grid_3"
+            android:text="@string/title_account_opening_terms_and_condition"
+            android:paddingTop="@dimen/grid_1"
+            android:paddingStart="@dimen/grid_2"
+            android:paddingEnd="@dimen/grid_2"
+            android:paddingBottom="@dimen/grid_2"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <FrameLayout
+        android:id="@+id/fl_tnc"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/match_constraint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/constraint_layout"
+        >
+
+        <ScrollView
+            android:id="@+id/sv_terms"
+            style="@style/MatchParent"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewToolbar"
+            android:clipToPadding="false">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                style="@style/MatchParent"
+                android:orientation="vertical">
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_introduction"
+                    android:textAllCaps="true"
+                    android:layout_marginTop="@dimen/msme_content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/msg_terms_condition_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_provisions_deposit_account"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_opening_of_account"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_2"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_min_bal_req"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_3"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_accnt_holder_info"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_4"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_joint_accnt"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_5"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_a"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_6"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_b"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_7"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_c"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_8"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_d"
+                        android:layout_marginTop="@dimen/content_spacing"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_9"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_e"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_10"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_f"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_11"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_g"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_12"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_roman_i"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_14"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_13"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_roman_ii"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_14"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_14"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_15"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_dec_co_account"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_16"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_itf"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_17"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_passbook_and_ctd"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_18"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_atm_debit_card"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_19"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_services"
+                    android:textAllCaps="true"
+                    android:layout_marginTop="@dimen/msme_content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_20"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_statement_of_account"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_21"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_deposit_acceptance"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_22"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_withdrawals"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_23"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_deposit_renewal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_24"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_non_renewal"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_25"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_requisition_checkbooks"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_26"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_stop_payment_order"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_27"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_channel_for_services"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_28"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_atm_access"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_29"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_a"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_30"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_b"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_31"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_c"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_32"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_ub_online_digital_online"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_33"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_interest_fees_charges"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SMEBody"
+                android:text="@string/msg_terms_condition_34"
+                android:layout_marginTop="@dimen/grid_1"
+                android:layout_marginStart="@dimen/content_spacing"
+                android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_interest_computation"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_35"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_time_deposit_waived_fees"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_36"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_time_deposit"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_37"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_account_closing"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_closure_of_accounts"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_38"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_a"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_39"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_b"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_40"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_c"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_41"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_42"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_deceased_depositor"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_43"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_right_of_survivorship"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_44"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_period_of_inactivity"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_dormant_account"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_45"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_escheated_account"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_46"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_miscellaneous"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_47"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_deposit_insurance"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_48"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_amla_reporting"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_49"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_foreign_account_tax"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_50"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_discharge_bank_liabilities"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_51"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_a"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_52"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_b"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_53"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_54"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                style="@style/MatchWrapParent"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/numbering_a"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="50dp"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_55"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_b"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_56"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_c"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_57"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_d"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_58"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_e"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_59"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_f"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_60"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_g"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_61"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_h"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_62"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_63"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_liability_limits"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_64"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_liability_limits_for_deposits"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_65"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_bank_records"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_66"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_electronic_banking"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_67"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_a"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_68"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:orientation="horizontal">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/numbering_b"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="50dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEBody"
+                        android:text="@string/msg_terms_condition_69"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/content_spacing" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_70"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_agreement_to_bound"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_71"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/msg_article_1250"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_72"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMESubtitle1"
+                    android:text="@string/title_complaints_handling"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_73"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvHotline"
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_74"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_75"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:id="@+id/tvBulleted"
+                    android:text="@string/msg_terms_condition_76"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="@dimen/content_spacing"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEBody"
+                    android:text="@string/msg_terms_condition_77"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginStart="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/content_spacing"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </ScrollView>
+
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/shadow_bottom"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/border_shadow"
+        app:layout_constraintTop_toBottomOf="@+id/fl_tnc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_shadow"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/constraint_layout"
+        style="@style/MatchWrapParent"
+        android:paddingTop="@dimen/grid_0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
+        >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:enabled="false"
+            android:id="@+id/btn_proceed"
+            style="@style/SMEPrimaryButtonLarge"
+            android:text="@string/action_accepnt_and_continue"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginBottom="@dimen/grid_3"
+            android:layout_marginTop="@dimen/grid_2"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

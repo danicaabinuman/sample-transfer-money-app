@@ -32,7 +32,7 @@ class DashboardFragmentViewModel
 ) : BaseViewModel() {
 
     private val _dashboardViewState = MutableLiveData<DashboardViewState>()
-    val dashboardViewState : LiveData<DashboardViewState> get() = _dashboardViewState
+    val dashboardViewState: LiveData<DashboardViewState> get() = _dashboardViewState
 
     private var getAccountsPaginated: Disposable? = null
 
