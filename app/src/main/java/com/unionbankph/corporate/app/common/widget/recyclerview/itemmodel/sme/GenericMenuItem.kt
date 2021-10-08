@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class GenericItem(
+data class GenericMenuItem(
     var id: String? = null,
     var title: String? = null,
     var subtitle: String? = null,

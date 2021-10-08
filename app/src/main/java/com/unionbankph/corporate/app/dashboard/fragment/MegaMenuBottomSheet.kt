@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
 import com.unionbankph.corporate.app.common.extension.lazyFast
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.SMEChipCallback
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
@@ -49,7 +49,7 @@ class MegaMenuBottomSheet :
             requireActivity(),
             MORE_BOTTOM_SHEET_FILTER_ITEMS
         )
-        val filterItems = JsonHelper.fromListJson<GenericItem>(parseFilterListFromJson)
+        val filterItems = JsonHelper.fromListJson<GenericMenuItem>(parseFilterListFromJson)
         lastSelectedFilter = filterItems[0].id!!
 
         moreBottomSheetState.apply {
@@ -59,16 +59,16 @@ class MegaMenuBottomSheet :
 
     private fun initDefaultMenu() {
         moreBottomSheetState.apply {
-            this.menu = getMenuItems()
+            this.menus = getMenuItems()
         }
     }
 
-    private fun getMenuItems(): MutableList<GenericItem> {
-        val menuList = arguments?.getParcelableArrayList<GenericItem>(
+    private fun getMenuItems(): MutableList<GenericMenuItem> {
+        val menuList = arguments?.getParcelableArrayList<GenericMenuItem>(
             EXTRA_DEFAULT_MENU_LIST
         )?.toMutableList() ?: mutableListOf()
 
-        val newList = arrayListOf<GenericItem>()
+        val newList = arrayListOf<GenericMenuItem>()
         newList.removeAll { it.id == Constant.DASHBOARD_ACTION_MORE } // Remove [More] Item
 
         menuList.forEach {
@@ -81,7 +81,7 @@ class MegaMenuBottomSheet :
         return newList
     }
 
-    override fun onChipClicked(genericSelection: GenericItem, position: Int) {
+    override fun onChipClicked(genericMenuSelection: GenericMenuItem, position: Int) {
         moreBottomSheetState.apply {
             filters[lastFilterSelected!!].apply { isSelected = false }
             filters[position].apply { isSelected = true }
@@ -97,7 +97,7 @@ class MegaMenuBottomSheet :
         const val EXTRA_DEFAULT_MENU_LIST = "menu_list"
 
         fun newInstance(
-            defaultMenuList: ArrayList<GenericItem>
+            defaultMenuList: ArrayList<GenericMenuItem>
         ) = MegaMenuBottomSheet().apply {
             arguments = Bundle().apply {
                 putParcelableArrayList(EXTRA_DEFAULT_MENU_LIST, defaultMenuList)

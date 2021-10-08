@@ -1,7 +1,7 @@
 package com.unionbankph.corporate.app.dashboard.fragment
 
 import com.unionbankph.corporate.account.data.model.Account
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -15,15 +15,15 @@ data class DashboardViewState(
     var hasEarnings: Boolean = false,
     var errorMessage: String? = null,
 
-    var megaMenuList: MutableList<GenericItem> = mutableListOf(),
+    var megaMenuList: MutableList<GenericMenuItem> = mutableListOf(),
     var accounts: MutableList<Account> = mutableListOf()
 )
 
 @Serializable
 data class MegaMenuBottomSheetState(
     var lastFilterSelected: Int? = 0,
-    var filters: MutableList<GenericItem> = mutableListOf(),
-    var menu: MutableList<GenericItem> = mutableListOf()
+    var filters: MutableList<GenericMenuItem> = mutableListOf(),
+    var menus: MutableList<GenericMenuItem> = mutableListOf()
 )
 
 @Serializable

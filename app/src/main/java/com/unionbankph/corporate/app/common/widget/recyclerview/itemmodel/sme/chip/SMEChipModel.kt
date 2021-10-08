@@ -6,7 +6,7 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.ItemSmeChipBinding
 
@@ -29,7 +29,7 @@ abstract class SMEChipModel: EpoxyModelWithHolder<SMEChipModel.Holder>() {
 
     override fun bind(holder: Holder) {
 
-        val chipModel = JsonHelper.fromJson<GenericItem>(model)
+        val chipModel = JsonHelper.fromJson<GenericMenuItem>(model)
 
         holder.binding.apply {
             chip.text = chipModel.title?.uppercase()
@@ -52,5 +52,5 @@ abstract class SMEChipModel: EpoxyModelWithHolder<SMEChipModel.Holder>() {
 }
 
 interface SMEChipCallback {
-    fun onChipClicked(genericSelection: GenericItem, position: Int) = Unit
+    fun onChipClicked(genericMenuSelection: GenericMenuItem, position: Int) = Unit
 }

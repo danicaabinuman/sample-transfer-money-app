@@ -17,7 +17,7 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.LoansD
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.EarningsDashboardItemModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.NoAccountItemModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.AccountItemErrorModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -273,7 +273,7 @@ abstract class MegaMenuContainer: EpoxyModelWithHolder<MegaMenuContainer.Holder>
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        val megaMenuList = JsonHelper.fromListJson<GenericItem>(menuItemListString)
+        val megaMenuList = JsonHelper.fromListJson<GenericMenuItem>(menuItemListString)
         val megaMenuModels : MutableList<MegaMenuModel_> = mutableListOf()
 
         megaMenuList
@@ -316,7 +316,7 @@ abstract class MegaMenuModel : EpoxyModelWithHolder<MegaMenuModel.Holder>() {
     override fun bind(holder: Holder) {
         super.bind(holder)
 
-        val dashboardItem = JsonHelper.fromJson<GenericItem>(menuItemString)
+        val dashboardItem = JsonHelper.fromJson<GenericMenuItem>(menuItemString)
 
         holder.binding.constraintLayoutRoot.setOnClickListener {
             callbacks.onDashboardActionEmit(

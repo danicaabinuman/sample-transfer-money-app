@@ -17,7 +17,7 @@ import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScrollListener
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.branch.presentation.list.BranchVisitActivity
@@ -182,7 +182,7 @@ class DashboardFragment :
             getAppCompatActivity(),
             MEGA_MENU_ITEMS
         )
-        val megaMenuItems = JsonHelper.fromListJson<GenericItem>(parseMegaMenuItems)
+        val megaMenuItems = JsonHelper.fromListJson<GenericMenuItem>(parseMegaMenuItems)
         viewModel.setMenuItems(megaMenuItems)
     }
 
@@ -379,7 +379,7 @@ class DashboardFragment :
 
     private fun openMenuBottomSheet() {
         val moreBottomSheet = MegaMenuBottomSheet.newInstance(
-            viewModel.dashboardViewState.value?.megaMenuList as ArrayList<GenericItem>
+            viewModel.dashboardViewState.value?.megaMenuList as ArrayList<GenericMenuItem>
         )
         moreBottomSheet.show(childFragmentManager, "MoreBottomSheet")
     }

@@ -48,7 +48,7 @@ constructor(
             )
         }
 
-        data?.menu?.forEach {
+        data?.menus?.forEach {
             GenericItem1Model_()
                 .id(it.id)
                 .context(context)

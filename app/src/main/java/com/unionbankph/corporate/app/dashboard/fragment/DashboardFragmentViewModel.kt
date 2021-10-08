@@ -8,7 +8,7 @@ import com.unionbankph.corporate.account.domain.form.GetAccountsBalances
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.platform.bus.data.DataBus
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
@@ -267,9 +267,9 @@ class DashboardFragmentViewModel
             ).addTo(disposables)
     }
 
-    fun setMenuItems(menuItems: MutableList<GenericItem>) {
+    fun setMenuItems(menuMenuItems: MutableList<GenericMenuItem>) {
         _dashboardViewState.value = _dashboardViewState.value?.also {
-            it.megaMenuList = menuItems
+            it.megaMenuList = menuMenuItems
         }
     }
 
