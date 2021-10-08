@@ -6,30 +6,29 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
 import com.unionbankph.corporate.app.common.extension.lazyFast
-import com.unionbankph.corporate.app.common.extension.toGenericItem
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.GenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericItem
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.SMEChipCallback
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.BottomSheetDashboardMoreBinding
 
-class DashboardMoreBottomSheet :
+class MegaMenuBottomSheet :
     BaseBottomSheetDialog<BottomSheetDashboardMoreBinding, DashboardFragmentViewModel>(),
     SMEChipCallback {
 
-    private var moreBottomSheetState = MoreBottomSheetState()
+    private var moreBottomSheetState = MegaMenuBottomSheetState()
 
     private lateinit var lastSelectedFilter: String
 
     private val controller by lazyFast {
-        DashboardMoreController(requireContext(), viewUtil)
+        MegaMenuBottomSheetController(requireContext(), viewUtil)
     }
 
     override fun onViewsBound() {
         super.onViewsBound()
 
-        initDefaultActionFilter()
-        initDefaultActions()
+        initDefaultMenuFilter()
+        initDefaultMenu()
         initRecyclerView()
     }
 
@@ -45,8 +44,7 @@ class DashboardMoreBottomSheet :
         controller.setData(moreBottomSheetState)
     }
 
-    private fun initDefaultActionFilter() {
-
+    private fun initDefaultMenuFilter() {
         val parseFilterListFromJson = viewUtil.loadJSONFromAsset(
             requireActivity(),
             MORE_BOTTOM_SHEET_FILTER_ITEMS
@@ -59,28 +57,28 @@ class DashboardMoreBottomSheet :
         }
     }
 
-    private fun initDefaultActions() {
+    private fun initDefaultMenu() {
         moreBottomSheetState.apply {
-            this.actions = getActionItems()
+            this.menu = getMenuItems()
         }
     }
 
-    private fun getActionItems(): MutableList<GenericItem> {
-        val actionList = arguments?.getParcelableArrayList<ActionItem>(
-            EXTRA_ACTION_LIST
+    private fun getMenuItems(): MutableList<GenericItem> {
+        val menuList = arguments?.getParcelableArrayList<GenericItem>(
+            EXTRA_DEFAULT_MENU_LIST
         )?.toMutableList() ?: mutableListOf()
 
-        val genericItemList = mutableListOf<GenericItem>()
+        val newList = arrayListOf<GenericItem>()
+        newList.removeAll { it.id == Constant.DASHBOARD_ACTION_MORE } // Remove [More] Item
 
-        actionList.forEach { actionItem ->
-            genericItemList.add(
-                actionItem.toGenericItem()
-            )
+        menuList.forEach {
+            newList.add(it.copy().apply {
+                title = title?.replace("\r\n", " ")?.replace("\n", " ")
+                src = "ic_dashboard_$src"
+            })
         }
 
-        genericItemList.removeAll { it.id == Constant.DASHBOARD_ACTION_MORE } // Remove [More] Item
-
-        return genericItemList
+        return newList
     }
 
     override fun onChipClicked(genericSelection: GenericItem, position: Int) {
@@ -94,15 +92,15 @@ class DashboardMoreBottomSheet :
 
     companion object {
 
-        const val MORE_BOTTOM_SHEET_FILTER_ITEMS = "more_bottom_sheet_filter_items"
+        const val MORE_BOTTOM_SHEET_FILTER_ITEMS = "menu_bottom_sheet_filter"
 
-        const val EXTRA_ACTION_LIST = "action_list"
+        const val EXTRA_DEFAULT_MENU_LIST = "menu_list"
 
         fun newInstance(
-            actionList: ArrayList<ActionItem>
-        ) = DashboardMoreBottomSheet().apply {
+            defaultMenuList: ArrayList<GenericItem>
+        ) = MegaMenuBottomSheet().apply {
             arguments = Bundle().apply {
-                putParcelableArrayList(EXTRA_ACTION_LIST, actionList)
+                putParcelableArrayList(EXTRA_DEFAULT_MENU_LIST, defaultMenuList)
             }
         }
     }

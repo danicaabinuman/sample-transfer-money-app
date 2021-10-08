@@ -6,15 +6,15 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericItem
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.ItemSmeChipBinding
-import timber.log.Timber
 
 @EpoxyModelClass
 abstract class SMEChipModel: EpoxyModelWithHolder<SMEChipModel.Holder>() {
 
     @EpoxyAttribute
-    lateinit var model: GenericItem
+    lateinit var model: String
 
     @EpoxyAttribute
     lateinit var position: String
@@ -29,7 +29,7 @@ abstract class SMEChipModel: EpoxyModelWithHolder<SMEChipModel.Holder>() {
 
     override fun bind(holder: Holder) {
 
-        val chipModel = model
+        val chipModel = JsonHelper.fromJson<GenericItem>(model)
 
         holder.binding.apply {
             chip.text = chipModel.title?.uppercase()

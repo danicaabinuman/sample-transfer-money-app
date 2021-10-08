@@ -1,7 +1,10 @@
-package com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip
+package com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
 data class GenericItem(
     var id: String? = null,
@@ -10,5 +13,6 @@ data class GenericItem(
     var action: String? = null,
     var src: String? = null,
     var isSelected: Boolean? = null,
-    var isEnabled: Boolean? = null
-)
+    var isEnabled: Boolean? = null,
+    var isVisible: Boolean? = null
+) : Parcelable

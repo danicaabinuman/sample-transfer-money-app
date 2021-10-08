@@ -7,7 +7,7 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.GenericItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericItem
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.databinding.ItemGenericItem1Binding
 

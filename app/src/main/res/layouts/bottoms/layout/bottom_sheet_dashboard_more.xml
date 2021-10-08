@@ -15,7 +15,10 @@
         <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/recyclerViewMoreOptions"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/grid_2"
+            android:clipToPadding="true"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
