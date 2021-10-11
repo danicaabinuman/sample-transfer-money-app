@@ -2326,4 +2326,10 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="feature_unavailable_detail">Sorry, this feature is not available for your organization. Please Contact business@unionbankph.com for further assistance.</string>
     <string name="okay_upper_case">OKAY</string>
     <string name="add_another_address">+ Add another address</string>
+    <string name="pending">Pending</string>
+    <string name="pending_message">We\'re currently reviewing \nyour application.</string>
+    <string name="declined">Declined</string>
+    <string name="declined_message">Your application has been \ndeclined.</string>
+    <string name="approved">Approved</string>
+    <string name="approved_message">Congratulations! Your application \nhas been approved.</string>
 </resources>

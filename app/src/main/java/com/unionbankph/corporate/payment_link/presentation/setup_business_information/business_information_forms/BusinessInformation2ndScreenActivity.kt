@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.payment_link.presentation.setup_business_information
+package com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms
 
 import android.content.Context
 import android.content.Intent

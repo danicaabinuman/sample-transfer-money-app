@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -17,8 +16,7 @@ import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.databinding.ActivityRequestPaymentSplashFrameScreenBinding
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationActivity
 
 class RequestPaymentSplashActivity :
     BaseActivity<ActivityRequestPaymentSplashFrameScreenBinding, RequestPaymentSplashViewModel>() {

@@ -1,9 +1,8 @@
-package com.unionbankph.corporate.payment_link.presentation.setup_business_information
+package com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
-import com.unionbankph.corporate.app.dashboard.DashboardState
 import javax.inject.Inject
 
 class ReviewAndSubmitViewModel

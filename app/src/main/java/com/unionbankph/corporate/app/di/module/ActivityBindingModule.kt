@@ -100,7 +100,12 @@ import com.unionbankph.corporate.payment_link.presentation.create_merchant.Merch
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.*
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.application_status.ApplicationStatusActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformation2ndScreenActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.nature_of_business.NatureOfBusinessActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.submit_application.SubmitApplicationActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
@@ -624,4 +629,9 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun businessInformation2ndScreenActivity(): BusinessInformation2ndScreenActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun applicationStatusActivity(): ApplicationStatusActivity
+
 }

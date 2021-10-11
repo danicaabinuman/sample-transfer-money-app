@@ -111,10 +111,11 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.pa
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.NatureOfBusinessViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.ReviewAndSubmitViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.SubmitApplicationViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.application_status.ApplicationStatusViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.nature_of_business.NatureOfBusinessViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.submit_application.SubmitApplicationViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsViewModel
@@ -887,4 +888,12 @@ abstract class ViewModelModule {
     abstract fun merchantApplicationReceivedViewModel(
         viewModel: MerchantApplicationReceivedViewModel
     ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ApplicationStatusViewModel::class)
+    abstract fun applicationStatusViewModel(
+        viewModel: ApplicationStatusViewModel
+    ): ViewModel
+
 }

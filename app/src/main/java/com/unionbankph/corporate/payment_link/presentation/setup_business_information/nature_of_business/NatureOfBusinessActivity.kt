@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.payment_link.presentation.setup_business_information
+package com.unionbankph.corporate.payment_link.presentation.setup_business_information.nature_of_business
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,14 +7,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.databinding.ActivityNatureOfBusinessBinding
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationActivity
 
 class NatureOfBusinessActivity :
-    BaseActivity<ActivityNatureOfBusinessBinding,NatureOfBusinessViewModel>(){
+    BaseActivity<ActivityNatureOfBusinessBinding, NatureOfBusinessViewModel>(){
 
     var natureOfBusiness = arrayOf("Advertising Services", "Airline Tickets", "Apparel", "Automotive/Industrial", "Charities", "Clothing", "Consultancy")
     override fun afterLayout(savedInstanceState: Bundle?) {

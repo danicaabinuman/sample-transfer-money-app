@@ -3,14 +3,11 @@ package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.c
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.SeekBar
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.widget.RxSeekBar
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.SeekBarProgressChangeEvent
@@ -26,11 +23,10 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivityNotNowAcceptCardPaymentsBinding
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.ReviewAndSubmitActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
-import io.supercharge.shimmerlayout.ShimmerLayout
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 

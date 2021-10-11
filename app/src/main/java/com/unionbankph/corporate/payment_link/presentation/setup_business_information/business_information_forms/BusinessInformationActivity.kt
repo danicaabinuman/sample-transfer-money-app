@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.payment_link.presentation.setup_business_information
+package com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms
 
 import android.app.Activity
 import android.content.Context
@@ -26,7 +26,9 @@ import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInf
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.databinding.ActivityBusinessInformationBinding
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.NatureOfBusinessActivity.Companion.SELECTED_NATURE_OF_BUSINESS
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.nature_of_business.NatureOfBusinessActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.nature_of_business.NatureOfBusinessActivity.Companion.SELECTED_NATURE_OF_BUSINESS
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitActivity
 
 class BusinessInformationActivity :
     BaseActivity<ActivityBusinessInformationBinding, BusinessInformationViewModel>() {

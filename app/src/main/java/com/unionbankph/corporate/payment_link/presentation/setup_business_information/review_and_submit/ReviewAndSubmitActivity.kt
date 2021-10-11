@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.payment_link.presentation.setup_business_information
+package com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,9 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.databinding.ActivityReviewAndSubmitBinding
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationActivity
 
-class ReviewAndSubmitActivity:BaseActivity<ActivityReviewAndSubmitBinding,ReviewAndSubmitViewModel>() {
+class ReviewAndSubmitActivity:BaseActivity<ActivityReviewAndSubmitBinding, ReviewAndSubmitViewModel>() {
 
     var counter = 0
     override fun afterLayout(savedInstanceState: Bundle?) {
