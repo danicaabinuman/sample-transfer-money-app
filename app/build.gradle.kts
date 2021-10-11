@@ -235,6 +235,8 @@ dependencies {
     implementation(Libraries.compressor)
     implementation(Libraries.smartCropper)
     implementation(Libraries.stv)
+    implementation(Libraries.journeyappsZxing)
+    implementation(Libraries.budiyev)
     kapt(Libraries.epoxyProcessor)
 
     // Third party SDK
