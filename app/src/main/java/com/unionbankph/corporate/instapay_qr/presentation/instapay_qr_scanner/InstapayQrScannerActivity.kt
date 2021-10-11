@@ -1,25 +1,24 @@
 package com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_scanner
 
-import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.widget.Toast
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
-import com.google.zxing.integration.android.IntentIntegrator
-import com.otaliastudios.cameraview.CameraLogger
-import com.tbruyelle.rxpermissions2.RxPermissions
-import com.unionbankph.corporate.R
+import com.google.zxing.Result
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.subscribeOnIo
+import com.unionbankph.corporate.app.common.widget.qrgenerator.RxQrCode
 import com.unionbankph.corporate.databinding.ActivityInstapayQrScannerBinding
-import io.reactivex.rxkotlin.addTo
-import timber.log.Timber
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+
+
+
 
 
 class InstapayQrScannerActivity :
@@ -73,6 +72,20 @@ class InstapayQrScannerActivity :
                     Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun scanFromImage(){
+
+//        RxQrCode.scanFromPicture(realPath)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({ result: Result? -> }
+//            ) { e: Throwable? ->
+//                Toast.makeText(
+//                    context, "code not found",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
     }
 
     override fun onResume() {
