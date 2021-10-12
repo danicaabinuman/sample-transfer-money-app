@@ -3,7 +3,7 @@ package com.unionbankph.corporate.loan.applyloan
 import android.content.Context
 import com.unionbankph.corporate.R
 
-data class FinanceWithUs (
+data class FinanceWithUs(
     val id: Int,
     val title: String,
     val ubmsmeTitle: String? = null,
@@ -11,7 +11,6 @@ data class FinanceWithUs (
     val othersTitle: String? = null,
     val othersIcon: Int? = 0
 ) {
-
     companion object {
         fun generateFinanceWithUs(context: Context): List<FinanceWithUs> {
             return listOf(
@@ -19,25 +18,25 @@ data class FinanceWithUs (
                     id = 0,
                     title = context.getString(R.string.title_simple_and_online_application),
                     ubmsmeTitle = null,
-                    ubmsmeIcon = R.drawable.ds_check_icon,
+                    ubmsmeIcon = R.drawable.ic_orange_check,
                     othersTitle = null,
-                    othersIcon = R.drawable.ds_check_icon
+                    othersIcon = R.drawable.ic_black_close
                 ),
                 FinanceWithUs(
                     id = 1,
                     title = context.getString(R.string.title_no_hidden_fees),
                     ubmsmeTitle = null,
-                    ubmsmeIcon = R.drawable.ds_check_icon,
+                    ubmsmeIcon = R.drawable.ic_orange_check,
                     othersTitle = null,
-                    othersIcon = R.drawable.ds_check_icon
+                    othersIcon = R.drawable.ic_black_close
                 ),
                 FinanceWithUs(
                     id = 2,
                     title = context.getString(R.string.title_fast_processing),
                     ubmsmeTitle = null,
-                    ubmsmeIcon = R.drawable.ds_check_icon,
+                    ubmsmeIcon = R.drawable.ic_orange_check,
                     othersTitle = null,
-                    othersIcon = R.drawable.ds_check_icon
+                    othersIcon = R.drawable.ic_black_close
                 ),
                 FinanceWithUs(
                     id = 3,

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.applyloan.CommonQuestions" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_common_questions_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1_10"
+        android:background="@drawable/bg_gray_radius4_width1"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_common_questions_tv_title"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/grid_7"
+            android:gravity="start|center"
+            android:paddingStart="@dimen/grid_2"
+            android:paddingEnd="@dimen/grid_2"
+            android:text="@{item.title}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item_common_questions_iv_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/others" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_common_questions_iv_icon"
+            android:layout_width="@dimen/grid_5_half"
+            android:layout_height="@dimen/grid_5_half"
+            android:layout_margin="@dimen/grid_1_10"
+            android:padding="@dimen/grid_0_2"
+            android:rotation="@{item.expand ? 360 : 180}"
+            android:src="@drawable/ic_dropdown"
+            app:drawableTint="@color/colorLightGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:rotation="180" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

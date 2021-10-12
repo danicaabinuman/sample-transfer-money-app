@@ -26,8 +26,8 @@ abstract class FinanceWithUsItemModel : EpoxyModelWithHolder<FinanceWithUsItemMo
         super.bind(holder)
         holder.binding.apply {
             //itemKeyFeaturesClParent.setOnClickListener { callbacks.onKeyFeatures(dataFromContainer.title) }
-            holder.binding.item = dataFromContainer
-            holder.binding.executePendingBindings()
+            item = dataFromContainer
+            executePendingBindings()
         }
     }
 

@@ -15,28 +15,28 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/finance_tv_header"
-            android:layout_width="match_parent"
             style="@style/SMESubtitle2"
-            android:text="@string/title_finance_with_us"
+            android:layout_width="match_parent"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/title_finance_with_us"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_3_half"
             android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_3_half"
             android:layout_marginEnd="@dimen/grid_2"
             android:layout_marginBottom="@dimen/grid_2"
-            app:layout_constraintTop_toBottomOf="@id/finance_tv_header"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="@dimen/card_radius_half"
             app:cardElevation="@dimen/default_elevation"
-            app:cardCornerRadius="@dimen/card_radius_half">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/finance_tv_header">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -48,11 +48,12 @@
                     style="@style/SMETertiaryButtonLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:text="@string/header_ubmsme"
                     android:textColor="@color/dsColorDarkOrange"
+                    app:layout_constraintEnd_toStartOf="@+id/finance_tv_others"
                     app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toEndOf="@+id/guideLine"
-                    app:layout_constraintEnd_toStartOf="@+id/finance_tv_others"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -60,6 +61,7 @@
                     style="@style/SMETertiaryButtonLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:text="@string/others"
                     android:textColor="@color/dsColorDarkGray"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -68,36 +70,36 @@
 
                 <com.airbnb.epoxy.EpoxyRecyclerView
                     android:id="@+id/finance_erv_data"
-                    tools:listitem="@layout/item_finance_with_us"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/finance_tv_ubmsme"
-                    android:orientation="vertical"
                     app:spanCount="2"
-                    tools:itemCount="5" />
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_finance_with_us" />
 
                 <TextView
                     android:id="@+id/finance_tv_note"
                     style="@style/SMECaption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_1"
                     android:layout_marginStart="@dimen/grid_1_10"
+                    android:layout_marginTop="@dimen/grid_1"
                     android:layout_marginEnd="@dimen/grid_1_10"
                     android:text="@string/note_finance_with_us"
-                    app:layout_constraintTop_toBottomOf="@id/finance_erv_data"
                     android:textColor="@color/colorLightGray"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/finance_erv_data" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideLine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.3"/>
+                    app:layout_constraintGuide_percent="0.3" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

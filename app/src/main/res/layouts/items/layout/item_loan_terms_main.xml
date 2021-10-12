@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.applyloan.LoanTerms" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loan_terms_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/loan_terms_tv_header"
+            style="@style/SMESubtitle2"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/title_loan_terms"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_3_half"
+            android:padding="@dimen/grid_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loan_terms_tv_header">
+
+            <TextView
+                android:id="@+id/loan_terms_tv_title"
+                style="@style/TextViewDarkForm"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/grid_6"
+                android:background="@color/dsColorExtraLightGray"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="@string/title_loan_terms"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/loan_terms_tv_amount"
+                style="@style/TextViewDarkForm"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/grid_6"
+                android:layout_marginTop="@dimen/grid_1_half"
+                android:background="@color/colorDisableItem"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="@string/label_loan_amount_value"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/loan_terms_tv_title" />
+
+            <com.airbnb.epoxy.EpoxyRecyclerView
+                android:id="@+id/loan_terms_erv_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_3"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loan_terms_tv_amount"
+                app:spanCount="2"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_loan_terms" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

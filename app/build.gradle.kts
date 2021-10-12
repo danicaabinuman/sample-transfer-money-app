@@ -239,6 +239,7 @@ dependencies {
     implementation(Libraries.playServicesAuthPhone)
     kapt(Libraries.epoxyProcessor)
     implementation(Libraries.biometric)
+    implementation(Libraries.philJayChart)
 
     // Third party SDK
     implementation(Libraries.jumioCore)

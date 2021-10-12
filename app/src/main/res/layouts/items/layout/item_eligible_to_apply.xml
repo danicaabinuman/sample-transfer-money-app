@@ -1,144 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardViewSetupAccount"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_1">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewFeatureTitle"
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.applyloan.Eligible" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_eligible_cl_parent"
         android:layout_width="match_parent"
-        style="@style/SMESubtitle2"
-        android:text="@string/title_eligible_to_apply"
-        android:layout_marginStart="@dimen/grid_2"
-        android:layout_marginEnd="@dimen/grid_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_3_half"
-        android:layout_marginStart="@dimen/grid_2"
-        android:layout_marginEnd="@dimen/grid_2"
-        android:layout_marginBottom="@dimen/grid_2"
-        app:layout_constraintTop_toBottomOf="@id/textViewFeatureTitle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:cardElevation="@dimen/default_elevation"
-        app:cardCornerRadius="@dimen/card_radius_half">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextViewDarkForm"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/grid_2">
+            android:layout_height="@dimen/grid_7_half"
+            android:layout_marginStart="@dimen/grid_2"
+            android:drawableStart="@drawable/bg_bullet"
+            android:drawablePadding="@dimen/grid_1"
+            android:gravity="start|center"
+            android:text="@{item.title}"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/others" />
 
-            <TextView
-                android:id="@+id/textViewHeaderLabel"
-                style="@style/SMECaption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Financed Amount"
-                android:textColor="@color/dsColorMediumGray"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/textViewHeaderValue"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textViewHeaderValue"
-                android:layout_width="wrap_content"
-                style="@style/SMESubtitle2"
-                android:text="PHP 5M"
-                android:textSize="@dimen/text_12"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/textViewHeaderLabel"/>
-
-            <View
-                android:id="@+id/viewHeaderLine"
-                android:layout_width="0dp"
-                android:layout_height="4dp"
-                app:layout_constraintTop_toBottomOf="@id/textViewHeaderLabel"
-                android:background="@drawable/bg_line_dashed"
-                android:layerType="software"
-                android:layout_marginTop="@dimen/grid_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <TextView
-                android:id="@+id/textViewAmountTitle"
-                android:layout_width="wrap_content"
-                style="@style/SMECaption"
-                android:layout_marginTop="@dimen/grid_3_half"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewHeaderLine"
-                android:text="Due Payment" />
-
-            <TextView
-                android:id="@+id/textViewAmount"
-                android:layout_width="wrap_content"
-                style="@style/SMESubtitle2"
-                android:text="PHP 140,983.00"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewAmountTitle"/>
-
-            <TextView
-                android:id="@+id/textViewAmountDetails"
-                android:layout_width="wrap_content"
-                style="@style/SMECaption"
-                android:textColor="@color/dsColorMediumGray"
-                android:layout_marginTop="@dimen/grid_1_half"
-                android:text="Pay on or before July 29, 2021"
-                app:layout_constraintTop_toBottomOf="@id/textViewAmount"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewItemImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/grid_4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/viewHeaderLine"
-                app:layout_constraintBottom_toTopOf="@id/progressBarLoans"
-                app:srcCompat="@drawable/bg_dashboard_loans"/>
-
-            <ProgressBar
-                android:id="@+id/progressBarLoans"
-                android:layout_width="match_parent"
-                android:layout_height="6dp"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_marginTop="@dimen/grid_2"
-                android:progress="20"
-                android:progressDrawable="@drawable/bg_rounded_progressbar"
-                app:layout_constraintTop_toBottomOf="@id/textViewAmountDetails"/>
-
-            <TextView
-                android:id="@+id/textViewFooterLabel"
-                android:layout_width="wrap_content"
-                style="@style/SMECaption"
-                android:layout_marginTop="@dimen/grid_1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:text="30%"
-                android:textColor="@color/dsColorMediumOrange"
-                app:layout_constraintTop_toBottomOf="@id/progressBarLoans"/>
-
-            <TextView
-                android:id="@+id/loans_tv_date"
-                android:layout_width="wrap_content"
-                style="@style/SMECaption"
-                android:text="9/36"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/textViewFooterLabel"
-                app:layout_constraintBottom_toBottomOf="@id/textViewFooterLabel"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

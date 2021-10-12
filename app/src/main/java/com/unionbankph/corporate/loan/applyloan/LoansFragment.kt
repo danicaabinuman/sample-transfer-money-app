@@ -1,12 +1,19 @@
 package com.unionbankph.corporate.loan.applyloan
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.airbnb.epoxy.AutoModel
+import com.jakewharton.rxbinding2.view.RxView
+import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.extension.showToast
 import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScrollListener
 import com.unionbankph.corporate.databinding.FragmentLoansBinding
+import io.reactivex.rxkotlin.addTo
+import java.util.concurrent.TimeUnit
 
 class LoansFragment: BaseFragment<FragmentLoansBinding, LoansViewModel>(), LoansAdapterCallback {
 
@@ -22,11 +29,23 @@ class LoansFragment: BaseFragment<FragmentLoansBinding, LoansViewModel>(), Loans
 
     override fun onResume() {
         super.onResume()
-        if (hasInitialLoad) {
-            hasInitialLoad = false
             initViews()
-            initViewModel()
+            initObservers()
+    }
+
+    private fun initObservers() {
+        viewModel.apply {
+
+        loansViewState.observe(viewLifecycleOwner, Observer {
+            controller.setData(it, viewModel.pageable)
+        })
+
+        commonQuestions.observe(viewLifecycleOwner, {
+            }
+        )
+
         }
+        binding.lifecycleOwner = this
     }
 
     private fun initViews() {
@@ -50,16 +69,16 @@ class LoansFragment: BaseFragment<FragmentLoansBinding, LoansViewModel>(), Loans
             }
         )
         binding.loansErvApplyLoans.setController(controller)
-        controller.setLoansHeaderAdapterCallback(this)
-    }
 
-    private fun initViewModel() {
-
-        viewModel.loansViewState.observe(this, Observer {
-            controller.setData(it, viewModel.pageable)
-
-        })
-
+        controller.apply {
+            commonQuestionListener = {
+                showToast("test: $it")
+            }
+            applyLoansListener = {
+                findNavController().navigate(R.id.nav_to_loansCalculatorFragment)
+            }
+        setLoansHeaderAdapterCallback(this@LoansFragment)
+        }
     }
 
     private fun getLoans(
@@ -81,12 +100,20 @@ class LoansFragment: BaseFragment<FragmentLoansBinding, LoansViewModel>(), Loans
         showToast("Apply Now")
     }
 
+    override fun onSeeFullList() {
+        showToast("See Full list")
+    }
+
     override fun onReferenceCode() {
         showToast("Reference Code")
     }
 
     override fun onKeyFeatures(features: String?) {
         showToast("Key Features: $features")
+    }
+
+    override fun onCommonQuestions(item: CommonQuestions) {
+        showToast("Key Features: $item")
     }
 
 }

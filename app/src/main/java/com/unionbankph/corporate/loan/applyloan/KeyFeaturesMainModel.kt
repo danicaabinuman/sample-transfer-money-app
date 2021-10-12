@@ -10,7 +10,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.databinding.ItemKeyFeaturesMainBinding
 
 @EpoxyModelClass(layout = R.layout.item_key_features_main)
-abstract class KeyFeaturesMainModel : EpoxyModelWithHolder<KeyFeaturesMainModel.Holder>()  {
+abstract class KeyFeaturesMainModel : EpoxyModelWithHolder<KeyFeaturesMainModel.Holder>() {
 
     @EpoxyAttribute
     lateinit var context: Context
@@ -22,31 +22,22 @@ abstract class KeyFeaturesMainModel : EpoxyModelWithHolder<KeyFeaturesMainModel.
         holder.binding.apply {
 
             val keyFeaturesResult = KeyFeatures.generateKeyFeatures(context)
-            val keyFeaturesTest : MutableList<KeyFeaturesItemModel_> = mutableListOf()
-
-            /*keyFeaturesResult.forEach {
-                keyFeaturesTest.add(
-                    KeyFeaturesItemModel_()
-                    .id(it.id)
-                    .dataFromContainer(it)
-                    .callbacks(callbacks)
-                )
-            }*/
+            val keyFeaturesTest: MutableList<KeyFeaturesItemModel_> = mutableListOf()
 
             keyFeaturesResult.map {
                 keyFeaturesTest.add(
                     KeyFeaturesItemModel_()
-                    .id(it.id)
-                    .dataFromContainer(it)
-                    .callbacks(callbacks)
+                        .id(it.id)
+                        .dataFromContainer(it)
+                        .callbacks(callbacks)
                 )
             }
-            holder.binding.keyFeaturesErvMain.setModels(keyFeaturesTest)
+            keyFeaturesErvData.setModels(keyFeaturesTest)
         }
     }
 
-    class Holder: EpoxyHolder() {
-        lateinit var binding : ItemKeyFeaturesMainBinding
+    class Holder : EpoxyHolder() {
+        lateinit var binding: ItemKeyFeaturesMainBinding
         override fun bindView(itemView: View) {
             binding = ItemKeyFeaturesMainBinding.bind(itemView)
         }

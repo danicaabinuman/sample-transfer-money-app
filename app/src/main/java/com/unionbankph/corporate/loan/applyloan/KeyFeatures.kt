@@ -3,7 +3,7 @@ package com.unionbankph.corporate.loan.applyloan
 import android.content.Context
 import com.unionbankph.corporate.R
 
-data class KeyFeatures (
+data class KeyFeatures(
     val id: Int,
     val title: String,
     val icon: Int
@@ -11,7 +11,8 @@ data class KeyFeatures (
 
     companion object {
         fun generateKeyFeatures(context: Context): List<KeyFeatures> {
-                return listOf(KeyFeatures(
+            return listOf(
+                KeyFeatures(
                     id = 0,
                     title = context.getString(R.string.title_low_interest_rates),
                     icon = R.drawable.ic_low_interest_rates

@@ -56,6 +56,10 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
+    <style name="AppThemeLoans" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/colorAccentSME</item>
+    </style>
+
     <style name="CustomJumioAppTheme" parent="AppThemeSME">
         <item name="colorPrimary">@color/colorWhite</item>
         <item name="colorPrimaryDark">@color/colorDarkGray</item>

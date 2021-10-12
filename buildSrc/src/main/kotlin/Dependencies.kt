@@ -87,6 +87,7 @@ object Libraries {
         const val materialDialogLifeCycle = "3.2.1"
         const val epoxy = "4.6.2"
         const val epoxyViewBinding = "2.6.0"
+        const val philJayChart = "v3.1.0"
 
         //epoxy = "2.19.0"
         const val shimmer = "2.1.0"
@@ -198,6 +199,9 @@ object Libraries {
     const val playServicesAuth = "com.google.android.gms:play-services-auth:17.0.0"
     const val playServicesAuthPhone = "com.google.android.gms:play-services-auth-api-phone:17.4.0"
     const val biometric = "androidx.biometric:biometric:${Versions.biometric}"
+
+    // Third party library
+    const val philJayChart = "com.github.PhilJay:MPAndroidChart:${Versions.philJayChart}"
 
     // Jumio
     const val jumioCore = "com.jumio.android:core:${Versions.jumio}"

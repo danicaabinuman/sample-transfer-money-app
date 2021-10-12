@@ -56,6 +56,7 @@ import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selectio
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
 import com.unionbankph.corporate.loan.applyloan.LoansFragment
+import com.unionbankph.corporate.loan.calculator.LoansCalculatorFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
@@ -471,6 +472,10 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun loansFragment(): LoansFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun loansCalculatorFragment(): LoansCalculatorFragment
 
 
 }

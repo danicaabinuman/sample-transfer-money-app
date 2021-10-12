@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/eligible_cl_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/eligible_cl_header"
+                android:layout_width="match_parent"
+                style="@style/SMESubtitle2"
+                android:enabled="false"
+                android:text="@string/title_eligible_to_apply"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginEnd="@dimen/grid_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_3_half"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginEnd="@dimen/grid_2"
+                android:layout_marginBottom="@dimen/grid_2"
+                app:layout_constraintTop_toBottomOf="@id/eligible_cl_header"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:cardElevation="@dimen/default_elevation"
+                app:cardCornerRadius="@dimen/card_radius_half">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/grid_2">
+
+                    <TextView
+                        android:id="@+id/eligible_tv_title"
+                        style="@style/SMETertiaryButtonLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="false"
+                        android:text="@string/title_qualified_businesses"
+                        android:textColor="@color/dsColorDarkGray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.airbnb.epoxy.EpoxyRecyclerView
+                        android:id="@+id/eligible_erv_data"
+                        tools:listitem="@layout/item_eligible_to_apply"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/eligible_tv_title"
+                        android:orientation="vertical"
+                        app:spanCount="2"
+                        tools:itemCount="1" />
+
+                    <TextView
+                        android:id="@+id/eligible_cl_see_list"
+                        style="@style/SMETertiaryButtonLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="false"
+                        android:text="@string/label_see_full_list"
+                        android:textColor="@color/colorLightAccent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/eligible_erv_data"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

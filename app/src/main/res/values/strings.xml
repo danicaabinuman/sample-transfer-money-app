@@ -2582,9 +2582,8 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="action_reference_code">I have a reference code</string>
     <string name="title_key_features">Key Features</string>
     <string name="title_finance_with_us">Why Finance with Us?</string>
-    <string name="title_long_terms">Long Terms</string>
+    <string name="title_loan_terms">Loan Terms</string>
     <string name="title_eligible_to_apply">Who are Eligible to Apply?</string>
-    <string name="title_common_questions">Common Questions</string>
     <string name="title_low_interest_rates">Low Interest Rates</string>
     <string name="title_easy_application">Easy Application</string>
     <string name="title_fast_approval">Fast Approval</string>
@@ -2600,5 +2599,67 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_days">Days</string>
     <string name="title_five_days">5 Days *</string>
     <string name="title_thirty_days">30 Day</string>
+
+<!--    Loan Terms-->
+    <string name="title_loan_amount">Loan Amount</string>
+    <string name="title_term">Term</string>
+    <string name="title_effective_rate">Effective Rate</string>
+    <string name="label_three_months">3 Months</string>
+    <string name="label_six_months">6 Months</string>
+    <string name="label_nine_months">19 Months</string>
+    <string name="label_twelve_months">12 Months</string>
+    <string name="label_twenty_four_months">24 Months</string>
+    <string name="label_thirty_months">30 Months</string>
+    <string name="label_one_point_five">1.50%</string>
+    <string name="label_one_point_six">1.60%</string>
+    <string name="label_one_point_seven">1.70%</string>
+    <string name="label_one_point_eight">1.80%</string>
+    <string name="label_one_point_nine">1.90%</string>
+    <string name="label_two_point_zero">2.00%</string>
+    <string name="label_loan_amount_value">PHP 100,000 - PHP 5,000,000</string>
+
+<!--    Who are Eligible to Apply?-->
+    <string name="title_qualified_businesses">Qualified Businesses</string>
+    <string name="label_cafe_restaurant_bakeshop">Cafe, restaurant, bakeshop</string>
+    <string name="label_social_media">Social media administration &amp; management</string>
+    <string name="label_moving_and_hauling">Moving and hauling</string>
+    <string name="label_ecommerce">E-commerce</string>
+    <string name="label_travel_planner">Travel planner</string>
+    <string name="label_dry_cleaning">Dry cleaning</string>
+    <string name="label_see_full_list">See full list of qualified businesses</string>
+
+<!--    Common Questions-->
+    <string name="title_common_questions">Common Questions</string>
+    <string name="label_how_can_i_get_a_loan">How can I get a loan?</string>
+    <string name="label_what_are_the_requirements">What are the requirements</string>
+    <string name="label_how_much_can_i_borrow">How much can I borrow?</string>
+
+<!--    Banner -->
+    <string name="title_ready_to_expand">Ready to expand your business?</string>
+    <string name="label_financing_services">Financing services made for business owners.</string>
+
+<!--    Monthly Payment-->
+    <string name="title_how_much_do_you_need">How much money do you need?</string>
+    <string name="title_how_long_can_you_repay">How long can you repay? (Months)</string>
+    <string name="title_monthly_payment">Monthly Payment</string>
+    <string name="title_monthly_payment_breakdown">Monthly Payment Breakdown</string>
+    <string name="title_your_monthly_payment">Your Monthly Payment</string>
+    <string name="title_principal">Principal</string>
+    <string name="title_interest">Interest</string>
+    <string name="title_loan_info">Loan Info</string>
+    <string name="title_loan_tenure">Lon Tenure</string>
+    <string name="title_annual_interest_rate">Annual Interest Rate</string>
+    <string name="title_total_interest_payable">Total Interest Payable</string>
+    <string name="title_total_amount_payable">Total Amount Payable</string>
+    <string name="label_five_hundred_thousand">PHP 500,000</string>
+    <string name="label_three">3</string>
+    <string name="label_six">6</string>
+    <string name="label_twelve">12</string>
+    <string name="label_twenty_four">24</string>
+    <string name="label_thirty_six">36</string>
+    <string name="label_fifty_thousand">50K</string>
+    <string name="label_above_one_million">Above 1M</string>
+
+
 
 </resources>

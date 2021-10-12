@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,41 +11,41 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_key_features_cl_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/item_key_features_cl_parent"
         android:background="@drawable/bg_rectangle_rounded_white">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageViewIcon"
+            android:id="@+id/item_key_features_cl_background"
+            setDrawable="@{item.icon}"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:background="@drawable/bg_key_features"
-            setDrawable="@{item.icon}"
-            android:padding="@dimen/grid_1_10"
-            tools:src="@drawable/ic_low_interest_rates"
             android:layout_marginTop="@dimen/grid_1"
+            android:background="@drawable/bg_key_features"
+            android:padding="@dimen/grid_1_10"
+            app:layout_constraintBottom_toTopOf="@id/item_key_features_tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/textViewLabel" />
+            tools:src="@drawable/ic_low_interest_rates" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewLabel"
+            android:id="@+id/item_key_features_tv_title"
+            style="@style/SMECaption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/SMECaption"
-            android:gravity="center"
-            android:text="@{item.title}"
-            tools:text="@string/action_more"
             android:layout_marginTop="@dimen/grid_1"
             android:layout_marginBottom="@dimen/grid_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:text="@{item.title}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageViewIcon" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_key_features_cl_background"
+            tools:text="@string/action_more" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
