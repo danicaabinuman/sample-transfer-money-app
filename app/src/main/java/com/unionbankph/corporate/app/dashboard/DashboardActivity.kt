@@ -73,7 +73,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         resources.getStringArray(R.array.array_dashboard_header).toMutableList()
     }
 
-    var isOnTrialMode = true
+    var isOnTrialMode = false
 
     private lateinit var ahNotificationBuilder: AHNotification.Builder
 
