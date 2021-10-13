@@ -45,7 +45,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvYesIWantCardPayments2"
                 android:layout_marginTop="@dimen/grid_5"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:showDividers="middle"
+                android:divider="@drawable/empty_divider">
 
             </LinearLayout>
 
@@ -53,7 +55,6 @@
                 android:id="@+id/toggleAffiliation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/llAddedAffiliations"
                 android:layout_marginTop="@dimen/grid_1"
                 android:background="@drawable/bg_dashed"
                 android:drawableEnd="@drawable/ic_add_sign"

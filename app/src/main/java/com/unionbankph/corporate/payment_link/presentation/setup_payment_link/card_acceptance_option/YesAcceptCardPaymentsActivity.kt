@@ -28,7 +28,7 @@ import com.unionbankph.corporate.databinding.ActivityYesAcceptCardPaymentsBindin
 
 class YesAcceptCardPaymentsActivity : BaseActivity<ActivityYesAcceptCardPaymentsBinding,YesAcceptCardPaymentsViewModel>() {
 
-    var counter = 0
+    var counter = 1
     var affiliationCounter = 0
     var fieldCount = 1
 
@@ -58,6 +58,80 @@ class YesAcceptCardPaymentsActivity : BaseActivity<ActivityYesAcceptCardPayments
 
         buttonNextDisable()
         onAddingAffiliation()
+//        onAddingAffiliation2()
+    }
+
+    private fun onAddingAffiliation2() {
+        val container: LinearLayout = findViewById(R.id.llAddedAffiliations)
+        val count = container.childCount
+        binding.toggleAffiliation.text = "Affiliation 1"
+
+//        binding.toggleAffiliation.setOnClickListener {
+//
+//            when (fieldCount){
+//                1 -> {
+//                    binding.rlAffiliation.visibility(true)
+//                }
+//                2 -> {
+//                    binding.rlAffiliation2.visibility(true)
+//                }
+//                3 -> {
+//                    binding.rlAffiliation3.visibility(true)
+//                }
+//                4 -> {
+//                    binding.rlAffiliation4.visibility(true)
+//                }
+//                5 -> {
+//                    binding.rlAffiliation5.visibility(true)
+//                }
+//                6 -> {
+//                    binding.rlAffiliation6.visibility(true)
+//                }
+//                7 -> {
+//                    binding.rlAffiliation7.visibility(true)
+//                }
+//                8 -> {
+//                    binding.rlAffiliation8.visibility(true)
+//                }
+//                9 -> {
+//                    binding.rlAffiliation9.visibility(true)
+//                }
+//                10 -> {
+//                    binding.rlAffiliation10.visibility(true)
+//                    binding.toggleAffiliation.visibility(false)
+//                }
+//            }
+//
+//            fieldCount++
+//            binding.toggleAffiliation.text = "Affiliation $fieldCount"
+//
+//        }
+//
+//        binding.btnAffiliation.setOnClickListener {
+//            if (binding.showAffiliationLayout.affiliation.visibility == View.GONE){
+//                binding.showAffiliationLayout.affiliation.visibility(true)
+//            } else{
+//                binding.showAffiliationLayout.affiliation.visibility(false)
+//            }
+//        }
+//
+//        val index = container.indexOfChild(binding.rlAffiliation)
+//        binding.showAffiliationLayout.btnRemoveAffiliation.setOnClickListener {
+//            container.removeViewAt(index)
+//        }
+//
+//        val index2 = container.indexOfChild(binding.rlAffiliation2)
+//        binding.showAffiliationLayout2.btnRemoveAffiliation.setOnClickListener {
+//            container.removeViewAt(index2)
+//        }
+//        binding.btnAffiliation2.setOnClickListener {
+//            if (binding.showAffiliationLayout2.affiliation.visibility == View.GONE){
+//                binding.showAffiliationLayout2.affiliation.visibility(true)
+//            } else{
+//                binding.showAffiliationLayout2.affiliation.visibility(false)
+//            }
+//        }
+
     }
 
     private fun onAddingAffiliation(){
@@ -75,8 +149,10 @@ class YesAcceptCardPaymentsActivity : BaseActivity<ActivityYesAcceptCardPayments
             binding.toggleAffiliation.text = "Affiliation $fieldCount"
             val btnAffiliation = addAffiliationFields.findViewById<Button>(R.id.btnAffiliation)
             btnAffiliation.text = "Affiliation $affiliationCounter"
+            val index = container.indexOfChild(addAffiliationFields)
+            val child = container.getChildAt(index)
 
-            val datePicker = addAffiliationFields.findViewById<TextInputEditText>(R.id.tie_date_of_issue)
+            val datePicker = child.findViewById<TextInputEditText>(R.id.tie_date_of_issue)
             datePicker.setOnClickListener {
                 showDatePicker(
                     minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
@@ -101,25 +177,22 @@ class YesAcceptCardPaymentsActivity : BaseActivity<ActivityYesAcceptCardPayments
 
             }
 
-            btnAffiliation.setOnClickListener {
-                    val affiliationLayout = addAffiliationFields.findViewById<View>(R.id.showAffiliationLayout)
-                    val rl = addAffiliationFields.findViewById<RelativeLayout>(R.id.rlAffiliation)
+            val button = child.findViewById<Button>(R.id.btnAffiliation)
+            button.setOnClickListener {
+                    val affiliationLayout = child.findViewById<View>(R.id.showAffiliationLayout)
+                    val rl = child.findViewById<RelativeLayout>(R.id.rlAffiliations)
 
-                    counter++
-                    val checker = counter % 2
-                    if (checker == 1){
+                    if (affiliationLayout.visibility == View.GONE){
                         affiliationLayout.visibility(true)
-                        rl.setBackgroundResource(R.drawable.bg_transparent_orange_border_radius_8dp)
-
-                    } else if (checker == 0){
+                        rl.background = ContextCompat.getDrawable(this, R.drawable.bg_transparent_orange_border_radius_8dp)
+                    } else {
                         affiliationLayout.visibility(false)
                         rl.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                     }
 
             }
 
-            val affiliationCount = container.childCount
-            if (affiliationCount == 9){
+            if (affiliationCounter == 10){
                 binding.toggleAffiliation.visibility(false)
             }
 
