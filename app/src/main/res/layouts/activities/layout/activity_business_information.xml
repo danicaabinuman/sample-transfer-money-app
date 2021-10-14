@@ -17,18 +17,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/llBusinessInformationFields"
+    <TextView
+        android:id="@+id/tv_about_your_business_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@id/viewToolbar"
-        android:layout_above="@id/btn_next">
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:text="@string/we_want_to_know_more_about_your_business"
+        android:textColor="#4A4A4A"
+        android:textSize="@dimen/text_24"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/llBusinessInformationFields1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_next"
+        android:layout_below="@id/tv_about_your_business_title"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/grid_2"
             android:paddingBottom="@dimen/grid_2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,54 +51,57 @@
                 android:paddingBottom="@dimen/grid_2">
 
                 <TextView
-                    android:id="@+id/tv_about_your_business_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/we_want_to_know_more_about_your_business"
-                    android:textColor="#4A4A4A"
-                    android:textSize="24sp"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
                     android:id="@+id/tv_name_of_business_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/grid_3"
+                    android:layout_marginTop="@dimen/grid_2"
                     android:text="@string/nature_of_business"
                     android:textColor="#4A4A4A"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_about_your_business_title" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_status"
-                    style="@style/Spinner.DropDownOrange"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/search_nature_of_business"
                     android:layout_width="match_parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name_of_business_title">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:background="@drawable/bg_transparent_gray_border_8dp"
+                    android:hint="Search"
+                    android:padding="@dimen/grid_2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_name_of_business_title" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                <!--                <com.google.android.material.textfield.TextInputLayout-->
+                <!--                    android:id="@+id/til_status"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    app:boxStrokeColor="@color/colorHint"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/tv_name_of_business_title">-->
 
-                        <Spinner
-                            android:id="@+id/dropdownBusinessInformation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/a_spinner_outline"
-                            android:dropDownSelector="#000"
-                            android:spinnerMode="dropdown" />
 
-                        <ImageView
-                            android:layout_width="@dimen/grid_5"
-                            android:layout_height="0dp"
-                            android:layout_alignTop="@+id/dropdownBusinessInformation"
-                            android:layout_alignBottom="@+id/dropdownBusinessInformation"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="@dimen/grid_2"
-                            android:src="@drawable/ic_arrow_black_down" />
-                    </RelativeLayout>
+                <!--                                        <RelativeLayout-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content">-->
 
-                </com.google.android.material.textfield.TextInputLayout>
+                <!--                        <Spinner-->
+                <!--                            android:id="@+id/dropdownBusinessInformation"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:background="@drawable/a_spinner_outline"-->
+                <!--                            android:dropDownSelector="#000"-->
+                <!--                            android:spinnerMode="dropdown" />-->
+
+                <!--                        <ImageView-->
+                <!--                            android:layout_width="@dimen/grid_5"-->
+                <!--                            android:layout_height="0dp"-->
+                <!--                            android:layout_alignTop="@+id/dropdownBusinessInformation"-->
+                <!--                            android:layout_alignBottom="@+id/dropdownBusinessInformation"-->
+                <!--                            android:layout_alignParentEnd="true"-->
+                <!--                            android:layout_marginEnd="@dimen/grid_2"-->
+                <!--                            android:src="@drawable/ic_arrow_black_down" />-->
+                <!--                    </RelativeLayout>-->
+
+                <!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_others_pls_specify"
@@ -95,7 +110,7 @@
                     android:layout_marginTop="@dimen/grid_1"
                     android:visibility="gone"
                     app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/til_status">
+                    app:layout_constraintTop_toBottomOf="@id/search_nature_of_business">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etOthersPleaseSpecify"
@@ -143,7 +158,7 @@
                     android:id="@+id/tv_business_years"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="@dimen/grid_2"
                     android:text="@string/how_long_have_you_been_in_nbusiness"
                     android:textColor="#4A4A4A"
                     android:textSize="16sp"
@@ -152,7 +167,7 @@
                     app:layout_constraintTop_toBottomOf="@id/divider1" />
 
                 <TextView
-                    android:id="@+id/tv_years_in_business"
+                    android:id="@+id/tv_indicate_less_than_a_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_1_half"
@@ -162,15 +177,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_business_years" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/btn_years_decrement_active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:background="@color/colorTransparent"
                     android:src="@drawable/ic_baseline_remove_circle_outline_24"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
-                    app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
+                    app:layout_constraintEnd_toStartOf="@id/et_years_counter"
                     app:layout_constraintTop_toTopOf="@id/tv_business_years" />
 
                 <ImageView
@@ -181,11 +197,11 @@
                     android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
-                    app:layout_constraintEnd_toStartOf="@id/tv_years_counter"
+                    app:layout_constraintEnd_toStartOf="@id/et_years_counter"
                     app:layout_constraintTop_toTopOf="@id/tv_business_years" />
 
-                <TextView
-                    android:id="@+id/tv_years_counter"
+                <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
+                    android:id="@+id/et_years_counter"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -194,14 +210,15 @@
                     android:textSize="16sp"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
-                    app:layout_constraintEnd_toStartOf="@id/btn_increment"
+                    app:layout_constraintEnd_toStartOf="@id/btn_years_increment"
                     app:layout_constraintTop_toTopOf="@id/tv_business_years" />
 
-                <ImageView
-                    android:id="@+id/btn_increment"
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_years_increment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:background="@color/colorTransparent"
                     android:src="@drawable/ic_baseline_add_circle_outline_24"
                     app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -211,463 +228,82 @@
                     android:id="@+id/divider2"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="@dimen/grid_2"
                     android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/tv_years_in_business" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_indicate_less_than_a_year" />
 
                 <TextView
-                    android:id="@+id/tv_where_do_you_sell"
+                    android:id="@+id/tv_employee_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/where_do_you_sell"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:text="@string/how_many_employees"
                     android:textColor="#4A4A4A"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-                <TextView
-                    android:id="@+id/tv_where_do_you_sell_details"
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_employee_decrement_active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/select_all_that_apply"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_where_do_you_sell" />
-
-                <LinearLayout
-                    android:id="@+id/ll_where_do_you_sell_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_where_do_you_sell_details">
-
-                    <TextView
-                        android:id="@+id/btn_lazada"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/lazada" />
-
-                    <TextView
-                        android:id="@+id/btn_shopee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/shopee" />
-
-                    <TextView
-                        android:id="@+id/btn_website"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/website" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_where_do_you_sell_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_1">
-
-                    <TextView
-                        android:id="@+id/btn_physical_store"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/physical_store" />
-
-                    <TextView
-                        android:id="@+id/btn_facebook"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/facebook" />
-
-                    <TextView
-                        android:id="@+id/btn_instagram"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/instagram" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_where_do_you_sell_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_2">
-
-                    <TextView
-                        android:id="@+id/btn_others"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_where_do_you_sell_inactive"
-                        android:paddingStart="12dp"
-                        android:paddingTop="6dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="6dp"
-                        android:text="@string/others" />
-
-                </LinearLayout>
-
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/colorTransparent"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
+                    app:layout_constraintEnd_toStartOf="@id/et_years_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
 
                 <ImageView
-                    android:id="@+id/divider_dashed"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginTop="25dp"
-                    android:src="@drawable/view_dashed"
-                    app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name"
+                    android:id="@+id/btn_employee_decrement_inactive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
+                    app:layout_constraintEnd_toStartOf="@id/et_years_counter"
+                    app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
 
-                <TextView
-                    android:id="@+id/tv_input_store_name_shopee"
+                <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
+                    android:id="@+id/et_employee_counter"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="@string/default_number_1"
+                    android:textSize="16sp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
+                    app:layout_constraintEnd_toStartOf="@id/btn_years_increment"
+                    app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_employee_increment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name_website"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name_physical_store"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name_facebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name_instagram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_input_store_name_others"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/input_store_name_link"
-                    android:textColor="#9B9B9B"
-                    android:textSize="14sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/divider_dashed" />
-
-                <TextView
-                    android:id="@+id/tv_lazada_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/lazada"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_input_store_name" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_lazada"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_lazada_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_lazada"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_lazada_com_ph_shop_shopname" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_shopee_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/shopee"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_lazada" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_shopee"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_shopee_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_shopee"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_shopee_ph_shopname" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_website_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/website"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_shopee" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_website"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_website_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_website"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_www_storename_com" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_physical_store"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/physical_store"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_website" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_physical_store"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_physical_store">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_physical_store"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_address" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_facebook_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/facebook"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_physical_store" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_facebook"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_facebook_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_facebook"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_facebook_com_shopname" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_instagram_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/instagram"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_facebook" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_instagram"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_instagram_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_instagram"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/hint_instagram_com_shopname" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tv_others_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/others"
-                    android:textColor="#4A4A4A"
-                    android:textSize="12sp"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/til_instagram" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_others"
-                    style="@style/TextInputLayoutForm"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
-                    android:layout_marginBottom="15dp"
-                    android:visibility="gone"
-                    app:hintEnabled="false"
-                    app:layout_constraintTop_toBottomOf="@id/tv_others_title">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_others"
-                        style="@style/TextInputEditTextFormCounter"
-                        android:hint="@string/additional_online_stores" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginStart="15dp"
+                    android:background="@color/colorTransparent"
+                    android:src="@drawable/ic_baseline_add_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
 
                 <ImageView
                     android:id="@+id/divider3"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="@dimen/grid_2"
                     android:src="@drawable/view_gray_solid_line"
-                    app:layout_constraintTop_toBottomOf="@id/til_others" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_employee_number" />
 
                 <TextView
                     android:id="@+id/tv_number_of_branch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="@dimen/grid_2"
                     android:text="@string/how_many_branches_do_you_nhave"
                     android:textColor="#4A4A4A"
                     android:textSize="16sp"
@@ -675,15 +311,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider3" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/btn_decrement_branch_number_active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:background="@color/colorTransparent"
                     android:src="@drawable/ic_baseline_remove_circle_outline_24"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
-                    app:layout_constraintEnd_toStartOf="@id/tv_branch_counter"
+                    app:layout_constraintEnd_toStartOf="@id/et_branch_counter"
                     app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
 
                 <ImageView
@@ -693,11 +330,11 @@
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
                     app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
-                    app:layout_constraintEnd_toStartOf="@id/tv_branch_counter"
+                    app:layout_constraintEnd_toStartOf="@id/et_branch_counter"
                     app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
 
-                <TextView
-                    android:id="@+id/tv_branch_counter"
+                <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
+                    android:id="@+id/et_branch_counter"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -708,11 +345,12 @@
                     app:layout_constraintEnd_toStartOf="@id/btn_increment_branch_number"
                     app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/btn_increment_branch_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:background="@color/colorTransparent"
                     android:src="@drawable/ic_baseline_add_circle_outline_24"
                     app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -731,6 +369,31 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/popupPreviewDocsFromCamera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true">
+        <include
+            android:id="@+id/includePreviewDocs"
+            layout="@layout/layout_preview_docs"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/popupPreviewDocsFromGallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:visibility="gone"
+        android:focusable="true">
+        <include
+            android:id="@+id/includePreviewGallery"
+            layout="@layout/layout_gallery_preview"/>
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"

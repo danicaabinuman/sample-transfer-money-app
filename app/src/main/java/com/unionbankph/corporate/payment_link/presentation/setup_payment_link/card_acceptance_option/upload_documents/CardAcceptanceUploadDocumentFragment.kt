@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.base.BaseBottomSheetDialog
+import com.unionbankph.corporate.common.presentation.viewmodel.NegPosBottomSheetViewModel
+import com.unionbankph.corporate.databinding.BottomSheetUploadBirBinding
 
-class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
+class CardAcceptanceUploadDocumentFragment : BaseBottomSheetDialog<BottomSheetUploadBirBinding, NegPosBottomSheetViewModel>() {
 
-    private var listener: OnUploadBIRDocs? = null
+    private var listener: OnUploadDocs? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,20 +25,31 @@ class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-//        btnAddDocument.setOnClickListener {
-//            listener?.openFileManager()
-//        }
+        binding.btnTakeBIRPhoto.setOnClickListener {
+            dismiss()
+            listener?.openCamera()
+        }
+
+        binding.btnAddBIRPhoto.setOnClickListener {
+            listener?.openGallery()
+        }
+
+        binding.btnAddDocument.setOnClickListener {
+            listener?.openFileManager()
+        }
 
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnUploadBIRDocs){
+        if (context is OnUploadDocs){
             listener = context
         }
     }
 
-    interface OnUploadBIRDocs{
+    interface OnUploadDocs{
+        fun openCamera()
+        fun openGallery()
         fun openFileManager()
     }
 
@@ -51,5 +64,12 @@ class CardAcceptanceUploadDocumentFragment : BottomSheetDialogFragment() {
                 }
             }
     }
+
+    override val bindingBinder: (View) -> BottomSheetUploadBirBinding
+        get() = BottomSheetUploadBirBinding::bind
+    override val layoutId: Int
+        get() = R.layout.bottom_sheet_upload_bir
+    override val viewModelClassType: Class<NegPosBottomSheetViewModel>
+        get() = NegPosBottomSheetViewModel::class.java
 
 }

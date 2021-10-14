@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.payment_link.presentation.setup_business_information
+package com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,14 +6,19 @@ import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.extension.getDisposableSingleObserver
 import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
-import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
-import com.unionbankph.corporate.payment_link.domain.model.response.RMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.usecase.GetRMOBusinessInformationUseCase
 import com.unionbankph.corporate.payment_link.domain.usecase.SubmitRMOBusinessInformationUseCase
+import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
 
 class BusinessInformationViewModel @Inject constructor(
-    private val submitRmoBusinessInformationUseCase: SubmitRMOBusinessInformationUseCase
+    private val submitRmoBusinessInformationUseCase: SubmitRMOBusinessInformationUseCase,
+    private val getRMOBusinessInformationUseCase: GetRMOBusinessInformationUseCase
 ) : BaseViewModel() {
 
     private val _rmoBusinessInformationState = MutableLiveData<RMOBusinessInformationState>()
@@ -25,6 +30,11 @@ class BusinessInformationViewModel @Inject constructor(
     val rmoBusinessInformationResponse: LiveData<RMOBusinessInformationResponse>
         get() =
             _rmoBusinessInformationResponse
+
+    private val _getRMOBusinessInformationResponse = MutableLiveData<GetRMOBusinessInformationResponse>()
+    val getRMOBusinessInformationResponse: LiveData<GetRMOBusinessInformationResponse>
+        get() =
+            _getRMOBusinessInformationResponse
 
     fun submitBusinessInformation(form : RMOBusinessInformationForm){
         submitRmoBusinessInformationUseCase.execute(
@@ -45,9 +55,30 @@ class BusinessInformationViewModel @Inject constructor(
                 }
             ),
             params = form
-        )
+        ).addTo(disposables)
 
     }
+
+    fun getBusinessInformation(getRMOBusinessInformationResponse : GetRMOBusinessInformationForm){
+        getRMOBusinessInformationUseCase.execute(
+            getDisposableSingleObserver(
+                {
+                    _getRMOBusinessInformationResponse.value = it
+                },{
+                    _uiState.value = Event(UiState.Error(it))
+                }
+            ),
+            doOnSubscribeEvent = {
+                _uiState.value = Event(UiState.Loading)
+            },
+            doFinallyEvent = {
+                _uiState.value = Event(UiState.Complete)
+            },
+            params = getRMOBusinessInformationResponse
+        ).addTo(disposables)
+
+    }
+
 }
 
 sealed class RMOBusinessInformationState

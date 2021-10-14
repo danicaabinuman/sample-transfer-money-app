@@ -104,16 +104,23 @@ import com.unionbankph.corporate.payment_link.presentation.billing_details.Billi
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedViewModel
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashViewModel
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.application_status.ApplicationStatusViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.nature_of_business.NatureOfBusinessViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.submit_application.SubmitApplicationViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.YesAcceptCardPaymentsViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsViewModel
@@ -814,6 +821,13 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(CardAcceptanceUploadDocumentsViewModel::class)
+    abstract fun cardAcceptanceUploadDocumentsViewModel(
+        viewModel: CardAcceptanceUploadDocumentsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(OnboardingUploadPhotosViewModel::class)
     abstract fun onboardingUploadPhotosViewModel(
         viewModel: OnboardingUploadPhotosViewModel
@@ -826,6 +840,47 @@ abstract class ViewModelModule {
         viewModel: OnboardingCameraViewModel
     ): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(DocumentCameraViewModel::class)
+    abstract fun documentCameraViewModel(
+        viewModel: DocumentCameraViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NatureOfBusinessViewModel::class)
+    abstract fun natureOfBusinessViewModel(
+        viewModel: NatureOfBusinessViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ReviewAndSubmitViewModel::class)
+    abstract fun reviewAndSubmitViewModel(
+        viewModel: ReviewAndSubmitViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(YesAcceptCardPaymentsViewModel::class)
+    abstract fun yesAcceptCardPaymentsViewModel(
+        viewModel: YesAcceptCardPaymentsViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SubmitApplicationViewModel::class)
+    abstract fun submitApplicationViewModel(
+        viewModel: SubmitApplicationViewModel
+    ): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MerchantApplicationRejectedViewModel::class)
+    abstract fun merchantApplicationRejectedViewModel(
+        viewModel: MerchantApplicationRejectedViewModel
+    ): ViewModel
 
     @Binds
     @IntoMap
@@ -836,8 +891,9 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MerchantApplicationRejectedViewModel::class)
-    abstract fun merchantApplicationRejectedViewModel(
-        viewModel: MerchantApplicationRejectedViewModel
+    @ViewModelKey(ApplicationStatusViewModel::class)
+    abstract fun applicationStatusViewModel(
+        viewModel: ApplicationStatusViewModel
     ): ViewModel
+
 }

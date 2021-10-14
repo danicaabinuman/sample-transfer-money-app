@@ -55,6 +55,7 @@ import com.unionbankph.corporate.notification.presentation.notification_log.noti
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingDeletePhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
@@ -377,5 +378,8 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun onboardingUploadPhotosFragment(): OnboardingUploadPhotosFragment
 
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun cardAcceptanceUploadDocumentFragment(): CardAcceptanceUploadDocumentFragment
 
 }

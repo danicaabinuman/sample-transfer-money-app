@@ -4,8 +4,8 @@ import com.unionbankph.corporate.common.domain.executor.PostExecutionThread
 import com.unionbankph.corporate.common.domain.executor.ThreadExecutor
 import com.unionbankph.corporate.common.domain.interactor.SingleUseCase
 import com.unionbankph.corporate.payment_link.data.gateway.PaymentLinkGateway
-import com.unionbankph.corporate.payment_link.domain.model.form.RMOBusinessInformationForm
-import com.unionbankph.corporate.payment_link.domain.model.response.RMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationResponse
 import io.reactivex.Single
 import javax.inject.Inject
 

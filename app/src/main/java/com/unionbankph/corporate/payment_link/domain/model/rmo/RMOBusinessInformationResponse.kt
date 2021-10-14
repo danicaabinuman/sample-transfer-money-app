@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.payment_link.domain.model.response
+package com.unionbankph.corporate.payment_link.domain.model.rmo
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

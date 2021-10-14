@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/jumio_white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_rmo_appbar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewToolbar"
+        android:layout_alignParentBottom="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/grid_2">
+
+            <TextView
+                android:id="@+id/tv_review_and_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_review_clipboard"
+                android:gravity="center"
+                android:text="Review &amp; Submit"
+                android:textSize="@dimen/text_20"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReviewBusinessInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_3"
+                android:background="@color/jumio_white"
+                android:drawableStart="@drawable/ic_check_green"
+                android:drawableEnd="@drawable/ic_arrow_down_black_24dp"
+                android:gravity="start|center"
+                android:paddingStart="@dimen/grid_2"
+                android:paddingEnd="@dimen/grid_1"
+                android:text="  Business Information"
+                android:textAllCaps="false"
+                app:layout_constraintTop_toBottomOf="@id/tv_review_and_submit" />
+
+            <include
+                android:id="@+id/layout_details_business_info"
+                layout="@layout/item_review_business_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/btnReviewBusinessInfo" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReviewOtherBusinessInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:background="@color/jumio_white"
+                android:drawableStart="@drawable/ic_check_green"
+                android:drawableEnd="@drawable/ic_arrow_down_black_24dp"
+                android:gravity="start|center"
+                android:paddingStart="@dimen/grid_2"
+                android:paddingEnd="@dimen/grid_1"
+                android:text="  Other Business Information"
+                android:textAllCaps="false"
+                app:layout_constraintTop_toBottomOf="@id/layout_details_business_info" />
+
+            <include
+                android:id="@+id/layout_details_other_business_info"
+                layout="@layout/item_review_other_business_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/btnReviewOtherBusinessInfo" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReviewProductsOrServices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:background="@color/jumio_white"
+                android:drawableStart="@drawable/ic_check_green"
+                android:drawableEnd="@drawable/ic_arrow_down_black_24dp"
+                android:gravity="start|center"
+                android:paddingStart="@dimen/grid_2"
+                android:paddingEnd="@dimen/grid_1"
+                android:text="  Products or Services"
+                android:textAllCaps="false"
+                app:layout_constraintTop_toBottomOf="@id/layout_details_other_business_info" />
+
+            <include
+                android:id="@+id/layout_details_products_or_services"
+                layout="@layout/item_review_product_or_services"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/btnReviewProductsOrServices" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReviewCardAcceptance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:background="@color/jumio_white"
+                android:drawableStart="@drawable/ic_check_green"
+                android:drawableEnd="@drawable/ic_arrow_down_black_24dp"
+                android:gravity="start|center"
+                android:paddingStart="@dimen/grid_2"
+                android:paddingEnd="@dimen/grid_1"
+                android:text="  Card Acceptance"
+                android:textAllCaps="false"
+                app:layout_constraintTop_toBottomOf="@id/layout_details_products_or_services" />
+
+            <include
+                android:id="@+id/layout_details_card_acceptance"
+                layout="@layout/item_review_card_acceptance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/btnReviewCardAcceptance" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReviewTransactionInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:background="@color/jumio_white"
+                android:drawableStart="@drawable/ic_check_green"
+                android:drawableEnd="@drawable/ic_arrow_down_black_24dp"
+                android:gravity="start|center"
+                android:paddingStart="@dimen/grid_2"
+                android:paddingEnd="@dimen/grid_1"
+                android:text="  Transaction Information"
+                android:textAllCaps="false"
+                app:layout_constraintTop_toBottomOf="@id/layout_details_card_acceptance" />
+
+            <include
+                android:id="@+id/layout_details_transaction_info"
+                layout="@layout/item_review_transaction_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/btnReviewTransactionInformation" />
+
+            <CheckBox
+                android:id="@+id/cb_review_fnc_tnc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_3"
+                android:text="I have read the Fees and Charges"
+                app:layout_constraintTop_toBottomOf="@id/layout_details_transaction_info" />
+
+            <CheckBox
+                android:id="@+id/cb_review_send_copy_tnc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Send a copy of Terms and Conditions to my registered email address"
+                app:layout_constraintTop_toBottomOf="@id/cb_review_fnc_tnc" />
+
+            <CheckBox
+                android:id="@+id/cb_review_promos_updates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Receive promos, updates, and upcoming events."
+                app:layout_constraintTop_toBottomOf="@id/cb_review_send_copy_tnc" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_9"
+                android:background="@drawable/bg_gradient_orange_radius4"
+                android:text="Submit"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintTop_toBottomOf="@id/cb_review_promos_updates" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_physical_store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/physical_store"
+        android:textColor="#4A4A4A"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_main_branch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/main_branch"
+        android:textColor="#9B9B9B"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_physical_store" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_physical_store"
+        style="@style/TextInputLayoutForm"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/grid_1_half"
+        android:layout_marginBottom="15dp"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@id/tv_main_branch">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_physical_store"
+            style="@style/TextInputEditTextFormCounter"
+            android:hint="@string/hint_address"
+            android:paddingBottom="@dimen/grid_4"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/branchContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_physical_store">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btnAddBranchAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:text="@string/add_another_address"
+        android:textColor="@color/colorSMEMediumOrange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/branchContainer"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

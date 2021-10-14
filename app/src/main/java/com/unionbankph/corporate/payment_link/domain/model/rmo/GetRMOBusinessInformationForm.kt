@@ -1,4 +1,4 @@
-package com.unionbankph.corporate.payment_link.domain.model.form
+package com.unionbankph.corporate.payment_link.domain.model.rmo
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class RMOBusinessInformationForm(
+data class GetRMOBusinessInformationForm(
     @SerialName("businessType")
     var businessType: String,
     @SerialName("product")

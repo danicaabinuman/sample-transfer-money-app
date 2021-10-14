@@ -599,7 +599,15 @@
         <activity
             android:name=".payment_link.presentation.setup_business_information.BusinessInformationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
+            android:launchMode="standard" >
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+
+        </activity>
 
 
         <activity
@@ -621,7 +629,15 @@
         <activity
             android:name="com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.YesAcceptCardPaymentsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
+            android:launchMode="standard" >
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+
+        </activity>
 
         <activity
             android:name="com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity"
@@ -631,7 +647,9 @@
         <activity
             android:name=".payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
+            android:launchMode="standard" >
+
+        </activity>
 
         <activity
             android:name=".payment_link.presentation.onboarding.camera.OnboardingCameraActivity"
@@ -643,9 +661,33 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
+        <activity
+            android:name=".payment_link.presentation.onboarding.camera.DocumentCameraActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".payment_link.presentation.onboarding.camera.DocumentImagePreviewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".payment_link.presentation.setup_business_information.NatureOfBusinessActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".payment_link.presentation.setup_business_information.ReviewAndSubmitActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
 
         <activity
             android:name=".payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".payment_link.presentation.setup_business_information.BusinessInformation2ndScreenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
