@@ -16,21 +16,6 @@
             android:layout_width="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewBack"
-                style="@style/ImageViewToolbarIcon"
-                android:layout_height="@dimen/image_view_icon_large_size"
-                android:layout_width="@dimen/image_view_icon_large_size"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="@dimen/content_spacing"
-                android:background="?selectableItemBackgroundBorderless"
-                android:padding="9dp"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_close_approval" />
-
-            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageViewBackground"
                 android:layout_width="@dimen/match_constraint"
                 android:layout_height="@dimen/image_view_on_boarding_height"
