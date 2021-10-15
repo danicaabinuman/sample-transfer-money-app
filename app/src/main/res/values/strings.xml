@@ -2772,4 +2772,13 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="msg_terms_condition_77">Account holder acknowledges that he/she has read, understood and fully agree with the Bank’s Privacy Policy as found in www.unionbankph.com/online/privacypolicy and receipt of which he/she confirms by his/her/their signature/s below.
     \n\nBy my/our signature/s herein, I/we acknowledge that I/we have read, understood, and fully agree with the 15-page UNIONBANK TERMS AND CONDITIONS with which I/we was/were duly provided, receipt of which I/We confirm by my/our signatures below</string>
     \n\nUnion Bank of the Philippines is supervised by the Bangko Sentral ng Pilipinas with telephone number (02) 7087087 and e-mail address: consumeraffairs@bsp.gov.ph.
+    <string name="title_open_bank_account">Let’s open your first UnionBank account</string>
+    <string name="title_get_yours_now">GET YOURS NOW</string>
+    <string name="msg_debit_card">The first &amp; only debit and\ncredit cards from Lazada!</string>
+    <string name="title_debit_cards">Debit Cards</string>
+    <string name="title_getgo_debit">GetGo Debit</string>
+    <string name="msg_debit_type">Get the first and only debit card that earns points when you swipe so you can #FlyForFreeFaster. </string>
+    <string name="title_play_everyday">PlayEveryday</string>
+    <string name="drawable_getgo">bg_getgo_card</string>
+    <string name="drawable_play_everyday">bg_play_everyday</string>
 </resources>

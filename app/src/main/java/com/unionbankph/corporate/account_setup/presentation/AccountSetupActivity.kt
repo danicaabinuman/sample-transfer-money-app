@@ -65,6 +65,10 @@ class AccountSetupActivity :
         navHostFragment.navController.graph = graph
     }
 
+    fun setDebitCardType(debitCardType: Int) {
+        viewModel.setDebitCardType(debitCardType)
+    }
+
     fun setBusinessType(businessType: Int) {
         viewModel.setBusinessType(businessType)
     }
@@ -87,6 +91,10 @@ class AccountSetupActivity :
 
     fun setCurrentScreen(currentScreen: Int) {
         this.currentScreen = currentScreen
+    }
+
+    fun getExistingDebitCardType() : Int? {
+        return viewModel.state.value?.debitCardType
     }
 
     fun setProgressValue(step: Int) {
