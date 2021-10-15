@@ -769,6 +769,9 @@
     <string name="title_loans">Loans</string>
     <string name="title_earnings">Earnings</string>
     <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
+    <string name="title_line_1">Line 1</string>
+    <string name="title_line_2">Line 2</string>
+    <string name="title_region">Region</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -981,6 +984,7 @@
     <string name="desc_business_owner">Are you the owner of this business?</string>
     <string name="desc_us_citizenship">I certify that I am not a US Citizen.</string>
     <string name="desc_permanent_address">Permanent address is the same as Present address</string>
+    <string name="desc_same_as_present_address">Same as Present address</string>
     <string name="desc_other_occupation">Yes, I have other occupation.</string>
     <string name="desc_online_banking_products">Your account comes with these services for free. Please select which ones you would like to avail</string>
     <string name="desc_dao_electronic_fund_transfer">Send funds to other UnionBank accounts or to other banks locally or Internationally. Please note there will be a fee for every transaction.</string>
@@ -1596,6 +1600,7 @@
     <string name="hint_government_id_number">Government ID Number</string>
     <string name="hint_business_tin">Business TIN</string>
     <string name="hint_personal_tin">Personal TIN</string>
+    <string name="hint_tin_no">TIN No.</string>
     <string name="hint_business_sss">Business SSS</string>
     <string name="hint_city">City</string>
     <string name="hint_unit_house_no">Unit / House No.</string>
@@ -1642,6 +1647,7 @@
     <string name="hint_others">Others</string>
     <string name="hint_occupation">Occupation</string>
     <string name="hint_status">Select a Status</string>
+    <string name="hint_select_gender">Select Gender</string>
 
     <string name="value_service_fee_free">Free</string>
     <string name="value_service_fee_pesonet">+ PHP 25.00</string>
@@ -2512,6 +2518,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_continue_dashboard">CONTINUE TO DASHBOARD</string>
     <string name="header_user_creation_confirmation_page">Confirmation Page</string>
     <string name="hi">Hi %1$s!</string>
+    <string name="desc_provide_complete_address">Please provide your complete address. We will use this information for card delivery.</string>
 
     <!--FaceID-->
     <string name="title_login_in_using_faceid">Log in with Face ID</string>

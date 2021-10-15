@@ -3,6 +3,7 @@ package com.unionbankph.corporate.account_setup.presentation.terms_of_service
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
@@ -34,6 +35,10 @@ class AsTermsOfServiceFragment :
             } else {
                 binding.btnProceed.enableButtonMSME(false)
             }
+        }
+
+        binding.btnProceed.setOnClickListener {
+            findNavController().navigate(R.id.action_sole_prop_personal_info)
         }
     }
 

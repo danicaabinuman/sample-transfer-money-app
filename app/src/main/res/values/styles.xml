@@ -608,6 +608,7 @@
         <item name="boxStrokeWidth">@dimen/circular_border_stroke_width</item>
         <item name="boxStrokeWidthFocused">@dimen/circular_border_stroke_width</item>
         <item name="errorTextAppearance">@style/SMECaption</item>
+        <item name="hintTextAppearance">@style/SMESubtitle2</item>
     </style>
 
     <style name="TextInputLayoutFormThin.Password" parent="TextInputLayoutFormThin">
@@ -618,6 +619,8 @@
 
     <style name="TextInputLayoutFormThinEditText">
         <item name="android:layout_marginBottom">@dimen/grid_1_half</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="TextInputLayoutUnderlineForm" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
@@ -801,6 +804,17 @@
         <item name="android:maxLines">@integer/max_line</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:inputType">textCapSentences|textMultiLine</item>
+    </style>
+
+    <style name="TextInputLayoutFormThinEditText.DropDownOrange">
+        <item name="android:focusable">false</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:layout_marginBottom">@dimen/grid_1_half</item>
+        <item name="android:drawableEnd">@drawable/ic_vector_drop_down_line</item>
+    </style>
+
+    <style name="TextInputLayoutFormThinEditText.DatePicker" parent="TextInputLayoutFormThinEditText.DropDownOrange">
+        <item name="android:drawableEnd">@drawable/ic_vector_calendar</item>
     </style>
 
     <style name="TextInputEditTextForm.DatePicker" parent="TextInputEditTextForm.DropDownOrange">

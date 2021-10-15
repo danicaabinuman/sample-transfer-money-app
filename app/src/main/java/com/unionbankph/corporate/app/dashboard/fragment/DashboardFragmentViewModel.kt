@@ -45,7 +45,7 @@ class DashboardFragmentViewModel
             isScreenRefreshed = true,
             isOnTrialMode = false,
             hasLoans = false,
-            hasEarnings = true,
+            hasEarnings = false,
             hasInitialFetchError = false,
             megaMenuList = mutableListOf(),
             accounts = mutableListOf()
