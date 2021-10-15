@@ -192,8 +192,8 @@ class Constant {
 
     class DebitCardType {
         companion object {
-            const val GETGO = 201
-            const val PLAYEVERYDAY = 202
+            const val GETGO = 0
+            const val PLAYEVERYDAY = 1
         }
     }
 }

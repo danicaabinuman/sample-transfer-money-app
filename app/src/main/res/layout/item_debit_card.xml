@@ -16,7 +16,6 @@
     app:cardElevation="@dimen/default_elevation"
     android:padding="@dimen/content_spacing_xl"
     app:cardCornerRadius="@dimen/card_radius_half"
-    android:background="@drawable/style_button_with_icon"
     >
 
         <androidx.constraintlayout.widget.ConstraintLayout

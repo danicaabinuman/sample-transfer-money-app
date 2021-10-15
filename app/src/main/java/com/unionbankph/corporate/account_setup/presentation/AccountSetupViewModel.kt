@@ -20,26 +20,17 @@ class AccountSetupViewModel @Inject constructor() : BaseViewModel() {
     private var _toolbarState = MutableLiveData<ToolbarState>()
     val toolbarState: LiveData<ToolbarState> get() = _toolbarState
 
-    var _debitCardState = MutableLiveData<DebitCardState>()
-    val debitCardState: LiveData<DebitCardState> get() = _debitCardState
-
     init {
         _state.value = AccountSetupState(
             businessType = -1,
             businessAccountType = -1,
-            debitCardType = -1
+            debitCardType = null
         )
 
         _toolbarState.value = ToolbarState(
             isButtonShow = false,
             buttonType = AccountSetupActivity.BUTTON_SAVE_EXIT,
             backButtonType = AccountSetupActivity.BACK_ARROW
-        )
-
-        _debitCardState.value = DebitCardState(
-            lastCardSelected = -1,
-            cards = mutableListOf(),
-
         )
     }
 

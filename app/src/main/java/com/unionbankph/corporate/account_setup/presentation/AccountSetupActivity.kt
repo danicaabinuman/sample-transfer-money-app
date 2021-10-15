@@ -93,6 +93,10 @@ class AccountSetupActivity :
         this.currentScreen = currentScreen
     }
 
+    fun getExistingDebitCardType() : Int? {
+        return viewModel.state.value?.debitCardType
+    }
+
     fun setProgressValue(step: Int) {
         val progressValue = step * 100 / getNumberOfPages()
         //progress_action.progress = progressValue

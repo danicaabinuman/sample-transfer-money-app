@@ -2,7 +2,6 @@ package com.unionbankph.corporate.account_setup.presentation.debit_card_type
 
 import android.content.Context
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.airbnb.epoxy.*
@@ -11,8 +10,6 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account_setup.data.DebitCardState
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.SMETextViewModel_
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.SMEChipModel
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.chip.SMEChipModel_
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.ItemAdCardBinding
@@ -22,9 +19,11 @@ class AsDebitCardTypeController constructor(
     private val context: Context
 ) : TypedEpoxyController<DebitCardState>() {
 
+
+
     private lateinit var asDebitCardTypeCallback: AsDebitCardTypeCallback
     interface AsDebitCardTypeCallback {
-        fun onDebitCardType(id: Int) = Unit
+        fun onDebitCardType(position: Int, id: Int) = Unit
     }
 
     init {
@@ -46,37 +45,16 @@ class AsDebitCardTypeController constructor(
             .id("lazada-card")
             .addTo(this)
 
-        val debitCardItems = mutableListOf(
-            GenericMenuItem(
-                Constant.DebitCardType.GETGO.toString(),
-                context.getString(R.string.title_getgo_debit),
-                context.getString(R.string.msg_debit_type),
-                null,
-                context.getString(R.string.drawable_getgo),
-                false,
-                true,
-                true
-            ),
-            GenericMenuItem(
-                Constant.DebitCardType.PLAYEVERYDAY.toString(),
-                context.getString(R.string.title_play_everyday),
-                context.getString(R.string.msg_debit_type),
-                null,
-                context.getString(R.string.drawable_play_everyday),
-                false,
-                true,
-                true
-            ))
-        debitCardState.apply {
-            this.cards = debitCardItems
-        }
+
         val cardModels = mutableListOf<DebitCardModel>()
+
         debitCardState.cards.forEachIndexed { index, item ->
             cardModels.add(
                 DebitCardModel_()
                     .id(item.id)
                     .context(context)
-                    .model(debitCardItems[index])
+                    .position(index.toString())
+                    .model(JsonHelper.toJson(item))
                     .callbacks(asDebitCardTypeCallback)
             )
         }
@@ -85,8 +63,6 @@ class AsDebitCardTypeController constructor(
             this.id("carousel-debit-cards")
             this.models(cardModels)
         }
-
-
     }
 
     fun setDebitCardTypeCallback(asDebitCardTypeCallback: AsDebitCardTypeCallback) {
@@ -115,35 +91,35 @@ abstract class AdCardModel : EpoxyModelWithHolder<AdCardModel.Holder>()  {
 abstract class DebitCardModel : EpoxyModelWithHolder<DebitCardModel.Holder>()  {
 
     @EpoxyAttribute
-    lateinit var model: GenericMenuItem
+    lateinit var model: String
 
     @EpoxyAttribute
     lateinit var context: Context
 
     @EpoxyAttribute
+    lateinit var position: String
+
+    @EpoxyAttribute
     lateinit var callbacks: AsDebitCardTypeController.AsDebitCardTypeCallback
+
 
 
     override fun bind(holder: Holder) {
 
-
-        Log.e("model.title",""+model.title)
-        Log.e("model.subtitle",""+model.subtitle)
+        val cardModel = JsonHelper.fromJson<GenericMenuItem>(model)
         val imageSourceId = context.resources.getIdentifier(
-            model.src, "drawable", Constant.PACKAGE_NAME
+            cardModel.src, "drawable", Constant.PACKAGE_NAME
         )
 
         holder.binding.apply {
-            textViewDebitTitle.text = model.title
-            textViewDebitContent.text = model.subtitle
+            textViewDebitTitle.text = cardModel.title
+            textViewDebitContent.text = cardModel.subtitle
             imageViewIcon.setImageResource(imageSourceId)
 
-            //cardViewDebitCard.isSelected = !model.isSelected!!
-
             cardViewDebitCard.setOnClickListener {
-                callbacks.onDebitCardType(Integer.parseInt(model.id!!))
+                callbacks.onDebitCardType(position.toInt(), cardModel.id!!.toInt())
             }
-            cardViewDebitCard.setOnTouchListener { v, event ->
+            /*cardViewDebitCard.setOnTouchListener { v, event ->
                 if (event.action == MotionEvent.ACTION_UP) {
                     v.background = ContextCompat.getDrawable(
                         context,
@@ -151,6 +127,17 @@ abstract class DebitCardModel : EpoxyModelWithHolder<DebitCardModel.Holder>()  {
                     )
                 }
                 false
+            }*/
+            if (cardModel.isSelected!!) {
+                cardViewDebitCard.background = ContextCompat.getDrawable(
+                    context,
+                    R.drawable.bg_button_with_icon_selected
+                )
+            } else {
+                cardViewDebitCard.background = ContextCompat.getDrawable(
+                    context,
+                    R.drawable.bg_button_with_icon_default
+                )
             }
 
         }
