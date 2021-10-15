@@ -65,6 +65,10 @@ class AccountSetupActivity :
         navHostFragment.navController.graph = graph
     }
 
+    fun setDebitCardType(debitCardType: Int) {
+        viewModel.setDebitCardType(debitCardType)
+    }
+
     fun setBusinessType(businessType: Int) {
         viewModel.setBusinessType(businessType)
     }

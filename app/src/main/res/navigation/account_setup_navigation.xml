@@ -18,6 +18,14 @@
             app:popEnterAnim="@anim/anim_enter_from_left"
             app:popExitAnim="@anim/anim_exit_to_right"/>
 
+        <action
+            android:id="@+id/action_business_type_to_debit_card_type"
+            app:destination="@id/debit_card_type_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
     </fragment>
 
     <fragment
@@ -53,5 +61,19 @@
         android:id="@+id/terms_of_service_fragment"
         android:name="com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceFragment"
         tools:layout="@layout/fragment_as_terms_of_service"/>
+
+    <fragment
+        android:id="@+id/debit_card_type_fragment"
+        android:name="com.unionbankph.corporate.account_setup.presentation.debit_card_type.AsDebitCardTypeFragment"
+        tools:layout="@layout/fragment_as_debit_card_type">
+
+        <action
+            android:id="@+id/action_card_type_to_business_account_type"
+            app:destination="@id/business_account_type_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+    </fragment>
 
 </navigation>

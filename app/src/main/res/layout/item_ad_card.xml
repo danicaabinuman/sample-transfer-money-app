@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutLazadaCard"
+        android:background="@drawable/bg_gradient_orange_radius4"
+        android:backgroundTint="@color/dsColorLightOrange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginBottom="@dimen/content_spacing"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewDebitCard">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewLazadaCardTitle"
+            style="@style/SMEBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
+            android:layout_marginStart="@dimen/grid_3_half"
+            android:layout_marginEnd="@dimen/grid_3_half"
+            android:text="@string/title_get_yours_now"
+            android:textColor="@color/colorSMEMediumOrange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/textLazadaCard"
+            style="@style/SMESubtitle1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_3_half"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/msg_debit_card"
+            android:textColor="@color/colorInfo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewLazadaCardTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/imageViewLazadaCard"/>
+
+
+        <ImageView
+            android:id="@+id/imageViewLazadaCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_lazada_card"
+            android:layout_marginTop="@dimen/content_spacing_xl"
+            app:layout_constraintTop_toBottomOf="@id/textLazadaCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/SMESubtitle2"
+        android:id="@+id/textViewDebitCard"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginStart="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayoutLazadaCard"
+        android:text="@string/title_debit_cards"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
