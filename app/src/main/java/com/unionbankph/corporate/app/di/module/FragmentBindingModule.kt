@@ -4,6 +4,7 @@ import com.unionbankph.corporate.account.presentation.account_list.AccountFragme
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
 import com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.debit_card_type.AsDebitCardTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment
 import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceFragment
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
@@ -456,5 +457,9 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun asTermsOfServiceFragment(): AsTermsOfServiceFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asDebitCardTypeFragment(): AsDebitCardTypeFragment
 
 }

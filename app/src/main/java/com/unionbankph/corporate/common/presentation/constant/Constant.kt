@@ -189,4 +189,11 @@ class Constant {
             const val CHECK = 102
         }
     }
+
+    class DebitCardType {
+        companion object {
+            const val GETGO = 0
+            const val PLAYEVERYDAY = 1
+        }
+    }
 }
