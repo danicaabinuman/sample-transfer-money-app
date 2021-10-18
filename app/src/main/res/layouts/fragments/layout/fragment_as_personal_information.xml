@@ -89,7 +89,7 @@
                         android:digits="@string/digits_alpha_numeric_specific_symbols"
                         android:hint="@string/hint_first_name"
                         android:inputType="textPersonName|textCapWords"
-                        android:nextFocusDown="@id/editTextLastName"
+                        android:nextFocusDown="@id/editTextMiddleName"
                         android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -116,6 +116,7 @@
                         android:layout_height="wrap_content"
                         android:digits="@string/digits_alpha_numeric_specific_symbols"
                         android:hint="@string/hint_middle_name"
+                        android:nextFocusDown="@id/editTextLastName"
                         android:inputType="textPersonName|textCapWords"
                         android:singleLine="true" />
 
@@ -174,7 +175,7 @@
                         android:digits="@string/digits_alpha_numeric_symbols_email_no_space"
                         android:hint="@string/hint_email_address_small_letter"
                         android:inputType="textEmailAddress"
-                        android:nextFocusDown="@id/et_mobile"
+                        android:nextFocusDown="@id/editTextTIN"
                         android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -243,9 +244,11 @@
                         style="@style/TextInputLayoutFormThinEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:digits="@string/digits_alpha_numeric_specific_symbols"
+                        android:digits="@string/digits_only"
+                        android:maxLength="12"
                         android:hint="@string/hint_tin_no"
-                        android:inputType="text"
+                        android:inputType="number"
+                        android:nextFocusDown="@id/editTextPOB"
                         android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -295,6 +298,7 @@
                         android:digits="@string/digits_alpha_numeric_specific_symbols"
                         android:hint="@string/hint_place_of_birth"
                         android:inputType="textPersonName|textCapWords"
+                        android:nextFocusDown="@id/editTextNationality"
                         android:singleLine="true" />
 
                 </com.google.android.material.textfield.TextInputLayout>

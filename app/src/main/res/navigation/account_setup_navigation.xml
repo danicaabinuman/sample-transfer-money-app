@@ -85,6 +85,26 @@
             app:popEnterAnim="@anim/anim_enter_from_left"
             app:popExitAnim="@anim/anim_exit_to_right"/>
 
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+            <argument
+                android:name="hasSearch"
+                android:defaultValue="false"
+                app:argType="boolean" />
+
+        </action>
+
     </fragment>
 
     <fragment
@@ -115,5 +135,11 @@
             app:popEnterAnim="@anim/anim_enter_from_left"
             app:popExitAnim="@anim/anim_exit_to_right"/>
     </fragment>
+
+    <activity
+        android:id="@+id/selector_activity"
+        android:name="com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorActivity"
+        android:label="selector_activity"
+        tools:layout="@layout/activity_selector" />
 
 </navigation>
