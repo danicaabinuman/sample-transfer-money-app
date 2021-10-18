@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.calculator.LoanInfoItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_loan_info_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_amount_title"
+            style="@style/TextViewDarkForm"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/title_loan_amount"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_loan_value"
+            style="@style/TextViewDarkForm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:gravity="start"
+            android:text="@{String.format(@string/format_php, item.loanAmount)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/item_loan_info_v_amount"
+            style="@style/BorderHorizontal"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:background="@drawable/bg_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_tv_amount_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_tenure_title"
+            style="@style/TextViewDarkForm"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/title_loan_terms"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_v_amount" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_tenure_value"
+            style="@style/TextViewDarkForm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:gravity="start"
+            android:text="@{String.format(@string/format_months, item.loanTenure)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_v_amount" />
+
+        <View
+            android:id="@+id/item_loan_info_v_tenure"
+            style="@style/BorderHorizontal"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:background="@drawable/bg_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_tv_tenure_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_interest_rate_title"
+            style="@style/TextViewDarkForm"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/title_annual_interest_rate"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_v_tenure" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_interest_rate_value"
+            style="@style/TextViewDarkForm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:gravity="start"
+            android:text="@{String.format(@string/format_annual_rate, item.annualInterestRate)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            app:layout_constraintTop_toBottomOf="@id/item_loan_info_v_tenure" />
+
+        <View
+            android:id="@+id/item_loan_info_v_interest_rate"
+            style="@style/BorderHorizontal"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:background="@drawable/bg_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_tv_interest_rate_title" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_monthly_payment_title"
+            style="@style/TextViewDarkForm"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/title_monthly_payment"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_v_interest_rate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_monthly_payment_value"
+            style="@style/TextViewDarkForm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:gravity="start"
+            android:text="@{String.format(@string/format_php, item.monthlyPayment)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_v_interest_rate" />
+
+        <View
+            android:id="@+id/item_loan_info_v_monthly_payment"
+            style="@style/BorderHorizontal"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:background="@drawable/bg_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_tv_monthly_payment_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_interest_payable_title"
+            style="@style/TextViewDarkForm"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/title_total_interest_payable"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_v_monthly_payment" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_interest_payable_value"
+            style="@style/TextViewDarkForm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:gravity="start"
+            android:text="@{String.format(@string/format_php, item.totalInterestPayable)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            app:layout_constraintTop_toBottomOf="@id/item_loan_info_v_monthly_payment" />
+
+        <View
+            android:id="@+id/item_loan_info_v_interest_payable"
+            style="@style/BorderHorizontal"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:background="@drawable/bg_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_tv_interest_payable_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_total_amount_payable_title"
+            style="@style/TextViewDarkForm"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/title_total_amount_payable"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_v_interest_payable" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_loan_info_tv_total_amount_payable_value"
+            style="@style/TextViewDarkForm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_5_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:gravity="start"
+            android:text="@{String.format(@string/format_php, item.totalAmountPayable)}"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideLine"
+            app:layout_constraintTop_toBottomOf="@id/item_loan_info_v_interest_payable" />
+
+        <View
+            android:id="@+id/item_loan_info_v_total_payable"
+            style="@style/BorderHorizontal"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:background="@drawable/bg_line"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_loan_info_tv_total_amount_payable_title" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

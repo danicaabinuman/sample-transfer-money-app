@@ -2617,7 +2617,8 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="label_one_point_nine">1.90%</string>
     <string name="label_two_point_zero">2.00%</string>
     <string name="label_loan_amount_value">PHP 100,000 - PHP 5,000,000</string>
-
+    <string name="label_annual_interest_rate">36%</string>
+    //%1$s%%
 <!--    Who are Eligible to Apply?-->
     <string name="title_qualified_businesses">Qualified Businesses</string>
     <string name="label_cafe_restaurant_bakeshop">Cafe, restaurant, bakeshop</string>
@@ -2659,6 +2660,25 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="label_thirty_six">36</string>
     <string name="label_fifty_thousand">50K</string>
     <string name="label_above_one_million">Above 1M</string>
+    <string name="title_it_is_recommended">It is recommended that you finish the application once started; however, you may exit at any time and continue later. Make sure you have a strong and secure internet connection during the application.</string>
+    <string name="title_prepare_a_valid_id">Prepare a valid ID for scanning and verification and ensure that the details you will provide in the application matches the details written on your ID.</string>
+    <string name="title_we_will_be_validating">We will be validating your identity through a selfie. Please ensure that you have sufficient lighting during this process.</string>
+    <string name="title_are_you_a_filipino_citizen">Are you a Filipino citizen?</string>
+    <string name="title_before_we_proceed_please">Before we proceed, please be reminded that the loan application is currently limited to Filipino Citizens residing in the Philippines</string>
+    <string name="title_i_live_in_the_philippines">Yes, I live in the Philippines</string>
+    <string name="title_i_live_outside_the_philippines">No, I live outside the Philippines</string>
+    <string name="title_begin_application">Begin Application</string>
+    <string name="title_were_sorry">We\'re Sorry</string>
+    <string name="label_application_is_limited">Application is limited to Filipino citizens residing in the Philippines</string>
+    <string name="label_you_may_reach_out">You may reach out to us at <font color="#FF8200">business@unionbankph.com</font> should you need further assistance.</string>
+    <string name="label_php_zero">PHP 0</string>
+    <string name="format_php">PHP %,d</string>
+    <string name="format_months">%d months</string>
+    <string name="format_annual_rate">%1$d %%</string>
+
+
+
+
 
 
 

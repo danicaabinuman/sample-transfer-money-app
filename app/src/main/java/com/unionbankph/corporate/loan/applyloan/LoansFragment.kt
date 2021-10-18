@@ -39,13 +39,8 @@ class LoansFragment: BaseFragment<FragmentLoansBinding, LoansViewModel>(), Loans
         loansViewState.observe(viewLifecycleOwner, Observer {
             controller.setData(it, viewModel.pageable)
         })
-
-        commonQuestions.observe(viewLifecycleOwner, {
-            }
-        )
-
         }
-        binding.lifecycleOwner = this
+        //binding.lifecycleOwner = this
     }
 
     private fun initViews() {
@@ -75,6 +70,9 @@ class LoansFragment: BaseFragment<FragmentLoansBinding, LoansViewModel>(), Loans
                 showToast("test: $it")
             }
             applyLoansListener = {
+                findNavController().navigate(R.id.nav_to_loansCalculatorFragment)
+            }
+            readyToBusiness = {
                 findNavController().navigate(R.id.nav_to_loansCalculatorFragment)
             }
         setLoansHeaderAdapterCallback(this@LoansFragment)

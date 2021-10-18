@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CommonQuestions(
-    val id: Int,
-    val title: String,
+    var id: Int? = null,
+    var title: String? = null,
     var expand: Boolean = false
 ) {
     companion object {

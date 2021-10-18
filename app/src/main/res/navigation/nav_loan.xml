@@ -19,6 +19,37 @@
     <fragment
         android:id="@+id/loansCalculatorFragment"
         android:name="com.unionbankph.corporate.loan.calculator.LoansCalculatorFragment"
-        android:label="LoansCalculatorFragment" />
+        android:label="LoansCalculatorFragment" >
+        <action
+            android:id="@+id/nav_to_fewRemindersFragment"
+            app:destination="@id/fewRemindersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fewRemindersFragment"
+        android:name="com.unionbankph.corporate.loan.reminders.FewRemindersFragment"
+        android:label="FewRemindersFragment" >
+        <action
+            android:id="@+id/nav_to_citizenFragment"
+            app:destination="@id/citizenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/citizenFragment"
+        android:name="com.unionbankph.corporate.loan.citizen.CitizenFragment"
+        android:label="CitizenFragment" >
+        <action
+            android:id="@+id/nav_to_nonFilipinoFragment"
+            app:destination="@id/nonFilipinoFragment" />
+        <action
+            android:id="@+id/nav_to_businessType"
+            app:destination="@id/businessType" />
+    </fragment>
+    <fragment
+        android:id="@+id/nonFilipinoFragment"
+        android:name="com.unionbankph.corporate.loan.nonfilipino.NonFilipinoFragment"
+        android:label="NonFilipinoFragment" />
+    <fragment
+        android:id="@+id/businessType"
+        android:name="com.unionbankph.corporate.loan.businesstype.BusinessTypeFragment"
+        android:label="BusinessType" />
 
 </navigation>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:width="@dimen/grid_5_half"
+        android:height="@dimen/grid_5_half"
+        android:drawable="@drawable/ic_orange_check" />
+
+</layer-list>

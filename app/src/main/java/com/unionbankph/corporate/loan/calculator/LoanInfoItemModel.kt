@@ -15,6 +15,21 @@ abstract class LoanInfoItemModel : EpoxyModelWithHolder<LoanInfoItemModel.Holder
     @EpoxyAttribute
     lateinit var dataFromContainer: LoanInfo
 
+    @EpoxyAttribute
+    lateinit var loanAmount: String
+
+    @EpoxyAttribute
+    lateinit var loanTenure: String
+
+    @EpoxyAttribute
+    lateinit var monthlyPayment: String
+
+    @EpoxyAttribute
+    lateinit var totalInterestPayable: String
+
+    @EpoxyAttribute
+    lateinit var totalAmountPayable: String
+
     override fun bind(holder: Holder) {
         holder.binding.apply {
             item = dataFromContainer

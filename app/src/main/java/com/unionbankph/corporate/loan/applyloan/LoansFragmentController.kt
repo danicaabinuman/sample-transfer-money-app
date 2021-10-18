@@ -39,7 +39,10 @@ constructor(
     private lateinit var loansAdapterCallback: LoansAdapterCallback
 
     var commonQuestionListener: (CommonQuestions) -> Unit = { _ -> }
+
     var applyLoansListener: (View) -> Unit = { }
+
+    var readyToBusiness: (View) -> Unit = { }
 
     init {
 
@@ -80,18 +83,9 @@ constructor(
 
         readyToBusinessMainModel
             .context(context)
+            .clickListener { readyToBusiness(it) }
             .addTo(this)
-
-/*        commonQuestionsMain {
-            id("test")
-            dataFromViewModel(loansViewState.commonQuestions)
-            this.callbacks(this@LoansFragmentController.loansAdapterCallback)
-        }*/
     }
-
-/*    fun submitDataToCommonQuestions() {
-        requestModelBuild()
-    }*/
 
     override fun onExceptionSwallowed(exception: RuntimeException) {
         // Best practice is to throw in debug so you are aware of any issues that Epoxy notices.

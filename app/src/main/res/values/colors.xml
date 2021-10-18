@@ -147,7 +147,7 @@
     <color name="dsColorExtraLightGray">#F8F8F8</color>
     <color name="dsColorSystemError">#FE3D2F</color>
     <color name="dsColorSystemSuccess">#3BB537</color>
-    <color name="dsColorOrangeForDarkGradient">#FF8955</color>\
+    <color name="dsColorOrangeForDarkGradient">#FF8955</color>
 
     <color name="dsColorUnpaidBackground">#FFDA1C</color>
     <color name="dsColorPendingBackground">@color/dsColorMediumOrange</color>

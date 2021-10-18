@@ -6,12 +6,12 @@
     <data>
 
         <variable
-            name="item"
-            type="com.unionbankph.corporate.loan.calculator.LoanCalculatorState" />
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
 
         <variable
-            name="handler"
-            type="com.unionbankph.corporate.loan.calculator.LoansCalculatorHandler" />
+            name="item"
+            type="com.unionbankph.corporate.loan.calculator.LoanCalculatorState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/colorWhite"
                         android:text="@{item.amount.toString()}"
-                        android:enabled="true"
+                        android:enabled="false"
                         android:focusable="true"
                         android:hint="0"
                         android:maxLength="11"
@@ -184,7 +184,6 @@
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
-                        android:onClick="@{() -> handler.onMonths(3)}"
                         android:text="@string/label_three"
                         android:textStyle="bold" />
 
@@ -193,7 +192,7 @@
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
-                        android:onClick="@{() -> handler.onMonths(6)}"
+                        android:onClick="@{onClickListener}"
                         android:text="@string/label_six"
                         android:textStyle="bold" />
 
@@ -202,7 +201,6 @@
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
-                        android:onClick="@{() -> handler.onMonths(12)}"
                         android:text="@string/label_twelve"
                         android:textStyle="bold" />
 
@@ -211,7 +209,6 @@
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
-                        android:onClick="@{() -> handler.onMonths(24)}"
                         android:text="@string/label_twenty_four"
                         android:textStyle="bold" />
 
@@ -220,10 +217,8 @@
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
-                        android:onClick="@{() -> handler.onMonths(36)}"
                         android:text="@string/label_thirty_six"
                         android:textStyle="bold" />
-
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -257,7 +252,7 @@
                         android:layout_marginTop="@dimen/grid_1_half"
                         android:layout_marginEnd="@dimen/grid_2"
                         android:gravity="center"
-                        android:text="@string/label_php_zero"
+                        android:text="@string/label_five_hundred_thousand"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_monthly_payment" />

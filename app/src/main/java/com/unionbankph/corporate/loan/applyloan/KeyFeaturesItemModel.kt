@@ -24,7 +24,7 @@ abstract class KeyFeaturesItemModel : EpoxyModelWithHolder<KeyFeaturesItemModel.
     override fun bind(holder: Holder) {
         super.bind(holder)
         holder.binding.apply {
-            itemKeyFeaturesClParent.setOnClickListener { callbacks.onKeyFeatures(dataFromContainer.title) }
+            //itemKeyFeaturesClParent.setOnClickListener { callbacks.onKeyFeatures(dataFromContainer.title) }
             item = dataFromContainer
             executePendingBindings()
         }

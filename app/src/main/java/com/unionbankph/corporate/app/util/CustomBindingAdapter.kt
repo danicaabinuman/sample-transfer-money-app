@@ -2,6 +2,7 @@ package com.unionbankph.corporate.app.util
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -40,4 +41,38 @@ fun setBackgroundColorTextView(textView: TextView, source: Int?) {
         }
     }
 }
+
+@BindingAdapter("selectedRadioButton")
+fun setSelectedRadioButton(radioButton: RadioButton, source: Int?) {
+    source?.let {
+    }
+}
+
+@BindingAdapter("setBusinessTypeLabel")
+fun setBusinessTypeLabel(textView: TextView, source: Int?) {
+    source?.let {
+        when (source) {
+            0 -> textView.text = textView.context.getString(R.string.title_individual)
+            1 -> textView.text = textView.context.getString(R.string.title_sole_proprietorship_msme)
+            2 -> textView.text = textView.context.getString(R.string.title_partnership)
+            3 -> textView.text = textView.context.getString(R.string.title_corporation)
+        }
+    }
+}
+
+@BindingAdapter("setBusinessTypeDescription")
+fun setBusinessTypeDescription(textView: TextView, source: Int?) {
+    source?.let {
+        when (source) {
+            0 -> textView.text = textView.context.getString(R.string.desc_individual)
+            1 -> textView.text = textView.context.getString(R.string.desc_sole_prop)
+            2 -> textView.text = textView.context.getString(R.string.desc_partnership)
+            3 -> textView.text = textView.context.getString(R.string.desc_corporation)
+        }
+    }
+}
+
+
+
+
 

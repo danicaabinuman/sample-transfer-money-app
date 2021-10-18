@@ -56,7 +56,11 @@ import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selectio
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
 import com.unionbankph.corporate.loan.applyloan.LoansFragment
+import com.unionbankph.corporate.loan.businesstype.BusinessTypeFragment
 import com.unionbankph.corporate.loan.calculator.LoansCalculatorFragment
+import com.unionbankph.corporate.loan.citizen.CitizenFragment
+import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoFragment
+import com.unionbankph.corporate.loan.reminders.FewRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
@@ -476,6 +480,22 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun loansCalculatorFragment(): LoansCalculatorFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun fewRemindersFragment(): FewRemindersFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun citizenFragment(): CitizenFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun nonFilipinoFragment(): NonFilipinoFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessTypeFragment(): BusinessTypeFragment
 
 
 }

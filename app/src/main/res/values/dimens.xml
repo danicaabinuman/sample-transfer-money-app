@@ -5,6 +5,7 @@
     <dimen name="grid_0_2">2dp</dimen>
     <dimen name="grid_1_half">4dp</dimen>
     <dimen name="grid_1_6">4dp</dimen>
+    <dimen name="grid_1_5">4dp</dimen>
     <dimen name="grid_1">8dp</dimen>
     <dimen name="grid_1_10">10dp</dimen>
     <dimen name="grid_3_half">12dp</dimen>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.citizen.CitizenHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/few_reminders_tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_8"
+            android:gravity="center"
+            android:text="@string/title_are_you_a_filipino_citizen"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_30"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/few_reminders_iv_background"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/grid_23_190"
+            android:layout_marginTop="@dimen/grid_6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/few_reminders_tv_header"
+            app:srcCompat="@drawable/bg_flag" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/few_reminders_tv_few_reminders"
+            style="@style/TextViewDarkForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_5_half"
+            android:layout_marginTop="@dimen/grid_3"
+            android:layout_marginEnd="@dimen/grid_5_half"
+            android:gravity="center"
+            android:text="@string/title_before_we_proceed_please"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/few_reminders_iv_background" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/few_reminders_b_live_in"
+            style="@style/SMEPrimaryButtonBig"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/grid_5"
+            android:onClick="@{() -> handler.onWhere(true)}"
+            android:text="@string/title_i_live_in_the_philippines"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toTopOf="@id/few_reminders_b_live_outside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/few_reminders_tv_few_reminders"
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/few_reminders_b_live_outside"
+            style="@style/SMESecondaryButtonBig"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:onClick="@{() -> handler.onWhere(false)}"
+            android:text="@string/title_i_live_outside_the_philippines"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/few_reminders_b_live_in" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

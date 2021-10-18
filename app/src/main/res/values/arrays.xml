@@ -241,4 +241,9 @@
         <item>@string/desc_learn_more_row_four</item>
     </string-array>
 
+    <array name="initial_fifty_to_million">
+        <item>50000</item>
+        <item>1000000</item>
+    </array>
+
 </resources>

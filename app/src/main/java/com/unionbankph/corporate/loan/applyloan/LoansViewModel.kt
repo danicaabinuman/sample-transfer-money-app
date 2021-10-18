@@ -47,10 +47,10 @@ class LoansViewModel @Inject constructor(
     }
 
     fun setCommonQuestions(item: CommonQuestions?) {
-        item?.let {
+        /*item?.let {
             _loansViewState.value?.commonQuestions?.get(item.id)?.expand =
                 !item.expand //get(item.id)?.expand = !item.expand
-        }
+        }*/
     }
 
 

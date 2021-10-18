@@ -5,18 +5,16 @@
 
     <data>
 
-        <variable
-            name="viewModel"
-            type="com.unionbankph.corporate.loan.calculator.LoansCalculatorViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/msme_content_spacing">
 
         <com.airbnb.epoxy.EpoxyRecyclerView
-            android:id="@+id/loans_calculator_erv_calculator"
+            android:id="@+id/non_filipino_erv_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorWhite"
@@ -30,7 +28,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_monthly_payment_main" />
+            tools:listitem="@layout/ub_layout_item_citizen" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

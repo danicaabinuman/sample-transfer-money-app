@@ -46,6 +46,7 @@ object Libraries {
         const val activityAndroidX = "1.0.0"
         const val fragmentAndroidX = "1.1.0"
         const val navigation = "2.4.0-alpha02"
+        const val gridLayout = "1.0.0-beta01"
 
         // Core
         const val okhttp = "3.9.0"
@@ -132,8 +133,8 @@ object Libraries {
     const val support = "androidx.legacy:legacy-support-v4:${Versions.support}"
     const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
     const val material = "com.google.android.material:material:${Versions.material}"
-    const val constraintlayout =
-        "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    const val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    const val gridLayout = "androidx.gridlayout:gridlayout:${Versions.gridLayout}"
 
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"

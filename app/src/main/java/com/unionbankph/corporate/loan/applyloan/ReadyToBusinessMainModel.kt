@@ -16,10 +16,13 @@ abstract class ReadyToBusinessMainModel : EpoxyModelWithHolder<ReadyToBusinessMa
     lateinit var context: Context
 
     @EpoxyAttribute
-    var clickListener: (CommonQuestions) -> Unit = { _ -> }
+    var clickListener: (View) -> Unit = { _ -> }
 
     override fun bind(holder: Holder) {
         holder.binding.apply {
+            textViewCardFooter.setOnClickListener {
+                clickListener(it)
+            }
         }
     }
 

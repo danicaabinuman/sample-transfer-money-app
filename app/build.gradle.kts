@@ -177,6 +177,7 @@ dependencies {
     implementation(Libraries.material)
     implementation(Libraries.recyclerView)
     implementation(Libraries.cardView)
+    implementation(Libraries.gridLayout)
     /* Core */
     implementation(Libraries.rxRelay)
     implementation(Libraries.rxBinding2)

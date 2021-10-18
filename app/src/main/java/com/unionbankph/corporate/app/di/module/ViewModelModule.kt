@@ -91,7 +91,11 @@ import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
 import com.unionbankph.corporate.loan.LoanMainViewModel
 import com.unionbankph.corporate.loan.applyloan.LoansViewModel
+import com.unionbankph.corporate.loan.businesstype.BusinessTypeViewModel
 import com.unionbankph.corporate.loan.calculator.LoansCalculatorViewModel
+import com.unionbankph.corporate.loan.citizen.CitizenViewModel
+import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoViewModel
+import com.unionbankph.corporate.loan.reminders.FewRemindersViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationViewModel
@@ -839,5 +843,25 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LoansCalculatorViewModel::class)
     abstract fun loansCalculatorViewModel(viewModel: LoansCalculatorViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FewRemindersViewModel::class)
+    abstract fun fewRemindersViewModel(viewModel: FewRemindersViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CitizenViewModel::class)
+    abstract fun citizenViewModel(viewModel: CitizenViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NonFilipinoViewModel::class)
+    abstract fun nonFilipinoViewModel(viewModel: NonFilipinoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BusinessTypeViewModel::class)
+    abstract fun businessTypeViewModel(viewModel: BusinessTypeViewModel): ViewModel
 
 }

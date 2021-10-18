@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.calculator.LoanCalculatorState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,16 +19,16 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/grid_3_half"
             android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_3_half"
             android:layout_marginEnd="@dimen/grid_2"
             android:layout_marginBottom="@dimen/grid_2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="@dimen/card_radius_half"
             app:cardElevation="@dimen/default_elevation"
-            app:cardCornerRadius="@dimen/card_radius_half">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -34,15 +37,15 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/monthly_payment_tv_how_much"
-                    android:layout_width="match_parent"
                     style="@style/SMESubtitle2"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/grid_2"
-                    android:text="@string/title_how_much_do_you_need"
+                    android:layout_width="match_parent"
                     android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_2"
                     android:layout_marginEnd="@dimen/grid_2"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:text="@string/title_how_much_do_you_need"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -50,92 +53,95 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_4"
-                    android:paddingStart="@dimen/grid_4"
-                    android:paddingEnd="@dimen/grid_4"
-                    android:paddingTop="@dimen/grid_1"
-                    android:paddingBottom="@dimen/grid_1"
                     android:background="@drawable/bg_border_rectangle"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/grid_4"
+                    android:paddingTop="@dimen/grid_1"
+                    android:paddingEnd="@dimen/grid_4"
+                    android:paddingBottom="@dimen/grid_1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_how_much"
-                    android:orientation="horizontal">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_how_much">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_marginEnd="@dimen/grid_1_half"
                         style="@style/SMESubtitle1"
-                        android:text="@string/label_php"/>
+                        android:layout_marginEnd="@dimen/grid_1_half"
+                        android:text="@string/label_php" />
 
                     <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
-                        android:id="@+id/autoFormatEditText"
+                        android:id="@+id/monthly_payment_afet_amount"
+                        style="@style/SMESubtitle1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/SMESubtitle1"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:background="@color/colorWhite"
+                        android:text="@{item.amount.toString()}"
+                        android:enabled="false"
+                        android:focusable="true"
+                        android:hint="0"
+                        android:maxLength="11"
+                        android:textSize="@dimen/text_18"
+                        android:visibility="visible"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:background="@color/colorWhite"
-                        android:focusable="true"
-                        android:maxLength="11"
-                        android:visibility="visible"
-                        android:textSize="@dimen/text_18"
-                        android:hint="0"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatSeekBar
-                    android:id="@+id/seekBar"
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/monthly_payment_sb_amount"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_2"
-                    android:thumb="@drawable/ic_vector_thumb_state_drawable"
-                    android:splitTrack="false"
-                    android:maxHeight="12dp"
                     android:paddingStart="@dimen/grid_1"
                     android:paddingEnd="@dimen/grid_1"
-                    android:progressDrawable="@drawable/bg_custom_slider_progress"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:values="@array/initial_fifty_to_million"
+                    android:valueFrom="50000"
+                    android:valueTo="1000000"
+                    android:stepSize="10000"
+                    style="@style/SliderCustomTheme"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/linearLayoutAmount"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutAmount"/>
 
                 <include
                     android:id="@+id/viewTicks"
+                    layout="@layout/widget_seekbar_ticks"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    layout="@layout/widget_seekbar_ticks"
                     android:layout_marginStart="21dp"
                     android:layout_marginEnd="21dp"
-                    app:layout_constraintStart_toStartOf="@id/seekBar"
-                    app:layout_constraintTop_toBottomOf="@id/seekBar"
-                    app:layout_constraintEnd_toEndOf="@id/seekBar"/>
+                    app:layout_constraintEnd_toEndOf="@id/monthly_payment_sb_amount"
+                    app:layout_constraintStart_toStartOf="@id/monthly_payment_sb_amount"
+                    app:layout_constraintTop_toBottomOf="@id/monthly_payment_sb_amount" />
 
                 <TextView
                     android:id="@+id/tvBelow10K"
+                    style="@style/SMEBodyMediumGray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/below_10k"
-                    android:textSize="@dimen/text_10"
-                    style="@style/SMEBodyMediumGray"
-                    android:layout_marginTop="@dimen/grid_1"
                     android:layout_marginStart="@dimen/grid_1"
-                    app:layout_constraintTop_toBottomOf="@+id/viewTicks"
+                    android:layout_marginTop="@dimen/grid_1"
                     android:layout_marginBottom="@dimen/grid_2"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    android:text="@string/label_fifty_thousand"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewTicks" />
 
                 <TextView
                     android:id="@+id/tvAbove5M"
+                    style="@style/SMEBodyMediumGray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
-                    android:text="@string/above_3m"
-                    style="@style/SMEBodyMediumGray"
-                    android:textSize="@dimen/text_10"
+                    android:layout_marginEnd="@dimen/grid_1"
                     android:layout_marginBottom="@dimen/grid_2"
-                    app:layout_constraintTop_toBottomOf="@+id/viewTicks"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    android:text="@string/label_above_one_million"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewTicks" />
 
                 <View
-                    android:id="@+id/border_salutation"
+                    android:id="@+id/monthly_payment_v_divider"
                     style="@style/BorderHorizontal"
                     android:layout_marginTop="@dimen/grid_4"
                     android:background="@drawable/bg_line"
@@ -145,98 +151,106 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/monthly_payment_tv_how_long"
-                    android:layout_width="match_parent"
                     style="@style/SMESubtitle2"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/grid_2"
-                    android:text="@string/title_how_long_can_you_repay"
+                    android:layout_width="match_parent"
                     android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_2"
                     android:layout_marginEnd="@dimen/grid_2"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    android:text="@string/title_how_long_can_you_repay"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/border_salutation" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/monthly_payment_v_divider" />
 
                 <com.google.android.material.button.MaterialButtonToggleGroup
                     android:id="@+id/monthly_payment_mbtg_how_long"
                     android:layout_width="match_parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:gravity="center"
-                    app:singleSelection="true"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/grid_3"
+                    android:gravity="center"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:theme="@style/ThemeOverlay.Custom.Button"
+                    app:checkedButton="@+id/monthly_payment_b_six"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_how_long"
-                    android:layout_height="wrap_content">
+                    app:singleSelection="true">
+
                     <Button
                         android:id="@+id/monthly_payment_b_three"
+                        style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
-                        android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:text="@string/label_three"
-                        style="?attr/materialButtonOutlinedStyle" />
+                        android:textStyle="bold" />
+
                     <Button
                         android:id="@+id/monthly_payment_b_six"
+                        style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:text="@string/label_six"
-                        style="?attr/materialButtonOutlinedStyle" />
+                        android:textStyle="bold" />
+
                     <Button
                         android:id="@+id/monthly_payment_b_twelve"
+                        style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:text="@string/label_twelve"
-                        style="?attr/materialButtonOutlinedStyle" />
+                        android:textStyle="bold" />
+
                     <Button
                         android:id="@+id/monthly_payment_b_twenty_four"
+                        style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:text="@string/label_twenty_four"
-                        style="?attr/materialButtonOutlinedStyle" />
+                        android:textStyle="bold" />
+
                     <Button
                         android:id="@+id/monthly_payment_b_thirty_six"
+                        style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:text="@string/label_thirty_six"
-                        style="?attr/materialButtonOutlinedStyle" />
+                        android:textStyle="bold" />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/monthly_payment_cl_monthly_payment"
                     android:layout_width="match_parent"
-                    android:background="@drawable/bg_tertiary_pressed_radius4_transparent_border1"
-                    android:layout_marginTop="@dimen/grid_4"
-                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_mbtg_how_long"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_4"
+                    android:background="@drawable/bg_tertiary_pressed_radius4_transparent_border1"
+                    android:paddingBottom="@dimen/grid_2"
                     app:layout_constraintBottom_toTopOf="@+id/monthly_payment_b_apply_now"
-                    android:paddingBottom="@dimen/grid_2">
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_mbtg_how_long">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/monthly_payment_tv_monthly_payment"
                         android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:layout_marginTop="@dimen/grid_2"
-                        android:text="@string/title_your_monthly_payment"
-                        android:layout_marginStart="@dimen/grid_2"
-                        android:layout_marginEnd="@dimen/grid_2"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="@dimen/grid_2"
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:layout_marginEnd="@dimen/grid_2"
+                        android:gravity="center"
+                        android:text="@string/title_your_monthly_payment"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/monthly_payment_tv_amount"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
                         style="@style/TextHeaderDark"
-                        android:layout_marginTop="@dimen/grid_1_half"
-                        android:text="@string/label_five_hundred_thousand"
+                        android:layout_width="match_parent"
                         android:layout_marginStart="@dimen/grid_2"
+                        android:layout_marginTop="@dimen/grid_1_half"
                         android:layout_marginEnd="@dimen/grid_2"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:gravity="center"
+                        android:text="@string/label_five_hundred_thousand"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_monthly_payment" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -244,12 +258,12 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/monthly_payment_b_apply_now"
                     style="@style/SMEPrimaryButtonLarge"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/grid_3"
-                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_cl_monthly_payment"
-                    android:textAllCaps="true"
                     android:text="@string/action_apply_now"
+                    android:textAllCaps="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_cl_monthly_payment"
                     app:layout_constraintVertical_chainStyle="packed" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

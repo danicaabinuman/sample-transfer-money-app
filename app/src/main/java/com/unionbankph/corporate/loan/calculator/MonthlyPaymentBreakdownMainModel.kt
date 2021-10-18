@@ -21,44 +21,62 @@ abstract class MonthlyPaymentBreakdownMainModel :
     @EpoxyAttribute
     lateinit var context: Context
 
+    @EpoxyAttribute
+    var principal: Int? = 0
+
+    @EpoxyAttribute
+    var interest: Int? = 0
+
+    @EpoxyAttribute
+    var monthlyPayment: Int? = null
+
     override fun bind(holder: Holder) {
         holder.binding.apply {
 
             initViews(monthlyPaymentBreakdownPcChart)
             monthlyPaymentBreakdownPcChart.apply {
 
-                val dataEntries = ArrayList<PieEntry>()
-                dataEntries.add(PieEntry(41653.182f, "Principal"))
-                dataEntries.add(PieEntry(763.48f, "Interest"))
+                if (principal != 0 && interest != 0) {
 
-                val dataColor: ArrayList<Int> = ArrayList()
-                dataColor.add(Color.parseColor("#4DD0E1"))
-                dataColor.add(Color.parseColor("#FF8A65"))
+                    val monthly = principal?.minus(interest ?: 0)
 
-                val dataSet = PieDataSet(dataEntries, "")
-                dataSet.apply {
-                    sliceSpace = 0f
-                    colors = dataColor
-                    xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-                    yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-                    valueLinePart1OffsetPercentage = 9f
-                    valueLinePart1Length = 0.9f
-                    valueLinePart2Length = 0.7f
-                    valueLineColor = Color.TRANSPARENT
-                    setValueTextColors(dataColor)
+                    monthlyPaymentBreakdownTvMonthlyPaymentValue.text = context.getString(R.string.format_php, monthly)
+                    monthlyPaymentBreakdownTvInterestValue.text = context.getString(R.string.format_php, interest)
+                    monthlyPaymentBreakdownTvPrincipalValue.text = context.getString(R.string.format_php, principal)
+
+                    val dataEntries = ArrayList<PieEntry>()
+                    dataEntries.add(PieEntry(principal?.toFloat() ?: 0f, "Principal"))
+                    dataEntries.add(PieEntry(interest?.toFloat() ?: 0f, "Interest"))
+
+                    val dataColor: ArrayList<Int> = ArrayList()
+                    dataColor.add(Color.parseColor("#4DD0E1"))
+                    dataColor.add(Color.parseColor("#FF8A65"))
+
+                    val dataSet = PieDataSet(dataEntries, "")
+                    dataSet.apply {
+                        sliceSpace = 0f
+                        colors = dataColor
+                        xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+                        yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+                        valueLinePart1OffsetPercentage = 9f
+                        valueLinePart1Length = 0.9f
+                        valueLinePart2Length = 0.7f
+                        valueLineColor = Color.TRANSPARENT
+                        setValueTextColors(dataColor)
+                    }
+
+                    var result = PieData(dataSet)
+                    val format = PercentFormatter(this).apply {
+                        //mFormat = DecimalFormat("###,###,##")
+                    }
+                    result.setValueFormatter(format)
+                    data = result
+                    data.setValueTextSize(12f)
+                    setExtraOffsets(0f, 15f, 0f, 15f)
+                    animateY(1400, Easing.EaseInOutQuad)
+                    setDrawCenterText(false)
+                    invalidate()
                 }
-
-                var result = PieData(dataSet)
-                val format = PercentFormatter(this).apply {
-                    //mFormat = DecimalFormat("###,###,##")
-                }
-                result.setValueFormatter(format)
-                data = result
-                data.setValueTextSize(12f)
-                setExtraOffsets(0f, 15f, 0f, 15f)
-                animateY(1400, Easing.EaseInOutQuad)
-                setDrawCenterText(false)
-                invalidate()
             }
         }
     }

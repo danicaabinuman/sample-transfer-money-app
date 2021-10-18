@@ -7,10 +7,6 @@ data class LoanInfo(
     val id: Int,
     val title: String,
     val value: String,
-    /*  val annualInterestRate: Int,
-      val monthlyPayment: Int,
-      val totalInterestPayable: Int,
-      val totalAmountPayable: Int,*/
 ) {
     companion object {
         fun generateLoanInfo(context: Context): List<LoanInfo> {
@@ -28,7 +24,7 @@ data class LoanInfo(
                 LoanInfo(
                     id = 2,
                     title = context.getString(R.string.title_annual_interest_rate),
-                    value = context.getString(R.string.label_loan_amount_value)
+                    value = context.getString(R.string.label_annual_interest_rate)
                 ),
                 LoanInfo(
                     id = 3,
