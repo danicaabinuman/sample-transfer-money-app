@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.unionbankph.corporate.loan.contactinformation.ContactInformationViewModel" />
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.contactinformation.ContactInformationHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/grid_2"
+        android:animateLayoutChanges="true"
+        android:background="@color/colorWhite" >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/contact_information_tv_title"
+            style="@style/SMEHeadlineH2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1"
+            android:text="@string/title_what_is_this_loan_for"
+            android:textColor="@color/colorInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/contact_information_tv_desc"
+            style="@style/SMEBodyMediumGray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1"
+            android:text="@string/label_before_we_proceed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contact_information_tv_title" />
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/contact_information_erv_data"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorWhite"
+            android:clipToPadding="false"
+            android:layoutAnimation="@anim/anim_layout_animation_fall_down"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:paddingTop="@dimen/content_spacing"
+            android:paddingBottom="@dimen/content_spacing"
+            tools:listitem="@layout/ub_layout_item_contact_information"
+            app:itemSpacing="@dimen/content_item_spacing"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/contact_information_b_next"
+            app:layout_constraintTop_toBottomOf="@+id/contact_information_tv_desc" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/contact_information_b_next"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:enabled="false"
+            android:text="@string/action_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -2675,6 +2675,14 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="format_php">PHP %,d</string>
     <string name="format_months">%d months</string>
     <string name="format_annual_rate">%1$d %%</string>
+    <string name="title_what_is_this_loan_for">What is this loan for?</string>
+    <string name="label_before_we_proceed">Before we proceed, please let us know how funds will be utilized.</string>
+    <string name="title_inventory">Inventory</string>
+    <string name="title_payroll">Payroll</string>
+    <string name="title_operations">Operations</string>
+    <string name="title_capital_investment">Capital Investment</string>
+    <string name="title_equipment">Equipment</string>
+    <string name="title_infrastructure">Infrastructure</string>
 
 
 

@@ -4,10 +4,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
+import com.google.android.material.card.MaterialCardView
 import com.unionbankph.corporate.R
 
 
@@ -72,6 +74,21 @@ fun setBusinessTypeDescription(textView: TextView, source: Int?) {
     }
 }
 
+
+@BindingAdapter("setStrokeColor")
+fun setStrokeColor(cardView: MaterialCardView, status: Boolean?) {
+    cardView.apply {
+        status?.let { status ->
+            if (status) {
+                setCardBackgroundColor(context.getColor(R.color.dsColorButtonWithIconSolidColorSelected))
+                strokeColor = context.getColor(R.color.dsColorButtonWithIconBorderSelected)
+            } else {
+                setCardBackgroundColor(context.getColor(R.color.dsColorButtonWithIconSolidColorDefault))
+                strokeColor = context.getColor(R.color.dsColorButtonWithIconBorderDefault)
+            }
+        }
+    }
+}
 
 
 

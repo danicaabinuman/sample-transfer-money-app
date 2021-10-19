@@ -59,6 +59,7 @@ import com.unionbankph.corporate.loan.applyloan.LoansFragment
 import com.unionbankph.corporate.loan.businesstype.BusinessTypeFragment
 import com.unionbankph.corporate.loan.calculator.LoansCalculatorFragment
 import com.unionbankph.corporate.loan.citizen.CitizenFragment
+import com.unionbankph.corporate.loan.contactinformation.ContactInformationFragment
 import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoFragment
 import com.unionbankph.corporate.loan.reminders.FewRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
@@ -496,6 +497,10 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun businessTypeFragment(): BusinessTypeFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun contactInformationFragment(): ContactInformationFragment
 
 
 }

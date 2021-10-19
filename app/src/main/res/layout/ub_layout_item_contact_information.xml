@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="image"
+            type="Integer" />
+
+        <variable
+            name="isSelected"
+            type="Boolean" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/grid_1_5"
+        app:strokeWidth="1dp"
+        setStrokeColor="@{isSelected}"
+        android:layout_marginBottom="@dimen/grid_1_5"
+        android:layout_height="@dimen/grid_7" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:onClick="@{onClickListener}"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/item_contact_info_iv_image"
+                tools:src="@drawable/ic_infrastructure"
+                android:layout_width="@dimen/grid_4"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_height="@dimen/grid_4"
+                setDrawable="@{image}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                tools:text="@string/title_employee_status"
+                android:layout_marginStart="@dimen/grid_2"
+                android:text="@{title}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/item_contact_info_iv_image"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:layout_height="wrap_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

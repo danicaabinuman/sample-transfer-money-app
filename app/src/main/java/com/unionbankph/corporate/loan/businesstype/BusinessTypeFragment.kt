@@ -2,6 +2,8 @@ package com.unionbankph.corporate.loan.businesstype
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.databinding.FragmentBusinessTypeBinding
 
@@ -53,6 +55,10 @@ class BusinessTypeFragment: BaseFragment<FragmentBusinessTypeBinding, BusinessTy
             viewModel?.setBusinessType(type)
             }
         }
+    }
+
+    override fun onNext() {
+        findNavController().navigate(R.id.nav_to_contactInformationFragment)
     }
 
 }

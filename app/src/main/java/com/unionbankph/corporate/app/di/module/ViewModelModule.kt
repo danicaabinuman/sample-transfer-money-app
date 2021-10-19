@@ -94,6 +94,7 @@ import com.unionbankph.corporate.loan.applyloan.LoansViewModel
 import com.unionbankph.corporate.loan.businesstype.BusinessTypeViewModel
 import com.unionbankph.corporate.loan.calculator.LoansCalculatorViewModel
 import com.unionbankph.corporate.loan.citizen.CitizenViewModel
+import com.unionbankph.corporate.loan.contactinformation.ContactInformationViewModel
 import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoViewModel
 import com.unionbankph.corporate.loan.reminders.FewRemindersViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
@@ -863,5 +864,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BusinessTypeViewModel::class)
     abstract fun businessTypeViewModel(viewModel: BusinessTypeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ContactInformationViewModel::class)
+    abstract fun contactInformationViewModel(viewModel: ContactInformationViewModel): ViewModel
 
 }
