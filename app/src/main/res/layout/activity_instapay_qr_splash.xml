@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnAllow"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias=".3"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAllow"
@@ -45,6 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="@dimen/grid_6"
         app:tabBackground="@drawable/viewpager_tab_selector"
+        android:background="#FFF3E5"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"/>
 
@@ -58,14 +60,29 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSkip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/action_skip"
         style="@style/SMETertiaryButtonSmall"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintTop_toTopOf="@id/btnBack"
         app:layout_constraintBottom_toBottomOf="@id/btnBack"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allow_camera"
+        style="@style/SMESubtitle2"
+        android:paddingStart="@dimen/grid_7_half"
+        android:paddingEnd="@dimen/grid_7_half"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/grid_24"/>
 
 
 

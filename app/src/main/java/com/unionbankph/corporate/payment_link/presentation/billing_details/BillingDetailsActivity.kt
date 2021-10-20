@@ -64,7 +64,7 @@ class BillingDetailsActivity :
         binding.rvPaymentLogs.layoutManager = getLinearLayoutManager()
         binding.rvPaymentLogs.adapter = mAdapter
         binding.rvPaymentLogs.visibility = View.VISIBLE
-        Timber.e("initViews shiiing")
+
     }
 
     private fun setupOutputs() {
@@ -86,7 +86,12 @@ class BillingDetailsActivity :
         viewModel.state.observe(this, {
             updatePaymentLinkDetails(it.paymentDetails!!)
             mAdapter.appendData(it.paymentLogs?.take(3) ?: mutableListOf())
-//            initLogs(it.paymentLogs ?: mutableListOf())
+
+            if (it.paymentLogs?.size!!.toInt() < 3){
+                binding.cardViewMore.cardViewAll.visibility = View.GONE
+            } else {
+                binding.cardViewMore.cardViewAll.visibility = View.VISIBLE
+            }
         })
     }
 

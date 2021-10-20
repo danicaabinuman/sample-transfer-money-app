@@ -9,6 +9,7 @@
     <string name="digits_alpha_numeric_symbols_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
     <string name="digits_alpha_numeric_special_char_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
     <string name="digits_with_restriction">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
+    <string name="digits_for_product_offered">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_with_restriction_with_space">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_website">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-@.,?:\/]</string>
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
@@ -2304,4 +2305,30 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="instapay_qr_detail">Place the QR code in the center of the square. It will scan the QR code automatically.</string>
     <string name="title_view_more">View More</string>
     <string name="activity_log">Activity Log</string>
+    <string name="percent_3_5">3.5% + Php 15.00</string>
+    <string name="set_up_fee">Set-Up Fee</string>
+    <string name="tc_waived">Waived</string>
+    <string name="tc_annual_mid_fee_per_account">Annual MID Fee per account</string>
+    <string name="tc_transaction_handling_fee">Transaction Handling Fee</string>
+    <string name="tc_php_15_00_per_transaction">PHP 15.00 per transaction</string>
+    <string name="tc_main_settlement_account_unionbank_account_number">Main Settlement Account (Unionbank Account Number)</string>
+    <string name="tc_php_400_00">PHP 400.00</string>
+    <string name="tc_chargeback_fee">Chargeback Fee</string>
+    <string name="tc_1_00">+ 1.00%</string>
+    <string name="tc_international_cards">International Cards</string>
+    <string name="tc_visa_mastercard">Visa, MasterCard</string>
+    <string name="tc_credit_card_brands">Credit Card Brands</string>
+    <string name="tc_merchant_name">Merchant Name</string>
+    <string name="tc_merchant_description_on_statement">Merchant Description on Statement</string>
+    <string name="tc_t_2_banking_days">T+2 banking days</string>
+    <string name="tc_settlement">Settlement</string>
+    <string name="tc_cwt_bir_2307">CWT/BIR 2307)</string>
+    <string name="tc_transactions">Transactions</string>
+    <string name="tc_quarterly_release_of">(Quarterly release of</string>
+    <string name="tc_0_5_only_applicable_to_card">0.5%*</string>
+    <string name="tc_withholding_tax">Withholding Tax</string>
+    <string name="tc_mastercard">MasterCard</string>
+    <string name="tc_visa">Visa</string>
+    <string name="tc_merchant_discount_rate">Merchant Discount Rate:</string>
+    <string name="tc_2_00">2.00%</string>
 </resources>
