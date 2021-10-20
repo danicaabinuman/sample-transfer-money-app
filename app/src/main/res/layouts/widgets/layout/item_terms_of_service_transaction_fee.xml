@@ -345,7 +345,7 @@
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:text="E-Wallet"
+                    android:text="@string/e_wallet_gcash_grabpay"
                     android:textColor="#4A4A4A"
                     android:textSize="14sp" />
 
@@ -472,7 +472,7 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Settlement Non Card Transaction"
+                android:text="Settlement All Channels"
                 android:textColor="#4A4A4A"
                 android:textSize="14sp" />
 
@@ -501,7 +501,7 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Settlement Card Transaction"
+                android:text="Settlement Card Transaction In lieu of security deposit"
                 android:textColor="#4A4A4A"
                 android:textSize="14sp" />
 

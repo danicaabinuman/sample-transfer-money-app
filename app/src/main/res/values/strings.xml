@@ -2331,4 +2331,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="tc_visa">Visa</string>
     <string name="tc_merchant_discount_rate">Merchant Discount Rate:</string>
     <string name="tc_2_00">2.00%</string>
+    <string name="e_wallet_gcash_grabpay"><![CDATA[E-Wallet (GCash & Grabpay]]></string>
 </resources>
