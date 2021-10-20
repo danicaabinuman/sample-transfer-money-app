@@ -132,7 +132,9 @@ class InstaPayFormActivity :
                 Timber.e(e.message)
                 e.printStackTrace()
             }
-            binding.viewTransferToForm.textInputEditTextTransferTo.setText(recipientData!!.beneficiaryAccountNumber.toString())
+            binding.viewTransferToForm.textInputEditTextTransferTo.setText(recipientData!!.beneficiaryName)
+            binding.textInputEditTextAccountNumber.setText(recipientData!!.beneficiaryAccountNumber)
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.setText(recipientData!!.bankData?.bank)
         }
     }
 
@@ -378,10 +380,9 @@ class InstaPayFormActivity :
 
             } else {
                 binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
-
+                binding.textInputEditTextAccountNumber.text?.clear()
+                binding.viewReceivingBankForm.textInputEditTextReceivingBank.text?.clear()
             }
-            binding.textInputEditTextAccountNumber.text?.clear()
-            binding.viewReceivingBankForm.textInputEditTextReceivingBank.text?.clear()
             binding.textInputEditTextTransferFrom.setText(
                 (it.name + "\n" + it.accountNumber.formatAccountNumber())
             )
