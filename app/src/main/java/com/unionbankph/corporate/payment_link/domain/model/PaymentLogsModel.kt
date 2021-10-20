@@ -20,7 +20,7 @@ data class PaymentLogsModel(
     var amount: Double? = null,
 
     @SerialName ("fee")
-    var fee: Int? = null,
+    var fee: Double? = null,
 
     @SerialName ("status")
     var status: String? = null,

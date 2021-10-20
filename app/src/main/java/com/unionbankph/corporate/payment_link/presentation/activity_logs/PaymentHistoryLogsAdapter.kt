@@ -30,45 +30,46 @@ class PaymentHistoryLogsAdapter(
         mData.addAll(data)
 
         // to delete
-        if (adapterType != BILLING_ADAPTER) {
-            appendDummyData()
-        }
+//        if (adapterType != BILLING_ADAPTER) {
+//            appendDummyData()
+//        }
 
         notifyDataSetChanged()
     }
 
     //FOR MOCK DATA
 
-    private fun appendDummyData(){
-        val templist = mutableListOf<PaymentLogsModel>()
-        templist.add(
-            PaymentLogsModel().apply {
-                this.logId = 262
-                this.paymentMethodName = "Created by Roger Mango"
-                this.modifiedDate = "2021-09-21T05:55:11Z"
-                this.status = "FAILED"
-                this.transactionId = "2109210143550"
-            }
-        )
-        templist.add(
-            PaymentLogsModel().apply {
-                this.logId = 263
-                this.paymentMethodName = "UB Online"
-                this.modifiedDate = "2021-09-23T07:30:11Z"
-                this.status = "PAID"
-                this.transactionId = "XASDS@#@#"
-            }
-        )
-        templist.add(
-            PaymentLogsModel().apply {
-                this.logId = 263
-                this.paymentMethodName = "Online Sabong"
-                this.modifiedDate = "2021-09-30T06:55:11Z"
-            }
-        )
+//    private fun appendDummyData(){
+//        val templist = mutableListOf<PaymentLogsModel>()
+//        templist.add(
+//            PaymentLogsModel().apply {
+//                this.logId = 262
+//                this.paymentMethodName = "Created by Roger Mango"
+//                this.modifiedDate = "2021-09-21T05:55:11Z"
+//                this.status = "FAILED"
+//                this.transactionId = "2109210143550"
+//            }
+//        )
 
-        mData.addAll(templist)
-    }
+//        templist.add(
+//            PaymentLogsModel().apply {
+//                this.logId = 263
+//                this.paymentMethodName = "UB Online"
+//                this.modifiedDate = "2021-09-23T07:30:11Z"
+//                this.status = "PAID"
+//                this.transactionId = "XASDS@#@#"
+//            }
+//        )
+//        templist.add(
+//            PaymentLogsModel().apply {
+//                this.logId = 263
+//                this.paymentMethodName = "Online Sabong"
+//                this.modifiedDate = "2021-09-30T06:55:11Z"
+//            }
+//        )
+//
+//        mData.addAll(templist)
+//    }
 
     inner class PaymentHistoryViewHolder(view : View): RecyclerView.ViewHolder(view) {
 
