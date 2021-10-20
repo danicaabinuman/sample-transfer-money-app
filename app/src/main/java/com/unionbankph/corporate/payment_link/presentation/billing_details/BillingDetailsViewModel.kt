@@ -47,7 +47,6 @@ class BillingDetailsViewModel @Inject constructor(
             },
             params = referenceNumber
         ).addTo(disposables)
-        Timber.e("initBundleData2" + referenceNumber)
 
     }
 }
