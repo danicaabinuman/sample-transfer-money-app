@@ -196,7 +196,7 @@ class AccountSetupActivity :
         const val BUSINESS_TYPE_SCREEN = 1
         const val BUSINESS_ACCOUNT_TYPE_SCREEN = 2
 
-        const val PAGE_SIZE_SOLE_PROP = 3
+        const val PAGE_SIZE_SOLE_PROP = 10
     }
 
 

@@ -120,7 +120,7 @@ class AsPersonalInformationViewModel @Inject constructor() : BaseViewModel() {
             personalInfoInput.nationality = it
             input.nationalityInput.onNext(it)
         }
-        isNotUsCitizen?.let {
+        isNotUsCitizen.let {
             personalInfoInput.notUsCitizen = it
             input.notUsCitizenInput.onNext(it)
         }

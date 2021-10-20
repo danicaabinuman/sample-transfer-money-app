@@ -8,7 +8,6 @@ data class AccountSetupState(
     var businessType: Int? = null,
     var businessAccountType: Int? = null,
     var debitCardType: Int? = null,
-
     var hasPersonalInfoInput: Boolean = false,
     var personalInfoInput: PersonalInfoInput? = null
 )

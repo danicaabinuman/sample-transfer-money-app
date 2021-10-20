@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewMobileNumberLabel"
+        android:id="@+id/tv_mobile_number_label"
         style="@style/SMECaption"
         android:layout_marginTop="@dimen/grid_5_half"
         android:text="@string/title_mobile_number" />
@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutPrefix"
+            android:id="@+id/til_mobile_prefix"
             style="@style/TextInputLayoutFormThin"
             android:layout_width="@dimen/grid_10"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_country_code"
+                android:id="@+id/tie_mobile_prefix"
                 style="@style/TextInputLayoutFormThinEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_mobile"
+                android:id="@+id/tie_mobile_number"
                 style="@style/TextInputLayoutFormThinEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView
-        android:id="@+id/textViewMobileNumberError"
+        android:id="@+id/tv_mobile_field_error"
         style="@style/SMECaption"
         android:layout_width="match_parent"
         android:paddingStart="@dimen/grid_3_half"

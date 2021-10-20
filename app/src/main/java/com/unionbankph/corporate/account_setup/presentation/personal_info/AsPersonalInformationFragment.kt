@@ -35,11 +35,23 @@ import java.util.concurrent.TimeUnit
 import java.util.regex.Pattern
 
 class AsPersonalInformationFragment
-    : BaseFragment<FragmentAsPersonalInformationBinding, AsPersonalInformationViewModel>(){
+    : BaseFragment<FragmentAsPersonalInformationBinding, AsPersonalInformationViewModel>() {
 
     private val accountSetupActivity by lazyFast { getAppCompatActivity() as AccountSetupActivity }
 
     private val formDisposable = CompositeDisposable()
+
+    override fun afterLayout(savedInstanceState: Bundle?) {
+        super.afterLayout(savedInstanceState)
+
+        accountSetupActivity.apply {
+            setIsScreenScrollable(false)
+            setToolbarButtonType(AccountSetupActivity.BUTTON_SAVE_EXIT)
+            showToolbarButton(true)
+            showProgress(true)
+            setProgressValue(1)
+        }
+    }
 
     override fun onViewModelBound() {
         super.onViewModelBound()
@@ -86,7 +98,8 @@ class AsPersonalInformationFragment
             findNavController().navigate(R.id.action_address)
         })
 
-        val hasExistingData = accountSetupActivity.viewModel.state.value?.hasPersonalInfoInput ?: false
+        val hasExistingData =
+            accountSetupActivity.viewModel.state.value?.hasPersonalInfoInput ?: false
         if (hasExistingData) {
             viewModel.populateFieldsWithExisting(
                 accountSetupActivity.viewModel.state.value?.personalInfoInput ?: PersonalInfoInput()
@@ -113,13 +126,13 @@ class AsPersonalInformationFragment
         binding.buttonNext.setOnClickListener {
             attemptSubmit()
         }
-        binding.editTextGender.setOnClickListener {
+        binding.tieAsPersonalInfoGender.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.GENDER.name)
         }
-        binding.editTextCivilStatus.setOnClickListener {
+        binding.tieAsPersonalInfoCivilStatus.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.CIVIL_STATUS.name)
         }
-        binding.editTextDOB.setOnClickListener {
+        binding.tieAsPersonalInfoDob.setOnClickListener {
             showDatePicker(
                 minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
                 maxDate = Calendar.getInstance(),
@@ -135,7 +148,7 @@ class AsPersonalInformationFragment
                 }
             )
         }
-        binding.checkBoxNotUsCitizen.setOnCheckedChangeListener { _, isChecked ->
+        binding.cbAsPersonalInfoNotUsCitizen.setOnCheckedChangeListener { _, isChecked ->
             viewModel.input.notUsCitizenInput.onNext(isChecked)
         }
     }
@@ -148,7 +161,7 @@ class AsPersonalInformationFragment
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.editTextFirstName
+            editText = binding.tieAsPersonalInfoFirsName
         )
         val middleNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
@@ -156,7 +169,7 @@ class AsPersonalInformationFragment
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.editTextMiddleName
+            editText = binding.tieAsPersonalInfoMiddleName
         )
         val lastNameObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
@@ -164,17 +177,20 @@ class AsPersonalInformationFragment
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.editTextLastName
+            editText = binding.tieAsPersonalInfoLastName
         )
-        val mobileNumberObservable = RxValidator.createFor(binding.viewMobileNumber.etMobile)
+        val mobileNumberObservable = RxValidator.createFor(
+            binding.includeAsPersonalInfoMobile.tieMobileNumber)
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
                     getString(R.string.title_mobile_number)
                 )
             )
-            .patternMatches(getString(R.string.error_mobile_field),
-                Pattern.compile(UcEnterContactInfoFragment.REGEX_FORMAT_MOBILE_NUMBER_PH))
+            .patternMatches(
+                getString(R.string.error_mobile_field),
+                Pattern.compile(UcEnterContactInfoFragment.REGEX_FORMAT_MOBILE_NUMBER_PH)
+            )
             .minLength(
                 resources.getInteger(R.integer.max_length_mobile_number_ph),
                 String.format(
@@ -191,7 +207,7 @@ class AsPersonalInformationFragment
                     TimeUnit.MILLISECONDS
                 )
             }
-        val emailObservable = RxValidator.createFor(binding.editTextEmail)
+        val emailObservable = RxValidator.createFor(binding.tieAsPersonalInfoEmail)
             .nonEmpty(
                 String.format(
                     getString(R.string.error_specific_field),
@@ -214,7 +230,7 @@ class AsPersonalInformationFragment
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.editTextGender,
+            editText = binding.tieAsPersonalInfoGender,
             customErrorMessage = String.format(
                 getString(R.string.error_specific_field),
                 getString(R.string.title_gender)
@@ -226,15 +242,15 @@ class AsPersonalInformationFragment
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.editTextCivilStatus
+            editText = binding.tieAsPersonalInfoCivilStatus
         )
         val tinObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
             isValueChanged = true,
             hasSkip = false,
-            minLength = resources.getInteger(R.integer.min_length_field),
-            maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.editTextTIN
+            minLength = resources.getInteger(R.integer.max_length_sss),
+            maxLength = resources.getInteger(R.integer.max_length_sss),
+            editText = binding.tieAsPersonalInfoTin
         )
         val dobObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
@@ -242,7 +258,7 @@ class AsPersonalInformationFragment
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.editTextDOB
+            editText = binding.tieAsPersonalInfoDob
         )
         val pobObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
@@ -250,7 +266,7 @@ class AsPersonalInformationFragment
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.editTextPOB
+            editText = binding.tieAsPersonalInfoPob
         )
         val nationalityObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
@@ -258,24 +274,24 @@ class AsPersonalInformationFragment
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.editTextNationality
+            editText = binding.tieAsPersonalInfoNationality
         )
-        initError(firstNameObservable, binding.textViewFirstNameLabel)
-        initError(middleNameObservable, binding.textViewMiddleName)
-        initError(lastNameObservable, binding.textViewLastName)
+        initError(firstNameObservable, binding.tvAsPersonalInfoFirstName)
+        initError(middleNameObservable, binding.tvAsPersonalInfoMiddleName)
+        initError(lastNameObservable, binding.tvAsPersonalInfoLastName)
         initError(
             mobileNumberObservable,
-            binding.viewMobileNumber.textViewMobileNumberLabel,
-            binding.viewMobileNumber.textViewMobileNumberError,
-            binding.viewMobileNumber.textInputLayoutPrefix
+            binding.includeAsPersonalInfoMobile.tvMobileNumberLabel,
+            binding.includeAsPersonalInfoMobile.tvMobileFieldError,
+            binding.includeAsPersonalInfoMobile.tilMobilePrefix
         )
-        initError(emailObservable, binding.tvEmail)
-        initError(genderObservable, binding.textViewGender)
-        initError(civilStatusObservable, binding.textViewCivilStatus)
-        initError(tinObservable, binding.textViewTIN)
-        initError(dobObservable, binding.textViewDOB)
-        initError(pobObservable, binding.textViewPOB)
-        initError(nationalityObservable, binding.textViewNationality)
+        initError(emailObservable, binding.tvAsPersonalInfoEmailAddress)
+        initError(genderObservable, binding.tvAsPersonalInfoGender)
+        initError(civilStatusObservable, binding.tvAsPersonalInfoCivilStatus)
+        initError(tinObservable, binding.tvAsPersonalInfoTin)
+        initError(dobObservable, binding.tvAsPersonalInfoDob)
+        initError(pobObservable, binding.tvAsPersonalInfoPob)
+        initError(nationalityObservable, binding.tvAsPersonalInfoNationality)
         RxCombineValidator(
             firstNameObservable,
             middleNameObservable,
@@ -303,53 +319,53 @@ class AsPersonalInformationFragment
     private fun initViewBindings() {
         viewModel.input.firstNameInput
             .subscribe {
-                binding.editTextFirstName.setTextNullable(it)
+                binding.tieAsPersonalInfoFirsName.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.middleNameInput
             .subscribe {
-                binding.editTextMiddleName.setTextNullable(it)
+                binding.tieAsPersonalInfoMiddleName.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.lastNameInput
             .subscribe {
-                binding.editTextLastName.setTextNullable(it)
+                binding.tieAsPersonalInfoLastName.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.mobileInput
             .subscribe {
-                binding.viewMobileNumber.etMobile.setTextNullable(it)
+                binding.includeAsPersonalInfoMobile.tieMobileNumber.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.emailInput
             .subscribe {
-            binding.editTextEmail.setTextNullable(it)
-        }.addTo(disposables)
+                binding.tieAsPersonalInfoEmail.setTextNullable(it)
+            }.addTo(disposables)
         viewModel.input.genderInput
             .subscribe {
-                binding.editTextGender.setTextNullable(it.value?: "")
+                binding.tieAsPersonalInfoGender.setTextNullable(it.value ?: "")
             }.addTo(disposables)
         viewModel.input.civilStatusInput
             .subscribe {
-                binding.editTextCivilStatus.setTextNullable(it.value?: "")
+                binding.tieAsPersonalInfoCivilStatus.setTextNullable(it.value ?: "")
             }.addTo(disposables)
         viewModel.input.tinInput
             .subscribe {
-                binding.editTextTIN.setTextNullable(it)
+                binding.tieAsPersonalInfoTin.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.dobInput
             .subscribe {
-                binding.editTextDOB.setText(
+                binding.tieAsPersonalInfoDob.setText(
                     it.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DATE)
                 )
             }.addTo(disposables)
         viewModel.input.pobInput
             .subscribe {
-                binding.editTextPOB.setTextNullable(it)
+                binding.tieAsPersonalInfoPob.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.nationalityInput
             .subscribe {
-                binding.editTextNationality.setTextNullable(it)
+                binding.tieAsPersonalInfoNationality.setTextNullable(it)
             }.addTo(disposables)
         viewModel.input.notUsCitizenInput
             .subscribe {
-                binding.checkBoxNotUsCitizen.isChecked = it
+                binding.cbAsPersonalInfoNotUsCitizen.isChecked = it
             }.addTo(disposables)
     }
 
@@ -373,10 +389,12 @@ class AsPersonalInformationFragment
             .observeOn(schedulerProvider.ui())
             .subscribe { validation ->
                 viewUtil.setError(validation)
-                labelTextView.setTextColor(when (validation.isProper) {
-                    true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
-                    else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
-                })
+                labelTextView.setTextColor(
+                    when (validation.isProper) {
+                        true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
+                        else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
+                    }
+                )
 
                 errorTextView?.let {
                     it.visibility = when (validation.isProper) {
@@ -397,34 +415,34 @@ class AsPersonalInformationFragment
 
     private fun refreshFields() {
         binding.apply {
-            editTextFirstName.refresh()
-            editTextMiddleName.refresh()
-            editTextLastName.refresh()
-            viewMobileNumber.etMobile.refresh()
-            editTextEmail.refresh()
-            editTextGender.refresh()
-            editTextCivilStatus.refresh()
-            editTextTIN.refresh()
-            editTextDOB.refresh()
-            editTextPOB.refresh()
-            editTextNationality.refresh()
+            tieAsPersonalInfoFirsName.refresh()
+            tieAsPersonalInfoMiddleName.refresh()
+            tieAsPersonalInfoLastName.refresh()
+            includeAsPersonalInfoMobile.tieMobileNumber.refresh()
+            tieAsPersonalInfoEmail.refresh()
+            tieAsPersonalInfoGender.refresh()
+            tieAsPersonalInfoCivilStatus.refresh()
+            tieAsPersonalInfoTin.refresh()
+            tieAsPersonalInfoDob.refresh()
+            tieAsPersonalInfoPob.refresh()
+            tieAsPersonalInfoNationality.refresh()
         }
     }
 
     private fun syncInputs() {
         binding.apply {
             viewModel.syncInputData(
-                firstNameInput = editTextFirstName.getTextNullable(),
-                middleNameInput = editTextMiddleName.getTextNullable(),
-                lastNameInput = editTextLastName.getTextNullable(),
-                mobileInput = viewMobileNumber.etMobile.getTextNullable(),
-                emailInput = editTextEmail.getTextNullable(),
+                firstNameInput = tieAsPersonalInfoFirsName.getTextNullable(),
+                middleNameInput = tieAsPersonalInfoMiddleName.getTextNullable(),
+                lastNameInput = tieAsPersonalInfoLastName.getTextNullable(),
+                mobileInput = includeAsPersonalInfoMobile.tieMobileNumber.getTextNullable(),
+                emailInput = tieAsPersonalInfoEmail.getTextNullable(),
                 genderInput = viewModel.input.genderInput.value,
                 civilStatusInput = viewModel.input.civilStatusInput.value,
-                tinInput = editTextTIN.getTextNullable(),
+                tinInput = tieAsPersonalInfoTin.getTextNullable(),
                 dobInput = viewModel.input.dobInput.value,
-                pobInput = editTextPOB.getTextNullable(),
-                nationalityInput = editTextNationality.getTextNullable(),
+                pobInput = tieAsPersonalInfoPob.getTextNullable(),
+                nationalityInput = tieAsPersonalInfoNationality.getTextNullable(),
                 isNotUsCitizen = viewModel.input.notUsCitizenInput.value!!
             )
         }

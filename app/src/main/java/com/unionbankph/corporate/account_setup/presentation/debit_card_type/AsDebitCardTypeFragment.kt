@@ -32,12 +32,6 @@ class AsDebitCardTypeFragment :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        accountSetupActivity.setIsScreenScrollable(false)
-        accountSetupActivity.setToolbarButtonType(AccountSetupActivity.BUTTON_CLOSE)
-        accountSetupActivity.showToolbarButton(true)
-        accountSetupActivity.showProgress(true)
-        accountSetupActivity.setProgressValue(2)
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             accountSetupActivity.popBackStack()
         }

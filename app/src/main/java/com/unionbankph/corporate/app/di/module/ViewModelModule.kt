@@ -10,6 +10,7 @@ import com.unionbankph.corporate.account.presentation.account_selection.AccountS
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountViewModel
 import com.unionbankph.corporate.account.presentation.source_account.SourceAccountViewModel
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
+import com.unionbankph.corporate.account_setup.presentation.address.AsAddressViewModel
 import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationViewModel
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragmentViewModel
@@ -694,187 +695,140 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(LinkDetailsViewModel::class)
-    abstract fun linkDetailsViewModel(
-        viewModel: LinkDetailsViewModel
-    ): ViewModel
+    abstract fun linkDetailsViewModel(viewModel: LinkDetailsViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(RequestForPaymentViewModel::class)
-    abstract fun requestPaymentViewModel(
-        viewModel: RequestForPaymentViewModel
-    ): ViewModel
+    abstract fun requestPaymentViewModel(viewModel: RequestForPaymentViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(SetupPaymentLinkViewModel::class)
-    abstract fun setupPaymentLinkViewModel(
-        viewModel: SetupPaymentLinkViewModel
-    ): ViewModel
+    abstract fun setupPaymentLinkViewModel(viewModel: SetupPaymentLinkViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(TermsOfServiceViewModel::class)
-    abstract fun termsOfServiceViewModel(
-        viewModel: TermsOfServiceViewModel
-    ): ViewModel
+    abstract fun termsOfServiceViewModel(viewModel: TermsOfServiceViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(NominateSettlementViewModel::class)
-    abstract fun nominateSettlementViewModel(
-        viewModel: NominateSettlementViewModel
-    ): ViewModel
+    abstract fun nominateSettlementViewModel(viewModel: NominateSettlementViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(BillingDetailsViewModel::class)
-    abstract fun billingDetailsViewModel(
-        viewModel: BillingDetailsViewModel
-    ): ViewModel
+    abstract fun billingDetailsViewModel(viewModel: BillingDetailsViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(ActivityLogsViewModel::class)
-    abstract fun activityLogsViewModel(
-        viewModel: ActivityLogsViewModel
-    ): ViewModel
+    abstract fun activityLogsViewModel(viewModel: ActivityLogsViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(PaymentLinkListViewModel::class)
-    abstract fun paymentLinkListViewModel(
-        viewModel: PaymentLinkListViewModel
-    ): ViewModel
+    abstract fun paymentLinkListViewModel(viewModel: PaymentLinkListViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(RequestPaymentSplashViewModel::class)
-    abstract fun requestPaymentSplashViewModel(
-        viewModel: RequestPaymentSplashViewModel
-    ): ViewModel
+    abstract fun requestPaymentSplashViewModel(viewModel: RequestPaymentSplashViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(SetupPaymentLinkSuccessfulViewModel::class)
-    abstract fun setupPaymentLinkSuccessfulViewModel(
-        viewModel: SetupPaymentLinkSuccessfulViewModel
-    ): ViewModel
+    abstract fun setupPaymentLinkSuccessfulViewModel(viewModel: SetupPaymentLinkSuccessfulViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(FeeCalculatorViewModel::class)
-    abstract fun feeCalculatorViewModel(
-        viewModel: FeeCalculatorViewModel
-    ): ViewModel
+    abstract fun feeCalculatorViewModel(viewModel: FeeCalculatorViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(BusinessInformationViewModel::class)
-    abstract fun businessInformationViewModel(
-        viewModel: BusinessInformationViewModel
-    ): ViewModel
+    abstract fun businessInformationViewModel(viewModel: BusinessInformationViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(MerchantApplicationReceivedViewModel::class)
-    abstract fun merchantApplicationReceivedViewModel(
-        viewModel: MerchantApplicationReceivedViewModel
-    ): ViewModel
+    abstract fun merchantApplicationReceivedViewModel(viewModel: MerchantApplicationReceivedViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(MerchantApplicationRejectedViewModel::class)
-    abstract fun merchantApplicationRejectedViewModel(
-        viewModel: MerchantApplicationRejectedViewModel
-    ): ViewModel
+    abstract fun merchantApplicationRejectedViewModel(viewModel: MerchantApplicationRejectedViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(CardAcceptanceOptionViewModel::class)
-    abstract fun cardAcceptanceOptionViewModel(
-        viewModel: CardAcceptanceOptionViewModel
-    ): ViewModel
+    abstract fun cardAcceptanceOptionViewModel(viewModel: CardAcceptanceOptionViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(FeesAndChargesViewModel::class)
-    abstract fun feesAndChargesViewModel(
-        viewModel: FeesAndChargesViewModel
-    ): ViewModel
+    abstract fun feesAndChargesViewModel(viewModel: FeesAndChargesViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(UserCreationViewModel::class)
-    abstract fun userCreationViewModel(
-        viewModel: UserCreationViewModel
-    ): ViewModel
+    abstract fun userCreationViewModel(viewModel: UserCreationViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(UcEnterNameViewModel::class)
-    abstract fun ucEnterNameViewModel(
-        viewModel: UcEnterNameViewModel
-    ): ViewModel
+    abstract fun ucEnterNameViewModel(viewModel: UcEnterNameViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(UcTNCReminderViewModel::class)
-    abstract fun tncReminderViewModel(
-        viewModelUc: UcTNCReminderViewModel
-    ): ViewModel
+    abstract fun tncReminderViewModel(viewModelUc: UcTNCReminderViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(DashboardFragmentViewModel::class)
-    abstract fun dashboardFragmentViewModel(
-        viewModel: DashboardFragmentViewModel): ViewModel
+    abstract fun dashboardFragmentViewModel(viewModel: DashboardFragmentViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(UcEnterContactInfoViewModel::class)
-    abstract fun oaEnterContactInfoViewModel(
-        viewModel: UcEnterContactInfoViewModel): ViewModel
+    abstract fun oaEnterContactInfoViewModel(viewModel: UcEnterContactInfoViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(NegPosBottomSheetViewModel::class)
-    abstract fun negPosBottomSheetViewModel(
-        viewModel: NegPosBottomSheetViewModel
-    ): ViewModel
+    abstract fun negPosBottomSheetViewModel(viewModel: NegPosBottomSheetViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(UcPersonaliseSettingsViewModel::class)
-    abstract fun ucPersonaliseSettingsViewModel(
-        viewModel: UcPersonaliseSettingsViewModel
-    ): ViewModel
+    abstract fun ucPersonaliseSettingsViewModel(viewModel: UcPersonaliseSettingsViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(UcNominatePasswordViewModel::class)
-    abstract fun oaNominatePasswordViewModel(
-        viewModel: UcNominatePasswordViewModel
-    ): ViewModel
+    abstract fun oaNominatePasswordViewModel(viewModel: UcNominatePasswordViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(TrialAccountViewModel::class)
-    abstract fun trialAccountViewModel(
-        viewModel: TrialAccountViewModel
-    ): ViewModel
+    abstract fun trialAccountViewModel(viewModel: TrialAccountViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(AccountSetupViewModel::class)
-    abstract fun accountSetupViewModel(
-        viewModel: AccountSetupViewModel
-    ): ViewModel
+    abstract fun accountSetupViewModel(viewModel: AccountSetupViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(AsPersonalInformationViewModel::class)
-    abstract fun asPersonalInfoInfoViewModel(
-        viewModel: AsPersonalInformationViewModel
-    ): ViewModel
+    abstract fun asPersonalInfoInfoViewModel(viewModel: AsPersonalInformationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AsAddressViewModel::class)
+    abstract fun asAddressViewModel(viewModel: AsAddressViewModel): ViewModel
 }
