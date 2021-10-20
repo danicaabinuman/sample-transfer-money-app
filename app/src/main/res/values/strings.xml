@@ -2305,7 +2305,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="instapay_qr_detail">Place the QR code in the center of the square. It will scan the QR code automatically.</string>
     <string name="title_view_more">View More</string>
     <string name="activity_log">Activity Log</string>
-        <string name="percent_3_5">3.5% + Php 15.00</string>
+    <string name="percent_3_5">3.5% + Php 15.00</string>
     <string name="set_up_fee">Set-Up Fee</string>
     <string name="tc_waived">Waived</string>
     <string name="tc_annual_mid_fee_per_account">Annual MID Fee per account</string>
