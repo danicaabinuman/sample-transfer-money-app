@@ -161,6 +161,7 @@ constructor(
                     }
                 }
             }
+            signatoriesDetail.enrollingSource = it.enrollingSource
         }
 
         return signatoriesDetail
