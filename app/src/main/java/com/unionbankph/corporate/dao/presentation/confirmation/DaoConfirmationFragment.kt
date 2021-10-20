@@ -118,9 +118,6 @@ class DaoConfirmationFragment :
                 EnrollingSourceEnum.SALES_FORCE.value -> {
                     isEdittableDetails(false)
                 }
-                EnrollingSourceEnum.PORTAL_WEB.value -> {
-                    isEdittableDetails(true)
-                }
             }
         })
     }
