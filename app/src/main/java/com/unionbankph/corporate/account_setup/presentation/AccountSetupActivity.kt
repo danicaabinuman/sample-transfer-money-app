@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account_setup.data.PersonalInfoInput
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.enableButton
 import com.unionbankph.corporate.app.common.extension.formatString
@@ -91,6 +92,11 @@ class AccountSetupActivity :
 
     fun setCurrentScreen(currentScreen: Int) {
         this.currentScreen = currentScreen
+    }
+
+    fun setPersonalInfoInput(form: PersonalInfoInput) {
+        Timber.e("Personal Info")
+        viewModel.setPersonalInfoInput(form)
     }
 
     fun getExistingDebitCardType() : Int? {
@@ -190,7 +196,7 @@ class AccountSetupActivity :
         const val BUSINESS_TYPE_SCREEN = 1
         const val BUSINESS_ACCOUNT_TYPE_SCREEN = 2
 
-        const val PAGE_SIZE_SOLE_PROP = 3
+        const val PAGE_SIZE_SOLE_PROP = 10
     }
 
 

@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.account_setup.presentation.terms_of_service
 
+import android.os.Bundle
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
@@ -16,6 +17,15 @@ class AsTermsOfServiceFragment :
     BaseFragment<FragmentAsTermsOfServiceBinding, AccountSetupViewModel>() {
 
     private val accountSetupActivity by lazyFast { getAppCompatActivity() as AccountSetupActivity }
+
+    override fun afterLayout(savedInstanceState: Bundle?) {
+        super.afterLayout(savedInstanceState)
+
+        accountSetupActivity.apply {
+            showProgress(false)
+            showToolbarButton(false)
+        }
+    }
 
     override fun onViewsBound() {
         super.onViewsBound()

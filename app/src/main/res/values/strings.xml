@@ -14,7 +14,7 @@
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_alpha_numeric_symbols_email_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@.</string>
     <string name="digits_country_code">1234567890+</string>
-    <string name="digits_alpha_numeric_specific_symbols">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,-() </string>
+    <string name="digits_alpha_numeric_specific_symbols">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,-()</string>
 
     <!--FingerPrint-->
     <string name="use_password">Use password</string>

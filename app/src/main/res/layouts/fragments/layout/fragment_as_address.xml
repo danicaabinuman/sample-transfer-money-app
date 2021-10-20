@@ -11,7 +11,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         android:clipToPadding="false"
         app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +70,7 @@
                     android:layout_marginTop="@dimen/grid_3"/>
 
                 <include
-                    android:id="@+id/viewPresentAddress"
+                    android:id="@+id/include_as_address_present_address"
                     layout="@layout/widget_address_fields"/>
 
                 <View
@@ -85,7 +85,7 @@
                     android:text="@string/title_permanent_address"/>
 
                 <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/checkBoxNotUsCitizen"
+                    android:id="@+id/cb_as_address_same_as_present_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/button_small_size"
@@ -102,11 +102,11 @@
                     android:text="@string/desc_provide_complete_address"/>
 
                 <include
-                    android:id="@+id/viewPermanentAddress"
+                    android:id="@+id/include_as_address_permanent_address"
                     layout="@layout/widget_address_fields"/>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/buttonNext"
+                    android:id="@+id/btn_as_address_next"
                     style="@style/SMEPrimaryButtonLarge"
                     android:enabled="true"
                     android:layout_marginTop="@dimen/grid_3"
