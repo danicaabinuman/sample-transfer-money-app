@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
@@ -34,6 +35,7 @@ import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
+import com.unionbankph.corporate.common.presentation.constant.EnrollingSourceEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.domain.constant.DaoErrorCodeEnum
@@ -109,6 +111,14 @@ class DaoConfirmationFragment :
         })
         viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
             navigationDaoResult(it)
+        })
+
+        daoActivity.viewModel.navigatePages.observe(this, Observer {
+            when(daoActivity.viewModel.signatoriesDetail.value?.enrollingSource){
+                EnrollingSourceEnum.SALES_FORCE.value -> {
+                    isEdittableDetails(false)
+                }
+            }
         })
     }
 
@@ -235,6 +245,14 @@ class DaoConfirmationFragment :
             findNavController().navigate(action)
             setBackIconToDefault()
         }
+    }
+
+    private fun isEdittableDetails(isShow: Boolean){
+        binding.viewPersonalInfo1.btnPersonalInformation1.setVisible(isShow)
+        binding.viewPersonalInfo2.btnPersonalInformation2.setVisible(isShow)
+        binding.viewPersonalInfo3.btnPersonalInformation3.setVisible(isShow)
+        binding.viewFinancialInformation.btnFinancialInformation.setVisible(isShow)
+        binding.btnIdVerification.setVisible(isShow)
     }
 
     private fun setBackIconToDefault() {
