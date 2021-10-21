@@ -1,13 +1,17 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.Layout
 import android.text.TextWatcher
+import android.util.Xml
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -38,15 +42,15 @@ class BusinessInformationActivity :
 
     private var fromWhatButton: String? = null
 
-    private lateinit var editTextYears : AutoFormatEditText
-    private lateinit var editTextEmployee : AutoFormatEditText
-    private lateinit var editTextBranch : AutoFormatEditText
-    private lateinit var buttonAddYears : ImageButton
-    private lateinit var buttonMinusYears : ImageButton
-    private lateinit var buttonAddEmployee : ImageButton
-    private lateinit var buttonMinusEmployee : ImageButton
-    private lateinit var buttonAddBranch : ImageButton
-    private lateinit var buttonMinusBranch : ImageButton
+    private lateinit var editTextYears: AutoFormatEditText
+    private lateinit var editTextEmployee: AutoFormatEditText
+    private lateinit var editTextBranch: AutoFormatEditText
+    private lateinit var buttonAddYears: ImageButton
+    private lateinit var buttonMinusYears: ImageButton
+    private lateinit var buttonAddEmployee: ImageButton
+    private lateinit var buttonMinusEmployee: ImageButton
+    private lateinit var buttonAddBranch: ImageButton
+    private lateinit var buttonMinusBranch: ImageButton
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -119,6 +123,24 @@ class BusinessInformationActivity :
             putInformationFromFields()
             showDialogToDashboard()
         }
+
+    }
+
+    //    @SuppressLint("ClickableViewAccessibility")
+//    private fun setupUI(view: View){
+//        if (view !is EditText){
+//            view.setOnTouchListener { v, event ->
+//                hideKb(this)
+//                false
+//            }
+//        }
+//
+//    }
+    private fun hideKb(view: View) {
+        val hideKb = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        hideKb.hideSoftInputFromWindow(view.windowToken, 0)
+//        hideKb.hideSoftInputFromWindow(activity.windowToken, 0)
+//        view.clearFocus()
     }
 
     private fun getBusinessInformationResponse(response: GetRMOBusinessInformationResponse) {
@@ -196,37 +218,65 @@ class BusinessInformationActivity :
 
         var years = editTextYears.text.toString().toInt()
 
+        editTextYears.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus){
+                hideKb(v)
+            }
+        }
+
         buttonAddYears.setOnClickListener {
             years++
             editTextYears.setText(years.toString())
-            if (years > 0){
+            if (years > 0) {
                 binding.btnYearsDecrementInactive.visibility(false)
                 binding.btnYearsDecrementActive.visibility(true)
+
+            } else if (years == 99){
+                binding.btnYearsIncrement.visibility = View.INVISIBLE
+                binding.btnYearsIncrementInactive.visibility(true)
             }
         }
 
         buttonMinusYears.setOnClickListener {
             years--
             editTextYears.setText(years.toString())
-            if (years == 0){
+            if (years == 0) {
                 binding.btnYearsDecrementInactive.visibility(true)
                 binding.btnYearsDecrementActive.visibility(false)
             }
         }
 
         editTextYears.doOnTextChanged { text, start, before, count ->
+            if (text == "0") {
+                binding.btnYearsDecrementInactive.visibility(true)
+                binding.btnYearsDecrementActive.visibility(false)
+            } else {
+                binding.btnYearsDecrementInactive.visibility(false)
+                binding.btnYearsDecrementActive.visibility(true)
+            }
+
+            if (count > 2) {
+                editTextYears.setText("99")
+                binding.btnYearsIncrement.visibility = View.INVISIBLE
+                binding.btnYearsIncrementInactive.visibility(true)
+            } else {
+                binding.btnYearsIncrement.visibility(true)
+                binding.btnYearsIncrementInactive.visibility(false)
+            }
 
             buttonAddYears.setOnClickListener {
                 var add = text.toString().toInt()
                 add++
                 editTextYears.setText(add.toString())
                 editTextYears.clearFocus()
-                if (add > 0){
+                if (add > 0) {
                     binding.btnYearsDecrementInactive.visibility(false)
                     binding.btnYearsDecrementActive.visibility(true)
                 }
-                if (add > 99){
+                if (add > 98) {
                     editTextYears.setText("99")
+                    binding.btnYearsIncrement.visibility = View.INVISIBLE
+                    binding.btnYearsIncrementInactive.visibility(true)
                 }
             }
 
@@ -234,7 +284,7 @@ class BusinessInformationActivity :
                 editTextYears.clearFocus()
                 var minus = text.toString().toInt()
                 minus--
-                if (minus == 0){
+                if (minus == 0) {
                     editTextYears.setText(minus.toString())
                     binding.btnYearsDecrementInactive.visibility(true)
                     binding.btnYearsDecrementActive.visibility(false)
@@ -242,34 +292,32 @@ class BusinessInformationActivity :
                     editTextYears.setText(minus.toString())
                     binding.btnYearsDecrementInactive.visibility(false)
                     binding.btnYearsDecrementActive.visibility(true)
+                    binding.btnYearsIncrement.visibility(true)
+                    binding.btnYearsIncrementInactive.visibility(false)
                 }
             }
-
-//            if (years > 0){
-//                binding.btnYearsDecrementInactive.visibility(false)
-//                binding.btnYearsDecrementActive.visibility(true)
-//            } else if (years == 0){
-//                binding.btnYearsDecrementInactive.visibility(true)
-//                binding.btnYearsDecrementActive.visibility(false)
-//            } else if (years > 99){
-//                editTextYears.setText("99")
-//            }
 
         }
 
     }
 
-    private fun employeeCount(){
+    private fun employeeCount() {
         editTextEmployee = binding.etEmployeeCounter
         buttonAddEmployee = binding.btnEmployeeIncrement
         buttonMinusEmployee = binding.btnEmployeeDecrementActive
+
+        editTextEmployee.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus){
+                hideKb(v)
+            }
+        }
 
         var employee = editTextEmployee.text.toString().toInt()
 
         buttonAddEmployee.setOnClickListener {
             employee++
             editTextEmployee.setText(employee.toString())
-            if (employee > 0){
+            if (employee > 0) {
                 binding.btnEmployeeDecrementInactive.visibility(false)
                 binding.btnEmployeeDecrementActive.visibility(true)
             }
@@ -278,24 +326,40 @@ class BusinessInformationActivity :
         buttonMinusEmployee.setOnClickListener {
             employee--
             editTextEmployee.setText(employee.toString())
-            if (employee == 1){
+            if (employee == 1) {
                 binding.btnEmployeeDecrementInactive.visibility(true)
                 binding.btnEmployeeDecrementActive.visibility(false)
             }
         }
 
         editTextEmployee.doOnTextChanged { text, start, before, count ->
+            if (text == "0") {
+                binding.btnEmployeeDecrementInactive.visibility(true)
+                binding.btnEmployeeDecrementActive.visibility(false)
+            } else {
+                binding.btnEmployeeDecrementInactive.visibility(false)
+                binding.btnEmployeeDecrementActive.visibility(true)
+            }
+
+            if (count > 2) {
+                editTextEmployee.setText("99")
+                binding.btnEmployeeIncrement.visibility = View.INVISIBLE
+                binding.btnEmployeeIncrementInactive.visibility(true)
+            }
+
             buttonAddEmployee.setOnClickListener {
                 var add = text.toString().toInt()
                 add++
                 editTextEmployee.setText(add.toString())
                 editTextEmployee.clearFocus()
-                if (add > 1){
+                if (add > 1) {
                     binding.btnEmployeeDecrementInactive.visibility(false)
                     binding.btnEmployeeDecrementActive.visibility(true)
                 }
-                if (add > 99){
+                if (add > 98) {
                     editTextEmployee.setText("99")
+                    binding.btnEmployeeIncrement.visibility = View.INVISIBLE
+                    binding.btnEmployeeIncrementInactive.visibility(true)
                 }
             }
 
@@ -303,37 +367,39 @@ class BusinessInformationActivity :
                 editTextEmployee.clearFocus()
                 var minus = text.toString().toInt()
                 minus--
-                if (minus == 1){
+                if (minus == 1) {
                     editTextEmployee.setText(minus.toString())
                     binding.btnEmployeeDecrementInactive.visibility(true)
                     binding.btnEmployeeDecrementActive.visibility(false)
+                } else {
+                    editTextEmployee.setText(minus.toString())
+                    binding.btnEmployeeDecrementInactive.visibility(false)
+                    binding.btnEmployeeDecrementActive.visibility(true)
+                    binding.btnEmployeeIncrement.visibility(true)
+                    binding.btnEmployeeIncrementInactive.visibility(false)
                 }
             }
-
-//            if (employee > 0){
-//                binding.btnEmployeeDecrementInactive.visibility(false)
-//                binding.btnEmployeeDecrementActive.visibility(true)
-//            } else if (employee == 0){
-//                binding.btnEmployeeDecrementInactive.visibility(true)
-//                binding.btnEmployeeDecrementActive.visibility(false)
-//            } else if (employee > 99){
-//                editTextYears.setText("99")
-//            }
 
         }
     }
 
-    private fun branchCount(){
+    private fun branchCount() {
         editTextBranch = binding.etBranchCounter
         buttonAddBranch = binding.btnIncrementBranchNumber
         buttonMinusBranch = binding.btnDecrementBranchNumberActive
+
+        editTextBranch.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus){
+                hideKb(v)
+            }
+        }
 
         var branch = editTextBranch.text.toString().toInt()
 
         buttonAddBranch.setOnClickListener {
             branch++
             editTextBranch.setText(branch.toString())
-            if (branch > 0){
+            if (branch > 0) {
                 binding.btnDecrementBranchNumberInactive.visibility(false)
                 binding.btnDecrementBranchNumberActive.visibility(true)
             }
@@ -342,24 +408,40 @@ class BusinessInformationActivity :
         buttonMinusBranch.setOnClickListener {
             branch--
             editTextBranch.setText(branch.toString())
-            if (branch == 1){
+            if (branch == 1) {
                 binding.btnDecrementBranchNumberInactive.visibility(true)
                 binding.btnDecrementBranchNumberActive.visibility(false)
             }
         }
 
         editTextBranch.doOnTextChanged { text, start, before, count ->
+            if (text == "1") {
+                binding.btnDecrementBranchNumberInactive.visibility(true)
+                binding.btnDecrementBranchNumberActive.visibility(false)
+            } else {
+                binding.btnDecrementBranchNumberInactive.visibility(false)
+                binding.btnDecrementBranchNumberActive.visibility(true)
+            }
+
+            if (count > 2) {
+                editTextBranch.setText("99")
+                binding.btnIncrementBranchNumber.visibility = View.INVISIBLE
+                binding.btnIncrementBranchNumberInactive.visibility(true)
+            }
+
             buttonAddBranch.setOnClickListener {
                 var add = text.toString().toInt()
                 add++
                 editTextBranch.setText(add.toString())
                 editTextBranch.clearFocus()
-                if (add > 1){
+                if (add > 1) {
                     binding.btnDecrementBranchNumberInactive.visibility(false)
                     binding.btnDecrementBranchNumberActive.visibility(true)
                 }
-                if (add > 99){
+                if (add > 98) {
                     editTextBranch.setText("99")
+                    binding.btnIncrementBranchNumber.visibility = View.INVISIBLE
+                    binding.btnIncrementBranchNumberInactive.visibility(true)
                 }
                 editTextBranch.clearFocus()
             }
@@ -367,10 +449,16 @@ class BusinessInformationActivity :
             buttonMinusBranch.setOnClickListener {
                 var minus = text.toString().toInt()
                 minus--
-                if (minus == 1){
+                if (minus == 1) {
                     editTextBranch.setText(minus.toString())
                     binding.btnDecrementBranchNumberInactive.visibility(true)
                     binding.btnDecrementBranchNumberActive.visibility(false)
+                } else {
+                    editTextBranch.setText(minus.toString())
+                    binding.btnDecrementBranchNumberInactive.visibility(false)
+                    binding.btnDecrementBranchNumberActive.visibility(true)
+                    binding.btnIncrementBranchNumber.visibility(true)
+                    binding.btnIncrementBranchNumberInactive.visibility(false)
                 }
                 editTextBranch.clearFocus()
             }

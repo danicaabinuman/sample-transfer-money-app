@@ -6,6 +6,7 @@ import android.content.res.AssetFileDescriptor
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.pdf.PdfRenderer
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
@@ -20,8 +21,11 @@ import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.databinding.ActivityBusinessInformation2ndScreenBinding
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.BusinessPolicyCameraActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
 
 class BusinessInformation2ndScreenActivity :
     BaseActivity<ActivityBusinessInformation2ndScreenBinding, BusinessInformationViewModel>(),
@@ -47,6 +51,7 @@ class BusinessInformation2ndScreenActivity :
 
     private var uploadDocumentFragment: CardAcceptanceUploadDocumentFragment? = null
     lateinit var imgView: ImageView
+    private var uriArrayList = arrayListOf<Uri>()
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -476,7 +481,7 @@ class BusinessInformation2ndScreenActivity :
                 container.addView(addOtherStoreFields, container.childCount)
 
                 val storeCount = container.childCount
-                if (storeCount == 99) {
+                if (storeCount == 98) {
                     binding.others.btnAddAnotherStore.visibility(false)
                 }
             }
@@ -598,7 +603,8 @@ class BusinessInformation2ndScreenActivity :
     }
 
     override fun openCamera() {
-
+        captureImageFromCamera()
+        uploadDocumentFragment?.dismiss()
     }
 
     override fun openGallery() {
@@ -609,6 +615,23 @@ class BusinessInformation2ndScreenActivity :
     override fun openFileManager() {
         selectPDFDocument()
         uploadDocumentFragment?.dismiss()
+    }
+
+    private fun captureImageFromCamera(){
+        val bundle = Bundle().apply {
+            putParcelableArrayList(
+                LIST_OF_IMAGES_URI,
+                uriArrayList
+            )
+        }
+        navigator.navigate(
+            this,
+            BusinessPolicyCameraActivity::class.java,
+            bundle,
+            isClear = true,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     private fun selectPDFDocument() {
@@ -695,7 +718,7 @@ class BusinessInformation2ndScreenActivity :
                 }
             GALLERY_REQUEST_CODE ->
                 if (resultCode == RESULT_OK) {
-                    binding.popupPreviewDocsFromGallery.visibility = View.VISIBLE
+                    showImagePreviewFromGallery()
 
                     val imageUri = data?.data!!
                     val fileDescriptor: AssetFileDescriptor =
@@ -731,10 +754,24 @@ class BusinessInformation2ndScreenActivity :
 
                     imgView.setImageURI(imageUri)
                     binding.includePreviewGallery.btnNavigateBackToUploadDocs1.setOnClickListener {
-                        binding.popupPreviewDocsFromGallery.visibility = View.GONE
+                        hideImagePreviewFromGallery()
                     }
                 }
         }
+    }
+
+    private fun showImagePreviewFromGallery(){
+        binding.popupPreviewDocsFromGallery.visibility(true)
+        binding.scrollView2.visibility(false)
+        binding.viewToolbar.toolbar.visibility(false)
+        binding.btnNavigateToUploadPhotos.visibility(false)
+    }
+
+    private fun hideImagePreviewFromGallery(){
+        binding.popupPreviewDocsFromGallery.visibility(false)
+        binding.scrollView2.visibility(true)
+        binding.viewToolbar.toolbar.visibility(true)
+        binding.btnNavigateToUploadPhotos.visibility(true)
     }
 
     fun disableUploadDocs(view: View) {

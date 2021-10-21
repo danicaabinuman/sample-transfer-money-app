@@ -176,6 +176,7 @@ class OnboardingUploadPhotosActivity :
                                             adapter?.notifyDataSetChanged()
                                         }
                                     ).show()
+                                    binding.btnNext.isEnabled = false
                                 }
                                 if (fileType != IMAGE_JPEG && fileType != IMAGE_PNG){
                                     DialogFactory().createSMEDialog(
@@ -189,9 +190,13 @@ class OnboardingUploadPhotosActivity :
                                             adapter?.notifyDataSetChanged()
                                         }
                                     ).show()
+                                    binding.btnNext.isEnabled = false
+
                                 }
                                 uriArrayList.add(imageUri)
                                 initListener()
+                                binding.btnNext.isEnabled = true
+
                             }
                         } else {
                             showMaterialDialogError(message = getString(R.string.msg_maximum_of_6_photos_only))
@@ -215,6 +220,7 @@ class OnboardingUploadPhotosActivity :
                                     adapter?.notifyDataSetChanged()
                                 }
                             ).show()
+                            binding.btnNext.isEnabled = false
                         }
                         if (fileType != IMAGE_JPEG && fileType != IMAGE_PNG){
                             DialogFactory().createSMEDialog(
@@ -228,6 +234,7 @@ class OnboardingUploadPhotosActivity :
                                     adapter?.notifyDataSetChanged()
                                 }
                             ).show()
+                            binding.btnNext.isEnabled = false
                         }
 
                     }

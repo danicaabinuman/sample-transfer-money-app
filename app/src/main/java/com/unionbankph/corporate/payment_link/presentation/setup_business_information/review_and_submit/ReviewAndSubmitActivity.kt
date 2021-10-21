@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.CheckBox
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
@@ -117,6 +118,19 @@ class ReviewAndSubmitActivity:BaseActivity<ActivityReviewAndSubmitBinding, Revie
         }
     }
 
+    fun readFeesAndCharges(view: View) {
+        if (view is CheckBox){
+            val checked: Boolean = view.isChecked
+
+            when (view.id){
+                R.id.cb_review_fnc_tnc -> {
+                    binding.btnReviewAndSubmit.isEnabled = checked
+                }
+            }
+        }
+
+    }
+
     companion object{
         const val EDIT_BUSINESS_INFO_BUTTON = "edit_business_info_button"
         const val EDIT_OTHER_BUSINESS_INFO_BUTTON = "edit_other_business_info_button"
@@ -126,5 +140,6 @@ class ReviewAndSubmitActivity:BaseActivity<ActivityReviewAndSubmitBinding, Revie
         get() = ActivityReviewAndSubmitBinding::inflate
     override val viewModelClassType: Class<ReviewAndSubmitViewModel>
         get() = ReviewAndSubmitViewModel::class.java
+
 
 }

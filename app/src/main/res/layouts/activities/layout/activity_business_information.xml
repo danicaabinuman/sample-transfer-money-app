@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/viewToolbar"
+        android:layout_marginTop="@dimen/grid_1"
         android:layout_marginStart="@dimen/grid_2"
         android:layout_marginEnd="@dimen/grid_2"
         android:text="@string/we_want_to_know_more_about_your_business"
@@ -44,11 +45,15 @@
             android:paddingBottom="@dimen/grid_2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/grid_2"
                 android:paddingEnd="@dimen/grid_2"
-                android:paddingBottom="@dimen/grid_2">
+                android:paddingBottom="@dimen/grid_2"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:focusable="true">
 
                 <TextView
                     android:id="@+id/tv_name_of_business_title"
@@ -225,6 +230,17 @@
                     app:layout_constraintTop_toTopOf="@id/tv_business_years" />
 
                 <ImageView
+                    android:id="@+id/btn_years_increment_inactive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_add_circle_outline_inactive"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_business_years"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_business_years" />
+
+                <ImageView
                     android:id="@+id/divider2"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
@@ -264,7 +280,7 @@
                     android:src="@drawable/ic_baseline_remove_circle_outline_24_inactive"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
-                    app:layout_constraintEnd_toStartOf="@id/et_years_counter"
+                    app:layout_constraintEnd_toStartOf="@id/et_employee_counter"
                     app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
 
                 <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
@@ -273,11 +289,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:gravity="center"
-                    android:text="@string/default_number_1"
+                    android:text="@string/default_number_0"
                     android:textSize="16sp"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
-                    app:layout_constraintEnd_toStartOf="@id/btn_years_increment"
+                    app:layout_constraintEnd_toStartOf="@id/btn_employee_increment"
                     app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
 
                 <androidx.appcompat.widget.AppCompatImageButton
@@ -287,6 +303,17 @@
                     android:layout_marginStart="15dp"
                     android:background="@color/colorTransparent"
                     android:src="@drawable/ic_baseline_add_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
+
+                <ImageView
+                    android:id="@+id/btn_employee_increment_inactive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_add_circle_outline_inactive"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_employee_number"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_employee_number" />
@@ -352,6 +379,17 @@
                     android:layout_marginStart="15dp"
                     android:background="@color/colorTransparent"
                     android:src="@drawable/ic_baseline_add_circle_outline_24"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
+
+                <ImageView
+                    android:id="@+id/btn_increment_branch_number_inactive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_add_circle_outline_inactive"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/tv_number_of_branch"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/tv_number_of_branch" />
