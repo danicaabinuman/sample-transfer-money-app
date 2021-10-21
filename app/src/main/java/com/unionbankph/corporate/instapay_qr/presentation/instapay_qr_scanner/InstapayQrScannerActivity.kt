@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_scanner
 
+import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +11,7 @@ import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
@@ -24,8 +26,7 @@ import com.unionbankph.corporate.databinding.ActivityInstapayQrScannerBinding
 import com.unionbankph.corporate.fund_transfer.presentation.instapay.InstaPayFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPFormActivity
 import com.unionbankph.corporate.instapay_qr.domain.model.SuccessQRReference
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 
 
@@ -79,6 +80,7 @@ class InstapayQrScannerActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
+        initPermission()
         initViews()
         initCamera()
         getQrResult()
@@ -94,6 +96,18 @@ class InstapayQrScannerActivity :
         binding.btnClose.setOnClickListener {
             finish()
         }
+    }
+
+    private fun initPermission() {
+        RxPermissions(this)
+            .request(Manifest.permission.CAMERA)
+            .subscribe { granted ->
+                if (granted) {
+
+                } else {
+                    initPermission()
+                }
+            }.addTo(disposables)
     }
 
     private fun showInvalidQRPrompt() {
