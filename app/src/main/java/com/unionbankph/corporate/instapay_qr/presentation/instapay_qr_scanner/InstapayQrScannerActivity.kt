@@ -14,6 +14,7 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.widget.qrgenerator.RxQrCode
 import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
@@ -23,6 +24,8 @@ import com.unionbankph.corporate.databinding.ActivityInstapayQrScannerBinding
 import com.unionbankph.corporate.fund_transfer.presentation.instapay.InstaPayFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPFormActivity
 import com.unionbankph.corporate.instapay_qr.domain.model.SuccessQRReference
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 
@@ -263,16 +266,7 @@ class InstapayQrScannerActivity :
 
     private fun scanFromImage(){
 
-//        RxQrCode.scanFromPicture(realPath)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ result: Result? -> }
-//            ) { e: Throwable? ->
-//                Toast.makeText(
-//                    context, "code not found",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
+
     }
 
     override fun onResume() {
@@ -303,6 +297,31 @@ class InstapayQrScannerActivity :
             startActivityForResult(intent, REQUEST_CODE)
         }
     }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        when(requestCode){
+//            REQUEST_CODE ->
+//                if (resultCode == RESULT_OK){
+//                    if (data?.data != null){
+//                        var realPath = data?.data.toString()
+//                        Timber.e("RealPath %s", realPath)
+//
+//                        RxQrCode.scanFromPicture(realPath)
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribe( {
+//                                Timber.e("RXQRCODE" + it)
+//                            }) { e: Throwable? ->
+//                                Toast.makeText(
+//                                    context, "code not found",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
+//                    }
+//                }
+//        }
+//    }
 
     companion object{
         const val REQUEST_CODE = 2

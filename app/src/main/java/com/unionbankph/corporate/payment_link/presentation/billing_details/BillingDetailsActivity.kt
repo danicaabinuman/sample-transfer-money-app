@@ -87,7 +87,7 @@ class BillingDetailsActivity :
             updatePaymentLinkDetails(it.paymentDetails!!)
             mAdapter.appendData(it.paymentLogs?.take(3) ?: mutableListOf())
 
-            if (it.paymentLogs?.size!!.toInt() < 3){
+            if (it.paymentLogs?.size!!.toInt() < 4){
                 binding.cardViewMore.cardViewAll.visibility = View.GONE
             } else {
                 binding.cardViewMore.cardViewAll.visibility = View.VISIBLE

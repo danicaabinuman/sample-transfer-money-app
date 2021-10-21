@@ -138,8 +138,8 @@ class Constant {
         companion object {
             const val INSTAPAY = "INSTAPAY"
             const val UB_ONLINE = "UB ONLINE"
-            const val BAYAD_CENTER = "BAYADCENTER"
-            const val ECPAY = "ECPAY"
+            const val BAYAD_CENTER = "BAYD"
+            const val ECPAY = "ECPY"
             const val LBC = "LBC"
             const val PALAWAN = "PALAWAN"
             const val CEBUANA_LHUILLER = "CEBUANALHUILLIER"
