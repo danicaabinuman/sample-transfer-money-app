@@ -85,7 +85,6 @@ class SetupPaymentLinkActivity :
             val orgName = role?.organizationName
             val businessWebsite = binding.etBusinessWebsites.text.toString()
             val businessProductsOffered = binding.etBusinessProductsOffered.text.toString()
-            val businessName = binding.etBusinessName.text.toString()
 
             viewModel.createMerchant(
                     CreateMerchantForm(
