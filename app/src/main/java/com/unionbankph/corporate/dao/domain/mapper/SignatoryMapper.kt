@@ -132,6 +132,7 @@ constructor(
             signatoriesDetail.jobTitle = it.jobTitle
             signatoriesDetail.status = it.status
             signatoriesDetail.processingRemarks = it.processingRemarks
+            signatoriesDetail.unionBankOfficer = it.unionBankOfficer
             signatoriesDetail.page = it.page
             it.page?.let { page ->
                 for (i in 0..page) {

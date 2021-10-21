@@ -83,5 +83,7 @@ data class DaoDetailsDto(
     @SerialName("jumio_api_secret")
     var jumioApiSecret: String? = null,
     @SerialName("image_path")
-    var imagePath: String? = null
+    var imagePath: String? = null,
+    @SerialName("union_bank_officer")
+    var unionBankOfficer: Boolean? = null
 )

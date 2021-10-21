@@ -196,6 +196,7 @@ class DaoConfirmationViewModel @Inject constructor(
         val daoForm = daoForm.apply {
             saveType = "final"
             accountOpeningTnc = isCheckedTNC.value
+            unionBankOfficer = isCheckedIsUbEmployee.value
             page?.let {
                 page = if (it > 6) page else 7
             }

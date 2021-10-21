@@ -187,6 +187,10 @@ class DaoConfirmationFragment :
                 viewModel.setExistingSignature(it)
             }
         }
+        daoActivity.viewModel.signatoriesDetail.value?.unionBankOfficer?.let {
+            binding.cbUnionbankEmployee.isChecked = it
+            viewModel.isCheckedIsUbEmployee.onNext(it)
+        }
     }
 
     private fun initDaoActivity() {
