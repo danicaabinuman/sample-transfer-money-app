@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -165,7 +166,7 @@ class BranchVisitTransactionFormActivity :
                             customView(R.layout.dialog_check_account_number_tip)
                         }
                     val buttonClose =
-                        checkAccountNumberDialog.view.findViewById<MaterialButton>(R.id.buttonClose)
+                        checkAccountNumberDialog.view.findViewById<AppCompatButton>(R.id.buttonClose)
                     buttonClose.setOnClickListener { checkAccountNumberDialog.dismiss() }
                     checkAccountNumberDialog.window?.attributes?.windowAnimations =
                         R.style.SlideUpAnimation
@@ -198,7 +199,7 @@ class BranchVisitTransactionFormActivity :
                             customView(R.layout.dialog_check_number_tip)
                         }
                     val buttonClose =
-                        checkNumberDialog.view.findViewById<MaterialButton>(R.id.buttonClose)
+                        checkNumberDialog.view.findViewById<AppCompatButton>(R.id.buttonClose)
                     buttonClose.setOnClickListener { checkNumberDialog.dismiss() }
                     checkNumberDialog.window?.attributes?.windowAnimations =
                         R.style.SlideUpAnimation

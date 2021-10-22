@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
@@ -250,7 +251,7 @@ class DaoConfirmationFragment :
             customView(R.layout.dialog_tool_tip)
         }
         val buttonClose =
-            isUbEmployeeToolTip.view.findViewById<MaterialButton>(R.id.buttonClose)
+            isUbEmployeeToolTip.view.findViewById<AppCompatButton>(R.id.buttonClose)
         val textViewTitle =
             isUbEmployeeToolTip.view.findViewById<TextView>(R.id.textViewTitle)
         val textViewContent =
@@ -481,7 +482,7 @@ class DaoConfirmationFragment :
         val ivClose =
             dialog.view.findViewById<ImageView>(R.id.iv_close)
         val buttonAction =
-            dialog.view.findViewById<MaterialButton>(R.id.buttonClose)
+            dialog.view.findViewById<AppCompatButton>(R.id.buttonClose)
         val textViewTitle =
             dialog.view.findViewById<TextView>(R.id.textViewTitle)
         val textViewContent =
