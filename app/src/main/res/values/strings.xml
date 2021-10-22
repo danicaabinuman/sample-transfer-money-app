@@ -1121,6 +1121,7 @@
     <string name="error_no_aplha">No Alphabet</string>
     <string name="error_no_number">No Number</string>
     <string name="error_no_symbol">No Symbol</string>
+    <string name="error_code_not_found">Code not found.</string>
     <string name="error_title_under_maintenance">We\'ll be right back</string>
     <string name="error_msg_under_maintenance">We are currently undergoing system maintenance. Please check back in a bit.</string>
     <string name="dao_error_mismatch_response">ID details do not match.</string>

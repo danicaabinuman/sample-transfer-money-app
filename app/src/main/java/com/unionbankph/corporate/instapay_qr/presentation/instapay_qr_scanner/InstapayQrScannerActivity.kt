@@ -2,42 +2,66 @@ package com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_scanner
 
 import android.Manifest
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.widget.Toast
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
+import com.google.zxing.Result
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
+import com.unionbankph.corporate.app.common.extension.showToast
+import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.qrgenerator.RxQrCode
+import com.unionbankph.corporate.app.util.FileUtil
+import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.constant.ChannelBankEnum
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.corporate.data.model.Channel
 import com.unionbankph.corporate.corporate.presentation.channel.ChannelActivity
 import com.unionbankph.corporate.databinding.ActivityInstapayQrScannerBinding
 import com.unionbankph.corporate.fund_transfer.presentation.instapay.InstaPayFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPFormActivity
 import com.unionbankph.corporate.instapay_qr.domain.model.SuccessQRReference
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import java.io.File
+import javax.inject.Inject
 
 
 class InstapayQrScannerActivity :
     BaseActivity<ActivityInstapayQrScannerBinding, InstapayQrScannerViewModel>() {
+
+    @Inject
+    lateinit var fileUtil: FileUtil
 
     private lateinit var codeScanner: CodeScanner
 
     override fun onViewModelBound() {
         super.onViewModelBound()
 
+        viewModel.uiState.observe(this, EventObserver { event ->
+            when (event) {
+                is UiState.Loading -> showProgressAlertDialog(this::class.java.simpleName)
+                is UiState.Complete -> dismissProgressAlertDialog()
+                is UiState.Error -> handleOnError(event.throwable)
+            }
+        })
 
         viewModel.successQrReference.observe(this, {
             Timber.e(it.toString(), "ksksksksksks")
@@ -90,7 +114,8 @@ class InstapayQrScannerActivity :
     fun initViews(){
 
         binding.btnUploadQr.setOnClickListener {
-            openGallery()
+            initPermissionUpload(TAG_QR_CODE)
+
         }
 
         binding.btnClose.setOnClickListener {
@@ -106,6 +131,39 @@ class InstapayQrScannerActivity :
 
                 } else {
                     initPermission()
+                }
+            }.addTo(disposables)
+    }
+
+    private fun initPermissionUpload(tag: String) {
+        RxPermissions(this)
+            .request(
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            .subscribe { granted ->
+                if (granted) {
+                    openGallery()
+                } else {
+                    MaterialDialog(this@InstapayQrScannerActivity).show {
+                        lifecycleOwner(this@InstapayQrScannerActivity)
+                        message(R.string.desc_service_permission)
+                        positiveButton(
+                            res = R.string.action_ok,
+                            click = {
+                                it.dismiss()
+                                initPermissionUpload(tag)
+                            }
+                        )
+                        negativeButton(
+                            res = R.string.action_cancel,
+                            click = {
+                                it.dismiss()
+                                initPermissionUpload(tag)
+                            }
+                        )
+                    }
                 }
             }.addTo(disposables)
     }
@@ -312,32 +370,44 @@ class InstapayQrScannerActivity :
         }
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        when(requestCode){
-//            REQUEST_CODE ->
-//                if (resultCode == RESULT_OK){
-//                    if (data?.data != null){
-//                        var realPath = data?.data.toString()
-//                        Timber.e("RealPath %s", realPath)
-//
-//                        RxQrCode.scanFromPicture(realPath)
-//                            .subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe( {
-//                                Timber.e("RXQRCODE" + it)
-//                            }) { e: Throwable? ->
-//                                Toast.makeText(
-//                                    context, "code not found",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                            }
-//                    }
-//                }
-//        }
-//    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == RESULT_OK) {
+
+            when (requestCode) {
+                REQUEST_CODE -> {
+                    data?.data?.let {
+                        try {
+                            val filePath = fileUtil.getPath(it)
+                            RxQrCode.scanFromPicture(filePath)
+                                .subscribeOn(schedulerProvider.io())
+                                .observeOn(schedulerProvider.ui())
+                                .subscribe({ result ->
+                                    viewModel.submitQrScanned(
+                                        qrString = result.toString()
+                                    )
+                                }, {
+                                    showMaterialDialogError(
+                                        message = formatString(R.string.error_code_not_found)
+                                    )
+                                }).addTo(disposables)
+                        } catch (e: Exception) {
+                            showMaterialDialogError(
+                                message = formatString(R.string.error_file_not_supported)
+                            )
+                        }
+                    }
+                    return
+
+                }
+            }
+        }
+    }
 
     companion object{
+        const val TAG_QR_CODE = "qr_code"
+
         const val REQUEST_CODE = 2
     }
 
