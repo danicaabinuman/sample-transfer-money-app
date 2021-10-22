@@ -170,8 +170,8 @@ class InstapayQrScannerActivity :
 
     private fun showInvalidQRPrompt() {
         showMaterialDialogError(
-            "Invalide QR Code",
-            "Please try again"
+            "Invalid QR",
+            "We can't scan this QR. Please try scanning an Instapay QR PH code. "
         )
     }
 
