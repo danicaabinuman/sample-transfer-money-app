@@ -72,6 +72,7 @@ data class SignatoryDetail(
     var presentAddressOtherProvince: String? = null,
     var page: Int? = null,
     var imagePath: String? = null,
+    var unionBankOfficer: Boolean? = null,
     var hasPersonalInformationOneCurrentInput: Boolean? = null,
     var hasPersonalInformationTwoCurrentInput: Boolean? = null,
     var hasPersonalInformationThreeCurrentInput: Boolean? = null,

@@ -6,6 +6,7 @@ import android.view.*
 import android.view.View.OnTouchListener
 import android.widget.EditText
 import android.widget.ProgressBar
+import androidx.appcompat.widget.AppCompatButton
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -288,7 +289,7 @@ class CheckDepositFormActivity :
                             customView(R.layout.dialog_check_account_number_tip)
                         }
                     val buttonClose =
-                        checkAccountNumberDialog.view.findViewById<MaterialButton>(R.id.buttonClose)
+                        checkAccountNumberDialog.view.findViewById<AppCompatButton>(R.id.buttonClose)
                     buttonClose.setOnClickListener { checkAccountNumberDialog.dismiss() }
                     checkAccountNumberDialog.window?.attributes?.windowAnimations =
                         R.style.SlideUpAnimation
@@ -310,7 +311,7 @@ class CheckDepositFormActivity :
                             customView(R.layout.dialog_check_number_tip)
                         }
                     val buttonClose =
-                        checkNumberDialog.view.findViewById<MaterialButton>(R.id.buttonClose)
+                        checkNumberDialog.view.findViewById<AppCompatButton>(R.id.buttonClose)
                     buttonClose.setOnClickListener { checkNumberDialog.dismiss() }
                     checkNumberDialog.window?.attributes?.windowAnimations =
                         R.style.SlideUpAnimation

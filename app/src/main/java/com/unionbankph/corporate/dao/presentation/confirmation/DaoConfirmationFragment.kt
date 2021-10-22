@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
@@ -197,6 +198,10 @@ class DaoConfirmationFragment :
                 viewModel.setExistingSignature(it)
             }
         }
+        daoActivity.viewModel.signatoriesDetail.value?.unionBankOfficer?.let {
+            binding.cbUnionbankEmployee.isChecked = it
+            viewModel.isCheckedIsUbEmployee.onNext(it)
+        }
     }
 
     private fun initDaoActivity() {
@@ -245,6 +250,29 @@ class DaoConfirmationFragment :
             findNavController().navigate(action)
             setBackIconToDefault()
         }
+        binding.ivUnionbankEmployeeTooltip.setOnClickListener {
+            displayIsUBEmployeeTooltip()
+        }
+    }
+
+    private fun displayIsUBEmployeeTooltip() {
+        val isUbEmployeeToolTip = MaterialDialog(getAppCompatActivity()).apply {
+            lifecycleOwner(this@DaoConfirmationFragment)
+            customView(R.layout.dialog_tool_tip)
+        }
+        val buttonClose =
+            isUbEmployeeToolTip.view.findViewById<AppCompatButton>(R.id.buttonClose)
+        val textViewTitle =
+            isUbEmployeeToolTip.view.findViewById<TextView>(R.id.textViewTitle)
+        val textViewContent =
+            isUbEmployeeToolTip.view.findViewById<TextView>(R.id.textViewContent)
+        textViewTitle.text = formatString(R.string.title_not_a_unionbank_employee)
+        textViewContent.text = formatString(R.string.msg_not_a_unionbank_employee)
+        buttonClose.setOnClickListener { isUbEmployeeToolTip.dismiss() }
+        isUbEmployeeToolTip.window?.attributes?.windowAnimations =
+            R.style.SlideUpAnimation
+        isUbEmployeeToolTip.window?.setGravity(Gravity.CENTER)
+        isUbEmployeeToolTip.show()
     }
 
     private fun isEdittableDetails(isShow: Boolean){
@@ -262,6 +290,9 @@ class DaoConfirmationFragment :
     private fun initCheckListener() {
         binding.cbAgreement.setOnCheckedChangeListener { _, isChecked ->
             viewModel.isCheckedTNC.onNext(isChecked)
+        }
+        binding.cbUnionbankEmployee.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.isCheckedIsUbEmployee.onNext(isChecked)
         }
     }
 
@@ -469,7 +500,7 @@ class DaoConfirmationFragment :
         val ivClose =
             dialog.view.findViewById<ImageView>(R.id.iv_close)
         val buttonAction =
-            dialog.view.findViewById<MaterialButton>(R.id.buttonClose)
+            dialog.view.findViewById<AppCompatButton>(R.id.buttonClose)
         val textViewTitle =
             dialog.view.findViewById<TextView>(R.id.textViewTitle)
         val textViewContent =

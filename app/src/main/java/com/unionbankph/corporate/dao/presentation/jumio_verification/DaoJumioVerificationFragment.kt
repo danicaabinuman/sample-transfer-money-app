@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
@@ -273,7 +274,7 @@ class DaoJumioVerificationFragment :
         val ivTip =
             jumioToolTip.view.findViewById<ImageView>(R.id.iv_tip)
         val buttonClose =
-            jumioToolTip.view.findViewById<MaterialButton>(R.id.buttonClose)
+            jumioToolTip.view.findViewById<AppCompatButton>(R.id.buttonClose)
         val textViewTitle =
             jumioToolTip.view.findViewById<TextView>(R.id.textViewTitle)
         val textViewContent =
