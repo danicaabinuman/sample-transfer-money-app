@@ -85,5 +85,7 @@ data class DaoDetailsDto(
     @SerialName("image_path")
     var imagePath: String? = null,
     @SerialName("union_bank_officer")
-    var unionBankOfficer: Boolean? = null
+    var unionBankOfficer: Boolean? = null,
+    @SerialName("enrolling_source")
+    var enrollingSource: String? = null
 )

@@ -79,5 +79,7 @@ data class SignatoryDetail(
     var hasPersonalInformationFourCurrentInput: Boolean? = null,
     var hasJumioVerificationCurrentInput: Boolean? = null,
     var hasSignatureCurrentInput: Boolean? = null,
-    var hasConfirmationCurrentInput: Boolean? = null
+    var hasConfirmationCurrentInput: Boolean? = null,
+    var enrollingSource: String? = null
+
 )
