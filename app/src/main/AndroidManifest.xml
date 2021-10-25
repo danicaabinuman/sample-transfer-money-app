@@ -628,9 +628,7 @@
         <activity
             android:name=".instapay_qr.presentation.instapay_qr_scanner.InstapayQrScannerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" >
-
-        </activity>
+            android:launchMode="standard"/>
 
         <!-- Others -->
         <meta-data
