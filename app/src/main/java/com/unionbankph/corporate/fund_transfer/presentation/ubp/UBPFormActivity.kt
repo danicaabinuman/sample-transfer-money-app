@@ -45,8 +45,12 @@ import com.unionbankph.corporate.fund_transfer.data.form.FundTransferUBPForm
 import com.unionbankph.corporate.fund_transfer.data.model.Beneficiary
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer.ProposedTransferDateActivity
+import com.unionbankph.corporate.instapay_qr.domain.model.response.GenerateFTResponse
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
+import java.lang.IllegalArgumentException
+import java.lang.NumberFormatException
+import java.text.DecimalFormat
 import java.util.regex.Pattern
 
 class UBPFormActivity :
@@ -60,6 +64,15 @@ class UBPFormActivity :
 
     private val channel by lazyFast {
         JsonHelper.fromJson<Channel>(intent.getStringExtra(EXTRA_CHANNEL))
+    }
+
+    private val recipientData by lazyFast {
+        val data = intent.getStringExtra(EXTRA_RECIPIENT_DATA)
+        if (data != null){
+            JsonHelper.fromJson<GenerateFTResponse>(data)
+        } else {
+            null
+        }
     }
 
     private lateinit var imeOptionEditText: ImeOptionEditText
@@ -88,6 +101,27 @@ class UBPFormActivity :
         initTutorialViewModel()
         initGeneralViewModel()
         initViewModel()
+        initRecipientData()
+    }
+
+    private fun initRecipientData(){
+
+        if (recipientData != null) {
+
+            val feeFormatFinal = DecimalFormat("#,##0.00")
+            var feeString = "0.00"
+            try {
+                feeString = feeFormatFinal.format(recipientData!!.amount)
+                binding.etAmount.setText(feeString)
+            } catch (e: NumberFormatException) {
+                Timber.e(e.message)
+                e.printStackTrace()
+            } catch (e: IllegalArgumentException) {
+                Timber.e(e.message)
+                e.printStackTrace()
+            }
+            binding.viewTransferToForm.textInputEditTextTransferTo.setText(recipientData!!.beneficiaryAccountNumber.toString())
+        }
     }
 
     private fun initTutorialViewModel() {
@@ -355,7 +389,12 @@ class UBPFormActivity :
             binding.textInputEditTextTransferFrom.setText(
                 (it.name + "\n" + it.accountNumber.formatAccountNumber())
             )
-            binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
+            if (recipientData != null){
+
+            } else {
+                binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
+
+            }
             invalidateOptionsMenu()
             setPermission(permissionCollection!!)
         }
@@ -945,6 +984,7 @@ class UBPFormActivity :
         const val EXTRA_ID = "id"
         const val EXTRA_CHANNEL = "channel"
         const val EXTRA_SERVICE_FEE = "service_fee"
+        const val EXTRA_RECIPIENT_DATA = "success_qr_reference"
 
         const val TAG_VALIDATE_TIME_ZONE_DIALOG = "validate_time_zone_dialog"
     }

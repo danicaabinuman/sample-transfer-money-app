@@ -1121,6 +1121,7 @@
     <string name="error_no_aplha">No Alphabet</string>
     <string name="error_no_number">No Number</string>
     <string name="error_no_symbol">No Symbol</string>
+    <string name="error_code_not_found">Code not found.</string>
     <string name="error_title_under_maintenance">We\'ll be right back</string>
     <string name="error_msg_under_maintenance">We are currently undergoing system maintenance. Please check back in a bit.</string>
     <string name="dao_error_mismatch_response">ID details do not match.</string>
@@ -2306,6 +2307,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_view_more">View More</string>
     <string name="activity_log">Activity Log</string>
     <string name="percent_3_5">3.5% + Php 15.00</string>
+    <string name="percent_3_5_per_transaction">3.5% + Php 15.00 per transaction</string>
     <string name="set_up_fee">Set-Up Fee</string>
     <string name="tc_waived">Waived</string>
     <string name="tc_annual_mid_fee_per_account">Annual MID Fee per account</string>
@@ -2331,11 +2333,12 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="tc_visa">Visa</string>
     <string name="tc_merchant_discount_rate">Merchant Discount Rate:</string>
     <string name="tc_2_00">2.00%</string>
-    <string name="e_wallet_gcash_grabpay"><![CDATA[E-Wallet (GCash & Grabpay]]></string>
+    <string name="e_wallet_gcash_grabpay">E-Wallets (GCash &amp; Grabpay)</string>
     <string name="annual_mid_fee_per_account_for_card_facility_only">Annual MID Fee per account for Card Facility only</string>
     <string name="waived">Waived</string>
     <string name="merchant_discount_rate">Merchant Discount Rate:</string>
     <string name="visa_mastercard">Visa, MasterCard</string>
+    <string name="visa_mastercard_with_slash">Visa/MasterCard</string>
     <string name="visa">Visa</string>
     <string name="mastercard">MasterCard</string>
     <string name="withholding_tax">Withholding Tax</string>
@@ -2351,13 +2354,14 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="over_the_counter_cash_payments">Over-the-Counter Cash Payments</string>
     <string name="php_20_00">Php 20.00</string>
     <string name="free_until_further_notice">Free until further notice</string>
+    <string name="free_until_further_notice_parenthesis">(Free until further notice)</string>
     <string name="merchant_description_on_statement">Merchant Description on Statement</string>
     <string name="merchant_name">Merchant Name</string>
     <string name="settlement_all_channels">Settlement All Channels</string>
     <string name="t_2_banking_days">T+2 banking days</string>
     <string name="settlement_card_transaction_in_lieu_of_security_deposit">Settlement Card Transaction In lieu of security deposit</string>
     <string name="t_7_to_t_14_banking_days">T+7 to T+14 banking days</string>
-    <string name="merchant_description_on_statement">Merchant Description on Statement</string>
-    <string name="merchant_name">Merchant Name</string>
     <string name="nominated_settlement_account_unionbank_account_number">Nominated Settlement Account (Unionbank Account Number)</string>
+    <string name="invalid_qr">Invalid QR</string>
+    <string name="invalid_qr_body">We can\'t scan this QR. Please try scanning an Instapay QR PH code. </string>
 </resources>

@@ -111,6 +111,8 @@ object Libraries {
         const val jumio = "3.9.2@aar"
         const val iProov = "6.4.1"
         const val roomRuntime = "2.2.5"
+        const val journeyappsZxing = "3.3.0"
+        const val budiyev = "2.1.0"
     }
 
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlinReflect}"
@@ -194,8 +196,8 @@ object Libraries {
     const val smartCropper = "com.github.pqpo:SmartCropper:${Versions.smartCropper}"
     const val paris = "com.airbnb.android:paris:${Versions.paris}"
     const val stv = "com.milaptank:stv:${Versions.stv}"
-
-
+    const val journeyappsZxing = "com.journeyapps:zxing-android-embedded:${Versions.journeyappsZxing}"
+    const val budiyev = "com.budiyev.android:code-scanner:${Versions.budiyev}"
 
     // Jumio
     const val jumioCore = "com.jumio.android:core:${Versions.jumio}"

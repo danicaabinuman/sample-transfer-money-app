@@ -51,8 +51,13 @@ import com.unionbankph.corporate.fund_transfer.data.model.Purpose
 import com.unionbankph.corporate.fund_transfer.presentation.bank.BankActivity
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryActivity
 import com.unionbankph.corporate.fund_transfer.presentation.proposed_transfer.ProposedTransferDateActivity
+import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPFormActivity
+import com.unionbankph.corporate.instapay_qr.domain.model.response.GenerateFTResponse
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
+import java.lang.IllegalArgumentException
+import java.lang.NumberFormatException
+import java.text.DecimalFormat
 import java.util.regex.Pattern
 
 class InstaPayFormActivity :
@@ -66,6 +71,15 @@ class InstaPayFormActivity :
 
     private val channel by lazyFast {
         JsonHelper.fromJson<Channel>(intent.getStringExtra(EXTRA_CHANNEL))
+    }
+
+    private val recipientData by lazyFast {
+        val data = intent.getStringExtra(EXTRA_RECIPIENT_DATA)
+        if (data != null){
+            JsonHelper.fromJson<GenerateFTResponse>(data)
+        } else {
+            null
+        }
     }
 
     private lateinit var imeOptionEditText: ImeOptionEditText
@@ -98,6 +112,30 @@ class InstaPayFormActivity :
         initTutorialViewModel()
         initGeneralViewModel()
         initViewModel()
+        initRecipientData()
+    }
+
+    private fun initRecipientData(){
+
+        if (recipientData != null) {
+
+            val feeFormatFinal = DecimalFormat("#,##0.00")
+            var feeString = "0.00"
+            try {
+                feeString = feeFormatFinal.format(recipientData!!.amount)
+                binding.etAmount.setText(feeString)
+            } catch (e: NumberFormatException) {
+                Timber.e(e.message)
+                e.printStackTrace()
+
+            } catch (e: IllegalArgumentException) {
+                Timber.e(e.message)
+                e.printStackTrace()
+            }
+            binding.viewTransferToForm.textInputEditTextTransferTo.setText(recipientData!!.beneficiaryName)
+            binding.textInputEditTextAccountNumber.setText(recipientData!!.beneficiaryAccountNumber)
+            binding.viewReceivingBankForm.textInputEditTextReceivingBank.setText(recipientData!!.bankData?.bank)
+        }
     }
 
     private fun initViewModel() {
@@ -338,9 +376,13 @@ class InstaPayFormActivity :
             permissionCollection = it.permissionCollection
             isEnableButton = true
             binding.etAmount.setCurrencySymbol(selectedAccount?.currency.notNullable(), true)
-            binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
-            binding.textInputEditTextAccountNumber.text?.clear()
-            binding.viewReceivingBankForm.textInputEditTextReceivingBank.text?.clear()
+            if (recipientData != null){
+
+            } else {
+                binding.viewTransferToForm.textInputEditTextTransferTo.text?.clear()
+                binding.textInputEditTextAccountNumber.text?.clear()
+                binding.viewReceivingBankForm.textInputEditTextReceivingBank.text?.clear()
+            }
             binding.textInputEditTextTransferFrom.setText(
                 (it.name + "\n" + it.accountNumber.formatAccountNumber())
             )
@@ -1139,6 +1181,8 @@ class InstaPayFormActivity :
         const val EXTRA_CHANNEL = "channel"
         const val EXTRA_SERVICE_FEE = "service_fee"
         const val EXTRA_CUSTOM_SERVICE_FEE = "custom_service_fee"
+        const val EXTRA_QR_RECIPIENT = "qr_recipient"
+        const val EXTRA_RECIPIENT_DATA = "success_qr_ reference"
 
         const val TAG_VALIDATE_TIME_ZONE_DIALOG = "validate_time_zone_dialog"
     }
