@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.budiyev.android.codescanner.AutoFocusMode
@@ -23,6 +24,7 @@ import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.showToast
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.app.common.widget.qrgenerator.RxQrCode
 import com.unionbankph.corporate.app.util.FileUtil
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
@@ -59,7 +61,9 @@ class InstapayQrScannerActivity :
             when (event) {
                 is UiState.Loading -> showProgressAlertDialog(this::class.java.simpleName)
                 is UiState.Complete -> dismissProgressAlertDialog()
-                is UiState.Error -> handleOnError(event.throwable)
+                is UiState.Error -> {
+                    showInvalidQRPrompt()
+                }
             }
         })
 
@@ -169,10 +173,21 @@ class InstapayQrScannerActivity :
     }
 
     private fun showInvalidQRPrompt() {
-        showMaterialDialogError(
-            "Invalid QR",
-            "We can't scan this QR. Please try scanning an Instapay QR PH code. "
-        )
+
+        DialogFactory().createColoredSMEDialog(
+            this,
+            title = getString(R.string.invalid_qr),
+            content = getString(R.string.invalid_qr_body),
+            positiveButtonText = context.getString(R.string.action_okay),
+            isCancelable = false,
+            dismissOnActionClicked = true
+        ).show()
+
+
+//        showMaterialDialogError(
+//            "Invalid QR",
+//            "We can't scan this QR. Please try scanning an Instapay QR PH code. "
+//        )
     }
 
     private fun navigateInstapayFormScreen(

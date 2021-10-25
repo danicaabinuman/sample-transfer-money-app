@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatDialog
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.databinding.DialogGenericColoredSmeBinding
 
 class DialogFactory {
@@ -37,6 +38,11 @@ class DialogFactory {
             } else {
                 this.visibility = View.GONE
             }
+        }
+
+        view.textViewDialogTitle.apply {
+            setVisible(!title.isNullOrEmpty())
+            text = title
         }
 
         view.textViewDialogContent.apply {

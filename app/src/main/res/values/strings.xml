@@ -2362,4 +2362,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="settlement_card_transaction_in_lieu_of_security_deposit">Settlement Card Transaction In lieu of security deposit</string>
     <string name="t_7_to_t_14_banking_days">T+7 to T+14 banking days</string>
     <string name="nominated_settlement_account_unionbank_account_number">Nominated Settlement Account (Unionbank Account Number)</string>
+    <string name="invalid_qr">Invalid QR</string>
+    <string name="invalid_qr_body">We can\'t scan this QR. Please try scanning an Instapay QR PH code. </string>
 </resources>
