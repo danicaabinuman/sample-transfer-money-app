@@ -89,38 +89,42 @@ class DaoConfirmationFragment :
     }
 
     private fun initViewModel() {
-        viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
-            when (it) {
-                is UiState.Loading -> {
-                    showLoadingDialog()
+        viewModel.apply {
+            uiState.observe(viewLifecycleOwner, EventObserver {
+                when (it) {
+                    is UiState.Loading -> {
+                        showLoadingDialog()
+                    }
+                    is UiState.Complete -> {
+                        dismissLoadingDialog()
+                    }
+                    is UiState.Exit -> {
+                        navigator.navigateClearStacks(
+                            getAppCompatActivity(),
+                            LoginActivity::class.java,
+                            Bundle().apply { putBoolean(LoginActivity.EXTRA_SPLASH_SCREEN, false) },
+                            true
+                        )
+                    }
+                    is UiState.Error -> {
+                        handleDaoOnError(it.throwable)
+                    }
                 }
-                is UiState.Complete -> {
-                    dismissLoadingDialog()
-                }
-                is UiState.Exit -> {
-                    navigator.navigateClearStacks(
-                        getAppCompatActivity(),
-                        LoginActivity::class.java,
-                        Bundle().apply { putBoolean(LoginActivity.EXTRA_SPLASH_SCREEN, false) },
-                        true
-                    )
-                }
-                is UiState.Error -> {
-                    handleDaoOnError(it.throwable)
-                }
-            }
-        })
-        viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
-            navigationDaoResult(it)
-        })
+            })
+            navigateNextStep.observe(viewLifecycleOwner, EventObserver {
+                navigationDaoResult(it)
+            })
+        }
 
-        daoActivity.viewModel.navigatePages.observe(this, Observer {
-            when(daoActivity.viewModel.signatoriesDetail.value?.enrollingSource){
-                EnrollingSourceEnum.SALES_FORCE.value -> {
-                    isEdittableDetails(false)
+        daoActivity.viewModel.apply {
+            navigatePages.observe(viewLifecycleOwner, Observer {
+                when(daoActivity.viewModel.signatoriesDetail.value?.enrollingSource){
+                    EnrollingSourceEnum.SALES_FORCE.value -> {
+                        //isEdittableDetails(false) /*This is on hold*/
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 
     private fun handleDaoOnError(throwable: Throwable) {
@@ -156,66 +160,70 @@ class DaoConfirmationFragment :
     }
 
     private fun initReviewDetails() {
-        if (daoActivity.viewModel.hasPersonalInformationOneInput.hasValue() &&
-            !viewModel.isLoadedScreen.hasValue()
-        ) {
-            daoActivity.viewModel.input1.let {
-                viewModel.setExistingPersonalInformationStepOne(it)
+        daoActivity.viewModel.apply {
+            if(hasPersonalInformationOneInput.hasValue() &&
+                !viewModel.isLoadedScreen.hasValue()
+            ) {
+                input1.let {
+                    viewModel.setExistingPersonalInformationStepOne(it)
+                }
             }
-        }
-        if (daoActivity.viewModel.hasPersonalInformationTwoInput.hasValue() &&
-            !viewModel.isLoadedScreen.hasValue()
-        ) {
-            daoActivity.viewModel.input2.let {
-                viewModel.setExistingPersonalInformationStepTwo(it)
+            if (hasPersonalInformationTwoInput.hasValue() &&
+                !viewModel.isLoadedScreen.hasValue()
+            ) {
+                input2.let {
+                    viewModel.setExistingPersonalInformationStepTwo(it)
+                }
             }
-        }
-        if (daoActivity.viewModel.hasPersonalInformationThreeInput.hasValue() &&
-            !viewModel.isLoadedScreen.hasValue()
-        ) {
-            daoActivity.viewModel.input3.let {
-                viewModel.setExistingPersonalInformationStepThree(it)
+            if (hasPersonalInformationThreeInput.hasValue() &&
+                !viewModel.isLoadedScreen.hasValue()
+            ) {
+                input3.let {
+                    viewModel.setExistingPersonalInformationStepThree(it)
+                }
             }
-        }
-        if (daoActivity.viewModel.hasPersonalInformationFourInput.hasValue() &&
-            !viewModel.isLoadedScreen.hasValue()
-        ) {
-            daoActivity.viewModel.input4.let {
-                viewModel.setExistingPersonalInformationStepFour(it)
+            if (hasPersonalInformationFourInput.hasValue() &&
+                !viewModel.isLoadedScreen.hasValue()
+            ) {
+                input4.let {
+                    viewModel.setExistingPersonalInformationStepFour(it)
+                }
             }
-        }
-        if (daoActivity.viewModel.hasJumioVerificationInput.hasValue() &&
-            !viewModel.isLoadedScreen.hasValue()
-        ) {
-            daoActivity.viewModel.input5.let {
-                viewModel.setExistingJumioVerification(it)
+            if (hasJumioVerificationInput.hasValue() &&
+                !viewModel.isLoadedScreen.hasValue()
+            ) {
+                input5.let {
+                    viewModel.setExistingJumioVerification(it)
+                }
             }
-        }
-        if (daoActivity.viewModel.hasSignatureInput.hasValue() &&
-            !viewModel.isLoadedScreen.hasValue()
-        ) {
-            daoActivity.viewModel.input6.let {
-                viewModel.setExistingSignature(it)
+            if (hasSignatureInput.hasValue() &&
+                !viewModel.isLoadedScreen.hasValue()
+            ) {
+                input6.let {
+                    viewModel.setExistingSignature(it)
+                }
             }
-        }
-        daoActivity.viewModel.signatoriesDetail.value?.unionBankOfficer?.let {
-            binding.cbUnionbankEmployee.isChecked = it
-            viewModel.isCheckedIsUbEmployee.onNext(it)
+            signatoriesDetail.value?.unionBankOfficer?.let {
+                binding.cbUnionbankEmployee.isChecked = it
+                viewModel.isCheckedIsUbEmployee.onNext(it)
+            }
         }
     }
 
     private fun initDaoActivity() {
-        daoActivity.setToolBarDesc(formatString(R.string.title_confirm_your_details))
-        daoActivity.setProgressValue(7)
-        daoActivity.showToolBarDetails()
-        daoActivity.setButtonName(formatString(R.string.action_submit))
-        daoActivity.setEnableButton(true)
-        daoActivity.showProgress(false)
-        daoActivity.showButton(true)
-        daoActivity.setActionEvent(this)
-        daoActivity.setDrawableBackButton(R.drawable.ic_close_white_24dp)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            showExitDaoBottomSheet()
+        daoActivity.apply {
+            setToolBarDesc(formatString(R.string.title_confirm_your_details))
+            setProgressValue(7)
+            showToolBarDetails()
+            setButtonName(formatString(R.string.action_submit))
+            setEnableButton(true)
+            showProgress(false)
+            showButton(true)
+            setActionEvent(this@DaoConfirmationFragment)
+            setDrawableBackButton(R.drawable.ic_close_white_24dp)
+            onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+                showExitDaoBottomSheet()
+            }
         }
     }
 
@@ -269,10 +277,12 @@ class DaoConfirmationFragment :
         textViewTitle.text = formatString(R.string.title_not_a_unionbank_employee)
         textViewContent.text = formatString(R.string.msg_not_a_unionbank_employee)
         buttonClose.setOnClickListener { isUbEmployeeToolTip.dismiss() }
-        isUbEmployeeToolTip.window?.attributes?.windowAnimations =
-            R.style.SlideUpAnimation
-        isUbEmployeeToolTip.window?.setGravity(Gravity.CENTER)
-        isUbEmployeeToolTip.show()
+        isUbEmployeeToolTip.apply {
+            window?.attributes?.windowAnimations =
+                R.style.SlideUpAnimation
+                window?.setGravity(Gravity.CENTER)
+                show()
+        }
     }
 
     private fun isEdittableDetails(isShow: Boolean){
@@ -310,117 +320,118 @@ class DaoConfirmationFragment :
 
     private fun initBinding() {
         Handler().post {
-            viewModel.input.salutationInput
-                .subscribe {
-                    binding.viewPersonalInfo1.tvSalutation.text = it.value
-                }.addTo(disposables)
-            viewModel.input.firstNameInput
-                .subscribe {
-                    binding.viewPersonalInfo1.tvFirstName.text = it
-                }.addTo(disposables)
-            viewModel.input.middleNameInput
-                .subscribe {
-                    binding.viewPersonalInfo1.tvMiddleName.text = it
-                }.addTo(disposables)
-            viewModel.input.lastNameInput
-                .subscribe {
-                    binding.viewPersonalInfo1.tvLastName.text = it
-                }.addTo(disposables)
-            viewModel.input.emailAddressInput
-                .subscribe {
-                    binding.viewPersonalInfo1.tvEmailAddress.text = it
-                }.addTo(disposables)
-            viewModel.input.countryCodeInput
-                .subscribe {
-                    binding.viewPersonalInfo1.tvMobileNumber.text = it.name
-                }.addTo(disposables)
-            viewModel.input.businessMobileNumberInput
-                .subscribe {
-                    binding.viewPersonalInfo1.tvMobileNumber.text = it
-                }.addTo(disposables)
-            viewModel.input.genderInput
-                .subscribe {
-                    binding.viewPersonalInfo1.tvGender.text = it.value
-                }.addTo(disposables)
-            viewModel.input.civilStatusInput
-                .subscribe {
-                    binding.viewPersonalInfo1.tvCivilStatus.text = it.value
-                }.addTo(disposables)
+            viewModel.input.apply {
+                salutationInput
+                    .subscribe {
+                        binding.viewPersonalInfo1.tvSalutation.text = it.value
+                    }.addTo(disposables)
+                firstNameInput
+                    .subscribe {
+                        binding.viewPersonalInfo1.tvFirstName.text = it
+                    }.addTo(disposables)
+                middleNameInput
+                    .subscribe {
+                        binding.viewPersonalInfo1.tvMiddleName.text = it
+                    }.addTo(disposables)
+                lastNameInput
+                    .subscribe {
+                        binding.viewPersonalInfo1.tvLastName.text = it
+                    }.addTo(disposables)
+                emailAddressInput
+                    .subscribe {
+                        binding.viewPersonalInfo1.tvEmailAddress.text = it
+                    }.addTo(disposables)
+                countryCodeInput
+                    .subscribe {
+                        binding.viewPersonalInfo1.tvMobileNumber.text = it.name
+                    }.addTo(disposables)
+                businessMobileNumberInput
+                    .subscribe {
+                        binding.viewPersonalInfo1.tvMobileNumber.text = it
+                    }.addTo(disposables)
+                genderInput
+                    .subscribe {
+                        binding.viewPersonalInfo1.tvGender.text = it.value
+                    }.addTo(disposables)
+                civilStatusInput
+                    .subscribe {
+                        binding.viewPersonalInfo1.tvCivilStatus.text = it.value
+                    }.addTo(disposables)
+                governmentIdNumberInput
+                    .subscribe {
+                        binding.viewPersonalInfo2.tvGovernmentId.text = it
+                    }.addTo(disposables)
+                dateOfBirthInput
+                    .subscribe {
+                        binding.viewPersonalInfo2.tvDateOfBirth.text =
+                            it.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DATE)
+                    }.addTo(disposables)
+                placeOfBirthInput
+                    .subscribe {
+                        binding.viewPersonalInfo2.tvPlaceOfBirth.text = it
+                    }.addTo(disposables)
+                nationalityInput
+                    .subscribe {
+                        binding.viewPersonalInfo2.tvNationality.text = it.value
+                    }.addTo(disposables)
+                permanentAddressInput
+                    .subscribe {
+                        if (!it) {
+                            binding.viewPersonalInfo3.tvAddressTitle.text = formatString(R.string.title_permanent_address)
+                        } else {
+                            binding.viewPersonalInfo3.tvAddressTitle.text = formatString(R.string.title_present_address)
+                        }
+                    }.addTo(disposables)
+                viewModel.homeAddress
+                    .subscribe {
+                        binding.viewPersonalInfo3.tvAddress.text = it
+                    }.addTo(disposables)
 
-            viewModel.input.governmentIdNumberInput
-                .subscribe {
-                    binding.viewPersonalInfo2.tvGovernmentId.text = it
-                }.addTo(disposables)
-            viewModel.input.dateOfBirthInput
-                .subscribe {
-                    binding.viewPersonalInfo2.tvDateOfBirth.text =
-                        it.convertDateToDesireFormat(DateFormatEnum.DATE_FORMAT_DATE)
-                }.addTo(disposables)
-            viewModel.input.placeOfBirthInput
-                .subscribe {
-                    binding.viewPersonalInfo2.tvPlaceOfBirth.text = it
-                }.addTo(disposables)
-            viewModel.input.nationalityInput
-                .subscribe {
-                    binding.viewPersonalInfo2.tvNationality.text = it.value
-                }.addTo(disposables)
-            viewModel.input.permanentAddressInput
-                .subscribe {
-                    if (!it) {
-                        binding.viewPersonalInfo3.tvAddressTitle.text = formatString(R.string.title_permanent_address)
-                    } else {
-                        binding.viewPersonalInfo3.tvAddressTitle.text = formatString(R.string.title_present_address)
-                    }
-                }.addTo(disposables)
-            viewModel.homeAddress
-                .subscribe {
-                    binding.viewPersonalInfo3.tvAddress.text = it
-                }.addTo(disposables)
+                occupationInput
+                    .subscribe {
+                        if (it.id != OTHERS_CODE) {
+                            binding.viewFinancialInformation.tvOccupation.text = it.value
+                        }
+                    }.addTo(disposables)
+                otherOccupationInput
+                    .subscribe {
+                        if (this.occupationInput.value?.id == OTHERS_CODE) {
+                            binding.viewFinancialInformation.tvOccupation.text =
+                                ("${this.occupationInput.value?.value} - $it")
+                        }
+                    }.addTo(disposables)
+                sourceOfFundsInput
+                    .subscribe {
+                        binding.viewFinancialInformation.tvSourceOfFunds.text = it.value
+                    }.addTo(disposables)
+                percentOwnershipInput
+                    .subscribe {
+                        binding.viewFinancialInformation.tvPercentOwnership.text = ("$it%")
+                    }.addTo(disposables)
 
-            viewModel.input.occupationInput
-                .subscribe {
-                    if (it.id != OTHERS_CODE) {
-                        binding.viewFinancialInformation.tvOccupation.text = it.value
-                    }
-                }.addTo(disposables)
-            viewModel.input.otherOccupationInput
-                .subscribe {
-                    if (viewModel.input.occupationInput.value?.id == OTHERS_CODE) {
-                        binding.viewFinancialInformation.tvOccupation.text =
-                            ("${viewModel.input.occupationInput.value?.value} - $it")
-                    }
-                }.addTo(disposables)
-            viewModel.input.sourceOfFundsInput
-                .subscribe {
-                    binding.viewFinancialInformation.tvSourceOfFunds.text = it.value
-                }.addTo(disposables)
-            viewModel.input.percentOwnershipInput
-                .subscribe {
-                    binding.viewFinancialInformation.tvPercentOwnership.text = ("$it%")
-                }.addTo(disposables)
+                idTypeInput
+                    .subscribe {
+                        binding.tvIdTypeTitle.text = it
+                    }.addTo(disposables)
 
-            viewModel.input.idTypeInput
-                .subscribe {
-                    binding.tvIdTypeTitle.text = it
-                }.addTo(disposables)
-
-            viewModel.input.fileInput
-                .subscribe {
-                    if (it != null) {
-                        ivSignature.loadImage(it, "1${System.currentTimeMillis()}")
-                    }
-                }.addTo(disposables)
-            viewModel.input.imagePath
-                .filter { it != "" }
-                .subscribe {
-                    if (it != null) {
-                        ivSignature.loaderImageByUrl(
-                            it,
-                            pbSignature,
-                            "2"
-                        )
-                    }
-                }.addTo(disposables)
+                fileInput
+                    .subscribe {
+                        if (it != null) {
+                            ivSignature.loadImage(it, "1${System.currentTimeMillis()}")
+                        }
+                    }.addTo(disposables)
+                imagePath
+                    .filter { it != "" }
+                    .subscribe {
+                        if (it != null) {
+                            ivSignature.loaderImageByUrl(
+                                it,
+                                pbSignature,
+                                "2"
+                            )
+                        }
+                    }.addTo(disposables)
+            }
         }
     }
 
@@ -475,13 +486,15 @@ class DaoConfirmationFragment :
     }
 
     private fun showLoadingDialog() {
-        loadingDialog = MaterialDialog(getAppCompatActivity()).apply {
-            lifecycleOwner(getAppCompatActivity())
-            customView(R.layout.dialog_dao_progress_bar)
+        loadingDialog?.apply {
+            MaterialDialog(getAppCompatActivity()).apply {
+                lifecycleOwner(getAppCompatActivity())
+                customView(R.layout.dialog_dao_progress_bar)
+            }
+            cancelable(false)
+            cancelOnTouchOutside(false)
+            show()
         }
-        loadingDialog?.cancelable(false)
-        loadingDialog?.cancelOnTouchOutside(false)
-        loadingDialog?.show()
     }
 
     private fun dismissLoadingDialog() {

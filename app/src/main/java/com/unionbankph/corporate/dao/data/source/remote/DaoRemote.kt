@@ -10,14 +10,7 @@ import com.unionbankph.corporate.dao.data.form.PersonalInformationStepFourForm
 import com.unionbankph.corporate.dao.data.form.PersonalInformationStepOneForm
 import com.unionbankph.corporate.dao.data.form.PersonalInformationStepThreeForm
 import com.unionbankph.corporate.dao.data.form.PersonalInformationStepTwoForm
-import com.unionbankph.corporate.dao.data.model.CityDto
-import com.unionbankph.corporate.dao.data.model.CountryDto
-import com.unionbankph.corporate.dao.data.model.DaoDetailsDto
-import com.unionbankph.corporate.dao.data.model.OccupationDto
-import com.unionbankph.corporate.dao.data.model.ProvinceDto
-import com.unionbankph.corporate.dao.data.model.SubmitDaoDto
-import com.unionbankph.corporate.dao.data.model.TokenDaoDto
-import com.unionbankph.corporate.dao.data.model.ValidateNominatedUserDto
+import com.unionbankph.corporate.dao.data.model.*
 import com.unionbankph.corporate.dao.domain.form.DaoGetSignatoryForm
 import com.unionbankph.corporate.dao.domain.form.ValidateNominatedUserForm
 import io.reactivex.Single
@@ -104,5 +97,9 @@ interface DaoRemote {
         accessToken: String,
         validateNominatedUserForm: ValidateNominatedUserForm
     ): Single<Response<ValidateNominatedUserDto>>
+
+    fun getListIds(
+        userToken: String?
+    ): Single<Response<MutableList<IdDto>>>
 
 }
