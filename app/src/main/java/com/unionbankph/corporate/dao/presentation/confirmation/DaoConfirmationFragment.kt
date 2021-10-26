@@ -116,15 +116,15 @@ class DaoConfirmationFragment :
             })
         }
 
-        daoActivity.viewModel.apply {
+        /*daoActivity.viewModel.apply {
             navigatePages.observe(viewLifecycleOwner, Observer {
                 when(daoActivity.viewModel.signatoriesDetail.value?.enrollingSource){
                     EnrollingSourceEnum.SALES_FORCE.value -> {
-                        //isEdittableDetails(false) /*This is on hold*/
+                        isEdittableDetails(false)
                     }
                 }
             })
-        }
+        }*/ /*This is currently on hold for salesforce*/
     }
 
     private fun handleDaoOnError(throwable: Throwable) {

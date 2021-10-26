@@ -162,7 +162,7 @@ constructor(
                     }
                 }
             }
-            signatoriesDetail.enrollingSource = it.enrollingSource
+            //signatoriesDetail.enrollingSource = it.enrollingSource
         }
 
         return signatoriesDetail
