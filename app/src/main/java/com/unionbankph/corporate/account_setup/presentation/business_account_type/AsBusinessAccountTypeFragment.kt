@@ -24,8 +24,6 @@ class AsBusinessAccountTypeFragment :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        accountSetupActivity.setIsScreenScrollable(false)
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             accountSetupActivity.popBackStack()
         }

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/grid_1">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearlayoutHeader"
+                style="@style/MatchWrapParent"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_contact_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/grid_3_half"
+                    android:background="@drawable/ic_home" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEHeadlineH2"
+                    android:layout_width="match_parent"
+                    android:layout_alignBaseline="@id/ic_contact_info"
+                    android:text="@string/title_address" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/grid_1"
+                android:paddingStart="@dimen/grid_1"
+                android:paddingEnd="@dimen/grid_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearlayoutHeader">
+
+                <TextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_present_address"
+                    android:layout_marginTop="@dimen/grid_3"/>
+
+                <include
+                    android:id="@+id/include_as_address_present_address"
+                    layout="@layout/widget_address_fields"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/dsColorLightGray"
+                    android:layout_marginTop="@dimen/grid_4"
+                    android:layout_marginBottom="@dimen/grid_4"/>
+
+                <TextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_permanent_address"/>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cb_as_address_same_as_present_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/button_small_size"
+                    android:text="@string/desc_same_as_present_address"
+                    android:textColor="@color/dsColorDarkGray"
+                    android:textSize="@dimen/text_14"
+                    android:layout_marginStart="-7dp"
+                    app:buttonTint="@color/colorSMEMediumOrange"
+                    android:layout_marginTop="@dimen/grid_1_half"/>
+
+                <TextView
+                    style="@style/SMEBodyMediumGray"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="@string/desc_provide_complete_address"/>
+
+                <include
+                    android:id="@+id/include_as_address_permanent_address"
+                    layout="@layout/widget_address_fields"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_as_address_next"
+                    style="@style/SMEPrimaryButtonLarge"
+                    android:enabled="true"
+                    android:layout_marginTop="@dimen/grid_3"
+                    android:text="@string/action_next" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_radius"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_mobile_number_label"
+        style="@style/SMECaption"
+        android:layout_marginTop="@dimen/grid_5_half"
+        android:text="@string/title_mobile_number" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        style="@style/MatchWrapParent"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_mobile_prefix"
+            style="@style/TextInputLayoutFormThin"
+            android:layout_width="@dimen/grid_10"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1"
+            android:focusableInTouchMode="false"
+            app:errorTextAppearance="@style/ZeroTextSizeAppearance"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_mobile_prefix"
+                style="@style/TextInputLayoutFormThinEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="@string/digits_country_code"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:hint="@string/country_code_63"
+                android:inputType="phone"
+                android:maxLength="@integer/max_length_country_code"
+                android:text="@string/country_code_63" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutMobileNumber"
+            style="@style/TextInputLayoutFormThin"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_weight="1"
+            android:hint="@string/hint_e_g_9900008987"
+            app:errorTextAppearance="@style/ZeroTextSizeAppearance"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tie_mobile_number"
+                style="@style/TextInputLayoutFormThinEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:digits="@string/digits_only"
+                android:hint="@string/hint_e_g_9900008987"
+                android:inputType="phone"
+                android:maxLength="@integer/max_length_check_number"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tv_mobile_field_error"
+        style="@style/SMECaption"
+        android:layout_width="match_parent"
+        android:paddingStart="@dimen/grid_3_half"
+        android:textColor="@color/colorErrorColor"
+        android:visibility="gone"
+        tools:text="Mobile number error"
+        tools:visibility="visible" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

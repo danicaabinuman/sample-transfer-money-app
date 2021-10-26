@@ -14,7 +14,7 @@
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_alpha_numeric_symbols_email_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@.</string>
     <string name="digits_country_code">1234567890+</string>
-    <string name="digits_alpha_numeric_specific_symbols">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,-()</string>
+    <string name="digits_alpha_numeric_specific_symbols">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,-()</string>
 
     <!--FingerPrint-->
     <string name="use_password">Use password</string>
@@ -769,6 +769,9 @@
     <string name="title_loans">Loans</string>
     <string name="title_earnings">Earnings</string>
     <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
+    <string name="title_line_1">Line 1</string>
+    <string name="title_line_2">Line 2</string>
+    <string name="title_region">Region</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -981,6 +984,7 @@
     <string name="desc_business_owner">Are you the owner of this business?</string>
     <string name="desc_us_citizenship">I certify that I am not a US Citizen.</string>
     <string name="desc_permanent_address">Permanent address is the same as Present address</string>
+    <string name="desc_same_as_present_address">Same as Present address</string>
     <string name="desc_other_occupation">Yes, I have other occupation.</string>
     <string name="desc_online_banking_products">Your account comes with these services for free. Please select which ones you would like to avail</string>
     <string name="desc_dao_electronic_fund_transfer">Send funds to other UnionBank accounts or to other banks locally or Internationally. Please note there will be a fee for every transaction.</string>
@@ -1596,6 +1600,7 @@
     <string name="hint_government_id_number">Government ID Number</string>
     <string name="hint_business_tin">Business TIN</string>
     <string name="hint_personal_tin">Personal TIN</string>
+    <string name="hint_tin_no">TIN No.</string>
     <string name="hint_business_sss">Business SSS</string>
     <string name="hint_city">City</string>
     <string name="hint_unit_house_no">Unit / House No.</string>
@@ -1642,6 +1647,7 @@
     <string name="hint_others">Others</string>
     <string name="hint_occupation">Occupation</string>
     <string name="hint_status">Select a Status</string>
+    <string name="hint_select_gender">Select Gender</string>
 
     <string name="value_service_fee_free">Free</string>
     <string name="value_service_fee_pesonet">+ PHP 25.00</string>
@@ -2135,7 +2141,6 @@
     <string name="tc_tat_content_3e">Termination of the Bank’s agreement/s with the Card brands; or</string>
     <string name="tc_tat_content_3f">Upon lawful orders of pertinent government authorities.</string>
     <string name="tc_tat_content_4">In addition to the foregoing, the Bank may terminate this Agreement for any cause without penalty, by giving the other Party at least thirty (30) days’ written notice prior to the intended date of termination.</string>
-
     <string name="tc_eot_content_1">Upon termination of this Agreement:</string>
     <string name="tc_eot_content_1a">the Parties agree upon written request to immediately return all Proprietary Work, Confidential Information and all copies thereof belonging to the other party, within its possession or control; and</string>
     <string name="tc_eot_content_1b">all obligations incurred or existing against the Merchant, and all rights vested or accrued under this Agreement, shall survive the termination of this Agreement.</string>
@@ -2196,7 +2201,6 @@
     <string name="tc_lol_content_6">The Bank will, in providing the UnionBank Payment Gateway Service, rely upon information, instructions, and services from the Merchant, its employees, and agents and financial and credit institutions, and other third parties. Merchant fully assumes the risk associated with errors in such information, instructions and services provided that the Bank has accurately transmitted the data and/or complied with authorized instructions.</string>
     <string name="tc_lol_content_7">IN NO EVENT WILL THE BANK’S TOTAL LIABILITY ARISING OUT OF THIS AGREEMENT EXCEED THE LESSER OF THE FEES PAID TO THE BANK BY MERCHANT UNDER THIS AGREEMENT WITHIN THE 12 MONTH PERIOD PRIOR TO THE EVENT WHICH GAVE RISE TO THE CLAIM FOR DAMAGES OR PHP 20,000 FOR REGISTERED MERCHANT AND PHP 10,000</string>
     <string name="tc_lol_content_8">FOR UNREGISTERED MERCHANT. IN NO EVENT WILL THE BANK OR ITS LICENSORS HAVE ANY LIABILITY TO MASTER MERCHANT OR ANY OTHER PARTY FOR ANY LOST OPPORTUNITY OR PROFITS, COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, OR FOR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR SPECIAL DAMAGES ARISING OUT OF THIS AGREEMENT, UNDER ANY CAUSE OF ACTION OR THEORY OF LIABILITY (INCLUDING NEGLIGENCE), AND WHETHER OR NOT THE BANK HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THESE LIMITATIONS WILL APPLY NOTWITHSTANDING ANY FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.</string>
-
     <string name="tc_indemnification_content_1">Merchant shall indemnify and hold the Bank, its directors, officers, employees and agents harmless from and against, and defend any claim, suit or proceeding and pay any settlement amounts or damages awarded by a court of final jurisdiction arising out of claims (i) resulting from the willful acts, omissions or negligence of Merchant, its employees or agents; (ii) relating to any claims filed in respect of infringement of a third party right in connection with the Software and/or Service; and (iii) resulting from non-compliance with PCI-DSS and Cards brand ruling, or (iv) resulting from non-compliance with its undertakings in this Agreement.</string>
     <string name="tc_indemnification_content_2">The Bank will be entitled to have full conduct of all proceedings and negotiations relating to any such claim and in its discretion to accept, dispute, compromise, or otherwise deal with the same and shall be under no liability in respect thereof to the merchant and the Merchant shall provide any and all assistance in connection with such claim that the Bank may require.</string>
 
@@ -2208,7 +2212,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
 \n\nIn case of such events, the time for performance required by either party under this Agreement shall be suspended for any period during which the performance is prevented by the event</string>
 
     <string name="tc_mh_content">In the event that the Merchant has concerns regarding the payment gateway and its usage, the Merchant may contact UnionBank’s Customer Corporate Care by phone: (02) 667-2668 or by Email: union3c@unionbankph.com, Monday-Friday 8:30-5:30 (except holidays).</string>
-
     <string name="tc_general_content_1">The Parties are independent contractors. No agency, partnership, joint-venture or formal business organization of any kind is created by this Agreement and neither Party shall have the right to bind the other, or represent to any person that it has the right to do so. Merchant shall conduct its activities under this Agreement as its own principal and not as agent of the Bank.</string>
     <string name="tc_general_content_2">No waiver of any breach of this Agreement shall be deemed to be a waiver of any other or of any subsequent breach. The failure of either Party to enforce at any time any of the provisions of this Agreement shall in no way be interpreted as a waiver of such provision.</string>
     <string name="tc_general_content_3">Unless otherwise provided in this Agreement, all remedies shall be cumulative and in addition to and not in lieu of any other remedies to either Party at law, in equity, or otherwise. Furthermore, there shall be no obligation upon either Party to exercise a specific remedy.</string>
@@ -2341,7 +2344,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hello_what_is_your_name">Hello, what is your name?</string>
     <string name="user_creation_input_reminder">Before we begin, please ensure that the following details in your application matches with details in your ID:</string>
     <string name="hello_name">Hello, %1$s!</string>
-
     <string name="user_creation_title_reminder">Before we begin, please ensure that the\nfollowing details in your application matches\nwith details in your ID:</string>
     <string name="desc_user_creation_reminders">
         <![CDATA[
@@ -2512,6 +2514,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_continue_dashboard">CONTINUE TO DASHBOARD</string>
     <string name="header_user_creation_confirmation_page">Confirmation Page</string>
     <string name="hi">Hi %1$s!</string>
+    <string name="desc_provide_complete_address">Please provide your complete address. We will use this information for card delivery.</string>
 
     <!--FaceID-->
     <string name="title_login_in_using_faceid">Log in with Face ID</string>
@@ -2575,7 +2578,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_terms_of_service_caps">TERMS OF SERVICE</string>
     <string name="title_privacy_policy_caps">PRIVACY POLICY</string>
 
-
     <string name="header_apply_up_to">Avail up to PHP 1M</string>
     <string name="description_apply_up_to">With minimal documentary requirements, fast approval &amp; auto-crediting of funds.</string>
     <string name="action_apply_now">Apply Now</string>
@@ -2601,7 +2603,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_five_days">5 Days *</string>
     <string name="title_thirty_days">30 Day</string>
 
-<!--    Loan Terms-->
+    <!--    Loan Terms-->
     <string name="title_loan_amount">Loan Amount</string>
     <string name="title_term">Term</string>
     <string name="title_effective_rate">Effective Rate</string>
@@ -2620,7 +2622,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="label_loan_amount_value">PHP 100,000 - PHP 5,000,000</string>
     <string name="label_annual_interest_rate">36%</string>
     //%1$s%%
-<!--    Who are Eligible to Apply?-->
+    <!--    Who are Eligible to Apply?-->
     <string name="title_qualified_businesses">Qualified Businesses</string>
     <string name="label_cafe_restaurant_bakeshop">Cafe, restaurant, bakeshop</string>
     <string name="label_social_media">Social media administration &amp; management</string>
@@ -2637,7 +2639,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="label_others">Others</string>
 
 
-<!--    Common Questions-->
+    <!--    Common Questions-->
     <string name="title_common_questions">Common Questions</string>
     <string name="label_how_can_i_get_a_loan">How can I get a loan?</string>
     <string name="label_what_are_the_requirements">What are the requirements</string>
@@ -2667,11 +2669,11 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="sub_bullet_electricity">c. Electricity/Internet/Water Bill</string>
 
 
-<!--    Banner -->
+    <!--    Banner -->
     <string name="title_ready_to_expand">Ready to expand your business?</string>
     <string name="label_financing_services">Financing services made for business owners.</string>
 
-<!--    Monthly Payment-->
+    <!--    Monthly Payment-->
     <string name="title_how_much_do_you_need">How much money do you need?</string>
     <string name="title_how_long_can_you_repay">How long can you repay? (Months)</string>
     <string name="title_monthly_payment">Monthly Payment</string>
@@ -2718,6 +2720,214 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_infrastructure">Infrastructure</string>
     <string name="title_apply_for_a_loan">@string/action_apply_loan</string>
     <string name="label_thirty_six_percent">36 %</string>
+
+
+    <string name="title_account_opening_terms_and_condition">UnionBank Account Opening Terms and Conditions</string>
+    <string name="msg_terms_condition_1">These Terms and Conditions shall govern the opening and maintenance of the deposit accounts and related services with the UnionBank of the Philippines (the “Bank”).\n\n
+        It shall be governed by the provisions of Bangko Sentral ng Pilipinas, Philippine Clearing House Corporation (PCHC), the Bureau of Internal Revenue (BIR), Anti-Money Laundering Act (AMLA), Foreign Account Tax Compliance Act (FATCA), Philippine Deposit Insurance Corporation (PDIC), Data Privacy Act (DPA), and other applicable existing and future laws, rules, and regulations of the Philippines, relating to the opening and maintenance of deposit accounts, services, products, or facilities availed by the account holder/s.</string>
+    <string name="title_provisions_deposit_account">PROVISIONS FOR DEPOSIT ACCOUNT</string>
+    <string name="title_opening_of_account">Opening of Account</string>
+    <string name="msg_terms_condition_2">An individual or by two (2) or more persons jointly, who is/are free from any legal disability may open a Savings, Checking, Time, or Foreign Currency Deposit Account (FCDU).\n\n
+        The opening and maintenance of deposit accounts, upon compliance with and submission of all documentary / information requirements and customer identification, shall be at the sole discretion of the Bank. It shall be maintained only in the account holder/’s true and full name.
+        \n\nA passbook, Automated Teller Machine (ATM) or debit card, checkbook, or Certificate of Time Deposit (CTD) shall be issued, depending on the type of account opened, for the exclusive use of the account holder/s, and its ownership is non-transferrable.</string>
+    <string name="title_min_bal_req">Minimum Balance Requirement</string>
+    <string name="msg_terms_condition_3">The Account holder agrees that the deposit account shall have an Average Daily Balance (ADB) which the Bank has the discretion to set. Failure to maintain the ADB for two (2) consecutive months shall subject the deposit account to a Maintenance Fee.</string>
+    <string name="title_accnt_holder_info">Account Holder Information</string>
+    <string name="msg_terms_condition_4">It is the Account holder/s duty to keep updated the specimen signatures, authorized signatories, personal and contact information of the deposit account. The provided contact information will be used by the Bank to send correspondence to Account holder regarding the Account holder/s account, or services, products, or facility/ies availed by the Account holder/s from the Bank. Any change or update in information must be made through a written request to the Bank signed by the Account holder/s. The Account holder/s agree/s that the Bank is entitled to refuse to process any transactions where Account holder/s’ signature/s is/are needed if the signature/s do/does not match the signature/s specimen provided by the Account holder/s on the signature card.
+        \n\nThe account holder/s shall update their information on record as required by regulators and the Bank’s internal policies, rules and regulations.
+        \n\nThe recipient’s account name and/or account number of the funds transfer may be disclosed to the account holder or indicated in its statement of account. Further, the account holder also agrees that his/her account name and/or account number may be disclosed in the recipient/s statement of account. All disclosures are in accordance with the confidentiality laws and disclosure of information found in these Terms and Conditions. </string>
+    <string name="title_joint_accnt">Joint Account</string>
+    <string name="msg_terms_condition_5">
+        The Bank shall be authorized to execute banking transactions upon receipt of written consent or signature from any of the named account holders for a Joint "OR" account while from all of the named Account holders for a Joint "And" account.
+        \n\nThe following instructions shall not be honored by the Bank unless all joint account holders specifically instruct in writing and/or are complied with:
+    </string>
+    <string name="msg_terms_condition_6">Change in any account information</string>
+    <string name="msg_terms_condition_7">Instruction to change address or any other instructions concerning the maintenance or operation of the accounts.</string>
+    <string name="msg_terms_condition_8">Affidavit of Loss and requests for card replacement/ passbook replacement, certificate of deposit, or any other evidence of account ownership.</string>
+    <string name="msg_terms_condition_9">Request for bank certification</string>
+    <string name="msg_terms_condition_10">Addition/ deletion of account holder from the account.</string>
+    <string name="msg_terms_condition_11">Affidavit of Loss and request for of ATM Card should be executed by the account holder to whom the Card was issued, and conformed to by the co-account holder.
+    </string>
+    <string name="msg_terms_condition_12">Special Power of Attorney authorizing a third party to; </string>
+    <string name="msg_terms_condition_13">withdraw, effect funds transfer, disbursement or any transaction
+    relating to the account, or</string>
+    <string name="msg_terms_condition_14">assign or encumber the account as security for any obligation.</string>
+    <string name="msg_terms_condition_15">In case the Bank receives contradictory instructions from any co-account holder(s), the Bank may, at its option, either (i) require all account holders to provide the Bank with common instructions; or (ii) to freeze the account until all co-account holders arrive at common instructions.
+        \n\nIn the event of any legal dispute regarding the release of funds among the account holders, the Bank may deliver the proceeds of the account to the appropriate court in an action for interpleader to resolve their respective claims on the account. The account holders agree to reimburse the Bank for the cost of suit, attorney’s fees, and other expenses that the Bank may incur for the purpose.
+        \n\nThe account holders hold the Bank free and harmless from and against any and all liabilities which may arise by reason of the Bank’s implementation of any instruction of the account holder/s or refusal to pay any proceeds of the Joint “OR” account without the requisite discharge by all of the account holders given to the Bank </string>
+    <string name="title_dec_co_account">Declaration that Co-Account holders are Alive</string>
+    <string name="msg_terms_condition_16">Whenever one of the account holders withdraws/effects funds transfers/draws against the account/s, the account holders are doing so based on their continuing declaration and representation, under liability for perjury, that all their co- account holders are still living as of the date of the withdrawal/fund transfer/drawing against the account/s is made,  and that the Bank may rely on such continuing declaration and representation and the account holders hold the Bank free and harmless for its reliance on such continuing declaration and representation of the account holders.</string>
+    <string name="title_itf">For Minors &amp; “In-Trust For” (ITF) Accounts deposit</string>
+    <string name="msg_terms_condition_17">For customers who are minors (below 18 years old), it is the responsibility of the parent/s or guardian/s to read, understand and be bound by the Terms and Conditions. It is the parent/s or guardian/s responsibility to explain to the minor the use of the products and services. The Bank shall be entitled to disclose any information regarding the ITF account to the beneficiary/ies, if required.</string>
+    <string name="title_passbook_and_ctd">Passbook and CTD</string>
+    <string name="msg_terms_condition_18">Possession of the passbook or CTD shall raise the presumption of ownership thereof.
+        \n\nAll release of funds made by the Bank upon presentation of the passbook or CTD shall be presumed valid, provided that no written notice from the Account holder of the loss, theft or unauthorized possession of said passbook or CTD, has been duly acknowledged by the Bank at the time of said release. </string>
+    <string name="title_atm_debit_card">ATM or Debit Card</string>
+    <string name="msg_terms_condition_19">The ATM card is and shall at all times remain the property of the Bank and thus cannot be lent, pledged, nor charged as a security for any reason. Pursuant to said ownership and its obligation as a depository bank, the Bank has the right to retrieve the ATM or Debit card/s, or suspend its functionalities and other related services, and has no obligation to justify said retrieval or suspension to the Account holder/s.
+        \n\nThe Bank sets a daily maximum withdrawable amount from the ATM or Debit card and has the right to change it at any time, or may approve any change requested by the Account holder/s.
+        \n\nThe ATM or Debit card shall be valid from the day of issuance or renewal, and expires on the last day of the month indicated on the face of the card.
+        \n\nATM or debit cards may also be used internationally, subject to the laws and regulations governing the use of international ATMs. Cash withdrawals are converted to the currency of the institution owning the ATM, at the prevailing exchange rate, during the time of the transaction. The Account holder agrees to be bound by the existing rules and regulations for foreign exchange.
+        \n\nIn case of loss of the card, the Account holder/s are only absolved from financial liability incurred from any unauthorized or fraudulent purpose after the loss was reported to the Bank in accordance with the prescribed procedure for reporting lost or stolen cards.
+        \n\nCaptured cards in ATMs can only be claimed for three (3) days from capture. Otherwise, unclaimed cards will be destroyed without need of notifying the Account holder.
+        \n\nThe account holder/s accept/s full responsibility for all transactions made with the use of the card. The Bank has no access to the Personal Identification Number (PIN) assigned to the card and does not have the capability to retrieve it. Given this, the PIN can only be changed in any UnionBank ATMs. In cases where the account holder/s are unable to remember the PIN, the card will have to be replaced. Non-compliance by the account holder of this provision shall relieve the Bank of any liability for any loss arising from the use of the PIN to effect any transaction relating to the accounts of the account holder. </string>
+    <string name="title_services">SERVICES</string>
+    <string name="msg_terms_condition_20">The following are the services that the Bank offers. The Bank may, at its sole discretion refuse to provide any or all of the following services to an account.</string>
+    <string name="title_statement_of_account">Statement of Account (SOA)</string>
+    <string name="msg_terms_condition_21">The Bank shall be sending a SOA on a scheduled basis in accordance with regulatory and internal policies. The account holder/s shall be responsible for promptly examining the SOA including the paid checks or check images enclosed therein and notifying the Bank in case of non-receipt within ten (10) calendar days from cut-off date.
+        \n\nThe account holder is responsible for the following: a. any and all the entries in the Bank statements are correct;  b. the amount(s), payee(s) and other data indicated on the paid checks are true and accurate and there are no discrepancies; and  c. there are any fraudulent, altered, forged signatures or endorsements on the checks or the checks are defective. </string>
+    <string name="title_deposit_acceptance">Deposit Acceptance</string>
+    <string name="msg_terms_condition_22">Deposits in the form of cash, check, or fund transfer will only be made available to the account of the account holder/s after verification or after the settlement/clearing period under existing clearing house rules and regulations. Checks drawn against banks outside the US continent are usually sent for collection. Foreign currency check deposits previously presented and subsequently returned by the drawee banks cannot be re-deposited.
+    \n\nSecond endorsed checks, post-dated and stale checks are not acceptable for deposit.</string>
+    <string name="title_withdrawals">Withdrawals</string>
+    <string name="msg_terms_condition_23">Withdrawals / encashment / payments / fund transfers or any type of drawings are only allowed against cleared funds.
+        \n\nOver-the-counter withdrawals for Passbook based accounts will be permitted only upon presentation of the passbook.  </string>
+    <string name="title_deposit_renewal">Time Deposit Renewal</string>
+    <string name="msg_terms_condition_24">The Account holder/s may also renew/rollover the Time Deposit fully or partially. For partial rollovers or additional deposits, the Time Deposit account shall be closed and the amount to be rolled over shall be processed as a new placement.</string>
+    <string name="title_non_renewal">Non-renewal of Time Deposit</string>
+    <string name="msg_terms_condition_25">If the Time Deposit is not withdrawn or renewed on its maturity date, the funds shall automatically earn interest at a rate of savings deposit prevailing on the time of its maturity date on a per annum basis, until the date of actual withdrawal or renewal of the Time Deposit.</string>
+    <string name="title_requisition_checkbooks">Requisition or Issuance of Checkbooks</string>
+    <string name="msg_terms_condition_26">Checkbooks can be reordered at a Unionbank channel and are subject to the payment of applicable fees and charges. The account holder shall at all times ensure compliance with the following: a. maintain the checkbooks in a secure and safe place accessible only to account holder and authorized signatory(ies) and ensure that it is only the account holder b.  or the duly authorized signatory(ies) who draw(s) or issue(s) the same;  c. exercise due care when drawing and releasing/delivering checks, and shall not draw checks by any means or in any manner which may enable a check to be altered; d. not to release/deliver/completely drawn checks nor release/deliver checks by mail or any unsecured means; e. when drawing checks, the account holder is bound by the conditions to which checkbooks are issued, including, among others, the following: i. clearly stating the amount in words and figures in the spaces provided on the check; and ii. writing words and figures close to the left-hand margin so that other words and figures cannot be inserted; f. provide and observe security measures for the safekeeping and use of checks and check records; g. exercise diligence to obtain cancelled checks and Bank statements and promptly inform the Bank in case of non-receipt of Bank statements within a reasonable time from statement cut-off date.</string>
+    <string name="title_stop_payment_order">Stop Payment Order (SPO)</string>
+    <string name="msg_terms_condition_27">An SPO can be issued on any outstanding unpaid checks and are subject to the payment of applicable fees and charges. The SPO shall be valid and revocable only up to six (6) months from the date of receipt.</string>
+    <string name="title_channel_for_services">CHANNELS FOR SERVICES</string>
+    <string name="msg_terms_condition_28">Channels for services are local and international Automated Teller Machines, Online Banking, Point of Sale (POS) terminals, Cash Acceptance Machines, Cash Recycler Machines, Teller Cash Recycler, Virtual Teller Machine, and Check Deposit Machines. The use of these channels shall be governed by their individual Terms and Conditions, and applicable charges may apply.</string>
+    <string name="title_atm_access">International ATM Access</string>
+    <string name="msg_terms_condition_29">The account holder’s account, or the electronic transmission or receipt of data or information relating to the account holder’s ATM Card transactions or accounts, such as, without limitation:</string>
+    <string name="msg_terms_condition_30">in instances where the account holder is unable to use the ATM card or avail of any service due to disruption or failure of the
+        ATMs or other networks or communications facilities linking the same, </string>
+    <string name="msg_terms_condition_31">unauthorized or fraudulent access or utilization of the ATM card or any service including, but not limited to, the improper designation of the account from which the transaction shall be debited or credited, or</string>
+    <string name="msg_terms_condition_32">any rejection, disruption, failure or delay relating to the use of the ATM card or availment of any service where such rejection, disruption, failure or delay is due to circumstances beyond the Bank’s reasonable control.</string>
+    <string name="title_ub_online_digital_online">UnionBank Online and Digital Channels</string>
+    <string name="msg_terms_condition_33">The Account holder acknowledges by signing in this document, that he/she will read, comprehend and fully agree with UnionBank Online’s terms and conditions as found in the UnionBank Online Application – Terms &amp; Conditions or at https://online.unionbankph.com/online-banking/more/terms and have been duly informed of the possible fraud schemes and risks pertaining to such.</string>
+    <string name="title_interest_fees_charges">INTEREST, FEES, CHARGES, AND PENALTIES</string>
+    <string name="msg_terms_condition_34">Channels for services are local and international Automated Teller Machines, Online Banking, Point of Sale (POS) terminals, Cash Acceptance Machines, Cash Recycler Machines, Teller Cash Recycler, Virtual Teller Machine, and Check Deposit Machines. The use of these channels shall be governed by their individual Terms and Conditions, and applicable charges may apply.</string>
+    <string name="title_interest_computation">Interest Computation</string>
+    <string name="msg_terms_condition_35">Interest rates are decided by the Bank’s formula and interest rate payouts may vary depending on the approved interest rates schedule or type of deposit account.
+        \n\nGross interest computation shall be the product of the principal amount, the interest rate of the product, and the number of days accrued divided by the applicable day-count convention. Net interest computation shall be the gross interest deducted by the withholding tax.
+        \n\nIf account is closed before interest posting, the interest accrued is forfeited in favor of the Bank. However, interest earned as of closing date may be given upon customer’s request. </string>
+    <string name="title_time_deposit_waived_fees">Time Deposit Waived Fees</string>
+    <string name="msg_terms_condition_36">Account holder/s shall be permitted to cancel or treat the Time Deposit, with a term longer than one year, as null and void, without penalty, subject to submission of written notice of cancellation within two banking days from the time it was opened, but subjected to processing and administrative fees and taxes.</string>
+    <string name="title_time_deposit">Time Deposit Pre-termination Fees</string>
+    <string name="msg_terms_condition_37">For Time Deposit accounts, in case the placement or part thereof is withdrawn before maturity, or if the Time Deposit is pre-terminated, the account will be closed and the prevailing savings deposit rates, depending on the type of Time Deposit Account, shall be used as basis for computation; provided that, if the interest had been paid in advance, the corresponding rebate shall be charged against the placement.</string>
+    <string name="title_account_closing">ACCOUNT CLOSING</string>
+    <string name="title_closure_of_accounts">Closure of Account</string>
+    <string name="msg_terms_condition_38">The account/s may be closed by either:(1) the Account holder/s, voluntarily by physically requesting branch to close the account and updating the necessary documents; (2) upon death of an Account holder in an individual account; or (3) by the Bank and return the deposit net of charges, applicable fees, taxes, and/or contingent or past due liabilities. The deposit account shall also be automatically closed by the Bank without prior notice to the Account holder/s if the balance is zero for three (3) consecutive months. The account holder may be notified either personally or by mail of the Bank’s intention to close the account and interest shall cease from the date of such notification. Notice by mail shall be deemed received five (5) days after the date of posting.
+        \n\nThe Bank is authorized to close accounts even without prior notice in case said accounts are:  </string>
+    <string name="msg_terms_condition_39">mishandled by the issuance of unfunded or insufficiently funded check(s); or</string>
+    <string name="msg_terms_condition_40">involved in or used or suspected to be used for any fraudulent, criminal or unlawful activities.</string>
+    <string name="msg_terms_condition_41">There was/were misrepresentation(s) in the opening of the said accounts and to report such closure and the reason(s) therefore to BAP, BSP or to any central monitoring body established by the BAP or BSP to keep record of and report mishandled deposit accounts.</string>
+    <string name="msg_terms_condition_42">The Bank is fully authorized to withhold unpaid obligations of the account holder/s to the Bank in the account balance, properties, or securities of the account holder/s in the possession or custody of the Bank, as may be necessary to pay existing obligations.  Upon closure of the deposit account for any reason, the Account holder/s agree/s, when so required by the Bank, to promptly surrender their proof of deposit – CTD, passbook, or all unused checks.
+        \n\nIn all cases, the release of the funds of closed accounts shall be subject to the Bank’s verification and submission of pertinent documents from the heir/s or beneficiary/ies. </string>
+    <string name="title_deceased_depositor">Deceased Depositor</string>
+    <string name="msg_terms_condition_43">In case of account closure due to the death of an Account holder, the release of the proceeds of the closed account to the deceased Account holder/s legal heirs, or to the named beneficiary/ies if the account is an In-Trust For (ITF) account, or to their legal guardians or legal representative/s,shall be subject to the Bank’s policy on Deceased Depositor and applicable laws and regulation.</string>
+    <string name="title_right_of_survivorship">Right of Survivorship for Joint “OR” Account</string>
+    <string name="msg_terms_condition_44">In case of death of one of the account holder in a Joint “OR” account, the surviving account holder/s must immediately notify the Bank in writing of the death of any one of the account holders. Upon receipt of the written notice of death, the Bank may hold in the name of the surviving account holder/s all funds or items to the credit of, or by way of security for, any service or product then standing in the name of all account holders, it being agreed and acknowledged that as joint owners of the Joint “OR” accounts, remaining co-account holder/s have the right of survivorship, and that the entire balance of the account shall automatically be payable to the surviving account holder/s.
+        \n\nFailure of the surviving account holder/s to give written notice of death of a account holder shall be deemed that the surviving account holder/s have exercised the right of survivorship and have complied with applicable provisions / requirements of law including, among others, payment of taxes, if any, and satisfied any claims/debts/liens/right of setoff which the Bank or any heir or third party may have. The surviving account holders hereby hold the Bank free and harmless and indemnified from any and all taxes, claims/debts and liabilities arising from or in connection with their failure to give written notice of death of an account holder to the Bank, and their right of survivorship.</string>
+    <string name="title_period_of_inactivity">PERIOD OF INACTIVITY</string>
+    <string name="title_dormant_account">Dormant Account</string>
+    <string name="msg_terms_condition_45">A deposit account, with the exclusion of time deposits, shall be deemed dormant if there has been no activity (excluding earned interest and withholding tax imposed thereon) for a period of two (2) years for Savings Accounts and one (1) year for Current Accounts.
+        \n\nThe account holder/s has/have to be physically present at the maintaining branch of account to request reactivation of a dormant account, update documentary / information requirements, and transact over-the-counter (deposit or withdrawal). </string>
+    <string name="title_escheated_account">Escheated Account</string>
+    <string name="msg_terms_condition_46">After ten (10) years of continuous inactivity, dormant accounts will be reclassified to “Due to Treasurer of the Philippines”. In accordance with the Unclaimed Balance Law, the dormant account shall be escheated in favor of the Philippine Government upon order of the court. If the “unclaimed balance” has been deposited by the Bank to the Treasurer of the Philippines, the account holder will have to go directly to the Bureau of the Treasury for the proper procedure on reactivation.</string>
+    <string name="title_miscellaneous">MISCELLANEOUS</string>
+    <string name="msg_terms_condition_47">The Bank reserves the right to change or modify at any time the minimum account balance, interest rate, service charges, fees, penalties, other amounts and terms pertaining to the accounts and/or services described in these Terms and Conditions. The account holder/s agree/s to be responsible to check announcements from time to time in the branch premises or the Bank’s website at www.unionbankph.com for any changes or modifications to these Terms and Conditions.</string>
+    <string name="title_deposit_insurance">Deposit Insurance</string>
+    <string name="msg_terms_condition_48">Deposits are determined and insured by the Philippine Deposit Insurance Corporation (PDIC) and are at a per customer basis.</string>
+    <string name="title_amla_reporting">AMLA Reporting</string>
+    <string name="msg_terms_condition_49">The account holder shall not use the Bank facility to transfer funds for illegal purposes or for any form of money laundering. The account holder agrees to hold the Bank free and harmless from any legal problems that the fund transfer may result to. The Bank reserves the right not to perform any fund transfer transaction if it has sufficient grounds to believe that such transfer shall place the Bank in a bad situation or expose the Bank to violation of Anti-Money Laundering Law and existing laws and BSP regulations.
+        \n\nThe account holder authorizes the Bank to make the necessary verifications, records, reports, submittals and other processes, as well as perform such acts for the purpose of complying with the Anti-Money Laundering Act (Republic Act No. 9160, as amended), its implementing regulations, and other laws or rules regulating the accounts and the account holder hereby waives corresponding rights under Republic Act. No. 1405, as amended, Republic Act No. 6426 as amended, Section 55.1 of Republic Act No. 8791 and other applicable laws or regulations for this purpose.</string>
+    <string name="title_foreign_account_tax">Foreign Account Tax Compliance Act (FATCA) -deposit</string>
+    <string name="msg_terms_condition_50">The Bank reserves the right to block any payment or transaction on the account that will result in the Bank, any of its affiliates or its third party service provider/s, or any Payment Infrastructure Provider being in breach of any requirement under FATCA, similar domestic or foreign legal requirement or agreement.
+    \nFor the purpose of this agreement, "Payment Infrastructure Providers" refers to any third party that forms part of the global payment systems; "FATCA" refers to section 1471 to 1474 of the United States Internal Revenue Code or 	any associated regulations 	or official guidance; "IGA" means any 	intergovernmental agreement between the US and any other jurisdiction, or any treaty, law, regulation or official guidance relating to an IGA, that facilitates the implementation of FATCA; "FFI Agreement" means any agreement pursuant to the implementation of FATCA or an IGA with the US Internal Revenue Service, the US Government or any other Authority.
+    \n\nThe Bank, any affiliate, or third party service provider reserves the right to withhold or deduct an amount for any applicable tax, duties, or other lawfully collected amounts ("Collected Amounts") which are required to be withheld or deducted to comply with any law or regulation of any domestic or foreign jurisdiction, or any agreement entered into with or between any authority, as required. Any Collected Amount will be timely paid to the relevant authority as required. The Bank will notify the customer of any Collected Amount as soon as reasonably possible. The customer acknowledges that the Bank will not be required to reimburse any amount withheld or deducted by a Payment Infrastructure Provider.
+    \n\nFurther, if the Bank, any affiliate, or third party service provider pays or are required to pay an authority from their own funds to settle an amount that should have been, but was not a Collected Amount, the customer shall pay the amount, plus any applicable interest and penalties. The customer understands that the Bank is not required to contest any demand made by an Authority for such payment. </string>
+    <string name="title_discharge_bank_liabilities">DISCHARGE OF THE BANK’S LIABILITIES</string>
+    <string name="msg_terms_condition_51">The Bank shall not be liable for any failure to provide any service or to perform any obligation, or for any loss, damage, injury, or claim of whatever nature that the account holder may suffer in connection with the use of the Bank’s systems, due to any fortuitous event, typhoons, floods, public disturbances and calamities, or any act or circumstance beyond the control of the Bank, such as but not limited to:</string>
+    <string name="msg_terms_condition_52">prolonged power outages, breakdown in computers and communication facilities, and other similar cases;</string>
+    <string name="msg_terms_condition_53">inaccurate, incomplete or delayed information is received by the account holder due to disruption or failure of any communication.</string>
+    <string name="msg_terms_condition_54">The Bank shall be under no liability to the Account holder/sin respect of any loss or damage arising directly or indirectly from:</string>
+    <string name="msg_terms_condition_55">Any loss or damage howsoever incurred or suffered by the customer by reason of the Bank’s refusal or the refusal of other financial institutions or third parties, to allow a Card transaction, or to accept the Card or the PIN, or to provide cash advance up to the Credit Limit or at all;</string>
+    <string name="msg_terms_condition_56">Refusal of any merchant affiliate of member institution of Mastercard or VISA International to honor the Card;</string>
+    <string name="msg_terms_condition_57">Any defect or deficiency in the goods or services supplied to the customer by any Merchant Affiliate or, where applicable, for any breach or non-performance by a Merchant Affiliate or a Card Transaction;</string>
+    <string name="msg_terms_condition_58">Malfunction of any ATM or disruption of communication systems;</string>
+    <string name="msg_terms_condition_59">Exercise by the Bank of its right to demand and procure the surrender of the Card prior to its expiry date, whether such demand and surrender are made and/or procured by the Account holder/s or by any other person, or through the Bank’s ATM; </string>
+    <string name="msg_terms_condition_60">Exercise of the Bank’s right to suspend or deactivate a Card, or to close an account;</string>
+    <string name="msg_terms_condition_61">Any injury to the Account holder/s’ credit character and reputation arising from the repossession of Card, any request or demand for the surrender of the Card, or the refusal of any person to honor or accept the Card; </string>
+    <string name="msg_terms_condition_62">Any misstatement, misrepresentation, error or omission in Account holder/s’ Statement of Account;  </string>
+    <string name="msg_terms_condition_63">In all other cases not specifically provided under these terms and conditions, the usual customs and procedures between the Bank and the Account holder/s, the existing rules and regulations, policies and circulars (and those that may be issued from time to time) by the Bangko Sentral ng Pilipinas (BSP), Banker’s Association of the Philippines (BAP), Bancnet, and relevant laws and regulations affecting foreign currency accounts, shall be taken into consideration in the operation and maintenance of the account and in resolving issues involving transactions between the Bank and the customer.
+        \n\nThe customer holds the Bank free and harmless from any liability or causes of action in case limitations or restrictions are imposed on the operation and maintenance of the account, by the BSP or by the government which the Bank is bound to comply with or strictly implement.
+        \n\nIn any action arising from this Agreement or any incident thereto which the customer or any other party may file against the Bank, the Bank’s liability shall not exceed One Thousand Pesos (PHP1,000.00) or the actual damages proven, whichever is lesser.  </string>
+    <string name="title_liability_limits">Liability Limits</string>
+    <string name="msg_terms_condition_64">The Bank will not be liable for any loss, damage (including special, indirect or consequential damages) or delay resulting from any force majeure event, including failure, error, malfunction or inaccessibility of any of the Bank’s systems and machines.
+        \n\nThe Bank’s liability for gross negligence shall be limited to actual damages but in no case exceed Ten Thousand Pesos (PHP10,000.00).
+        \n\nThe account holder agrees that the Bank will use the applicable foreign exchange rate at the actual time of conversion. In the event that the account holder’s transaction is cancelled and/or the account is due for a refund, the amount that the Bank shall credit back is based on the received credit memo or credit instructions from the merchant or remitting bank. The account holder agrees not to hold the Bank liable for any for any fees which may be charged pursuant to or as an incident of the foreign currency conversion and/or reversal, for any loss, damage or claims of whatever nature which the account holder may incur due to nonconversion or any changes in the exchange rate.
+        \n\nThe account holder acknowledges and agrees that the Bank does not have any control over the electronic devices on which the ATM card or debit card is used and as such, the account holder agrees to indemnify and render the Bank, its directors, officers, employees, agents and assigns, free and harmless from any loss, damage, claim of whatever nature for any  failure and/or malfunction of the electronic device itself or any system or network upon which said electronic device is critically dependent on, or any other disruption, failure or delay due to circumstances beyond the control of the Bank. </string>
+    <string name="title_liability_limits_for_deposits">Liability Limits for Deposits in General</string>
+    <string name="msg_terms_condition_65">The Bank reserves the right to refuse to accept certain items for depositor return all or part of a deposit at its sole discretion. The Bank shall not be responsible for resulting entries based on erroneous or illegible account number on the deposit slip. If the Bank refuses to accept items for deposit, accepts them conditionally, and/or dishonors checks presented the Bank is not responsible for any consequences the account holder may suffer there from. The account holder holds the Bank free and harmless from liability for any deposits made in violation of any law, rules or circulars.
+        \n\nThe Bank is not responsible for tampered checks once the checkbook has been released to the account holder.  If a check is dishonored for any reason, including but not limited to material alteration, fraud or forgery, the account holder gives the Bank full power and authority, in the Bank’s sole discretion, to debit any and all amounts that have been credited to the account resulting from the dishonored check, and/or offset the same against any funds which the account holder may have with the Bank until fully satisfied.  </string>
+    <string name="title_bank_records">Bank Records</string>
+    <string name="msg_terms_condition_66">Any discrepancies or errors in Bank records should be immediately communicated by the account holder to the Bank. The Bank records shall be conclusive on the amount of the deposit for credit to customer’s accounts despite discrepancies.
+        \n\nPossession or presentation of CTD will be subject to final verification against the Bank’s official records. The Bank’s records regarding the account shall always prevail in case of any conflict.\nThe account holder agrees that in cases of conflict between the account holder’s records and those of the Bank regarding reconciliation of deposit balances, including discrepancies in the entries in the passbook the Bank’s record shall, at all times, prevail.</string>
+    <string name="title_electronic_banking">Electronic Banking</string>
+    <string name="msg_terms_condition_67">The Bank shall have no obligation nor shall it incur any liability if it does not complete a transfer, whether immediate or scheduled due to inactive account, insufficiency of funds in the nominated payment account, or dormancy. Any fees or charges which the account holder incurs as a result of the Bank’s failure to complete a transfer for the foregoing reasons, shall be the account holder’s sole responsibility.
+        \n\nThe Bank does not assume responsibility to the payee or to the customer for any discrepancies in the payment caused by account holder’s error or delay in effecting the payment instructions.
+        \n\nThe account holder declares that the ITF account, including payment or release of the funds, is established for a legitimate purpose, and hereby holds the Bank free and harmless from any and all claims of whatever kind related to the opening, release and/or disposition of the ITF account.
+        \n\nThe account holders hold the Bank free and harmless from and against any and all liabilities which may arise by reason of the Bank’s implementation of any of the instructions of the account holders or refusal to pay any proceeds of the joint “and” account without the required discharge by all of the joint “and” account holders given to the Bank in cases where: </string>
+    <string name="msg_terms_condition_68">there is a claim or dispute relating to the account; or </string>
+    <string name="msg_terms_condition_69">there are conflicting claims or representations as to the ownership of the accounts, or the manner of operating the accounts. The Bank, may at its option, exercise such remedies permitted by law, as the circumstances may warrant.</string>
+    <string name="msg_terms_condition_70">The account holder accepts full responsibility for all transactions made with the use of the card and for making sure that there are no unauthorized transactions.
+        \n\nThe account holder is responsible for all the transactions made with the ATM card. If any account is in the name of more than one (1) person (joint account) and any one of the joint account holders may transact on the account, the Bank may issue ATM cards to some or all of the account holders, and in such cases, the Bank may implement transfer / debit / withdrawal instructions that are received from any one of the joint account holders using any of the ATM card/s issued.
+        \n\nAll transactions done through the ATM card are assumed to have been made by or authorized by the account holder. Non-compliance by the account holder of this provision shall relieve the Bank of any liability for any loss arising from the use of the PIN to effect any transaction relating to the accounts of the account holder. Any transaction effected using the account holder’s PIN shall be conclusively presumed to have been authorized by the account holder.
+        \n\nThe account holder is responsible for ensuring that correct instructions (including transferee details) are given to the Bank. The Bank has no responsibility to verify any information contained in such instructions.
+        \n\nIn receiving checks and other items for deposit, the Bank acts only as the collecting agent of the account holder and assumes no responsibility beyond care in selecting correspondents. The account holder assumes full responsibility for the correctness, authenticity and validity of all endorsements appearing on the checks or other items deposited to the Bank.
+        \n\nThe Bank reserves the right to debit the account holder’s account for any amount previously credited, if uncollected and for charges that may be imposed by correspondent and/or drawee bank and the relevant clearing house. The account holder authorizes the Bank to automatically debit the account for any amounts which have been credited in the event of over-crediting, fraud, mistake, discrepancy or any other reason within our discretion.
+        \n\nFor multiple fund transfers coming from a nominated payment account where the account balance is insufficient to successfully process the transfer, the Bank, in its sole discretion, may determine which of the fund transfer requests to complete. </string>
+    <string name="title_agreement_to_bound">AGREEMENT TO BE BOUND</string>
+    <string name="msg_terms_condition_71">These Terms and Conditions shall be applicable to UnionBank deposit accounts. These are supplementary to specific terms and conditions of other UnionBank products and services availed of by the customer.
+        \n\nThe Bank reserves the right to adopt policies, rules, and regulations from time to time, as the need arises. The Bank also reserves the right to amend, in whole or part, any of the products and services and its corresponding terms and conditions. The customer hereby consents to said policies, rules, and procedures, and agrees to abide by them.
+        \n\nIf the customer continues to operate the account after receiving the notification of changes in these Terms and Conditions, it is assumed that the customer agrees with the modifications.
+        \n\nVenue of any action arising from or related to these Terms and Conditions shall be brought only in the proper courts of Pasig City, Philippines, to the exclusion of any other venues.
+        \n\nIn case any provision or portion of these Terms and Conditions is declared invalid or unenforceable for any reason or should the Bank decide to terminate or cancel any of the products or facilities or services which it provides, it shall not affect the other provisions of these Terms and Conditions which shall remain valid and binding.</string>
+    <string name="msg_article_1250">Waiver of Article 1250 of the New Civil Code</string>
+    <string name="msg_terms_condition_72">The account holders expressly waive the provisions of Article 1250 of the New Civil Code (concerning cases of extraordinary inflation or deflation of foreign currency which provides that unless agreement exists to the contrary, the basis of payment shall be the value of the currency at the time of establishment of the obligation) and hereby agree that Article 1250 shall not be applicable to the accounts.
+    \n\nThe Bank reserves the right to dishonor and return checks at the Bank’s sole discretion and without need of prior notification. The account holder agrees that the Bank shall have no liabilities arising from said dishonor and return. </string>
+    <string name="title_complaints_handling">COMPLAINTS HANDLING</string>
+    <string name="msg_terms_condition_73">The account holder/s shall immediately report if their card is lost or stolen, or there are unauthorized debit transaction/s, concerns, complaints, errors or requests, or other type of contingencies, the customer may visit the nearest UnionBank branch or contact the UnionBank Customer Service through the following numbers:</string>
+    <string name="msg_terms_condition_74">
+        <![CDATA[
+        <br/>
+        &#8226; Customer Service: <b>84-186 or (02)841-8600</b><br/>
+        &#8226; Domestic Toll Free: <b>1800-1888-2277</b><br/>
+        &#8226; Universal Toll Free: <b>IAC+800-8277-2273</b><br/>
+        &#8226; Trunkline: <b>(02) 667-6388</b><br/>
+        ]]>
+    </string>
+    <string name="msg_terms_condition_75">The customer may also send an email to customer.service@unionbankph.com or submit the complaint via the UnionBank website.
+        \n\nAccount holder/s shall be informed about the possible investigation charge of PhP 1,000 should the claim/complaint be proven malicious and untrue.
+        \n\nFor complaints on transactions as well as the transaction details, the account holder/s has/have twenty (20) calendar days from statement date to raise any issues thereon otherwise the transactions shall be considered correct and accurate and any claim against the Bank shall be deemed waived.
+        \n\nPrior to receipt by UnionBank of account holder’s report of loss / theft / unauthorized transaction/s, all transactions generated by the use of the card shall be deemed conclusively binding on the account holder and UnionBank will not be held liable for any loss or damage incurred by the account holder.
+        \n\nThere are two types of complaints/requests:</string>
+    <string name="msg_terms_condition_76">
+        <![CDATA[
+        <font color="#4B4948" size="14"><b>\u2022</b></font> Simple complaint/request refers to any complaint/request where frontline staff/officer solution or immediate explanation or action can be rendered.   A resolution is immediate if it can be resolved without the need for third party intervention. Resolution must be achieved within a 7-day period.<br>
+        <font color="#4B4948" size="14"><b>\u2022</b></font> Complex complaint/request refers to any complaint/request which needs assessment, verification, or investigation with third-party intervention. Resolution may be achieved ideally within a 45-day period.<br>
+        ]]>
+    </string>
+    <string name="msg_terms_condition_77">Account holder acknowledges that he/she has read, understood and fully agree with the Bank’s Privacy Policy as found in www.unionbankph.com/online/privacypolicy and receipt of which he/she confirms by his/her/their signature/s below.
+    \n\nBy my/our signature/s herein, I/we acknowledge that I/we have read, understood, and fully agree with the 15-page UNIONBANK TERMS AND CONDITIONS with which I/we was/were duly provided, receipt of which I/We confirm by my/our signatures below</string>
+    \n\nUnion Bank of the Philippines is supervised by the Bangko Sentral ng Pilipinas with telephone number (02) 7087087 and e-mail address: consumeraffairs@bsp.gov.ph.
+    <string name="title_open_bank_account">Let’s open your first UnionBank account</string>
+    <string name="title_get_yours_now">GET YOURS NOW</string>
+    <string name="msg_debit_card">The first &amp; only debit and\ncredit cards from Lazada!</string>
+    <string name="title_debit_cards">Debit Cards</string>
+    <string name="title_getgo_debit">GetGo Debit</string>
+    <string name="msg_debit_type">Get the first and only debit card that earns points when you swipe so you can #FlyForFreeFaster. </string>
+    <string name="title_play_everyday">PlayEveryday</string>
+    <string name="drawable_getgo">bg_getgo_card</string>
+    <string name="drawable_play_everyday">bg_play_everyday</string>
+
+
+
 
 
 </resources>

@@ -10,6 +10,8 @@ import com.unionbankph.corporate.account.presentation.account_selection.AccountS
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountViewModel
 import com.unionbankph.corporate.account.presentation.source_account.SourceAccountViewModel
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
+import com.unionbankph.corporate.account_setup.presentation.address.AsAddressViewModel
+import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationViewModel
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragmentViewModel
 import com.unionbankph.corporate.app.di.ViewModelFactory
@@ -89,14 +91,6 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
-import com.unionbankph.corporate.loan.LoanMainViewModel
-import com.unionbankph.corporate.loan.applyloan.LoansViewModel
-import com.unionbankph.corporate.loan.businesstype.BusinessTypeViewModel
-import com.unionbankph.corporate.loan.calculator.LoansCalculatorViewModel
-import com.unionbankph.corporate.loan.citizen.CitizenViewModel
-import com.unionbankph.corporate.loan.contactinformation.ContactInformationViewModel
-import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoViewModel
-import com.unionbankph.corporate.loan.reminders.FewRemindersViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationViewModel
@@ -811,7 +805,7 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(UcPersonaliseSettingsViewModel::class)
-    abstract fun oaPersonaliseSettingsViewModel(viewModel: UcPersonaliseSettingsViewModel): ViewModel
+    abstract fun ucPersonaliseSettingsViewModel(viewModel: UcPersonaliseSettingsViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -823,12 +817,20 @@ abstract class ViewModelModule {
     @ViewModelKey(TrialAccountViewModel::class)
     abstract fun trialAccountViewModel(viewModel: TrialAccountViewModel): ViewModel
 
-/*    @Binds
+    @Binds
     @IntoMap
     @ViewModelKey(AccountSetupViewModel::class)
-    abstract fun accountSetupViewModel(
-        viewModel: AccountSetupViewModel
-    ): ViewModel*/
+    abstract fun accountSetupViewModel(viewModel: AccountSetupViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AsPersonalInformationViewModel::class)
+    abstract fun asPersonalInfoInfoViewModel(viewModel: AsPersonalInformationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AsAddressViewModel::class)
+    abstract fun asAddressViewModel(viewModel: AsAddressViewModel): ViewModel
 
     @Binds
     @IntoMap

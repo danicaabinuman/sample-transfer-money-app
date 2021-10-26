@@ -18,6 +18,14 @@
             app:popEnterAnim="@anim/anim_enter_from_left"
             app:popExitAnim="@anim/anim_exit_to_right"/>
 
+        <action
+            android:id="@+id/action_business_type_to_debit_card_type"
+            app:destination="@id/debit_card_type_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
     </fragment>
 
     <fragment
@@ -52,6 +60,111 @@
     <fragment
         android:id="@+id/terms_of_service_fragment"
         android:name="com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceFragment"
-        tools:layout="@layout/fragment_as_terms_of_service"/>
+        tools:layout="@layout/fragment_as_terms_of_service">
+
+        <action
+            android:id="@+id/action_sole_prop_personal_info"
+            app:destination="@id/sole_prop_personal_info"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/sole_prop_personal_info"
+        android:name="com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationFragment"
+        tools:layout="@layout/fragment_as_personal_information">
+
+        <action
+            android:id="@+id/action_address"
+            app:destination="@id/address_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+            <argument
+                android:name="hasSearch"
+                android:defaultValue="false"
+                app:argType="boolean" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/address_fragment"
+        android:name="com.unionbankph.corporate.account_setup.presentation.address.AsAddressFragment"
+        tools:layout="@layout/fragment_as_address">
+
+<!--        <action-->
+<!--            android:id="@+id/action_address"-->
+<!--            app:destination="@id/sole_prop_personal_info"-->
+<!--            app:enterAnim="@anim/anim_enter_from_right"-->
+<!--            app:exitAnim="@anim/anim_exit_to_left"-->
+<!--            app:popEnterAnim="@anim/anim_enter_from_left"-->
+<!--            app:popExitAnim="@anim/anim_exit_to_right"/>-->
+
+        <action
+            android:id="@+id/action_selector_activity"
+            app:destination="@id/selector_activity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right">
+
+            <argument
+                android:name="selector"
+                app:argType="string" />
+
+            <argument
+                android:name="hasSearch"
+                android:defaultValue="false"
+                app:argType="boolean" />
+
+            <argument
+                android:name="param"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/debit_card_type_fragment"
+        android:name="com.unionbankph.corporate.account_setup.presentation.debit_card_type.AsDebitCardTypeFragment"
+        tools:layout="@layout/fragment_as_debit_card_type">
+
+        <action
+            android:id="@+id/action_card_type_to_business_account_type"
+            app:destination="@id/business_account_type_fragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+    </fragment>
+
+    <activity
+        android:id="@+id/selector_activity"
+        android:name="com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorActivity"
+        android:label="selector_activity"
+        tools:layout="@layout/activity_selector" />
 
 </navigation>

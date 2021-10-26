@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
@@ -28,7 +27,6 @@ class AsBusinessTypeFragment
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        accountSetupActivity.setIsScreenScrollable(false)
         handleOnBackPressed()
     }
 
@@ -134,7 +132,11 @@ class AsBusinessTypeFragment
     }
 
     private fun onNextClicked() {
-        findNavController().navigate(R.id.action_business_type_to_account_type)
+        when (accountSetupActivity.getExistingBusinessType()) {
+            Constant.BusinessType.INDIVIDUAL -> findNavController().navigate(R.id.action_business_type_to_debit_card_type)
+            else-> findNavController().navigate(R.id.action_business_type_to_account_type)
+        }
+
     }
 
     private fun navigateDashboardScreen() {

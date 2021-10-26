@@ -170,6 +170,21 @@ fun EditText.setEnableView(isEnable: Boolean) {
     }
 }
 
+fun EditText.setEnableViewSME(isEnable: Boolean) {
+    val textInputLayout = getTextInputLayout(this)
+    if (isEnable) {
+        this.isEnabled = true
+        this.isClickable = true
+        this.setContextCompatBackground(R.color.colorTransparent)
+        textInputLayout?.alpha = 1f
+    } else {
+        this.isEnabled = false
+        this.isClickable = false
+        this.setContextCompatBackground(R.drawable.bg_edit_text_disabled)
+        textInputLayout?.alpha = 0.5f
+    }
+}
+
 fun EditText.setEnableAmount(isEnable: Boolean) {
     val textInputLayout = getTextInputLayout(this)
     if (isEnable) {

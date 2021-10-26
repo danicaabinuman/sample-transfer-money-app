@@ -434,13 +434,10 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun ucConfirmationMessageFragment(): UcConfirmationMessageFragment
 
-    /*@PerActivity
-    @ContributesAndroidInjector
-    abstract fun faceIDBottomSheet(): FaceIDBottomSheet*/
-
     @PerActivity
     @ContributesAndroidInjector
     abstract fun bottomSheetUploadPhotos(): OnboardingUploadPhotosFragment
+
 
     @PerActivity
     @ContributesAndroidInjector
@@ -468,11 +465,23 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
+    abstract fun asPersonalInfoFragment(): AsPersonalInformationFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asAddressFragment(): AsAddressFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
     abstract fun asTermsOfServiceViewPager(): AsTermsOfServiceViewPager
 
     @PerActivity
     @ContributesAndroidInjector
     abstract fun asPrivacyPolicyViewPager(): AsPrivacyPolicyViewPager
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asDebitCardTypeFragment(): AsDebitCardTypeFragment
 
     @PerActivity
     @ContributesAndroidInjector
@@ -501,6 +510,4 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun contactInformationFragment(): ContactInformationFragment
-
-
 }

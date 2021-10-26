@@ -20,8 +20,6 @@ class AsRemindersFragment
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        accountSetupActivity.setIsScreenScrollable(false)
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             accountSetupActivity.popBackStack()
         }
@@ -30,7 +28,7 @@ class AsRemindersFragment
     override fun onInitializeListener() {
         super.onInitializeListener()
 
-        binding.buttonNext.setOnClickListener {
+        binding.btnAsRemindersBeginSetup.setOnClickListener {
             onNextClicked()
         }
     }

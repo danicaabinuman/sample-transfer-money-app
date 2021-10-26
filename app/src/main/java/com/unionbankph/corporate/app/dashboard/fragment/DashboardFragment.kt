@@ -17,6 +17,7 @@ import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScrollListener
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
 import com.unionbankph.corporate.branch.presentation.list.BranchVisitActivity
@@ -77,17 +78,17 @@ class DashboardFragment :
                 is ShowSettingsHasPermission -> {
                     when (it.permissionCode) {
                         TransactScreenEnum.FUND_TRANSFER.name -> {
-                            viewModel.showDashboardActionItem(
+                            viewModel.showMenuItem(
                                 Constant.DASHBOARD_ACTION_TRANSFER_FUNDS,
                                 it.hasPermission
                             )                         }
                         TransactScreenEnum.BILLS_PAYMENT.name -> {
-                            viewModel.showDashboardActionItem(
+                            viewModel.showMenuItem(
                                 Constant.DASHBOARD_ACTION_PAY_BILLS,
                                 it.hasPermission
                             )                        }
                         else -> {
-                            viewModel.showDashboardActionItem(
+                            viewModel.showMenuItem(
                                 Constant.DASHBOARD_ACTION_DEPOSIT_CHECK,
                                 it.hasPermission
                             )
@@ -112,13 +113,13 @@ class DashboardFragment :
                         Constant.Permissions.CODE_RCD_MOBILE_CHECK
                     )
                 } else {
-                    viewModel.showDashboardActionItem(
+                    viewModel.showMenuItem(
                         Constant.DASHBOARD_ACTION_DEPOSIT_CHECK,
                         false
                     )
                 }
             } else if (it.first == FeaturesEnum.E_BILLING) {
-                viewModel.showDashboardActionItem(
+                viewModel.showMenuItem(
                     Constant.DASHBOARD_ACTION_PAY_BILLS,
                     isFeatureEnabled
                 )
@@ -140,7 +141,7 @@ class DashboardFragment :
         }.addTo(disposables)
     }
 
-    private fun initActionsSettings() {
+    private fun initMenuSettings() {
         settingsViewModel.hasFundTransferTransactionsPermission(
             TransactScreenEnum.FUND_TRANSFER.name
         )
@@ -172,16 +173,16 @@ class DashboardFragment :
         getAccounts(true)
 
         viewModel.setDashboardName()
-        setDashboardActionItems()
+        setMegaMenuItems()
     }
 
-    private fun setDashboardActionItems() {
-        val parseDashboardActions = viewUtil.loadJSONFromAsset(
+    private fun setMegaMenuItems() {
+        val parseMegaMenuItems = viewUtil.loadJSONFromAsset(
             getAppCompatActivity(),
-            DASHBOARD_ACTIONS
+            MEGA_MENU_ITEMS
         )
-        val dashboardActions = JsonHelper.fromListJson<ActionItem>(parseDashboardActions)
-        viewModel.setActionItems(dashboardActions)
+        val megaMenuItems = JsonHelper.fromListJson<GenericMenuItem>(parseMegaMenuItems)
+        viewModel.setMenuItems(megaMenuItems)
     }
 
     private fun initRecyclerView() {
@@ -363,6 +364,9 @@ class DashboardFragment :
             Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS -> {
                 (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
             }
+            Constant.DASHBOARD_ACTION_MORE -> {
+                openMenuBottomSheet()
+            }
             Constant.DASHBOARD_ACTION_DEFAULT_LOANS -> {
                 Timber.e("Default Loans Clicked")
             }
@@ -370,6 +374,13 @@ class DashboardFragment :
                 Timber.e("Default Earnings Clicked")
             }
         }
+    }
+
+    private fun openMenuBottomSheet() {
+        val moreBottomSheet = MegaMenuBottomSheet.newInstance(
+            viewModel.dashboardViewState.value?.megaMenuList as ArrayList<GenericMenuItem>
+        )
+        moreBottomSheet.show(childFragmentManager, "MoreBottomSheet")
     }
 
     override fun onApplyLoans() {
@@ -445,7 +456,7 @@ class DashboardFragment :
     }
 
     companion object {
-        const val DASHBOARD_ACTIONS = "dashboard_actions"
+        const val MEGA_MENU_ITEMS = "dashboard_mega_menu_items"
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDashboardBinding

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_radius"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_widget_address_line_1"
+        style="@style/SMECaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:text="@string/title_line_1" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutFormThin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_widget_address_line_1"
+            style="@style/TextInputLayoutFormThinEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="@string/digits_alpha_numeric_specific_symbols"
+            android:hint="@string/title_line_1"
+            android:inputType="textPersonName|textCapWords"
+            android:nextFocusDown="@id/tie_widget_address_line_2"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_widget_address_line_2"
+        style="@style/SMECaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_3"
+        android:text="@string/title_line_2" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutFormThin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_widget_address_line_2"
+            style="@style/TextInputLayoutFormThinEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="@string/digits_alpha_numeric_specific_symbols"
+            android:hint="@string/title_line_2"
+            android:inputType="textPersonName|textCapWords"
+            android:nextFocusDown="@id/tie_widget_address_zip_code"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_widget_address_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_3"
+        android:text="@string/title_city"
+        android:textAppearance="@style/SMECaption" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutFormThin"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/grid_1"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_widget_address_city"
+            android:hint="@string/hint_city"
+            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_widget_address_region"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_3"
+        android:text="@string/title_region"
+        android:textAppearance="@style/SMECaption" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutFormThin"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/grid_1"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_widget_address_region"
+            android:hint="@string/title_region"
+            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_widget_address_zip_code"
+        style="@style/SMECaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_3"
+        android:text="@string/hint_zip_code" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutFormThin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_widget_address_zip_code"
+            style="@style/TextInputLayoutFormThinEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_zip_code"
+            android:singleLine="true"
+            android:digits="@string/digits_only"
+            android:maxLength="4"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

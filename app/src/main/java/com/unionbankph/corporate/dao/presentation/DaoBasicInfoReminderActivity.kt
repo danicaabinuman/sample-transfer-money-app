@@ -14,17 +14,17 @@ class DaoBasicInfoReminderActivity :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel.getSignatoryDetailsFromCache()
 
         viewModel.navigatePages.observe(this, Observer {
             binding.textViewName.text = formatString(R.string.hi, viewModel.signatoriesDetail.value?.firstNameInput)
         })
+
+        viewModel.getSignatoryDetailsFromCache()
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
 
-        binding.imageViewBack.setOnClickListener { onBackPressed() }
         binding.buttonProceed.setOnClickListener { onBackPressed() }
     }
 

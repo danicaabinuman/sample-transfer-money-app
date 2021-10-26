@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/WrapContent">
+
+    <TextView
+        android:id="@+id/toolbarButton"
+        style="@style/SMEBody"
+        android:paddingStart="@dimen/grid_1"
+        android:paddingEnd="@dimen/grid_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_and_exit"
+        android:textSize="@dimen/text_14"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:textColor="@color/colorSMEMediumOrange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

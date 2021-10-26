@@ -8,7 +8,7 @@ import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.ModelView
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
-class DashboardActionCarousel @JvmOverloads constructor(
+class MegaMenuCarousel @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

@@ -214,10 +214,6 @@
     <color name="colorFingerPrintIconPlain">@color/dsColorMediumOrange</color>
     <color name="colorFaceIDIconPlain">@color/dsColorMediumOrange</color>
 
-<!--    Button Toggle Group-->
-    <color name="colorButtonToggle">#FFF2E4</color>
-
-
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->
