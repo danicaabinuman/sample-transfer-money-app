@@ -196,4 +196,11 @@ class Constant {
             const val PLAYEVERYDAY = 1
         }
     }
+
+    class Citizenship {
+        companion object {
+            const val FILIPINO = "FILIPINO"
+            const val NON_FILIPINO = "NON_FILIPINO"
+        }
+    }
 }

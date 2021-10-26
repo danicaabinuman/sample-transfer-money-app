@@ -2781,4 +2781,8 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_play_everyday">PlayEveryday</string>
     <string name="drawable_getgo">bg_getgo_card</string>
     <string name="drawable_play_everyday">bg_play_everyday</string>
+    <string name="as_citizenship_description">Before we proceed, please be reminded that the online account opening is currently limited to Filipino Citizens residing in the Philippines</string>
+    <string name="as_citizenship_title">Are you a Filipino citizen?</string>
+    <string name="as_citizenship_yes">Yes, I live in the Philippines</string>
+    <string name="as_citizenship_no">No, I live outside the Philippines</string>
 </resources>

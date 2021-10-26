@@ -71,6 +71,12 @@ class AccountSetupViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
+    fun setCitizenship(citizenship: String) {
+        _state.value = _state.value.also {
+            it?.citizenship = citizenship
+        }
+    }
+
     fun clearCache() {
         _uiState.value = Event(UiState.Exit)
     }

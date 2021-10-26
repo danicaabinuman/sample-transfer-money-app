@@ -18,15 +18,6 @@ class AsTermsOfServiceFragment :
 
     private val accountSetupActivity by lazyFast { getAppCompatActivity() as AccountSetupActivity }
 
-    override fun afterLayout(savedInstanceState: Bundle?) {
-        super.afterLayout(savedInstanceState)
-
-        accountSetupActivity.apply {
-            showProgress(false)
-            showToolbarButton(false)
-        }
-    }
-
     override fun onViewsBound() {
         super.onViewsBound()
         init()
@@ -48,7 +39,7 @@ class AsTermsOfServiceFragment :
         }
 
         binding.btnProceed.setOnClickListener {
-            findNavController().navigate(R.id.action_sole_prop_personal_info)
+            findNavController().navigate(R.id.action_citizenship)
         }
     }
 
