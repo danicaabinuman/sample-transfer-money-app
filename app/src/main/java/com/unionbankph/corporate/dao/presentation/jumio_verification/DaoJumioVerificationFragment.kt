@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
@@ -29,7 +30,9 @@ import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
 import com.unionbankph.corporate.databinding.FragmentDaoJumioVerificationBinding
+import com.unionbankph.corporate.settings.presentation.form.Selector
 import io.reactivex.rxkotlin.addTo
+import java.net.SocketTimeoutException
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoJumioVerificationFragment :
@@ -42,33 +45,52 @@ class DaoJumioVerificationFragment :
 
     override fun onViewModelBound() {
         super.onViewModelBound()
-        viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
-            when (it) {
-                is UiState.Loading -> {
-                    showProgressAlertDialog(this::class.java.simpleName)
+        viewModel.apply {
+            uiState.observe(viewLifecycleOwner, EventObserver {
+                when (it) {
+                    is UiState.Loading -> {
+                        showProgressAlertDialog(this::class.java.simpleName)
+                    }
+                    is UiState.Complete -> {
+                        dismissProgressAlertDialog()
+                    }
+                    is UiState.Error -> {
+                        when(it.throwable){
+                            is SocketTimeoutException -> {
+                                showSomethingWentWrong()
+                            }
+                            else -> {
+                                handleOnError(it.throwable)
+                            }
+                        }
+                    }
                 }
-                is UiState.Complete -> {
-                    dismissProgressAlertDialog()
+            })
+
+            navigateNextStep.observe(viewLifecycleOwner, EventObserver {
+                daoActivity.setJumioVerificationInput(it)
+                navigateNextScreen()
+            })
+
+            navigateResult.observe(viewLifecycleOwner, EventObserver {
+                navigationDaoResult(it)
+            })
+
+            availableIds.observe(viewLifecycleOwner, Observer {
+                checkAvailableIds(it ?: mutableListOf())
+            })
+        }
+
+        daoActivity.viewModel.apply {
+            if (hasJumioVerificationInput.hasValue() &&
+                !viewModel.isLoadedScreen.hasValue()
+            ) {
+                input5.let {
+                    viewModel.setExistingJumioVerification(it)
                 }
-                is UiState.Error -> {
-                    handleOnError(it.throwable)
-                }
-            }
-        })
-        viewModel.navigateNextStep.observe(viewLifecycleOwner, EventObserver {
-            daoActivity.setJumioVerificationInput(it)
-            navigateNextScreen()
-        })
-        viewModel.navigateResult.observe(viewLifecycleOwner, EventObserver {
-            navigationDaoResult(it)
-        })
-        if (daoActivity.viewModel.hasJumioVerificationInput.hasValue() &&
-            !viewModel.isLoadedScreen.hasValue()
-        ) {
-            daoActivity.viewModel.input5.let {
-                viewModel.setExistingJumioVerification(it)
             }
         }
+
         arguments?.getBoolean(EXTRA_IS_EDIT, false)?.let {
             viewModel.isEditMode.onNext(it)
         }
@@ -144,36 +166,42 @@ class DaoJumioVerificationFragment :
     }
 
     private fun init() {
-        daoActivity.setToolBarDesc(formatString(R.string.title_upload_document))
-        daoActivity.showToolBarDetails()
-        daoActivity.showButton(true)
-        daoActivity.setEnableButton(false)
-        daoActivity.showProgress(true)
-        daoActivity.setActionEvent(this)
-        daoActivity.setProgressValue(5)
+        daoActivity.apply {
+            setToolBarDesc(formatString(R.string.title_upload_document))
+            showToolBarDetails()
+            showButton(true)
+            setEnableButton(false)
+            showProgress(true)
+            setActionEvent(this@DaoJumioVerificationFragment)
+            setProgressValue(5)
+        }
     }
 
     private fun initBinding() {
-        viewModel.loadDaoForm(daoActivity.viewModel.defaultDaoForm())
-        viewModel.isEditMode
-            .subscribe {
-                if (it) {
-                    daoActivity.setButtonName(formatString(R.string.action_save))
-                } else {
-                    daoActivity.setButtonName(formatString(R.string.action_next))
-                }
-            }.addTo(disposables)
-        viewModel.input.idTypeInput
-            .subscribe {
-                if (it != null && it != "" && !viewModel.isEditMode.value.notNullable()) {
-                    enableItems(false)
-                } else {
-                    enableItems(true)
-                }
-                if (!viewModel.isEditMode.value.notNullable()) {
-                    setCheckedState(it)
-                }
-            }.addTo(disposables)
+        viewModel.apply {
+            getlistIds()
+            loadDaoForm(daoActivity.viewModel.defaultDaoForm())
+            isEditMode
+                .subscribe {
+                    if (it) {
+                        daoActivity.setButtonName(formatString(R.string.action_save))
+                    } else {
+                        daoActivity.setButtonName(formatString(R.string.action_next))
+                    }
+                }.addTo(disposables)
+            input.idTypeInput
+                .subscribe {
+                    if (it != null && it != "" && !viewModel.isEditMode.value.notNullable()) {
+                        enableItems(false)
+                    } else {
+                        enableItems(true)
+                    }
+                    if (!viewModel.isEditMode.value.notNullable()) {
+                        setCheckedState(it)
+                    }
+                }.addTo(disposables)
+
+        }
     }
 
     private fun enableItems(isEnabled: Boolean) {
@@ -258,12 +286,14 @@ class DaoJumioVerificationFragment :
                 daoActivity.viewModel.apiSecretJumio.value,
                 JumioDataCenter.US
             )
-        netVerifySDK.setPreselectedCountry("PHL")
-        netVerifySDK.setPreselectedDocumentVariant(NVDocumentVariant.PLASTIC)
-        netVerifySDK.setEnableVerification(true)
-        netVerifySDK.setEnableIdentityVerification(true)
-//        netVerifySDK.setEnableEMRTD(true)
-        netVerifySDK.sendDebugInfoToJumio(true)
+        netVerifySDK.apply {
+            setPreselectedCountry("PHL")
+            setPreselectedDocumentVariant(NVDocumentVariant.PLASTIC)
+            setEnableVerification(true)
+            setEnableIdentityVerification(true)
+            //        netVerifySDK.setEnableEMRTD(true)
+            sendDebugInfoToJumio(true)
+        }
     }
 
     private fun showJumioToolTip() {
@@ -299,10 +329,12 @@ class DaoJumioVerificationFragment :
             jumioToolTip.cancel()
             initPermission()
         }
-        jumioToolTip.window?.attributes?.windowAnimations =
-            R.style.SlideUpAnimation
-        jumioToolTip.window?.setGravity(Gravity.CENTER)
-        jumioToolTip.show()
+        jumioToolTip.apply {
+            window?.attributes?.windowAnimations =
+                R.style.SlideUpAnimation
+            window?.setGravity(Gravity.CENTER)
+            show()
+        }
     }
 
     private fun navigateNextScreen() {
@@ -330,6 +362,79 @@ class DaoJumioVerificationFragment :
     override fun onClickNext() {
         navigateNextScreen()
     }
+
+    private fun checkAvailableIds(data: MutableList<Selector>) {
+        if(!data.isNullOrEmpty()){
+            data.forEachIndexed { index, selector ->
+                when (selector.value) {
+                    formatString(R.string.title_drivers_license) -> {
+                        binding.cvDriversLicense.visibility(true)
+                    }
+                    formatString(R.string.title_passport) -> {
+                        binding.cvPassport.visibility(true)
+                    }
+                    formatString(R.string.title_sss_id) -> {
+                        binding.cvSssId.visibility(true)
+                    }
+                    formatString(R.string.title_prc_id) -> {
+                        binding.cvPrcId.visibility(true)
+                    }
+                    formatString(R.string.title_postal_id) -> {
+                        binding.cvPostalId.visibility(true)
+                    }
+                    formatString(R.string.title_umid_id) -> {
+                        binding.cvUmid.visibility(true)
+                    }
+                }
+            }
+        }else{
+            binding.clContent.visibility(false)
+            binding.clEmptyContent.visibility(true)
+            daoActivity.setEnableButton(true)
+        }
+    }
+
+    private fun showSomethingWentWrong() {
+        val jumioToolTip = MaterialDialog(getAppCompatActivity()).apply {
+            lifecycleOwner(getAppCompatActivity())
+            customView(R.layout.dialog_something_went_wrong)
+        }
+        val ivTip =
+            jumioToolTip.view.findViewById<ImageView>(R.id.iv_tip)
+        val buttonClose =
+            jumioToolTip.view.findViewById<AppCompatButton>(R.id.buttonClose)
+        val textViewTitle =
+            jumioToolTip.view.findViewById<TextView>(R.id.textViewTitle)
+        val textViewContent =
+            jumioToolTip.view.findViewById<TextView>(R.id.textViewContent)
+        ivTip.setImageResource(R.drawable.bg_something_went_wrong_error)
+        buttonClose.apply {
+            backgroundTintList = null
+            setContextCompatBackground(R.drawable.bg_gradient_orange)
+            text = formatString(R.string.action_retry)
+            setOnClickListener {
+                it.setOnClickListener(null)
+                jumioToolTip.cancel()
+                viewModel.getlistIds()
+            }
+        }
+        textViewTitle.text = formatString(R.string.something_went_wrong)
+        textViewContent.apply {
+            text = formatString(R.string.msg_something_went_wrong).toHtmlSpan()
+            gravity = Gravity.START
+            setPadding(
+                resources.getDimensionPixelSize(R.dimen.content_spacing),
+                0,
+                resources.getDimensionPixelSize(R.dimen.content_spacing),
+                0
+            )
+        }
+        jumioToolTip.window?.attributes?.windowAnimations =
+            R.style.SlideUpAnimation
+        jumioToolTip.window?.setGravity(Gravity.CENTER)
+        jumioToolTip.show()
+    }
+
 
     @ThreadSafe
     companion object {

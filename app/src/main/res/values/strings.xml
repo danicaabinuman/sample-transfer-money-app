@@ -2325,5 +2325,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="try_again">TRY AGAIN</string>
     <string name="feature_unavailable_detail">Sorry, this feature is not available for your organization. Please Contact business@unionbankph.com for further assistance.</string>
     <string name="okay_upper_case">OKAY</string>
-
+    <string name="msg_no_id_list">There are currently no IDs\n enabled for DAO.</string>
+    <string name="msg_something_went_wrong">We need a little more time to get the latest list of valid IDs. Please try again in a couple of minutes.</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>
