@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="expand"
+            type="Boolean" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_common_question_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_common_question_tv_title"
+            style="@style/SMESubtitle1"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@string/title_common_questions"
+            android:textSize="@dimen/text_18"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewFeature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            app:cardCornerRadius="@dimen/card_radius_half"
+            app:cardElevation="@dimen/default_elevation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_common_question_tv_title"
+            app:strokeColor="@color/dsColorExtraLightGray">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item_common_question_cl_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/item_common_question_tv_header"
+                    style="@style/SMEBody"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/margin_56dp"
+                    android:layout_marginStart="@dimen/margin_18dp"
+                    android:fontFamily="@string/font_family_medium"
+                    android:gravity="start|center"
+                    android:onClick="@{onClickListener}"
+                    android:text="@string/title_what_are_the_loan_terms"
+                    android:textAllCaps="false"
+                    app:layout_constraintEnd_toStartOf="@+id/item_common_question_tv_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/item_common_question_tv_icon"
+                    android:layout_width="@dimen/grid_3"
+                    android:layout_height="@dimen/margin_56dp"
+                    android:layout_marginEnd="@dimen/margin_14dp"
+                    android:rotation="@{expand ? 180 : 360}"
+                    android:src="@drawable/ic_dropdown"
+                    app:layout_constraintBottom_toBottomOf="@+id/item_common_question_tv_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/item_common_question_tv_header"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:rotation="180" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/item_common_question_cl_bullet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{expand == false ? View.GONE: View.VISIBLE}"
+                    app:layout_constraintTop_toBottomOf="@+id/item_common_question_tv_header">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/item_individual_tv_borrower"
+                        style="@style/SMEBody"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_3"
+                        android:drawableStart="@drawable/bg_bullet"
+                        android:drawablePadding="@dimen/grid_1"
+                        android:gravity="start|center"
+                        android:text="@string/bullet_borrower_limit"
+                        android:textAllCaps="false"
+                        app:layout_constraintEnd_toStartOf="@+id/guideLine"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/item_individual_tv_term"
+                        style="@style/SMEBody"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:drawableStart="@drawable/bg_bullet"
+                        android:drawablePadding="@dimen/grid_1"
+                        android:gravity="start|center"
+                        android:text="@string/bullet_term"
+                        android:textAllCaps="false"
+                        app:layout_constraintEnd_toStartOf="@+id/guideLine"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item_individual_tv_borrower" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/item_individual_tv_collateral"
+                        style="@style/SMEBody"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="@dimen/margin_12dp"
+                        android:drawableStart="@drawable/bg_bullet"
+                        android:drawablePadding="@dimen/grid_1"
+                        android:gravity="start|center"
+                        android:text="@string/bullet_collateral"
+                        android:textAllCaps="false"
+                        app:layout_constraintEnd_toStartOf="@+id/guideLine"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item_individual_tv_term" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/item_individual_tv_availment"
+                        style="@style/SMEBody"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="@dimen/margin_12dp"
+                        android:drawableStart="@drawable/bg_bullet"
+                        android:drawablePadding="@dimen/grid_1"
+                        android:gravity="start|center"
+                        android:text="@string/bullet_availment"
+                        android:textAllCaps="false"
+                        app:layout_constraintEnd_toStartOf="@+id/guideLine"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item_individual_tv_collateral" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/item_individual_tv_interest"
+                        style="@style/SMEBody"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="@dimen/margin_12dp"
+                        android:drawableStart="@drawable/bg_bullet"
+                        android:drawablePadding="@dimen/grid_1"
+                        android:gravity="start|center"
+                        android:text="@string/bullet_interest_rate"
+                        android:textAllCaps="false"
+                        app:layout_constraintEnd_toStartOf="@+id/guideLine"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item_individual_tv_availment" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/item_individual_tv_repayment"
+                        style="@style/SMEBody"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:layout_marginBottom="@dimen/margin_16dp"
+                        android:drawableStart="@drawable/bg_bullet"
+                        android:drawablePadding="@dimen/grid_1"
+                        android:gravity="start|center"
+                        android:text="@string/bullet_repayment"
+                        android:textAllCaps="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/guideLine"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item_individual_tv_interest" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.85" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

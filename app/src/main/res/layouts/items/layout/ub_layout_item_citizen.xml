@@ -20,8 +20,7 @@
             android:layout_marginTop="@dimen/grid_8"
             android:gravity="center"
             android:text="@string/title_are_you_a_filipino_citizen"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_30"
+            style="@style/SMEHeadlineH2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -36,12 +35,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/few_reminders_tv_few_reminders"
-            style="@style/TextViewDarkForm"
+            style="@style/SMEBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/grid_5_half"
-            android:layout_marginTop="@dimen/grid_3"
-            android:layout_marginEnd="@dimen/grid_5_half"
+            android:layout_marginStart="@dimen/margin_26dp"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:layout_marginEnd="@dimen/margin_26dp"
             android:gravity="center"
             android:text="@string/title_before_we_proceed_please"
             android:textAllCaps="false"
@@ -54,7 +53,7 @@
             android:id="@+id/few_reminders_b_live_in"
             style="@style/SMEPrimaryButtonBig"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/grid_5"
+            android:layout_marginTop="@dimen/margin_32dp"
             android:onClick="@{() -> handler.onWhere(true)}"
             android:text="@string/title_i_live_in_the_philippines"
             android:textAllCaps="false"

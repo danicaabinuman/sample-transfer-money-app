@@ -37,6 +37,7 @@
                 android:paddingStart="@dimen/grid_2"
                 android:paddingEnd="@dimen/grid_2"
                 android:text="@{item.title}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/item_common_questions_iv_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -49,26 +50,10 @@
                 android:layout_margin="@dimen/grid_1_10"
                 android:rotation="@{item.expand ? 360 : 180}"
                 android:src="@drawable/ic_dropdown"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:rotation="180" />
-
-            <com.airbnb.epoxy.EpoxyRecyclerView
-                android:id="@+id/item_common_questions_erv_bullet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:clipToPadding="false"
-                android:layoutAnimation="@anim/anim_layout_animation_fall_down"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                android:paddingTop="@dimen/content_spacing"
-                android:paddingBottom="@dimen/content_spacing"
-                app:itemSpacing="@dimen/content_item_spacing"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/item_common_questions_tv_title"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

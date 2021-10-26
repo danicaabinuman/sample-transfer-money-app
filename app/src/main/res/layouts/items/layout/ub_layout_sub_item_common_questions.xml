@@ -8,12 +8,20 @@
         <import type="android.view.View" />
 
         <variable
+            name="header"
+            type="String" />
+
+        <variable
+            name="bullet"
+            type="String" />
+
+        <variable
             name="item"
-            type="com.unionbankph.corporate.loan.applyloan.Eligible" />
+            type="com.unionbankph.corporate.loan.applyloan.CommonQuestionsSubBullet" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/item_eligible_cl_parent"
+        android:id="@+id/item_common_questions_cl_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -25,9 +33,24 @@
             android:drawableStart="@drawable/bg_bullet"
             android:drawablePadding="@dimen/grid_1"
             android:gravity="start|center"
-            android:text="@{item.title}"
-            android:textSize="@dimen/text_15"
+            android:text="@{bullet}"
             android:textAllCaps="false"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/others" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/SMEBody"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/grid_7_half"
+            android:layout_marginStart="@dimen/grid_2"
+            android:gravity="start|center"
+            android:text="@{header}"
+            android:textAllCaps="false"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -33,7 +33,8 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/monthly_payment_breakdown_tv_header"
-                    style="@style/SMESubtitle2"
+                    style="@style/SMEBody"
+                    android:fontFamily="@string/font_family_medium"
                     android:layout_width="match_parent"
                     android:gravity="start"
                     android:padding="@dimen/grid_2"
@@ -61,7 +62,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/monthly_payment_breakdown_tv_principal"
-                    style="@style/TextViewDarkForm"
+                    style="@style/SMECaption"
                     android:layout_width="@dimen/match_constraint"
                     android:layout_marginStart="@dimen/grid_2"
                     android:layout_marginTop="@dimen/grid_5_half"
@@ -73,14 +74,14 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/monthly_payment_breakdown_tv_principal_value"
-                    style="@style/TextViewDarkForm"
+                    style="@style/SMEBody"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_2"
                     android:layout_marginTop="@dimen/grid_5_half"
                     android:layout_marginEnd="@dimen/grid_2"
                     android:gravity="start"
-                    android:text="PHP 123,422"
+                    android:text="@string/label_five_hundred_thousand"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
                     app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_pc_chart" />
@@ -98,7 +99,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/monthly_payment_breakdown_tv_interest"
-                    style="@style/TextViewDarkForm"
+                    style="@style/SMECaption"
                     android:layout_width="@dimen/match_constraint"
                     android:layout_marginStart="@dimen/grid_2"
                     android:layout_marginTop="@dimen/grid_5_half"
@@ -110,14 +111,14 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/monthly_payment_breakdown_tv_interest_value"
-                    style="@style/TextViewDarkForm"
+                    style="@style/SMEBody"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_2"
                     android:layout_marginTop="@dimen/grid_5_half"
                     android:layout_marginEnd="@dimen/grid_2"
                     android:gravity="start"
-                    android:text="PHP 123,422"
+                    android:text="@string/label_five_hundred_thousand"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/guideLine"
                     app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_v_divider_principal" />
@@ -135,13 +136,13 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/monthly_payment_breakdown_tv_monthly_payment"
-                    style="@style/TextViewDarkForm"
+                    style="@style/SMECaption"
                     android:layout_width="@dimen/match_constraint"
                     android:layout_marginStart="@dimen/grid_2"
                     android:layout_marginTop="@dimen/grid_5_half"
                     android:layout_marginEnd="@dimen/grid_2"
                     android:layout_marginBottom="@dimen/grid_5_half"
-                    android:text="@string/title_monthly_payment"
+                    android:text="@string/title_estimated_monthly_payment"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideLine"
@@ -150,7 +151,7 @@
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/monthly_payment_breakdown_tv_monthly_payment_value"
-                    style="@style/TextViewDarkForm"
+                    style="@style/SMEBody"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_2"
@@ -158,7 +159,7 @@
                     android:layout_marginEnd="@dimen/grid_2"
                     android:layout_marginBottom="@dimen/grid_5_half"
                     android:gravity="start"
-                    android:text="PHP 123,422"
+                    android:text="@string/label_five_hundred_thousand"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

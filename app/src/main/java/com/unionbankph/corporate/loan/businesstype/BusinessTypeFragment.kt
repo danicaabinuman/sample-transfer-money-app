@@ -1,16 +1,21 @@
 package com.unionbankph.corporate.loan.businesstype
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
+import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.databinding.FragmentBusinessTypeBinding
+import com.unionbankph.corporate.loan.LoanActivity
 
 
 class BusinessTypeFragment: BaseFragment<FragmentBusinessTypeBinding, BusinessTypeViewModel>(),
     BusinessTypeHandler
 {
+
+    private val activity by lazyFast { getAppCompatActivity() as LoanActivity }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentBusinessTypeBinding
         get() = FragmentBusinessTypeBinding::inflate
@@ -26,6 +31,15 @@ class BusinessTypeFragment: BaseFragment<FragmentBusinessTypeBinding, BusinessTy
     override fun onViewModelBound() {
         super.onViewModelBound()
         initObservers()
+    }
+
+    override fun afterLayout(savedInstanceState: Bundle?) {
+        super.afterLayout(savedInstanceState)
+
+        activity.setToolbarTitle(
+            activity.binding.tvToolbar,
+            ""
+        )
     }
 
     private fun initViews() {

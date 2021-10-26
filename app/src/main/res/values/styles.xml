@@ -86,6 +86,11 @@
         <item name="android:textColor">?colorText</item>
     </style>
 
+    <style name="TextViewThemeXXL" parent="WrapContent">
+        <item name="android:textSize">@dimen/text_18</item>
+        <item name="android:textColor">?colorText</item>
+    </style>
+
     <style name="TextViewDarkSmall" parent="WrapContent">
         <item name="android:textSize">@dimen/text_8</item>
         <item name="android:textColor">@color/colorInfo</item>
@@ -448,6 +453,14 @@
     </style>
 
     <style name="AppBarLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorGray</item>
+        <item name="popupTheme">?appBarTheme</item>
+        <item name="android:theme">?appBarTheme</item>
+    </style>
+
+    <style name="AppBarLayoutWithAnimator" parent="Widget.MaterialComponents.AppBarLayout.Surface">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/colorGray</item>
@@ -1179,14 +1192,14 @@
         <item name="android:src">@drawable/circle_light_gray_ci</item>
     </style>
 
-        <style name="RoundedBigButtonBorderedLightOverLay" parent="BorderedBigButton">
-            <item name="backgroundTint">@color/colorWhite</item>
-            <item name="android:textSize">@dimen/text_14</item>
-            <item name="android:textStyle">bold</item>
-            <item name="strokeColor">@color/colorButtonGray</item>
-            <item name="android:textColor">@drawable/style_secondary_button_text</item>
-            <item name="android:paddingStart">@dimen/grid_3</item>
-            <item name="android:textAlignment">viewStart</item>
+    <style name="RoundedBigButtonBorderedLightOverLay" parent="BorderedBigButton">
+        <item name="backgroundTint">@color/colorWhite</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textStyle">bold</item>
+        <item name="strokeColor">@color/colorButtonGray</item>
+        <item name="android:textColor">@drawable/style_secondary_button_text</item>
+        <item name="android:paddingStart">@dimen/grid_3</item>
+        <item name="android:textAlignment">viewStart</item>
 
     </style>
     <style name="SMECustomSwitch" parent="Widget.AppCompat.CompoundButton.Switch">
@@ -1195,6 +1208,31 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
+
+
+    <style name="SMEToggleButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:paddingLeft">@dimen/mtrl_btn_padding_left</item>
+        <item name="android:paddingRight">@dimen/mtrl_btn_padding_right</item>
+        <item name="strokeColor">@color/mtrl_btn_stroke_color_selector</item>
+        <item name="strokeWidth">@dimen/mtrl_btn_stroke_size</item>
+        <item name="android:fontFamily">@string/font_family_medium</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
+        <item name="android:textColor">@color/bg_text_color_toggle_btn</item>
+    </style>
+
+    <style name="SMECardView" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
 
     <style name="ZeroTextSizeAppearance">
         <item name="android:textSize">0sp</item>

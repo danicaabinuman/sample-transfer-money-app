@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import com.airbnb.epoxy.AutoModel
 import com.airbnb.epoxy.Typed2EpoxyController
+import com.unionbankph.corporate.*
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -50,41 +51,74 @@ constructor(
 
     override fun buildModels(loansViewState: LoansViewState, pageable: Pageable) {
 
-        loansHeaderItemModel
-            .callbacks(loansAdapterCallback)
-            .applyLoanListener { applyLoansListener(it) }
-            .addTo(this)
+        loansViewState.let {
 
-        keyFeaturesItemModel
-            .context(context)
-            .callbacks(loansAdapterCallback)
-            .addTo(this)
+            loansHeaderItemModel
+                .callbacks(loansAdapterCallback)
+                .applyLoanListener { applyLoansListener(it) }
+                .addTo(this)
 
-        financeWithUsItemModel
-            .context(context)
-            .callbacks(loansAdapterCallback)
-            .addTo(this)
+            keyFeaturesItemModel
+                .context(context)
+                .callbacks(loansAdapterCallback)
+                .addTo(this)
 
-        loanTermsMainModel
-            .context(context)
-            .callbacks(loansAdapterCallback)
-            .addTo(this)
+            financeWithUsItemModel
+                .context(context)
+                .callbacks(loansAdapterCallback)
+                .addTo(this)
 
-        eligibleMainModel
-            .context(context)
-            .callbacks(loansAdapterCallback)
-            .addTo(this)
+            /*loanTermsMainModel
+                .context(context)
+                .callbacks(loansAdapterCallback)
+                .addTo(this)*/
 
-        commonQuestionsMainModel
+            eligibleMainModel
+                .context(context)
+                .callbacks(loansAdapterCallback)
+                .addTo(this)
+
+/*        commonQuestionsMainModel
             .context(context)
             .dataFromViewModel(loansViewState.commonQuestions)
             .clickListener { commonQuestionListener(it) }
-            .addTo(this)
+            .addTo(this)*/
 
-        readyToBusinessMainModel
-            .context(context)
-            .clickListener { readyToBusiness(it) }
-            .addTo(this)
+            commonQuestionEligible {
+                id("common-question-eligible")
+                expand(it.commonQuestionEligible)
+                onClickListener { model, parentView, clickedView, position ->
+                    this@LoansFragmentController.loansAdapterCallback.onCommonQuestionsEligible(
+                        loansViewState.commonQuestionEligible
+                    )
+                }
+            }
+
+            commonQuestionRequirements {
+                id("common-question-requirements")
+                expand(it.commonQuestionRequirement)
+                onClickListener { model, parentView, clickedView, position ->
+                    this@LoansFragmentController.loansAdapterCallback.onCommonQuestionRequirements(
+                        loansViewState.commonQuestionRequirement
+                    )
+                }
+            }
+
+            commonQuestionBusinessLoan {
+                id("common-question-business")
+                expand(it.commonQuestionBusiness)
+                onClickListener { model, parentView, clickedView, position ->
+                    this@LoansFragmentController.loansAdapterCallback.oncCommonQuestionBusiness(
+                        loansViewState.commonQuestionBusiness
+                    )
+                }
+            }
+
+            readyToBusinessMainModel
+                .context(context)
+                .clickListener { readyToBusiness(it) }
+                .addTo(this)
+        }
     }
 
     override fun onExceptionSwallowed(exception: RuntimeException) {

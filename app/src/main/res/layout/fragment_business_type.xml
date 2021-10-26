@@ -48,7 +48,7 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewDesc"
-                style="@style/SMEBodyMediumGray"
+                style="@style/SMEBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_1"

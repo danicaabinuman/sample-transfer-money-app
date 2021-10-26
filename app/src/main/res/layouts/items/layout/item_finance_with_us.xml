@@ -19,9 +19,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/item_finance_tv_title"
-            style="@style/TextViewDarkForm"
+            style="@style/SMEBody"
+            android:lineSpacingExtra="@dimen/margin_3dp"
             android:layout_width="@dimen/match_constraint"
-            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginStart="@dimen/grid_1_10"
             android:layout_marginTop="@dimen/grid_5_half"
             android:layout_marginEnd="@dimen/grid_2"
             android:text="@{item.title}"
@@ -32,7 +33,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/item_finance_ubmsme_tv_title"
-            style="@style/TextViewDarkForm"
+            style="@style/SMEBody"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/grid_2"
@@ -61,7 +62,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/item_finance_others_tv_title"
-            style="@style/TextViewDarkForm"
+            style="@style/SMEBody"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/grid_2"
@@ -102,14 +103,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.4" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_sub_parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.65" />
+            app:layout_constraintGuide_percent="0.7" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

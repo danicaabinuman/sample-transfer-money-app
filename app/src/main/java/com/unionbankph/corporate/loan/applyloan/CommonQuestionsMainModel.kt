@@ -18,6 +18,9 @@ abstract class CommonQuestionsMainModel : EpoxyModelWithHolder<CommonQuestionsMa
     lateinit var dataFromViewModel: List<CommonQuestions>
 
     @EpoxyAttribute
+    var expand: Boolean? = null
+
+    @EpoxyAttribute
     var clickListener: (CommonQuestions) -> Unit = { _ -> }
 
     @EpoxyAttribute

@@ -2588,6 +2588,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_easy_application">Easy Application</string>
     <string name="title_fast_approval">Fast Approval</string>
     <string name="title_auto_disbursement">Auto Disbursement</string>
+    <string name="title_no_collateral">Collateral</string>
     <string name="header_ubmsme">UBMSME</string>
     <string name="note_finance_with_us">*Based on timely submission of required information &amp; documents by the customer as well as an average document verification</string>
     <string name="title_simple_and_online_application">Simple &amp; online application</string>
@@ -2628,12 +2629,43 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="label_travel_planner">Travel planner</string>
     <string name="label_dry_cleaning">Dry cleaning</string>
     <string name="label_see_full_list">See full list of qualified businesses</string>
+    <string name="label_accommodation">Accommodation, food service activities businesses</string>
+    <string name="label_administrative">Administrative and support service activities</string>
+    <string name="label_construction">Construction</string>
+    <string name="label_manufacturing">Manufacturing</string>
+    <string name="label_wholesale_and_retail_trade">Wholesale and retail trade</string>
+    <string name="label_others">Others</string>
+
 
 <!--    Common Questions-->
     <string name="title_common_questions">Common Questions</string>
     <string name="label_how_can_i_get_a_loan">How can I get a loan?</string>
     <string name="label_what_are_the_requirements">What are the requirements</string>
     <string name="label_how_much_can_i_borrow">How much can I borrow?</string>
+    <string name="title_am_i_eligible_to_apply">Am I eligible to apply?</string>
+    <string name="title_what_are_the_requirements">What are the requirements?</string>
+    <string name="title_if_individual">If Individual, Sole Proprietorship or Partnership, prepare the following documents:</string>
+    <string name="title_if_corporation">If Corporation, prepare the following documents:</string>
+    <string name="title_what_are_the_loan_terms">What are the loan terms of business loan?</string>
+    <string name="title_prepare_the_following_documents">If Corporation, prepare the following documents:</string>
+    <string name="bullet_what_are_the_loan_terms">What are the loan terms of business loan?</string>
+    <string name="bullet_valid_id">Valid ID</string>
+    <string name="bullet_must_be_a_filipino">Must be a Filipino</string>
+    <string name="bullet_must_be_eighteen">Must be 18 years old to 65 years old upon date of application</string>
+    <string name="bullet_must_have_no_existing_business_loan">Must have no existing business loan with UnionBank</string>
+    <string name="bullet_business_or_inventory_photo">Business or Inventory Photo</string>
+    <string name="bullet_one_month_issued">1 month issued within the recent 3 months(any of the following):</string>
+    <string name="bullet_board_resolution">Board Resolution to Borrower (UBP template to be provided)</string>
+    <string name="bullet_borrower_limit"><b>Borrower Limit:</b> Minimum Php 50K, Maximum of Php 1 Million</string>
+    <string name="bullet_term"><b>Term:</b> Up to 36 months</string>
+    <string name="bullet_collateral"><b>Collateral:</b> Clean</string>
+    <string name="bullet_availment"><b>Availment Instrument:</b> Credit to UnionBank Account</string>
+    <string name="bullet_interest_rate"><b>Interest Rate:</b> 36% p.a.</string>
+    <string name="bullet_repayment"><b>Repayment:</b> Monthly payment via Automatic Debit Arrangement</string>
+    <string name="sub_bullet_invoice">a. Invoice/Official Receipt</string>
+    <string name="sub_bullet_purchase_order">b. Purchase Order</string>
+    <string name="sub_bullet_electricity">c. Electricity/Internet/Water Bill</string>
+
 
 <!--    Banner -->
     <string name="title_ready_to_expand">Ready to expand your business?</string>
@@ -2643,6 +2675,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_how_much_do_you_need">How much money do you need?</string>
     <string name="title_how_long_can_you_repay">How long can you repay? (Months)</string>
     <string name="title_monthly_payment">Monthly Payment</string>
+    <string name="title_estimated_monthly_payment">Estimated Monthly Payment</string>
     <string name="title_monthly_payment_breakdown">Monthly Payment Breakdown</string>
     <string name="title_your_monthly_payment">Your Monthly Payment</string>
     <string name="title_principal">Principal</string>
@@ -2683,6 +2716,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_capital_investment">Capital Investment</string>
     <string name="title_equipment">Equipment</string>
     <string name="title_infrastructure">Infrastructure</string>
+    <string name="title_apply_for_a_loan">@string/action_apply_loan</string>
 
 
 

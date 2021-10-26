@@ -5,7 +5,7 @@
     android:id="@+id/cardViewSetupAccount"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/grid_1">
+    android:layout_marginTop="@dimen/grid_3">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewFeatureTitle"
@@ -40,7 +40,8 @@
 
             <TextView
                 android:id="@+id/textViewCardTitle"
-                style="@style/SMESubtitle2"
+                style="@style/SMEBody"
+                android:textStyle="bold"
                 android:textSize="@dimen/text_14"
                 android:layout_width="0dp"
                 android:layout_marginTop="@dimen/grid_2"

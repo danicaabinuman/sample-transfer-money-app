@@ -177,52 +177,47 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_how_long"
-                    app:singleSelection="true">
+                    app:singleSelection="true" >
 
                     <Button
                         android:id="@+id/monthly_payment_b_three"
-                        style="?attr/materialButtonOutlinedStyle"
+                        style="@style/SMEToggleButton"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> handler.onMonths(3)}"
-                        android:text="@string/label_three"
-                        android:textStyle="bold" />
+                        android:text="@string/label_three" />
 
                     <Button
                         android:id="@+id/monthly_payment_b_six"
-                        style="?attr/materialButtonOutlinedStyle"
+                        style="@style/SMEToggleButton"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> handler.onMonths(6)}"
-                        android:text="@string/label_six"
-                        android:textStyle="bold" />
+                        android:text="@string/label_six" />
 
                     <Button
                         android:id="@+id/monthly_payment_b_twelve"
-                        style="?attr/materialButtonOutlinedStyle"
+                        style="@style/SMEToggleButton"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> handler.onMonths(12)}"
-                        android:text="@string/label_twelve"
-                        android:textStyle="bold" />
+                        android:text="@string/label_twelve" />
 
                     <Button
                         android:id="@+id/monthly_payment_b_twenty_four"
-                        style="?attr/materialButtonOutlinedStyle"
+                        style="@style/SMEToggleButton"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> handler.onMonths(24)}"
-                        android:text="@string/label_twenty_four"
-                        android:textStyle="bold" />
+                        android:text="@string/label_twenty_four" />
 
                     <Button
                         android:id="@+id/monthly_payment_b_thirty_six"
-                        style="?attr/materialButtonOutlinedStyle"
+                        style="@style/SMEToggleButton"
                         android:layout_width="@dimen/grid_8"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> handler.onMonths(36)}"
-                        android:text="@string/label_thirty_six"
-                        android:textStyle="bold" />
+                        android:text="@string/label_thirty_six" />
 
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -240,6 +235,7 @@
                         android:id="@+id/monthly_payment_tv_monthly_payment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/SMEBody"
                         android:layout_marginStart="@dimen/grid_2"
                         android:layout_marginTop="@dimen/grid_2"
                         android:layout_marginEnd="@dimen/grid_2"
@@ -251,7 +247,7 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/monthly_payment_tv_amount"
-                        style="@style/TextHeaderDark"
+                        style="@style/SMEHeadlineH1"
                         android:layout_width="match_parent"
                         android:layout_marginStart="@dimen/grid_2"
                         android:layout_marginTop="@dimen/grid_1_half"

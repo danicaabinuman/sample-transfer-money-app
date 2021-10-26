@@ -11,11 +11,11 @@
         android:id="@+id/key_features_cl_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_1">
+        android:layout_marginTop="@dimen/grid_3">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/key_features_tv_title"
-            style="@style/SMESubtitle2"
+            style="@style/SMESubtitle1"
             android:layout_width="match_parent"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
@@ -28,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/grid_2"
-            android:layout_marginTop="@dimen/grid_3_half"
             android:layout_marginEnd="@dimen/grid_2"
             android:layout_marginBottom="@dimen/grid_2"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -37,13 +37,14 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/contact_information_tv_desc"
-            style="@style/SMEBodyMediumGray"
+            style="@style/SMEBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/grid_1"
             android:text="@string/label_before_we_proceed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/contact_information_erv_data"
             app:layout_constraintTop_toBottomOf="@id/contact_information_tv_title" />
 
         <com.airbnb.epoxy.EpoxyRecyclerView
@@ -55,12 +56,14 @@
             android:layoutAnimation="@anim/anim_layout_animation_fall_down"
             android:orientation="vertical"
             android:overScrollMode="never"
+            android:layout_marginTop="@dimen/margin_19dp"
             android:paddingTop="@dimen/content_spacing"
             android:paddingBottom="@dimen/content_spacing"
             tools:listitem="@layout/ub_layout_item_contact_information"
             app:itemSpacing="@dimen/content_item_spacing"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/contact_information_b_next"
             app:layout_constraintTop_toBottomOf="@+id/contact_information_tv_desc" />
 

@@ -26,39 +26,40 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/grid_1_5"
-        app:strokeWidth="1dp"
         setStrokeColor="@{isSelected}"
-        android:layout_marginBottom="@dimen/grid_1_5"
-        android:layout_height="@dimen/grid_7" >
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/grid_1_6"
+        android:layout_height="@dimen/list_item_size"
+        android:layout_marginBottom="@dimen/grid_1"
+        app:cardElevation="0dp"
+        app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:onClick="@{onClickListener}"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:onClick="@{onClickListener}">
 
             <ImageView
                 android:id="@+id/item_contact_info_iv_image"
-                tools:src="@drawable/ic_infrastructure"
-                android:layout_width="@dimen/grid_4"
-                android:layout_marginStart="@dimen/grid_2"
-                android:layout_height="@dimen/grid_4"
                 setDrawable="@{image}"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="@dimen/grid_4"
+                android:layout_height="@dimen/grid_4"
+                android:layout_marginStart="@dimen/grid_2"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_infrastructure" />
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/SMESubtitle2"
                 android:layout_width="wrap_content"
-                tools:text="@string/title_employee_status"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_2"
                 android:text="@{title}"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/item_contact_info_iv_image"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:layout_height="wrap_content" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/title_employee_status" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

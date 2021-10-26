@@ -42,6 +42,9 @@ class LoansViewModel @Inject constructor(
         _loansViewState.value = LoansViewState(
             isScreenRefreshed = true,
             hasInitialFetchError = false,
+            commonQuestionEligible = false,
+            commonQuestionRequirement = false,
+            commonQuestionBusiness = false,
             commonQuestions = listOf()
         )
     }
@@ -51,6 +54,27 @@ class LoansViewModel @Inject constructor(
             _loansViewState.value?.commonQuestions?.get(item.id)?.expand =
                 !item.expand //get(item.id)?.expand = !item.expand
         }*/
+    }
+
+    fun setCommonQuestionEligible(expand: Boolean?) {
+        expand?.let {
+            _loansViewState.value?.commonQuestionEligible = !expand
+            _loansViewState.value = _loansViewState.value
+        }
+    }
+
+    fun setCommonQuestionRequirements(expand: Boolean?) {
+        expand?.let {
+            _loansViewState.value?.commonQuestionRequirement = !expand
+            _loansViewState.value = _loansViewState.value
+        }
+    }
+
+    fun setCommonQuestionBusiness(expand: Boolean?) {
+        expand?.let {
+            _loansViewState.value?.commonQuestionBusiness = !expand
+            _loansViewState.value = _loansViewState.value
+        }
     }
 
 

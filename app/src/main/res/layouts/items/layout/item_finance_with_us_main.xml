@@ -15,11 +15,12 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/finance_tv_header"
-            style="@style/SMESubtitle2"
+            style="@style/SMESubtitle1"
             android:layout_width="match_parent"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
             android:text="@string/title_finance_with_us"
+            android:textSize="@dimen/text_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/grid_2"
-            android:layout_marginTop="@dimen/grid_3_half"
+            android:layout_marginTop="@dimen/margin_20dp"
             android:layout_marginEnd="@dimen/grid_2"
             android:layout_marginBottom="@dimen/grid_2"
             app:cardCornerRadius="@dimen/card_radius_half"
@@ -41,7 +42,10 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/grid_2">
+                android:paddingStart="@dimen/grid_2"
+                android:paddingEnd="@dimen/grid_2"
+                android:paddingBottom="@dimen/grid_2"
+                android:paddingTop="@dimen/grid_3" >
 
                 <TextView
                     android:id="@+id/finance_tv_ubmsme"
@@ -50,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:text="@string/header_ubmsme"
-                    android:textColor="@color/dsColorDarkOrange"
+                    android:textColor="@color/dsColorMediumOrange"
                     app:layout_constraintEnd_toStartOf="@+id/finance_tv_others"
                     app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toEndOf="@+id/guideLine"
@@ -63,6 +67,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:text="@string/others"
+                    android:textAllCaps="false"
                     android:textColor="@color/dsColorDarkGray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/finance_tv_ubmsme"
@@ -86,12 +91,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_1_10"
-                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_3_half"
                     android:layout_marginEnd="@dimen/grid_1_10"
                     android:text="@string/note_finance_with_us"
-                    android:textColor="@color/colorLightGray"
+                    android:textColor="@color/dsColorMediumGray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="@dimen/margin_18dp"
                     app:layout_constraintTop_toBottomOf="@id/finance_erv_data" />
 
                 <androidx.constraintlayout.widget.Guideline
@@ -99,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.3" />
+                    app:layout_constraintGuide_percent="0.4" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,4 +7,7 @@ interface LoansAdapterCallback {
     fun onReferenceCode()
     fun onKeyFeatures(features: String?)
     fun onCommonQuestions(item: CommonQuestions)
+    fun onCommonQuestionsEligible(expand: Boolean?)
+    fun onCommonQuestionRequirements(expand: Boolean?)
+    fun oncCommonQuestionBusiness(expand: Boolean?)
 }

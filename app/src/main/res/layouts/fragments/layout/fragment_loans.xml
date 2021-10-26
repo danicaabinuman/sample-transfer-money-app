@@ -18,15 +18,14 @@
             android:orientation="vertical"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layoutAnimation="@anim/anim_layout_animation_fall_down"
+            android:stateListAnimator="@animator/animator_toolbar_elevation"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:clipToPadding="false"
-            android:paddingTop="@dimen/content_spacing"
+            android:paddingTop="@dimen/margin_8dp"
             android:paddingBottom="@dimen/content_spacing"
             android:background="@color/colorWhite"
-            app:itemSpacing="@dimen/content_item_spacing"
-            tools:listitem="@layout/item_account" />
+            app:itemSpacing="@dimen/content_item_spacing" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -84,7 +84,7 @@ fun setStrokeColor(cardView: MaterialCardView, status: Boolean?) {
                 strokeColor = context.getColor(R.color.dsColorButtonWithIconBorderSelected)
             } else {
                 setCardBackgroundColor(context.getColor(R.color.dsColorButtonWithIconSolidColorDefault))
-                strokeColor = context.getColor(R.color.dsColorButtonWithIconBorderDefault)
+                strokeColor = context.getColor(R.color.dsColorLightGray)
             }
         }
     }

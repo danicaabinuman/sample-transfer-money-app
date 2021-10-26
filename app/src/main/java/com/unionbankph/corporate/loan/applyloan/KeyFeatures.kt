@@ -26,8 +26,8 @@ data class KeyFeatures(
                     icon = R.drawable.ic_fast_approval
                 ), KeyFeatures(
                     id = 3,
-                    title = context.getString(R.string.title_auto_disbursement),
-                    icon = R.drawable.ic_auto_disbursement
+                    title = context.getString(R.string.title_no_collateral),
+                    icon = R.drawable.ic_no_collateral
                 )
             )
         }

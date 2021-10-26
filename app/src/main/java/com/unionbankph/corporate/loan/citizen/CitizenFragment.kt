@@ -10,11 +10,13 @@ import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.databinding.FragmentCitizenBinding
 import com.unionbankph.corporate.itemCitizen
-
+import com.unionbankph.corporate.loan.LoanActivity
 
 
 class CitizenFragment :
     BaseFragment<FragmentCitizenBinding, CitizenViewModel>()  {
+
+    private val activity by lazyFast { getAppCompatActivity() as LoanActivity }
 
     private val controller by lazyFast {
         CitizenController(applicationContext)
@@ -29,6 +31,12 @@ class CitizenFragment :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
+
+        activity.setToolbarTitle(
+            activity.binding.tvToolbar,
+            ""
+        )
+
         initViews()
         initObservers()
     }
