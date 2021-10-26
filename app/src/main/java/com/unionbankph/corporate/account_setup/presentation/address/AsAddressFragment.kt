@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
@@ -42,6 +43,10 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             setToolbarButtonType(AccountSetupActivity.BUTTON_SAVE_EXIT)
             showToolbarButton(true)
             setProgressValue(2)
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            accountSetupActivity.popBackStack()
         }
     }
 
