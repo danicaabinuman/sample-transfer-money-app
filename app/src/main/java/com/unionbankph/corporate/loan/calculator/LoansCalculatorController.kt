@@ -47,7 +47,7 @@ constructor(
             MonthlyPaymentLoansModel_()
                 .context(context)
                 .id("monthly-payment-loans")
-                .amount(it.amount ?: 0)
+                .amount(it.amount ?: 0f)
                 .months(it.month ?: 0)
                 .callback(callback)
                 .addTo(this)
@@ -57,7 +57,7 @@ constructor(
                 .principal(it.principal)
                 .interest(it.interest)
                 .monthlyPayment(it.monthlyPayment)
-                .addIf(it.principal != 0 && it.interest != 0, this)
+                .addIf(it.principal != 0f && it.interest != 0f, this)
 
             loanInfoMainModel
                 .context(context)
@@ -67,7 +67,7 @@ constructor(
                 .monthlyPayment(it.monthlyPayment)
                 .totalInterestPayable(it.monthlyPayment)
                 .totalAmountPayable(it.totalAmountPayable)
-                .addIf(it.principal != 0 && it.interest != 0, this)
+                .addIf(it.principal != 0f && it.interest != 0f, this)
         }
     }
 

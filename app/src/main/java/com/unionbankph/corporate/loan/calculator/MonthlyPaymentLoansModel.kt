@@ -2,9 +2,12 @@ package com.unionbankph.corporate.loan.calculator
 
 import android.content.Context
 import android.view.View
+import android.widget.SeekBar
 import com.airbnb.epoxy.*
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.databinding.ItemMonthlyPaymentMainBinding
+import timber.log.Timber
+import kotlin.math.roundToInt
 
 @EpoxyModelClass
 abstract class MonthlyPaymentLoansModel(
@@ -21,7 +24,7 @@ abstract class MonthlyPaymentLoansModel(
     lateinit var dataTest: LoanCalculatorState
 
     @EpoxyAttribute
-    var amount: Int? = null
+    var amount: Float? = null
 
     @EpoxyAttribute
     var months: Int? = null
@@ -46,24 +49,37 @@ abstract class MonthlyPaymentLoansModel(
                 callback.onApplyNow()
             }
 
-            if (months != 0 && amount != 0 ) {
+            if (months != 0 && amount != 0f ) {
                 val principal = months?.let { amount?.div(it) }
-                val interest = months?.let { (amount?.times(0.36))?.div(it) }
+                val interest = months?.let { (amount?.times(0.36))?.div(it)?.toFloat() }
                 val monthlyPayment = interest?.let { principal?.plus(it) }
 
                 principal?.let { callback.onPrincipal(it) }
-                interest?.let { callback.onInterest(it.toInt()) }
+                interest?.let { callback.onInterest(it) }
 
-                monthlyPaymentTvAmount.text = context.getString(R.string.format_php, monthlyPayment?.toInt())
-                monthlyPayment?.toInt()?.let { callback.onMonthlyPayment(it) }
-                amount?.plus(amount!!.times(0.36))?.let { callback.onTotalAmountPayable(it.toInt()) }
+                monthlyPaymentTvAmount.text = context.getString(R.string.format_php, monthlyPayment)
+                monthlyPayment?.let { callback.onMonthlyPayment(it) }
+                amount?.plus(amount!!.times(0.36))?.let { callback.onTotalAmountPayable(it.toFloat()) }
             }
 
-            amount?.let { monthlyPaymentAfetAmount.setText(it.toString()) }
+            amount?.let { autoFormatEditText.setText(it.toString()) }
 
-            monthlyPaymentSbAmount.addOnChangeListener { slider, value, fromUser ->
-                callback.onAmountChange(value.toInt())
-            }
+            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                    //callback.onAmountChange(progress.times(10000).toFloat())
+                    if (fromUser) {
+                            val test = ((progress / 10000).toDouble().roundToInt()).times(10000)
+                            callback.onAmountChange(test.toFloat())
+                    }
+                }
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
+
+            //Material Design
+            /*seekBar.setOnSeekBarChangeListener { slider, value, fromUser ->
+                callback.onAmountChange(value)
+            }*/
 
             handler = object : LoansCalculatorHandler {
                 override fun onMonths(months: Int) {
@@ -79,6 +95,5 @@ abstract class MonthlyPaymentLoansModel(
             binding = ItemMonthlyPaymentMainBinding.bind(itemView)
         }
     }
-
 
 }

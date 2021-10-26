@@ -22,22 +22,22 @@ abstract class LoanInfoMainModel : EpoxyModelWithHolder<LoanInfoMainModel.Holder
     lateinit var dataFromViewModel: List<LoanInfo>
 
     @EpoxyAttribute
-    var loanAmount: Int? = 0
+    var loanAmount: Float? = 0f
 
     @EpoxyAttribute
     var loanTenure: Int? = 0
 
     @EpoxyAttribute
-    var annualInterestRate: Int? = 0
+    var annualInterestRate: Float? = 0f
 
     @EpoxyAttribute
-    var monthlyPayment: Int? = 0
+    var monthlyPayment: Float? = 0f
 
     @EpoxyAttribute
-    var totalInterestPayable: Int? = 0
+    var totalInterestPayable: Float? = 0f
 
     @EpoxyAttribute
-    var totalAmountPayable: Int? = 0
+    var totalAmountPayable: Float? = 0f
 
     override fun bind(holder: Holder) {
         holder.binding.apply {
@@ -45,7 +45,7 @@ abstract class LoanInfoMainModel : EpoxyModelWithHolder<LoanInfoMainModel.Holder
             val loanInfoItem = LoanInfoItem(
                 loanAmount = loanAmount,
                 loanTenure = loanTenure,
-                annualInterestRate = INTEREST_RATE,
+                annualInterestRate = INTEREST_RATE.toFloat(),
                 monthlyPayment = monthlyPayment,
                 totalInterestPayable = annualInterestRate,
                 totalAmountPayable = totalAmountPayable

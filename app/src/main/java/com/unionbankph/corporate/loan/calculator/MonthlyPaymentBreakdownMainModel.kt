@@ -22,13 +22,13 @@ abstract class MonthlyPaymentBreakdownMainModel :
     lateinit var context: Context
 
     @EpoxyAttribute
-    var principal: Int? = 0
+    var principal: Float? = 0f
 
     @EpoxyAttribute
-    var interest: Int? = 0
+    var interest: Float? = 0f
 
     @EpoxyAttribute
-    var monthlyPayment: Int? = null
+    var monthlyPayment: Float? = null
 
     override fun bind(holder: Holder) {
         holder.binding.apply {
@@ -36,10 +36,9 @@ abstract class MonthlyPaymentBreakdownMainModel :
             initViews(monthlyPaymentBreakdownPcChart)
             monthlyPaymentBreakdownPcChart.apply {
 
-                if (principal != 0 && interest != 0) {
+                if (principal != 0f && interest != 0f) {
 
-                    val monthly = principal?.minus(interest ?: 0)
-
+                    val monthly = principal?.plus(interest ?: 0f)
                     monthlyPaymentBreakdownTvMonthlyPaymentValue.text = context.getString(R.string.format_php, monthly)
                     monthlyPaymentBreakdownTvInterestValue.text = context.getString(R.string.format_php, interest)
                     monthlyPaymentBreakdownTvPrincipalValue.text = context.getString(R.string.format_php, principal)

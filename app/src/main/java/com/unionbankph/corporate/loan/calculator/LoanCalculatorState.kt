@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LoanCalculatorState (
-    var amount: Int? = null,
-    var principal: Int? = null,
-    var interest: Int? = null,
+    var amount: Float? = null,
+    var principal: Float? = null,
+    var interest: Float? = null,
     var month: Int? = null,
-    var monthlyPayment: Int? = null,
-    var totalAmountPayable: Int? = null
+    var monthlyPayment: Float? = null,
+    var totalAmountPayable: Float? = null
 )

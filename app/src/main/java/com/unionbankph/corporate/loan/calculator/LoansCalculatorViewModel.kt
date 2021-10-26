@@ -14,15 +14,15 @@ class LoansCalculatorViewModel @Inject constructor(
 
     init {
         _formState.value = LoanCalculatorState(
-            amount = 0,
-            interest = 0,
+            amount = 0f,
+            interest = 0f,
             month = 0,
-            monthlyPayment = 0,
-            totalAmountPayable = 0
+            monthlyPayment = 0f,
+            totalAmountPayable = 0f
         )
     }
 
-    fun setAmount(amount: Int?) {
+    fun setAmount(amount: Float?) {
         amount?.let {
             _formState.value?.apply {
                 this.amount = it
@@ -40,7 +40,7 @@ class LoansCalculatorViewModel @Inject constructor(
         }
     }
 
-    fun setTotalAmountPayable(totalAmountPayable: Int?) {
+    fun setTotalAmountPayable(totalAmountPayable: Float?) {
         totalAmountPayable?.let {
             _formState.value?.apply {
                 this.totalAmountPayable = it
@@ -49,7 +49,7 @@ class LoansCalculatorViewModel @Inject constructor(
         }
     }
 
-    fun setMonthlyPayment(monthlyPayment: Int?) {
+    fun setMonthlyPayment(monthlyPayment: Float?) {
         monthlyPayment?.let {
             _formState.value?.apply {
                 this.monthlyPayment = it
@@ -58,7 +58,7 @@ class LoansCalculatorViewModel @Inject constructor(
         }
     }
 
-    fun setPrincipal(principal: Int?) {
+    fun setPrincipal(principal: Float?) {
         principal?.let {
             _formState.value?.apply {
                 this.principal = it
@@ -67,7 +67,7 @@ class LoansCalculatorViewModel @Inject constructor(
         }
     }
 
-    fun setInterest(interest: Int?) {
+    fun setInterest(interest: Float?) {
         interest?.let {
             _formState.value?.apply {
                 this.interest = it

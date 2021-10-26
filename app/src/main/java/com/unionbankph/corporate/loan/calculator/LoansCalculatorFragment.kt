@@ -66,7 +66,7 @@ class LoansCalculatorFragment :
         }
     }
 
-    override fun onAmountChange(amount: Int) {
+    override fun onAmountChange(amount: Float) {
         viewModel.setAmount(amount)
     }
 
@@ -74,19 +74,19 @@ class LoansCalculatorFragment :
         viewModel.setMonths(months)
     }
 
-    override fun onTotalAmountPayable(totalAmountPayable: Int) {
+    override fun onTotalAmountPayable(totalAmountPayable: Float) {
         viewModel.setTotalAmountPayable(totalAmountPayable)
     }
 
-    override fun onMonthlyPayment(monthlyPayment: Int) {
+    override fun onMonthlyPayment(monthlyPayment: Float) {
         viewModel.setMonthlyPayment(monthlyPayment)
     }
 
-    override fun onPrincipal(principal: Int) {
+    override fun onPrincipal(principal: Float) {
         viewModel.setPrincipal(principal)
     }
 
-    override fun onInterest(interest: Int) {
+    override fun onInterest(interest: Float) {
         viewModel.setInterest(interest)
     }
 
