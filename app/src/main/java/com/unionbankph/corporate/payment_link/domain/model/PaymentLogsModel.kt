@@ -41,6 +41,9 @@ data class PaymentLogsModel(
     var modifiedDate: String? = null,
 
     @SerialName ("modifiedBy")
-    var modifiedBy: String? = null
+    var modifiedBy: String? = null,
+
+    @SerialName ("recordNew")
+    var recordNew: Boolean? = null
 
 )

@@ -149,6 +149,14 @@ class PaymentHistoryLogsAdapter(
 
         Timber.e("Date group " + formattedTime )
 
+        Timber.e("item.paymentMethodName " + item.paymentMethodName)
+
+        if (item.paymentMethodName.isNullOrEmpty()) {
+            holder.tvTransactionId.visibility = View.GONE
+            holder.tvStatus.visibility = View.GONE
+            holder.tvPaymentType.text = (mContext?.getString(R.string.title_created_by) + " " + item.createdBy)
+        }
+
         holder.tvDate.text = "$formattedThreeDate at $formattedTime"
         holder.tvDateLog.text = formattedFullDate
 

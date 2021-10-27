@@ -37,6 +37,7 @@
             android:layout_marginRight="@dimen/content_spacing"
             android:ellipsize="end"
             android:maxLines="2"
+            app:textAllCaps="false"
             tools:text="GCash"
             app:layout_constraintBottom_toTopOf="@id/tv_transaction_id"
             app:layout_constraintEnd_toStartOf="@+id/tv_payment_history_status"
