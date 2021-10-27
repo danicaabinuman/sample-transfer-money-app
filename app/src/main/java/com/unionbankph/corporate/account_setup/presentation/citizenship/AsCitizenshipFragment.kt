@@ -24,6 +24,7 @@ class AsCitizenshipFragment :
         accountSetupActivity.apply {
             showProgress(false)
             showToolbarButton(false)
+            setBackButtonIcon(AccountSetupActivity.BACK_ARROW_ICON)
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -36,16 +37,18 @@ class AsCitizenshipFragment :
 
         viewModel.state.observe(viewLifecycleOwner, EventObserver {
             accountSetupActivity.viewModel.setCitizenship(it)
-            findNavController().navigate(R.id.action_sole_prop_personal_info)
+            findNavController().navigate( when (it) {
+                Constant.Citizenship.FILIPINO -> R.id.action_sole_prop_personal_info
+                else -> R.id.action_non_filipino
+            })
         })
     }
 
     override fun onInitializeListener() {
         super.onInitializeListener()
 
-        binding.btnAsCitizenshipYes.setOnClickListener {
-            viewModel.onClickedNext(Constant.Citizenship.FILIPINO)
-        }
+        binding.btnAsCitizenshipYes.setOnClickListener { viewModel.isFilipino() }
+        binding.btnAsCitizenshipNo.setOnClickListener { viewModel.isNonFilipino() }
     }
 
 

@@ -126,6 +126,13 @@ class AccountSetupActivity :
         viewModel.setToolbarButtonType(type)
     }
 
+    fun setBackButtonIcon(icon: Int) {
+        when (icon) {
+            BACK_ARROW_ICON -> setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorDarkOrange, true)
+            else -> setDrawableBackButton(R.drawable.ic_vector_x, R.color.colorDarkOrange, true)
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -190,8 +197,8 @@ class AccountSetupActivity :
         const val BUTTON_SAVE_EXIT = 1
         const val BUTTON_CLOSE = 2
 
-        const val BACK_ARROW = 100
-        const val BACK_X = 101
+        const val BACK_ARROW_ICON = 100
+        const val BACK_X_ICON = 101
 
         const val BUSINESS_TYPE_SCREEN = 1
         const val BUSINESS_ACCOUNT_TYPE_SCREEN = 2
