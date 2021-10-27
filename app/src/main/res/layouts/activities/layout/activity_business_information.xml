@@ -17,13 +17,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/pb_businessInfo1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_1"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_below="@id/viewToolbar"
+        android:progress="20"
+        />
+
     <TextView
         android:id="@+id/tv_about_your_business_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/viewToolbar"
-        android:layout_marginTop="@dimen/grid_1"
         android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginTop="@dimen/grid_2"
         android:layout_marginEnd="@dimen/grid_2"
         android:text="@string/we_want_to_know_more_about_your_business"
         android:textColor="#4A4A4A"

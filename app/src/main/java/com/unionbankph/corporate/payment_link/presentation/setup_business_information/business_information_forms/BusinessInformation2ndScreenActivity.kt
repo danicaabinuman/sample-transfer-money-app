@@ -22,14 +22,12 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.databinding.ActivityBusinessInformation2ndScreenBinding
 import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.BusinessPolicyCameraActivity
-import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
 
 class BusinessInformation2ndScreenActivity :
     BaseActivity<ActivityBusinessInformation2ndScreenBinding, BusinessInformationViewModel>(),
-    CardAcceptanceUploadDocumentFragment.OnUploadDocs {
+    CardAcceptanceUploadDocumentFragment.OnUploadDocs, AdapterView.OnItemSelectedListener {
 
     var orderFulfilled = ""
     var orderFulfillment =
@@ -48,6 +46,16 @@ class BusinessInformation2ndScreenActivity :
     var instagramState = 0
     var othersState = 0
     var branchCounter = 0
+
+    var lazTextfieldInput: String = ""
+    var shopeeTextfieldInput: String = ""
+    var webTextfieldInput: String = ""
+    var suysingTextfieldInput: String = ""
+    var physTextfieldInput: String = ""
+    var fbTextfieldInput: String = ""
+    var igTextfieldInput: String = ""
+    var othersTextfieldInput: String = ""
+    var fileURI: Uri? = null
 
     private var uploadDocumentFragment: CardAcceptanceUploadDocumentFragment? = null
     lateinit var imgView: ImageView
@@ -99,7 +107,7 @@ class BusinessInformation2ndScreenActivity :
         }
     }
 
-    private fun navigate(){
+    private fun navigate() {
         navigator.navigate(
             this,
             OnboardingUploadPhotosActivity::class.java,
@@ -133,6 +141,13 @@ class BusinessInformation2ndScreenActivity :
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                    if (binding.lazada.root.isShown) {
+//                        if (s!!.isNotEmpty()) {
+//                            lazTextfieldInput = s.toString()
+//                            checker(lazTextfieldInput, shopeeTextfieldInput, fileURI)
+//                        }
+//                    }
+
                 }
 
                 override fun afterTextChanged(s: Editable?) {
@@ -144,13 +159,11 @@ class BusinessInformation2ndScreenActivity :
         } else if (stateChecker == 0) {
             binding.btnLazada.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             binding.btnLazada.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.dividerDashed.visibility = View.INVISIBLE
             binding.tvInputStoreName.visibility = View.GONE
             binding.view.visibility = View.INVISIBLE
             binding.lazada.root.visibility = View.GONE
-//            if (et_lazada.text!!.isNotEmpty()) {
-//                et_lazada.text!!.clear()
-//                enableNextButton()
-//            }
+            binding.lazada.etLazada.text?.clear()
         }
 
     }
@@ -162,7 +175,7 @@ class BusinessInformation2ndScreenActivity :
             binding.btnShopee.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             binding.btnShopee.setTextColor(Color.parseColor("#FF8200"))
             binding.tvInputStoreNameShopee.visibility = View.VISIBLE
-            binding.dividerDashed.visibility = View.VISIBLE
+            binding.dividerDashed2.visibility = View.VISIBLE
             binding.shopee.root.visibility = View.VISIBLE
             disableNextButton()
 
@@ -176,10 +189,16 @@ class BusinessInformation2ndScreenActivity :
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                    if (binding.shopee.root.isShown) {
+//                        if (s!!.isNotEmpty()) {
+//                            shopeeTextfieldInput = s.toString()
+//                            checker(lazTextfieldInput, shopeeTextfieldInput, fileURI)
+//                        }
+//                    }
+
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-//                    enableNextButton()
 
                 }
 
@@ -189,27 +208,25 @@ class BusinessInformation2ndScreenActivity :
             binding.btnShopee.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             binding.btnShopee.setTextColor(Color.parseColor("#4A4A4A"))
             binding.tvInputStoreNameShopee.visibility = View.GONE
+            binding.dividerDashed2.visibility = View.GONE
             binding.view.visibility = View.INVISIBLE
             binding.shopee.root.visibility = View.GONE
-//            if (et_shopee.text!!.isNotEmpty()) {
-//                et_shopee.text!!.clear()
-//                enableNextButton()
-//            }
+            binding.shopee.etShopee.text?.clear()
         }
     }
 
-    private fun btnFacebookClicked() {
-        facebookState++
-        val stateChecker = facebookState % 2
+    private fun btnWebsiteClicked() {
+        websiteState++
+        val stateChecker = websiteState % 2
         if (stateChecker == 1) {
-            binding.btnFacebook.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            binding.btnFacebook.setTextColor(Color.parseColor("#FF8200"))
-            binding.tvInputStoreNameFacebook.visibility = View.VISIBLE
-            binding.dividerDashed.visibility = View.VISIBLE
-            binding.facebook.root.visibility = View.VISIBLE
+            binding.btnWebsite.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnWebsite.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNameWebsite.visibility = View.VISIBLE
+            binding.dividerDashed3.visibility = View.VISIBLE
+            binding.website.root.visibility = View.VISIBLE
             disableNextButton()
 
-            binding.facebook.etFacebook.addTextChangedListener(object : TextWatcher {
+            binding.website.etWebsite.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
@@ -222,21 +239,68 @@ class BusinessInformation2ndScreenActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-//                    enableNextButton()
 
                 }
 
             })
 
         } else if (stateChecker == 0) {
-            binding.btnFacebook.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            binding.btnFacebook.setTextColor(Color.parseColor("#4A4A4A"))
-            binding.tvInputStoreNameFacebook.visibility = View.GONE
-            binding.facebook.root.visibility = View.GONE
-//            if (et_facebook.text!!.isNotEmpty()) {
-//                et_facebook.text!!.clear()
-//                enableNextButton()
-//            }
+            binding.btnWebsite.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnWebsite.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNameWebsite.visibility = View.GONE
+            binding.dividerDashed3.visibility = View.GONE
+            binding.website.root.visibility = View.GONE
+        }
+    }
+
+    private fun toggleSuysingButton() {
+        suysingState++
+        val stateChecker = suysingState % 2
+        if (stateChecker == 1) {
+            binding.btnSuysing.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnSuysing.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNameSuysing.visibility = View.VISIBLE
+            binding.dividerDashed4.visibility = View.VISIBLE
+            binding.suysing.root.visibility = View.VISIBLE
+
+            binding.btnPhysicalStore.background =
+                getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnPhysicalStore.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNamePhysicalStore.visibility = View.VISIBLE
+            binding.physicalStore.root.visibility = View.VISIBLE
+
+            disableNextButton()
+
+            binding.suysing.etSuysing.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+
+            })
+
+        } else if (stateChecker == 0) {
+            binding.btnSuysing.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnSuysing.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNameSuysing.visibility = View.GONE
+            binding.dividerDashed4.visibility = View.GONE
+            binding.suysing.root.visibility = View.GONE
+
+            binding.btnPhysicalStore.background =
+                getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnPhysicalStore.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNamePhysicalStore.visibility = View.GONE
+            binding.physicalStore.root.visibility = View.GONE
         }
     }
 
@@ -250,7 +314,7 @@ class BusinessInformation2ndScreenActivity :
                 getDrawable(R.drawable.bg_where_do_you_sell_active)
             binding.btnPhysicalStore.setTextColor(Color.parseColor("#FF8200"))
             binding.tvInputStoreNamePhysicalStore.visibility = View.VISIBLE
-            binding.dividerDashed.visibility = View.VISIBLE
+            binding.dividerDashed5.visibility = View.VISIBLE
             binding.physicalStore.root.visibility = View.VISIBLE
             disableNextButton()
 
@@ -267,7 +331,6 @@ class BusinessInformation2ndScreenActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-//                    enableNextButton()
 
                 }
 
@@ -294,12 +357,47 @@ class BusinessInformation2ndScreenActivity :
                 getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             binding.btnPhysicalStore.setTextColor(Color.parseColor("#4A4A4A"))
             binding.tvInputStoreNamePhysicalStore.visibility = View.GONE
+            binding.dividerDashed5.visibility = View.GONE
             binding.physicalStore.root.visibility = View.GONE
-//            if (et_physical_store.text!!.isNotEmpty()) {
-//                et_physical_store.text!!.clear()
-//                enableNextButton()
-//            }
             container.removeAllViews()
+        }
+    }
+
+    private fun btnFacebookClicked() {
+        facebookState++
+        val stateChecker = facebookState % 2
+        if (stateChecker == 1) {
+            binding.btnFacebook.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
+            binding.btnFacebook.setTextColor(Color.parseColor("#FF8200"))
+            binding.tvInputStoreNameFacebook.visibility = View.VISIBLE
+            binding.dividerDashed6.visibility = View.VISIBLE
+            binding.facebook.root.visibility = View.VISIBLE
+            disableNextButton()
+
+            binding.facebook.etFacebook.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+
+            })
+
+        } else if (stateChecker == 0) {
+            binding.btnFacebook.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
+            binding.btnFacebook.setTextColor(Color.parseColor("#4A4A4A"))
+            binding.tvInputStoreNameFacebook.visibility = View.GONE
+            binding.dividerDashed6.visibility = View.GONE
+            binding.facebook.root.visibility = View.GONE
         }
     }
 
@@ -310,7 +408,7 @@ class BusinessInformation2ndScreenActivity :
             binding.btnInstagram.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             binding.btnInstagram.setTextColor(Color.parseColor("#FF8200"))
             binding.tvInputStoreNameInstagram.visibility = View.VISIBLE
-            binding.dividerDashed.visibility = View.VISIBLE
+            binding.dividerDashed7.visibility = View.VISIBLE
             binding.instagram.root.visibility = View.VISIBLE
             disableNextButton()
 
@@ -327,7 +425,6 @@ class BusinessInformation2ndScreenActivity :
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-//                    enableNextButton()
 
                 }
 
@@ -337,110 +434,11 @@ class BusinessInformation2ndScreenActivity :
             binding.btnInstagram.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             binding.btnInstagram.setTextColor(Color.parseColor("#4A4A4A"))
             binding.tvInputStoreNameInstagram.visibility = View.GONE
+            binding.dividerDashed7.visibility = View.GONE
             binding.instagram.root.visibility = View.GONE
-//            if (et_instagram.text!!.isNotEmpty()) {
-//                et_instagram.text!!.clear()
-//                enableNextButton()
-//            }
         }
     }
 
-    private fun btnWebsiteClicked() {
-        websiteState++
-        val stateChecker = websiteState % 2
-        if (stateChecker == 1) {
-            binding.btnWebsite.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            binding.btnWebsite.setTextColor(Color.parseColor("#FF8200"))
-            binding.tvInputStoreNameWebsite.visibility = View.VISIBLE
-            binding.dividerDashed.visibility = View.VISIBLE
-            binding.website.root.visibility = View.VISIBLE
-            disableNextButton()
-
-            binding.website.etWebsite.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-//                    enableNextButton()
-
-                }
-
-            })
-
-        } else if (stateChecker == 0) {
-            binding.btnWebsite.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            binding.btnWebsite.setTextColor(Color.parseColor("#4A4A4A"))
-            binding.tvInputStoreNameWebsite.visibility = View.GONE
-            binding.website.root.visibility = View.GONE
-//            if (et_website.text!!.isNotEmpty()) {
-//                et_website.text!!.clear()
-//                enableNextButton()
-//            }
-        }
-    }
-
-    private fun toggleSuysingButton() {
-        suysingState++
-        val stateChecker = suysingState % 2
-        if (stateChecker == 1) {
-            binding.btnSuysing.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
-            binding.btnSuysing.setTextColor(Color.parseColor("#FF8200"))
-            binding.tvInputStoreNameSuysing.visibility = View.VISIBLE
-            binding.dividerDashed.visibility = View.VISIBLE
-            binding.suysing.root.visibility = View.VISIBLE
-
-            binding.btnPhysicalStore.background =
-                getDrawable(R.drawable.bg_where_do_you_sell_active)
-            binding.btnPhysicalStore.setTextColor(Color.parseColor("#FF8200"))
-            binding.tvInputStoreNamePhysicalStore.visibility = View.VISIBLE
-            binding.physicalStore.root.visibility = View.VISIBLE
-
-            disableNextButton()
-
-            binding.suysing.etSuysing.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-//                    enableNextButton()
-
-                }
-
-            })
-
-        } else if (stateChecker == 0) {
-            binding.btnSuysing.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            binding.btnSuysing.setTextColor(Color.parseColor("#4A4A4A"))
-            binding.tvInputStoreNameSuysing.visibility = View.GONE
-            binding.suysing.root.visibility = View.GONE
-
-            binding.btnPhysicalStore.background =
-                getDrawable(R.drawable.bg_where_do_you_sell_inactive)
-            binding.btnPhysicalStore.setTextColor(Color.parseColor("#4A4A4A"))
-            binding.tvInputStoreNamePhysicalStore.visibility = View.GONE
-            binding.physicalStore.root.visibility = View.GONE
-//            if (et_suysing.text!!.isNotEmpty()) {
-//                et_suysing.text!!.clear()
-//                enableNextButton()
-//            }
-        }
-    }
 
     private fun btnOtherClicked() {
         othersState++
@@ -451,7 +449,7 @@ class BusinessInformation2ndScreenActivity :
             binding.btnOthers.background = getDrawable(R.drawable.bg_where_do_you_sell_active)
             binding.btnOthers.setTextColor(Color.parseColor("#FF8200"))
             binding.tvInputStoreNameOthers.visibility = View.VISIBLE
-            binding.dividerDashed.visibility = View.VISIBLE
+            binding.dividerDashed8.visibility = View.VISIBLE
             binding.others.root.visibility = View.VISIBLE
             disableNextButton()
 
@@ -489,6 +487,7 @@ class BusinessInformation2ndScreenActivity :
             binding.btnOthers.background = getDrawable(R.drawable.bg_where_do_you_sell_inactive)
             binding.btnOthers.setTextColor(Color.parseColor("#4A4A4A"))
             binding.tvInputStoreNameOthers.visibility = View.GONE
+            binding.dividerDashed8.visibility = View.GONE
             binding.others.root.visibility = View.GONE
 //            if (et_others.text!!.isNotEmpty()) {
 //                et_others.text!!.clear()
@@ -498,51 +497,59 @@ class BusinessInformation2ndScreenActivity :
         }
     }
 
-    private fun addAnotherBranchAddress() {
-//        var addBranchFields: View
-//        val container: LinearLayout = findViewById(R.id.branchContainer)
-//        binding.physicalStore.btnAddBranchAddress.setOnClickListener {
-//            val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//            addBranchFields = layoutInflater.inflate(R.layout.layout_branch_textfields, null)
-//            container.addView(addBranchFields, container.childCount)
-//
-//            binding.physicalStore.tvBranchNumber.visibility(true)
-//            val branchCount = container.childCount
-//            if (branchCount <= 99){
-//                branchCounter++
-////                addBranchFields.tv_branch_number.text = getString(R.string.branch) + " " + branchCounter
-//                binding.physicalStore.tvBranchNumber.text = getString(R.string.branch) + " " + branchCounter
-//            } else if (branchCount == 99){
-//                binding.physicalStore.btnAddBranchAddress.visibility = View.GONE
-//            }
-//        }
-    }
-
-    private fun addAnotherStore() {
-//        var addOtherStoreFields: View
-//        val container: LinearLayout = findViewById(R.id.storeContainer)
-//        binding.others.btnAddAnotherStore.setOnClickListener {
-//            val layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//            addOtherStoreFields = layoutInflater.inflate(R.layout.layout_store_textfields, null)
-//            container.addView(addOtherStoreFields, container.childCount)
-//
-//            val storeCount = container.childCount
-//            if (storeCount == 99){
-//                binding.others.btnAddAnotherStore.visibility = View.GONE
-//            }
-//        }
-    }
-
     private fun validation() {
-        val textField = binding.lazada.etLazada.text.toString()
-        val spinner = binding.dropdownOrderFulfillment.selectedItemPosition
+        val lazadaTextField = binding.lazada.etLazada.text.toString()
+        val shopeeTextField = binding.shopee.etShopee.text.toString()
+        val websiteTextField = binding.website.etWebsite.text.toString()
+        val suysingTextField = binding.suysing.etSuysing.text.toString()
+        val physicalStoreTextField = binding.physicalStore.etPhysicalStore.text.toString()
+        val fbTextField = binding.facebook.etFacebook.text.toString()
+        val igTextField = binding.instagram.etInstagram.text.toString()
+        val othersTextField = binding.others.etOthers.text.toString()
+
+
+        val spinnerSelectedItem = binding.dropdownOrderFulfillment.selectedItemPosition
+
+        val haveURI = binding.tvURIcontainer.text
         val checkbox = binding.cbNotApplicable.isChecked
 
-        if (textField.isNotEmpty() && spinner != 0 && checkbox) {
-            navigate()
+        if (lazadaTextField.isNotEmpty() ||
+            shopeeTextField.isNotEmpty() ||
+            websiteTextField.isNotEmpty() ||
+            suysingTextField.isNotEmpty() ||
+            physicalStoreTextField.isNotEmpty() ||
+            fbTextField.isNotEmpty() ||
+            igTextField.isNotEmpty() ||
+            othersTextField.isNotEmpty()) {
+                if (haveURI.isNotEmpty()){
+                    if (spinnerSelectedItem != 0){
+                        navigate()
+                    } else {
+                        disableNextButton()
+                    }
+
+                } else if (checkbox){
+                    if (spinnerSelectedItem != 0){
+                        navigate()
+                    } else {
+                        disableNextButton()
+                    }
+                }
         } else {
             disableNextButton()
             Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun checker(lazadaText: String, shopeeText: String, imgUri: Uri? = null) {
+        val spinnerSelectedItem = binding.dropdownOrderFulfillment.selectedItemPosition
+
+        binding.tvURIcontainer.text = imgUri.toString()
+        val haveURI = binding.tvURIcontainer.text
+        if (lazadaText.isNotEmpty() || shopeeText.isNotEmpty() && spinnerSelectedItem != 0 && haveURI.isNotEmpty()) {
+            enableNextButton()
+        } else {
+            disableNextButton()
         }
     }
 
@@ -556,18 +563,19 @@ class BusinessInformation2ndScreenActivity :
 
     /* Order Fulfillment dropdown */
     private fun orderFulfillment() {
-        val adapter: ArrayAdapter<String> = object : ArrayAdapter<String>(
+        val arrayAdapter: ArrayAdapter<String> = object : ArrayAdapter<String>(
             this,
             android.R.layout.simple_list_item_1,
             orderFulfillment
         ) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val view: TextView = super.getView(position, convertView, parent) as TextView
-                if (position == 0){
+                if (position == 0) {
                     view.setTextColor(Color.GRAY)
                 }
                 return view
             }
+
             override fun getDropDownView(
                 position: Int,
                 convertView: View?,
@@ -586,9 +594,33 @@ class BusinessInformation2ndScreenActivity :
                 return position != 0
             }
         }
-        binding.dropdownOrderFulfillment.adapter = adapter
+        binding.dropdownOrderFulfillment.adapter = arrayAdapter
+
+        with(binding.dropdownOrderFulfillment){
+            onItemSelectedListener = this@BusinessInformation2ndScreenActivity
+        }
     }
 
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        if (position != 0){
+            when {
+                binding.cbNotApplicable.isChecked -> {
+                    enableNextButton()
+                }
+                binding.tvURIcontainer.text.isNotEmpty() -> {
+                    enableNextButton()
+                }
+                else -> {
+                    disableNextButton()
+                }
+            }
+        } else {
+            disableNextButton()
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+    }
 
     /* Upload Business Policy docs */
     private fun showUploadDocumentDialog() {
@@ -617,7 +649,7 @@ class BusinessInformation2ndScreenActivity :
         uploadDocumentFragment?.dismiss()
     }
 
-    private fun captureImageFromCamera(){
+    private fun captureImageFromCamera() {
         val bundle = Bundle().apply {
             putParcelableArrayList(
                 LIST_OF_IMAGES_URI,
@@ -714,6 +746,8 @@ class BusinessInformation2ndScreenActivity :
                             rendererPage.close()
                             pdfRenderer.close()
                         }
+                        binding.tvURIcontainer.text = fileUri.toString()
+                        enableNextButton()
                     }
                 }
             GALLERY_REQUEST_CODE ->
@@ -753,6 +787,9 @@ class BusinessInformation2ndScreenActivity :
                     }
 
                     imgView.setImageURI(imageUri)
+                    binding.tvURIcontainer.text = imageUri.toString()
+                    enableNextButton()
+
                     binding.includePreviewGallery.btnNavigateBackToUploadDocs1.setOnClickListener {
                         hideImagePreviewFromGallery()
                     }
@@ -760,14 +797,14 @@ class BusinessInformation2ndScreenActivity :
         }
     }
 
-    private fun showImagePreviewFromGallery(){
+    private fun showImagePreviewFromGallery() {
         binding.popupPreviewDocsFromGallery.visibility(true)
         binding.scrollView2.visibility(false)
         binding.viewToolbar.toolbar.visibility(false)
         binding.btnNavigateToUploadPhotos.visibility(false)
     }
 
-    private fun hideImagePreviewFromGallery(){
+    private fun hideImagePreviewFromGallery() {
         binding.popupPreviewDocsFromGallery.visibility(false)
         binding.scrollView2.visibility(true)
         binding.viewToolbar.toolbar.visibility(true)
@@ -783,6 +820,8 @@ class BusinessInformation2ndScreenActivity :
                     if (checked) {
                         binding.btnUploadBusinessPolicy.isEnabled = false
                         binding.btnUploadBusinessPolicy.text = ""
+                        binding.tvURIcontainer.text = ""
+//                        checker(lazTextfieldInput, shopeeTextfieldInput, null)
                         enableNextButton()
                     } else {
                         binding.btnUploadBusinessPolicy.isEnabled = true

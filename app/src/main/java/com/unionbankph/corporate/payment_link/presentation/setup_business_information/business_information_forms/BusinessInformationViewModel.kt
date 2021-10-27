@@ -27,7 +27,7 @@ class BusinessInformationViewModel @Inject constructor(
             _rmoBusinessInformationState
 
     private val _rmoBusinessInformationResponse = MutableLiveData<RMOBusinessInformationResponse>()
-    val rmoBusinessInformationResponse: LiveData<RMOBusinessInformationResponse>
+    val saveBusinessInformation: LiveData<RMOBusinessInformationResponse>
         get() =
             _rmoBusinessInformationResponse
 
@@ -36,24 +36,32 @@ class BusinessInformationViewModel @Inject constructor(
         get() =
             _getRMOBusinessInformationResponse
 
-    fun submitBusinessInformation(form : RMOBusinessInformationForm){
+    fun saveBusinessInfo(form : RMOBusinessInformationForm){
         submitRmoBusinessInformationUseCase.execute(
             singleObserver = getDisposableSingleObserver(
                 {
                     _rmoBusinessInformationResponse.value = it
                 },{
-                    Timber.e(it, "createMerchant Failed")
-                    try {
-                        if(it.message?.contains("This handle is no longer available. Please try another one.",true) == true){
-                            _rmoBusinessInformationState.value = ShowHandleNotAvailable
-                        }else{
-                            _uiState.value = Event(UiState.Error(it))
-                        }
-                    } catch (e: Exception) {
-                        _uiState.value = Event(UiState.Error(it))
-                    }
+                    Timber.e(it, "Business Information Failed to Submit")
+                    _uiState.value = Event(UiState.Error(it))
+
+//                    try {
+//                        if(it.message?.contains("This handle is no longer available. Please try another one.",true) == true){
+//                            _rmoBusinessInformationState.value = ShowHandleNotAvailable
+//                        }else{
+//                            _uiState.value = Event(UiState.Error(it))
+//                        }
+//                    } catch (e: Exception) {
+//                        _uiState.value = Event(UiState.Error(it))
+//                    }
                 }
             ),
+            doOnSubscribeEvent = {
+                _uiState.value = Event(UiState.Loading)
+            },
+            doFinallyEvent = {
+                _uiState.value = Event(UiState.Complete)
+            },
             params = form
         ).addTo(disposables)
 

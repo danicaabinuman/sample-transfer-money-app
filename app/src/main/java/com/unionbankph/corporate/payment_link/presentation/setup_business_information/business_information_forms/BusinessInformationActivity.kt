@@ -101,6 +101,8 @@ class BusinessInformationActivity :
 
         disableNextButton()
         firstScreenFieldChecker()
+        saveAndExit()
+
         yearsInBusiness()
         employeeCount()
         branchCount()
@@ -118,10 +120,6 @@ class BusinessInformationActivity :
         binding.btnNext.setOnClickListener {
 //            retrieveInformationFromFields()
             btnNextClicked()
-        }
-        binding.viewToolbar.btnSaveAndExit.setOnClickListener {
-            putInformationFromFields()
-            showDialogToDashboard()
         }
 
     }
@@ -169,6 +167,34 @@ class BusinessInformationActivity :
 //        }
         displayBusinessInfo(response)
         this.info = response
+    }
+
+    private fun saveAndExit(){
+        binding.viewToolbar.btnSaveAndExit.setOnClickListener {
+            putInformationFromFields()
+            showDialogToDashboard()
+        }
+
+    }
+
+    private fun putInformationFromFields() {
+        val natureOfBusiness = binding.searchNatureOfBusiness.text.toString()
+        val storeProduct = binding.etProductOfServicesOffered.text.toString()
+        val infoStatus = "draft"
+        val yearsInBusiness = binding.etYearsCounter.text.toString().toInt()
+        val numberOfEmployees = binding.etEmployeeCounter.text.toString().toInt()
+        val numberOfBranches = binding.etBranchCounter.text.toString().toInt()
+
+        viewModel.saveBusinessInfo(
+            RMOBusinessInformationForm(
+                natureOfBusiness,
+                storeProduct,
+                infoStatus,
+                yearsInBusiness,
+                numberOfEmployees,
+                numberOfBranches
+            )
+        )
     }
 
     private fun displayBusinessInfo(info: GetRMOBusinessInformationResponse) {
@@ -464,15 +490,6 @@ class BusinessInformationActivity :
             }
 
         }
-    }
-
-    private fun putInformationFromFields() {
-        val businessType = binding.searchNatureOfBusiness.text.toString()
-        val storeProduct = binding.etProductOfServicesOffered.text.toString()
-        val infoStatus = "draft"
-        val yearsInBusiness = binding.etYearsCounter.text.toString().toInt()
-        val numberOfEmployees = binding.etEmployeeCounter.text.toString().toInt()
-        val numberOfBranches = binding.etBranchCounter.text.toString().toInt()
     }
 
     private fun btnNextClicked() {

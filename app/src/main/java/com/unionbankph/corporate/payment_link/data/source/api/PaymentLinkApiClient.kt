@@ -44,34 +44,6 @@ interface PaymentLinkApiClient {
         createMerchantForm: CreateMerchantForm
     ): Single<Response<CreateMerchantResponse>>
 
-    @PUT("msme/api/{api_version}/rmo/merchant")
-    fun putBusinessInformation(
-        @Header("Authorization")
-        accessToken: String,
-        @Header("x-client-id")
-        clientId: String,
-        @Header("x-client-secret")
-        clientSecret: String,
-        @Path("api_version")
-        apiVersion: String,
-        @Body
-        rmoBusinessInformationForm: RMOBusinessInformationForm
-    ): Single<Response<RMOBusinessInformationResponse>>
-
-    @GET("msme/api/{api_version}/rmo/merchant")
-    fun getBusinessInformation(
-        @Header("Authorization")
-        accessToken: String,
-        @Header("x-client-id")
-        clientId: String,
-        @Header("x-client-secret")
-        clientSecret: String,
-        @Path("api_version")
-        apiVersion: String,
-        @Body
-        getRMOBusinessInformationForm: GetRMOBusinessInformationForm
-    ): Single<Response<GetRMOBusinessInformationResponse>>
-
     @PUT("msme/api/{api_version}/merchant/accounts")
     fun updateSettlementOnRequestPayment(
         @Header("Authorization")
@@ -161,5 +133,47 @@ interface PaymentLinkApiClient {
         @Path("api_version")
         apiVersion: String
     ): Single<Response<ValidateMerchantByOrganizationResponse>>
+
+    @PUT("msme/api/{api_version}/rmo/merchant")
+    fun putBusinessInformation(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        rmoBusinessInformationForm: RMOBusinessInformationForm
+    ): Single<Response<RMOBusinessInformationResponse>>
+
+    @GET("msme/api/{api_version}/rmo/merchant")
+    fun getBusinessInformation(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        getRMOBusinessInformationForm: GetRMOBusinessInformationForm
+    ): Single<Response<GetRMOBusinessInformationResponse>>
+
+    @POST("msme/api/{api_version}/rmo/merchant")
+    fun postBusinessInformation(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        getRMOBusinessInformationForm: GetRMOBusinessInformationForm
+    ): Single<Response<GetRMOBusinessInformationResponse>>
 
 }

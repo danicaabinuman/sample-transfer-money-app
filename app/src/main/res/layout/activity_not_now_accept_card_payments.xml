@@ -14,13 +14,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/pb_notNowCardPayments"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_1"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progress="100"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar"
+        />
+
     <ScrollView
         android:id="@+id/scrollViewMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/viewToolbar"
+        app:layout_constraintTop_toBottomOf="@id/pb_notNowCardPayments"
         app:layout_constraintBottom_toTopOf="@id/shadow_bottom">
 
         <LinearLayout
