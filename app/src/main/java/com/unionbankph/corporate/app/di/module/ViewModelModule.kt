@@ -13,6 +13,8 @@ import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewMode
 import com.unionbankph.corporate.account_setup.presentation.address.AsAddressViewModel
 import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipFragment
 import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipViewModel
+import com.unionbankph.corporate.account_setup.presentation.citizenship.non_filipino.AsNonFilipinoCitizenFragment
+import com.unionbankph.corporate.account_setup.presentation.citizenship.non_filipino.AsNonFilipinoCitizenViewModel
 import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationViewModel
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragmentViewModel
@@ -838,4 +840,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AsCitizenshipViewModel::class)
     abstract fun asCitizenshipViewModel(viewModel: AsCitizenshipViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AsNonFilipinoCitizenViewModel::class)
+    abstract fun asNonFilipinoCitizenViewModel(viewModel: AsNonFilipinoCitizenViewModel): ViewModel
 }

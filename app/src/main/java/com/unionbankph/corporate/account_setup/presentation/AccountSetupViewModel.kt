@@ -30,7 +30,7 @@ class AccountSetupViewModel @Inject constructor() : BaseViewModel() {
         _toolbarState.value = ToolbarState(
             isButtonShow = false,
             buttonType = AccountSetupActivity.BUTTON_SAVE_EXIT,
-            backButtonType = AccountSetupActivity.BACK_ARROW
+            backButtonType = AccountSetupActivity.BACK_ARROW_ICON
         )
     }
 
