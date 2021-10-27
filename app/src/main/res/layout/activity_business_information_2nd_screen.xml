@@ -15,11 +15,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/pb_businessInfo2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_1"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_below="@id/viewToolbar"
+        android:progress="20"
+        />
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/viewToolbar"
+        android:layout_below="@id/pb_businessInfo2"
         android:layout_above="@id/btnNavigateToUploadPhotos">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,16 +40,27 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/business_info_2nd_tv_business_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_2"
+                android:text="@string/we_want_to_know_more_about_your_business"
+                android:textColor="#4A4A4A"
+                android:textSize="@dimen/text_24"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
                 android:id="@+id/tv_where_do_you_sell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/grid_2"
                 android:text="@string/where_do_you_sell"
                 android:textColor="#4A4A4A"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/business_info_2nd_tv_business_title"/>
 
             <TextView
                 android:id="@+id/tv_where_do_you_sell_details"
@@ -188,6 +208,69 @@
 
             <ImageView
                 android:id="@+id/divider_dashed"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/grid_1"
+                android:visibility="invisible"
+                android:src="@drawable/view_dashed"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
+
+            <ImageView
+                android:id="@+id/divider_dashed_2"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/grid_1"
+                android:visibility="invisible"
+                android:src="@drawable/view_dashed"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
+
+            <ImageView
+                android:id="@+id/divider_dashed_3"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/grid_1"
+                android:visibility="invisible"
+                android:src="@drawable/view_dashed"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
+
+            <ImageView
+                android:id="@+id/divider_dashed_4"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/grid_1"
+                android:visibility="invisible"
+                android:src="@drawable/view_dashed"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
+
+            <ImageView
+                android:id="@+id/divider_dashed_5"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/grid_1"
+                android:visibility="invisible"
+                android:src="@drawable/view_dashed"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
+
+            <ImageView
+                android:id="@+id/divider_dashed_6"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/grid_1"
+                android:visibility="invisible"
+                android:src="@drawable/view_dashed"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
+
+            <ImageView
+                android:id="@+id/divider_dashed_7"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginTop="@dimen/grid_1"
+                android:visibility="invisible"
+                android:src="@drawable/view_dashed"
+                app:layout_constraintTop_toBottomOf="@id/ll_where_do_you_sell_3" />
+
+            <ImageView
+                android:id="@+id/divider_dashed_8"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_marginTop="@dimen/grid_1"
@@ -506,6 +589,13 @@
             android:id="@+id/includePreviewGallery"
             layout="@layout/layout_gallery_preview"/>
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvURIcontainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_above="@id/btnNavigateToUploadPhotos"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNavigateToUploadPhotos"

@@ -12,6 +12,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/pb_uploadDocuments"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_1"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progress="70"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar"
+        />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clUploadBIRDocs"
         android:layout_width="match_parent"

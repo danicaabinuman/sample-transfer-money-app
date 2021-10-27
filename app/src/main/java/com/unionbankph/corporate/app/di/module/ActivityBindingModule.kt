@@ -91,13 +91,10 @@ import com.unionbankph.corporate.payment_link.presentation.activity_logs.Activit
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
-import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraActivity
-import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentImagePreviewActivity
-import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraActivity
-import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingImagePreviewActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.*
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_business_information.application_status.ApplicationStatusActivity
@@ -633,5 +630,13 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun applicationStatusActivity(): ApplicationStatusActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessPolicyCameraActivity(): BusinessPolicyCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessPolicyImagePreviewActivity(): BusinessPolicyImagePreviewActivity
 
 }

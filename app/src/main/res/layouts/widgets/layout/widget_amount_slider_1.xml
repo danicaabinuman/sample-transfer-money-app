@@ -58,6 +58,7 @@
         android:maxHeight="12dp"
         android:paddingStart="@dimen/grid_1"
         android:paddingEnd="@dimen/grid_1"
+        android:progress="24"
         android:progressDrawable="@drawable/bg_custom_slider_progress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

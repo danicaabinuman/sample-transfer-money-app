@@ -28,19 +28,20 @@ constructor(
                 params.storeProduct,
                 params.infoStatus,
                 params.yearsInBusiness,
-                params.numberOfBranches,
-                params.physicalStore,
-                params.website,
-                params.lazadaUrl,
-                params.shopeeUrl,
-                params.facebookUrl,
-                params.instagramUrl,
-                params.imageUrl1,
-                params.imageUrl2,
-                params.imageUrl3,
-                params.imageUrl4,
-                params.imageUrl5,
-                params.imageUrl6
+                params.numberOfEmployees,
+                params.numberOfBranches
+//                params.physicalStore,
+//                params.website,
+//                params.lazadaUrl,
+//                params.shopeeUrl,
+//                params.facebookUrl,
+//                params.instagramUrl,
+//                params.imageUrl1,
+//                params.imageUrl2,
+//                params.imageUrl3,
+//                params.imageUrl4,
+//                params.imageUrl5,
+//                params.imageUrl6
             )
         )
     }

@@ -232,13 +232,26 @@ class YesAcceptCardPaymentsActivity : BaseActivity<ActivityYesAcceptCardPayments
         if (view is CheckBox){
             val checked: Boolean = view.isChecked
 
+            val layout: LinearLayout = findViewById(R.id.llAddedAffiliations)
+
             when (view.id){
                 R.id.cb_NoOtherAffiliation -> {
                     if (checked){
                         buttonNextEnable()
                         binding.toggleAffiliation.isEnabled = false
+                        for (i in 0 until layout.childCount){
+                            val viewToDisable = layout.getChildAt(i)
+                            val button = viewToDisable.findViewById<Button>(R.id.btnAffiliation)
+                            button.isEnabled = false
+                        }
                     } else {
                         buttonNextDisable()
+                        for (i in 0 until layout.childCount){
+                            val viewToDisable = layout.getChildAt(i)
+                            val button = viewToDisable.findViewById<Button>(R.id.btnAffiliation)
+                            button.isEnabled = true
+                        }
+
                         binding.toggleAffiliation.isEnabled = true
                     }
                 }

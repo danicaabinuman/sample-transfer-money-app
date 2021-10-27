@@ -158,6 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/grid_3"
+                android:onClick="readFeesAndCharges"
                 android:text="I have read the Fees and Charges"
                 app:layout_constraintTop_toBottomOf="@id/layout_details_transaction_info" />
 
@@ -176,6 +177,7 @@
                 app:layout_constraintTop_toBottomOf="@id/cb_review_send_copy_tnc" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReviewAndSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/grid_9"

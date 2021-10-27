@@ -597,7 +597,7 @@
             android:launchMode="standard"/>
 
         <activity
-            android:name=".payment_link.presentation.setup_business_information.BusinessInformationActivity"
+            android:name=".payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" >
 <!--            <intent-filter>-->
@@ -672,12 +672,12 @@
             android:launchMode="standard" />
 
         <activity
-            android:name=".payment_link.presentation.setup_business_information.NatureOfBusinessActivity"
+            android:name=".payment_link.presentation.setup_business_information.nature_of_business.NatureOfBusinessActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
         <activity
-            android:name=".payment_link.presentation.setup_business_information.ReviewAndSubmitActivity"
+            android:name=".payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
@@ -687,7 +687,24 @@
             android:launchMode="standard" />
 
         <activity
-            android:name=".payment_link.presentation.setup_business_information.BusinessInformation2ndScreenActivity"
+            android:name=".payment_link.presentation.setup_business_information.business_information_forms.BusinessInformation2ndScreenActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" >
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <action android:name="android.intent.action.VIEW" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".payment_link.presentation.onboarding.camera.BusinessPolicyCameraActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
+
+        <activity
+            android:name=".payment_link.presentation.onboarding.camera.BusinessPolicyImagePreviewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard" />
 
