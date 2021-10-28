@@ -117,6 +117,7 @@ class InstaPayFormActivity :
 
     private fun initRecipientData(){
 
+        val fundtransferInstapayForm = FundTransferInstaPayForm()
         if (recipientData != null) {
 
             val feeFormatFinal = DecimalFormat("#,##0.00")
@@ -132,9 +133,11 @@ class InstaPayFormActivity :
                 Timber.e(e.message)
                 e.printStackTrace()
             }
+            fundtransferInstapayForm.instaPayCode = recipientData!!.bankData?.bankCode
             binding.viewTransferToForm.textInputEditTextTransferTo.setText(recipientData!!.beneficiaryName)
             binding.textInputEditTextAccountNumber.setText(recipientData!!.beneficiaryAccountNumber)
             binding.viewReceivingBankForm.textInputEditTextReceivingBank.setText(recipientData!!.bankData?.bank)
+
         }
     }
 
@@ -1046,6 +1049,8 @@ class InstaPayFormActivity :
         fundTransferInstapayForm.recurrenceTypeId = proposedTransferDate?.recurrenceTypeId ?: "1"
         fundTransferInstapayForm.instaPayCode =
             if (beneficiaryMaster != null) beneficiaryMaster?.instapayCode
+            else if (!recipientData!!.bankData?.bankCode.isNullOrEmpty())
+                recipientData!!.bankData?.bankCode
             else selectedBank?.instapayCode
         if (proposedTransferDate?.immediately == false) {
             fundTransferInstapayForm.recurrenceEndDate = proposedTransferDate?.endDate
