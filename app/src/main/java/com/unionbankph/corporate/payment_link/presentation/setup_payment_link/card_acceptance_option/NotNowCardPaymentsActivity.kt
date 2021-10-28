@@ -1,21 +1,20 @@
 package com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.SeekBar
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.jakewharton.rxbinding2.widget.RxSeekBar
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxbinding2.widget.SeekBarProgressChangeEvent
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
 import com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
@@ -24,16 +23,16 @@ import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivityNotNowAcceptCardPaymentsBinding
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
-import io.supercharge.shimmerlayout.ShimmerLayout
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 
 class NotNowCardPaymentsActivity :
-    BaseActivity<ActivityNotNowAcceptCardPaymentsBinding, NotNowCardPaymentsViewModel>(),
+    BaseActivity<ActivityNotNowAcceptCardPaymentsBinding,NotNowCardPaymentsViewModel>(),
     NominateSettlementAccountFragment.OnNominateSettlementAccountListener {
 
     private lateinit var buttonAction: Button
@@ -52,7 +51,7 @@ class NotNowCardPaymentsActivity :
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
-        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.toolbar)
+        initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.root)
         setDrawableBackButton(
             R.drawable.ic_msme_back_button_orange,
             R.color.dsColorMediumOrange,
@@ -89,6 +88,8 @@ class NotNowCardPaymentsActivity :
     override fun onInitializeListener() {
         super.onInitializeListener()
 
+        disableReviewDetailsButton()
+
         initMonthVolumeViews()
         initAverageTransactionViews()
 
@@ -96,6 +97,8 @@ class NotNowCardPaymentsActivity :
         binding.includeSettlementAccount.root.setOnClickListener { openNominateAccounts() }
 
         viewModel.getAccounts()
+
+        navigateToReviewDetails()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -141,6 +144,11 @@ class NotNowCardPaymentsActivity :
                 when (it) {
                     is SeekBarProgressChangeEvent -> {
                         onUserSeekerSetValue(it.progress(), editTextMonthlyVolume)
+                        val setMonthlyProgress = seekBarMonthlyVolume.progress
+                        val setTransactionProgress = seekBarTransactionAmount.progress
+                        if (setMonthlyProgress < setTransactionProgress){
+                            seekBarTransactionAmount.progress = setMonthlyProgress - 1
+                        }
                     }
                 }
             }) { Timber.e(it) }
@@ -148,11 +156,11 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun initAverageTransactionViews() {
-        editTextTransactionAmount = binding.viewTransactionAmount.autoFormatEditText
-        seekBarTransactionAmount = binding.viewTransactionAmount.seekBar
+        editTextTransactionAmount = binding.viewTransactionAmount.autoFormatEditText1
+        seekBarTransactionAmount = binding.viewTransactionAmount.seekBar1
 
-        seekBarTransactionAmount.max = SLIDER_MAX_STEP
-        seekBarTransactionAmount.progress = SLIDER_DEFAULT_STEP
+        seekBarTransactionAmount.max = TRANSACTION_SLIDER_MAX_STEP
+        seekBarTransactionAmount.progress = TRANSACTION_SLIDER_DEFAULT_STEP
 
         RxTextView.textChanges(editTextTransactionAmount)
             .debounce(
@@ -172,6 +180,11 @@ class NotNowCardPaymentsActivity :
                 when (it) {
                     is SeekBarProgressChangeEvent -> {
                         onUserSeekerSetValue(it.progress(), editTextTransactionAmount)
+                        val transactionAmount = seekBarTransactionAmount.progress
+                        val monthlyVolume = seekBarMonthlyVolume.progress
+                        if (transactionAmount > monthlyVolume){
+                            seekBarTransactionAmount.progress = monthlyVolume - 1
+                        }
                     }
                 }
             }) { Timber.e(it) }
@@ -290,8 +303,8 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun populateNominatedSettlementAccount(accountData: Account) {
-        binding.buttonSelectAccount.visibility = View.GONE
-        binding.includeSettlementAccount.root.visibility = View.VISIBLE
+        binding.buttonSelectAccount.visibility(false)
+        binding.includeSettlementAccount.root.visibility(true)
         binding.includeSettlementAccount.apply {
             textViewCorporateName.text = accountData.name
             textViewAccountNumber.text = accountData.accountNumber
@@ -310,21 +323,37 @@ class NotNowCardPaymentsActivity :
                 }
             }
         }
+
+        enableReviewDetailsButton()
     }
 
+    private fun disableReviewDetailsButton(){
+        binding.btnReviewDetails.isEnabled = false
+    }
+
+    private fun enableReviewDetailsButton(){
+        binding.btnReviewDetails.isEnabled = true
+    }
+    private fun navigateToReviewDetails(){
+        binding.btnReviewDetails.setOnClickListener {
+            val intent = Intent(this, ReviewAndSubmitActivity::class.java)
+            startActivity(intent)
+        }
+    }
     companion object {
         var TAG = this::class.java.simpleName
 
         const val SLIDER_TEP = 1
         const val SLIDER_MAX_STEP = 299
         const val SLIDER_DEFAULT_STEP = 24
+        const val TRANSACTION_SLIDER_MAX_STEP = 298
+        const val TRANSACTION_SLIDER_DEFAULT_STEP = 23
         const val SLIDER_MIN_VALUE = 10000
         const val REQUEST_CODE = 200
     }
 
     override val bindingInflater: (LayoutInflater) -> ActivityNotNowAcceptCardPaymentsBinding
         get() = ActivityNotNowAcceptCardPaymentsBinding::inflate
-
     override val viewModelClassType: Class<NotNowCardPaymentsViewModel>
         get() = NotNowCardPaymentsViewModel::class.java
 }

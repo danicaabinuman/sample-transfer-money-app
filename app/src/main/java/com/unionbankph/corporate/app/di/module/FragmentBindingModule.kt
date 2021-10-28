@@ -63,12 +63,16 @@ import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoard
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingDeletePhotosFragment
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosFragment
 import com.unionbankph.corporate.user_creation.presentation.confirmation_message.UcConfirmationMessageFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.UcEnterContactInfoFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.FeeCharges
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
@@ -93,8 +97,6 @@ import com.unionbankph.corporate.user_creation.presentation.select_account.UcAcc
 import com.unionbankph.corporate.user_creation.presentation.tnc.UcTNCFragment
 import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.UcTNCReminderFragment
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsFragment
-import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosFragment
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -445,6 +447,7 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun bottomDashboardMore(): MegaMenuBottomSheet
+
     @PerActivity
     @ContributesAndroidInjector
     abstract fun asAccountSelectionFragment(): AsBusinessTypeFragment
@@ -476,4 +479,25 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun asCitizenshipFragment(): AsCitizenshipFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun negPosBottomSheet(): NewConfirmationBottomSheet
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun feeCharges(): FeeCharges
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingDeletePhotosFragment(): OnboardingDeletePhotosFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingUploadPhotosFragment(): OnboardingUploadPhotosFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun cardAcceptanceUploadDocumentFragment(): CardAcceptanceUploadDocumentFragment
+
 }

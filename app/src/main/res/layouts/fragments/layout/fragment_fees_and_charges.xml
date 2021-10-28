@@ -151,7 +151,8 @@
                             android:layout_marginBottom="@dimen/border_half"
                             android:background="#F1F1F1"
                             android:padding="10dp"
-                            android:text="@string/php_10"
+                            android:text="Free*"
+                            android:textAllCaps="true"
                             android:textColor="#4B4948" />
 
                         <TextView
@@ -160,7 +161,7 @@
                             android:layout_marginBottom="@dimen/border_half"
                             android:background="#F8F8F8"
                             android:padding="10dp"
-                            android:text="@string/php_10"
+                            android:text="@string/php_15"
                             android:textColor="#4B4948" />
 
                         <TextView
@@ -169,7 +170,7 @@
                             android:layout_marginBottom="@dimen/border_half"
                             android:background="#F1F1F1"
                             android:padding="10dp"
-                            android:text="@string/php_15"
+                            android:text="2%"
                             android:textColor="#4B4948" />
 
                         <TextView
@@ -177,12 +178,19 @@
                             android:layout_height="wrap_content"
                             android:background="#F8F8F8"
                             android:padding="10dp"
-                            android:text="@string/php_15"
+                            android:text="PHP 20.00"
                             android:textColor="#4B4948" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:text="* Until further notice"
+                    android:textColor="@color/dsColorMediumGray"/>
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Body1"

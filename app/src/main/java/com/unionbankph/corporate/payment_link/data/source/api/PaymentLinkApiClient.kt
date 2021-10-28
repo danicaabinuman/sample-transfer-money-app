@@ -1,7 +1,14 @@
 package com.unionbankph.corporate.payment_link.data.source.api
 
+import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
+import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
+import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationResponse
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.*
@@ -36,20 +43,6 @@ interface PaymentLinkApiClient {
         @Body
         createMerchantForm: CreateMerchantForm
     ): Single<Response<CreateMerchantResponse>>
-
-    @PUT("msme/api/{api_version}/rmo/merchant")
-    fun putBusinessInformation(
-        @Header("Authorization")
-        accessToken: String,
-        @Header("x-client-id")
-        clientId: String,
-        @Header("x-client-secret")
-        clientSecret: String,
-        @Path("api_version")
-        apiVersion: String,
-        @Body
-        rmoBusinessInformationForm: RMOBusinessInformationForm
-    ): Single<Response<RMOBusinessInformationResponse>>
 
     @PUT("msme/api/{api_version}/merchant/accounts")
     fun updateSettlementOnRequestPayment(
@@ -140,5 +133,47 @@ interface PaymentLinkApiClient {
         @Path("api_version")
         apiVersion: String
     ): Single<Response<ValidateMerchantByOrganizationResponse>>
+
+    @PUT("msme/api/{api_version}/rmo/merchant")
+    fun putBusinessInformation(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        rmoBusinessInformationForm: RMOBusinessInformationForm
+    ): Single<Response<RMOBusinessInformationResponse>>
+
+    @GET("msme/api/{api_version}/rmo/merchant")
+    fun getBusinessInformation(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        getRMOBusinessInformationForm: GetRMOBusinessInformationForm
+    ): Single<Response<GetRMOBusinessInformationResponse>>
+
+    @POST("msme/api/{api_version}/rmo/merchant")
+    fun postBusinessInformation(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Body
+        getRMOBusinessInformationForm: GetRMOBusinessInformationForm
+    ): Single<Response<GetRMOBusinessInformationResponse>>
 
 }

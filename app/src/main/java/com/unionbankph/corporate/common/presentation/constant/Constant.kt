@@ -56,7 +56,6 @@ class Constant {
         const val TYPE_SINGLE = "SINGLE"
         const val TYPE_BATCH = "BATCH"
 
-
         const val ACTION_SESSION_TIMEOUT = "session_timeout"
 
         const val DASHBOARD_ACTION_REQUEST_PAYMENT = "request_payment"

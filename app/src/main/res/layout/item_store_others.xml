@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_others_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/others"
+        android:textColor="#4A4A4A"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_others"
+        style="@style/TextInputLayoutForm"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/grid_1_half"
+        android:layout_marginBottom="15dp"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@id/tv_others_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_others"
+            style="@style/TextInputEditTextFormCounter"
+            android:hint="@string/additional_online_stores" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/storeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_others">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btnAddAnotherStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:text="+ Add another store"
+        android:textColor="@color/colorSMEMediumOrange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/storeContainer"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
