@@ -63,8 +63,8 @@ import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoard
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
-import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingDeletePhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosFragment
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingDeletePhotosFragment
 import com.unionbankph.corporate.user_creation.presentation.confirmation_message.UcConfirmationMessageFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.UcEnterContactInfoFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
@@ -434,14 +434,6 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun bottomSheetUploadPhotos(): OnboardingUploadPhotosFragment
-
-    @PerActivity
-    @ContributesAndroidInjector
-    abstract fun bottomSheetUploadBir(): CardAcceptanceUploadDocumentFragment
-
-    @PerActivity
-    @ContributesAndroidInjector
     abstract fun totpBottomSheet(): TOTPBottomSheet
 
     @PerActivity
@@ -479,10 +471,6 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun asCitizenshipFragment(): AsCitizenshipFragment
-
-    @PerActivity
-    @ContributesAndroidInjector
-    abstract fun negPosBottomSheet(): NewConfirmationBottomSheet
 
     @PerActivity
     @ContributesAndroidInjector
