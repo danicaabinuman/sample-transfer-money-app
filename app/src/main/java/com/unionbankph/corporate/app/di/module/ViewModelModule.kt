@@ -898,4 +898,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BusinessPolicyCameraViewModel::class)
     abstract fun businessPolicyCameraViewModel(viewModel: BusinessPolicyCameraViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NotNowCardPaymentsViewModel::class)
+    abstract fun notNowCardPaymentsViewModel(viewModel: NotNowCardPaymentsViewModel): ViewModel
 }
