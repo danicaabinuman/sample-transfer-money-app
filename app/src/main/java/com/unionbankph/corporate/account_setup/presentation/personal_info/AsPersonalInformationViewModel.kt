@@ -3,6 +3,7 @@ package com.unionbankph.corporate.account_setup.presentation.personal_info
 import android.app.Person
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.unionbankph.corporate.account_setup.data.GenderEnum
 import com.unionbankph.corporate.account_setup.data.PersonalInfoInput
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.platform.events.Event
@@ -29,7 +30,7 @@ class AsPersonalInformationViewModel @Inject constructor() : BaseViewModel() {
         var lastNameInput = BehaviorSubject.create<String>()
         var mobileInput = BehaviorSubject.create<String>()
         var emailInput = BehaviorSubject.create<String>()
-        var genderInput = BehaviorSubject.create<Selector>()
+        var genderInput = BehaviorSubject.create<GenderEnum>()
         var civilStatusInput = BehaviorSubject.create<Selector>()
         var tinInput = BehaviorSubject.create<String>()
         var dobInput = BehaviorSubject.create<String>()
@@ -68,7 +69,7 @@ class AsPersonalInformationViewModel @Inject constructor() : BaseViewModel() {
         lastNameInput: String?,
         mobileInput: String?,
         emailInput: String?,
-        genderInput: Selector? = null,
+        genderInput: GenderEnum? = null,
         civilStatusInput: Selector? = null,
         tinInput: String?,
         dobInput: String? = null,

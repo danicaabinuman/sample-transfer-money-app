@@ -73,7 +73,7 @@
         android:id="@+id/tv_mobile_field_error"
         style="@style/SMECaption"
         android:layout_width="match_parent"
-        android:paddingStart="@dimen/grid_3_half"
+        android:paddingStart="@dimen/grid_2"
         android:textColor="@color/colorErrorColor"
         android:visibility="gone"
         tools:text="Mobile number error"
