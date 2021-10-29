@@ -1235,7 +1235,6 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-
     <style name="SMEToggleButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:paddingLeft">@dimen/mtrl_btn_padding_left</item>
         <item name="android:paddingRight">@dimen/mtrl_btn_padding_right</item>
@@ -1259,6 +1258,13 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <style name="SMEToggleButton.Custom" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:backgroundTint">@color/bg_toggle_group_background_tint</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:strokeColor">@color/bg_toggle_group_stroke_color</item>
+        <item name="android:textColor">@color/bg_toggle_group_text_color</item>
+        <item name="textColor">@color/bg_toggle_group_text_color</item>
+    </style>
 
     <style name="ZeroTextSizeAppearance">
         <item name="android:textSize">0sp</item>

@@ -11,4 +11,9 @@ data class LoanCalculatorState (
     var month: Int? = null,
     var monthlyPayment: Float? = null,
     var totalAmountPayable: Float? = null
-)
+) {
+
+    fun calculatePrincipal() {
+
+    }
+}

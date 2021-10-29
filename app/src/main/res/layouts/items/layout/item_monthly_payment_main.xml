@@ -5,9 +5,19 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="item"
             type="com.unionbankph.corporate.loan.calculator.LoanCalculatorState" />
+
+        <variable
+            name="loanMonths"
+            type="Integer" />
+
+        <variable
+            name="loanAmount"
+            type="Float" />
 
         <variable
             name="handler"
@@ -17,8 +27,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/monthly_payment_cl_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_1">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -30,6 +39,7 @@
             app:cardCornerRadius="@dimen/card_radius_half"
             app:cardElevation="@dimen/default_elevation"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -370,6 +380,8 @@
                     android:layout_marginTop="@dimen/grid_3"
                     android:text="@string/action_apply_now"
                     android:textAllCaps="true"
+                    android:alpha="@{loanMonths != 0 &amp;&amp; loanAmount != 0.0f ? 1.0f: 0.5f}"
+                    android:enabled="@{loanMonths != 0 &amp;&amp; loanAmount != 0.0f ? true : false}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/monthly_payment_cl_monthly_payment"

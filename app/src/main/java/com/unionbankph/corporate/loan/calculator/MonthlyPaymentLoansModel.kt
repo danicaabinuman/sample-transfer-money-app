@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.loan.calculator
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import com.airbnb.epoxy.*
@@ -38,18 +39,36 @@ abstract class MonthlyPaymentLoansModel(
     @EpoxyAttribute
     lateinit var callback: LoansCalculatorCallback
 
+    //TODO REMOVE EPOXY RECYCLERVIEW
     override fun bind(holder: Holder) {
         super.bind(holder)
         holder.binding.apply {
             /*item = dataTest
             executePendingBindings()*/
 
+            //TODO CLEANUP
             monthlyPaymentBApplyNow.setOnClickListener {
                 //applyNowItemClickListener(it)
                 callback.onApplyNow()
             }
 
             if (months != 0 && amount != 0f ) {
+
+                loanAmount = amount
+                loanMonths = months
+
+                seekBar.progress = amount?.toInt()!!
+
+                monthlyPaymentMbtgHowLong.apply {
+                    when (months) {
+                        3 -> check(R.id.monthly_payment_b_three)
+                        6 -> check(R.id.monthly_payment_b_six)
+                        12 -> check(R.id.monthly_payment_b_twelve)
+                        24 -> check(R.id.monthly_payment_b_twenty_four)
+                        36 -> check(R.id.monthly_payment_b_thirty_six)
+                    }
+                }
+
                 val principal = months?.let { amount?.div(it) }
                 val interest = months?.let { (amount?.times(0.36))?.div(it)?.toFloat() }
                 val monthlyPayment = interest?.let { principal?.plus(it) }
@@ -60,13 +79,20 @@ abstract class MonthlyPaymentLoansModel(
                 monthlyPaymentTvAmount.text = context.getString(R.string.format_php, monthlyPayment)
                 monthlyPayment?.let { callback.onMonthlyPayment(it) }
                 amount?.plus(amount!!.times(0.36))?.let { callback.onTotalAmountPayable(it.toFloat()) }
+
+                amount?.let { autoFormatEditText.setText(it.toString()) }
             }
 
-            amount?.let { autoFormatEditText.setText(it.toString()) }
+            if (amount == 0f){
+                seekBar.progress = 50000
+            }
+
+            if (months == 0) {
+                monthlyPaymentMbtgHowLong.clearChecked()
+            }
 
             seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    //callback.onAmountChange(progress.times(10000).toFloat())
                     if (fromUser) {
                             val test = ((progress / 10000).toDouble().roundToInt()).times(10000)
                             callback.onAmountChange(test.toFloat())
@@ -76,16 +102,12 @@ abstract class MonthlyPaymentLoansModel(
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
 
-            //Material Design
-            /*seekBar.setOnSeekBarChangeListener { slider, value, fromUser ->
-                callback.onAmountChange(value)
-            }*/
-
             handler = object : LoansCalculatorHandler {
                 override fun onMonths(months: Int) {
                     callback.onMonthsChange(months)
                 }
             }
+            executePendingBindings()
         }
     }
 

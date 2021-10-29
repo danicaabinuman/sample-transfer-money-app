@@ -3,13 +3,17 @@ package com.unionbankph.corporate.loan.contactinformation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.databinding.FragmentContactInformationBinding
 import com.unionbankph.corporate.itemContactInformation
 import com.unionbankph.corporate.loan.LoanActivity
 
-class ContactInformationFragment: BaseFragment<FragmentContactInformationBinding, ContactInformationViewModel>() {
+class ContactInformationFragment: BaseFragment<FragmentContactInformationBinding, ContactInformationViewModel>(),
+    ContactInformationHandler
+{
 
     private val activity by lazyFast { getAppCompatActivity() as LoanActivity }
 
@@ -47,7 +51,7 @@ class ContactInformationFragment: BaseFragment<FragmentContactInformationBinding
         }
 
         binding.lifecycleOwner = this
-        //binding.handler = this
+        binding.handler = this
         binding.viewModel = viewModel
     }
 
@@ -67,6 +71,10 @@ class ContactInformationFragment: BaseFragment<FragmentContactInformationBinding
                 }
             }
         }
+    }
+
+    override fun onNext() {
+        findNavController().navigate(R.id.nav_to_personalInformationFragment)
     }
 
 }

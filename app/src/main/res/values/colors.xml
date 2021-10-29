@@ -214,6 +214,16 @@
     <color name="colorFingerPrintIconPlain">@color/dsColorMediumOrange</color>
     <color name="colorFaceIDIconPlain">@color/dsColorMediumOrange</color>
 
+    <!--    Button Toggle Group-->
+    <color name="colorButtonToggle">#FFF2E4</color>
+
+    <!-- Chip-->
+    <color name="dsColorChipDefault">@color/colorWhite</color>
+    <color name="dsColorChipTextDefault">@color/colorInfo</color>
+    <color name="dsColorChipDefaultBorder">@color/dsColorLightGray</color>
+    <color name="dsColorChipDisabled">@color/dsColorLightOrange</color>
+    <color name="dsColorChipTextDisabled">@color/dsColorMediumOrange</color>
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->
@@ -325,6 +335,8 @@
     <!--2% — 05-->
     <!--1% — 03-->
     <!--0% — 00-->
+
+
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">@color/colorHint</color>
     <color name="mtrl_error" tools:override="true">@color/colorErrorColor</color>

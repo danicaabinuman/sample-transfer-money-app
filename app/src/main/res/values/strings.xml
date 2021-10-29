@@ -2482,6 +2482,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="header_contact_info">Where can we reach you?</string>
     <string name="title_contact_info">Contact Information</string>
     <string name="hint_email_address_small_letter">Email address</string>
+    <string name="hint_number_of_dependents">Number of Dependents</string>
     <string name="hint_e_g_9900008987">9900008987</string>
     <string name="error_mobile_field">Must start with an 8 or 9.</string>
     <string name="one_last_thing">One last thing...</string>
@@ -2925,6 +2926,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_play_everyday">PlayEveryday</string>
     <string name="drawable_getgo">bg_getgo_card</string>
     <string name="drawable_play_everyday">bg_play_everyday</string>
+    <string name="title_number_of_dependents">Number of Dependents</string>
 
 
 

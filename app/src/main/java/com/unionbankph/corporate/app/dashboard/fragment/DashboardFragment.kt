@@ -65,8 +65,9 @@ class DashboardFragment :
             initRecyclerView()
             initListener()
             initViewModel()
+            initTrialMode()
             initSettingsViewModel()
-            initActionsSettings()
+            initMenuSettings()
         }
     }
 
@@ -266,7 +267,7 @@ class DashboardFragment :
     }
 
     override fun onDashboardActionEmit(actionId: String, isEnabled: Boolean) {
-        if (isOnTrialMode) return
+        //if (isOnTrialMode) return
 
         when (actionId) {
             Constant.DASHBOARD_ACTION_TRANSFER_FUNDS -> {
@@ -367,8 +368,15 @@ class DashboardFragment :
             Constant.DASHBOARD_ACTION_MORE -> {
                 openMenuBottomSheet()
             }
-            Constant.DASHBOARD_ACTION_DEFAULT_LOANS -> {
-                Timber.e("Default Loans Clicked")
+            Constant.DASHBOARD_ACTION_APPLY_LOAN -> {
+                navigator.navigate(
+                    (activity as DashboardActivity),
+                    LoanActivity::class.java,
+                    null,
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+                )
             }
             Constant.DASHBOARD_ACTION_DEFAULT_EARNINGS -> {
                 Timber.e("Default Earnings Clicked")

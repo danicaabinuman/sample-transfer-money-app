@@ -22,7 +22,6 @@ class LoanActivity : BaseActivity<ActivityLoanBinding, LoanMainViewModel>() {
         super.afterLayout(savedInstanceState)
         initToolbar(binding.toolbar, binding.appBarLayout)
         setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorDarkOrange, true)
-        setIsScreenScrollable(false)
     }
 
     override fun onViewModelBound() {
@@ -39,16 +38,6 @@ class LoanActivity : BaseActivity<ActivityLoanBinding, LoanMainViewModel>() {
         val inflater = navHostFragment.navController.navInflater
         val graph = inflater.inflate(R.navigation.nav_loan)
         navHostFragment.navController.graph = graph
-    }
-
-    fun setIsScreenScrollable(isScrollable: Boolean) {
-        val elevation = when (isScrollable) {
-            true -> TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics)
-            else -> 0f
-        }
-        supportActionBar?.elevation = elevation
-        binding.appBarLayout.elevation = elevation
     }
 
     override fun onSupportNavigateUp(): Boolean {

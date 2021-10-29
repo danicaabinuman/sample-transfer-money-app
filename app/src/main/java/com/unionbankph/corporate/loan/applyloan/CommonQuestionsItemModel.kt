@@ -47,7 +47,6 @@ abstract class CommonQuestionsItemModel : EpoxyModelWithHolder<CommonQuestionsIt
                     }
                 }
             }
-
             executePendingBindings()
         }
     }

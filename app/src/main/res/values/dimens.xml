@@ -387,6 +387,7 @@
     <dimen name="margin_23dp">23dp</dimen>
     <dimen name="margin_24dp">24dp</dimen>
     <dimen name="margin_26dp">26dp</dimen>
+    <dimen name="margin_30dp">30dp</dimen>
     <dimen name="margin_32dp">32dp</dimen>
     <dimen name="margin_42dp">42dp</dimen>
     <dimen name="margin_56dp">56dp</dimen>

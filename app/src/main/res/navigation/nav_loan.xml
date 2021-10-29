@@ -22,7 +22,11 @@
         android:label="LoansCalculatorFragment" >
         <action
             android:id="@+id/nav_to_fewRemindersFragment"
-            app:destination="@id/fewRemindersFragment" />
+            app:destination="@id/fewRemindersFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
     </fragment>
     <fragment
         android:id="@+id/fewRemindersFragment"
@@ -30,7 +34,11 @@
         android:label="FewRemindersFragment" >
         <action
             android:id="@+id/nav_to_citizenFragment"
-            app:destination="@id/citizenFragment" />
+            app:destination="@id/citizenFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
     </fragment>
     <fragment
         android:id="@+id/citizenFragment"
@@ -38,10 +46,18 @@
         android:label="CitizenFragment" >
         <action
             android:id="@+id/nav_to_nonFilipinoFragment"
-            app:destination="@id/nonFilipinoFragment" />
+            app:destination="@id/nonFilipinoFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
         <action
             android:id="@+id/nav_to_businessType"
-            app:destination="@id/businessType" />
+            app:destination="@id/businessType"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/nonFilipinoFragment"
@@ -53,11 +69,27 @@
         android:label="BusinessType" >
         <action
             android:id="@+id/nav_to_contactInformationFragment"
-            app:destination="@id/contactInformationFragment" />
+            app:destination="@id/contactInformationFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
     </fragment>
     <fragment
         android:id="@+id/contactInformationFragment"
         android:name="com.unionbankph.corporate.loan.contactinformation.ContactInformationFragment"
-        android:label="ContactInformationFragment" />
+        android:label="ContactInformationFragment" >
+        <action
+            android:id="@+id/nav_to_personalInformationFragment"
+            app:destination="@id/personalInformationFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalInformationFragment"
+        android:name="com.unionbankph.corporate.loan.personal_information.PersonalInformationFragment"
+        android:label="PersonalInformationFragment" />
 
 </navigation>

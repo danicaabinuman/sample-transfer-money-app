@@ -4,6 +4,7 @@ import android.content.Context
 import com.unionbankph.corporate.R
 import kotlinx.serialization.Serializable
 
+//TODO
 @Serializable
 data class CommonQuestions(
     var id: Int? = null,

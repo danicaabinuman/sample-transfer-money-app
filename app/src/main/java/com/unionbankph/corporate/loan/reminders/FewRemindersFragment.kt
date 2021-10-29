@@ -8,11 +8,10 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.databinding.FragmentFewRemindersBinding
-import com.unionbankph.corporate.itemFewReminders
 import com.unionbankph.corporate.loan.LoanActivity
 
 class FewRemindersFragment : BaseFragment<FragmentFewRemindersBinding,
-        FewRemindersViewModel>()
+        FewRemindersViewModel>(), FewRemindersHandler
 {
 
     private val activity by lazyFast { getAppCompatActivity() as LoanActivity }
@@ -30,20 +29,31 @@ class FewRemindersFragment : BaseFragment<FragmentFewRemindersBinding,
             activity.binding.tvToolbar,
             ""
         )
+    }
 
+    override fun onViewsBound() {
+        super.onViewsBound()
         initViews()
     }
 
-    private fun initViews() {
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        initObservers()
+    }
 
-        binding.fewFragmentErvData.withModels {
-            itemFewReminders {
-                id(hashCode())
-                onClickListener { model, parentView, clickedView, position ->
-                    findNavController().navigate(R.id.nav_to_citizenFragment)
-                }
-            }
+    private fun initObservers() {
+        viewModel.apply {
+
         }
+        binding.lifecycleOwner = this
+        binding.handler = this
+    }
+
+    private fun initViews() {}
+
+    override fun onNext() {
+
+        findNavController().navigate(R.id.nav_to_citizenFragment)
     }
 
 }

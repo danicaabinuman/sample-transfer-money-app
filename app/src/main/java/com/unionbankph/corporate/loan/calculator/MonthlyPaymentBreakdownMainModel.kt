@@ -72,7 +72,7 @@ abstract class MonthlyPaymentBreakdownMainModel :
                     data = result
                     data.setValueTextSize(12f)
                     setExtraOffsets(0f, 15f, 0f, 15f)
-                    animateY(1400, Easing.EaseInOutQuad)
+                    //animateY(1400, Easing.EaseInOutQuad)
                     setDrawCenterText(false)
                     invalidate()
                 }

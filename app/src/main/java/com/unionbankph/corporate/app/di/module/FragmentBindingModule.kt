@@ -2,12 +2,13 @@ package com.unionbankph.corporate.app.di.module
 
 import com.unionbankph.corporate.account.presentation.account_list.AccountFragment
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
+import com.unionbankph.corporate.account_setup.presentation.address.AsAddressFragment
 import com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.debit_card_type.AsDebitCardTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationFragment
 import com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment
-import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsPrivacyPolicyViewPager
 import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceFragment
-import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceViewPager
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
@@ -61,6 +62,7 @@ import com.unionbankph.corporate.loan.calculator.LoansCalculatorFragment
 import com.unionbankph.corporate.loan.citizen.CitizenFragment
 import com.unionbankph.corporate.loan.contactinformation.ContactInformationFragment
 import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoFragment
+import com.unionbankph.corporate.loan.personal_information.PersonalInformationFragment
 import com.unionbankph.corporate.loan.reminders.FewRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
@@ -471,13 +473,13 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun asAddressFragment(): AsAddressFragment
 
-    @PerActivity
+   /* @PerActivity
     @ContributesAndroidInjector
     abstract fun asTermsOfServiceViewPager(): AsTermsOfServiceViewPager
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun asPrivacyPolicyViewPager(): AsPrivacyPolicyViewPager
+    abstract fun asPrivacyPolicyViewPager(): AsPrivacyPolicyViewPager*/
 
     @PerActivity
     @ContributesAndroidInjector
@@ -510,4 +512,8 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun contactInformationFragment(): ContactInformationFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun personalInformationFragment(): PersonalInformationFragment
 }

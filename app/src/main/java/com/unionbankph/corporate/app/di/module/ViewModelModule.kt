@@ -91,6 +91,15 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
+import com.unionbankph.corporate.loan.LoanMainViewModel
+import com.unionbankph.corporate.loan.applyloan.LoansViewModel
+import com.unionbankph.corporate.loan.businesstype.BusinessTypeViewModel
+import com.unionbankph.corporate.loan.calculator.LoansCalculatorViewModel
+import com.unionbankph.corporate.loan.citizen.CitizenViewModel
+import com.unionbankph.corporate.loan.contactinformation.ContactInformationViewModel
+import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoViewModel
+import com.unionbankph.corporate.loan.personal_information.PersonalInformationViewModel
+import com.unionbankph.corporate.loan.reminders.FewRemindersViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationViewModel
@@ -871,5 +880,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ContactInformationViewModel::class)
     abstract fun contactInformationViewModel(viewModel: ContactInformationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PersonalInformationViewModel::class)
+    abstract fun personalInformationViewModel(viewModel: PersonalInformationViewModel): ViewModel
 
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import com.airbnb.epoxy.AutoModel
 import com.airbnb.epoxy.Typed2EpoxyController
+import com.airbnb.epoxy.TypedEpoxyController
 import com.unionbankph.corporate.*
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
@@ -12,9 +13,7 @@ import com.unionbankph.corporate.common.data.form.Pageable
 class LoansFragmentController
 constructor(
     private val context: Context,
-    private val viewUtil: ViewUtil,
-    private val autoFormatUtil: AutoFormatUtil
-) : Typed2EpoxyController<LoansViewState, Pageable>() {
+) : TypedEpoxyController<LoansViewState>() {
 
     @AutoModel
     lateinit var loansHeaderItemModel: LoansHeaderItemModel_
@@ -49,7 +48,7 @@ constructor(
 
     }
 
-    override fun buildModels(loansViewState: LoansViewState, pageable: Pageable) {
+    override fun buildModels(loansViewState: LoansViewState) {
 
         loansViewState.let {
 
@@ -121,16 +120,9 @@ constructor(
         }
     }
 
-    override fun onExceptionSwallowed(exception: RuntimeException) {
-        // Best practice is to throw in debug so you are aware of any issues that Epoxy notices.
-        // Otherwise Epoxy does its best to swallow these exceptions and continue gracefully
-        throw exception
-    }
-
     fun setLoansHeaderAdapterCallback(loansAdapterCallback: LoansAdapterCallback) {
         this.loansAdapterCallback = loansAdapterCallback
     }
-
 
 }
 

@@ -13,8 +13,8 @@ constructor(
     private val _businessType = MutableLiveData<Int>()
     val businessType: LiveData<Int> = _businessType
 
-    private val _hasSelect = MutableLiveData(false)
-    val hasSelect: LiveData<Boolean> = _hasSelect
+    private val _isSelect = MutableLiveData(false)
+    val isSelect: LiveData<Boolean> = _isSelect
 
     init {
 
@@ -23,7 +23,7 @@ constructor(
     fun setBusinessType(types: Int) {
         types?.let {
             _businessType.value = types
-            _hasSelect.value = true
+            _isSelect.value = true
         }
     }
 
