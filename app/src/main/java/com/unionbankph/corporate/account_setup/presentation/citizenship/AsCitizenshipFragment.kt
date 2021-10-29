@@ -22,7 +22,8 @@ class AsCitizenshipFragment :
         super.afterLayout(savedInstanceState)
 
         accountSetupActivity.apply {
-            showProgress(false)
+            showProgress(true)
+            setProgressValue(5)
             showToolbarButton(false)
             setBackButtonIcon(AccountSetupActivity.BACK_ARROW_ICON)
         }

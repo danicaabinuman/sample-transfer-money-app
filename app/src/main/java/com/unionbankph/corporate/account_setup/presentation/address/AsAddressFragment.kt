@@ -42,7 +42,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             setIsScreenScrollable(false)
             setToolbarButtonType(AccountSetupActivity.BUTTON_SAVE_EXIT)
             showToolbarButton(true)
-            setProgressValue(2)
+            setProgressValue(7)
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -58,6 +58,8 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
 
     private fun init() {
         binding.apply {
+            cbAsAddressSameAsPresentAddress.setMSMETheme()
+
             includeAsAddressPresentAddress.apply {
                 tieWidgetAddressCity.setEnableViewSME(false)
                 tvWidgetAddressCity.setEnableView(false)

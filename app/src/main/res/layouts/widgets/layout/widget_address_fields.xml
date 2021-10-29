@@ -62,26 +62,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tv_widget_address_city"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_3"
-        android:text="@string/title_city"
-        android:textAppearance="@style/SMECaption" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/TextInputLayoutFormThin"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/grid_1"
-        app:hintEnabled="false">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tie_widget_address_city"
-            android:hint="@string/hint_city"
-            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
         android:id="@+id/tv_widget_address_region"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,6 +78,26 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tie_widget_address_region"
             android:hint="@string/title_region"
+            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_widget_address_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_3"
+        android:text="@string/title_city"
+        android:textAppearance="@style/SMECaption" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/TextInputLayoutFormThin"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/grid_1"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_widget_address_city"
+            android:hint="@string/hint_city"
             style="@style/TextInputLayoutFormThinEditText.DropDownOrange"/>
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.app.common.extension
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.text.*
@@ -10,10 +12,7 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.ClickableSpan
 import android.util.TypedValue
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
@@ -271,7 +270,7 @@ fun TextView.enableButtonMSME(isEnabled: Boolean) {
         this.setContextCompatTextColor(R.color.colorWhite)
     } else {
         this.alpha = 0.5f
-        this.setContextCompatTextColor(R.color.colorButtonGray)
+        this.setContextCompatTextColor(R.color.dsColorPrimaryButtonTextDisabled)
     }
 }
 
@@ -497,4 +496,17 @@ fun Context.getAccentColor(): Int {
 fun Int.convertToDP(context: Context) : Int {
     val scale = context.resources.displayMetrics.density
     return (this * scale + 0.5f).toInt()
+}
+
+fun CheckBox.setMSMETheme() {
+    this.buttonTintList = ColorStateList(
+        arrayOf(
+            intArrayOf(-android.R.attr.state_checked), // unchecked
+            intArrayOf(android.R.attr.state_checked) // checked
+        ),
+        intArrayOf(
+            Color.parseColor("#BFBFBF"),  //unchecked color
+            Color.parseColor("#FF8200")
+        )
+    )
 }

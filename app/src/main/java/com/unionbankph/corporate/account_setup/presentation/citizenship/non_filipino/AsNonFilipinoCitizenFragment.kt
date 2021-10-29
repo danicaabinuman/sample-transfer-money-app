@@ -16,7 +16,10 @@ class AsNonFilipinoCitizenFragment :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        accountSetupActivity.setBackButtonIcon(AccountSetupActivity.BACK_X_ICON)
+        accountSetupActivity.apply {
+            showProgress(false)
+            setBackButtonIcon(AccountSetupActivity.BACK_X_ICON)
+        }
     }
 
 

@@ -45,13 +45,12 @@ class AsPersonalInformationFragment
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-
         accountSetupActivity.apply {
             setIsScreenScrollable(false)
             setToolbarButtonType(AccountSetupActivity.BUTTON_SAVE_EXIT)
             showToolbarButton(true)
             showProgress(true)
-            setProgressValue(1)
+            setProgressValue(6)
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -66,6 +65,9 @@ class AsPersonalInformationFragment
 
     override fun onViewsBound() {
         super.onViewsBound()
+
+        binding.cbAsPersonalInfoNotUsCitizen.setMSMETheme()
+
         validateForm()
         initViewBindings()
     }
