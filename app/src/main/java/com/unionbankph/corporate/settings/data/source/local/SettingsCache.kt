@@ -145,4 +145,6 @@ interface SettingsCache {
     fun saveEnabledFeatures(enableFeatures: MutableList<String>): Completable
     fun isEnabledFeature(featuresEnum: FeaturesEnum): Single<Boolean>
 
+    fun isTrialMode(): Maybe<Boolean>
+    fun getTrialModeDaysRemaining(): Maybe<String>
 }

@@ -501,4 +501,12 @@ constructor(
     override fun isEnabledFeature(featuresEnum: FeaturesEnum): Single<Boolean> {
         return settingsCache.isEnabledFeature(featuresEnum)
     }
+
+    override fun isTrialMode(): Maybe<Boolean> {
+        return settingsCache.isTrialMode()
+    }
+
+    override fun getTrialModeDaysRemaining(): Maybe<String> {
+        return settingsCache.getTrialModeDaysRemaining()
+    }
 }

@@ -1,9 +1,10 @@
 package com.unionbankph.corporate.trial_account.presentation
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
+import androidx.lifecycle.Observer
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
@@ -11,6 +12,7 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
 import com.unionbankph.corporate.databinding.ActivityTrialAccountSetupBinding
+
 
 class TrialAccountActivity :
     BaseActivity<ActivityTrialAccountSetupBinding, TrialAccountViewModel>()  {
@@ -36,9 +38,30 @@ class TrialAccountActivity :
         }
     }
 
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+        viewModel.state.observe(this, Observer {
+            when(it){
+                is TrialAccountViewModel.ShowTrialAccountStateLoading -> {
+                    showProgressAlertDialog(TrialAccountActivity::class.java.simpleName)
+                }
+                is TrialAccountViewModel.ShowTrialAccountStateDismissLoading -> {
+                    dismissProgressAlertDialog()
+                }
+                is TrialAccountViewModel.ShowTrialAccountError -> {
+                    handleOnError(it.throwable)
+                }
+                is TrialAccountViewModel.ShowDaysRemaining -> {
+                    binding.tvTrialModeDays.text = formatString(R.string.title_trial_mode_days, it.daysRemaining)
+                }
+
+            }
+        })
+        viewModel.getTrialDaysRemaining()
+    }
+
     override fun onViewsBound() {
         super.onViewsBound()
-
         initOnClick()
     }
 

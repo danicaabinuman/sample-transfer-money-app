@@ -2788,4 +2788,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="as_non_filipino_citizenship_title">We\'re Sorry</string>
     <string name="as_non_filipino_citizenship_section_title">RM Details</string>
     <string name="as_non_filipino_citizenship_description">Application is limited to Filipino citizens residing in the Philippines. A UnionBank officer will reach out to you.</string>
+    <string name="title_trial_mode_days">You are on Trial Mode\nfor %1$s!</string>
 </resources>

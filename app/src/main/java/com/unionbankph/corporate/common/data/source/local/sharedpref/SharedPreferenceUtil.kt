@@ -105,6 +105,11 @@ constructor(private val rxSharedPreferences: RxSharedPreferences) {
 
     private val udidSharedPref = "udid"
 
+    private val isTrialMode = "isTrialMode"
+
+    private val trialModeDaysRemainingSharedPref = "trialModeDaysRemainingSharedPref"
+
+
     fun notificationTokenPref() = rxSharedPreferences.getString(notificationTokenPref, "")
 
     fun isLoggedIn() = rxSharedPreferences.getBoolean(authSharedPref, false)
@@ -236,4 +241,7 @@ constructor(private val rxSharedPreferences: RxSharedPreferences) {
 
     fun udidSharedPref() = rxSharedPreferences.getString(udidSharedPref, "")
 
+    fun isTrialMode() = rxSharedPreferences.getBoolean(isTrialMode, false)
+
+    fun trialModeDaysRemainingSharedPref() = rxSharedPreferences.getString(trialModeDaysRemainingSharedPref,"")
 }

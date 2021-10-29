@@ -200,4 +200,7 @@ interface SettingsGateway {
     fun getEnabledFeatures(): Completable
     fun saveEnabledFeatures(enabledFeatures: MutableList<String>): Completable
     fun isEnabledFeature(featuresEnum: FeaturesEnum): Single<Boolean>
+
+    fun isTrialMode(): Maybe<Boolean>
+    fun getTrialModeDaysRemaining(): Maybe<String>
 }
