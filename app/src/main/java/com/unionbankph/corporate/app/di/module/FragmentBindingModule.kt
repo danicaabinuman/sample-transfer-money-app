@@ -5,8 +5,8 @@ import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFrag
 import com.unionbankph.corporate.account_setup.presentation.address.AsAddressFragment
 import com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment
-import com.unionbankph.corporate.account_setup.presentation.debit_card_type.AsDebitCardTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationFragment
+import com.unionbankph.corporate.account_setup.presentation.debit_card_type.AsDebitCardTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment
 import com.unionbankph.corporate.account_setup.presentation.terms_of_service.AsTermsOfServiceFragment
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
@@ -14,6 +14,7 @@ import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.SessionTimeOutBottomSheet
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragment
+import com.unionbankph.corporate.app.dashboard.fragment.MegaMenuBottomSheet
 import com.unionbankph.corporate.app.di.scope.PerActivity
 import com.unionbankph.corporate.approval.presentation.ApprovalFragment
 import com.unionbankph.corporate.approval.presentation.approval_done.ApprovalDoneFragment
@@ -69,6 +70,7 @@ import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoard
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
+import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingDeletePhotosFragment
 import com.unionbankph.corporate.user_creation.presentation.confirmation_message.UcConfirmationMessageFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.UcEnterContactInfoFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
@@ -101,6 +103,7 @@ import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.UcTNCRe
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsFragment
 import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.FeeCharges
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -451,6 +454,10 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
+    abstract fun bottomDashboardMore(): MegaMenuBottomSheet
+
+    @PerActivity
+    @ContributesAndroidInjector
     abstract fun asAccountSelectionFragment(): AsBusinessTypeFragment
 
     @PerActivity
@@ -516,4 +523,25 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun personalInformationFragment(): PersonalInformationFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asCitizenshipFragment(): AsCitizenshipFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun feeCharges(): FeeCharges
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingDeletePhotosFragment(): OnboardingDeletePhotosFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingUploadPhotosFragment(): OnboardingUploadPhotosFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun cardAcceptanceUploadDocumentFragment(): CardAcceptanceUploadDocumentFragment
+
 }

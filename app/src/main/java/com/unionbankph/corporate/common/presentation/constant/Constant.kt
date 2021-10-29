@@ -56,7 +56,6 @@ class Constant {
         const val TYPE_SINGLE = "SINGLE"
         const val TYPE_BATCH = "BATCH"
 
-
         const val ACTION_SESSION_TIMEOUT = "session_timeout"
 
         const val DASHBOARD_ACTION_REQUEST_PAYMENT = "request_payment"
@@ -194,6 +193,13 @@ class Constant {
         companion object {
             const val GETGO = 0
             const val PLAYEVERYDAY = 1
+        }
+    }
+
+    class Citizenship {
+        companion object {
+            const val FILIPINO = "FILIPINO"
+            const val NON_FILIPINO = "NON_FILIPINO"
         }
     }
 }

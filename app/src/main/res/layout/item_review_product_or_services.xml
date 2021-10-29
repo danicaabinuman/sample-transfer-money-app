@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/grid_2"
+    android:paddingEnd="@dimen/grid_2"
+    android:background="@drawable/bg_transparent_gray_border_8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tvFilenameOfPhoto_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:background="@color/dsColorLightOrange"
+        android:text="   policy.pdf"
+        android:drawableStart="@drawable/ds_check_icon"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvFilenameOfPhoto_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:background="@color/dsColorLightOrange"
+        android:text="   policy.pdf"
+        android:drawableStart="@drawable/ds_check_icon"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/tvFilenameOfPhoto_1"/>
+
+    <TextView
+        android:id="@+id/tvFilenameOfPhoto_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:background="@color/dsColorLightOrange"
+        android:text="   policy.pdf"
+        android:drawableStart="@drawable/ds_check_icon"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/tvFilenameOfPhoto_2"/>
+
+    <TextView
+        android:id="@+id/tvFilenameOfPhoto_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:background="@color/dsColorLightOrange"
+        android:text="   policy.pdf"
+        android:drawableStart="@drawable/ds_check_icon"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/tvFilenameOfPhoto_3"/>
+
+    <TextView
+        android:id="@+id/tvFilenameOfPhoto_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:background="@color/dsColorLightOrange"
+        android:text="   policy.pdf"
+        android:drawableStart="@drawable/ds_check_icon"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/tvFilenameOfPhoto_4"/>
+
+    <TextView
+        android:id="@+id/tvFilenameOfPhoto_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:background="@color/dsColorLightOrange"
+        android:text="   policy.pdf"
+        android:drawableStart="@drawable/ds_check_icon"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/tvFilenameOfPhoto_5"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnEditProductsOrServices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:text="@string/action_edit"
+        android:background="@color/jumio_white"
+        android:textColor="@color/colorSMEMediumOrange"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/tvFilenameOfPhoto_6"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

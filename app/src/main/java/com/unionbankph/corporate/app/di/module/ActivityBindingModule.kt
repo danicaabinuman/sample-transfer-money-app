@@ -573,10 +573,6 @@ abstract class ActivityBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun merchantApplicationReceivedActivity(): MerchantApplicationReceivedActivity
-
-    @PerActivity
-    @ContributesAndroidInjector
     abstract fun cardAcceptanceOptionActivity(): CardAcceptanceOptionActivity
 
     @PerActivity
@@ -609,13 +605,58 @@ abstract class ActivityBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun merchantApplicationRejectedActivity(): MerchantApplicationRejectedActivity
-
-    @PerActivity
-    @ContributesAndroidInjector
     abstract fun accountSetupActivity(): AccountSetupActivity
 
     @PerActivity
     @ContributesAndroidInjector
+    abstract fun onboardingCameraActivity(): OnboardingCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingImagePreviewActivity(): OnboardingImagePreviewActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun documentCameraActivity(): DocumentCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun documentImagePreviewActivity(): DocumentImagePreviewActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun natureOfBusinessActivity(): NatureOfBusinessActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun reviewAndSubmitActivity(): ReviewAndSubmitActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun submitApplicationActivity(): SubmitApplicationActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun merchantApplicationRejectedActivity(): MerchantApplicationRejectedActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
     abstract fun loanActivity(): LoanActivity
+    abstract fun merchantApplicationReceivedActivity(): MerchantApplicationReceivedActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessInformation2ndScreenActivity(): BusinessInformation2ndScreenActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun applicationStatusActivity(): ApplicationStatusActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessPolicyCameraActivity(): BusinessPolicyCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessPolicyImagePreviewActivity(): BusinessPolicyImagePreviewActivity
 }

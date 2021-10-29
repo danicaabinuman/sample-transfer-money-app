@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_rmo_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_statusMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:layout_marginStart="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar">
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
+            android:text="@string/pending"
+            android:textStyle="bold"
+            android:textColor="@color/colorDarkGray4B4948"
+            style="@style/TextAppearance.AppCompat.Headline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvStatusMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
+            android:text="@string/pending_message"
+            app:layout_constraintTop_toBottomOf="@id/tvStatus"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/iv_status_icon"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/grid_13"
+            android:layout_marginStart="@dimen/grid_5"
+            android:src="@drawable/ic_status_pending"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvStatusMessage"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_application_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_3"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:background="@drawable/bg_transparent_gray_border_8dp"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/cl_statusMessage">
+
+        <LinearLayout
+            android:id="@+id/ll_reference_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/grid_1"
+            android:weightSum="1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/referenceNo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginBottom="@dimen/grid_1"
+                android:text="@string/form_reference_no"
+                android:textColor="@color/colorDarkGray4B4948" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="1234567890"
+                android:textColor="@color/colorDarkGray4B4948"
+                app:layout_constraintStart_toEndOf="@id/referenceNo" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/divider_dashed"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="@dimen/grid_1"
+            android:src="@drawable/view_dashed"
+            app:layout_constraintTop_toBottomOf="@id/ll_reference_no" />
+
+        <LinearLayout
+            android:id="@+id/ll_application_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/grid_1"
+            android:weightSum="1"
+            app:layout_constraintTop_toBottomOf="@id/divider_dashed">
+
+            <TextView
+                android:id="@+id/application_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginTop="@dimen/grid_1"
+                android:text="Application Date"
+                android:textColor="@color/colorDarkGray4B4948" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginTop="@dimen/grid_1"
+                android:text="October 1, 2021"
+                android:textColor="@color/colorDarkGray4B4948"
+                app:layout_constraintStart_toEndOf="@id/referenceNo" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_application_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_3"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
+        android:background="@drawable/bg_transparent_gray_border_8dp"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/cl_application_details">
+
+        <ImageView
+            android:id="@+id/iv_pending_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_warning_yellow"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_application_status_pending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:text="Application Pending"
+            android:textColor="@color/colorDarkGray4B4948"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_pending_icon"/>
+
+        <TextView
+            android:id="@+id/tv_application_status_pending_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1_half"
+            android:text="October 1, 2021 12:00 AM"
+            android:textColor="@color/dsColorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/tv_application_status_pending"
+            app:layout_constraintStart_toStartOf="@id/tv_application_status_pending"/>
+
+        <ImageView
+            android:id="@+id/iv_received_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/grid_2"
+            android:src="@drawable/ds_check_icon"
+            app:layout_constraintTop_toBottomOf="@id/tv_application_status_pending_time"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_application_status_received"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_2"
+            android:text="Application Received"
+            android:textColor="@color/colorDarkGray4B4948"
+            app:layout_constraintTop_toBottomOf="@id/tv_application_status_pending_time"
+            app:layout_constraintStart_toEndOf="@id/iv_received_icon"/>
+
+        <TextView
+            android:id="@+id/tv_application_status_received_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1_half"
+            android:text="October 1, 2021 12:00 AM"
+            android:textColor="@color/dsColorLightGray"
+            app:layout_constraintTop_toBottomOf="@id/tv_application_status_received"
+            app:layout_constraintStart_toStartOf="@id/tv_application_status_received"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel application"
+        android:background="@color/jumio_white"
+        android:layout_marginBottom="@dimen/grid_2"
+        android:layout_marginStart="@dimen/grid_2"
+        android:layout_marginEnd="@dimen/grid_2"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

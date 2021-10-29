@@ -9,12 +9,7 @@ import android.view.MenuItem
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
-import com.unionbankph.corporate.app.dashboard.DashboardActivity
-import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.databinding.ActivityCardAcceptanceOptionBinding
-import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
-import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
 
 class CardAcceptanceOptionActivity :
     BaseActivity<ActivityCardAcceptanceOptionBinding, CardAcceptanceOptionViewModel>() {
@@ -92,7 +87,6 @@ class CardAcceptanceOptionActivity :
 
     override val bindingInflater: (LayoutInflater) -> ActivityCardAcceptanceOptionBinding
         get() = ActivityCardAcceptanceOptionBinding::inflate
-
     override val viewModelClassType: Class<CardAcceptanceOptionViewModel>
         get() = CardAcceptanceOptionViewModel::class.java
 }

@@ -14,13 +14,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ProgressBar
+        android:id="@+id/pb_notNowCardPayments"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/grid_1"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progress="100"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbar"
+        />
+
     <ScrollView
         android:id="@+id/scrollViewMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/viewToolbar"
+        app:layout_constraintTop_toBottomOf="@id/pb_notNowCardPayments"
         app:layout_constraintBottom_toTopOf="@id/shadow_bottom">
 
         <LinearLayout
@@ -78,7 +87,7 @@
 
                 <include
                     android:id="@+id/viewTransactionAmount"
-                    layout="@layout/widget_amount_slider"
+                    layout="@layout/widget_amount_slider_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/grid_1"
@@ -146,12 +155,12 @@
         android:layout_height="@dimen/border_shadow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/buttonSubmit"
+        app:layout_constraintBottom_toTopOf="@id/btnReviewDetails"
         android:layout_marginBottom="@dimen/grid_1"
         android:background="@drawable/bg_shadow"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonSubmit"
+        android:id="@+id/btnReviewDetails"
         style="@style/SMEPrimaryButtonLarge"
         android:layout_marginStart="@dimen/grid_2"
         android:layout_marginEnd="@dimen/grid_2"
