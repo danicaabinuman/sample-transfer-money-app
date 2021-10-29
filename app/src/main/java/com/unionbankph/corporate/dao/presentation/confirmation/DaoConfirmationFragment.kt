@@ -50,7 +50,6 @@ import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.dao.presentation.result.DaoResultFragment
 import com.unionbankph.corporate.databinding.FragmentDaoConfirmationBinding
 import io.reactivex.rxkotlin.addTo
-import timber.log.Timber
 import javax.annotation.concurrent.ThreadSafe
 
 class DaoConfirmationFragment :
@@ -133,7 +132,6 @@ class DaoConfirmationFragment :
                 showDaoErrorDetailsDialog(DaoErrorCodeEnum.DAO_JUMIO_NEED_MORE_TIME)
             }
             is MismatchIDException -> {
-                Timber.e("throwable " + throwable.message)
                 showDaoErrorDetailsDialog(DaoErrorCodeEnum.DAO_JUMIO_SCAN_RETRY, throwable.message)
             }
             is ExpiredIDException -> {
@@ -486,15 +484,13 @@ class DaoConfirmationFragment :
     }
 
     private fun showLoadingDialog() {
-        loadingDialog?.apply {
-            MaterialDialog(getAppCompatActivity()).apply {
-                lifecycleOwner(getAppCompatActivity())
-                customView(R.layout.dialog_dao_progress_bar)
-            }
-            cancelable(false)
-            cancelOnTouchOutside(false)
-            show()
+        loadingDialog = MaterialDialog(getAppCompatActivity()).apply {
+            lifecycleOwner(getAppCompatActivity())
+            customView(R.layout.dialog_dao_progress_bar)
         }
+        loadingDialog?.cancelable(false)
+        loadingDialog?.cancelOnTouchOutside(false)
+        loadingDialog?.show()
     }
 
     private fun dismissLoadingDialog() {
@@ -618,8 +614,6 @@ class DaoConfirmationFragment :
             }
         }
         ivClose.setOnClickListener { view ->
-            Timber.e("ivClose.setOnClickListener throwable " + mismatchIdError)
-
             mismatchIdError?.let {
                 navigateToMismatchedForms(mismatchIdError)
             }
