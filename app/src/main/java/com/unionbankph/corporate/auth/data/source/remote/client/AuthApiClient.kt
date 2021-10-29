@@ -168,7 +168,7 @@ interface AuthApiClient {
         apiVersion: String,
         @Body
         form: com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
-    ): Single<Response<UserCreationOTPVerified>>
+    ): Single<Response<UserCreationAuth>>
 
     @POST("msme/api/{api_version}/corporate-users/resend-otp")
     fun userCreationResendOTP(

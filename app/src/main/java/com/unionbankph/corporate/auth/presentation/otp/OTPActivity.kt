@@ -846,17 +846,16 @@ class OTPActivity :
     }
 
     private fun navigateBackToUserCreationScreen(response: UserCreationOTPVerified) {
-        val bundle = Bundle().apply {
-            putBoolean(UserCreationActivity.EXTRA_FROM_OTP, true)
-            putString(
-                UserCreationActivity.EXTRA_FORM,
-                intent.getStringExtra(EXTRA_OPEN_ACCOUNT_FORM)
-            )
-            putString(
-                UserCreationActivity.EXTRA_VERIFICATION_TOKEN,
-                response.accessToken
-            )
-        }
+      val bundle = Bundle()
+        bundle.putBoolean(UserCreationActivity.EXTRA_FROM_OTP, true)
+        bundle.putString(
+            UserCreationActivity.EXTRA_FORM,
+            intent.getStringExtra(EXTRA_OPEN_ACCOUNT_FORM)
+        )
+        bundle.putString(
+            UserCreationActivity.EXTRA_VERIFICATION_TOKEN,
+            response.accessToken
+        )
         intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
         navigator.navigateClearStacks(
             this,

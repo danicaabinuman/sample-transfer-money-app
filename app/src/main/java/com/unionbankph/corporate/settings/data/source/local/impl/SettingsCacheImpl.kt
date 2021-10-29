@@ -1011,4 +1011,16 @@ constructor(
             isFindFeature != null
         }
     }
+
+    override fun isTrialMode(): Maybe<Boolean> {
+        return Maybe.fromCallable {
+            sharedPreferenceUtil.isTrialMode().get()
+        }
+    }
+
+    override fun getTrialModeDaysRemaining(): Maybe<String> {
+        return Maybe.fromCallable {
+            sharedPreferenceUtil.trialModeDaysRemainingSharedPref().get()
+        }
+    }
 }

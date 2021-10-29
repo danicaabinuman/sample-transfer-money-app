@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.data.source.local
 
 import com.unionbankph.corporate.auth.data.form.ECredForm
+import com.unionbankph.corporate.auth.data.model.UserCreationDetails
 import com.unionbankph.corporate.auth.data.model.UserDetails
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -20,6 +21,8 @@ interface AuthCache {
     fun clearLoginCredential(): Completable
 
     fun saveCredential(userDetails: UserDetails): Completable
+
+    fun saveCredential(userCreationDetails: UserCreationDetails): Completable
 
     fun saveECredPayload(eCredForm: ECredForm): Completable
 

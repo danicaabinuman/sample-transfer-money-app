@@ -61,9 +61,9 @@
                     app:srcCompat="@drawable/bg_iv_trial_account" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTrialModeDays"
                     android:layout_gravity="center"
                     style="@style/SMEHeadlineH2"
-                    android:id="@+id/tvTrialModeDays"
                     android:layout_marginBottom="@dimen/msme_content_spacing"
                     android:text="@string/msg_trial_mode"
                     android:textColor="@color/colorSMEMediumOrange"

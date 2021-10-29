@@ -61,6 +61,10 @@ constructor(
         return authCache.saveCredential(userDetails)
     }
 
+    override fun saveCredential(userCreationDetails: UserCreationDetails): Completable {
+        return authCache.saveCredential(userCreationDetails)
+    }
+
     override fun login(loginForm: LoginForm): Single<Auth> {
         return settingsGateway.getNotificationToken()
             .zipWith(settingsGateway.getUdid().toSingle())
@@ -212,7 +216,7 @@ constructor(
 
     override fun userCreationNominatePassword(
         form: UcNominatePasswordForm
-    ): Single<UserCreationOTPVerified> {
+    ): Single<UserCreationAuth> {
         return authRemote.userCreationNominatePassword(form)
             .flatMap { responseProvider.executeResponseSingle(it) }
     }

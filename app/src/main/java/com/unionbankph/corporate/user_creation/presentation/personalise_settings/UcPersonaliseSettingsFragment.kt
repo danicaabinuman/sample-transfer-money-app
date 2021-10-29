@@ -22,9 +22,12 @@ import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.bills_payment.data.model.Transaction
+import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
@@ -35,6 +38,7 @@ import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.*
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsViewModel
 import com.unionbankph.corporate.settings.presentation.profile.ProfileSettingsFragment
+import com.unionbankph.corporate.trial_account.presentation.TrialAccountActivity
 import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -43,7 +47,6 @@ import java.util.concurrent.TimeUnit
 
 class UcPersonaliseSettingsFragment :
     BaseFragment<FragmentUcPersonaliseSettingsBinding, UcPersonaliseSettingsViewModel>()  {
-    private val formDisposable = CompositeDisposable()
 
     private var isCheckedTrustDevice :Boolean = true
     private var isCheckedNotif :Boolean = true
@@ -66,35 +69,42 @@ class UcPersonaliseSettingsFragment :
 
     override fun onInitializeListener() {
         super.onInitializeListener()
+        initSwitchListener()
         initClickListener()
     }
 
+
     private fun initViewModel(){
-        viewModel.uiState.observe(this, EventObserver {
-            when (it) {
-                is UiState.Loading -> {
-                    showProgressAlertDialog(this::class.java.simpleName)
+        viewModel.apply {
+            uiState.observe(viewLifecycleOwner, EventObserver {
+                when (it) {
+                    is UiState.Loading -> {
+                        showProgressAlertDialog(this::class.java.simpleName)
+                    }
+                    is UiState.Complete -> {
+                        dismissProgressAlertDialog()
+                    }
+                    is UiState.Error -> {
+                        handleOnError(it.throwable)
+                    }
+                    is UiState.Exit -> {
+                        navigator.navigateClearStacks(
+                            getAppCompatActivity(),
+                            LoginActivity::class.java,
+                            Bundle().apply { putBoolean(LoginActivity.EXTRA_SPLASH_SCREEN, false) },
+                            true
+                        )
+                    }
                 }
-                is UiState.Complete -> {
-                    dismissProgressAlertDialog()
-                    initRxPermission()
-                }
-                is UiState.Error -> {
-                    handleOnError(it.throwable)
-                }
-                is UiState.Exit -> {
-                    navigator.navigateClearStacks(
-                        getAppCompatActivity(),
-                        LoginActivity::class.java,
-                        Bundle().apply { putBoolean(LoginActivity.EXTRA_SPLASH_SCREEN, false) },
-                        true
-                    )
-                }
-            }
-        })
+            })
+            navigateToLocalSettings.observe(viewLifecycleOwner, EventObserver {
+                considerAsRecentUser(PromptTypeEnum.TRUST_DEVICE)
+                rxPermission()
+            })
+        }
     }
 
-    private fun initClickListener(){
+    private fun initSwitchListener(){
         binding.scTrustDevice.setOnCheckedChangeListener { buttonView, isChecked ->
             isCheckedTrustDevice = isChecked
             binding.scOTP.isChecked = isChecked
@@ -111,26 +121,16 @@ class UcPersonaliseSettingsFragment :
         binding.scContacts.setOnCheckedChangeListener { buttonView, isChecked ->
             isCheckedContacts = isChecked
         }
+    }
 
-        RxView.clicks(binding.buttonNext)
-            .throttleFirst(
-                resources.getInteger(R.integer.time_button_debounce).toLong(),
-                TimeUnit.MILLISECONDS
-            )
-            .subscribe {
-                initOnPermissions()
-
-                findNavController().navigate(R.id.action_permission_settings_to_confirmation_message)
-            }.addTo(formDisposable)
+    private fun initClickListener(){
+        binding.buttonNext.setOnClickListener {
+            initOnPermissions()
+        }
     }
 
     private fun initOnPermissions(){
-        when(isCheckedTrustDevice){
-            true -> {
-                viewModel.totpSubscribe(ManageDeviceForm(""))
-            }
-        }
-        viewModel.getNotifications(isCheckedNotif)
+        viewModel.saveSettings(isCheckedNotif, isCheckedTrustDevice)
         when(isCheckedGallery){
             true -> {
                 listPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -151,7 +151,7 @@ class UcPersonaliseSettingsFragment :
         }
     }
 
-    private fun initRxPermission(){
+    private fun rxPermission(){
         when{
             listPermissions.size > 0 -> {
                 RxPermissions(this)
@@ -160,13 +160,16 @@ class UcPersonaliseSettingsFragment :
                     )
                     .subscribe { granted ->
                         if (granted) {
-
+                            findNavController().navigate(R.id.action_permission_settings_to_confirmation_message)
                         }
                     }.addTo(disposables)
             }
-            else -> {}
+            else -> {
+                findNavController().navigate(R.id.action_permission_settings_to_confirmation_message)
+            }
         }
     }
+
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentUcPersonaliseSettingsBinding
         get() = FragmentUcPersonaliseSettingsBinding::inflate

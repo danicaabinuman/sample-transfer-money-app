@@ -67,7 +67,7 @@ interface AuthRemote {
 
     fun userCreationNominatePassword(
         form: UcNominatePasswordForm
-    ): Single<Response<UserCreationOTPVerified>>
+    ): Single<Response<UserCreationAuth>>
 
     fun userCreationResendOTP(
         form: ResendOTPForm
