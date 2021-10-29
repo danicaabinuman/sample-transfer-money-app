@@ -568,6 +568,17 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
 
+    <style name="EditTextSearchView.Selector">
+        <item name="android:background">@drawable/bg_border_orange_msme</item>
+        <item name="android:theme">@style/TextInputEditTextAccent</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:drawableStart">@null</item>
+        <item name="android:drawableLeft">@null</item>
+        <item name="android:padding">10dp</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
     <style name="EditTextReferenceNumber">
         <item name="android:layout_width">@dimen/match_constraint</item>
         <item name="android:layout_height">@dimen/field_height_search</item>

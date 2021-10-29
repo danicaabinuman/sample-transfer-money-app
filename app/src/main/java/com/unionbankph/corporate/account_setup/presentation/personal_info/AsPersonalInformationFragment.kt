@@ -52,7 +52,7 @@ class AsPersonalInformationFragment
             setToolbarButtonType(AccountSetupActivity.BUTTON_SAVE_EXIT)
             showToolbarButton(true)
             showProgress(true)
-            setProgressValue(1)
+            setProgressValue(6)
         }
     }
 
@@ -63,6 +63,9 @@ class AsPersonalInformationFragment
 
     override fun onViewsBound() {
         super.onViewsBound()
+
+        binding.cbAsPersonalInfoNotUsCitizen.setMSMETheme()
+
         validateForm()
         initViewBindings()
     }

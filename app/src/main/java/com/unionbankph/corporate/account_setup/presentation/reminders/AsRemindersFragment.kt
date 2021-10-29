@@ -20,8 +20,8 @@ class AsRemindersFragment
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            accountSetupActivity.popBackStack()
+        accountSetupActivity.apply {
+            setProgressValue(3)
         }
     }
 

@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -38,6 +39,9 @@ class SingleSelectorActivity :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         initToolbar(binding.viewToolBar.toolbar, binding.viewToolBar.appBarLayout)
+        setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorDarkOrange, true)
+        removeElevation(binding.viewToolBar.appBarLayout)
+        binding.viewToolBar.tvToolbar.setTextAppearance(this, R.style.SMESubtitle2)
     }
 
     override fun onViewsBound() {
