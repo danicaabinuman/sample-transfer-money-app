@@ -27,16 +27,11 @@ class AsBusinessTypeFragment
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        handleOnBackPressed()
-    }
-
-    private fun handleOnBackPressed() {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-           navigateDashboardScreen()
-            return@addCallback
+        accountSetupActivity.apply {
+            showProgress(true)
+            setProgressValue(1)
         }
     }
-
 
     override fun onViewModelBound() {
         super.onViewModelBound()

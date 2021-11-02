@@ -18,6 +18,12 @@ class AsTermsOfServiceFragment :
 
     private val accountSetupActivity by lazyFast { getAppCompatActivity() as AccountSetupActivity }
 
+    override fun afterLayout(savedInstanceState: Bundle?) {
+        super.afterLayout(savedInstanceState)
+
+        accountSetupActivity.setProgressValue(4)
+    }
+
     override fun onViewsBound() {
         super.onViewsBound()
         init()

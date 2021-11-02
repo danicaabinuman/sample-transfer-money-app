@@ -221,6 +221,13 @@
     <color name="dsColorChipDisabled">@color/dsColorLightOrange</color>
     <color name="dsColorChipTextDisabled">@color/dsColorMediumOrange</color>
 
+    <!-- Checkable Button Text-->
+    <color name="colorCheckableChecked">@color/colorWhite</color>
+    <color name="colorCheckableDefault">@color/dsColorDarkGray</color>
+
+    <!-- Search Widget-->
+    <color name="colorSearchBorder">@color/dsColorMediumOrange</color>
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->

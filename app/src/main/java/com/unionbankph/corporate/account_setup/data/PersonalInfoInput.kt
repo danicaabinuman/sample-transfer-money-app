@@ -10,7 +10,7 @@ data class PersonalInfoInput(
     var lastName: String?  = null,
     var mobile: String? = null,
     var email: String? = null,
-    var gender: Selector? = null,
+    var gender: GenderEnum? = null,
     var civilStatus: Selector? = null,
     var tin: String? = null,
     var dateOfBirth: String? = null,

@@ -6,38 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:elevation="@dimen/grid_1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/SMEHeadlineH2"
-            android:id="@+id/title_tnc"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/fl_tnc"
-            android:elevation="@dimen/grid_3"
-            android:text="@string/title_account_opening_terms_and_condition"
-            android:paddingTop="@dimen/grid_1"
-            android:paddingStart="@dimen/grid_2"
-            android:paddingEnd="@dimen/grid_2"
-            android:paddingBottom="@dimen/grid_2"/>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
     <FrameLayout
         android:id="@+id/fl_tnc"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/match_constraint"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/constraint_layout"
         >
@@ -54,11 +27,20 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 style="@style/MatchParent"
                 android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEHeadlineH2"
+                    android:text="@string/title_account_opening_terms_and_condition"
+                    android:paddingTop="@dimen/grid_1"
+                    android:paddingStart="@dimen/grid_2"
+                    android:paddingEnd="@dimen/grid_2"
+                    android:paddingBottom="@dimen/grid_2"/>
+
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/SMESubtitle1"
                     android:text="@string/title_introduction"
                     android:textAllCaps="true"
-                    android:layout_marginTop="@dimen/msme_content_spacing"
+                    android:layout_marginTop="@dimen/content_spacing"
                     android:layout_marginStart="@dimen/content_spacing"
                     android:layout_marginEnd="@dimen/content_spacing"
                     />
@@ -1144,7 +1126,7 @@
         android:id="@+id/shadow_bottom"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="@dimen/border_shadow"
-        app:layout_constraintTop_toBottomOf="@+id/fl_tnc"
+        app:layout_constraintBottom_toTopOf="@id/constraint_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/bg_shadow"/>
@@ -1152,6 +1134,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/constraint_layout"
         style="@style/MatchWrapParent"
+        android:background="@color/colorWhite"
         android:paddingTop="@dimen/grid_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

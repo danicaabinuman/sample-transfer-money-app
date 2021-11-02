@@ -2,32 +2,26 @@ package com.unionbankph.corporate.account_setup.presentation.address
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputLayout
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
-import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
-import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationFragmentDirections
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import com.unionbankph.corporate.dao.presentation.personal_info_3.DaoPersonalInformationStepThreeFragmentDirections
 import com.unionbankph.corporate.databinding.FragmentAsAddressBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.subjects.BehaviorSubject
 
 class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewModel>(){
 
@@ -42,7 +36,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             setIsScreenScrollable(false)
             setToolbarButtonType(AccountSetupActivity.BUTTON_SAVE_EXIT)
             showToolbarButton(true)
-            setProgressValue(2)
+            setProgressValue(7)
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -58,12 +52,14 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
 
     private fun init() {
         binding.apply {
+            cbAsAddressSameAsPresentAddress.setMSMETheme()
+
             includeAsAddressPresentAddress.apply {
-                tieWidgetAddressCity.setEnableViewSME(false)
+                tieWidgetAddressCity.setEnableDropdownFields(false)
                 tvWidgetAddressCity.setEnableView(false)
             }
             includeAsAddressPermanentAddress.apply {
-                tieWidgetAddressCity.setEnableViewSME(false)
+                tieWidgetAddressCity.setEnableDropdownFields(false)
                 tvWidgetAddressCity.setEnableView(false)
             }
         }
@@ -146,7 +142,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
         }.addTo(disposables)
         viewModel.input.regionInput.subscribe {
             binding.includeAsAddressPresentAddress.apply {
-                tieWidgetAddressCity.setEnableViewSME(it != null)
+                tieWidgetAddressCity.setEnableDropdownFields(it != null)
                 tvWidgetAddressCity.setEnableView(it != null)
                 tieWidgetAddressRegion.setTextNullable(it.value ?: "")
             }
@@ -165,7 +161,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
         }.addTo(disposables)
         viewModel.input.regionPermanentInput.subscribe {
             binding.includeAsAddressPermanentAddress.apply {
-                tieWidgetAddressCity.setEnableViewSME(it != null)
+                tieWidgetAddressCity.setEnableDropdownFields(it != null)
                 tvWidgetAddressCity.setEnableView(it != null)
                 tieWidgetAddressRegion.setTextNullable(it.value ?: "")
             }
