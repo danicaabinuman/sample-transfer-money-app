@@ -58,9 +58,7 @@ class DaoJumioVerificationFragment :
                     }
                     is UiState.Error -> {
                         when(it.throwable){
-                            is SocketTimeoutException -> {
-                                showSomethingWentWrong()
-                            }
+                            is SocketTimeoutException,
                             is NoConnectivityException,
                             is SomethingWentWrongException -> {
                                 showSomethingWentWrong()
