@@ -25,6 +25,8 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.common.domain.exception.NoConnectivityException
+import com.unionbankph.corporate.common.domain.exception.SomethingWentWrongException
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoActivity
@@ -57,6 +59,10 @@ class DaoJumioVerificationFragment :
                     is UiState.Error -> {
                         when(it.throwable){
                             is SocketTimeoutException -> {
+                                showSomethingWentWrong()
+                            }
+                            is NoConnectivityException,
+                            is SomethingWentWrongException -> {
                                 showSomethingWentWrong()
                             }
                             else -> {
@@ -432,6 +438,7 @@ class DaoJumioVerificationFragment :
         jumioToolTip.window?.attributes?.windowAnimations =
             R.style.SlideUpAnimation
         jumioToolTip.window?.setGravity(Gravity.CENTER)
+        jumioToolTip.cancelable(false)
         jumioToolTip.show()
     }
 
