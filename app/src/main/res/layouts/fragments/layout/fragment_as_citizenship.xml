@@ -58,36 +58,36 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_as_citizenship"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_as_citizenship_yes"
-            style="@style/SMEPrimaryButtonBig"
-            android:layout_marginStart="@dimen/grid_1"
-            android:layout_marginEnd="@dimen/grid_1"
-            android:text="@string/as_citizenship_yes"
-            android:textAllCaps="false"
-            android:layout_marginTop="@dimen/grid_7"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintVertical_bias="1"
-            app:layout_constraintTop_toBottomOf="@id/tv_as_citizenship_description"
-            app:layout_constraintBottom_toTopOf="@id/btn_as_citizenship_no"
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="match_parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_as_citizenship_no"
-            style="@style/SMESecondaryButtonBig"
-            android:text="@string/as_citizenship_no"
-            android:layout_marginStart="@dimen/grid_1"
-            android:layout_marginEnd="@dimen/grid_1"
-            android:layout_marginBottom="@dimen/grid_2"
-            android:textAllCaps="false"
-            android:layout_marginTop="@dimen/grid_3_half"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_as_citizenship_yes"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintVertical_bias="1"
+            app:layout_constraintTop_toBottomOf="@id/tv_as_citizenship_description">
+
+            <RadioButton
+                android:id="@+id/btn_as_citizenship_yes"
+                style="@style/SMECheckableButtonBig"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:text="@string/as_citizenship_yes"
+                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/grid_7"
+                android:layout_width="match_parent" />
+
+            <RadioButton
+                android:id="@+id/btn_as_citizenship_no"
+                style="@style/SMECheckableButtonBig"
+                android:text="@string/as_citizenship_no"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/grid_3_half"/>
+
+        </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

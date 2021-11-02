@@ -169,17 +169,18 @@ fun EditText.setEnableView(isEnable: Boolean) {
     }
 }
 
-fun EditText.setEnableViewSME(isEnable: Boolean) {
+fun EditText.setEnableDropdownFields(isEnable: Boolean) {
     val textInputLayout = getTextInputLayout(this)
     if (isEnable) {
         this.isEnabled = true
         this.isClickable = true
         this.setContextCompatBackground(R.color.colorTransparent)
         textInputLayout?.alpha = 1f
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_vector_drop_down_line, 0)
     } else {
         this.isEnabled = false
         this.isClickable = false
-        this.setContextCompatBackground(R.drawable.bg_edit_text_disabled)
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_vector_drop_down_line_disabled, 0)
         textInputLayout?.alpha = 0.5f
     }
 }

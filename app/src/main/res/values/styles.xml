@@ -1109,6 +1109,12 @@
         <item name="android:textColor">@drawable/style_secondary_button_text</item>
     </style>
 
+    <style name="SMECheckableButtonBig" parent="SMEBigButton">
+        <item name="android:background">@drawable/style_checkable_button</item>
+        <item name="android:textColor">@drawable/style_checkable_button_text</item>
+        <item name="android:button">@null</item>
+    </style>
+
     <style name="SMECheckableButtonWithIcon" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
