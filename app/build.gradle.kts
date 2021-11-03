@@ -238,6 +238,7 @@ dependencies {
     implementation(Libraries.journeyappsZxing)
     implementation(Libraries.budiyev)
     kapt(Libraries.epoxyProcessor)
+    implementation(Libraries.biometric)
 
     // Third party SDK
     implementation(Libraries.jumioCore)

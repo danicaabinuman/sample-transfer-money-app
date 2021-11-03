@@ -192,6 +192,11 @@
     <color name="dsColorBody">@color/dsColorDarkGray</color>
     <color name="dsColorCaption">@color/dsColorDarkGray</color>
 
+    <color name="colorFingerPrintIconPlain">@color/dsColorMediumOrange</color>
+    <color name="colorFaceIDIconPlain">@color/dsColorMediumOrange</color>
+
+    <color name="dsColorRoundedTopBottomSheet">@color/colorWhite</color>
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->

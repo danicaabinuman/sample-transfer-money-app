@@ -104,6 +104,7 @@
     <dimen name="content_spacing_xxxl">@dimen/grid_7</dimen>
     <dimen name="content_item_spacing">@dimen/grid_1</dimen>
     <dimen name="content_item_spacing_half">2dp</dimen>
+    <dimen name="content_buttons_spacing_large">60dp</dimen>
 
     <dimen name="content_app_bar_spacing">56dp</dimen>
     <dimen name="content_app_bar_with_tab_spacing">104dp</dimen>

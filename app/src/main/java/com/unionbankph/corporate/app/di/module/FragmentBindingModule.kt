@@ -57,6 +57,7 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.no
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.FeeCharges
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
+import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsFragment
 import com.unionbankph.corporate.settings.presentation.notification.NotificationDetailFragment
@@ -356,4 +357,10 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun allowPhoneCamera(): AllowPhoneCamera
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun faceIDBottomSheet(): FaceIDBottomSheet
+
+
 }
