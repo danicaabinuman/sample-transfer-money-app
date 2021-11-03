@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_website_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/website"
+        android:textColor="#4A4A4A"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_website"
+        style="@style/TextInputLayoutForm"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/grid_1_half"
+        android:layout_marginBottom="15dp"
+        app:hintEnabled="false"
+        app:layout_constraintTop_toBottomOf="@id/tv_website_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_website"
+            style="@style/TextInputEditTextFormCounter"
+            android:hint="@string/hint_www_storename_com" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

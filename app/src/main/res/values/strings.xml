@@ -2266,6 +2266,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="ecpay">ECPay</string>
     <string name="lbc">LBC</string>
     <string name="robinsons">Robinsons</string>
+    <string name="palawan_express">Palawan Express</string>
     <string name="palawan_pawnshop">Palawan Pawnshop</string>
     <string name="sm">SM</string>
     <string name="rd_pawnshop">RD Pawnshop</string>
@@ -2306,19 +2307,22 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="e_commerce_count_as_one_1_branch">E-commerce count as one (1) branch</string>
     <string name="default_number_1">1</string>
     <string name="how_many_branches_do_you_nhave">How many branches do you\nhave?</string>
-    <string name="additional_online_stores">Other online stores. Use comma to separate links.</string>
+    <string name="additional_online_stores">Indicate store link</string>
     <string name="others">Others</string>
-    <string name="hint_instagram_com_shopname">instagram.com/shopname</string>
+    <string name="hint_suysing">Indicate store name</string>
+    <string name="hint_instagram_com_shopname">instagram.com/storename</string>
     <string name="instagram">Instagram</string>
-    <string name="hint_facebook_com_shopname">facebook.com/shopname</string>
+    <string name="hint_facebook_com_shopname">facebook.com/storename</string>
     <string name="facebook">Facebook</string>
-    <string name="hint_address">Indicate store address or registered address for e-commerce</string>
+    <string name="hint_address">Indicate store address</string>
     <string name="physical_store">Physical Store</string>
-    <string name="hint_www_storename_com">www.shopname.com</string>
+    <string name="main_branch">Main Branch</string>
+    <string name="hint_www_storename_com">www.storename.com</string>
     <string name="website">Website</string>
-    <string name="hint_shopee_ph_shopname">shopee.ph/shopname</string>
+    <string name="suysing">Suy Sing</string>
+    <string name="hint_shopee_ph_shopname">shopee.ph/storename</string>
     <string name="shopee">Shopee</string>
-    <string name="hint_lazada_com_ph_shop_shopname">lazada.com.ph/shop/shopname</string>
+    <string name="hint_lazada_com_ph_shop_shopname">lazada.com.ph/shop/storename</string>
     <string name="lazada">Lazada</string>
     <string name="input_store_name_link">Input store name / link</string>
     <string name="select_all_that_apply">Select all that apply.</string>
@@ -2327,7 +2331,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="years_in_business">Years in business</string>
     <string name="how_long_have_you_been_in_nbusiness">How long have you been in\nbusiness?</string>
     <string name="details_products_offered">What products or services are you offering and what kind of customers are you targeting?</string>
-    <string name="products_of_services_offered">Products or Services Offered</string>
+    <string name="products_of_services_offered">Products or Services</string>
     <string name="nature_of_business">Nature of Business</string>
     <string name="we_want_to_know_more_about_your_business">We want to know more about your business</string>
     <string name="indicate_0_if_less_than_1_year">Indicate 0 if less than 1 year</string>
@@ -2347,7 +2351,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hello_what_is_your_name">Hello, what is your name?</string>
     <string name="user_creation_input_reminder">Before we begin, please ensure that the following details in your application matches with details in your ID:</string>
     <string name="hello_name">Hello, %1$s!</string>
-    
+
     <string name="user_creation_title_reminder">Before we begin, please ensure that the\nfollowing details in your application matches\nwith details in your ID:</string>
     <string name="desc_user_creation_reminders">
         <![CDATA[
@@ -2489,7 +2493,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hint_e_g_9900008987">9900008987</string>
     <string name="error_mobile_field">Must start with an 8 or 9.</string>
     <string name="one_last_thing">One last thing...</string>
-    <string name="what_s_your_average_monthly_volume">What\'s your average monthly volume?</string>
+    <string name="what_s_your_average_monthly_volume">What\'s your average monthly sales?</string>
     <string name="below_10k">Below 10K</string>
     <string name="above_3m">Above 3M</string>
     <string name="what_s_your_average_transaction_amount">What\'s your average transaction amount?</string>
@@ -2498,6 +2502,21 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="message_no_account_eligible">Seems like your accounts are not eligible for this feature. You may open an account by clicking this button.</string>
     <string name="title_no_available_accounts">No Available Accounts</string>
     <string name="progress_saved">Progress saved</string>
+    <string name="title_use_photo">Use Photo</string>
+    <string name="title_delete_photo">Are you sure you want to remove this photo?</string>
+    <string name="btn_delete_this_photo">YES, DELETE THIS PHOTO</string>
+    <string name="how_many_employees">How many employees do you \nhave?</string>
+    <string name="item_not_uploaded">Item wasn\'t uploaded</string>
+    <string name="invalid_filesize_desc">File size exceeds the maximum allowed size. Maximum file size is 2 MB</string>
+    <string name="invalid_filetype_desc">File format is not supported. Only .jpeg, .png and .pdf are accepted.</string>
+    <string name="branch">Branch </string>
+    <string name="add_another_address">+ Add another address</string>
+    <string name="pending">Pending</string>
+    <string name="pending_message">We\'re currently reviewing \nyour application.</string>
+    <string name="declined">Declined</string>
+    <string name="declined_message">Your application has been \ndeclined.</string>
+    <string name="approved">Approved</string>
+    <string name="approved_message">Congratulations! Your application \nhas been approved.</string>
     <string name="user_creation_success_title">You\'re Logged in</string>
     <string name="user_creation_success_desc">Create a meaningful and powerful \n mobile banking experiences</string>
     <string name="title_permission_settings">Let\'s personalise your banking experience seamless</string>

@@ -156,17 +156,17 @@ class NewConfirmationBottomSheet :
             isCancelable: Boolean = true,
             dismissOnActionClicked: Boolean = true
         ) = NewConfirmationBottomSheet().apply {
-                arguments = Bundle().apply {
-                    putInt(EXTRA_ICON, iconResource)
-                    putString(EXTRA_TITLE, title)
-                    putString(EXTRA_DESCRIPTION, description)
-                    putString(EXTRA_NEGATIVE_BUTTON_TEXT, negativeButtonText)
-                    putString(EXTRA_POSITIVE_BUTTON_TEXT, positiveButtonText)
-                    putString(EXTRA_GRAVITY, gravity)
-                    putBoolean(EXTRA_IS_CANCELABLE, isCancelable)
-                    putBoolean(EXTRA_DISMISS_ON_ACTION_CLICKED, dismissOnActionClicked)
-                }
+            arguments = Bundle().apply {
+                putInt(EXTRA_ICON, iconResource)
+                putString(EXTRA_TITLE, title)
+                putString(EXTRA_DESCRIPTION, description)
+                putString(EXTRA_NEGATIVE_BUTTON_TEXT, negativeButtonText)
+                putString(EXTRA_POSITIVE_BUTTON_TEXT, positiveButtonText)
+                putString(EXTRA_GRAVITY, gravity)
+                putBoolean(EXTRA_IS_CANCELABLE, isCancelable)
+                putBoolean(EXTRA_DISMISS_ON_ACTION_CLICKED, dismissOnActionClicked)
             }
+        }
     }
 
     override val bindingBinder: (View) -> BottomSheetConfirmationNewBinding

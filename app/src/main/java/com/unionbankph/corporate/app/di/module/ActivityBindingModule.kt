@@ -91,12 +91,20 @@ import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewAct
 import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryActivity
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
-import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.*
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.application_status.ApplicationStatusActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformation2ndScreenActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.nature_of_business.NatureOfBusinessActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.submit_application.SubmitApplicationActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
@@ -118,10 +126,8 @@ import com.unionbankph.corporate.settings.presentation.splash.SplashFrameOnboard
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity
-import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
 import com.unionbankph.corporate.trial_account.presentation.TrialAccountActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
+import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -572,10 +578,6 @@ abstract class ActivityBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun merchantApplicationReceivedActivity(): MerchantApplicationReceivedActivity
-
-    @PerActivity
-    @ContributesAndroidInjector
     abstract fun cardAcceptanceOptionActivity(): CardAcceptanceOptionActivity
 
     @PerActivity
@@ -608,9 +610,57 @@ abstract class ActivityBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
+    abstract fun accountSetupActivity(): AccountSetupActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingCameraActivity(): OnboardingCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingImagePreviewActivity(): OnboardingImagePreviewActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun documentCameraActivity(): DocumentCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun documentImagePreviewActivity(): DocumentImagePreviewActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun natureOfBusinessActivity(): NatureOfBusinessActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun reviewAndSubmitActivity(): ReviewAndSubmitActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun submitApplicationActivity(): SubmitApplicationActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
     abstract fun merchantApplicationRejectedActivity(): MerchantApplicationRejectedActivity
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun accountSetupActivity(): AccountSetupActivity
+    abstract fun merchantApplicationReceivedActivity(): MerchantApplicationReceivedActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessInformation2ndScreenActivity(): BusinessInformation2ndScreenActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun applicationStatusActivity(): ApplicationStatusActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessPolicyCameraActivity(): BusinessPolicyCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessPolicyImagePreviewActivity(): BusinessPolicyImagePreviewActivity
 }

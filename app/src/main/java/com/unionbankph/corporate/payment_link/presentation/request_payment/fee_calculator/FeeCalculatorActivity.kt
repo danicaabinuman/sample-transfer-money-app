@@ -110,7 +110,6 @@ class FeeCalculatorActivity :
             binding.btnInstapay.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
             binding.btnOverTheCounter.background = getDrawable(R.drawable.bg_fee_calculator_payment_method)
 
-
         } else if (binding.btnOverTheCounter.isPressed){
             feeAmount = feeCalculatorValueModel.otc
             netAmount = grossAmountDouble - feeAmount

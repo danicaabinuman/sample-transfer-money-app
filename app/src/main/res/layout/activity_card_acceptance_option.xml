@@ -45,11 +45,11 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/grid_5"
+                android:layout_marginTop="@dimen/grid_2"
                 android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_1"
                 android:layout_marginBottom="@dimen/grid_2"
-                android:src="@drawable/bg_card_payments" />
+                android:src="@drawable/iv_card_payments" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -93,12 +93,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_2"
-                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_4"
                     android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/no_set_up_or_annual_fees"
                     android:textColor="#4B4948"
                     app:layout_constraintTop_toBottomOf="@id/textViewBullet1"
-                    app:layout_constraintStart_toEndOf="@id/viewBullet1"
+                    app:layout_constraintStart_toEndOf="@id/viewBullet2"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
                 <View
@@ -115,15 +115,23 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/grid_2"
-                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_4"
                     android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/we_ll_collect_3_php_10_per_transaction"
                     android:textColor="#4B4948"
                     app:layout_constraintTop_toBottomOf="@id/textViewBullet2"
-                    app:layout_constraintStart_toEndOf="@id/viewBullet1"
+                    app:layout_constraintStart_toEndOf="@id/viewBullet3"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:text="* Applicable taxes may apply"
+                    android:textColor="@color/dsColorMediumGray"
+                    app:layout_constraintTop_toBottomOf="@id/viewBullet3"
+                    app:layout_constraintStart_toStartOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatButton

@@ -182,7 +182,7 @@
                         <ImageView
                             android:layout_width="@dimen/grid_5"
                             android:layout_height="0dp"
-                            android:src="@drawable/ic_arrow_black_down"
+                            android:src="@drawable/ic_arrow_orange_down"
                             android:layout_alignParentEnd="true"
                             android:layout_alignBottom="@+id/dropdownPaymentLinkExport"
                             android:layout_alignTop="@+id/dropdownPaymentLinkExport"
