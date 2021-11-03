@@ -425,7 +425,7 @@ class DaoJumioVerificationFragment :
         textViewTitle.text = formatString(R.string.something_went_wrong)
         textViewContent.apply {
             text = formatString(R.string.msg_something_went_wrong).toHtmlSpan()
-            gravity = Gravity.START
+            gravity = Gravity.CENTER
             setPadding(
                 resources.getDimensionPixelSize(R.dimen.content_spacing),
                 0,
