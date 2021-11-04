@@ -98,10 +98,9 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
         binding.apply {
             cbAsAddressSameAsPresentAddress.setMSMETheme()
 
-            includeAsAddressPresentAddress.apply {
-                tieWidgetAddressCity.setEnableDropdownFields(false)
-                tvWidgetAddressCity.setEnableView(false)
-            }
+            tieAsAddressCity.setEnableDropdownFields(false)
+            tvAsAddressCity.setEnableView(false)
+
             includeAsAddressPermanentAddress.apply {
                 tieWidgetAddressCity.setEnableDropdownFields(false)
                 tvWidgetAddressCity.setEnableView(false)
@@ -120,7 +119,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
         eventBus.inputSyncEvent.flowable.subscribe {
             when (it.eventType) {
                 SingleSelectorTypeEnum.PROVINCE.name -> {
-                    binding.includeAsAddressPresentAddress.tieWidgetAddressRegion.clear()
+                    binding.tieAsAddressCity.clear()
                     val selector = JsonHelper.fromJson<Selector>(it.payload)
                     viewModel.input.regionInput.onNext(selector)
                 }
@@ -148,13 +147,13 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
         binding.cbAsAddressSameAsPresentAddress.setOnCheckedChangeListener { _, isChecked ->
             viewModel.input.isSameAsPresentAddress.onNext(isChecked)
         }
-        binding.includeAsAddressPresentAddress.tieWidgetAddressRegion.setOnClickListener {
+        binding.tieAsAddressRegion.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.PROVINCE.name)
         }
         binding.includeAsAddressPermanentAddress.tieWidgetAddressRegion.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.PROVINCE_PERMANENT.name)
         }
-        binding.includeAsAddressPresentAddress.tieWidgetAddressCity.setOnClickListener {
+        binding.tieAsAddressCity.setOnClickListener {
             navigateSingleSelector(
                 SingleSelectorTypeEnum.CITY.name,
                 hasSearch = true,
@@ -175,23 +174,23 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             handleSameAsPresentAddress(it)
         }.addTo(disposables)
         viewModel.input.line1Input.subscribe {
-            binding.includeAsAddressPresentAddress.tieWidgetAddressLine1.setTextNullable(it)
+            binding.tieAsAddressLine1.setTextNullable(it)
         }.addTo(disposables)
         viewModel.input.line2Input.subscribe {
-            binding.includeAsAddressPresentAddress.tieWidgetAddressLine2.setTextNullable(it)
+            binding.tieAsAddressLine2.setTextNullable(it)
         }.addTo(disposables)
         viewModel.input.cityInput.subscribe {
-            binding.includeAsAddressPresentAddress.tieWidgetAddressCity.setTextNullable(it.value ?: "")
+            binding.tieAsAddressCity.setTextNullable(it.value ?: "")
         }.addTo(disposables)
         viewModel.input.regionInput.subscribe {
-            binding.includeAsAddressPresentAddress.apply {
-                tieWidgetAddressCity.setEnableDropdownFields(it != null)
-                tvWidgetAddressCity.setEnableView(it != null)
-                tieWidgetAddressRegion.setTextNullable(it.value ?: "")
+            binding.apply {
+                tieAsAddressCity.setEnableDropdownFields(it != null)
+                tvAsAddressCity.setEnableView(it != null)
+                tieAsAddressRegion.setTextNullable(it.value ?: "")
             }
         }.addTo(disposables)
         viewModel.input.zipInput.subscribe {
-            binding.includeAsAddressPresentAddress.tieWidgetAddressZipCode.setTextNullable(it)
+            binding.tieAsAddressZipCode.setTextNullable(it)
         }.addTo(disposables)
         viewModel.input.permanentLine1Input.subscribe {
             binding.includeAsAddressPermanentAddress.tieWidgetAddressLine1.setTextNullable(it)
@@ -222,7 +221,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_50),
-            editText = binding.includeAsAddressPresentAddress.tieWidgetAddressLine1
+            editText = binding.tieAsAddressLine1
         )
         val line2Observable = viewUtil.rxTextChanges(
             isFocusChanged = true,
@@ -230,7 +229,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_50),
-            editText = binding.includeAsAddressPresentAddress.tieWidgetAddressLine2
+            editText = binding.tieAsAddressLine2
         )
         val cityObservable = viewUtil.rxTextChanges(
             isFocusChanged = true,
@@ -238,7 +237,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.includeAsAddressPresentAddress.tieWidgetAddressCity,
+            editText = binding.tieAsAddressCity,
             customErrorMessage = String.format(
                 getString(R.string.error_specific_field),
                 getString(R.string.title_city)
@@ -250,7 +249,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.includeAsAddressPresentAddress.tieWidgetAddressRegion,
+            editText = binding.tieAsAddressRegion,
             customErrorMessage = String.format(
                 getString(R.string.error_specific_field),
                 getString(R.string.title_region)
@@ -262,7 +261,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_zip_code_length),
-            editText = binding.includeAsAddressPresentAddress.tieWidgetAddressZipCode,
+            editText = binding.tieAsAddressZipCode,
             customErrorMessage = String.format(
                 getString(R.string.error_specific_field),
                 getString(R.string.hint_zip_code)
@@ -320,11 +319,11 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
                 getString(R.string.hint_zip_code)
             )
         )
-        initError(line1Observable, binding.includeAsAddressPresentAddress.tvWidgetAddressLine1)
-        initError(line2Observable, binding.includeAsAddressPresentAddress.tvWidgetAddressLine2)
-        initError(cityObservable, binding.includeAsAddressPresentAddress.tvWidgetAddressCity)
-        initError(regionObservable, binding.includeAsAddressPresentAddress.tvWidgetAddressRegion)
-        initError(zipObservable, binding.includeAsAddressPresentAddress.tvWidgetAddressZipCode)
+        initError(line1Observable, binding.tieAsAddressLine1)
+        initError(line2Observable, binding.tieAsAddressLine2)
+        initError(cityObservable, binding.tieAsAddressCity)
+        initError(regionObservable, binding.tieAsAddressRegion)
+        initError(zipObservable, binding.tieAsAddressZipCode)
         initError(line1PermanentObservable, binding.includeAsAddressPermanentAddress.tvWidgetAddressLine1)
         initError(line2PermanentObservable, binding.includeAsAddressPermanentAddress.tvWidgetAddressLine2)
         initError(cityPermanentObservable, binding.includeAsAddressPermanentAddress.tvWidgetAddressCity)
@@ -368,10 +367,9 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
     /* Todo: Remove this later */
     private fun ignoreSomeFields() {
         binding.apply {
-            includeAsAddressPresentAddress.apply {
-                tieWidgetAddressRegion.setText(Constant.EMPTY)
-                tieWidgetAddressCity.setText(Constant.EMPTY)
-            }
+            tieAsAddressRegion.setText(Constant.EMPTY)
+            tieAsAddressCity.setText(Constant.EMPTY)
+
             includeAsAddressPermanentAddress.apply {
                 tieWidgetAddressRegion.setText(Constant.EMPTY)
                 tieWidgetAddressCity.setText(Constant.EMPTY)
@@ -382,11 +380,11 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
     private fun syncInputData() {
         binding.apply {
             viewModel.syncInputData(
-                line1Input = includeAsAddressPresentAddress.tieWidgetAddressLine1.getTextNullable(),
-                line2Input = includeAsAddressPresentAddress.tieWidgetAddressLine2.getTextNullable(),
+                line1Input = binding.tieAsAddressLine1.getTextNullable(),
+                line2Input = binding.tieAsAddressLine2.getTextNullable(),
                 regionInput = viewModel.input.regionInput.value,
                 cityInput = viewModel.input.cityInput.value,
-                zipCodeInput = includeAsAddressPresentAddress.tieWidgetAddressZipCode.getTextNullable(),
+                zipCodeInput = binding.tieAsAddressZipCode.getTextNullable(),
                 permanentLine1Input = includeAsAddressPermanentAddress.tieWidgetAddressLine1.getTextNullable(),
                 permanentLine2Input = includeAsAddressPermanentAddress.tieWidgetAddressLine2.getTextNullable(),
                 permanentRegionInput = viewModel.input.permanentRegionInput.value,
@@ -399,13 +397,11 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
 
     private fun refreshFields() {
         binding.apply {
-            includeAsAddressPresentAddress.apply {
-                tieWidgetAddressLine1.refresh()
-                tieWidgetAddressLine2.refresh()
-                tieWidgetAddressCity.refresh()
-                tieWidgetAddressRegion.refresh()
-                tieWidgetAddressZipCode.refresh()
-            }
+            tieAsAddressLine1.refresh()
+            tieAsAddressLine2.refresh()
+            tieAsAddressCity.refresh()
+            tieAsAddressRegion.refresh()
+            tieAsAddressZipCode.refresh()
             includeAsAddressPermanentAddress.apply {
                 tieWidgetAddressLine1.refresh()
                 tieWidgetAddressLine2.refresh()
