@@ -2,24 +2,19 @@ package com.unionbankph.corporate.account_setup.presentation
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.account_setup.data.PersonalInfoInput
+import com.unionbankph.corporate.account_setup.data.PersonalInformation
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.extension.enableButton
-import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.databinding.ActivityAccountSetupBinding
 import timber.log.Timber
 
@@ -94,7 +89,7 @@ class AccountSetupActivity :
         this.currentScreen = currentScreen
     }
 
-    fun setPersonalInfoInput(form: PersonalInfoInput) {
+    fun setPersonalInfoInput(form: PersonalInformation) {
         Timber.e("Personal Info")
         viewModel.setPersonalInfoInput(form)
     }

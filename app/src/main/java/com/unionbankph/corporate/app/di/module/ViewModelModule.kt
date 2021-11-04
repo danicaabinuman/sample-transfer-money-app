@@ -11,6 +11,7 @@ import com.unionbankph.corporate.account.presentation.own_account.OwnAccountView
 import com.unionbankph.corporate.account.presentation.source_account.SourceAccountViewModel
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
 import com.unionbankph.corporate.account_setup.presentation.address.AsAddressViewModel
+import com.unionbankph.corporate.account_setup.presentation.business_info.AsBusinessInformationViewModel
 import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipFragment
 import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipViewModel
 import com.unionbankph.corporate.account_setup.presentation.citizenship.non_filipino.AsNonFilipinoCitizenFragment
@@ -906,4 +907,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BusinessPolicyCameraViewModel::class)
     abstract fun businessPolicyCameraViewModel(viewModel: BusinessPolicyCameraViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AsBusinessInformationViewModel::class)
+    abstract fun asBusinessInformationViewModel(viewModel: AsBusinessInformationViewModel): ViewModel
 }

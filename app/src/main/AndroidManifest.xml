@@ -738,11 +738,6 @@
             android:launchMode="standard"/>
 
         <activity
-            android:name=".payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
-
-        <activity
             android:name=".account_setup.presentation.AccountSetupActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"/>

@@ -4,6 +4,7 @@ import com.unionbankph.corporate.account.presentation.account_list.AccountFragme
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
 import com.unionbankph.corporate.account_setup.presentation.address.AsAddressFragment
 import com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.business_info.AsBusinessInformationFragment
 import com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipFragment
 import com.unionbankph.corporate.account_setup.presentation.citizenship.non_filipino.AsNonFilipinoCitizenFragment
@@ -492,4 +493,8 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun cardAcceptanceUploadDocumentFragment(): CardAcceptanceUploadDocumentFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asBusinessInformationFragment(): AsBusinessInformationFragment
 }

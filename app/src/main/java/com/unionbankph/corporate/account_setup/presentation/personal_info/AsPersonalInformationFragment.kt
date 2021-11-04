@@ -6,16 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account_setup.data.GenderEnum
-import com.unionbankph.corporate.account_setup.data.PersonalInfoInput
+import com.unionbankph.corporate.account_setup.data.PersonalInformation
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
-import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
@@ -106,9 +104,10 @@ class AsPersonalInformationFragment
 
         val hasExistingData =
             accountSetupActivity.viewModel.state.value?.hasPersonalInfoInput ?: false
+
         if (hasExistingData) {
             viewModel.populateFieldsWithExisting(
-                accountSetupActivity.viewModel.state.value?.personalInfoInput ?: PersonalInfoInput()
+                accountSetupActivity.viewModel.state.value?.personalInformation ?: PersonalInformation()
             )
         }
     }
@@ -156,10 +155,6 @@ class AsPersonalInformationFragment
         binding.cbAsPersonalInfoNotUsCitizen.setOnCheckedChangeListener { _, isChecked ->
             viewModel.input.notUsCitizenInput.onNext(isChecked)
         }
-    }
-
-    private fun selectGender() {
-
     }
 
     private fun validateForm() {
@@ -415,49 +410,18 @@ class AsPersonalInformationFragment
             .observeOn(schedulerProvider.ui())
             .subscribe { validation ->
                 viewUtil.setError(validation)
-                labelTextView.setTextColor(
-                    when (validation.isProper) {
-                        true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
-                        else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
-                    }
-                )
 
-                errorTextView?.let {
-                    it.visibility = when (validation.isProper) {
-                        true -> View.GONE
-                        else -> View.VISIBLE
-                    }
-                    it.text = validation.message
-                }
+                labelTextView.setFieldLabelError(validation.isProper)
 
-                textInputLayout?.let {
-                    it.error = when (validation.isProper) {
-                        true -> ""
-                        else -> " "
-                    }
-                }
+                errorTextView?.setFieldFooterError(validation)
 
-                handleForGenderSelection(divider, container, validation.isProper)
+                textInputLayout?.setBlankError(validation.isProper)
+
+                divider?.setGenderDividerColor(validation.isProper)
+
+                container?.setGenderContainerBackground(validation.isProper)
 
             }.addTo(formDisposable)
-    }
-
-    private fun handleForGenderSelection(
-        divider: View?, container: ConstraintLayout?, isProper: Boolean) {
-
-        divider?.let {
-            it.background = when (isProper) {
-                true -> ContextCompat.getDrawable(requireContext(), R.color.dsColorLightGray)
-                else -> ContextCompat.getDrawable(requireContext(), R.color.colorErrorColor)
-            }
-        }
-
-        container?.let {
-            it.background = when (isProper) {
-                true -> ContextCompat.getDrawable(requireContext(), R.drawable.bg_secondary_bordered_button_default)
-                else -> ContextCompat.getDrawable(requireContext(), R.drawable.bg_error_bordered)
-            }
-        }
     }
 
     private fun refreshFields() {
