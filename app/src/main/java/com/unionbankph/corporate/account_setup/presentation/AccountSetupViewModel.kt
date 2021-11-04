@@ -3,7 +3,8 @@ package com.unionbankph.corporate.account_setup.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.account_setup.data.AccountSetupState
-import com.unionbankph.corporate.account_setup.data.PersonalInfoInput
+import com.unionbankph.corporate.account_setup.data.Address
+import com.unionbankph.corporate.account_setup.data.PersonalInformation
 import com.unionbankph.corporate.account_setup.data.ToolbarState
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.platform.events.Event
@@ -24,7 +25,7 @@ class AccountSetupViewModel @Inject constructor() : BaseViewModel() {
             businessAccountType = -1,
             debitCardType = null,
             hasPersonalInfoInput = false,
-            personalInfoInput = null
+            personalInformation = null
         )
 
         _toolbarState.value = ToolbarState(
@@ -64,10 +65,17 @@ class AccountSetupViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    fun setPersonalInfoInput(form: PersonalInfoInput) {
+    fun setPersonalInfoInput(input: PersonalInformation) {
         _state.value = _state.value.also {
             it?.hasPersonalInfoInput = true
-            it?.personalInfoInput = form
+            it?.personalInformation = input
+        }
+    }
+
+    fun setAddressInput(input: Address) {
+        _state.value = _state.value.also {
+            it?.hasAddressInput = true
+            it?.address = input
         }
     }
 
