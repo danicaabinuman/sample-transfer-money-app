@@ -99,19 +99,13 @@ class AsAddressViewModel @Inject constructor() : BaseViewModel() {
             input.zipInput.onNext(it)
         }
 
-//        if (isSameAsPermanentAddress != null && isSameAsPermanentAddress) {
-//            address.permanentLine1 = line1Input
-//            address.permanentLine2 = line2Input
-//            address.permanentRegion = regionInput
-//            address.permanentCity = cityInput
-//            address.permanentZipCode = zipCodeInput
-
-//            input.permanentLine1Input.onNext(Constant.EMPTY)
-//            input.permanentLine2Input.onNext(Constant.EMPTY)
-//            input.permanentRegionInput.onNext(Selector())
-//            input.permanentCityInput.onNext(Selector())
-//            input.permanentZipInput.onNext(Constant.EMPTY)
-//        } else {
+        if (isSameAsPermanentAddress != null && isSameAsPermanentAddress) {
+            address.permanentLine1 = line1Input
+            address.permanentLine2 = line2Input
+            address.permanentRegion = regionInput
+            address.permanentCity = cityInput
+            address.permanentZipCode = zipCodeInput
+        } else {
             permanentLine1Input?.let {
                 address.permanentLine1 = it
                 input.permanentLine1Input.onNext(it)
@@ -132,6 +126,6 @@ class AsAddressViewModel @Inject constructor() : BaseViewModel() {
                 address.permanentZipCode = it
                 input.permanentZipInput.onNext(it)
             }
-//        }
+        }
     }
 }

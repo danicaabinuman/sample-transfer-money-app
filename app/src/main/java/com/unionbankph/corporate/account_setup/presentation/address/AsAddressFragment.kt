@@ -73,7 +73,6 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
         })
 
         viewModel.state.observe(viewLifecycleOwner, EventObserver {
-            Timber.e("address " + JsonHelper.toJson(it))
             accountSetupActivity.viewModel.setAddressInput(it)
             findNavController().navigate(R.id.action_business_information)
         })
