@@ -356,6 +356,9 @@ class OTPActivity :
             PAGE_FUND_TRANSFER_SWIFT -> {
                 viewModel.resendOTPFundTransfer(ResendOTPForm(auth.requestId))
             }
+            PAGE_USER_CREATION -> {
+                viewModel.userCreationResendOTP(ResendOTPForm(auth.requestId))
+            }
         }
     }
 
@@ -749,6 +752,12 @@ class OTPActivity :
             auth = it.auth
             initEnableResendButton(false)
             pinCodeEditText.clearPinCode()
+            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_30))
+            initEnableResendButton(false)
+            viewModel.countDownTimer(
+                resources.getInteger(R.integer.resend_otp_code_period).toLong(),
+                resources.getInteger(R.integer.resend_otp_code_count_30).toLong()
+            )
             MaterialDialog(this).show {
                 lifecycleOwner(this@OTPActivity)
                 title(R.string.title_code_resent)
@@ -761,6 +770,9 @@ class OTPActivity :
                 )
             }
         }
+
+        binding.btnResend.visibility = View.VISIBLE
+        binding.buttonGenerateOTP.visibility = View.GONE
     }
 
     private fun submitTransaction() {
