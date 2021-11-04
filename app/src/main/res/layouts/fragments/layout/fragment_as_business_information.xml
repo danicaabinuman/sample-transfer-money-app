@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/grid_1">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearlayoutHeader"
+                style="@style/MatchWrapParent"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_contact_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/grid_3_half"
+                    android:background="@drawable/ic_business_info" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/SMEHeadlineH2"
+                    android:layout_width="match_parent"
+                    android:layout_alignBaseline="@id/ic_contact_info"
+                    android:text="@string/title_business_info" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/grid_1"
+                android:paddingStart="@dimen/grid_1"
+                android:paddingEnd="@dimen/grid_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearlayoutHeader">
+
+                <TextView
+                    android:layout_marginTop="@dimen/grid_3"
+                    style="@style/SMECaption"
+                    android:text="@string/title_business_name"/>
+
+                <TextView
+                    style="@style/SMECaption"
+                    android:text="@string/as_business_information_sub_title"
+                    android:textColor="@color/dsColorMediumGray"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutFormThin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tie_as_business_information_business_name"
+                        style="@style/TextInputLayoutFormThinEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="@string/digits_alpha_numeric_specific_symbols"
+                        android:hint="@string/title_full_legal_name"
+                        android:inputType="textPersonName|textCapWords"
+                        android:nextFocusDown="@id/tie_widget_address_line_2"
+                        android:singleLine="true" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    style="@style/SMESubtitle2"
+                    android:text="@string/title_business_address"
+                    android:layout_marginTop="@dimen/grid_3"/>
+
+                <include
+                    android:id="@+id/include_as_business_information_address"
+                    layout="@layout/widget_address_fields"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_as_address_next"
+                    style="@style/SMEPrimaryButtonLarge"
+                    android:enabled="true"
+                    android:layout_marginTop="@dimen/grid_5"
+                    android:text="@string/action_next" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

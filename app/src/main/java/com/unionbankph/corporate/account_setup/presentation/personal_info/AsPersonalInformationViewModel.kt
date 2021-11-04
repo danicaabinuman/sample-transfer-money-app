@@ -1,25 +1,23 @@
 package com.unionbankph.corporate.account_setup.presentation.personal_info
 
-import android.app.Person
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.account_setup.data.GenderEnum
-import com.unionbankph.corporate.account_setup.data.PersonalInfoInput
+import com.unionbankph.corporate.account_setup.data.PersonalInformation
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import io.reactivex.subjects.BehaviorSubject
-import timber.log.Timber
 import javax.inject.Inject
 
 class AsPersonalInformationViewModel @Inject constructor() : BaseViewModel() {
 
-    private var _state = MutableLiveData<Event<PersonalInfoInput>>()
-    val state: LiveData<Event<PersonalInfoInput>> get() = _state
+    private var _state = MutableLiveData<Event<PersonalInformation>>()
+    val state: LiveData<Event<PersonalInformation>> get() = _state
 
     fun hasValidForm() = input.isValidFormInput.value ?: false
 
-    private var personalInfoInput = PersonalInfoInput()
+    private var personalInformation = PersonalInformation()
 
     val input = Input()
 
@@ -40,11 +38,11 @@ class AsPersonalInformationViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun onClickedNext() {
-        _state.value = Event(personalInfoInput)
+        _state.value = Event(personalInformation)
     }
 
-    fun populateFieldsWithExisting(form: PersonalInfoInput) {
-        personalInfoInput = form
+    fun populateFieldsWithExisting(form: PersonalInformation) {
+        personalInformation = form
         form.let {
             syncInputData(
                 firstNameInput = it.firstName,
@@ -78,51 +76,51 @@ class AsPersonalInformationViewModel @Inject constructor() : BaseViewModel() {
         isNotUsCitizen: Boolean
     ) {
         firstNameInput?.let {
-            personalInfoInput.firstName = it
+            personalInformation.firstName = it
             input.firstNameInput.onNext(it)
         }
         middleNameInput?.let {
-            personalInfoInput.middleName = it
+            personalInformation.middleName = it
             input.middleNameInput.onNext(it)
         }
         lastNameInput?.let {
-            personalInfoInput.lastName = it
+            personalInformation.lastName = it
             input.lastNameInput.onNext(it)
         }
         mobileInput?.let {
-            personalInfoInput.mobile = it
+            personalInformation.mobile = it
             input.mobileInput.onNext(it)
         }
         emailInput?.let {
-            personalInfoInput.email = it
+            personalInformation.email = it
             input.emailInput.onNext(it)
         }
         genderInput?.let {
-            personalInfoInput.gender = it
+            personalInformation.gender = it
             input.genderInput.onNext(it)
         }
         civilStatusInput?.let {
-            personalInfoInput.civilStatus = it
+            personalInformation.civilStatus = it
             input.civilStatusInput.onNext(it)
         }
         tinInput?.let {
-            personalInfoInput.tin = it
+            personalInformation.tin = it
             input.tinInput.onNext(it)
         }
         dobInput?.let {
-            personalInfoInput.dateOfBirth = it
+            personalInformation.dateOfBirth = it
             input.dobInput.onNext(it)
         }
         pobInput?.let {
-            personalInfoInput.placeOfBirth = it
+            personalInformation.placeOfBirth = it
             input.pobInput.onNext(it)
         }
         nationalityInput?.let {
-            personalInfoInput.nationality = it
+            personalInformation.nationality = it
             input.nationalityInput.onNext(it)
         }
         isNotUsCitizen.let {
-            personalInfoInput.notUsCitizen = it
+            personalInformation.notUsCitizen = it
             input.notUsCitizenInput.onNext(it)
         }
     }

@@ -772,6 +772,8 @@
     <string name="title_line_1">Line 1</string>
     <string name="title_line_2">Line 2</string>
     <string name="title_region">Region</string>
+    <string name="title_business_info">Business Information</string>
+    <string name="title_full_legal_name">Full legal name</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -2808,4 +2810,5 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="as_non_filipino_citizenship_section_title">RM Details</string>
     <string name="as_non_filipino_citizenship_description">Application is limited to Filipino citizens residing in the Philippines. A UnionBank officer will reach out to you.</string>
     <string name="title_trial_mode_days">You are on Trial Mode\nfor %1$s!</string>
+    <string name="as_business_information_sub_title">This is the name that appears in your registration certificate</string>
 </resources>

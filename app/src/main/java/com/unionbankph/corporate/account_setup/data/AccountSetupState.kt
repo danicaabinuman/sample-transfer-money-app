@@ -9,8 +9,12 @@ data class AccountSetupState(
     var businessAccountType: Int? = null,
     var debitCardType: Int? = null,
     var hasPersonalInfoInput: Boolean = false,
-    var personalInfoInput: PersonalInfoInput? = null,
-    var citizenship: String? = null,
+    var personalInformation: PersonalInformation? = null,
+    var hasAddressInput: Boolean = false,
+    var address: Address? = null,
+    var hasBusinessInput: Boolean = false,
+    var businessInformation: BusinessInformation? = null,
+    var citizenship: String? = null
 )
 
 @Serializable

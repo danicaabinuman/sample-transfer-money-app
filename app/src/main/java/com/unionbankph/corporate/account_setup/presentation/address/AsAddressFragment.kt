@@ -7,21 +7,28 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account_setup.data.Address
+import com.unionbankph.corporate.account_setup.data.PersonalInformation
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
+import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
+import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.FragmentAsAddressBinding
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import com.unionbankph.corporate.settings.presentation.single_selector.SingleSelectorTypeEnum
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import timber.log.Timber
 
 class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewModel>(){
 
@@ -38,9 +45,46 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             showToolbarButton(true)
             setProgressValue(7)
         }
+    }
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            accountSetupActivity.popBackStack()
+    override fun onViewModelBound() {
+        super.onViewModelBound()
+
+        viewModel.uiState.observe(viewLifecycleOwner, EventObserver {
+            when (it) {
+                is UiState.Loading -> {
+                    showProgressAlertDialog(this::class.java.simpleName)
+                }
+                is UiState.Complete -> {
+                    dismissProgressAlertDialog()
+                }
+                is UiState.Error -> {
+                    handleOnError(it.throwable)
+                }
+                is UiState.Exit -> {
+                    navigator.navigateClearStacks(
+                        getAppCompatActivity(),
+                        LoginActivity::class.java,
+                        Bundle().apply { putBoolean(LoginActivity.EXTRA_SPLASH_SCREEN, false) },
+                        true
+                    )
+                }
+            }
+        })
+
+        viewModel.state.observe(viewLifecycleOwner, EventObserver {
+            Timber.e("address " + JsonHelper.toJson(it))
+            accountSetupActivity.viewModel.setAddressInput(it)
+            findNavController().navigate(R.id.action_business_information)
+        })
+
+        val hasExistingData =
+            accountSetupActivity.viewModel.state.value?.hasPersonalInfoInput ?: false
+
+        if (hasExistingData) {
+            viewModel.populateFieldsWithExisting(
+                accountSetupActivity.viewModel.state.value?.address ?: Address()
+            )
         }
     }
 
@@ -87,11 +131,11 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
                 SingleSelectorTypeEnum.PROVINCE_PERMANENT.name -> {
                     binding.includeAsAddressPermanentAddress.tieWidgetAddressRegion.clear()
                     val selector = JsonHelper.fromJson<Selector>(it.payload)
-                    viewModel.input.regionPermanentInput.onNext(selector)
+                    viewModel.input.permanentRegionInput.onNext(selector)
                 }
                 SingleSelectorTypeEnum.CITY_PERMANENT.name -> {
                     val selector = JsonHelper.fromJson<Selector>(it.payload)
-                    viewModel.input.cityPermanentInput.onNext(selector)
+                    viewModel.input.permanentCityInput.onNext(selector)
                 }
             }
         }.addTo(disposables)
@@ -102,12 +146,11 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             attemptSubmit()
         }
         binding.cbAsAddressSameAsPresentAddress.setOnCheckedChangeListener { _, isChecked ->
-            handleSameAsPresentAddress(isChecked)
+            viewModel.input.isSameAsPresentAddress.onNext(isChecked)
         }
         binding.includeAsAddressPresentAddress.tieWidgetAddressRegion.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.PROVINCE.name)
         }
-
         binding.includeAsAddressPermanentAddress.tieWidgetAddressRegion.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.PROVINCE_PERMANENT.name)
         }
@@ -150,23 +193,23 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
         viewModel.input.zipInput.subscribe {
             binding.includeAsAddressPresentAddress.tieWidgetAddressZipCode.setTextNullable(it)
         }.addTo(disposables)
-        viewModel.input.line1PermanentInput.subscribe {
+        viewModel.input.permanentLine1Input.subscribe {
             binding.includeAsAddressPermanentAddress.tieWidgetAddressLine1.setTextNullable(it)
         }.addTo(disposables)
-        viewModel.input.line2PermanentInput.subscribe {
+        viewModel.input.permanentLine2Input.subscribe {
             binding.includeAsAddressPermanentAddress.tieWidgetAddressLine2.setTextNullable(it)
         }.addTo(disposables)
-        viewModel.input.cityPermanentInput.subscribe {
+        viewModel.input.permanentCityInput.subscribe {
             binding.includeAsAddressPermanentAddress.tieWidgetAddressCity.setTextNullable(it.value ?: "")
         }.addTo(disposables)
-        viewModel.input.regionPermanentInput.subscribe {
+        viewModel.input.permanentRegionInput.subscribe {
             binding.includeAsAddressPermanentAddress.apply {
                 tieWidgetAddressCity.setEnableDropdownFields(it != null)
                 tvWidgetAddressCity.setEnableView(it != null)
                 tieWidgetAddressRegion.setTextNullable(it.value ?: "")
             }
         }.addTo(disposables)
-        viewModel.input.zipPermanentInput.subscribe {
+        viewModel.input.permanentZipInput.subscribe {
             binding.includeAsAddressPermanentAddress.tieWidgetAddressZipCode.setTextNullable(it)
         }.addTo(disposables)
     }
@@ -217,7 +260,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             isFocusChanged = true,
             isValueChanged = true,
             hasSkip = false,
-            minLength = resources.getInteger(R.integer.max_zip_code_length),
+            minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_zip_code_length),
             editText = binding.includeAsAddressPresentAddress.tieWidgetAddressZipCode,
             customErrorMessage = String.format(
@@ -269,7 +312,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             isFocusChanged = true,
             isValueChanged = true,
             hasSkip = false,
-            minLength = resources.getInteger(R.integer.max_zip_code_length),
+            minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_zip_code_length),
             editText = binding.includeAsAddressPermanentAddress.tieWidgetAddressZipCode,
             customErrorMessage = String.format(
@@ -287,6 +330,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
         initError(cityPermanentObservable, binding.includeAsAddressPermanentAddress.tvWidgetAddressCity)
         initError(regionPermanentObservable, binding.includeAsAddressPermanentAddress.tvWidgetAddressRegion)
         initError(zipPermanentObservable, binding.includeAsAddressPermanentAddress.tvWidgetAddressZipCode)
+
         RxCombineValidator(
             line1Observable,
             line2Observable,
@@ -311,10 +355,45 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
     }
 
     private fun attemptSubmit() {
-        if (viewModel.hasValidForm()) {
+        ignoreSomeFields()
 
+        if (viewModel.hasValidForm()) {
+            syncInputData()
+            viewModel.onClickedNext()
         } else {
             refreshFields()
+        }
+    }
+
+    /* Todo: Remove this later */
+    private fun ignoreSomeFields() {
+        binding.apply {
+            includeAsAddressPresentAddress.apply {
+                tieWidgetAddressRegion.setText(Constant.EMPTY)
+                tieWidgetAddressCity.setText(Constant.EMPTY)
+            }
+            includeAsAddressPermanentAddress.apply {
+                tieWidgetAddressRegion.setText(Constant.EMPTY)
+                tieWidgetAddressCity.setText(Constant.EMPTY)
+            }
+        }
+    }
+
+    private fun syncInputData() {
+        binding.apply {
+            viewModel.syncInputData(
+                line1Input = includeAsAddressPresentAddress.tieWidgetAddressLine1.getTextNullable(),
+                line2Input = includeAsAddressPresentAddress.tieWidgetAddressLine2.getTextNullable(),
+                regionInput = viewModel.input.regionInput.value,
+                cityInput = viewModel.input.cityInput.value,
+                zipCodeInput = includeAsAddressPresentAddress.tieWidgetAddressZipCode.getTextNullable(),
+                permanentLine1Input = includeAsAddressPermanentAddress.tieWidgetAddressLine1.getTextNullable(),
+                permanentLine2Input = includeAsAddressPermanentAddress.tieWidgetAddressLine2.getTextNullable(),
+                permanentRegionInput = viewModel.input.permanentRegionInput.value,
+                permanentCityInput = viewModel.input.permanentCityInput.value,
+                permanentZipCodeInput = includeAsAddressPermanentAddress.tieWidgetAddressZipCode.getTextNullable(),
+                isSameAsPermanentAddress = viewModel.input.isSameAsPresentAddress.value
+            )
         }
     }
 
@@ -346,15 +425,13 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
             .observeOn(schedulerProvider.ui())
             .subscribe { validation ->
                 viewUtil.setError(validation)
-                labelTextView.setTextColor(when (validation.isProper) {
-                    true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
-                    else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
-                })
+                labelTextView.setFieldLabelError(validation.isProper)
             }.addTo(formDisposable)
     }
 
     private fun handleSameAsPresentAddress(isSame: Boolean) {
         binding.apply {
+            cbAsAddressSameAsPresentAddress.isChecked = isSame
             includeAsAddressPermanentAddress.apply {
                 root.visibility(!isSame)
                 if (isSame) {
