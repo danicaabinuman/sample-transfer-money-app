@@ -6,7 +6,7 @@
     "src": "request_payment",
     "action": "request_payment",
     "isVisible": true,
-    "isEnable": true
+    "isEnabled": true
   },
   {
     "id": "transfer_funds",
@@ -15,7 +15,7 @@
     "src": "transfer_funds",
     "action": "transfer_funds",
     "isVisible": true,
-    "isEnable": false
+    "isEnabled": false
   },
   {
     "id": "pay_bills",
@@ -24,16 +24,7 @@
     "src": "pay_bills",
     "action": "pay_bills",
     "isVisible": true,
-    "isEnable": false
-  },
-  {
-    "id": "deposit_check",
-    "title": "Deposit\nCheck",
-    "subtitle": "Deposit checks to your account",
-    "src": "deposit_check",
-    "action": "deposit_check",
-    "isVisible": true,
-    "isEnable": false
+    "isEnabled": false
   },
   {
     "id": "apply_loan",
@@ -42,42 +33,24 @@
     "src": "apply_loan",
     "action": "apply_loan",
     "isVisible": true,
-    "isEnable": true
+    "isEnabled": true
   },
   {
-    "id": "branch_visit",
-    "title": "Branch\nVisit",
-    "subtitle": "Visit branch",
-    "src": "branch_visit",
-    "action": "branch_visit",
+    "id": "deposit_check",
+    "title": "Deposit\nCheck",
+    "subtitle": "Deposit checks to your account",
+    "src": "deposit_check",
+    "action": "deposit_check",
     "isVisible": true,
-    "isEnable": true
+    "isEnabled": false
   },
   {
-    "id": "manage_expenses",
-    "title": "Manage\nExpenses",
-    "subtitle": "Manage your expenses",
-    "src": "manage_expenses",
-    "action": "manage_expenses",
+    "id": "generate_qr",
+    "title": "Generate\nQR",
+    "subtitle": "Generate QR Code",
+    "src": "generate_qr",
+    "action": "generate_qr",
     "isVisible": true,
-    "isEnable": true
-  },
-  {
-    "id": "more",
-    "title": "More",
-    "subtitle": null,
-    "src": "more",
-    "action": "more",
-    "isVisible": true,
-    "isEnable": true
-  },
-  {
-    "id": "generate_otp",
-    "title": "Generate OTP",
-    "subtitle": "Generate One-Time Password",
-    "src": "otp",
-    "action": "generate_otp",
-    "isVisible": false,
-    "isEnable": true
+    "isEnabled": true
   }
 ]

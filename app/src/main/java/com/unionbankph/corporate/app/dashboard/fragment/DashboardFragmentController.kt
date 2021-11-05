@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.*
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
@@ -76,17 +77,16 @@ constructor(
             isRefreshed
         )
 
-        DashboardHeaderModel_()
-            .id("dashboard-header")
-            .context(context)
-            .helloName(dashboardViewState.name ?: "null")
-            .buttonText(accountButtonText)
-            .callbacks(dashboardAdapterCallback)
-            .addTo(this)
+//        DashboardHeaderModel_()
+//            .id("dashboard-header")
+//            .context(context)
+//            .helloName(dashboardViewState.name ?: "null")
+//            .buttonText(accountButtonText)
+//            .callbacks(dashboardAdapterCallback)
+//            .addTo(this)
 
         initialAccountLoadingModel
             .addIf(pageable.isInitialLoad && isRefreshed && !hasInitialFetchError, this)
-
 
         if (!isRefreshed &&
             !hasInitialFetchError &&
@@ -127,6 +127,7 @@ constructor(
 
         megaMenuContainer {
             id("mega-menu-carousel")
+            context(this@DashboardFragmentController.context)
             menuItemListString(JsonHelper.toJson(dashboardViewState.megaMenuList))
             callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
         }
@@ -141,15 +142,15 @@ constructor(
             }
         }
 
-        if (dashboardViewState.hasEarnings) {
-            earningsModel.addTo(this)
-        } else {
-            featureCard {
-                id("earnings-default")
-                item(this@DashboardFragmentController.defaultEarningsItem())
-                callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
-            }
-        }
+//        if (dashboardViewState.hasEarnings) {
+//            earningsModel.addTo(this)
+//        } else {
+//            featureCard {
+//                id("earnings-default")
+//                item(this@DashboardFragmentController.defaultEarningsItem())
+//                callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
+//            }
+//        }
 
         val banners = mutableListOf<DashboardBannerItemModel>()
         for (x in 0..4) {
@@ -261,6 +262,9 @@ abstract class DashboardHeaderModel: EpoxyModelWithHolder<DashboardHeaderModel.H
 abstract class MegaMenuContainer: EpoxyModelWithHolder<MegaMenuContainer.Holder>() {
 
     @EpoxyAttribute
+    lateinit var context: Context
+
+    @EpoxyAttribute
     lateinit var menuItemListString: String
 
     @EpoxyAttribute
@@ -286,6 +290,16 @@ abstract class MegaMenuContainer: EpoxyModelWithHolder<MegaMenuContainer.Holder>
                         .callbacks(callbacks)
             )
         }
+
+        val dynamicSpanSize = when (megaMenuModels.size) {
+            5 -> 5
+            6 -> 3
+            8 -> 4
+            else -> 8
+        }
+
+        holder.binding.menuMenuContainer.layoutManager =
+            GridLayoutManager(context, dynamicSpanSize, GridLayoutManager.VERTICAL, false)
 
         holder.binding.menuMenuContainer
             .setModels(megaMenuModels)

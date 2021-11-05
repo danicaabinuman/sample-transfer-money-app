@@ -45,7 +45,7 @@ import timber.log.Timber
 class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, DashboardFragmentViewModel>(),
     DashboardAdapterCallback,
-    AccountAdapterCallback{
+    AccountAdapterCallback {
 
     private lateinit var settingsViewModel: SettingsViewModel
 
@@ -82,12 +82,14 @@ class DashboardFragment :
                             viewModel.showMenuItem(
                                 Constant.DASHBOARD_ACTION_TRANSFER_FUNDS,
                                 it.hasPermission
-                            )                         }
+                            )
+                        }
                         TransactScreenEnum.BILLS_PAYMENT.name -> {
                             viewModel.showMenuItem(
                                 Constant.DASHBOARD_ACTION_PAY_BILLS,
                                 it.hasPermission
-                            )                        }
+                            )
+                        }
                         else -> {
                             viewModel.showMenuItem(
                                 Constant.DASHBOARD_ACTION_DEPOSIT_CHECK,
@@ -356,11 +358,10 @@ class DashboardFragment :
                 }
             }
             Constant.DASHBOARD_ACTION_REQUEST_PAYMENT -> {
-                if (isEnabled) {
-                    eventBus.transactSyncEvent.emmit(
-                        BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST)
-                    )
-                }
+                Timber.e("DASHBOARD_ACTION_REQUEST_PAYMENT")
+                eventBus.transactSyncEvent.emmit(
+                    BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST)
+                )
             }
             Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS -> {
                 (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
@@ -442,7 +443,8 @@ class DashboardFragment :
             PaymentLinkListFragment(),
             null,
             childFragmentManager,
-            TransactFragment.FRAGMENT_REQUEST_PAYMENT)
+            TransactFragment.FRAGMENT_REQUEST_PAYMENT
+        )
     }
 
     companion object {
