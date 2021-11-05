@@ -243,6 +243,12 @@ class Navigator {
         source.startActivity(i)
     }
 
+    fun navigateBrowser(source: AppCompatActivity, url: String) {
+        val i = Intent(Intent.ACTION_VIEW)
+        i.data = Uri.parse(url)
+        source.startActivity(i)
+    }
+
     fun replaceFragment(
         container: Int,
         newFragment: Fragment,

@@ -351,6 +351,12 @@ fun setupProductFlavors(
         "MSME_CLIENT_SECRET",
         buildGradle.properties["msmeClientSecret${env.getDisplayName()}"].toString()
     )
+
+    productFlavor.buildConfigField(
+        "String",
+        "URL_ENV_PREFIX",
+        "\"${env.getEnvironmentURLPrefix()}\""
+    )
 }
 
 //val compileKotlin: KotlinCompile by tasks

@@ -16,6 +16,10 @@
     <string name="digits_country_code">1234567890+</string>
     <string name="digits_alpha_numeric_specific_symbols">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,-()</string>
 
+    <!--URL-->
+    <string name="url_portal_enrollment">https://%sportal.unionbankph.com/enrollment</string>
+    <string name="url_portal_account_opening">https://%sportal.unionbankph.com/accountopening</string>
+
     <!--FingerPrint-->
     <string name="use_password">Use password</string>
     <string name="password">Password</string>

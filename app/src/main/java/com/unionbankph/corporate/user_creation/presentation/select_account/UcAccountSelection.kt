@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
+import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
+import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
@@ -15,6 +17,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.FragmentUcAccountSelectionBinding
 import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
 import com.unionbankph.corporate.user_creation.presentation.UserCreationViewModel
+import timber.log.Timber
 
 class UcAccountSelection :
     BaseFragment<FragmentUcAccountSelectionBinding, UserCreationViewModel>() {
@@ -69,10 +72,13 @@ class UcAccountSelection :
 
     private fun initClickListener() {
         binding.btnOpenAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_selection_to_reminder)
+            userCreationActivity.navigateToWebApps(UserCreationActivity.WEB_APP_ACCOUNT_OPENING)
+        }
+        binding.btnExistingUbAccount.setOnClickListener {
+            userCreationActivity.navigateToWebApps(UserCreationActivity.WEB_APP_ENROLlMENT)
         }
         binding.btnContinueExistingAccountApplication.setOnClickListener {
-            findNavController().navigate(R.id.action_dao_selection_activity)
+            findNavController().navigate(R.id.action_dao_activity)
         }
     }
 
