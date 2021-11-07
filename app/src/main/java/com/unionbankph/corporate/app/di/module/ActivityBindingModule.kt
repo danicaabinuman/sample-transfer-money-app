@@ -92,12 +92,25 @@ import com.unionbankph.corporate.mcd.presentation.preview.CheckDepositPreviewAct
 import com.unionbankph.corporate.mcd.presentation.summary.CheckDepositSummaryActivity
 import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
 import com.unionbankph.corporate.payment_link.presentation.billing_details.BillingDetailsActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsActivity
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedActivity
-import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.*
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.application_status.ApplicationStatusActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformation2ndScreenActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.nature_of_business.NatureOfBusinessActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.submit_application.SubmitApplicationActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.YesAcceptCardPaymentsActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceActivity
@@ -555,7 +568,66 @@ abstract class ActivityBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun merchantApplicationReceivedActivity(): MerchantApplicationReceivedActivity
+    abstract fun instapayQrSplashActivity(): InstapayQrSplashActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun instapayQrScannerActivity(): InstapayQrScannerActivity
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingUploadPhotosActivity(): OnboardingUploadPhotosActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessInformationActivity(): BusinessInformationActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun paymentLinkChannelsActivity(): PaymentLinkChannelsActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun cardAcceptanceOptionActivity(): CardAcceptanceOptionActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun yesAcceptCardPaymentsActivity(): YesAcceptCardPaymentsActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun cardAcceptanceUploadDocumentsActivity(): CardAcceptanceUploadDocumentsActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun notNowCardPaymentsActivity(): NotNowCardPaymentsActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingCameraActivity(): OnboardingCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingImagePreviewActivity(): OnboardingImagePreviewActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun documentCameraActivity(): DocumentCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun documentImagePreviewActivity(): DocumentImagePreviewActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun natureOfBusinessActivity(): NatureOfBusinessActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun reviewAndSubmitActivity(): ReviewAndSubmitActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun submitApplicationActivity(): SubmitApplicationActivity
 
     @PerActivity
     @ContributesAndroidInjector
@@ -563,9 +635,22 @@ abstract class ActivityBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun instapayQrSplashActivity(): InstapayQrSplashActivity
+    abstract fun merchantApplicationReceivedActivity(): MerchantApplicationReceivedActivity
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun instapayQrScannerActivity(): InstapayQrScannerActivity
+    abstract fun businessInformation2ndScreenActivity(): BusinessInformation2ndScreenActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun applicationStatusActivity(): ApplicationStatusActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessPolicyCameraActivity(): BusinessPolicyCameraActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessPolicyImagePreviewActivity(): BusinessPolicyImagePreviewActivity
+
 }

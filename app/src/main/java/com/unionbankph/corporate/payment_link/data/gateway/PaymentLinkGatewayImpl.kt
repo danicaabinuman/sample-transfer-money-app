@@ -10,7 +10,12 @@ import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantFo
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
 import com.unionbankph.corporate.payment_link.domain.model.form.UpdateSettlementOnRequestPaymentForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationResponse
 import com.unionbankph.corporate.settings.data.source.local.SettingsCache
 import io.reactivex.Single
 import retrofit2.Response
@@ -164,6 +169,28 @@ class PaymentLinkGatewayImpl
 
     }
 
+    override fun submitBusinessInformation(rmoBusinessInformation: RMOBusinessInformationForm): Single<RMOBusinessInformationResponse> {
 
+        return settingsCache.getAccessToken()
+            .flatMap {
+                paymentLinkRemote.putBusinessInformation(
+                    it,
+                    rmoBusinessInformation
+                )
+            }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
+    }
+
+    override fun getBusinessInformation(getRMOBusinessInformation: GetRMOBusinessInformationForm): Single<GetRMOBusinessInformationResponse> {
+
+        return settingsCache.getAccessToken()
+            .flatMap {
+                paymentLinkRemote.getBusinessInformation(
+                    it,
+                    getRMOBusinessInformation
+                )
+            }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
+    }
 
 }

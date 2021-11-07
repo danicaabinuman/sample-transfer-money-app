@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite"
+    android:id="@+id/cl_parent"
+    style="@style/MatchParent">
+
+    <include
+        android:id="@+id/viewToolbar"
+        layout="@layout/widget_transparent_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <me.pqpo.smartcropperlib.view.CropImageView
+        android:id="@+id/imageViewCrop"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:visibility="gone"
+        app:civLineColor="?colorAccent"
+        app:civMagnifierCrossColor="?colorAccent"
+        app:civPointColor="?colorAccent"
+        app:civPointFillColor="?colorAccent"
+        app:civShowEdgeMidPoint="true"
+        app:civShowGuideLine="false"
+        app:civShowMagnifier="true"
+        app:layout_constraintBottom_toTopOf="@+id/tv_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar" />
+
+    <com.otaliastudios.zoom.ZoomImageView
+        android:id="@+id/iv_preview"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        android:layout_marginBottom="@dimen/content_spacing"
+        android:transitionName="@string/image_animation_tag"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUseThis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar"
+        app:minZoom="1.0" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/iv_preview"
+        app:layout_constraintEnd_toEndOf="@id/iv_preview"
+        app:layout_constraintStart_toStartOf="@id/iv_preview"
+        app:layout_constraintTop_toTopOf="@id/iv_preview" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonUseThis"
+        style="@style/RoundedButtonOrange"
+        android:layout_marginStart="@dimen/content_margin"
+        android:layout_marginEnd="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_spacing_half"
+        android:text="@string/title_use_photo"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRetake"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonRetake"
+        style="@style/RoundedButtonLightOverlay"
+        android:layout_marginStart="@dimen/content_margin"
+        android:layout_marginEnd="@dimen/content_margin"
+        android:layout_marginBottom="@dimen/content_group_spacing"
+        android:text="@string/action_retake"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_cancel"
+        style="@style/TextViewThemeLarge"
+        android:layout_margin="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/text_view_padding"
+        android:text="@string/action_cancel"
+        android:textAllCaps="true"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_done"
+        style="@style/TextViewThemeLarge"
+        android:layout_margin="@dimen/content_spacing"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:layout_marginEnd="@dimen/content_spacing"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/text_view_padding"
+        android:text="@string/action_done"
+        android:textAllCaps="true"
+        android:textColor="?colorAccent"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <include
+        android:id="@+id/viewLoadingState"
+        style="@style/WrapContent"
+        layout="@layout/widget_loading_state"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewToolbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

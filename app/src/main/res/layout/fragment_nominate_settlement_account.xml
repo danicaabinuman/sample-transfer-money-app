@@ -2,50 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    >
-
-
+    android:orientation="vertical">
 
     <LinearLayout
-        android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        style="@style/RoundedBottomSheetBackground"
+        android:paddingBottom="@dimen/grid_5"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:padding="10dp"
+            android:paddingStart="@dimen/grid_2"
+            android:paddingEnd="@dimen/grid_2"
+            android:paddingTop="@dimen/grid_2"
+            android:paddingBottom="@dimen/grid_1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/content_spacing_xl"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <ImageButton
                 android:id="@+id/button_close_dialog"
-                android:layout_width="@dimen/grid_5_half"
-                android:layout_gravity="center_vertical"
-                android:layout_height="match_parent"
-                android:padding="5dp"
+                android:layout_width="@dimen/grid_4"
+                android:layout_height="@dimen/grid_4"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:padding="@dimen/grid_1_half"
                 android:background="@drawable/ic_close_orange"
                 android:adjustViewBounds="true"/>
 
             <TextView
-                android:layout_width="0dp"
-                android:paddingStart="@dimen/grid_2"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:gravity="center_vertical|left"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="16sp"
+                android:layout_marginStart="@dimen/grid_1"
+                android:gravity="center"
+                style="@style/SMESubtitle1"
                 android:text="@string/nominate_settlement_account"/>
+
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/rvBSNominateSettlementAccounts"
             android:layout_width="match_parent"
-            android:padding="@dimen/grid_2"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/grid_1_half"
+            android:paddingEnd="@dimen/grid_1_half"/>
 
     </LinearLayout>
 

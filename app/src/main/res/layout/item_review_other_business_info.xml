@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_transparent_gray_border_8dp"
+    android:padding="@dimen/grid_2">
+
+    <TextView
+        android:id="@+id/tvWhereDoYouSell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/where_do_you_sell"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/llLazada"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:weightSum="1"
+        app:layout_constraintTop_toBottomOf="@id/tvWhereDoYouSell">
+
+        <TextView
+            android:id="@+id/lazada1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Lazada" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="lazada/storename" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llShopee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:weightSum="1"
+        app:layout_constraintTop_toBottomOf="@id/llLazada">
+
+        <TextView
+            android:id="@+id/shopee1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Shopee" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="shopee/storename" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/divider_dashed_1"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="@dimen/grid_2"
+        android:src="@drawable/view_dashed"
+        app:layout_constraintTop_toBottomOf="@id/llShopee" />
+
+    <TextView
+        android:id="@+id/tvPhysical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:text="@string/physical_store"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_dashed_1" />
+
+    <LinearLayout
+        android:id="@+id/llPhysicalStore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/grid_1"
+        android:weightSum="1"
+        app:layout_constraintTop_toBottomOf="@id/tvPhysical">
+
+        <TextView
+            android:id="@+id/physicalstore1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="@string/main_branch" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:maxLines="4"
+            android:text="123 Main Street, Barangay, Town/City, Province"
+            app:layout_constraintStart_toEndOf="@id/physicalstore1" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/divider_dashed_2"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="@dimen/grid_2"
+        android:src="@drawable/view_dashed"
+        app:layout_constraintTop_toBottomOf="@id/llPhysicalStore" />
+
+    <TextView
+        android:id="@+id/tvOthers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:text="@string/others"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_dashed_2" />
+
+    <LinearLayout
+        android:id="@+id/llOthers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:weightSum="1"
+        app:layout_constraintTop_toBottomOf="@id/tvOthers">
+
+        <TextView
+            android:id="@+id/others1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Store 1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="shop/shopname.com" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/divider_dashed_3"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="@dimen/grid_2"
+        android:src="@drawable/view_dashed"
+        app:layout_constraintTop_toBottomOf="@id/llOthers" />
+
+    <LinearLayout
+        android:id="@+id/llOrderFulfillment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:weightSum="1"
+        app:layout_constraintTop_toBottomOf="@id/divider_dashed_3">
+
+        <TextView
+            android:id="@+id/orderfulfillment1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Order Fulfillment" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Within 3 days" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/divider_dashed_4"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="@dimen/grid_2"
+        android:src="@drawable/view_dashed"
+        app:layout_constraintTop_toBottomOf="@id/llOrderFulfillment" />
+
+    <TextView
+        android:id="@+id/tvPolicy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:text="Policy on Returns"
+        app:layout_constraintTop_toBottomOf="@id/divider_dashed_4"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvFilenameOfPolicyDocs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:background="@color/dsColorLightOrange"
+        android:text="   policy.pdf"
+        android:drawableStart="@drawable/ds_check_icon"
+        android:padding="@dimen/grid_2"
+        app:layout_constraintTop_toBottomOf="@id/tvPolicy"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnEditOtherBusinessInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:text="@string/action_edit"
+        android:background="@color/jumio_white"
+        android:textColor="@color/colorSMEMediumOrange"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/tvFilenameOfPolicyDocs"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

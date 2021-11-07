@@ -4,9 +4,13 @@ import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantFo
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
 import com.unionbankph.corporate.payment_link.domain.model.form.UpdateSettlementOnRequestPaymentForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationResponse
 import io.reactivex.Single
-import retrofit2.Response
 
 interface PaymentLinkGateway {
 
@@ -29,5 +33,8 @@ interface PaymentLinkGateway {
     fun updateSettlementOnRequestPayment(updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm) : Single<UpdateSettlementOnRequestPaymentResponse>
 
     fun getPaymentLogs(referenceId: String) : Single<GetPaymentLogsResponse>
+
+    fun getBusinessInformation(getRMOBusinessInformation : GetRMOBusinessInformationForm) : Single<GetRMOBusinessInformationResponse>
+
 
 }

@@ -4,6 +4,7 @@ import com.unionbankph.corporate.account.presentation.account_list.AccountFragme
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.FileManagerBottomSheet
+import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.dialog.SessionTimeOutBottomSheet
 import com.unionbankph.corporate.app.di.scope.PerActivity
 import com.unionbankph.corporate.approval.presentation.ApprovalFragment
@@ -52,9 +53,14 @@ import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoard
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingDeletePhotosFragment
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementAccountFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.FeeCharges
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsFragment
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.display.SettingsDisplayFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FaceIDBottomSheet
@@ -352,7 +358,11 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun feeCharges(): FeeCharges
+    abstract fun paymentLinkChannelsPaymentMethodsFragment(): PaymentMethodsFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun paymentLinkChannelsFeesAndChargesFragment(): FeesAndChargesFragment
 
     @PerActivity
     @ContributesAndroidInjector
@@ -362,5 +372,24 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun faceIDBottomSheet(): FaceIDBottomSheet
 
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun negPosBottomSheet(): NewConfirmationBottomSheet
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun feeCharges(): FeeCharges
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingDeletePhotosFragment(): OnboardingDeletePhotosFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun onboardingUploadPhotosFragment(): OnboardingUploadPhotosFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun cardAcceptanceUploadDocumentFragment(): CardAcceptanceUploadDocumentFragment
 
 }

@@ -6,9 +6,12 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatDialog
+import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.databinding.DialogGenericColoredSmeBinding
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import java.util.concurrent.TimeUnit
 
 class DialogFactory {
 

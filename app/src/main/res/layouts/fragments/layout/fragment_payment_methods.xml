@@ -308,64 +308,50 @@
                     android:textSize="18sp"
                     android:textColor="#4B4948"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet1"
+                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="spread_inside" />
 
                 <ImageView
-                    android:id="@+id/imageView711"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/grid_3"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:src="@drawable/ic_7_11"
-                    app:layout_constraintBottom_toBottomOf="@id/textViewOverCounter"
-                    app:layout_constraintEnd_toStartOf="@id/imageViewBayadCenter"
-                    app:layout_constraintTop_toTopOf="@id/textViewOverCounter" />
-
-                <ImageView
                     android:id="@+id/imageViewBayadCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/grid_3"
-                    android:layout_marginEnd="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginStart="@dimen/grid_2"
                     android:src="@drawable/ic_bayad_center"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView711"
-                    app:layout_constraintEnd_toStartOf="@id/imageViewLBC"
-                    app:layout_constraintTop_toTopOf="@id/imageView711" />
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet7"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageViewLBC"
+                    android:id="@+id/imageViewCebuana"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/grid_3"
-                    android:src="@drawable/ic_lbc"
-                    app:layout_constraintBottom_toBottomOf="@id/imageView711"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/imageView711" />
-
-                <View
-                    android:id="@+id/viewOCBullet1"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet1" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_2"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/_7_11"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet2"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet1"
-                    app:layout_constraintTop_toBottomOf="@id/textViewOverCounter" />
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:src="@drawable/cebuana_logo"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet7"
+                    app:layout_constraintStart_toEndOf="@id/imageViewBayadCenter" />
+
+                <ImageView
+                    android:id="@+id/imageViewECPay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/grid_3"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:src="@drawable/ecpay_logo"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet7"
+                    app:layout_constraintStart_toEndOf="@id/imageViewCebuana" />
+
+                <ImageView
+                    android:id="@+id/imageViewPalawan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/grid_3"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:src="@drawable/ic_palawan_express"
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet7"
+                    app:layout_constraintStart_toEndOf="@id/imageViewECPay" />
 
                 <View
                     android:id="@+id/viewOCBullet2"
@@ -387,10 +373,9 @@
                     android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/bayad_center"
                     android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet3"
                     app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet2"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet1" />
+                    app:layout_constraintTop_toBottomOf="@id/textViewOverCounter" />
 
                 <View
                     android:id="@+id/viewOCBullet3"
@@ -412,7 +397,6 @@
                     android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/cebuana"
                     android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet4"
                     app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet3"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet2" />
@@ -437,61 +421,9 @@
                     android:layout_marginEnd="@dimen/grid_1"
                     android:text="@string/ecpay"
                     android:textColor="#4B4948"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet4"
                     app:layout_constraintTop_toBottomOf="@id/textOCViewBullet3" />
-
-                <View
-                    android:id="@+id/viewOCBullet5"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet5" />
-
-
-                <TextView
-                    android:id="@+id/textOCViewBullet5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/lbc"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet6"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet5"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet4" />
-
-                <View
-                    android:id="@+id/viewOCBullet6"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet6"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet6" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/robinsons"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet7"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet6"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet5" />
 
                 <View
                     android:id="@+id/viewOCBullet7"
@@ -511,340 +443,11 @@
                     android:layout_marginStart="@dimen/grid_1"
                     android:layout_marginTop="@dimen/grid_1"
                     android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/palawan_pawnshop"
+                    android:text="@string/palawan_express"
                     android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet8"
                     app:layout_constraintEnd_toStartOf="@id/guideLine"
                     app:layout_constraintStart_toEndOf="@id/viewOCBullet7"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet6" />
-
-                <View
-                    android:id="@+id/viewOCBullet8"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet8"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet8" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet8"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/sm"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet9"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet8"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet7" />
-
-                <View
-                    android:id="@+id/viewOCBullet9"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet9"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet9" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet9"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/rd_pawnshop"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet10"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet9"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet8" />
-
-                <View
-                    android:id="@+id/viewOCBullet10"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet10"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet10" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet10"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/ruralnet"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/guideLine"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet10"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet9" />
-
-                <View
-                    android:id="@+id/viewOCBullet11"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet11"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet11" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet11"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_2"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/expresspay"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet12"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet11"
-                    app:layout_constraintTop_toBottomOf="@id/textViewOverCounter"
-                    app:layout_constraintVertical_chainStyle="spread_inside" />
-
-                <View
-                    android:id="@+id/viewOCBullet12"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet12"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet12" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet12"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/pay_go"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet13"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet12"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet11" />
-
-                <View
-                    android:id="@+id/viewOCBullet13"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet13"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet13" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet13"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/da5"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet13"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet12" />
-
-                <View
-                    android:id="@+id/viewOCBullet14"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet14"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet14" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/posible"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet15"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet14"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet13" />
-
-                <View
-                    android:id="@+id/viewOCBullet15"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet15"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet15" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet15"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/ussc"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet16"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet15"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet14" />
-
-                <View
-                    android:id="@+id/viewOCBullet16"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet16"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet16" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet16"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/rustan"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet17"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet16"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet15" />
-
-                <View
-                    android:id="@+id/viewOCBullet17"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet17"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet17" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet17"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/shopwise"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet18"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet17"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet16" />
-
-                <View
-                    android:id="@+id/viewOCBullet18"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet18"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet18" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet18"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/wellcome"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet19"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet18"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet17" />
-
-                <View
-                    android:id="@+id/viewOCBullet19"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintBottom_toBottomOf="@id/textOCViewBullet19"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet19"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet19" />
-
-                <TextView
-                    android:id="@+id/textOCViewBullet19"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/tambunting"
-                    android:textColor="#4B4948"
-                    app:layout_constraintBottom_toTopOf="@id/textOCViewBullet20"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet19"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet18" />
-
-                <View
-                    android:id="@+id/viewOCBullet20"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/image_view_x_padding"
-                    android:background="@drawable/circle_solid_orange"
-                    app:layout_constraintBottom_toBottomOf="@id/textOCViewBullet20"
-                    app:layout_constraintEnd_toStartOf="@id/textOCViewBullet20"
-                    app:layout_constraintStart_toEndOf="@id/guideLine"
-                    app:layout_constraintTop_toTopOf="@id/textOCViewBullet20" />
-
-
-                <TextView
-                    android:id="@+id/textOCViewBullet20"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/grid_1"
-                    android:layout_marginTop="@dimen/grid_1"
-                    android:layout_marginEnd="@dimen/grid_1"
-                    android:text="@string/cvm_pawnshop"
-                    android:textColor="#4B4948"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/viewOCBullet20"
-                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet19" />
+                    app:layout_constraintTop_toBottomOf="@id/textOCViewBullet4" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -937,6 +937,19 @@
         <item name="android:background">@drawable/bg_bottom_sheet_top_rounded</item>
     </style>
 
+    <style name="RoundedBottomSheetBackground" parent="MatchWrapParent">
+        <item name="android:background">@drawable/bg_bottom_sheet_top_rounded</item>
+    </style>
+
+    <style name="RoundedDialogBackground" parent="WrapContent">
+        <item name="android:minWidth">@dimen/dialog_width</item>
+        <item name="android:paddingTop">@dimen/grid_3</item>
+        <item name="android:paddingBottom">@dimen/grid_3</item>
+        <item name="android:paddingStart">@dimen/grid_1</item>
+        <item name="android:paddingEnd">@dimen/grid_1</item>
+        <item name="android:background">@drawable/bg_white_rounded_radius10</item>
+    </style>
+
     <style name="ImageViewLogo" parent="WrapContent">
         <item name="srcCompat">?appLogo</item>
     </style>
@@ -1079,34 +1092,95 @@
         <item name="android:button">@null</item>
     </style>
 
+    <style name="SMESettlementAccountItem" parent="SMELargeButton">
+        <item name="android:background">@drawable/style_settlement_account_item</item>
+        <item name="android:textColor">@drawable/style_primary_button_text</item>
+    </style>
+
     <style name="SMEHeadlineH1" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/text_30</item>
         <item name="android:textColor">@color/dsColorHeadlineH1</item>
+        <item name="android:fontFamily">@string/font_family_medium</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
 
     <style name="SMEHeadlineH2" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/text_24</item>
         <item name="android:textColor">@color/dsColorHeadlineH2</item>
+        <item name="android:fontFamily">@string/font_family_medium</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
     </style>
 
     <style name="SMESubtitle1" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/text_18</item>
         <item name="android:textColor">@color/dsColorSubtitle1</item>
+        <item name="android:fontFamily">@string/font_family_medium</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
 
     <style name="SMESubtitle2" parent="TextAppearance.AppCompat.SearchResult.Subtitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/text_16</item>
         <item name="android:textColor">@color/dsColorSubtitle2</item>
+        <item name="android:fontFamily">@string/font_family_medium</item>
+        <item name="android:lineSpacingMultiplier">1.2</item>
     </style>
 
     <style name="SMEBody" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/text_14</item>
         <item name="android:textColor">@color/dsColorBody</item>
+        <item name="android:fontFamily">@string/font_family_regular</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+    </style>
+
+    <style name="SMEBodyMediumGray" parent="SMEBody">
+        <item name="android:textColor">@color/dsColorMediumGray</item>
     </style>
 
     <style name="SMECaption" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/text_12</item>
         <item name="android:textColor">@color/dsColorCaption</item>
+        <item name="android:fontFamily">@string/font_family_regular</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+    </style>
+
+    <style name="SliderTick">
+        <item name="android:layout_height">3dp</item>
+        <item name="android:layout_width">2dp</item>
+        <item name="android:src">@drawable/circle_light_gray_ci</item>
+    </style>
+
+    <style name="error_appearance" parent="android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:textColor">#ED5635</item>
+        <item name="android:paddingStart">@dimen/grid_0</item>
+    </style>
+
+    <style name="contact_number" parent="MatchWrapParent">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/field_height</item>
+        <item name="android:background">@drawable/bg_edittext_form</item>
+        <item name="android:paddingLeft">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingRight">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingTop">@dimen/field_padding</item>
+        <item name="android:paddingBottom">@dimen/field_padding</item>
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLength">@integer/max_length_check_number</item>
+        <item name="android:textSize">@dimen/text_12</item>
     </style>
 
     <style name="error_appearance" parent="android:style/TextAppearance">

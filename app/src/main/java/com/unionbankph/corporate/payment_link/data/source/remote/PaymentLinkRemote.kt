@@ -4,7 +4,12 @@ import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantFo
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
 import com.unionbankph.corporate.payment_link.domain.model.form.UpdateSettlementOnRequestPaymentForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationForm
+import com.unionbankph.corporate.payment_link.domain.model.rmo.GetRMOBusinessInformationResponse
+import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationResponse
 import io.reactivex.Single
 import retrofit2.Response
 
@@ -23,6 +28,10 @@ interface PaymentLinkRemote {
     fun putPaymentLinkStatus(accessToken: String, transactionId: String, putPaymentLinkStatusForm: PutPaymentLinkStatusForm) : Single<Response<PutPaymentLinkStatusResponse>>
 
     fun validateMerchantByOrganization(accessToken: String) : Single<Response<ValidateMerchantByOrganizationResponse>>
+
+    fun putBusinessInformation(accessToken: String, rmoBusinessInformationForm: RMOBusinessInformationForm) : Single<Response<RMOBusinessInformationResponse>>
+
+    fun getBusinessInformation(accessToken: String, getRMOBusinessInformationForm: GetRMOBusinessInformationForm) : Single<Response<GetRMOBusinessInformationResponse>>
 
     fun updateSettlementOnRequestPayment(accessToken: String, updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm) : Single<Response<UpdateSettlementOnRequestPaymentResponse>>
 

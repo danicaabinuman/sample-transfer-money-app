@@ -18,6 +18,7 @@ import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.databinding.ActivityRequestPaymentSplashFrameScreenBinding
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentActivity
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkActivity
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationActivity
 
 class RequestPaymentSplashActivity :
     BaseActivity<ActivityRequestPaymentSplashFrameScreenBinding, RequestPaymentSplashViewModel>() {
