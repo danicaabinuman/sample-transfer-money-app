@@ -1019,7 +1019,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             ContextCompat.getColor(this, R.color.colorTextTab)
         binding.bottomNavigationBTR.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
         binding.bottomNavigationBTR.setTitleTextSize(
-            resources.getDimension(R.dimen.navigation_bottom_text_size_active),
+            resources.getDimension(R.dimen.navigation_bottom_text_size_normal),
             resources.getDimension(R.dimen.navigation_bottom_text_size_normal)
         )
         binding.bottomNavigationBTR.addItem(item1)

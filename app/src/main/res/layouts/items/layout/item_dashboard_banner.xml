@@ -1,17 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cardViewSetupAccount"
+    android:id="@+id/cl_banner_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="@dimen/grid_1_half">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imageViewBanner"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/bg_banner_global_linker"/>
+        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginStart="@dimen/grid_1_half"
+        android:layout_marginEnd="@dimen/grid_1_half"
+        android:layout_marginBottom="@dimen/grid_2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardElevation="@dimen/default_elevation"
+        app:cardCornerRadius="@dimen/card_radius_half">
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_banner_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dsColorLightOrange">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_banner_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bg_business_profile_banner"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/gl_banner_vertical_offset"
+                app:layout_constraintBottom_toBottomOf="@id/gl_banner_horizontal_offset"/>
+
+            <TextView
+                android:id="@+id/tv_banner_header"
+                style="@style/SMESubtitle1"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/grid_2"
+                android:layout_marginStart="@dimen/grid_2"
+                android:text="@string/banner_business_profile_title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/gl_banner"/>
+
+            <TextView
+                android:id="@+id/tv_banner_body"
+                android:layout_width="0dp"
+                style="@style/SMEBody"
+                android:layout_marginTop="@dimen/grid_1_half"
+                android:layout_marginStart="@dimen/grid_2"
+                android:text="@string/banner_business_profile_body"
+                app:layout_constraintBottom_toTopOf="@id/tv_banner_footer"
+                app:layout_constraintTop_toBottomOf="@id/tv_banner_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/gl_banner"/>
+
+            <TextView
+                android:id="@+id/tv_banner_footer"
+                style="@style/SMETertiaryButtonLarge"
+                android:layout_width="wrap_content"
+                android:gravity="start"
+                android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:enabled="false"
+                android:textAllCaps="false"
+                app:layout_constraintHorizontal_bias="0"
+                android:paddingBottom="@dimen/grid_1_half"
+                android:paddingTop="@dimen/grid_1_half"
+                android:textColor="@color/dsColorMediumOrange"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginBottom="@dimen/grid_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/banner_learn_more_footer"
+                android:layout_marginTop="@dimen/grid_3_half"
+                app:layout_constraintTop_toBottomOf="@id/tv_banner_body"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_banner_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginStart="@dimen/grid_3_half"
+                android:src="@drawable/ic_vector_circle_arrow"
+                app:layout_constraintStart_toEndOf="@id/tv_banner_footer"
+                app:layout_constraintTop_toTopOf="@id/tv_banner_footer"
+                app:layout_constraintBottom_toBottomOf="@id/tv_banner_footer"
+                app:layout_constraintEnd_toStartOf="@id/gl_banner"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_banner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_banner_vertical_offset"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_banner_horizontal_offset"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="1.04"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

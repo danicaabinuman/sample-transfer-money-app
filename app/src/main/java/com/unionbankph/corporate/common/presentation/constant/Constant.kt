@@ -202,4 +202,11 @@ class Constant {
             const val NON_FILIPINO = "NON_FILIPINO"
         }
     }
+
+    class Banner {
+        companion object {
+            const val BUSINESS_PROFILE = "business_profile"
+            const val LEARN_MORE = "learn_more"
+        }
+    }
 }

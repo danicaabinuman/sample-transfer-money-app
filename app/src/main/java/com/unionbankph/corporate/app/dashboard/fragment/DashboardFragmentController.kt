@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.*
 import com.unionbankph.corporate.BuildConfig
@@ -19,6 +20,8 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.Earnin
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.NoAccountItemModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.AccountItemErrorModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.text.SMETextViewModel
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.text.sMETextView
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -152,17 +155,29 @@ constructor(
 //            }
 //        }
 
-        val banners = mutableListOf<DashboardBannerItemModel>()
-        for (x in 0..4) {
-            banners.add(
-                DashboardBannerItemModel_().id(x)
+        val bannerItems = BannerCardItem.generateBannerItems(context)
+        val bannerModels = mutableListOf<DashboardBannerItemModel>()
+        bannerItems.forEachIndexed { _, bannerCardItem ->
+            bannerModels.add(
+                DashboardBannerItemModel_()
+                    .id(bannerCardItem.id)
+                    .item(JsonHelper.toJson(bannerCardItem))
+                    .context(this@DashboardFragmentController.context)
+                    .callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
             )
+        }
+
+        sMETextView {
+            id("id-globallinker")
+            style(Constant.SMETextViewStyle.SUBTITLE2)
+            text(this@DashboardFragmentController.context.getString(R.string.title_globallinker))
         }
 
         CarouselIndicatorModel()
             .id("dashboard-banners")
-            .numViewsToShowOnScreen(1f)
-            .models(banners)
+            .numViewsToShowOnScreen(1.1f)
+            .padding(Carousel.Padding(36, 0, 36, 0, 12))
+            .models(bannerModels)
             .addTo(this)
     }
 

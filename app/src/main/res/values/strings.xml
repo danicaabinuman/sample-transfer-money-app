@@ -2815,4 +2815,11 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="as_non_filipino_citizenship_description">Application is limited to Filipino citizens residing in the Philippines. A UnionBank officer will reach out to you.</string>
     <string name="title_trial_mode_days">You are on Trial Mode\nfor %1$s!</string>
     <string name="as_business_information_sub_title">This is the name that appears in your registration certificate</string>
+    <string name="banner_business_profile_title">Create a digital\npresence for your SME</string>
+    <string name="banner_business_profile_body">A digital catalog to attract more customers and grow your sales.</string>
+    <string name="banner_business_profile_footer">Make a business profile</string>
+    <string name="banner_learn_more_title">Set up a\nfree online store</string>
+    <string name="banner_learn_more_body">Linker.store can make online\nselling easier for you.</string>
+    <string name="banner_learn_more_footer">Learn more</string>
+    <string name="title_globallinker">Globallinker</string>
 </resources>
