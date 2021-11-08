@@ -36,5 +36,6 @@ interface PaymentLinkGateway {
 
     fun getBusinessInformation(getRMOBusinessInformation : GetRMOBusinessInformationForm) : Single<GetRMOBusinessInformationResponse>
 
+    fun submitBusinessInformation(rmoBusinessInformation: RMOBusinessInformationForm) : Single<RMOBusinessInformationResponse>
 
 }

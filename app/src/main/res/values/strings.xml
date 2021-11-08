@@ -757,6 +757,7 @@
     <string name="title_congratulations">Congratulations!</string>
     <string name="title_verification_completed">Verification Completed</string>
     <string name="title_dao_result_skip">Thank you for applying for a UnionBank Account</string>
+    <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
     <string name="title_payment_methods">Payment Methods</string>
     <string name="fees_and_charges">Fees &amp; Charges</string>
 

@@ -1183,28 +1183,6 @@
         <item name="android:textSize">@dimen/text_12</item>
     </style>
 
-    <style name="error_appearance" parent="android:style/TextAppearance">
-        <item name="android:textSize">@dimen/text_12</item>
-        <item name="android:textColor">#ED5635</item>
-        <item name="android:paddingStart">@dimen/grid_0</item>
-    </style>
-
-    <style name="contact_number" parent="MatchWrapParent">
-        <item name="android:layout_width">@dimen/match_constraint</item>
-        <item name="android:layout_height">@dimen/field_height</item>
-        <item name="android:background">@drawable/bg_edittext_form</item>
-        <item name="android:paddingLeft">@dimen/field_content_spacing_normal</item>
-        <item name="android:paddingRight">@dimen/field_content_spacing_normal</item>
-        <item name="android:paddingTop">@dimen/field_padding</item>
-        <item name="android:paddingBottom">@dimen/field_padding</item>
-        <item name="android:textColor">@color/colorInfo</item>
-        <item name="android:inputType">text</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:maxLength">@integer/max_length_check_number</item>
-        <item name="android:textSize">@dimen/text_12</item>
-    </style>
-
     <style name="ToolbarTransparentSME">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

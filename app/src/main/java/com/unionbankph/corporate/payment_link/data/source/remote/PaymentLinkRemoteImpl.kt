@@ -147,6 +147,20 @@ class PaymentLinkRemoteImpl
         )
     }
 
+    override fun putBusinessInformation(
+        accessToken: String,
+        rmoBusinessInformationForm: RMOBusinessInformationForm
+    ): Single<Response<RMOBusinessInformationResponse>> {
+        return paymentLinkApiClient.putBusinessInformation(
+            accessToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            rmoBusinessInformationForm
+        )
+
+    }
+
     override fun getPaymentLogs(
         accessToken: String,
         referenceId: String
