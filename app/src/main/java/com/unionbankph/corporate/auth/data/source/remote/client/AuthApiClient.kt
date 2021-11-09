@@ -58,7 +58,7 @@ interface AuthApiClient {
         loginFingerprintForm: LoginFingerprintForm
     ): Single<Response<UserDetails>>
 
-    @POST("api/{api_version}/corporate/login/otp")
+    @POST("msme/api/{api_version}/corporate-users/login-otp")
     fun userOTP(
         @Path("api_version")
         apiVersion: String,

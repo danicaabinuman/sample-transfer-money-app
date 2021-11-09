@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.settings.data.source.remote.client
 
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.MegaMenuDto
 import com.unionbankph.corporate.auth.data.form.ChangePasswordForm
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
@@ -27,6 +29,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.nio.channels.Selector
 
 interface SettingsApiClient {
 
@@ -259,4 +262,16 @@ interface SettingsApiClient {
         @Path("api_version")
         apiVersion: String
     ): Single<Response<EnabledFeaturesDto>>
+
+    @GET("msme/api/{api_version}/corporate-users/mega-menu")
+    fun getDashboardMegaMenu(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+    ): Single<Response<MutableList<MegaMenuDto>>>
 }

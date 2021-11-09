@@ -2890,6 +2890,10 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="banner_learn_more_body">Linker.store can make online\nselling easier for you.</string>
     <string name="banner_learn_more_footer">Learn more</string>
     <string name="title_globallinker">Globallinker</string>
-=======
->>>>>>> origin/merge-1.2-storm+xavier-and-RMO
+    <string name="mega_menu_request_payment">Request\nPayment</string>
+    <string name="mega_menu_transfer_funds">Transfer\nFunds</string>
+    <string name="mega_menu_pay_bills">Pay\nBills</string>
+    <string name="mega_menu_apply_loan">Apply\nLoan</string>
+    <string name="mega_menu_deposit_check">Deposit\nCheck</string>
+    <string name="mega_menu_generate_qr">Generate\nQR</string>
 </resources>

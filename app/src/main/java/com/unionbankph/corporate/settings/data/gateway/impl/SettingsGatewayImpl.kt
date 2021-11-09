@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.data.gateway.impl
 
 import com.unionbankph.corporate.app.common.extension.notNullable
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.MegaMenuDto
 import com.unionbankph.corporate.auth.data.form.ChangePasswordForm
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.auth.data.model.Permissions
@@ -508,5 +510,11 @@ constructor(
 
     override fun getTrialModeDaysRemaining(): Maybe<String> {
         return settingsCache.getTrialModeDaysRemaining()
+    }
+
+    override fun getDashboardMegaMenu(): Single<MutableList<MegaMenuDto>> {
+        return settingsCache.getAccessToken()
+            .flatMap { settingsRemote.getDashboardMegaMenu(it) }
+            .flatMap { responseProvider.executeResponseSingle(it) }
     }
 }

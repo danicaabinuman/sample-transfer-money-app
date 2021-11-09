@@ -109,7 +109,7 @@ constructor(
     }
 
     override fun loginOTP(loginOTPForm: LoginOTPForm): Single<Response<UserDetails>> {
-        return authApiClient.userOTP(BuildConfig.CLIENT_API_VERSION, loginOTPForm)
+        return authApiClient.userOTP(BuildConfig.MSME_CLIENT_API_VERSION, loginOTPForm)
     }
 
     override fun loginResendOTP(

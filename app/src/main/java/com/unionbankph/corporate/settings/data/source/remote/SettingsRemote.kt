@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.settings.data.source.remote
 
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.MegaMenuDto
 import com.unionbankph.corporate.auth.data.form.ChangePasswordForm
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -22,6 +24,7 @@ import com.unionbankph.corporate.settings.data.model.OTPTypeDto
 import com.unionbankph.corporate.settings.data.model.TOTPSubscribeDto
 import io.reactivex.Single
 import retrofit2.Response
+import java.nio.channels.Selector
 
 /**
  * Created by herald25santos on 2020-01-14
@@ -113,4 +116,6 @@ interface SettingsRemote {
     fun logoutUser(accessToken: String): Single<Response<FingerPrintToken>>
 
     fun getEnabledFeatures(): Single<Response<EnabledFeaturesDto>>
+
+    fun getDashboardMegaMenu(accessToken: String) : Single<Response<MutableList<MegaMenuDto>>>
 }

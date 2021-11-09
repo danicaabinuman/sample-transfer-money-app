@@ -69,6 +69,10 @@ constructor(
     }
 
     override fun buildModels(dashboardViewState: DashboardViewState, pageable: Pageable) {
+
+        val isLoanAvailable = dashboardViewState.megaMenuList
+            .find { it.id == Constant.MegaMenu.MSME_APPLY_LOAN }?.isVisible
+
         val isRefreshed = dashboardViewState.isScreenRefreshed
         val accountSize = dashboardViewState.accounts.size
         val hasInitialFetchError = dashboardViewState.hasInitialFetchError
@@ -79,6 +83,10 @@ constructor(
             isOnTrialMode,
             isRefreshed
         )
+
+        blankItem {
+            id("blank-1")
+        }
 
 //        DashboardHeaderModel_()
 //            .id("dashboard-header")
@@ -134,13 +142,19 @@ constructor(
             callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
         }
 
-        if (dashboardViewState.hasLoans) {
-            loansModel.addTo(this)
+        if (isLoanAvailable != false) {
+            if (dashboardViewState.hasLoans) {
+                loansModel.addTo(this)
+            } else {
+                featureCard {
+                    id("loans-default")
+                    item(this@DashboardFragmentController.defaultLoansItem())
+                    callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
+                }
+            }
         } else {
-            featureCard {
-                id("loans-default")
-                item(this@DashboardFragmentController.defaultLoansItem())
-                callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
+            blankItem {
+                id("blank-2")
             }
         }
 
@@ -306,10 +320,12 @@ abstract class MegaMenuContainer: EpoxyModelWithHolder<MegaMenuContainer.Holder>
         }
 
         val dynamicSpanSize = when (megaMenuModels.size) {
+            1 -> 1
+            2 -> 2
             5 -> 5
-            6 -> 3
-            8 -> 4
-            else -> 8
+            3, 6 -> 3
+            4, 8 -> 4
+            else -> 5
         }
 
         holder.binding.menuMenuContainer.layoutManager =

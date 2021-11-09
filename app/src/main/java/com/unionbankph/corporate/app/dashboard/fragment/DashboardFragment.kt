@@ -20,15 +20,12 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.PaginationScroll
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.bills_payment.presentation.organization_payment.OrganizationPaymentActivity
-import com.unionbankph.corporate.branch.presentation.list.BranchVisitActivity
 import com.unionbankph.corporate.common.domain.exception.JsonParseException
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.URLDataEnum
-import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.FragmentDashboardBinding
-import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
@@ -80,20 +77,20 @@ class DashboardFragment :
                 is ShowSettingsHasPermission -> {
                     when (it.permissionCode) {
                         TransactScreenEnum.FUND_TRANSFER.name -> {
-                            viewModel.showMenuItem(
-                                Constant.DASHBOARD_ACTION_TRANSFER_FUNDS,
+                            viewModel.enableMenuItem(
+                                Constant.MegaMenu.MSME_TRANSFER_FUNDS,
                                 it.hasPermission
                             )
                         }
                         TransactScreenEnum.BILLS_PAYMENT.name -> {
-                            viewModel.showMenuItem(
-                                Constant.DASHBOARD_ACTION_PAY_BILLS,
+                            viewModel.enableMenuItem(
+                                Constant.MegaMenu.MSME_PAY_BILLS,
                                 it.hasPermission
                             )
                         }
                         else -> {
-                            viewModel.showMenuItem(
-                                Constant.DASHBOARD_ACTION_DEPOSIT_CHECK,
+                            viewModel.enableMenuItem(
+                                Constant.MegaMenu.MSME_DEPOSIT_CHECK,
                                 it.hasPermission
                             )
                         }
@@ -117,14 +114,14 @@ class DashboardFragment :
                         Constant.Permissions.CODE_RCD_MOBILE_CHECK
                     )
                 } else {
-                    viewModel.showMenuItem(
-                        Constant.DASHBOARD_ACTION_DEPOSIT_CHECK,
+                    viewModel.enableMenuItem(
+                        Constant.MegaMenu.MSME_DEPOSIT_CHECK,
                         false
                     )
                 }
             } else if (it.first == FeaturesEnum.E_BILLING) {
-                viewModel.showMenuItem(
-                    Constant.DASHBOARD_ACTION_PAY_BILLS,
+                viewModel.enableMenuItem(
+                    Constant.MegaMenu.MSME_PAY_BILLS,
                     isFeatureEnabled
                 )
             }
@@ -176,16 +173,13 @@ class DashboardFragment :
 
         getAccounts(true)
 
+        viewModel.getDashboardMegaMenu()
         viewModel.setDashboardName()
         setMegaMenuItems()
     }
 
     private fun setMegaMenuItems() {
-        val parseMegaMenuItems = viewUtil.loadJSONFromAsset(
-            getAppCompatActivity(),
-            MEGA_MENU_ITEMS
-        )
-        val megaMenuItems = JsonHelper.fromListJson<GenericMenuItem>(parseMegaMenuItems)
+        val megaMenuItems = GenericMenuItem.generateMegaMenuItems(requireContext())
         viewModel.setMenuItems(megaMenuItems)
     }
 
@@ -224,6 +218,7 @@ class DashboardFragment :
             setColorSchemeResources(getAccentColor())
             setOnRefreshListener {
                 getAccounts(true)
+                viewModel.getDashboardMegaMenu()
             }
         }
     }
@@ -273,7 +268,7 @@ class DashboardFragment :
         if (isOnTrialMode) return
 
         when (actionId) {
-            Constant.DASHBOARD_ACTION_TRANSFER_FUNDS -> {
+            Constant.MegaMenu.MSME_TRANSFER_FUNDS -> {
                 if (isEnabled) {
                     navigator.navigate(
                         (activity as DashboardActivity),
@@ -290,7 +285,7 @@ class DashboardFragment :
                     )
                 }
             }
-            Constant.DASHBOARD_ACTION_PAY_BILLS -> {
+            Constant.MegaMenu.MSME_PAY_BILLS -> {
                 if (isEnabled) {
                     navigator.navigate(
                         (activity as DashboardActivity),
@@ -307,7 +302,7 @@ class DashboardFragment :
                     )
                 }
             }
-            Constant.DASHBOARD_ACTION_DEPOSIT_CHECK -> {
+            Constant.MegaMenu.MSME_DEPOSIT_CHECK -> {
                 if (isEnabled) {
                     navigator.navigate(
                         (activity as DashboardActivity),
@@ -324,42 +319,7 @@ class DashboardFragment :
                     )
                 }
             }
-            Constant.DASHBOARD_ACTION_BRANCH_VISIT -> {
-                if (isEnabled) {
-                    navigator.navigate(
-                        (activity as DashboardActivity),
-                        BranchVisitActivity::class.java,
-                        null,
-                        isClear = false,
-                        isAnimated = true,
-                        transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
-                    )
-                } else {
-                    showBottomSheetError(
-                        formatString(R.string.title_feature_unavailable),
-                        formatString(R.string.msg_generic_feature_unavailable)
-                    )
-                }
-            }
-            Constant.DASHBOARD_ACTION_E_BILLING -> {
-                if (isEnabled) {
-                    navigator.navigate(
-                        (activity as DashboardActivity),
-                        EBillingFormActivity::class.java,
-                        null,
-                        isClear = false,
-                        isAnimated = true,
-                        transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
-                    )
-                } else {
-                    showBottomSheetError(
-                        formatString(R.string.title_e_billing_unavailable),
-                        formatString(R.string.msg_e_billing_unavailable)
-                    )
-                }
-            }
-            Constant.DASHBOARD_ACTION_REQUEST_PAYMENT -> {
-                Timber.e("DASHBOARD_ACTION_REQUEST_PAYMENT")
+            Constant.MegaMenu.MSME_REQUEST_PAYMENT -> {
                 eventBus.transactSyncEvent.emmit(
                     BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST)
                 )
@@ -450,10 +410,6 @@ class DashboardFragment :
             childFragmentManager,
             TransactFragment.FRAGMENT_REQUEST_PAYMENT
         )
-    }
-
-    companion object {
-        const val MEGA_MENU_ITEMS = "dashboard_mega_menu_items"
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentDashboardBinding

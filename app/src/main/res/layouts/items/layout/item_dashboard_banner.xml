@@ -10,7 +10,7 @@
         android:id="@+id/cv_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_1_half"
         android:layout_marginStart="@dimen/grid_1_half"
         android:layout_marginEnd="@dimen/grid_1_half"
         android:layout_marginBottom="@dimen/grid_2"

@@ -277,9 +277,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             }
         }
 
-//        binding.viewToolbar.btnRequestPayment.setOnClickListener{
-//            viewModel.validateMerchant(DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
-//        }
+        binding.viewToolbar.btnRequestPayment.setOnClickListener{
+            viewModel.validateMerchant(DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON)
+        }
 
         RxView.clicks(binding.viewToolbar.viewBadge.viewBadgeLayout)
             .throttleFirst(
@@ -394,7 +394,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 }
                 TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST -> {
                     isBackButtonPaymentList = true
-                    binding.viewPagerBTR.currentItem = bottomNavigationItems[FRAGMENT_TRANSACT]!!
+                    binding.bottomNavigationBTR.currentItem = 1
 
                     setToolbarTitle(
                         getString(R.string.title_payment_links),
@@ -653,7 +653,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 hasBackButton = false,
                 hasMenuItem = true
             )
-//            binding.viewToolbar.btnRequestPayment.visibility = View.GONE
+            binding.viewToolbar.btnRequestPayment.visibility = View.GONE
         }
     }
 
@@ -719,12 +719,12 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility(false)
                 binding.viewToolbar.imageViewLogout.visibility(false)
                 binding.viewToolbar.imageViewMarkAllAsRead.visibility(false)
-//                binding.viewToolbar.btnRequestPayment.visibility(
-//                    when (binding.viewPagerBTR.currentItem) {
-//                        bottomNavigationItems[FRAGMENT_TRANSACT] -> true
-//                        else -> false
-//                    }
-//                )
+                binding.viewToolbar.btnRequestPayment.visibility(
+                    when (binding.viewPagerBTR.currentItem) {
+                        bottomNavigationItems[FRAGMENT_TRANSACT] -> true
+                        else -> false
+                    }
+                )
                 binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
                 if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
                 binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
@@ -768,10 +768,6 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 position == bottomNavigationItems[FRAGMENT_APPROVALS] &&
                         allowMultipleSelectionApprovals
             )
-//<<<<<<< HEAD
-//            binding.viewToolbar.imageViewHelp.visibility(
-//                position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
-//=======
             binding.viewToolbar.btnHelp.visibility(
                 position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
                         position == bottomNavigationItems[FRAGMENT_TRANSACT] ||
@@ -782,11 +778,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                                 stackFlagSettings)
             )
 
-//            binding.viewToolbar.btnRequestPayment.visibility(
-//                position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
-//                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
-//                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
-//            )
+            binding.viewToolbar.btnRequestPayment.visibility(
+                position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
+                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
+            )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
                     adapter?.getItem(bottomNavigationItems[FRAGMENT_SETTINGS]!!)!!

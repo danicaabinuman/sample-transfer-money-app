@@ -94,13 +94,12 @@ class ConstantHelper {
 
             fun getDashboardActionIcon(action: String): Int {
                 return when (action) {
-                    Constant.DASHBOARD_ACTION_REQUEST_PAYMENT -> R.drawable.ic_dashboard_request_payment
-                    Constant.DASHBOARD_ACTION_TRANSFER_FUNDS -> R.drawable.ic_dashboard_transfer_funds
-                    Constant.DASHBOARD_ACTION_PAY_BILLS -> R.drawable.ic_dashboard_pay_bills
-                    Constant.DASHBOARD_ACTION_DEPOSIT_CHECK -> R.drawable.ic_dashboard_deposit_check
-                    Constant.DASHBOARD_ACTION_APPLY_LOAN -> R.drawable.ic_dashboard_apply_loan
-                    Constant.DASHBOARD_ACTION_BRANCH_VISIT -> R.drawable.ic_dashboard_branch_visit
-                    Constant.DASHBOARD_ACTION_MANAGE_EXPENSES -> R.drawable.ic_dashboard_manage_expenses
+                    Constant.MegaMenu.MSME_REQUEST_PAYMENT -> R.drawable.ic_dashboard_request_payment
+                    Constant.MegaMenu.MSME_TRANSFER_FUNDS -> R.drawable.ic_dashboard_transfer_funds
+                    Constant.MegaMenu.MSME_PAY_BILLS -> R.drawable.ic_dashboard_pay_bills
+                    Constant.MegaMenu.MSME_DEPOSIT_CHECK -> R.drawable.ic_dashboard_deposit_check
+                    Constant.MegaMenu.MSME_APPLY_LOAN -> R.drawable.ic_dashboard_apply_loan
+                    Constant.MegaMenu.MSME_GENERATE_QR -> R.drawable.ic_dashboard_generate_qr
                     else -> R.drawable.ic_dashboard_more // Constant.DASHBOARD_ACTION_MORE
                 }
             }
