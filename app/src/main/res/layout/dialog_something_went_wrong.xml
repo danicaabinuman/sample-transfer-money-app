@@ -3,12 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/MatchWrapParent">
 
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_spacing"
+        android:src="@drawable/bg_something_went_wrong_error"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewTitle"
         style="@style/TextViewDarkXL"
         android:layout_width="@dimen/match_constraint"
         android:layout_marginStart="@dimen/content_spacing"
-        android:layout_marginTop="@dimen/content_spacing_small"
+        android:layout_marginTop="@dimen/content_spacing"
         android:layout_marginEnd="@dimen/content_spacing"
         android:gravity="center"
         android:lineSpacingExtra="@dimen/text_view_spacing"
@@ -16,7 +28,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_tip"
+         />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_close"
@@ -30,15 +43,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close_form_gray" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_tip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/content_spacing"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
 
     <com.mpt.android.stv.SpannableTextView
         android:id="@+id/textViewContent"
@@ -52,7 +57,7 @@
         android:text="@string/title_check_number_tip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_tip" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonClose"

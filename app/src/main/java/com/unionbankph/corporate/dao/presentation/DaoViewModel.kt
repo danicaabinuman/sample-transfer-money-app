@@ -247,6 +247,7 @@ class DaoViewModel @Inject constructor(
             processingRemarks = signatoriesDetail.value?.processingRemarks
             status = signatoriesDetail.value?.status
             page = signatoriesDetail.value?.page
+            unionBankOfficer = signatoriesDetail.value?.unionBankOfficer
             saveType = "draft"
         }
     }

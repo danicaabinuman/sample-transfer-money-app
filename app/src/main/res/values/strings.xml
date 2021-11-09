@@ -779,6 +779,7 @@
     <string name="title_region">Region</string>
     <string name="title_business_info">Business Information</string>
     <string name="title_full_legal_name">Full legal name</string>
+    <string name="title_not_a_unionbank_employee">Not a UnionBank Employee</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -1020,6 +1021,7 @@
         <b>%1$s</b> Scheduled payment is not available for this biller.
         ]]>
     </string>
+    <string name="desc_dao_confirmation_unionbank_employee">I am not a UnionBank Employee</string>
 
 
     <string name="action_use_password">Use Password</string>
@@ -1548,6 +1550,7 @@
     <string name="msg_e_billing_unavailable">Sorry Electronic Billing is currently unavailable at the moment. Please check back again later.</string>
     <string name="msg_apply_loan_disclaimer">You will be redirected to our loan application gateway powered by Seekcap.ph, no information about you, your company or your transactions will be released for your protection.</string>
     <string name="msg_generic_feature_unavailable">Sorry this feature is unavailable at the moment. Please check back again later.</string>
+    <string name="msg_not_a_unionbank_employee">UnionBank employees will still be allowed to open a business account. System-generated emails will be sent to internal units for approval and assessment.</string>
 
     <string name="hint_account_number_format">[0000] [0000] [0000]</string>
     <string name="hint_other_bank_account_number_format">[0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [00]</string>
@@ -2896,4 +2899,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="mega_menu_apply_loan">Apply\nLoan</string>
     <string name="mega_menu_deposit_check">Deposit\nCheck</string>
     <string name="mega_menu_generate_qr">Generate\nQR</string>
+    <string name="msg_no_id_list">There are currently no IDs\n enabled for DAO.</string>
+    <string name="msg_something_went_wrong">We need a little more time to get the latest list of valid IDs. Please try again in a couple of minutes.</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

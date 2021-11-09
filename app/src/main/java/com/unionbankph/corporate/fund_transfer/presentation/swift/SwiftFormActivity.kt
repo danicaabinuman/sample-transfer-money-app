@@ -6,6 +6,7 @@ import android.os.SystemClock
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -1307,7 +1308,7 @@ class SwiftFormActivity :
             customView(R.layout.dialog_tool_tip)
         }
         val buttonClose =
-            swiftAccountToolTip.view.findViewById<MaterialButton>(R.id.buttonClose)
+            swiftAccountToolTip.view.findViewById<AppCompatButton>(R.id.buttonClose)
         val textViewTitle =
             swiftAccountToolTip.view.findViewById<TextView>(R.id.textViewTitle)
         val textViewContent =

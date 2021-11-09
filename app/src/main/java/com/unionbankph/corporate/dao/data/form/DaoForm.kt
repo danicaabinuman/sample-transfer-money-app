@@ -78,6 +78,8 @@ data class DaoForm(
     var civilStatus: String? = null,
     @SerialName("country_code")
     var countryCode: Int? = null,
+    @SerialName("union_bank_officer")
+    var unionBankOfficer: Boolean? = null,
     @SerialName("save_type")
     var saveType: String? = null
 )
