@@ -25,6 +25,7 @@ import com.unionbankph.corporate.common.domain.exception.JsonParseException
 import com.unionbankph.corporate.common.presentation.callback.AccountAdapterCallback
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.constant.Constant
+import com.unionbankph.corporate.common.presentation.constant.URLDataEnum
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.FragmentDashboardBinding
 import com.unionbankph.corporate.ebilling.presentation.form.EBillingFormActivity
@@ -374,6 +375,10 @@ class DashboardFragment :
             }
             Constant.DASHBOARD_ACTION_DEFAULT_EARNINGS -> {
                 Timber.e("Default Earnings Clicked")
+            }
+            Constant.Banner.BUSINESS_PROFILE,
+            Constant.Banner.LEARN_MORE -> {
+                navigator.navigateBrowser(getAppCompatActivity(), URLDataEnum.GLOBALLINKER)
             }
         }
     }

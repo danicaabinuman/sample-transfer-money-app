@@ -98,7 +98,6 @@ constructor(
             noAccountModel
                 .callbacks(dashboardAdapterCallback)
                 .addTo(this)
-
         } else {
             dashboardViewState.accounts.take(2).forEachIndexed { position, account ->
                 DashboardAccountItemModel_()
