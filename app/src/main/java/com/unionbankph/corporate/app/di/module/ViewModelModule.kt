@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.app.di.module
 
+import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.unionbankph.corporate.account.presentation.account_detail.AccountDetailViewModel
@@ -96,6 +97,8 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift.SwiftViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBankViewModel
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_scanner.InstapayQrScannerViewModel
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.InstapayQrSplashViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationViewModel
@@ -131,6 +134,8 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ca
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.YesAcceptCardPaymentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceViewModel
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
@@ -152,7 +157,7 @@ import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.U
 import com.unionbankph.corporate.user_creation.presentation.nominate_password.UcNominatePasswordViewModel
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsViewModel
 import com.unionbankph.corporate.trial_account.presentation.TrialAccountViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -770,13 +775,18 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(MerchantApplicationReceivedViewModel::class)
-    abstract fun merchantApplicationReceivedViewModel(viewModel: MerchantApplicationReceivedViewModel): ViewModel
+    @ViewModelKey(InstapayQrSplashViewModel::class)
+    abstract fun instapayQrSplashViewMOdel(viewModel: RequestPaymentSplashViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(MerchantApplicationRejectedViewModel::class)
-    abstract fun merchantApplicationRejectedViewModel(viewModel: MerchantApplicationRejectedViewModel): ViewModel
+    @ViewModelKey(InstapayQrScannerViewModel::class)
+    abstract fun instapayQrScannerViewModel(viewModel: InstapayQrScannerViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PaymentLinkChannelsViewModel::class)
+    abstract fun paymentLinkChannelsViewModel(viewModel: PaymentLinkChannelsViewModel): ViewModel
 
     @Binds
     @IntoMap

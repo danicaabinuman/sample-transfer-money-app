@@ -411,6 +411,10 @@ class DashboardViewModel @Inject constructor(
 
     }
 
+    fun scanQR(){
+        _dashBoardState.value = ShowQrScan
+    }
+
     companion object{
         const val FROM_REQUEST_PAYMENT_BUTTON = "from_accounts_tab"
         const val FROM_TRANSACT_TAB = "from_transact_tab"
@@ -464,8 +468,8 @@ data class ShowTutorialIntroduction(val hasTutorial: Boolean) : DashboardState()
 
 data class Error(val throwable: Throwable) : DashboardState()
 
-
 object ShowMerchantStatusPendingScreen : DashboardState()
 object ShowFeatureUnavailable : DashboardState()
 object SuccessCompletable : DashboardState()
 object ShowSuccessBiometric : DashboardState()
+object ShowQrScan : DashboardState()

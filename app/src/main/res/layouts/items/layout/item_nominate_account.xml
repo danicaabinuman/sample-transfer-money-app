@@ -14,10 +14,11 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clNominateAccountCard"
         android:layout_width="match_parent"
         android:background="@drawable/bg_card_view_gradient_gray"
         android:layout_height="wrap_content">
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_content"
@@ -30,42 +31,34 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewCorporateName"
-                style="@style/SMEBody"
-                android:textSize="@dimen/text_12"
-                android:layout_width="0dp"
+                style="@style/TextViewThemeAccountTitle"
+                android:layout_width="180dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:textStyle="bold"
+                android:text="ABC SAMPLE CORPORATION "
                 android:textColor="@color/colorWhite"
-                android:layout_marginEnd="@dimen/grid_1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/textViewAccountName"
-                app:layout_constraintEnd_toStartOf="@id/textViewAccountNumber"
-                tools:text="Retail Power Checking and Subsidiary"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewAccountName"
-                style="@style/SMESubtitle2"
-                android:textSize="@dimen/text_12"
-                android:layout_width="0dp"
+                style="@style/TextViewThemeAccountTitle"
+                android:layout_width="180dp"
                 android:layout_marginTop="@dimen/content_spacing_small"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="Retail Power Checking"
                 android:textColor="@color/colorWhite"
-                android:layout_marginEnd="@dimen/grid_1"
-                app:layout_constraintEnd_toStartOf="@id/shimmerLayoutAmount"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewCorporateName"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="ABC SAMPLE INTERNATIONAL CORPORATION"/>
+                app:layout_constraintTop_toBottomOf="@id/textViewCorporateName"/>
 
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewAccountNumber"
-                style="@style/SMECaption"
-                android:textSize="@dimen/text_12"
+                style="@style/TextViewThemeAccountTitle"
                 android:layout_width="wrap_content"
-                tools:text="0000 1234 5678"
+                android:text="@string/digits_account_number"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textViewCorporateName"/>
@@ -78,7 +71,6 @@
                 android:layout_marginTop="@dimen/content_spacing_small"
                 app:layout_constraintTop_toBottomOf="@+id/textViewAccountNumber"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:shimmer_animation_duration="1000"
                 app:shimmer_auto_start="true"
                 app:shimmer_color="@color/colorOrangeAccountSelectionItem"
@@ -88,19 +80,17 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/textViewAvailableBalance"
-                        style="@style/SMESubtitle2"
-                        android:textSize="@dimen/text_12"
+                        style="@style/TextViewThemeAccountTitle"
                         android:layout_width="wrap_content"
                         android:gravity="end"
                         android:textColor="@color/colorWhite"
                         android:textStyle="bold"
-                        tools:text="PHP 999,000,000.00"
+                        android:text="PHP 999,000,000.00"
                         android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:visibility="visible"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <View
                         android:id="@+id/viewShimmer"

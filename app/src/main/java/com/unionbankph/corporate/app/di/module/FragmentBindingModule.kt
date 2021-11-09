@@ -60,6 +60,7 @@ import com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterF
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.AllowPhoneCamera
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
@@ -384,6 +385,10 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun nominateSettlementAccountFragment(): NominateSettlementAccountFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun allowPhoneCamera(): AllowPhoneCamera
 
     @PerActivity
     @ContributesAndroidInjector

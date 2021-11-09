@@ -69,7 +69,7 @@ class SettingsDisplayFragment :
     }
 
     private fun init() {
-        (activity as DashboardActivity).imageViewHelp().visibility = View.GONE
+        (activity as DashboardActivity).btnHelp().visibility = View.GONE
         (activity as DashboardActivity).setToolbarTitle(
             getString(R.string.title_display),
             hasBackButton = true,

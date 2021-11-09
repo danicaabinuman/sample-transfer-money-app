@@ -27,10 +27,128 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 app:layout_constraintBottom_toTopOf="@+id/textViewTitle"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"
+                app:layout_constraintEnd_toStartOf="@+id/btnScan"
                 app:layout_constraintStart_toEndOf="@+id/viewBadge"
                 app:layout_constraintTop_toTopOf="@+id/viewBadge"
                 app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnScan"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/grid_7"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnRequestPayment"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="@dimen/grid_1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_scan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_scan"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_scan"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_scan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_1_half"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnRequestPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/grid_7"
+                app:layout_constraintBottom_toBottomOf="@id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@id/btnHelp"
+                app:layout_constraintTop_toTopOf="@id/viewBadge"
+                android:padding="@dimen/grid_1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_request"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_request"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_request"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_request"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/request"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_1_half"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/grid_7"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@+id/imageViewMarkAllAsRead"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/grid_1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_help"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_help_outline_gray_24dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_help"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_help"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_menu_help"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_1_half"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/btnRequestPayment"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:padding="@dimen/content_item_spacing"-->
+            <!--                android:paddingStart="12dp"-->
+            <!--                android:paddingEnd="12dp"-->
+            <!--                android:layout_marginEnd="@dimen/content_item_spacing"-->
+            <!--                android:background="@drawable/bg_request_payment_button"-->
+            <!--                android:gravity="center"-->
+            <!--                android:text="@string/dashboard_appbar_request_payment"-->
+            <!--                android:textAllCaps="true"-->
+            <!--                android:maxLines="1"-->
+            <!--                android:textColor="@color/colorWhite"-->
+            <!--                android:textSize="@dimen/text_12"-->
+            <!--                android:textStyle="bold"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/imageViewHelp"-->
+            <!--                app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/imageViewHelp" />-->
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewTitle"
@@ -44,7 +162,7 @@
                 android:maxLines="1"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewHelp"
+                app:layout_constraintEnd_toStartOf="@+id/btnScan"
                 app:layout_constraintStart_toEndOf="@+id/viewBadge"
                 app:layout_constraintTop_toBottomOf="@+id/textViewCorporationName"
                 app:layout_constraintVertical_chainStyle="packed" />
@@ -70,20 +188,7 @@
                 app:layout_constraintStart_toEndOf="@+id/viewBadge"
                 app:layout_constraintTop_toTopOf="@+id/viewBadge" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewHelp"
-                style="@style/ImageViewToolbarIcon"
-                android:layout_marginEnd="@dimen/content_spacing"
-                android:background="?selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="center"
-                android:visibility="visible"
-                app:tint="?colorImage"
-                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewMarkAllAsRead"
-                app:layout_constraintTop_toTopOf="@+id/viewBadge"
-                app:srcCompat="@drawable/ic_question_mark_white" />
+
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageViewMarkAllAsRead"

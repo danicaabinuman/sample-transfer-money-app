@@ -106,7 +106,7 @@ class SecurityEnableOTPFragment :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        dashboardActivity.imageViewHelp().visibility = View.GONE
+        dashboardActivity.btnHelp().visibility = View.GONE
         dashboardActivity.setToolbarTitle(
             getString(R.string.title_enable_otp),
             hasBackButton = true,

@@ -79,6 +79,7 @@ class Constant {
 
         fun getDefaultCountryDao() = Selector(id = "204", value = "PHILIPPINES")
 
+        const val COUNTRY_CODE_ID_PH = 175
     }
 
     class Notification {
@@ -165,11 +166,27 @@ class Constant {
         }
     }
 
+    class PaymentMethod {
+        companion object {
+            const val INSTAPAY = "INSTAPAY"
+            const val UB_ONLINE = "UB ONLINE"
+            const val BAYAD_CENTER = "BAYD"
+            const val ECPAY = "ECPY"
+            const val LBC = "LBC"
+            const val PALAWAN = "PLWN"
+            const val CEBUANA_LHUILLER = "CEBL"
+            const val GRABPAY = "GRABPAY"
+            const val GCASH = "GCASH"
+            const val UNKNOWN = "Unknown"
+        }
+    }
+
     class MismatchIDDetails {
         companion object {
             const val FIRST_NAME = "FIRSTNAME_MISMATCHED"
             const val LAST_NAME = "LASTNAME_MISMATCHED"
             const val BIRTH_DATE = "BIRTHDATE_MISMATCHED"
+
         }
     }
 

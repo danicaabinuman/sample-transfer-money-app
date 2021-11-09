@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.app.dashboard
 
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
@@ -47,12 +48,14 @@ import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEn
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity
 import com.unionbankph.corporate.databinding.ActivityDashboardBinding
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.InstapayQrSplashActivity
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
+import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
@@ -215,6 +218,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 is Error -> {
                     handleOnError(it.throwable)
                 }
+
+                is ShowQrScan -> {
+                    showInstapayQrScan()
+                }
             }
         })
 
@@ -238,7 +245,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             .subscribe {
                 showLogoutBottomSheet()
             }.addTo(disposables)
-        binding.viewToolbar.imageViewHelp.setOnClickListener {
+        binding.viewToolbar.btnHelp.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
             when (binding.bottomNavigationBTR.currentItem) {
@@ -282,6 +289,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             .subscribe {
                 navigateOrganizationScreen()
             }.addTo(disposables)
+
+        binding.viewToolbar.btnScan.setOnClickListener {
+            viewModel.scanQR()
+        }
     }
 
     private fun initDataBus() {
@@ -757,7 +768,11 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 position == bottomNavigationItems[FRAGMENT_APPROVALS] &&
                         allowMultipleSelectionApprovals
             )
-            binding.viewToolbar.imageViewHelp.visibility(
+//<<<<<<< HEAD
+//            binding.viewToolbar.imageViewHelp.visibility(
+//                position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
+//=======
+            binding.viewToolbar.btnHelp.visibility(
                 position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
                         position == bottomNavigationItems[FRAGMENT_TRANSACT] ||
                         position == bottomNavigationItems[FRAGMENT_APPROVALS] ||
@@ -769,6 +784,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
 //            binding.viewToolbar.btnRequestPayment.visibility(
 //                position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
+//                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
 //                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
 //            )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
@@ -804,7 +820,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     override fun onStartedTutorial(view: View?, viewTarget: View) {
         if (view != null) {
             when (view) {
-                binding.viewToolbar.imageViewHelp,
+                binding.viewToolbar.btnHelp,
                 binding.viewToolbar.imageViewLogout,
                 binding.viewToolbar.viewBadge.viewBadgeLayout -> {
                     val constraintSet = ConstraintSet()
@@ -856,7 +872,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         } else {
             if (view != null) {
                 when (view) {
-                    binding.viewToolbar.imageViewHelp -> {
+                    binding.viewToolbar.btnHelp -> {
                         viewModel.setTutorialIntroduction(false)
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
@@ -880,9 +896,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             } else {
                 tutorialEngineUtil.startTutorial(
                     this,
-                    binding.viewToolbar.imageViewHelp,
+                    binding.viewToolbar.btnHelp,
                     R.layout.frame_tutorial_upper_right,
-                    getCircleFloatSize(binding.viewToolbar.imageViewHelp),
+                    getCircleFloatSize(binding.viewToolbar.btnHelp),
                     true,
                     getString(R.string.msg_tutorial_help),
                     GravityEnum.BOTTOM,
@@ -1300,7 +1316,18 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         )
     }
 
-    private fun showMerchantStatusPendingScreen() {
+    private fun showInstapayQrScan() {
+        navigator.navigate(
+            this,
+            InstapayQrSplashActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
+    private fun showMerchantStatusPendingScreen(){
         navigator.navigate(
             this,
             MerchantApplicationReceivedActivity::class.java,
@@ -1321,7 +1348,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     fun setToolbarTitle(title: String, hasBackButton: Boolean, hasMenuItem: Boolean = false) {
         binding.viewToolbar.textViewTitle.text = title
-        binding.viewToolbar.imageViewHelp.visibility(hasMenuItem)
+        binding.viewToolbar.btnHelp.visibility(hasMenuItem)
         if (!hasBackButton) {
             binding.viewToolbar.imageViewLogout.visibility(
                 binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]
@@ -1365,7 +1392,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     fun bottomNavigationBTR(): AHBottomNavigation = binding.bottomNavigationBTR
 
-    fun imageViewHelp(): ImageView = binding.viewToolbar.imageViewHelp
+    fun btnHelp(): ConstraintLayout = binding.viewToolbar.btnHelp
 
     fun imageViewMarkAllAsRead(): ImageView = binding.viewToolbar.imageViewMarkAllAsRead
 
