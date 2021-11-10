@@ -97,7 +97,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/viewBadgeLayout"
                     android:visibility="invisible"
-                    android:layout_marginTop="@dimen/content_spacing_large"
+                    android:layout_marginTop="@dimen/content_spacing"
                     android:layout_width="@dimen/image_view_icon_xxl_size"
                     android:layout_height="@dimen/image_view_icon_xxl_size"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +127,7 @@
                         app:layout_constraintTop_toTopOf="@+id/imageViewInitial"
                         />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/textViewFullnameMSME"
@@ -389,7 +389,7 @@
                     style="@style/SMEPrimaryButtonLarge"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/grid_5"
+                    android:layout_marginTop="@dimen/content_spacing_large"
                     app:layout_constraintTop_toBottomOf="@+id/llPasswordSME"
                     android:layout_marginStart="@dimen/content_spacing"
                     android:layout_marginEnd="@dimen/content_spacing"
@@ -405,7 +405,6 @@
                     android:gravity="center"
                     android:padding="@dimen/text_view_padding"
                     android:text="@string/title_forgot_password"
-                    app:layout_constraintBottom_toTopOf="@+id/imgFingerPrintMSME"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/MSMEbtnLogin"
@@ -413,9 +412,9 @@
                     android:visibility="gone"
                     android:textStyle="bold"
                     android:textColor="@color/colorButtonGray"
-                    android:layout_marginTop="@dimen/content_spacing_large"
+                    android:layout_marginTop="@dimen/content_spacing"
 
-                     />
+                    />
 
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -423,7 +422,7 @@
                     style="@style/WrapContent"
                     android:layout_width="@dimen/image_view_login_fingerprint_size"
                     android:layout_height="@dimen/image_view_login_fingerprint_size"
-                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:layout_marginTop="@dimen/grid_1"
                     android:background="?selectableItemBackgroundBorderless"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -437,7 +436,7 @@
                     style="@style/WrapContent"
                     android:layout_width="@dimen/image_view_login_fingerprint_size"
                     android:layout_height="@dimen/image_view_login_fingerprint_size"
-                    android:layout_marginTop="@dimen/content_group_spacing"
+                    android:layout_marginTop="@dimen/grid_1"
                     android:background="?selectableItemBackgroundBorderless"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -487,7 +486,7 @@
             style="@style/RoundedButtonBorderedLightOverLay"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_small_size"
-            android:layout_marginBottom="@dimen/content_spacing_half"
+            android:layout_marginTop="@dimen/content_spacing_half"
             android:drawableStart="@drawable/ic_lock_gray"
             android:drawablePadding="@dimen/image_view_icon_padding"
             android:paddingStart="@dimen/button_padding_large"
@@ -501,7 +500,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewMigration"
             style="@style/TextViewTheme"
-            android:layout_marginBottom="@dimen/content_spacing_half"
+            android:layout_marginTop="@dimen/content_spacing_half"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/text_view_spacing"
             android:padding="@dimen/text_view_padding"
@@ -513,8 +512,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewLearnMore"
             style="@style/TextViewTheme"
-            android:layout_marginTop="@dimen/content_spacing"
-            android:layout_marginBottom="@dimen/content_spacing_half"
+            android:layout_marginTop="@dimen/content_spacing_half"
             android:padding="@dimen/text_view_padding"
             android:text="@string/title_learn_more"
             android:textAllCaps="true"
@@ -545,6 +543,7 @@
             android:lineSpacingMultiplier="1.2"
             android:text="@string/desc_unionbank"
             android:textSize="@dimen/text_12"
+            android:layout_marginTop="@dimen/content_spacing_half"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
             />
