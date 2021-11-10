@@ -469,7 +469,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             binding.viewToolbar.viewBadge.textViewInitial.text =
                 viewUtil.getCorporateOrganizationInitial(it.organizationName)
             binding.viewToolbar.textViewTitle.text = getString(
-                R.string.title_dashboard_header_accounts
+                R.string.title_dashboard_header_dashboard
             )
             if (!it.hasApproval && !it.isApprover) {
                 binding.bottomNavigationBTR.disableItemAtPosition(2)

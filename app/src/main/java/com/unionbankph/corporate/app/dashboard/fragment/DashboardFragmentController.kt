@@ -70,6 +70,14 @@ constructor(
 
     override fun buildModels(dashboardViewState: DashboardViewState, pageable: Pageable) {
 
+        dashboardViewState.megaMenuList
+            .find { it.id == Constant.MegaMenu.MSME_APPLY_LOAN }
+            .apply {
+                this?.let {
+                    isVisible = true
+                }
+            }
+
         val isLoanAvailable = dashboardViewState.megaMenuList
             .find { it.id == Constant.MegaMenu.MSME_APPLY_LOAN }?.isVisible
 
@@ -84,8 +92,10 @@ constructor(
             isRefreshed
         )
 
-        blankItem {
-            id("blank-1")
+        sMETextView {
+            id("label-accounts")
+            style(Constant.SMETextViewStyle.SUBTITLE2)
+            text(this@DashboardFragmentController.context.getString(R.string.title_accounts))
         }
 
 //        DashboardHeaderModel_()

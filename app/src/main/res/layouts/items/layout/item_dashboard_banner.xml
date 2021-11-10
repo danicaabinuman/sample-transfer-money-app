@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:cardElevation="@dimen/default_elevation"
-        app:cardCornerRadius="@dimen/card_radius_half">
+        app:cardCornerRadius="@dimen/grid_1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_banner_card"
@@ -39,7 +39,7 @@
 
             <TextView
                 android:id="@+id/tv_banner_header"
-                style="@style/SMESubtitle1"
+                style="@style/SMESubtitle2"
                 android:layout_width="0dp"
                 android:layout_marginTop="@dimen/grid_2"
                 android:layout_marginStart="@dimen/grid_2"
