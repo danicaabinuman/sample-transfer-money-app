@@ -486,7 +486,7 @@
             style="@style/RoundedButtonBorderedLightOverLay"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_small_size"
-            android:layout_marginBottom="@dimen/content_spacing_half"
+            android:layout_marginTop="@dimen/content_spacing_half"
             android:drawableStart="@drawable/ic_lock_gray"
             android:drawablePadding="@dimen/image_view_icon_padding"
             android:paddingStart="@dimen/button_padding_large"
@@ -500,7 +500,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewMigration"
             style="@style/TextViewTheme"
-            android:layout_marginBottom="@dimen/content_spacing_half"
+            android:layout_marginTop="@dimen/content_spacing_half"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/text_view_spacing"
             android:padding="@dimen/text_view_padding"
@@ -512,8 +512,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewLearnMore"
             style="@style/TextViewTheme"
-            android:layout_marginTop="@dimen/content_spacing"
-            android:layout_marginBottom="@dimen/content_spacing_half"
+            android:layout_marginTop="@dimen/content_spacing_half"
             android:padding="@dimen/text_view_padding"
             android:text="@string/title_learn_more"
             android:textAllCaps="true"
@@ -544,6 +543,7 @@
             android:lineSpacingMultiplier="1.2"
             android:text="@string/desc_unionbank"
             android:textSize="@dimen/text_12"
+            android:layout_marginTop="@dimen/content_spacing_half"
             android:layout_gravity="center_horizontal|center"
             android:gravity="center"
             />
