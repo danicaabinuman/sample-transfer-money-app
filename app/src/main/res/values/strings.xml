@@ -9,6 +9,7 @@
     <string name="digits_alpha_numeric_symbols_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
     <string name="digits_alpha_numeric_special_char_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
     <string name="digits_with_restriction">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
+    <string name="digits_for_product_offered">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_with_restriction_with_space">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_website">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-@.,?:\/]</string>
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
@@ -778,6 +779,7 @@
     <string name="title_region">Region</string>
     <string name="title_business_info">Business Information</string>
     <string name="title_full_legal_name">Full legal name</string>
+    <string name="title_not_a_unionbank_employee">Not a UnionBank Employee</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -1000,7 +1002,7 @@
     <string name="desc_dao_branch_transaction">Make your branch experience hassle-free. Schedule your cash and check deposits in advance.</string>
     <string name="desc_dao_confirmation_agreement">I agree to the UnionBank Account Opening Terms &amp; Conditions.</string>
     <string name="desc_confirm_your_details">Please review the information before submitting your application form.</string>
-    <string name="desc_dao_agreement_tnc">I agree to the Business Banking Terms &amp; Conditions.</string>
+    <string name="desc_dao_agreement_tnc">I agree to the Business Banking Terms &amp; Conditions</string>
     <string name="desc_dao_agreement_privacy">I agree to the UnionBank Privacy Policy</string>
     <string name="desc_contact_us">
         <![CDATA[
@@ -1019,6 +1021,7 @@
         <b>%1$s</b> Scheduled payment is not available for this biller.
         ]]>
     </string>
+    <string name="desc_dao_confirmation_unionbank_employee">I am not a UnionBank Employee</string>
 
 
     <string name="action_use_password">Use Password</string>
@@ -1156,6 +1159,7 @@
     <string name="error_no_aplha">No Alphabet</string>
     <string name="error_no_number">No Number</string>
     <string name="error_no_symbol">No Symbol</string>
+    <string name="error_code_not_found">Code not found.</string>
     <string name="error_title_under_maintenance">We\'ll be right back</string>
     <string name="error_msg_under_maintenance">We are currently undergoing system maintenance. Please check back in a bit.</string>
     <string name="dao_error_mismatch_response">ID details do not match.</string>
@@ -1546,6 +1550,7 @@
     <string name="msg_e_billing_unavailable">Sorry Electronic Billing is currently unavailable at the moment. Please check back again later.</string>
     <string name="msg_apply_loan_disclaimer">You will be redirected to our loan application gateway powered by Seekcap.ph, no information about you, your company or your transactions will be released for your protection.</string>
     <string name="msg_generic_feature_unavailable">Sorry this feature is unavailable at the moment. Please check back again later.</string>
+    <string name="msg_not_a_unionbank_employee">UnionBank employees will still be allowed to open a business account. System-generated emails will be sent to internal units for approval and assessment.</string>
 
     <string name="hint_account_number_format">[0000] [0000] [0000]</string>
     <string name="hint_other_bank_account_number_format">[0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [00]</string>
@@ -2498,6 +2503,72 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hint_email_address_small_letter">Email address</string>
     <string name="hint_e_g_9900008987">9900008987</string>
     <string name="error_mobile_field">Must start with an 8 or 9.</string>
+    <string name="request">Request</string>
+    <string name="scan">Scan</string>
+    <string name="allow_camera">Allow us to use your phone’s camera to scan other Instapay QR Codes</string>
+    <string name="btn_allow">Allow</string>
+    <string name="qr_code">QR Code</string>
+    <string name="instapay_qr_detail">Place the QR code in the center of the square. It will scan the QR code automatically.</string>
+    <string name="title_view_more">View More</string>
+    <string name="activity_log">Activity Log</string>
+    <string name="percent_3_5">3.5% + Php 15.00</string>
+    <string name="percent_3_5_per_transaction">3.5% + Php 15.00 per transaction</string>
+    <string name="set_up_fee">Set-Up Fee</string>
+    <string name="tc_waived">Waived</string>
+    <string name="tc_annual_mid_fee_per_account">Annual MID Fee per account</string>
+    <string name="tc_transaction_handling_fee">Transaction Handling Fee</string>
+    <string name="tc_php_15_00_per_transaction">PHP 15.00 per transaction</string>
+    <string name="tc_main_settlement_account_unionbank_account_number">Main Settlement Account (Unionbank Account Number)</string>
+    <string name="tc_php_400_00">PHP 400.00</string>
+    <string name="tc_chargeback_fee">Chargeback Fee</string>
+    <string name="tc_1_00">+ 1.00%</string>
+    <string name="tc_international_cards">International Cards</string>
+    <string name="tc_visa_mastercard">Visa, MasterCard</string>
+    <string name="tc_credit_card_brands">Credit Card Brands</string>
+    <string name="tc_merchant_name">Merchant Name</string>
+    <string name="tc_merchant_description_on_statement">Merchant Description on Statement</string>
+    <string name="tc_t_2_banking_days">T+2 banking days</string>
+    <string name="tc_settlement">Settlement</string>
+    <string name="tc_cwt_bir_2307">CWT/BIR 2307)</string>
+    <string name="tc_transactions">Transactions</string>
+    <string name="tc_quarterly_release_of">(Quarterly release of</string>
+    <string name="tc_0_5_only_applicable_to_card">0.5%*</string>
+    <string name="tc_withholding_tax">Withholding Tax</string>
+    <string name="tc_mastercard">MasterCard</string>
+    <string name="tc_visa">Visa</string>
+    <string name="tc_merchant_discount_rate">Merchant Discount Rate:</string>
+    <string name="tc_2_00">2.00%</string>
+    <string name="e_wallet_gcash_grabpay">E-Wallets (GCash &amp; Grabpay)</string>
+    <string name="annual_mid_fee_per_account_for_card_facility_only">Annual MID Fee per account for Card Facility only</string>
+    <string name="waived">Waived</string>
+    <string name="merchant_discount_rate">Merchant Discount Rate:</string>
+    <string name="visa_mastercard">Visa, MasterCard</string>
+    <string name="visa_mastercard_with_slash">Visa/MasterCard</string>
+    <string name="visa">Visa</string>
+    <string name="mastercard">MasterCard</string>
+    <string name="withholding_tax">Withholding Tax</string>
+    <string name="_0_5_only_applicable_to_card">0.5% only applicable to Card</string>
+    <string name="quarterly_release_of">(Quarterly release of</string>
+    <string name="transactions">Transactions</string>
+    <string name="cwt_bir_2307">CWT/BIR 2307)</string>
+    <string name="international_cards">International Cards</string>
+    <string name="_1_00">+ 1.00%</string>
+    <string name="chargeback_fee">Chargeback Fee</string>
+    <string name="php_400_00">PHP 400.00</string>
+    <string name="php_15_00">PHP 15.00</string>
+    <string name="over_the_counter_cash_payments">Over-the-Counter Cash Payments</string>
+    <string name="php_20_00">Php 20.00</string>
+    <string name="free_until_further_notice">Free until further notice</string>
+    <string name="free_until_further_notice_parenthesis">(Free until further notice)</string>
+    <string name="merchant_description_on_statement">Merchant Description on Statement</string>
+    <string name="merchant_name">Merchant Name</string>
+    <string name="settlement_all_channels">Settlement All Channels</string>
+    <string name="t_2_banking_days">T+2 banking days</string>
+    <string name="settlement_card_transaction_in_lieu_of_security_deposit">Settlement Card Transaction In lieu of security deposit</string>
+    <string name="t_7_to_t_14_banking_days">T+7 to T+14 banking days</string>
+    <string name="nominated_settlement_account_unionbank_account_number">Nominated Settlement Account (Unionbank Account Number)</string>
+    <string name="invalid_qr">Invalid QR</string>
+    <string name="invalid_qr_body">We can\'t scan this QR. Please try scanning an Instapay QR PH code. </string>
     <string name="one_last_thing">One last thing...</string>
     <string name="what_s_your_average_monthly_volume">What\'s your average monthly sales?</string>
     <string name="below_10k">Below 10K</string>
@@ -2516,6 +2587,11 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="invalid_filesize_desc">File size exceeds the maximum allowed size. Maximum file size is 2 MB</string>
     <string name="invalid_filetype_desc">File format is not supported. Only .jpeg, .png and .pdf are accepted.</string>
     <string name="branch">Branch </string>
+    <string name="merchant_rejected_details">We couldn’t process your application at this time. You may reach out to us at [email]@unionbankph.com should you need further assistance.</string>
+    <string name="oops_try_again">Oops! Try again!</string>
+    <string name="try_again">TRY AGAIN</string>
+    <string name="feature_unavailable_detail">Sorry, this feature is not available for your organization. Please Contact business@unionbankph.com for further assistance.</string>
+    <string name="okay_upper_case">OKAY</string>
     <string name="add_another_address">+ Add another address</string>
     <string name="pending">Pending</string>
     <string name="pending_message">We\'re currently reviewing \nyour application.</string>
@@ -2580,11 +2656,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
         ]]></string>
     <string name="hide_password">......................</string>
     <string name="title_accounts">Accounts</string>
-    <string name="merchant_rejected_details">We couldn’t process your application at this time. You may reach out to us at [email]@unionbankph.com should you need further assistance.</string>
-    <string name="oops_try_again">Oops! Try again!</string>
-    <string name="try_again">TRY AGAIN</string>
-    <string name="feature_unavailable_detail">Sorry, this feature is not available for your organization. Please Contact business@unionbankph.com for further assistance.</string>
-    <string name="okay_upper_case">OKAY</string>
     <string name="title_select_account_type">Select your business type</string>
     <string name="title_select_business_account_type">Choose the type of account that you want</string>
     <string name="desc_select_account_type">Before you can process payments, we need to learn more information about your business.</string>
@@ -2815,4 +2886,20 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="as_non_filipino_citizenship_description">Application is limited to Filipino citizens residing in the Philippines. A UnionBank officer will reach out to you.</string>
     <string name="title_trial_mode_days">You are on Trial Mode\nfor %1$s!</string>
     <string name="as_business_information_sub_title">This is the name that appears in your registration certificate</string>
+    <string name="banner_business_profile_title">Create a digital\npresence for your SME</string>
+    <string name="banner_business_profile_body">A digital catalog to attract more customers and grow your sales.</string>
+    <string name="banner_business_profile_footer">Make a business profile</string>
+    <string name="banner_learn_more_title">Set up a\nfree online store</string>
+    <string name="banner_learn_more_body">Linker.store can make online\nselling easier for you.</string>
+    <string name="banner_learn_more_footer">Learn more</string>
+    <string name="title_globallinker">Globallinker</string>
+    <string name="mega_menu_request_payment">Request\nPayment</string>
+    <string name="mega_menu_transfer_funds">Transfer\nFunds</string>
+    <string name="mega_menu_pay_bills">Pay\nBills</string>
+    <string name="mega_menu_apply_loan">Apply\nLoan</string>
+    <string name="mega_menu_deposit_check">Deposit\nCheck</string>
+    <string name="mega_menu_generate_qr">Generate\nQR</string>
+    <string name="msg_no_id_list">There are currently no IDs\n enabled for DAO.</string>
+    <string name="msg_something_went_wrong">We need a little more time to get the latest list of valid IDs. Please try again in a couple of minutes.</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

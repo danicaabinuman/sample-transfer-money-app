@@ -19,6 +19,8 @@ import com.unionbankph.corporate.dao.data.source.remote.DaoRemote
 import com.unionbankph.corporate.dao.data.source.remote.impl.DaoRemoteImpl
 import com.unionbankph.corporate.fund_transfer.data.source.remote.FundTransferRemote
 import com.unionbankph.corporate.fund_transfer.data.source.remote.impl.FundTransferRemoteImpl
+import com.unionbankph.corporate.instapay_qr.data.source.remote.GenerateFTRemote
+import com.unionbankph.corporate.instapay_qr.data.source.remote.GenerateFTRemoteImpl
 import com.unionbankph.corporate.notification.data.source.remote.NotificationRemote
 import com.unionbankph.corporate.notification.data.source.remote.impl.NotificationRemoteImpl
 import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemote
@@ -88,6 +90,10 @@ class RemoteDataModule {
     @Provides
     @PerApplication
     fun paymentLinkRemote(retrofit: Retrofit): PaymentLinkRemote = PaymentLinkRemoteImpl(retrofit)
+
+    @Provides
+    @PerApplication
+    fun generateFTRemote(retrofit: Retrofit): GenerateFTRemote = GenerateFTRemoteImpl(retrofit)
 
 
 }

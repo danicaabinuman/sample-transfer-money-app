@@ -67,7 +67,7 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="PHP 10.00"
+                android:text="@string/free_until_further_notice_parenthesis"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
 
@@ -116,20 +116,21 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Credit/Debit Card"
+                android:text="@string/e_wallet_gcash_grabpay"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/fncCard"
+                android:id="@+id/fncEWallet"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/for_table_pricing_left_top_bottom"
                 android:paddingLeft="10dp"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="3.00% + PHP 10.00"
+                android:text="@string/tc_2_00"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
 
@@ -147,12 +148,12 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="E-Wallet"
+                android:text="@string/over_the_counter"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/fncEWallet"
+                android:id="@+id/fncCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/for_table_pricing_left_top_bottom"
@@ -160,7 +161,7 @@
                 android:layout_weight="1"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="2.00% + PHP 10.00"
+                android:text="@string/php_20_00"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
 
@@ -178,20 +179,20 @@
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="15dp"
-                android:text="Instapay"
+                android:text="@string/visa_mastercard_with_slash"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/fncOTC"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/for_table_pricing_left_top"
                 android:paddingLeft="10dp"
                 android:layout_weight="1"
                 android:paddingTop="10dp"
                 android:paddingBottom="15dp"
-                android:text="PHP 15.00"
+                android:text="@string/percent_3_5_per_transaction"
                 android:textColor="#4A4A4A"
                 android:textSize="12sp" />
 

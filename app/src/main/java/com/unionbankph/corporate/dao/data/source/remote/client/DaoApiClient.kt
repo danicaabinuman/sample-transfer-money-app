@@ -176,4 +176,12 @@ interface DaoApiClient {
         @Body
         validateNominatedUserForm: ValidateNominatedUserForm
     ): Single<Response<ValidateNominatedUserDto>>
+
+    @GET("api/{api_version}/dao/applications/list-of-ids")
+    fun getListIds(
+        @Path("api_version")
+        apiVersion: String,
+        @Query("userToken")
+        userToken: String?
+    ): Single<Response<MutableList<IdDto>>>
 }

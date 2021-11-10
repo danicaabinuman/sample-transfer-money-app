@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.app.dashboard
 
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
@@ -11,12 +12,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
 import androidx.biometric.BiometricPrompt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationViewPager
@@ -47,13 +48,14 @@ import com.unionbankph.corporate.common.presentation.constant.OverlayAnimationEn
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.corporate.presentation.organization.OrganizationActivity
 import com.unionbankph.corporate.databinding.ActivityDashboardBinding
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.InstapayQrSplashActivity
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity
 import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesFragment
+import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
@@ -73,7 +75,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         resources.getStringArray(R.array.array_dashboard_header).toMutableList()
     }
 
-    var isOnTrialMode = true
+    var isOnTrialMode = false
 
     private lateinit var ahNotificationBuilder: AHNotification.Builder
 
@@ -115,7 +117,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     private var isBackButtonPaymentList: Boolean = false
 
-    private lateinit var dashboardFragment: DashboardFragment
+    private lateinit var transactFragment: TransactFragment
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -132,10 +134,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         viewModel.dashBoardState.observe(this, Observer {
             when (it) {
 
-                is ShowMerchantStatusPendingScreen ->{
+                is ShowMerchantStatusPendingScreen -> {
                     showMerchantStatusPendingScreen()
                 }
-                is ShowFeatureUnavailable ->{
+                is ShowFeatureUnavailable -> {
                     showFeatureUnavailable()
                 }
                 is ShowProgressLoading -> {
@@ -210,11 +212,15 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     handleOnError(it.throwable)
                 }
                 is ShowPaymentLinkOnBoarding -> {
-                    navigatePaymentLinkOnBoarding(it.merchantExists,it.fromWhatTab)
+                    navigatePaymentLinkOnBoarding(it.merchantExists, it.fromWhatTab)
                 }
 
                 is Error -> {
                     handleOnError(it.throwable)
+                }
+
+                is ShowQrScan -> {
+                    showInstapayQrScan()
                 }
             }
         })
@@ -239,14 +245,18 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             .subscribe {
                 showLogoutBottomSheet()
             }.addTo(disposables)
-        binding.viewToolbar.imageViewHelp.setOnClickListener {
-            if (isOnTrialMode) return@setOnClickListener
+        binding.viewToolbar.btnHelp.setOnClickListener {
             if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) return@setOnClickListener
             mLastClickTime = SystemClock.elapsedRealtime()
             when (binding.bottomNavigationBTR.currentItem) {
-                bottomNavigationItems[FRAGMENT_ACCOUNTS] -> {
+                bottomNavigationItems[FRAGMENT_DASHBOARD] -> {
                     eventBus.settingsSyncEvent.emmit(
                         BaseEvent(SettingsSyncEvent.ACTION_PUSH_TUTORIAL_ACCOUNT)
+                    )
+                }
+                bottomNavigationItems[FRAGMENT_TRANSACT] -> {
+                    eventBus.settingsSyncEvent.emmit(
+                        BaseEvent(SettingsSyncEvent.ACTION_PUSH_TUTORIAL_TRANSACT)
                     )
                 }
                 bottomNavigationItems[FRAGMENT_APPROVALS] -> {
@@ -277,21 +287,12 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 TimeUnit.MILLISECONDS
             )
             .subscribe {
-                if (isOnTrialMode) return@subscribe
                 navigateOrganizationScreen()
             }.addTo(disposables)
 
-        RxView.clicks(binding.viewToolbar.viewNotificationBadge.root)
-            .throttleFirst(
-                resources.getInteger(R.integer.time_button_debounce).toLong(),
-                TimeUnit.MILLISECONDS
-            )
-            .subscribe {
-                if (isOnTrialMode) return@subscribe
-                binding.viewPagerBTR.setCurrentItem(5, true)
-                adapter?.notifyDataSetChanged()
-                binding.viewToolbar.viewNotificationBadge.root.visibility = View.GONE
-            }.addTo(disposables)
+        binding.viewToolbar.btnScan.setOnClickListener {
+            viewModel.scanQR()
+        }
     }
 
     private fun initDataBus() {
@@ -362,7 +363,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     }
                     ActionSyncEvent.ACTION_NAVIGATE_ALERTS_TAB -> {
                         binding.bottomNavigationBTR.currentItem =
-                            bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 5
+                            bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 3
                         Handler().postDelayed(
                             {
                                 this.eventBus.actionSyncEvent.emmit(
@@ -393,7 +394,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 }
                 TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST -> {
                     isBackButtonPaymentList = true
-                    binding.viewPagerBTR.currentItem = bottomNavigationItems[FRAGMENT_DASHBOARD]!!
+                    binding.bottomNavigationBTR.currentItem = 1
 
                     setToolbarTitle(
                         getString(R.string.title_payment_links),
@@ -401,11 +402,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                         hasMenuItem = true
                     )
 
-                    binding.viewToolbar.btnRequestPayment.visibility = View.VISIBLE
-                    binding.viewToolbar.viewNotificationBadge.root.visibility = View.GONE
-
                     runPostDelayed({
-                        dashboardFragment.navigateToPaymentLinkFragment()
+                        transactFragment.navigateToPaymentLinkFragment()
                     }, 100)
                 }
             }
@@ -426,10 +424,6 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         )
     }
 
-    private fun navigateToNotificationsFragment() {
-
-    }
-
     private fun initNotificationBadgeApprovals(it: NotificationSuccess) {
         organizationBadgeCount = it.profileBadgeCount
         val badgeCountSharedApprovalsPref = sharedPreferenceUtil.badgeCountApprovalsSharedPref()
@@ -446,7 +440,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     private fun initEncryptedBiometric(token: String) {
-        if(RxFingerprint.isAvailable(this)){
+        if (RxFingerprint.isAvailable(this)) {
             val fingerprintBottomSheet = FingerprintBottomSheet.newInstance(
                 token,
                 FingerprintBottomSheet.ENCRYPT_TYPE
@@ -457,10 +451,12 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 FingerprintBottomSheet.EXTRA_TOKEN,
                 token
             )
-        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
-                .BIOMETRIC_SUCCESS){
+        } else if (BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS
+        ) {
             viewModel.setTokenFingerPrint(token)
         }
+
 
     }
 
@@ -472,8 +468,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             binding.viewToolbar.textViewCorporationName.text = it.organizationName
             binding.viewToolbar.viewBadge.textViewInitial.text =
                 viewUtil.getCorporateOrganizationInitial(it.organizationName)
-            binding.viewToolbar.textViewTitle.text = it.organizationName
-
+            binding.viewToolbar.textViewTitle.text = getString(
+                R.string.title_dashboard_header_dashboard
+            )
             if (!it.hasApproval && !it.isApprover) {
                 binding.bottomNavigationBTR.disableItemAtPosition(2)
             }
@@ -567,7 +564,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     private fun popStackFragmentNotifications() {
         val notificationTabFragment =
-            adapter?.getItem(bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 5)!!
+            adapter?.getItem(bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 3)!!
         notificationTabFragment.childFragmentManager.popBackStackImmediate()
         val fragmentManager = notificationTabFragment.childFragmentManager
         val fragmentTag = notificationTabFragment
@@ -641,23 +638,22 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         }
     }
 
-    private fun popBackStackDashboard() {
-        val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_DASHBOARD] ?: 1)!!
+    private fun popBackStackTransact() {
+        val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
         val fragmentManager = transactTabFragment.childFragmentManager
         val fragmentTag = transactTabFragment
             .childFragmentManager
             .getBackStackEntryAt(fragmentManager.backStackEntryCount - 1)
             .name
-        if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT,true)) {
+        if (fragmentTag.equals(TransactFragment.FRAGMENT_REQUEST_PAYMENT, true)) {
             transactTabFragment.childFragmentManager.popBackStackImmediate()
             isBackButtonPaymentList = false
             setToolbarTitle(
-                getString(R.string.title_dashboard_header_dashboard),
+                getString(R.string.title_dashboard_header_transact),
                 hasBackButton = false,
                 hasMenuItem = true
             )
             binding.viewToolbar.btnRequestPayment.visibility = View.GONE
-            binding.viewToolbar.viewNotificationBadge.root.visibility = View.VISIBLE
         }
     }
 
@@ -677,7 +673,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             }
         } else if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) {
             val notificationTabFragment =
-                adapter?.getItem(bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 5)!!
+                adapter?.getItem(bottomNavigationItems[FRAGMENT_NOTIFICATIONS] ?: 3)!!
             if (notificationTabFragment.isAdded) {
                 val count = notificationTabFragment.childFragmentManager.backStackEntryCount
                 if (count == 1 ||
@@ -688,14 +684,16 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     popStackFragmentNotifications()
                 }
             }
-        } else if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD]) {
-            val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_DASHBOARD]!!)!!
+        } else if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_TRANSACT]) {
+            val transactTabFragment =
+                adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
             if (transactTabFragment.isAdded) {
+
                 val count = transactTabFragment.childFragmentManager.backStackEntryCount
-                if (count == 0 || binding.viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_DASHBOARD]){
+                if (count == 0 || binding.viewPagerBTR.currentItem != bottomNavigationItems[FRAGMENT_TRANSACT]) {
                     showLogoutBottomSheet()
                 } else {
-                    popBackStackDashboard()
+                    popBackStackTransact()
                 }
             }
         } else {
@@ -710,22 +708,20 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     override fun onTabSelected(position: Int, wasSelected: Boolean): Boolean {
-        if (isOnTrialMode) return false
-
         if (!wasSelected) {
             viewModel.getOrganizationNotification(role?.organizationId.notNullable())
             if ((isBackButtonFragmentSettings &&
                         position == bottomNavigationItems[FRAGMENT_SETTINGS]) ||
                 (isBackButtonFragmentAlerts &&
                         position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS]) ||
-                isBackButtonPaymentList && position == bottomNavigationItems[FRAGMENT_DASHBOARD]
+                isBackButtonPaymentList && position == bottomNavigationItems[FRAGMENT_TRANSACT]
             ) {
                 binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility(false)
                 binding.viewToolbar.imageViewLogout.visibility(false)
                 binding.viewToolbar.imageViewMarkAllAsRead.visibility(false)
                 binding.viewToolbar.btnRequestPayment.visibility(
                     when (binding.viewPagerBTR.currentItem) {
-                        bottomNavigationItems[FRAGMENT_DASHBOARD] -> true
+                        bottomNavigationItems[FRAGMENT_TRANSACT] -> true
                         else -> false
                     }
                 )
@@ -736,7 +732,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     when (binding.viewPagerBTR.currentItem) {
                         bottomNavigationItems[FRAGMENT_SETTINGS] -> popStackFragmentSettings()
                         bottomNavigationItems[FRAGMENT_NOTIFICATIONS] -> popStackFragmentNotifications()
-                        bottomNavigationItems[FRAGMENT_DASHBOARD] -> popBackStackDashboard()
+                        bottomNavigationItems[FRAGMENT_TRANSACT] -> popBackStackTransact()
                     }
                 }
                 binding.viewToolbar.textViewTitle.text = stackTitle
@@ -759,25 +755,22 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 binding.viewToolbar.viewBadge.textViewInitial.visibility = View.VISIBLE
                 setOrganizationBadge(organizationBadgeCount)
                 binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener { navigateOrganizationScreen() }
-                binding.viewToolbar.textViewTitle.text = when (position == 0) {
-                    true -> role?.organizationName
-                    else -> headerDashboard[position]
-                }
+                binding.viewToolbar.textViewTitle.text = headerDashboard[position]
             }
-            if (isSME) {
-                if (position == bottomNavigationItems[FRAGMENT_APPROVALS]) {
-                    removeElevation(binding.viewToolbar.appBarLayout)
-                } else {
+//            if (isSME) {
+//                if (position == bottomNavigationItems[FRAGMENT_APPROVALS]) {
+//                    removeElevation(binding.viewToolbar.appBarLayout)
+//                } else {
 //                    addElevation(binding.viewToolbar.appBarLayout)
-                }
-            }
+//                }
+//            }
             binding.viewApprovalsNavigation.viewApprovalsNavigationLayout.visibility(
                 position == bottomNavigationItems[FRAGMENT_APPROVALS] &&
                         allowMultipleSelectionApprovals
             )
-            binding.viewToolbar.imageViewHelp.visibility(
+            binding.viewToolbar.btnHelp.visibility(
                 position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
-                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
+                        position == bottomNavigationItems[FRAGMENT_TRANSACT] ||
                         position == bottomNavigationItems[FRAGMENT_APPROVALS] ||
                         (position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] &&
                                 stackFlagNotification) ||
@@ -786,18 +779,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             )
 
             binding.viewToolbar.btnRequestPayment.visibility(
-                position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
-                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_DASHBOARD]))
+                position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
+                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
             )
-
-            binding.viewToolbar.viewNotificationBadge.root.visibility(
-//                    position == bottomNavigationItems[FRAGMENT_ACCOUNTS] ||
-                    position == bottomNavigationItems[FRAGMENT_APPROVALS] ||
-                    (position == bottomNavigationItems[FRAGMENT_DASHBOARD] && !stackFlagNotification) ||
-                    (position == bottomNavigationItems[FRAGMENT_SETTINGS] && !stackFlagSettings) ||
-                    (position == bottomNavigationItems[FRAGMENT_DASHBOARD] && !isBackButtonPaymentList)
-            )
-
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
                     adapter?.getItem(bottomNavigationItems[FRAGMENT_SETTINGS]!!)!!
@@ -831,7 +815,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     override fun onStartedTutorial(view: View?, viewTarget: View) {
         if (view != null) {
             when (view) {
-                binding.viewToolbar.imageViewHelp,
+                binding.viewToolbar.btnHelp,
                 binding.viewToolbar.imageViewLogout,
                 binding.viewToolbar.viewBadge.viewBadgeLayout -> {
                     val constraintSet = ConstraintSet()
@@ -883,7 +867,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         } else {
             if (view != null) {
                 when (view) {
-                    binding.viewToolbar.imageViewHelp -> {
+                    binding.viewToolbar.btnHelp -> {
                         viewModel.setTutorialIntroduction(false)
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
@@ -907,9 +891,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             } else {
                 tutorialEngineUtil.startTutorial(
                     this,
-                    binding.viewToolbar.imageViewHelp,
+                    binding.viewToolbar.btnHelp,
                     R.layout.frame_tutorial_upper_right,
-                    getCircleFloatSize(binding.viewToolbar.imageViewHelp),
+                    getCircleFloatSize(binding.viewToolbar.btnHelp),
                     true,
                     getString(R.string.msg_tutorial_help),
                     GravityEnum.BOTTOM,
@@ -970,16 +954,6 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         if (fragment == FRAGMENT_APPROVALS) {
             this.badgeCount = badgeCount
         }
-
-        if (fragment == FRAGMENT_NOTIFICATIONS) {
-            binding.viewToolbar.viewNotificationBadge.imageViewNotificationBadgeIndicator.visibility =
-                when (badgeCount > 0) {
-                    true -> View.VISIBLE
-                    else -> View.GONE
-                }
-            return
-        }
-
         setBottomNavigationBadge(
             badgeCount, bottomNavigationItems[fragment]!!,
             if (isColored) R.color.colorRedBadge else R.color.colorGrayBadge
@@ -988,7 +962,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     private fun initForceTutorialTabs(position: Int) {
         when (position) {
-            bottomNavigationItems[FRAGMENT_ACCOUNTS] -> {
+            bottomNavigationItems[FRAGMENT_DASHBOARD] -> {
                 eventBus.settingsSyncEvent.emmit(
                     BaseEvent(SettingsSyncEvent.ACTION_TUTORIAL_ACCOUNT)
                 )
@@ -1009,8 +983,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         if (badgeCount == null) return
         if (binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility == View.VISIBLE) {
             binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout
-                .visibility(badgeCount.badge > 0 &&
-                        binding.viewToolbar.viewBadge.textViewInitial.visibility == View.VISIBLE)
+                .visibility(
+                    badgeCount.badge > 0 &&
+                            binding.viewToolbar.viewBadge.textViewInitial.visibility == View.VISIBLE
+                )
         } else {
             if (binding.viewToolbar.viewBadge.textViewInitial.visibility == View.VISIBLE && badgeCount.badge > 0)
                 viewUtil.startAnimateView(
@@ -1030,32 +1006,28 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     private fun initBottomNavigation() {
         bottomNavigationItems[FRAGMENT_DASHBOARD] = 0
-        bottomNavigationItems[FRAGMENT_ACCOUNTS] = 1
+        bottomNavigationItems[FRAGMENT_TRANSACT] = 1
         bottomNavigationItems[FRAGMENT_APPROVALS] = 2
-        bottomNavigationItems[FRAGMENT_PAY_BILLS] = 3
+        bottomNavigationItems[FRAGMENT_NOTIFICATIONS] = 3
         bottomNavigationItems[FRAGMENT_SETTINGS] = 4
-        bottomNavigationItems[FRAGMENT_NOTIFICATIONS] = 5
-        val item1 = AHBottomNavigationItem(
-            getString(R.string.title_tab_dashboard),
-            R.drawable.ic_vector_dashboard_dashboard
-        )
+        val item1 =
+            AHBottomNavigationItem(getString(R.string.title_tab_dashboard), R.drawable.ic_vector_dashboard_dashboard)
         val item2 = AHBottomNavigationItem(
-            getString(R.string.title_tab_accounts), R.drawable.ic_vector_dashboard_accounts
+            getString(R.string.title_tab_transact), R.drawable.ic_send_request
         )
-        val item3 = AHBottomNavigationItem(
-            getString(R.string.title_tab_approvals),
-            R.drawable.ic_vector_dashboard_approvals
-        )
+        val item3 =
+            AHBottomNavigationItem(getString(R.string.title_tab_approvals), R.drawable.ic_approval)
         val item4 = AHBottomNavigationItem(
-            getString(R.string.title_tab_pay_bills),
-            R.drawable.ic_vector_dashboard_pay_bills
+            getString(R.string.title_tab_notifications),
+            R.drawable.ic_notification
         )
         val item5 =
             AHBottomNavigationItem(getString(R.string.title_tab_settings), R.drawable.ic_settings)
         binding.bottomNavigationBTR.defaultBackgroundColor =
             ContextCompat.getColor(this, R.color.colorWhite)
         binding.bottomNavigationBTR.accentColor = getColorFromAttr(R.attr.colorAccent)
-        binding.bottomNavigationBTR.inactiveColor = ContextCompat.getColor(this, R.color.colorTextTab)
+        binding.bottomNavigationBTR.inactiveColor =
+            ContextCompat.getColor(this, R.color.colorTextTab)
         binding.bottomNavigationBTR.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
         binding.bottomNavigationBTR.setTitleTextSize(
             resources.getDimension(R.dimen.navigation_bottom_text_size_normal),
@@ -1079,15 +1051,11 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 binding.bottomNavigationBTR.getViewAtPosition(3) != null &&
                 binding.bottomNavigationBTR.getViewAtPosition(4) != null
             ) {
-                binding.bottomNavigationBTR.getViewAtPosition(0).id = R.id.tabDashboard
-                binding.bottomNavigationBTR.getViewAtPosition(1).id = R.id.tabAccounts
+                binding.bottomNavigationBTR.getViewAtPosition(0).id = R.id.tabAccounts
+                binding.bottomNavigationBTR.getViewAtPosition(1).id = R.id.tabTransact
                 binding.bottomNavigationBTR.getViewAtPosition(2).id = R.id.tabApprovals
-                binding.bottomNavigationBTR.getViewAtPosition(3).id = R.id.tabPayBills
+                binding.bottomNavigationBTR.getViewAtPosition(3).id = R.id.tabProfile
                 binding.bottomNavigationBTR.getViewAtPosition(4).id = R.id.tabSettings
-
-                // Disable Pay Bills Temporarily
-                binding.bottomNavigationBTR.getViewAtPosition(3).isEnabled = false
-                binding.bottomNavigationBTR.getViewAtPosition(3).isClickable = false
             }
         }
     }
@@ -1105,8 +1073,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             binding.bottomNavigationBTR.getViewAtPosition(1).isClickable = isEnable
             binding.bottomNavigationBTR.getViewAtPosition(2).isEnabled = isEnable
             binding.bottomNavigationBTR.getViewAtPosition(2).isClickable = isEnable
-            binding.bottomNavigationBTR.getViewAtPosition(3).isEnabled = false
-            binding.bottomNavigationBTR.getViewAtPosition(3).isClickable = false
+            binding.bottomNavigationBTR.getViewAtPosition(3).isEnabled = isEnable
+            binding.bottomNavigationBTR.getViewAtPosition(3).isClickable = isEnable
             binding.bottomNavigationBTR.getViewAtPosition(4).isEnabled = isEnable
             binding.bottomNavigationBTR.getViewAtPosition(4).isClickable = isEnable
         }
@@ -1114,20 +1082,19 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     private fun initViewPager() {
 
-        dashboardFragment = DashboardFragment()
+        transactFragment = TransactFragment()
 
         adapter = ViewPagerAdapter(
             supportFragmentManager
         )
-        adapter?.addFragment(dashboardFragment , FRAGMENT_DASHBOARD)
-        adapter?.addFragment(AccountFragment(), FRAGMENT_ACCOUNTS)
+        adapter?.addFragment(DashboardFragment(), FRAGMENT_DASHBOARD)
+        adapter?.addFragment(transactFragment, FRAGMENT_TRANSACT)
         adapter?.addFragment(ApprovalFragment(), FRAGMENT_APPROVALS)
-        adapter?.addFragment(FeesAndChargesFragment(), FRAGMENT_PAY_BILLS)
-        adapter?.addFragment(SettingsFragment(), FRAGMENT_SETTINGS)
         adapter?.addFragment(NotificationLogTabFragment(), FRAGMENT_NOTIFICATIONS)
+        adapter?.addFragment(SettingsFragment(), FRAGMENT_SETTINGS)
         // viewPagerBTR.setPageTransformer(false, FadePageTransformer())
         binding.viewPagerBTR.setPagingEnabled(false)
-        binding.viewPagerBTR.offscreenPageLimit = 5
+        binding.viewPagerBTR.offscreenPageLimit = 4
         binding.viewPagerBTR.adapter = adapter
     }
 
@@ -1156,7 +1123,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     fun showFingerprintBottomSheet() {
-        if(RxFingerprint.isAvailable(this)){
+        if (RxFingerprint.isAvailable(this)) {
             fingerprintBottomSheet = ConfirmationBottomSheet.newInstance(
                 R.drawable.ic_fingerprint_white_48dp,
                 getString(R.string.title_enable_fingerprint),
@@ -1164,8 +1131,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 getString(R.string.action_link),
                 getString(R.string.action_not_now)
             )
-        }else if(BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
-                .BIOMETRIC_SUCCESS){
+        } else if (BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
+                .BIOMETRIC_SUCCESS
+        ) {
             fingerprintBottomSheet = ConfirmationBottomSheet.newInstance(
                 R.drawable.ic_fingerprint_white_48dp,
                 getString(R.string.title_enable_face_id),
@@ -1343,6 +1311,17 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         )
     }
 
+    private fun showInstapayQrScan() {
+        navigator.navigate(
+            this,
+            InstapayQrSplashActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
     private fun showMerchantStatusPendingScreen(){
         navigator.navigate(
             this,
@@ -1353,10 +1332,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         )
     }
 
-    private fun showFeatureUnavailable(){
+    private fun showFeatureUnavailable() {
 
         binding.errorMerchantRejected.visibility = View.VISIBLE
-        binding.viewFeatureUnavailable.btnFeatureUnavailableBackToDashboard.setOnClickListener{
+        binding.viewFeatureUnavailable.btnFeatureUnavailableBackToDashboard.setOnClickListener {
             binding.errorMerchantRejected.visibility = View.GONE
         }
     }
@@ -1364,7 +1343,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     fun setToolbarTitle(title: String, hasBackButton: Boolean, hasMenuItem: Boolean = false) {
         binding.viewToolbar.textViewTitle.text = title
-        binding.viewToolbar.imageViewHelp.visibility(hasMenuItem)
+        binding.viewToolbar.btnHelp.visibility(hasMenuItem)
         if (!hasBackButton) {
             binding.viewToolbar.imageViewLogout.visibility(
                 binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]
@@ -1383,7 +1362,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 when (binding.viewPagerBTR.currentItem) {
                     bottomNavigationItems[FRAGMENT_SETTINGS] -> popStackFragmentSettings()
                     bottomNavigationItems[FRAGMENT_NOTIFICATIONS] -> popStackFragmentNotifications()
-                    bottomNavigationItems[FRAGMENT_DASHBOARD] -> popBackStackDashboard()
+                    bottomNavigationItems[FRAGMENT_TRANSACT] -> popBackStackTransact()
                 }
             }
             binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
@@ -1408,17 +1387,14 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     fun bottomNavigationBTR(): AHBottomNavigation = binding.bottomNavigationBTR
 
-    fun imageViewHelp(): ImageView = binding.viewToolbar.imageViewHelp
+    fun btnHelp(): ConstraintLayout = binding.viewToolbar.btnHelp
 
     fun imageViewMarkAllAsRead(): ImageView = binding.viewToolbar.imageViewMarkAllAsRead
 
-    fun viewApprovalsNavigation(): View = binding.viewApprovalsNavigation.viewApprovalsNavigationLayout
+    fun viewApprovalsNavigation(): View =
+        binding.viewApprovalsNavigation.viewApprovalsNavigationLayout
 
     fun textViewEditApprovals(): AppCompatTextView = binding.viewToolbar.textViewEditApprovals
-
-    fun getRole() : Role? {
-        return  this.role
-    }
 
     fun allowMultipleSelectionApprovals(allowMultipleSelectionApprovals: Boolean) {
         this.allowMultipleSelectionApprovals = allowMultipleSelectionApprovals
@@ -1429,12 +1405,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     companion object {
         const val FRAGMENT_DASHBOARD = "dashboard"
-        const val FRAGMENT_ACCOUNTS = "accounts"
         const val FRAGMENT_TRANSACT = "transact"
         const val FRAGMENT_APPROVALS = "approvals"
         const val FRAGMENT_SETTINGS = "settings"
         const val FRAGMENT_NOTIFICATIONS = "notifications"
-        const val FRAGMENT_PAY_BILLS = "paybills"
         const val EXTRA_SWITCH_ORG = "from_switch_org"
         const val TAG_NEW_USER_DETECTED_DIALOG = "new_user_detected_dialog"
         const val TAG_TRUSTED_DEVICE_DIALOG = "trusted_device_dialog"

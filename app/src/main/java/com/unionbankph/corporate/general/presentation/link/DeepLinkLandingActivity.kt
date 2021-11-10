@@ -46,7 +46,7 @@ class DeepLinkLandingActivity : AppCompatActivity() {
             if (data.toString().contains("view-transaction")) {
                 Timber.d("data.toString(): $data")
                 val id = data.getQueryParameter("id")
-                val roleId = data.getQueryParameter("role")
+                val roleId = data.getQueryParameter("switchRoleId")
                 val channel = data.getQueryParameter("channel")
                 val code = if (channel.equals("mobile-check-deposit")) {
                     NotificationLogTypeEnum.MOBILE_CHECK_DEPOSIT.name

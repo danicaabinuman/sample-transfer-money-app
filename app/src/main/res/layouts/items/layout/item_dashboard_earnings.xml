@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/grid_2"
         android:layout_marginEnd="@dimen/grid_2"
-        app:cardCornerRadius="@dimen/card_radius_half"
+        app:cardCornerRadius="@dimen/grid_1"
         app:cardElevation="@dimen/default_elevation"
         android:background="@color/colorWhite">
 

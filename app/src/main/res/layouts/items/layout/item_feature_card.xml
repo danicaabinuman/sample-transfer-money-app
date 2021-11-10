@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:cardElevation="@dimen/default_elevation"
-        app:cardCornerRadius="@dimen/card_radius_half">
+        app:cardCornerRadius="@dimen/grid_1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutFeatureCard"
@@ -41,7 +41,6 @@
             <TextView
                 android:id="@+id/textViewCardTitle"
                 style="@style/SMESubtitle2"
-                android:textSize="@dimen/text_14"
                 android:layout_width="0dp"
                 android:layout_marginTop="@dimen/grid_2"
                 android:layout_marginStart="@dimen/grid_2"
@@ -64,7 +63,7 @@
             <TextView
                 android:id="@+id/textViewCardFooter"
                 style="@style/SMETertiaryButtonLarge"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:gravity="start"
                 android:layout_height="wrap_content"
                 android:minHeight="0dp"
@@ -72,13 +71,26 @@
                 android:paddingBottom="@dimen/grid_1_half"
                 android:paddingTop="@dimen/grid_1_half"
                 android:textColor="@color/dsColorMediumOrange"
+                android:textAllCaps="false"
                 android:layout_marginStart="@dimen/grid_2"
                 android:layout_marginBottom="@dimen/grid_2"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0"
                 android:text="@string/earnings_card_button"
                 android:layout_marginTop="@dimen/grid_3_half"
                 app:layout_constraintTop_toBottomOf="@id/textViewCardContent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_banner_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginStart="@dimen/grid_3_half"
+                android:src="@drawable/ic_vector_circle_arrow"
+                app:layout_constraintStart_toEndOf="@id/textViewCardFooter"
+                app:layout_constraintTop_toTopOf="@id/textViewCardFooter"
+                app:layout_constraintBottom_toBottomOf="@id/textViewCardFooter"
                 app:layout_constraintEnd_toStartOf="@id/guideLine"/>
 
             <androidx.appcompat.widget.AppCompatImageView

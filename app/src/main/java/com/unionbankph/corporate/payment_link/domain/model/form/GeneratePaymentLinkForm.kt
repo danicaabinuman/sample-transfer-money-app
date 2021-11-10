@@ -11,7 +11,7 @@ data class GeneratePaymentLinkForm(
         @SerialName("description")
         var description: String? = null,
         @SerialName("note")
-        var notes: String? = "",
+        var notes: String? = null,
         @SerialName("expiry")
         var paymentLinkExpiry: Int = 0,
         @SerialName("mobileNumber")

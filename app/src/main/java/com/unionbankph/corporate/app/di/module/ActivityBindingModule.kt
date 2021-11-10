@@ -78,6 +78,8 @@ import com.unionbankph.corporate.general.presentation.link.DeepLinkLandingActivi
 import com.unionbankph.corporate.general.presentation.result.ResultLandingPageActivity
 import com.unionbankph.corporate.general.presentation.result.ResultLandingWithoutAuthActivity
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterActivity
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_scanner.InstapayQrScannerActivity
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.InstapayQrSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsActivity
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraActivity
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationActivity
@@ -567,6 +569,14 @@ abstract class ActivityBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun onboardingUploadPhotosActivity(): OnboardingUploadPhotosActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun instapayQrSplashActivity(): InstapayQrSplashActivity
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun instapayQrScannerActivity(): InstapayQrScannerActivity
 
     @PerActivity
     @ContributesAndroidInjector

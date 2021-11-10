@@ -93,7 +93,7 @@ class SecurityFragment :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        (activity as DashboardActivity).imageViewHelp().visibility = View.VISIBLE
+        (activity as DashboardActivity).btnHelp().visibility = View.VISIBLE
         (activity as DashboardActivity).setToolbarTitle(
             getString(R.string.title_security),
             hasBackButton = true,

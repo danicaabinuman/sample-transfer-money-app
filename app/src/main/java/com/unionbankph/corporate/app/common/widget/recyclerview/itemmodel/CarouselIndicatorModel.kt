@@ -13,12 +13,12 @@ class CarouselIndicatorModel : CarouselModel_() {
     override fun bind(carousel: Carousel) {
         super.bind(carousel)
 
-        carousel.addItemDecoration(indicator)
+//        carousel.addItemDecoration(indicator)
     }
 
     override fun unbind(carousel: Carousel) {
         super.unbind(carousel)
 
-        carousel.removeItemDecoration(indicator)
+//        carousel.removeItemDecoration(indicator)
     }
 }

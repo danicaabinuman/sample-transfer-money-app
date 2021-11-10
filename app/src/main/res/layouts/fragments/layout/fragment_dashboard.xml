@@ -5,6 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/recyclerViewTutorialBtr"
+        style="@style/RecyclerViewLight.Tutorial"
+        android:padding="@dimen/content_spacing"
+        android:visibility="gone"
+        app:itemSpacing="@dimen/content_item_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_account" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayoutBtr"
         style="@style/MatchConstraint"

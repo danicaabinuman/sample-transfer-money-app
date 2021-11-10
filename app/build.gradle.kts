@@ -237,6 +237,8 @@ dependencies {
     implementation(Libraries.stv)
     implementation(Libraries.playServicesAuth)
     implementation(Libraries.playServicesAuthPhone)
+    implementation(Libraries.journeyappsZxing)
+    implementation(Libraries.budiyev)
     kapt(Libraries.epoxyProcessor)
     implementation(Libraries.biometric)
 

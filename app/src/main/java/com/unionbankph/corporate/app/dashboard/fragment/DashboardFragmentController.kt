@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.*
 import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
@@ -18,6 +20,8 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.Earnin
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.NoAccountItemModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.AccountItemErrorModel_
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.text.SMETextViewModel
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.text.sMETextView
 import com.unionbankph.corporate.app.util.AutoFormatUtil
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.common.data.form.Pageable
@@ -65,6 +69,10 @@ constructor(
     }
 
     override fun buildModels(dashboardViewState: DashboardViewState, pageable: Pageable) {
+
+        val isLoanAvailable = dashboardViewState.megaMenuList
+            .find { it.id == Constant.MegaMenu.MSME_APPLY_LOAN }?.isVisible
+
         val isRefreshed = dashboardViewState.isScreenRefreshed
         val accountSize = dashboardViewState.accounts.size
         val hasInitialFetchError = dashboardViewState.hasInitialFetchError
@@ -76,17 +84,22 @@ constructor(
             isRefreshed
         )
 
-        DashboardHeaderModel_()
-            .id("dashboard-header")
-            .context(context)
-            .helloName(dashboardViewState.name ?: "null")
-            .buttonText(accountButtonText)
-            .callbacks(dashboardAdapterCallback)
-            .addTo(this)
+        sMETextView {
+            id("label-accounts")
+            style(Constant.SMETextViewStyle.SUBTITLE2)
+            text(this@DashboardFragmentController.context.getString(R.string.title_accounts))
+        }
+
+//        DashboardHeaderModel_()
+//            .id("dashboard-header")
+//            .context(context)
+//            .helloName(dashboardViewState.name ?: "null")
+//            .buttonText(accountButtonText)
+//            .callbacks(dashboardAdapterCallback)
+//            .addTo(this)
 
         initialAccountLoadingModel
             .addIf(pageable.isInitialLoad && isRefreshed && !hasInitialFetchError, this)
-
 
         if (!isRefreshed &&
             !hasInitialFetchError &&
@@ -95,7 +108,6 @@ constructor(
             noAccountModel
                 .callbacks(dashboardAdapterCallback)
                 .addTo(this)
-
         } else {
             dashboardViewState.accounts.take(2).forEachIndexed { position, account ->
                 DashboardAccountItemModel_()
@@ -127,41 +139,60 @@ constructor(
 
         megaMenuContainer {
             id("mega-menu-carousel")
+            context(this@DashboardFragmentController.context)
             menuItemListString(JsonHelper.toJson(dashboardViewState.megaMenuList))
             callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
         }
 
-        if (dashboardViewState.hasLoans) {
-            loansModel.addTo(this)
+        if (isLoanAvailable != false) {
+            if (dashboardViewState.hasLoans) {
+                loansModel.addTo(this)
+            } else {
+                featureCard {
+                    id("loans-default")
+                    item(this@DashboardFragmentController.defaultLoansItem())
+                    callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
+                }
+            }
         } else {
-            featureCard {
-                id("loans-default")
-                item(this@DashboardFragmentController.defaultLoansItem())
-                callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
+            blankItem {
+                id("blank-2")
             }
         }
 
-        if (dashboardViewState.hasEarnings) {
-            earningsModel.addTo(this)
-        } else {
-            featureCard {
-                id("earnings-default")
-                item(this@DashboardFragmentController.defaultEarningsItem())
-                callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
-            }
-        }
+//        if (dashboardViewState.hasEarnings) {
+//            earningsModel.addTo(this)
+//        } else {
+//            featureCard {
+//                id("earnings-default")
+//                item(this@DashboardFragmentController.defaultEarningsItem())
+//                callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
+//            }
+//        }
 
-        val banners = mutableListOf<DashboardBannerItemModel>()
-        for (x in 0..4) {
-            banners.add(
-                DashboardBannerItemModel_().id(x)
+        val bannerItems = BannerCardItem.generateBannerItems(context)
+        val bannerModels = mutableListOf<DashboardBannerItemModel>()
+        bannerItems.forEachIndexed { _, bannerCardItem ->
+            bannerModels.add(
+                DashboardBannerItemModel_()
+                    .id(bannerCardItem.id)
+                    .item(JsonHelper.toJson(bannerCardItem))
+                    .context(this@DashboardFragmentController.context)
+                    .callbacks(this@DashboardFragmentController.dashboardAdapterCallback)
             )
+        }
+
+        sMETextView {
+            id("id-globallinker")
+            style(Constant.SMETextViewStyle.SUBTITLE2)
+            text(this@DashboardFragmentController.context.getString(R.string.title_globallinker))
         }
 
         CarouselIndicatorModel()
             .id("dashboard-banners")
-            .numViewsToShowOnScreen(1f)
-            .models(banners)
+            .numViewsToShowOnScreen(1.1f)
+            .padding(Carousel.Padding(36, 0, 36, 0, 12))
+            .models(bannerModels)
             .addTo(this)
     }
 
@@ -261,6 +292,9 @@ abstract class DashboardHeaderModel: EpoxyModelWithHolder<DashboardHeaderModel.H
 abstract class MegaMenuContainer: EpoxyModelWithHolder<MegaMenuContainer.Holder>() {
 
     @EpoxyAttribute
+    lateinit var context: Context
+
+    @EpoxyAttribute
     lateinit var menuItemListString: String
 
     @EpoxyAttribute
@@ -286,6 +320,18 @@ abstract class MegaMenuContainer: EpoxyModelWithHolder<MegaMenuContainer.Holder>
                         .callbacks(callbacks)
             )
         }
+
+        val dynamicSpanSize = when (megaMenuModels.size) {
+            1 -> 1
+            2 -> 2
+            5 -> 5
+            3, 6 -> 3
+            4, 8 -> 4
+            else -> 5
+        }
+
+        holder.binding.menuMenuContainer.layoutManager =
+            GridLayoutManager(context, dynamicSpanSize, GridLayoutManager.VERTICAL, false)
 
         holder.binding.menuMenuContainer
             .setModels(megaMenuModels)

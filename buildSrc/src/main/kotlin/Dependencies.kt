@@ -112,6 +112,8 @@ object Libraries {
         const val jumio = "3.9.2@aar"
         const val iProov = "6.4.1"
         const val roomRuntime = "2.2.5"
+        const val journeyappsZxing = "3.3.0"
+        const val budiyev = "2.1.0"
     }
 
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlinReflect}"
@@ -197,6 +199,8 @@ object Libraries {
     const val stv = "com.milaptank:stv:${Versions.stv}"
     const val playServicesAuth = "com.google.android.gms:play-services-auth:17.0.0"
     const val playServicesAuthPhone = "com.google.android.gms:play-services-auth-api-phone:17.4.0"
+    const val journeyappsZxing = "com.journeyapps:zxing-android-embedded:${Versions.journeyappsZxing}"
+    const val budiyev = "com.budiyev.android:code-scanner:${Versions.budiyev}"
     const val biometric = "androidx.biometric:biometric:${Versions.biometric}"
 
     // Jumio

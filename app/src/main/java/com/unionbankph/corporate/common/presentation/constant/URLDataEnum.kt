@@ -6,5 +6,6 @@ package com.unionbankph.corporate.common.presentation.constant
 enum class URLDataEnum(val value: String) {
     ACCOUNT_OPENING_LINK("https://portal.unionbankph.com/PortalAccountOpening/?href=portalapp"),
     ENROLLMENT_LINK("https://portal.unionbankph.com/enrollment"),
-    SEEK_CAP_LINK("https://www.seekcap.ph/?&utm_source=ubpsmeapp&utm_medium=referral&utm_campaign=ubpsmeapp_inbound")
+    SEEK_CAP_LINK("https://www.seekcap.ph/?&utm_source=ubpsmeapp&utm_medium=referral&utm_campaign=ubpsmeapp_inbound"),
+    GLOBALLINKER("https://unionbank.globallinker.com/signup?rurl=&http_referrer=https%3A%2F%2Fwww.google.com%2F")
 }

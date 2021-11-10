@@ -109,4 +109,8 @@ interface DaoGateway {
         accessToken: String,
         validateNominatedUserForm: ValidateNominatedUserForm
     ): Single<Response<ValidateNominatedUserDto>>
+
+    fun getListIds(
+        userToken: String?
+    ): Single<Response<MutableList<IdDto>>>
 }

@@ -34,7 +34,6 @@ class NominateSettlementAccountFragment :
         })
     }
 
-
     private fun updateRecyclerView(accounts: MutableList<Account>) {
         val accountsAdapter = NominateSettlementAccountsAdapter(accounts)
         binding.rvBSNominateSettlementAccounts.adapter = accountsAdapter

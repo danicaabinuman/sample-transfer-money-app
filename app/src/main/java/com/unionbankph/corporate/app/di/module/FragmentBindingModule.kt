@@ -60,6 +60,7 @@ import com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterF
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.AllowPhoneCamera
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
@@ -95,7 +96,7 @@ import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_name.UcEnterNameFragment
 import com.unionbankph.corporate.user_creation.presentation.nominate_password.UcNominatePasswordFragment
 import com.unionbankph.corporate.user_creation.presentation.reminder.UcReminderFragment
-import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelection
+import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelectionFragment
 import com.unionbankph.corporate.user_creation.presentation.tnc.UcTNCFragment
 import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.UcTNCReminderFragment
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsFragment
@@ -387,6 +388,10 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
+    abstract fun allowPhoneCamera(): AllowPhoneCamera
+
+    @PerActivity
+    @ContributesAndroidInjector
     abstract fun splashOnboardingFragment(): SplashOnboardingFragment
 
 
@@ -404,7 +409,7 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun accountSelectionFragment(): UcAccountSelection
+    abstract fun accountSelectionFragment(): UcAccountSelectionFragment
 
     @PerActivity
     @ContributesAndroidInjector

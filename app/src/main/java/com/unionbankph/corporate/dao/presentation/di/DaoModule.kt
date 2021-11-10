@@ -325,4 +325,19 @@ class DaoModule {
             postExecutionThread,
             daoGateway
         )
+
+    @Provides
+    @PerApplication
+    fun getListIds(
+        threadExecutor: ThreadExecutor,
+        postExecutionThread: PostExecutionThread,
+        responseProvider: ResponseProvider,
+        daoGateway: DaoGateway
+    ): GetListOfIds =
+        GetListOfIds(
+            threadExecutor,
+            postExecutionThread,
+            responseProvider,
+            daoGateway
+        )
 }

@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:cardElevation="@dimen/default_elevation"
-        app:cardCornerRadius="@dimen/card_radius_half">
+        app:cardCornerRadius="@dimen/grid_1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

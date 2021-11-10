@@ -17,7 +17,7 @@ import com.unionbankph.corporate.databinding.ActivityPaymentLinkChannelsBinding
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionActivity
 
 class PaymentLinkChannelsActivity :
-    BaseActivity<ActivityPaymentLinkChannelsBinding, GeneralViewModel>() {
+    BaseActivity<ActivityPaymentLinkChannelsBinding, PaymentLinkChannelsViewModel>() {
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -112,6 +112,6 @@ class PaymentLinkChannelsActivity :
     override val bindingInflater: (LayoutInflater) -> ActivityPaymentLinkChannelsBinding
         get() = ActivityPaymentLinkChannelsBinding::inflate
 
-    override val viewModelClassType: Class<GeneralViewModel>
-        get() = GeneralViewModel::class.java
+    override val viewModelClassType: Class<PaymentLinkChannelsViewModel>
+        get() = PaymentLinkChannelsViewModel::class.java
 }

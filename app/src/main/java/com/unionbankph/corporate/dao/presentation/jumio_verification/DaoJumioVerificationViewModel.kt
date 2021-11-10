@@ -10,9 +10,11 @@ import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.dao.data.form.DaoForm
+import com.unionbankph.corporate.dao.domain.interactor.GetListOfIds
 import com.unionbankph.corporate.dao.domain.interactor.SubmitDao
 import com.unionbankph.corporate.dao.domain.model.DaoHit
 import com.unionbankph.corporate.dao.presentation.DaoViewModel
+import com.unionbankph.corporate.settings.presentation.form.Selector
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
@@ -23,7 +25,8 @@ import javax.inject.Inject
 class DaoJumioVerificationViewModel @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
     private val context: Context,
-    private val submitDao: SubmitDao
+    private val submitDao: SubmitDao,
+    private val getListOfIds: GetListOfIds
 ) : BaseViewModel() {
 
     val isLoadedScreen = BehaviorSubject.create<Boolean>()
@@ -49,6 +52,10 @@ class DaoJumioVerificationViewModel @Inject constructor(
 
     val navigateResult: LiveData<Event<DaoHit>> get() = _navigateResult
 
+    private val _availableIds = MutableLiveData<MutableList<Selector>>()
+
+    val availableIds: LiveData<MutableList<Selector>> get() = _availableIds
+
     fun hasValidForm() = input.isValidFormInput.value ?: false
 
     fun loadDaoForm(daoForm: DaoForm) {
@@ -58,6 +65,27 @@ class DaoJumioVerificationViewModel @Inject constructor(
     fun setExistingJumioVerification(input: DaoViewModel.Input5) {
         input.idTypeInput.value?.let { this.input.idTypeInput.onNext(it) }
         input.scanReferenceInput.value?.let { this.input.scanReferenceInput.onNext(it) }
+    }
+
+
+
+
+    fun getlistIds() {
+        getListOfIds.execute(
+            getDisposableSingleObserver(
+                {
+                    _availableIds.value = it
+                }, {
+                    _uiState.value = Event(UiState.Error(it))
+                }
+            ),
+            doOnSubscribeEvent = {
+                _uiState.value = Event(UiState.Loading)
+            },
+            doFinallyEvent = {
+                _uiState.value = Event(UiState.Complete)
+            }
+        ).addTo(disposables)
     }
 
     fun onClickedNext() {

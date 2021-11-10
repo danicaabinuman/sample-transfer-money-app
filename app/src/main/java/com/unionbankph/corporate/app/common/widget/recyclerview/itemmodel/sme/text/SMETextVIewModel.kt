@@ -1,7 +1,6 @@
-package com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme
+package com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.text
 
 import android.view.View
-import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import com.airbnb.epoxy.*
 import com.unionbankph.corporate.R

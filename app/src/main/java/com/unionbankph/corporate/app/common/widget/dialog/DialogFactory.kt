@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatDialog
 import com.jakewharton.rxbinding2.view.RxView
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.databinding.DialogGenericColoredSmeBinding
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -15,12 +16,11 @@ import java.util.concurrent.TimeUnit
 
 class DialogFactory {
 
-    fun createSMEDialog(
+    fun createColoredSMEDialog(
         context: Context,
-        isNewDesign: Boolean = true, // No Config for New yet
         iconResource: Int? = null,
         title: String? = "",
-        description: String = "",
+        content: String = "",
         positiveButtonText: String = context.getString(R.string.action_ok),
         negativeButtonText: String = "",
         onPositiveButtonClicked: (() -> Unit)? = null,
@@ -38,20 +38,33 @@ class DialogFactory {
         val view = DialogGenericColoredSmeBinding.inflate(LayoutInflater.from(context))
 
         /* Dialog Title */
-        view.textViewDialogTitle.apply {
-            this.visibility = when (title.isNullOrBlank()) {
-                true -> View.GONE
-                else -> View.VISIBLE
+        view.imageViewIcon.apply {
+            if (iconResource != null) {
+                this.visibility = View.VISIBLE
+                this.setImageResource(iconResource)
+            } else {
+                this.visibility = View.GONE
             }
-            this.text = title
+        }
+
+        view.textViewDialogTitle.apply {
+            setVisible(!title.isNullOrEmpty())
+            text = title
         }
 
         /* Dialog Content/Description */
         view.textViewDialogContent.apply {
-            this.text = description
+            this.text = content
         }
 
-        /* Dialog Negative Button */
+        view.buttonPositive.apply {
+            this.text = positiveButtonText
+            this.setOnClickListener {
+                if (dismissOnActionClicked) dialog.dismiss()
+                onPositiveButtonClicked?.invoke()
+            }
+        }
+
         view.buttonNegative.apply {
             this.visibility = when (negativeButtonText.isEmpty()) {
                 true -> View.GONE
@@ -62,7 +75,8 @@ class DialogFactory {
             RxView.clicks(this)
                 .throttleFirst(
                     3.toLong(),
-                    TimeUnit.SECONDS)
+                    TimeUnit.SECONDS
+                )
                 .subscribe {
                     onNegativeButtonClicked?.invoke()
                     if (dismissOnActionClicked) dialog.dismiss()
@@ -76,7 +90,8 @@ class DialogFactory {
             RxView.clicks(this)
                 .throttleFirst(
                     3,
-                    TimeUnit.SECONDS)
+                    TimeUnit.SECONDS
+                )
                 .subscribe {
                     onPositiveButtonClicked?.invoke()
                     if (dismissOnActionClicked) dialog.dismiss()
@@ -90,14 +105,19 @@ class DialogFactory {
                 this.setImageResource(iconResource)
             } else {
                 this.visibility = View.GONE
-            }
-        }
 
-        dialog.setContentView(view.root)
-        dialog.setOnDismissListener {
-            disposables.clear()
-            disposables.dispose()
-        }
+                this.setOnClickListener {
+                    if (dismissOnActionClicked) dialog.dismiss()
+                    onNegativeButtonClicked?.invoke()
+                }
+            }
+
+            dialog.setContentView(view.root)
+            dialog.setOnDismissListener {
+                disposables.clear()
+                disposables.dispose()
+            }
+
 //        view.imageViewIconPlain.apply {
 //            if (iconResource != null) {
 //                this.visibility = View.VISIBLE
@@ -139,7 +159,8 @@ class DialogFactory {
 //            }
 //        }
 
-        return dialog
+            return dialog
+        }
     }
 
 }
