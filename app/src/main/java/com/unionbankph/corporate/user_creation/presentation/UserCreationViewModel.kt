@@ -84,6 +84,12 @@ class UserCreationViewModel @Inject constructor() : BaseViewModel() {
         hasContactInput.onNext(true)
     }
 
+    var selectedAccount: String? = null
+    
+    fun setSelectedAccountType(type: String) {
+        selectedAccount = type
+    }
+
     fun clearCache() {
         _uiState.value = Event(UiState.Exit)
     }

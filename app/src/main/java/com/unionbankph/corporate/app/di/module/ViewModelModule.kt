@@ -158,6 +158,7 @@ import com.unionbankph.corporate.user_creation.presentation.nominate_password.Uc
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsViewModel
 import com.unionbankph.corporate.trial_account.presentation.TrialAccountViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsViewModel
+import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelectionViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -922,4 +923,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AsBusinessInformationViewModel::class)
     abstract fun asBusinessInformationViewModel(viewModel: AsBusinessInformationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(UcAccountSelectionViewModel::class)
+    abstract fun ucAccountSelectionViewModel(viewModel: UcAccountSelectionViewModel): ViewModel
 }

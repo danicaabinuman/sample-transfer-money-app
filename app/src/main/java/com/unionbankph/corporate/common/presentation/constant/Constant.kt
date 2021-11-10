@@ -228,4 +228,12 @@ class Constant {
             const val MSME_GENERATE_QR = "MSME_GENERATE_QR"
         }
     }
+
+    class SelectedAccountType {
+        companion object {
+            const val NO_OPEN_ACCOUNT = "NO_OPEN_ACCOUNT"
+            const val YES_UNIONBANK_ACCOUNT = "YES_UNIONBANK_ACCOUNT"
+            const val CONTINUE_EXISTING_ACCOUNT = "CONTINUE_EXISTING_ACCOUNT"
+        }
+    }
 }

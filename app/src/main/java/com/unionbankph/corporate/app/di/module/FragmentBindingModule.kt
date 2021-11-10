@@ -96,7 +96,7 @@ import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_name.UcEnterNameFragment
 import com.unionbankph.corporate.user_creation.presentation.nominate_password.UcNominatePasswordFragment
 import com.unionbankph.corporate.user_creation.presentation.reminder.UcReminderFragment
-import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelection
+import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelectionFragment
 import com.unionbankph.corporate.user_creation.presentation.tnc.UcTNCFragment
 import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.UcTNCReminderFragment
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsFragment
@@ -409,7 +409,7 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun accountSelectionFragment(): UcAccountSelection
+    abstract fun accountSelectionFragment(): UcAccountSelectionFragment
 
     @PerActivity
     @ContributesAndroidInjector

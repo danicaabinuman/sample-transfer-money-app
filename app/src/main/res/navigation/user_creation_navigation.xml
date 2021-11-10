@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/account_selection_fragment"
-        android:name="com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelection"
+        android:name="com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelectionFragment"
         tools:layout="@layout/fragment_uc_account_selection">
 
         <action
