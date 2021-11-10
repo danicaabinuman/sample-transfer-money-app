@@ -70,14 +70,6 @@ constructor(
 
     override fun buildModels(dashboardViewState: DashboardViewState, pageable: Pageable) {
 
-        dashboardViewState.megaMenuList
-            .find { it.id == Constant.MegaMenu.MSME_APPLY_LOAN }
-            .apply {
-                this?.let {
-                    isVisible = true
-                }
-            }
-
         val isLoanAvailable = dashboardViewState.megaMenuList
             .find { it.id == Constant.MegaMenu.MSME_APPLY_LOAN }?.isVisible
 
