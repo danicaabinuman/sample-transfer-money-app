@@ -48,7 +48,7 @@ data class FinanceWithUs(
                 ),
                 FinanceWithUs(
                     id = 4,
-                    title = context.getString(R.string.title_time_taken),
+                    title = context.getString(R.string.title_money_in_account),
                     ubmsmeTitle = context.getString(R.string.title_five_days),
                     ubmsmeIcon = null,
                     othersTitle = context.getString(R.string.title_thirty_days),

@@ -47,7 +47,7 @@
                 android:layout_width="@dimen/grid_3"
                 android:layout_height="@dimen/grid_3"
                 android:layout_margin="@dimen/grid_1_10"
-                android:rotation="@{item.expand ? 360 : 180}"
+                android:rotation="@{item.expand ? 180 : 360}"
                 android:src="@drawable/ic_dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

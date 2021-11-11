@@ -12,7 +12,7 @@ data class Eligible(
             return listOf(
                 Eligible(
                     id = 0,
-                    title = context.getString(R.string.label_accommodation)
+                    title = context.getString(R.string.label_accomodation)
                 ), Eligible(
                     id = 1,
                     title = context.getString(R.string.label_administrative)

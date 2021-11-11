@@ -1111,6 +1111,11 @@
         <item name="android:textColor">@drawable/style_secondary_button_text</item>
     </style>
 
+    <style name="SMESecondaryButtonBigHalfStrokeWidth" parent="SMEBigButton">
+        <item name="android:background">@drawable/style_secondary_bordered_half_width_stroke</item>
+        <item name="android:textColor">@drawable/style_secondary_button_text</item>
+    </style>
+
     <style name="SMECheckableButtonWithIcon" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -1120,6 +1125,19 @@
         <item name="android:drawablePadding">@dimen/grid_2</item>
         <item name="android:padding">@dimen/grid_3</item>
         <item name="android:background">@drawable/style_button_with_icon</item>
+        <item name="android:textColor">@color/dsColorDarkGray</item>
+        <item name="android:button">@null</item>
+    </style>
+
+    <style name="SMECheckableButtonWithIconHalfStroke" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:drawableTop">@drawable/ic_man</item>
+        <item name="android:drawablePadding">@dimen/grid_2</item>
+        <item name="android:padding">@dimen/grid_3</item>
+        <item name="android:background">@drawable/style_button_with_icon_half_width</item>
         <item name="android:textColor">@color/dsColorDarkGray</item>
         <item name="android:button">@null</item>
     </style>
@@ -1261,7 +1279,7 @@
     <style name="SMEToggleButton.Custom" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:backgroundTint">@color/bg_toggle_group_background_tint</item>
         <item name="strokeWidth">1dp</item>
-        <item name="android:strokeColor">@color/bg_toggle_group_stroke_color</item>
+<!--        <item name="android:strokeColor">@color/bg_toggle_group_stroke_color</item>-->
         <item name="android:textColor">@color/bg_toggle_group_text_color</item>
         <item name="textColor">@color/bg_toggle_group_text_color</item>
     </style>

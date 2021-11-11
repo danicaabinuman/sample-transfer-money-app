@@ -86,7 +86,7 @@
                 android:layout_width="@dimen/circle_icon_size_2"
                 android:layout_height="@dimen/circle_icon_size_2"
                 android:layout_marginStart="@dimen/grid_1"
-                android:layout_marginTop="@dimen/grid_4"
+                android:layout_marginTop="@dimen/margin_24dp"
                 android:src="@drawable/ic_check_circle_orange"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_as_reminders_bullet_1" />
@@ -120,10 +120,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_2"
                 android:layout_marginEnd="@dimen/grid_9_half"
-                android:text="@string/account_setup_reminder_3"
+                android:text="@string/bullet_validating_identity"
+                app:layout_constraintBottom_toTopOf="@+id/btn_as_reminders_begin_setup"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_as_reminders_bullet_3"
-                app:layout_constraintTop_toTopOf="@id/iv_as_reminders_bullet_3" />
+                app:layout_constraintTop_toBottomOf="@+id/iv_as_reminders_bullet_2"
+                app:layout_constraintTop_toTopOf="@id/iv_as_reminders_bullet_3"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideLine"
@@ -143,12 +146,12 @@
                 android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginTop="@dimen/grid_4"
                 android:layout_marginEnd="@dimen/grid_1"
-                android:layout_marginBottom="@dimen/grid_1"
                 android:onClick="@{() -> handler.onNext() }"
                 android:text="@string/title_begin_application"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_as_reminders_bullet_3" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_as_reminders_bullet_3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,7 +1,6 @@
 package com.unionbankph.corporate.loan.citizen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
@@ -9,12 +8,10 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.databinding.FragmentCitizenBinding
-import com.unionbankph.corporate.databinding.UbLayoutItemCitizenBinding
-import com.unionbankph.corporate.itemCitizen
 import com.unionbankph.corporate.loan.LoanActivity
 
 
-class CitizenFragment : BaseFragment<UbLayoutItemCitizenBinding, CitizenViewModel>(),
+class CitizenFragment : BaseFragment<FragmentCitizenBinding, CitizenViewModel>(),
         CitizenHandler
 {
 
@@ -24,8 +21,8 @@ class CitizenFragment : BaseFragment<UbLayoutItemCitizenBinding, CitizenViewMode
         CitizenController(applicationContext)
     }
 
-    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> UbLayoutItemCitizenBinding
-        get() = UbLayoutItemCitizenBinding::inflate
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCitizenBinding
+        get() = FragmentCitizenBinding::inflate
 
     override val viewModelClassType: Class<CitizenViewModel>
         get() = CitizenViewModel::class.java
@@ -34,12 +31,15 @@ class CitizenFragment : BaseFragment<UbLayoutItemCitizenBinding, CitizenViewMode
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        activity.setToolbarTitle(
-            activity.binding.tvToolbar,
-            ""
-        )
-
+        activity.apply {
+            showProgress(false)
+            setToolbarTitle(
+                activity.binding.tvToolbar,
+                ""
+            )
+        }
     }
+
     override fun onViewsBound() {
         super.onViewsBound()
 

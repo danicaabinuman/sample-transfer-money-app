@@ -22,14 +22,14 @@ class LoginActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        if (settingsUtil.isEmulator()) {
+       /* if (settingsUtil.isEmulator()) {
             showErrorAndExit(
                 formatString(R.string.title_emulator_detected),
                 formatString(R.string.msg_emulator_not_supported)
             )
         } else {
             if (!sharedPreferenceUtil.isLaunched().get()) {
-                if (isSME) {
+                if (isSME) {*/
                     navigator.navigate(
                         this,
                         SplashStartedScreenActivity::class.java,
@@ -37,7 +37,7 @@ class LoginActivity :
                         isClear = true,
                         isAnimated = false
                     )
-                } else {
+               /* } else {
                     navigator.navigate(
                         this,
                         SplashFrameActivity::class.java,
@@ -56,7 +56,7 @@ class LoginActivity :
                     false
                 )
             }
-        }
+        }*/
     }
 
     private fun showErrorAndExit(

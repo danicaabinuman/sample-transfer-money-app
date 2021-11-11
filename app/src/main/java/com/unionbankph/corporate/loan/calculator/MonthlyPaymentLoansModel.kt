@@ -79,11 +79,14 @@ abstract class MonthlyPaymentLoansModel(
                 monthlyPaymentTvAmount.text = context.getString(R.string.format_php, monthlyPayment)
                 monthlyPayment?.let { callback.onMonthlyPayment(it) }
                 amount?.plus(amount!!.times(0.36))?.let { callback.onTotalAmountPayable(it.toFloat()) }
-
-                amount?.let { autoFormatEditText.setText(it.toString()) }
+            } else {
+                monthlyPaymentTvAmount.text = context.getString(R.string.format_php, 0f)
             }
 
-            if (amount == 0f){
+            if (amount != 0f) {
+                amount?.let { autoFormatEditText.setText(it.toString()) }
+            } else {
+                amount?.let { autoFormatEditText.setText("0") }
                 seekBar.progress = 50000
             }
 

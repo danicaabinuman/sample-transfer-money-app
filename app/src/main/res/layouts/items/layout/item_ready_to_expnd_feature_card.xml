@@ -27,12 +27,14 @@
         android:layout_marginEnd="@dimen/grid_2"
         android:layout_marginBottom="@dimen/grid_2"
         android:backgroundTint="@color/dsColorLightOrange"
-        app:cardCornerRadius="@dimen/card_radius_half"
-        app:cardElevation="@dimen/default_elevation"
+        app:cardCornerRadius="@dimen/grid_1"
+        app:cardElevation="@dimen/margin_4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewFeatureTitle">
+        app:layout_constraintTop_toBottomOf="@id/textViewFeatureTitle"
+        app:strokeColor="@color/dsColorExtraLightGray"
+        app:strokeWidth="1dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutFeatureCard"
@@ -42,12 +44,12 @@
             <TextView
                 android:id="@+id/textViewCardTitle"
                 style="@style/SMEBody"
-                android:fontFamily="@string/font_family_medium"
                 android:layout_width="0dp"
                 android:layout_marginStart="@dimen/grid_2"
                 android:layout_marginTop="@dimen/grid_2"
+                android:fontFamily="@string/font_family_medium"
                 android:text="@string/title_ready_to_expand"
-                android:textSize="@dimen/text_14"
+                android:textSize="@dimen/text_16"
                 app:layout_constraintEnd_toStartOf="@id/guideLine"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -63,11 +65,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewCardTitle" />
 
-            <Button
+            <TextView
                 android:id="@+id/textViewCardFooter"
                 style="@style/SMETertiaryButtonLarge"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
                 android:layout_marginTop="@dimen/grid_3_half"
                 android:layout_marginBottom="@dimen/grid_2"
                 android:gravity="start"
@@ -77,6 +80,7 @@
                 android:text="@string/action_apply_loan"
                 android:textColor="@color/dsColorMediumOrange"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideLine"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewCardContent" />
 

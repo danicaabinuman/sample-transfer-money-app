@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.loan
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -7,11 +8,13 @@ import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.clearTheme
 import com.unionbankph.corporate.app.common.extension.setColor
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
+import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.databinding.ActivityLoanBinding
 
 class LoanActivity : BaseActivity<ActivityLoanBinding, LoanMainViewModel>() {
@@ -31,6 +34,17 @@ class LoanActivity : BaseActivity<ActivityLoanBinding, LoanMainViewModel>() {
     override fun onViewsBound() {
         super.onViewsBound()
         initNavHost()
+    }
+
+    fun setProgressValue(step: Int) {
+        val progressValue = step * 100 / 5
+        ObjectAnimator.ofInt(binding.progressAction, "progress", progressValue)
+            .setDuration(150)
+            .start()
+    }
+
+    fun showProgress(isShown: Boolean) {
+        binding.progressAction.visibility(isShown)
     }
 
     private fun initNavHost() {

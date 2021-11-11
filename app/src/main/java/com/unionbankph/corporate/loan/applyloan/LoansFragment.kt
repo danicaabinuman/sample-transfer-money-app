@@ -44,10 +44,13 @@ class LoansFragment: BaseFragment<FragmentLoansBinding, LoansViewModel>(), Loans
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        activity.setToolbarTitle(
-            activity.binding.tvToolbar,
-            getString(R.string.title_loans)
-        )
+        activity.apply {
+            showProgress(false)
+            setToolbarTitle(
+                activity.binding.tvToolbar,
+                getString(R.string.title_loans)
+            )
+        }
     }
 
     private fun initObservers() {

@@ -10,19 +10,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/key_features_cl_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_3">
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/item_key_features_v_divider"
+            style="@style/BorderHorizontal"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:background="@drawable/bg_line"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/key_features_tv_title"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/key_features_tv_title"
             style="@style/SMESubtitle1"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/margin_32dp"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
             android:text="@string/title_key_features"
+            android:textSize="@dimen/text_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/item_key_features_v_divider" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

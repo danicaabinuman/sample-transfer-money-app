@@ -596,6 +596,7 @@
     <string name="title_others">Others</string>
     <string name="title_employer_business_name">Employer / Business Name</string>
     <string name="title_business_name">Business Name</string>
+    <string name="title_business_information">Business Information</string>
     <string name="title_business_industry">Business Industry</string>
     <string name="title_business_address">Business Address</string>
     <string name="title_business_ownership">Business Ownership</string>
@@ -603,6 +604,7 @@
     <string name="title_gender">Gender</string>
     <string name="title_province">Province</string>
     <string name="title_civil_status">Civil Status</string>
+    <string name="title_position">Position</string>
     <string name="title_city">City</string>
     <string name="title_barangay">Barangay</string>
     <string name="title_bldg_street_name">Bldg. / Street Name</string>
@@ -646,8 +648,10 @@
     <string name="title_jumio_verification_header_info">Select the type of document you want to scan. Philippines has been set as issuing country of your documents.</string>
     <string name="title_salutation">Salutation</string>
     <string name="title_first_name">First Name</string>
-    <string name="title_middle_name">Middle Name</string>
+    <string name="title_monthly_income">Monthly Income</string>
     <string name="title_last_name">Last Name</string>
+    <string name="title_tin_id">TIN ID</string>
+    <string name="hind_id_number">ID Number</string>
     <string name="title_personal_savings">Personal Savings</string>
     <string name="title_investment">Investment</string>
     <string name="title_proceeds_of_sale">Proceeds of Sale (Property / Rent)</string>
@@ -753,12 +757,17 @@
     <string name="title_place_of_birth">Place of Birth</string>
     <string name="title_drivers_license">Driver\'s License</string>
     <string name="title_passport">Passport</string>
-    <string name="title_sss_id">SSS ID</string>
+    <string name="title_sss_id">SSS ID <font color="#BFBFBF">(Optional)</font></string>
+    <string name="title_sss_id_optional">SSS ID</string>
+    <string name="title_gsis_id_optional">GSIS ID</string>
+    <string name="title_landline_optional">Landline Number <font color="#BFBFBF">(Optional)</font></string>
+    <string name="title_landline">Landline Number</string>
     <string name="title_prc_id">PRC ID</string>
     <string name="title_postal_id">Postal ID</string>
     <string name="title_posted_date">Posted Date</string>
     <string name="title_umid_id">UMID ID</string>
     <string name="title_sss_umid">SSS / UMID</string>
+    <string name="title_gsis_id">GSIS ID <font color="#BFBFBF">(Optional)</font></string>
     <string name="title_tooltip_jumio">How to take the correct photo</string>
     <string name="title_congratulations">Congratulations!</string>
     <string name="title_verification_completed">Verification Completed</string>
@@ -772,6 +781,11 @@
     <string name="title_line_1">Line 1</string>
     <string name="title_line_2">Line 2</string>
     <string name="title_region">Region</string>
+    <string name="title_industry">Industry</string>
+    <string name="title_number_of_employees">Number of Employees</string>
+    <string name="title_date_started_the_business">Date Started the Business</string>
+    <string name="title_type_of_establishment">Type of Establishment</string>
+    <string name="title_years_in_operation">Years in Operation in Current Address</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -1125,6 +1139,7 @@
 
 
     <string name="error_message">Error message from resources</string>
+    <string name="error_invalid_input">Invalid Input</string>
     <string name="error_this_field">This field is required.</string>
     <string name="error_input_valid_amount">Please enter a valid amount.</string>
     <string name="error_input_valid_mobile_number">Please enter a valid mobile number.</string>
@@ -1623,7 +1638,10 @@
     <string name="hint_date_of_incorporation">Date of Incorporation</string>
     <string name="hint_salutation">Salutation</string>
     <string name="hint_first_name">First Name</string>
+    <string name="hint_enter_occupation">Enter Occupation</string>
     <string name="hint_middle_name">Middle Name</string>
+    <string name="title_middle_name">Middle Name</string>
+    <string name="hint_enter_amount">Enter Amount</string>
     <string name="hint_last_name">Last Name</string>
     <string name="hint_preferred_branch">Preferred Branch</string>
     <string name="hint_birthdate">Birthdate</string>
@@ -1632,6 +1650,7 @@
     <string name="hint_date_of_birth">Date of Birth</string>
     <string name="hint_gender">Gender</string>
     <string name="hint_civil_status">Civil Status</string>
+    <string name="hint_position">@string/title_position</string>
     <string name="hint_nationality">Nationality</string>
     <string name="hint_mothers_maiden_name">Mother`s Maiden Name</string>
     <string name="hint_citizenship">Citizenship</string>
@@ -1648,6 +1667,14 @@
     <string name="hint_occupation">Occupation</string>
     <string name="hint_status">Select a Status</string>
     <string name="hint_select_gender">Select Gender</string>
+    <string name="hint_full_legal_name">Full legal name</string>
+    <string name="hint_industry">Industry</string>
+    <string name="hint_organization">Organization</string>
+    <string name="hint_number_of_employees">Number of employees</string>
+    <string name="hint_select_date">Select Date</string>
+    <string name="hint_area_code">Area Code</string>
+    <string name="hint_type_of_establishment">Type of Establishment</string>
+    <string name="hint_years_in_operation">Years in Operation</string>
 
     <string name="value_service_fee_free">Free</string>
     <string name="value_service_fee_pesonet">+ PHP 25.00</string>
@@ -2489,6 +2516,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hint_number_of_dependents">Number of Dependents</string>
     <string name="hint_e_g_9900008987">9900008987</string>
     <string name="error_mobile_field">Must start with an 8 or 9.</string>
+    <string name="error_gender_is_required">Gender is required.</string>
     <string name="one_last_thing">One last thing...</string>
     <string name="what_s_your_average_monthly_volume">What\'s your average monthly sales?</string>
     <string name="below_10k">Below 10K</string>
@@ -2504,14 +2532,26 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_permission_settings">Let\'s personalise your banking experience seamless</string>
     <string name="desc_permission_settings">Allow the following permissions now for a seamless experience. You can easily change this later on in\nSettings.</string>
     <string name="action_save_settings">SAVE THESE SETTINGS</string>
+    <string name="title_use_photo">Use Photo</string>
+    <string name="title_delete_photo">Are you sure you want to remove this photo?</string>
+    <string name="btn_delete_this_photo">YES, DELETE THIS PHOTO</string>
+    <string name="add_another_address">+ Add another address</string>
     <string name="desc_trust_device">Secure your access with this device</string>
+    <string name="how_many_employees">How many employees do you \nhave?</string>
     <string name="title_app_generated_otp">App-Generated OTP</string>
     <string name="desc_app_generated_otp">For a seamless OTP experience</string>
     <string name="desc_notification_1006">Get alerts and confirmation</string>
     <string name="title_camera_and_photo_album">Camera and Photo Album</string>
     <string name="desc_camera_and_photo_album">For QR Scanning and Check Deposits</string>
     <string name="title_location">Location</string>
+    <string name="pending">Pending</string>
+    <string name="branch">Branch </string>
+    <string name="pending_message">We\'re currently reviewing \nyour application.</string>
     <string name="desc_location">For branch visits and ATM locator</string>
+    <string name="item_not_uploaded">Item wasn\'t uploaded</string>
+    <string name="invalid_filetype_desc">File format is not supported. Only .jpeg, .png and .pdf are accepted.</string>
+    <string name="invalid_filesize_desc">File size exceeds the maximum allowed size. Maximum file size is 2 MB</string>
+
     <string name="title_contacts">Contacts</string>
     <string name="desc_contacts">Allow access to your Contacts</string>
     <string name="header_user_creation_permission_settings">Permission Settings</string>
@@ -2520,6 +2560,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="header_user_creation_confirmation_page">Confirmation Page</string>
     <string name="hi">Hi %1$s!</string>
     <string name="desc_provide_complete_address">Please provide your complete address. We will use this information for card delivery.</string>
+    <string name="desc_business_name">This is the name that appears in your registration certificate</string>
 
     <!--FaceID-->
     <string name="title_login_in_using_faceid">Log in with Face ID</string>
@@ -2564,6 +2605,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_select_account_type">Select your business type</string>
     <string name="title_select_business_account_type">Choose the type of account that you want</string>
     <string name="desc_select_account_type">Before you can process payments, we need to learn more information about your business.</string>
+    <string name="desc_select_business_type">Before you can continue, we need to learn more information about your business.</string>
     <string name="desc_sole_prop">Select this business type if you are the only owner of the business, and you are registered with the DTI.</string>
     <string name="title_individual">Individual</string>
     <string name="desc_individual">Select this business type if you are the only owner of the business, and you are not registered with the DTI.</string>
@@ -2575,7 +2617,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="check_initial_deposit">Initial deposit of PHP 100,000</string>
     <string name="check_minimum_bal">Minimum balance of PHP 100,000</string>
     <string name="check_free_check_writing_software">FREE checkwriting software</string>
-    <string name="title_just_a_few_reminders">Just a few reminders before we start</string>
+    <string name="title_just_a_few_reminders">Just a few reminders before \nwe start</string>
     <string name="account_setup_reminder_1">It is recommended that you finish the application once started; however, you may exit at any time and continue later. Make sure you have a strong and secure internet connection during the application.</string>
     <string name="account_setup_reminder_2">Prepare a valid ID for scanning and verification and ensure that the details you will provide in the application matches the details written on your ID.</string>
     <string name="account_setup_reminder_3">We will be validating your identity through a selfie. We advise you to have sufficient lighting during this step.</string>
@@ -2591,15 +2633,15 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_finance_with_us">Why Finance with Us?</string>
     <string name="title_loan_terms">Loan Terms</string>
     <string name="title_eligible_to_apply">Who are Eligible to Apply?</string>
-    <string name="title_low_interest_rates">Low Interest Rates</string>
+    <string name="title_low_interest_rates">Low Interest Rate</string>
     <string name="title_easy_application">Easy Application</string>
     <string name="title_fast_approval">Fast Approval</string>
     <string name="title_auto_disbursement">Auto Disbursement</string>
-    <string name="title_no_collateral">Collateral</string>
+    <string name="title_no_collateral">No Collateral</string>
     <string name="header_ubmsme">UBMSME</string>
     <string name="note_finance_with_us">*Based on timely submission of required information &amp; documents by the customer as well as an average document verification</string>
     <string name="title_simple_and_online_application">Simple &amp; online application</string>
-    <string name="title_no_hidden_fees">No hidden fees</string>
+    <string name="title_no_hidden_fees">No processing fees</string>
     <string name="title_fast_processing">Fast processing &amp; convenient access</string>
     <string name="title_time_taken">Time taken to apply</string>
     <string name="title_money_in_account">Money in account</string>
@@ -2629,6 +2671,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     //%1$s%%
     <!--    Who are Eligible to Apply?-->
     <string name="title_qualified_businesses">Qualified Businesses</string>
+    <string name="title_qualified_industries">Qualified Industries</string>
     <string name="label_cafe_restaurant_bakeshop">Cafe, restaurant, bakeshop</string>
     <string name="label_social_media">Social media administration &amp; management</string>
     <string name="label_moving_and_hauling">Moving and hauling</string>
@@ -2636,7 +2679,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="label_travel_planner">Travel planner</string>
     <string name="label_dry_cleaning">Dry cleaning</string>
     <string name="label_see_full_list">See full list of qualified businesses</string>
-    <string name="label_accommodation">Accommodation, food service activities businesses</string>
+    <string name="label_accomodation">Accomodation, food service activities businesses</string>
     <string name="label_administrative">Administrative and support service activities</string>
     <string name="label_construction">Construction</string>
     <string name="label_manufacturing">Manufacturing</string>
@@ -2672,6 +2715,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="sub_bullet_invoice">a. Invoice/Official Receipt</string>
     <string name="sub_bullet_purchase_order">b. Purchase Order</string>
     <string name="sub_bullet_electricity">c. Electricity/Internet/Water Bill</string>
+    <string name="bullet_validating_identity">We will be validating your identity through a selfie. Please ensure that you have sufficient lighting during this process.</string>
 
 
     <!--    Banner -->
@@ -2680,11 +2724,13 @@ Neither Party shall be liable for any failure to perform its obligations under t
 
     <!--    Monthly Payment-->
     <string name="title_how_much_do_you_need">How much money do you need?</string>
-    <string name="title_how_long_can_you_repay">How long can you repay? (Months)</string>
+    <string name="title_how_long_can_you_repay">How long can you repay? \n(Months)</string>
     <string name="title_monthly_payment">Monthly Payment</string>
     <string name="title_estimated_monthly_payment">Estimated Monthly Payment</string>
+    <string name="title_estimated_monthly_payment_loan_info">Estimated Monthly \nPayment</string>
     <string name="title_monthly_payment_breakdown">Monthly Payment Breakdown</string>
     <string name="title_your_monthly_payment">Your Monthly Payment</string>
+    <string name="title_your_estimated_monthly_payment">Your Estimated Monthly Payment</string>
     <string name="title_principal">Principal</string>
     <string name="title_interest">Interest</string>
     <string name="title_loan_info">Loan Info</string>
@@ -2700,16 +2746,17 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="label_thirty_six">36</string>
     <string name="label_fifty_thousand">50K</string>
     <string name="label_above_one_million">Above 1M</string>
+    <string name="label_one_million">1M</string>
     <string name="title_it_is_recommended">It is recommended that you finish the application once started; however, you may exit at any time and continue later. Make sure you have a strong and secure internet connection during the application.</string>
     <string name="title_prepare_a_valid_id">Prepare a valid ID for scanning and verification and ensure that the details you will provide in the application matches the details written on your ID.</string>
     <string name="title_we_will_be_validating">We will be validating your identity through a selfie. Please ensure that you have sufficient lighting during this process.</string>
     <string name="title_are_you_a_filipino_citizen">Are you a Filipino citizen?</string>
-    <string name="title_before_we_proceed_please">Before we proceed, please be reminded that the loan application is currently limited to Filipino Citizens residing in the Philippines</string>
+    <string name="title_before_we_proceed_please">Before we proceed, please be reminded that the loan application is currently limited to Filipino Citizens residing in the Philippines.</string>
     <string name="title_i_live_in_the_philippines">Yes, I live in the Philippines</string>
     <string name="title_i_live_outside_the_philippines">No, I live outside the Philippines</string>
     <string name="title_begin_application">Begin Application</string>
     <string name="title_were_sorry">We\'re Sorry</string>
-    <string name="label_application_is_limited">Application is limited to Filipino citizens residing in the Philippines</string>
+    <string name="label_application_is_limited">Application is limited to Filipino citizens residing in the Philippines.</string>
     <string name="label_you_may_reach_out">You may reach out to us at <font color="#FF8200">business@unionbankph.com</font> should you need further assistance.</string>
     <string name="label_php_zero">PHP 0</string>
     <string name="format_php">PHP %,.2f</string>
@@ -2724,7 +2771,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_equipment">Equipment</string>
     <string name="title_infrastructure">Infrastructure</string>
     <string name="title_apply_for_a_loan">@string/action_apply_loan</string>
-    <string name="label_thirty_six_percent">36 %</string>
+    <string name="label_thirty_six_percent">36% p.a.</string>
 
 
     <string name="title_account_opening_terms_and_condition">UnionBank Account Opening Terms and Conditions</string>
@@ -2935,4 +2982,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="as_citizenship_title">Are you a Filipino citizen?</string>
     <string name="as_citizenship_yes">Yes, I live in the Philippines</string>
     <string name="as_citizenship_no">No, I live outside the Philippines</string>
+
+
+
 </resources>

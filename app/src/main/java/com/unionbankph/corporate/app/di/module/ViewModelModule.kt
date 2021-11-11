@@ -11,6 +11,7 @@ import com.unionbankph.corporate.account.presentation.own_account.OwnAccountView
 import com.unionbankph.corporate.account.presentation.source_account.SourceAccountViewModel
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
 import com.unionbankph.corporate.account_setup.presentation.address.AsAddressViewModel
+import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipViewModel
 import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationViewModel
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
 import com.unionbankph.corporate.app.dashboard.fragment.DashboardFragmentViewModel
@@ -92,11 +93,15 @@ import com.unionbankph.corporate.fund_transfer.presentation.swift_bank.SwiftBank
 import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
 import com.unionbankph.corporate.loan.LoanMainViewModel
+import com.unionbankph.corporate.loan.address.AddressViewModel
 import com.unionbankph.corporate.loan.applyloan.LoansViewModel
+import com.unionbankph.corporate.loan.business_address.BusinessAddressViewModel
+import com.unionbankph.corporate.loan.business_information.BusinessInformationLoanViewModel
 import com.unionbankph.corporate.loan.businesstype.BusinessTypeViewModel
 import com.unionbankph.corporate.loan.calculator.LoansCalculatorViewModel
 import com.unionbankph.corporate.loan.citizen.CitizenViewModel
 import com.unionbankph.corporate.loan.contactinformation.ContactInformationViewModel
+import com.unionbankph.corporate.loan.financial_information.FinancialInformationViewModel
 import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoViewModel
 import com.unionbankph.corporate.loan.personal_information.PersonalInformationViewModel
 import com.unionbankph.corporate.loan.reminders.FewRemindersViewModel
@@ -117,10 +122,18 @@ import com.unionbankph.corporate.payment_link.presentation.billing_details.Billi
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationReceivedViewModel
 import com.unionbankph.corporate.payment_link.presentation.create_merchant.MerchantApplicationRejectedViewModel
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashViewModel
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.BusinessPolicyCameraViewModel
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.DocumentCameraViewModel
+import com.unionbankph.corporate.payment_link.presentation.onboarding.camera.OnboardingCameraViewModel
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.RequestForPaymentViewModel
 import com.unionbankph.corporate.payment_link.presentation.request_payment.fee_calculator.FeeCalculatorViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_business_information.BusinessInformationViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.application_status.ApplicationStatusViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.business_information_forms.BusinessInformationViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.nature_of_business.NatureOfBusinessViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.review_and_submit.ReviewAndSubmitViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_business_information.submit_application.SubmitApplicationViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.SetupPaymentLinkViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.CardAcceptanceOptionViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.NotNowCardPaymentsViewModel
@@ -948,4 +961,25 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(NotNowCardPaymentsViewModel::class)
     abstract fun notNowCardPaymentsViewModel(viewModel: NotNowCardPaymentsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FinancialInformationViewModel::class)
+    abstract fun financialInformationViewModel(viewModel: FinancialInformationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddressViewModel::class)
+    abstract fun addressViewModel(viewModel: AddressViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BusinessInformationLoanViewModel::class)
+    abstract fun businessInformationLoanViewModel(viewModel: BusinessInformationLoanViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BusinessAddressViewModel::class)
+    abstract fun businessAddressViewModel(viewModel: BusinessAddressViewModel): ViewModel
+
 }

@@ -36,10 +36,13 @@ class BusinessTypeFragment: BaseFragment<FragmentBusinessTypeBinding, BusinessTy
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        activity.setToolbarTitle(
-            activity.binding.tvToolbar,
-            ""
-        )
+        activity.apply {
+            showProgress(false)
+            setToolbarTitle(
+                activity.binding.tvToolbar,
+                ""
+            )
+        }
     }
 
     private fun initViews() {

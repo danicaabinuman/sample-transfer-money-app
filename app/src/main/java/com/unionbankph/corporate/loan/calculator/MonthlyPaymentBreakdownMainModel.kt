@@ -48,8 +48,8 @@ abstract class MonthlyPaymentBreakdownMainModel :
                     dataEntries.add(PieEntry(interest?.toFloat() ?: 0f, "Interest"))
 
                     val dataColor: ArrayList<Int> = ArrayList()
-                    dataColor.add(Color.parseColor("#4DD0E1"))
                     dataColor.add(Color.parseColor("#FF8A65"))
+                    dataColor.add(Color.parseColor("#4DD0E1"))
 
                     val dataSet = PieDataSet(dataEntries, "")
                     dataSet.apply {
@@ -57,9 +57,9 @@ abstract class MonthlyPaymentBreakdownMainModel :
                         colors = dataColor
                         xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
                         yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-                        valueLinePart1OffsetPercentage = 9f
-                        valueLinePart1Length = 0.9f
-                        valueLinePart2Length = 0.7f
+                        valueLinePart1OffsetPercentage = 2f
+                        valueLinePart1Length = 0.5f
+                        valueLinePart2Length = 0.5f
                         valueLineColor = Color.TRANSPARENT
                         setValueTextColors(dataColor)
                     }

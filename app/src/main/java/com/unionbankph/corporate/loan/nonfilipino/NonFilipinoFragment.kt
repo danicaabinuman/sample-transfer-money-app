@@ -1,19 +1,18 @@
 package com.unionbankph.corporate.loan.nonfilipino
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.unionbankph.corporate.app.base.BaseFragment
-import com.unionbankph.corporate.app.common.extension.showToast
-import com.unionbankph.corporate.databinding.FragmentCitizenBinding
+import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.databinding.FragmentNonFilipinoBinding
-import com.unionbankph.corporate.itemCitizen
-import com.unionbankph.corporate.loan.citizen.CitizenHandler
-import com.unionbankph.corporate.loan.citizen.CitizenViewModel
-import com.unionbankph.corporate.nonFilipino
+import com.unionbankph.corporate.loan.LoanActivity
 
-class NonFilipinoFragment: BaseFragment<FragmentNonFilipinoBinding, NonFilipinoViewModel>() {
+class NonFilipinoFragment: BaseFragment<FragmentNonFilipinoBinding, NonFilipinoViewModel>(),
+    NonFilipinoHandler
+{
+
+    private val activity by lazyFast { getAppCompatActivity() as LoanActivity }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentNonFilipinoBinding
         get() = FragmentNonFilipinoBinding::inflate
@@ -30,17 +29,33 @@ class NonFilipinoFragment: BaseFragment<FragmentNonFilipinoBinding, NonFilipinoV
 
     private fun initViews() {
 
-        binding.nonFilipinoErvData.withModels {
+        activity.apply {
+            showProgress(false)
+            setToolbarTitle(
+                activity.binding.tvToolbar,
+                ""
+            )
+        }
+
+        /*binding.nonFilipinoErvData.withModels {
             nonFilipino {
                 id(hashCode())
                 onClickListener { model, parentView, clickedView, position ->
                     activity?.finish()
                 }
             }
-        }
+        }*/
     }
 
-    private fun initObservers() {}
+    private fun initObservers() {
+
+        binding.handler = this
+
+    }
+
+    override fun gotoDashboard() {
+        activity?.finish()
+    }
 
 }
 

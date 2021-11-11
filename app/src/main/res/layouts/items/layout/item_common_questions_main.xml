@@ -17,10 +17,10 @@
             android:id="@+id/common_questions_cl_header"
             style="@style/SMESubtitle1"
             android:layout_width="match_parent"
+            android:textSize="@dimen/text_16"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
             android:text="@string/title_common_questions"
-            android:textSize="@dimen/text_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

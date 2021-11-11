@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.app.util
 
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageView
 import android.widget.RadioButton
@@ -9,8 +10,11 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.textview.MaterialTextView
 import com.unionbankph.corporate.R
+import org.w3c.dom.Text
 
 
 @BindingAdapter("setDrawable")
@@ -74,7 +78,6 @@ fun setBusinessTypeDescription(textView: TextView, source: Int?) {
     }
 }
 
-
 @BindingAdapter("setStrokeColor")
 fun setStrokeColor(cardView: MaterialCardView, status: Boolean?) {
     cardView.apply {
@@ -90,6 +93,55 @@ fun setStrokeColor(cardView: MaterialCardView, status: Boolean?) {
     }
 }
 
+@BindingAdapter("setTextColorValidation")
+fun setTextColorValidation(textView: TextView, status: String?) {
+    textView.apply {
+        if (status.isNullOrEmpty()) {
+            setTextColor(context.getColor(R.color.dsColorDarkGray))
+        } else {
+            setTextColor(context.getColor(R.color.colorErrorColor))
+        }
+    }
+}
+
+@BindingAdapter("setStrokeColorButtonError")
+fun setStrokeColorButtonError(button: MaterialButton, status: String?) {
+    button.apply {
+        strokeColor = if (status.isNullOrEmpty()) {
+            if (isChecked) {
+                ColorStateList.valueOf(context.getColor(R.color.dsColorMediumOrange))
+            } else {
+                ColorStateList.valueOf(context.getColor(R.color.dsColorLightGray))
+            }
+        } else {
+            ColorStateList.valueOf(context.getColor(R.color.colorErrorColor))
+        }
+
+    }
+}
+
+@BindingAdapter("setVisibilityByString")
+fun setVisibilityByString(textView: TextView, status: String?) {
+    textView.apply {
+        if (status.isNullOrEmpty()) {
+            this.visibility = View.INVISIBLE
+        } else {
+            this.visibility = View.VISIBLE
+        }
+    }
+}
+
+
+@BindingAdapter("setBackgroundColorDisableByString")
+fun setBackgroundColorDisableByString(view: View, source: String?) {
+    view.apply {
+        if (source.isNullOrEmpty()) {
+            view.backgroundTintList = ColorStateList.valueOf(context.getColor(R.color.colorTransparent))
+        } else {
+            view.backgroundTintList = ColorStateList.valueOf(context.getColor(R.color.dsColorLightGray))
+        }
+    }
+}
 
 
 

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.unionbankph.corporate.feature.loan.AddressInformationField" />
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.address.AddressHandler" />
+
+        <variable
+            name="viewModel"
+            type="com.unionbankph.corporate.loan.address.AddressViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/grid_1">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linearlayoutHeader"
+                    style="@style/MatchWrapParent"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ic_contact_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/grid_3_half"
+                        android:background="@drawable/ic_home" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEHeadlineH2"
+                        android:layout_width="match_parent"
+                        android:layout_alignBaseline="@id/ic_contact_info"
+                        android:text="@string/title_address" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/grid_1"
+                    android:paddingEnd="@dimen/grid_1"
+                    android:paddingBottom="@dimen/grid_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linearlayoutHeader">
+
+                    <TextView
+                        style="@style/SMESubtitle2"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_present_address" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_widget_address_line_1"
+                        style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.presentAddressLineOneError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:text="@string/title_line_1" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.presentAddressLineOneError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tie_widget_address_line_1"
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:hint="@string/title_line_1"
+                            android:inputType="textPersonName|textCapWords"
+                            android:maxLength="@integer/max_length_field_50"
+                            android:nextFocusDown="@id/tie_widget_address_line_2"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PRESENT_ADDRESS_LINE_ONE)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.presentAddressLineOne}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_widget_address_line_2"
+                        style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.presentAddressLineTwoError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_line_2" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.presentAddressLineTwoError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tie_widget_address_line_2"
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:hint="@string/title_line_2"
+                            android:inputType="textPersonName|textCapWords"
+                            android:maxLength="@integer/max_length_field_50"
+                            android:nextFocusDown="@id/tie_widget_address_zip_code"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PRESENT_ADDRESS_LINE_TWO)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.presentAddressLineTwo}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_widget_address_city"
+                        setTextColorValidation="@{viewModel.formState.presentAddressCityError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_city"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.presentAddressCityError}"
+                        app:hintEnabled="false">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/address_info_act_city_present"
+                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_regular"
+                            android:hint="@string/hint_city"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PRESENT_ADDRESS_CITY)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:textSize="@dimen/text_16" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_widget_address_region"
+                        setTextColorValidation="@{viewModel.formState.presentAddressRegionError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_region"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.presentAddressRegionError}"
+                        app:hintEnabled="false">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/address_info_act_region_present"
+                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_regular"
+                            android:hint="@string/title_region"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PRESENT_ADDRESS_REGION)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:textSize="@dimen/text_16" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_widget_address_zip_code"
+                        style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.presentAddressZipCodeError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/hint_zip_code" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.presentAddressZipCodeError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/tie_widget_address_zip_code"
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/digits_only"
+                            android:hint="@string/hint_zip_code"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PRESENT_ADDRESS_ZIP_CODE)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.presentAddressZipCode}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="@dimen/grid_4"
+                        android:layout_marginBottom="@dimen/grid_4"
+                        android:background="@color/dsColorLightGray" />
+
+                    <TextView
+                        style="@style/SMESubtitle2"
+                        android:text="@string/title_permanent_address" />
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/cb_as_address_same_as_present_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="-7dp"
+                        android:layout_marginTop="@dimen/grid_1_half"
+                        android:minHeight="@dimen/button_small_size"
+                        android:onClick="@{() -> viewModel.setSameAddress()}"
+                        android:text="@string/desc_same_as_present_address"
+                        android:textColor="@color/dsColorDarkGray"
+                        android:textSize="@dimen/text_14"
+                        app:buttonTint="@color/colorSMEMediumOrange" />
+
+                    <TextView
+                        style="@style/SMEBodyMediumGray"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:text="@string/desc_provide_complete_address" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.permanentAddressLineOneError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:text="@string/title_line_1" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.permanentAddressLineOneError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@{viewModel.sameAddress ? @color/colorTransparent : @color/colorDisableTextInputEditText}"
+                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:enabled="@{viewModel.sameAddress ? true : false}"
+                            android:hint="@string/title_line_1"
+                            android:inputType="textPersonName|textCapWords"
+                            android:maxLength="@integer/max_length_field_50"
+                            android:nextFocusDown="@id/tie_widget_address_line_2"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PERMANENT_ADDRESS_LINE_ONE)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.permanentAddressLineOne}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.permanentAddressLineTwoError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_line_2" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.permanentAddressLineTwoError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@{viewModel.sameAddress ? @color/colorTransparent : @color/colorDisableTextInputEditText}"
+                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:enabled="@{viewModel.sameAddress ? true : false}"
+                            android:hint="@string/title_line_2"
+                            android:inputType="textPersonName|textCapWords"
+                            android:maxLength="@integer/max_length_field_50"
+                            android:nextFocusDown="@id/tie_widget_address_zip_code"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PERMANENT_ADDRESS_LINE_TWO)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.permanentAddressLineTwo}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        setTextColorValidation="@{viewModel.formState.permanentAddressCityError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_city"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <!--                    android:alpha="@{viewModel.sameAddress ? 1.0f: 0.9f}"-->
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:enabled="@{viewModel.sameAddress ? true : false}"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.permanentAddressCityError}"
+                        app:hintEnabled="false">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/address_info_act_city_permanent"
+                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:background="@{viewModel.sameAddress ? @drawable/bg_edit_text_enable_stroke : @drawable/bg_edit_text_disable_stroke}"
+                            android:cursorVisible="false"
+                            android:enabled="@{viewModel.sameAddress ? true : false}"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_regular"
+                            android:hint="@string/hint_city"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PERMANENT_ADDRESS_CITY)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:textSize="@dimen/text_16" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        setTextColorValidation="@{viewModel.formState.permanentAddressRegionError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_region"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:enabled="@{viewModel.sameAddress ? true : false}"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.permanentAddressRegionError}"
+                        app:hintEnabled="false">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/address_info_act_region_permanent"
+                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:background="@{viewModel.sameAddress ? @drawable/bg_edit_text_enable_stroke : @drawable/bg_edit_text_disable_stroke}"
+                            android:cursorVisible="false"
+                            android:enabled="@{viewModel.sameAddress ? true : false}"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_regular"
+                            android:hint="@string/title_region"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PERMANENT_ADDRESS_REGION)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:textSize="@dimen/text_16" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.permanentAddressZipCodeError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/hint_zip_code" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.permanentAddressZipCodeError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@{viewModel.sameAddress ? @color/colorTransparent : @color/colorDisableTextInputEditText}"
+                            android:digits="@string/digits_only"
+                            android:enabled="@{viewModel.sameAddress ? true : false}"
+                            android:hint="@string/hint_zip_code"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PERMANENT_ADDRESS_ZIP_CODE)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.permanentAddressZipCode}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_as_address_next"
+                        style="@style/SMEPrimaryButtonLarge"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:alpha="@{viewModel.formState.dataValid ? 1.0f: 0.5f}"
+                        android:enabled="@{viewModel.formState.dataValid ? true : false}"
+                        android:onClick="@{() -> handler.onNext()}"
+                        android:text="@string/action_next" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

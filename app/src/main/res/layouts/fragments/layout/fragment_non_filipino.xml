@@ -1,33 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.nonfilipino.NonFilipinoHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/MatchParent"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_1"
         android:background="@color/colorWhite"
-        android:padding="@dimen/msme_content_spacing">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.airbnb.epoxy.EpoxyRecyclerView
-            android:id="@+id/non_filipino_erv_data"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite"
-            android:clipToPadding="false"
-            android:orientation="vertical"
-            android:overScrollMode="never"
-            android:paddingTop="@dimen/content_spacing"
-            android:paddingBottom="@dimen/content_spacing"
-            app:itemSpacing="@dimen/content_item_spacing"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        <ImageView
+            android:id="@+id/non_filipino_iv_background"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/grid_23_190"
+            android:layout_marginTop="@dimen/grid_4"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/ub_layout_item_citizen" />
+            app:layout_constraintTop_toBottomOf="@+id/guideLine"
+            app:srcCompat="@drawable/bg_were_sorry" />
+
+        <TextView
+            android:id="@+id/non_filipino_tv_header"
+            style="@style/SMEHeadlineH2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:gravity="center"
+            android:text="@string/title_were_sorry"
+            android:textColor="@color/colorDarkOrange"
+            app:layout_constraintTop_toBottomOf="@+id/non_filipino_iv_background" />
+
+        <TextView
+            android:id="@+id/non_filipino_tv_limited"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginStart="@dimen/grid_8"
+            android:layout_marginEnd="@dimen/grid_8"
+            android:text="@string/label_application_is_limited"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/non_filipino_tv_header" />
+
+        <TextView
+            android:id="@+id/non_filipino_tv_reach_out"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/grid_3_half"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/grid_8"
+            android:layout_marginEnd="@dimen/grid_8"
+            android:text="@string/label_you_may_reach_out"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/non_filipino_tv_limited" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_loans_b_apply_now"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_marginTop="@dimen/grid_4"
+            android:text="@string/btn_back_to_dashboard"
+            android:onClick="@{() -> handler.gotoDashboard()}"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLine"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.18"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

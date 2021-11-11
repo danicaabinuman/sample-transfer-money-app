@@ -48,6 +48,7 @@
         <activity
             android:name="com.unionbankph.corporate.auth.presentation.login.LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:exported="true"
             android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -80,6 +81,7 @@
         <activity
             android:name="com.unionbankph.corporate.settings.presentation.update_password.UpdatePasswordActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:exported="true"
             android:launchMode="standard">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -331,6 +333,7 @@
         <activity
             android:name="com.unionbankph.corporate.auth.presentation.migration.migration_selection.MigrationSelectionActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:exported="true"
             android:launchMode="standard">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -356,6 +359,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
+            android:exported="true"
             android:taskAffinity="">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -382,6 +386,7 @@
         <activity
             android:name="com.unionbankph.corporate.auth.presentation.migration.nominate_migration_success.NominateMigrationSuccessActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:exported="true"
             android:launchMode="standard">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -407,6 +412,7 @@
         <activity
             android:name="com.unionbankph.corporate.general.presentation.result.ResultLandingWithoutAuthActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:exported="true"
             android:launchMode="standard">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -552,10 +558,10 @@
             android:name=".payment_link.presentation.request_payment.RequestForPaymentActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="singleInstance" />
-        <activity
+<!--        <activity
             android:name=".payment_link.presentation.payment_link.PaymentLinkActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
+            android:launchMode="standard" />-->
         <activity
             android:name=".payment_link.presentation.payment_link_details.LinkDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
@@ -731,10 +737,10 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"/>
 
-        <activity
+<!--        <activity
             android:name=".payment_link.presentation.create_merchant.MerchantApplicationReceivedActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
-            android:launchMode="standard" />
+            android:launchMode="standard" />-->
 
         <activity
             android:name="com.unionbankph.corporate.loan.LoanActivity"

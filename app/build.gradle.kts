@@ -241,6 +241,14 @@ dependencies {
     kapt(Libraries.epoxyProcessor)
     implementation(Libraries.biometric)
     implementation(Libraries.philJayChart)
+    implementation(Libraries.coroutinesCore)
+    implementation(Libraries.coroutinesAndroid)
+    implementation(Libraries.lifecycleViewModelKtx)
+    implementation(Libraries.lifecycleViewModelLiveData)
+    implementation(Libraries.lifecycleViewModelRuntime)
+    implementation(Libraries.lifecycleViewModelSavedState)
+    //kapt(Libraries.lifecycleKapt)
+
 
     // Third party SDK
     implementation(Libraries.jumioCore)

@@ -224,6 +224,9 @@
     <color name="dsColorChipDisabled">@color/dsColorLightOrange</color>
     <color name="dsColorChipTextDisabled">@color/dsColorMediumOrange</color>
 
+    <color name="colorTeal">#01A8AA</color>
+
+
     <!--Transparency-->
     <!--100% — FF-->
     <!--99% — FC-->

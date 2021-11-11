@@ -5,6 +5,7 @@ import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFrag
 import com.unionbankph.corporate.account_setup.presentation.address.AsAddressFragment
 import com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipFragment
 import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationFragment
 import com.unionbankph.corporate.account_setup.presentation.debit_card_type.AsDebitCardTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment
@@ -57,11 +58,15 @@ import com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterF
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
+import com.unionbankph.corporate.loan.address.AddressFragment
 import com.unionbankph.corporate.loan.applyloan.LoansFragment
+import com.unionbankph.corporate.loan.business_address.BusinessAddressFragment
+import com.unionbankph.corporate.loan.business_information.BusinessInformationFragment
 import com.unionbankph.corporate.loan.businesstype.BusinessTypeFragment
 import com.unionbankph.corporate.loan.calculator.LoansCalculatorFragment
 import com.unionbankph.corporate.loan.citizen.CitizenFragment
 import com.unionbankph.corporate.loan.contactinformation.ContactInformationFragment
+import com.unionbankph.corporate.loan.financial_information.FinancialInformationFragment
 import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoFragment
 import com.unionbankph.corporate.loan.personal_information.PersonalInformationFragment
 import com.unionbankph.corporate.loan.reminders.FewRemindersFragment
@@ -70,7 +75,6 @@ import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoard
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_detail.NotificationLogDetailFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.notification_log_list.NotificationLogFragment
-import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingDeletePhotosFragment
 import com.unionbankph.corporate.user_creation.presentation.confirmation_message.UcConfirmationMessageFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.UcEnterContactInfoFragment
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
@@ -101,7 +105,8 @@ import com.unionbankph.corporate.user_creation.presentation.select_account.UcAcc
 import com.unionbankph.corporate.user_creation.presentation.tnc.UcTNCFragment
 import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.UcTNCReminderFragment
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsFragment
-import com.unionbankph.corporate.payment_link.presentation.onboarding.OnboardingUploadPhotosFragment
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingDeletePhotosFragment
+import com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentFragment
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.FeeCharges
 import dagger.Module
@@ -439,14 +444,13 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun ucConfirmationMessageFragment(): UcConfirmationMessageFragment
 
-    @PerActivity
+ /*   @PerActivity
     @ContributesAndroidInjector
     abstract fun bottomSheetUploadPhotos(): OnboardingUploadPhotosFragment
 
-
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun bottomSheetUploadBir(): CardAcceptanceUploadDocumentFragment
+    abstract fun bottomSheetUploadBir(): CardAcceptanceUploadDocumentFragment*/
 
     @PerActivity
     @ContributesAndroidInjector
@@ -543,5 +547,22 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun cardAcceptanceUploadDocumentFragment(): CardAcceptanceUploadDocumentFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun financialInformationFragment(): FinancialInformationFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun addressFragment(): AddressFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessInformationFragment(): BusinessInformationFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessAddressFragment(): BusinessAddressFragment
+
 
 }

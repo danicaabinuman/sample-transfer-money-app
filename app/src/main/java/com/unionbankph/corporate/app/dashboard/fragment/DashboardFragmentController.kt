@@ -367,9 +367,6 @@ abstract class FeatureCardModel : EpoxyModelWithHolder<FeatureCardModel.Holder>(
             imageViewIcon.setImageResource(
                 ConstantHelper.Drawable.getFeatureCardIcon(featureItem.action!!)
             )
-            cardViewFeature.setOnClickListener {
-                //callbacks.onDashboardActionEmit(featureItem.action!!, true)
-            }
             textViewCardFooter.setOnClickListener {
                 callbacks.onApplyLoans()
             }

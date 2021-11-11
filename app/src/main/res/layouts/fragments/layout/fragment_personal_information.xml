@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="android.view.View" />
+
+        <import type="com.unionbankph.corporate.feature.loan.PersonalInformationField" />
+
+        <import type="com.unionbankph.corporate.feature.loan.GenderType" />
 
         <variable
             name="viewModel"
@@ -82,6 +87,7 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_as_personal_info_first_name"
                         style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.firstnameError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_3"
@@ -94,6 +100,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         android:hint="@string/hint_first_name"
+                        app:error="@{viewModel.formState.firstnameError}"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -104,13 +111,17 @@
                             android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:hint="@string/hint_first_name"
                             android:inputType="textPersonName|textCapWords"
+                            android:maxLength="@integer/max_length_field_40"
                             android:nextFocusDown="@id/tie_as_personal_info_middle_name"
-                            android:singleLine="true" />
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.FIRST_NAME)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.firstname}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_as_personal_info_middle_name"
+                        setTextColorValidation="@{viewModel.formState.middlenameError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_3"
@@ -122,6 +133,7 @@
                         style="@style/TextInputLayoutFormThin"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.middlenameError}"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -132,13 +144,17 @@
                             android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:hint="@string/hint_middle_name"
                             android:inputType="textPersonName|textCapWords"
+                            android:maxLength="@integer/max_length_field_40"
                             android:nextFocusDown="@id/editTextLastName"
-                            android:singleLine="true" />
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.MIDDLE_NAME)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.middlename}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_as_personal_info_last_name"
+                        setTextColorValidation="@{viewModel.formState.lastnameError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_3"
@@ -150,6 +166,7 @@
                         style="@style/TextInputLayoutFormThin"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.lastnameError}"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -160,12 +177,16 @@
                             android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:hint="@string/hint_last_name"
                             android:inputType="textPersonName|textCapWords"
-                            android:singleLine="true" />
+                            android:maxLength="@integer/max_length_field_40"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.LAST_NAME)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.lastname}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_as_personal_info_dob"
+                        setTextColorValidation="@{viewModel.formState.dobError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_3"
@@ -176,17 +197,20 @@
                         style="@style/TextInputLayoutFormThin"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.dobError}"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tie_as_personal_info_dob"
+                            android:id="@+id/personal_information_tie_dob"
                             style="@style/TextInputLayoutFormThinEditText.DatePicker"
-                            android:hint="@string/hint_date_of_birth" />
+                            android:hint="@string/hint_date_of_birth"
+                            android:text="@{viewModel.form.dob}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tv_as_personal_info_pob"
+                        setTextColorValidation="@{viewModel.formState.pobError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_3"
@@ -194,27 +218,36 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_as_personal_info_pob"
-                        style="@style/TextInputLayoutFormThin"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
+                        android:layout_height="60dp"
                         android:layout_marginTop="@dimen/grid_1"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.pobError}"
                         app:hintEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tie_as_personal_info_pob"
-                            style="@style/TextInputLayoutFormThinEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                        <AutoCompleteTextView
+                            android:id="@+id/personal_info_act_pob"
+                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_place_of_birth"
-                            android:inputType="textPersonName|textCapWords"
-                            android:nextFocusDown="@id/tie_as_personal_info_nationality"
-                            android:singleLine="true" />
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.POB)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:inputType="none"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:textSize="@dimen/text_16" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
                         android:id="@+id/tie_as_personal_info_gender"
+                        setTextColorValidation="@{viewModel.formState.genderError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_3"
@@ -226,29 +259,37 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:gravity="start"
-                        app:checkedButton="@+id/btn_as_personal_info_male"
+                        app:errorEnabled="true"
+                        app:selectionRequired="true"
                         app:singleSelection="true">
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_as_personal_info_male"
                             style="@style/SMEToggleButton.Custom"
+                            setStrokeColorButtonError="@{viewModel.formState.genderError}"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:onClick="@{() -> viewModel.onDataChange(GenderType.MALE, PersonalInformationField.GENDER)}"
                             android:text="@string/title_male"
-                            android:textAllCaps="false" />
+                            android:textAllCaps="false"
+                            app:strokeWidth="0.5dp" />
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_as_personal_info_female"
                             style="@style/SMEToggleButton.Custom"
+                            setStrokeColorButtonError="@{viewModel.formState.genderError}"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:onClick="@{() -> viewModel.onDataChange(GenderType.FEMALE, PersonalInformationField.GENDER)}"
                             android:text="@string/title_female"
-                            android:textAllCaps="false" />
+                            android:textAllCaps="false"
+                            app:strokeWidth="0.5dp" />
 
                     </com.google.android.material.button.MaterialButtonToggleGroup>
 
                     <TextView
                         android:id="@+id/tv_as_personal_info_civil_status"
+                        setTextColorValidation="@{viewModel.formState.civilStatusError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_3"
@@ -256,21 +297,35 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/TextInputLayoutFormThin"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
+                        android:layout_height="60dp"
                         android:layout_marginTop="@dimen/grid_1"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.civilStatusError}"
                         app:hintEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tie_as_personal_info_civil_status"
+                        <AutoCompleteTextView
+                            android:id="@+id/personal_info_act_civil_status"
                             style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
-                            android:hint="@string/hint_civil_status" />
+                            android:fontFamily="@string/font_family_regular"
+                            android:hint="@string/hint_civil_status"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.CIVIL_STATUS)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:inputType="none"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:textSize="@dimen/text_16" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_as_personal_info_email_dependents"
                         style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.dependentsError}"
                         android:layout_marginTop="@dimen/grid_3"
                         android:text="@string/title_number_of_dependents" />
 
@@ -280,6 +335,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         android:hint="@string/hint_number_of_dependents"
+                        app:error="@{viewModel.formState.dependentsError}"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -289,19 +345,97 @@
                             android:layout_height="wrap_content"
                             android:digits="@string/digits_alpha_numeric_symbols_email_no_space"
                             android:hint="@string/hint_number_of_dependents"
-                            android:inputType="textEmailAddress"
+                            android:maxLength="3"
+                            android:inputType="number"
                             android:nextFocusDown="@id/tie_as_personal_info_tin"
-                            android:singleLine="true" />
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.DEPENDENTS)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.dependents}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <include
-                        android:id="@+id/include_as_personal_info_mobile"
-                        layout="@layout/widget_prefix_and_number_field" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_mobile_number_label"
+                        style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.mobileError}"
+                        android:layout_marginTop="@dimen/grid_5_half"
+                        android:text="@string/title_mobile_number" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        style="@style/MatchWrapParent"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/til_mobile_prefix"
+                            style="@style/TextInputLayoutFormThin"
+                            android:layout_width="@dimen/grid_10"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/grid_1"
+                            android:focusableInTouchMode="false"
+                            app:error="@{viewModel.formState.mobileError}"
+                            app:errorTextAppearance="@style/ZeroTextSizeAppearance"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/tie_mobile_prefix"
+                                style="@style/TextInputLayoutFormThinEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:cursorVisible="false"
+                                android:digits="@string/digits_country_code"
+                                android:focusable="false"
+                                android:hint="@string/country_code_63"
+                                android:inputType="phone"
+                                android:maxLength="@integer/max_length_country_code"
+                                android:text="@string/country_code_63" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/textInputLayoutMobileNumber"
+                            style="@style/TextInputLayoutFormThin"
+                            android:layout_width="@dimen/match_constraint"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/grid_1"
+                            android:layout_marginTop="@dimen/grid_1"
+                            android:layout_weight="1"
+                            android:hint="@string/hint_e_g_9900008987"
+                            app:error="@{viewModel.formState.mobileError}"
+                            app:errorTextAppearance="@style/ZeroTextSizeAppearance"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/tie_mobile_number"
+                                style="@style/TextInputLayoutFormThinEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:digits="@string/digits_only"
+                                android:hint="@string/hint_e_g_9900008987"
+                                android:inputType="phone"
+                                android:maxLength="@integer/max_length_check_number"
+                                android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.MOBILE)}"
+                                android:singleLine="true"
+                                android:text="@{viewModel.form.mobile}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_mobile_field_error"
+                        style="@style/SMECaption"
+                        setVisibilityByString="@{viewModel.formState.mobileError}"
+                        android:layout_width="match_parent"
+                        android:paddingStart="@dimen/grid_3_half"
+                        android:text="@{viewModel.formState.mobileError}"
+                        android:textColor="@color/colorErrorColor"
+                        tools:text="Mobile number error"
+                        tools:visibility="visible" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_as_personal_info_email_address"
                         style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.emailError}"
                         android:layout_marginTop="@dimen/grid_3"
                         android:text="@string/title_email_address" />
 
@@ -311,6 +445,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         android:hint="@string/hint_email_address_small_letter"
+                        app:error="@{viewModel.formState.emailError}"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -322,7 +457,9 @@
                             android:hint="@string/hint_email_address_small_letter"
                             android:inputType="textEmailAddress"
                             android:nextFocusDown="@id/tie_as_personal_info_tin"
-                            android:singleLine="true" />
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.EMAIL)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.email}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -330,7 +467,9 @@
                         android:id="@+id/buttonNext"
                         style="@style/SMEPrimaryButtonLarge"
                         android:layout_marginTop="@dimen/grid_7_half"
-                        android:enabled="true"
+                        android:alpha="@{viewModel.formState.dataValid ? 1.0f: 0.5f}"
+                        android:enabled="@{viewModel.formState.dataValid ? true : false}"
+                        android:onClick="@{() -> handler.onNext()}"
                         android:text="@string/action_next" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -45,10 +45,13 @@ class LoansCalculatorFragment :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        activity.setToolbarTitle(
-            activity.binding.tvToolbar,
-            getString(R.string.title_apply_for_a_loan)
-        )
+        activity.apply {
+            showProgress(false)
+            setToolbarTitle(
+                activity.binding.tvToolbar,
+                getString(R.string.title_apply_for_a_loan)
+            )
+        }
     }
 
     private fun initViews() {

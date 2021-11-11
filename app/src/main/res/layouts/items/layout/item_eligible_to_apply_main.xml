@@ -15,26 +15,28 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/eligible_cl_header"
-            style="@style/SMESubtitle2"
+            style="@style/SMESubtitle1"
             android:layout_width="match_parent"
+            android:textSize="@dimen/text_16"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
             android:enabled="false"
             android:text="@string/title_eligible_to_apply"
-            android:textSize="@dimen/text_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginTop="@dimen/margin_20dp"
             android:layout_marginEnd="@dimen/grid_2"
             android:layout_marginBottom="@dimen/grid_2"
-            app:cardCornerRadius="@dimen/card_radius_half"
-            app:cardElevation="@dimen/default_elevation"
+            app:cardCornerRadius="@dimen/margin_8dp"
+            app:cardElevation="@dimen/margin_4dp"
+            android:elevation="@dimen/margin_4dp"
+            app:strokeColor="@color/dsColorExtraLightGray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_8dp"
-                    android:text="@string/title_qualified_businesses"
+                    android:text="@string/title_qualified_industries"
                     android:textAllCaps="false"
                     android:textColor="@color/dsColorDarkGray"
                     app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginTop="@dimen/margin_16dp"
-                    android:layout_marginBottom="@dimen/margin_16dp"
+                    android:layout_marginBottom="@dimen/margin_8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +89,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

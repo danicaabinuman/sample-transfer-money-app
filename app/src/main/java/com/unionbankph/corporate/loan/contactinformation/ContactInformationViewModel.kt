@@ -15,7 +15,8 @@ constructor(
     private val _contactInformation = MutableLiveData<List<ContactInformation>>()
     val contactInformation: LiveData<List<ContactInformation>> = _contactInformation
 
-   //val contactInformation = MutableLiveData<MutableList<ContactInformation>>()
+    private val _isSelect = MutableLiveData(false)
+    val isSelect: LiveData<Boolean> = _isSelect
 
     init {
 
@@ -32,11 +33,12 @@ constructor(
             _contactInformation.value?.let {
                 it.forEachIndexed { index, contactInformation ->
                     if (index == type) {
-                        contactInformation.isSelected = !contactInformation.isSelected!!
+                        if (contactInformation.isSelected == false) contactInformation.isSelected = !contactInformation.isSelected!!
                     } else {
                         contactInformation.isSelected = false
                     }
                 }
+                _isSelect.value = true
                 _contactInformation.value = it
             }
         }

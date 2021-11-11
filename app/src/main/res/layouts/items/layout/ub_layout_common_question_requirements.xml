@@ -35,16 +35,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardViewFeature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/grid_2"
-            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginTop="@dimen/margin_4dp"
             android:layout_marginEnd="@dimen/grid_2"
-            android:layout_marginBottom="@dimen/margin_8dp"
-            app:cardCornerRadius="@dimen/card_radius_half"
-            app:cardElevation="@dimen/default_elevation"
+            android:layout_marginBottom="@dimen/margin_4dp"
+            app:cardCornerRadius="@dimen/margin_8dp"
+            app:cardElevation="@dimen/margin_4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,7 @@
                     android:layout_width="@dimen/grid_3"
                     android:layout_height="@dimen/margin_56dp"
                     android:layout_marginEnd="@dimen/margin_14dp"
-                    android:rotation="@{expand ? 180 : 360}"
+                    android:rotation="@{expand ? 360 : 180}"
                     android:src="@drawable/ic_dropdown"
                     app:layout_constraintBottom_toBottomOf="@+id/item_common_question_tv_header"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -137,22 +137,38 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/item_individual_tv_id" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/item_individual_tv_month"
-                        style="@style/SMEBody"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/item_corporation_cl_month"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/grid_3"
                         android:layout_marginTop="@dimen/margin_8dp"
                         android:layout_marginBottom="@dimen/margin_12dp"
-                        android:drawableStart="@drawable/bg_bullet"
-                        android:drawablePadding="@dimen/grid_1"
-                        android:gravity="start|center"
-                        android:text="@string/bullet_one_month_issued"
-                        android:textAllCaps="false"
                         app:layout_constraintEnd_toStartOf="@+id/guideLine"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/item_individual_tv_business" />
+                        app:layout_constraintTop_toBottomOf="@+id/item_individual_tv_business">
+
+                        <ImageView
+                            android:id="@+id/item_corporation_iv_month"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/bg_bullet"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/SMEBody"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8dp"
+                            android:text="@string/bullet_one_month_issued"
+                            android:textAllCaps="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/item_corporation_iv_month"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/item_individual_tv_invoice"
@@ -165,7 +181,7 @@
                         android:textAllCaps="false"
                         app:layout_constraintEnd_toStartOf="@+id/guideLine"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/item_individual_tv_month" />
+                        app:layout_constraintTop_toBottomOf="@+id/item_corporation_cl_month" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/item_individual_tv_purchase"
@@ -240,22 +256,39 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/item_corporation_tv_id" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/item_corporation_tv_month"
-                        style="@style/SMEBody"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/item_corporation_cl_business"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/grid_3"
                         android:layout_marginTop="@dimen/margin_8dp"
                         android:layout_marginBottom="@dimen/margin_12dp"
-                        android:drawableStart="@drawable/bg_bullet"
-                        android:drawablePadding="@dimen/grid_1"
-                        android:gravity="start|center"
-                        android:text="@string/bullet_one_month_issued"
-                        android:textAllCaps="false"
                         app:layout_constraintEnd_toStartOf="@+id/guideLine"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/item_corporation_tv_business" />
+                        app:layout_constraintTop_toBottomOf="@+id/item_corporation_tv_business">
+
+                        <ImageView
+                            android:id="@+id/item_corporation_iv_bullet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/bg_bullet"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/item_corporation_tv_month"
+                            style="@style/SMEBody"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8dp"
+                            android:text="@string/bullet_one_month_issued"
+                            android:textAllCaps="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/item_corporation_iv_bullet"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/item_corporation_tv_invoice"
@@ -268,7 +301,7 @@
                         android:textAllCaps="false"
                         app:layout_constraintEnd_toStartOf="@+id/guideLine"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/item_corporation_tv_month" />
+                        app:layout_constraintTop_toBottomOf="@+id/item_corporation_cl_business" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/item_corporation_tv_purchase"
@@ -296,23 +329,41 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/item_corporation_tv_purchase" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/item_corporation_tv_resolution"
-                        style="@style/SMEBody"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/item_corporation_cl_resolution"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+
                         android:layout_marginStart="@dimen/grid_3"
                         android:layout_marginTop="@dimen/margin_8dp"
                         android:layout_marginBottom="@dimen/margin_16dp"
-                        android:drawableStart="@drawable/bg_bullet"
-                        android:drawablePadding="@dimen/grid_1"
-                        android:gravity="start|center"
-                        android:text="@string/bullet_board_resolution"
-                        android:textAllCaps="false"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/guideLine"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/item_corporation_tv_bill" />
+                        app:layout_constraintTop_toBottomOf="@+id/item_corporation_tv_bill">
+
+                        <ImageView
+                            android:id="@+id/item_corporation_iv_resolution"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/bg_bullet"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/item_corporation_tv_resolution"
+                            style="@style/SMEBody"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8dp"
+                            android:text="@string/bullet_board_resolution"
+                            android:textAllCaps="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/item_corporation_iv_resolution"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.Guideline
                         android:id="@+id/guideLine"
@@ -325,7 +376,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

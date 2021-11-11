@@ -52,9 +52,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/grid_1"
+                android:textColor="@color/dsColorMediumGray"
                 android:layout_marginTop="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_1"
-                android:text="@string/desc_select_account_type"
+                android:text="@string/desc_select_business_type"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewHeader" />
@@ -79,7 +80,7 @@
                         android:layout_marginStart="@dimen/grid_1"
                         android:layout_marginTop="@dimen/content_spacing"
                         android:layout_marginEnd="@dimen/grid_1"
-                        android:background="@drawable/bg_gradient_orange_radius4"
+                        android:background="@drawable/bg_gradient_orange_radius8"
                         android:backgroundTint="@color/dsColorLightOrange"
                         android:padding="@dimen/grid_1"
                         android:paddingBottom="@dimen/grid_1"
@@ -144,7 +145,7 @@
 
                             <RadioButton
                                 android:id="@+id/business_type_rb_individual"
-                                style="@style/SMECheckableButtonWithIcon"
+                                style="@style/SMECheckableButtonWithIconHalfStroke"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_marginEnd="@dimen/content_spacing"
@@ -156,7 +157,7 @@
 
                             <RadioButton
                                 android:id="@+id/business_type_rb_sole"
-                                style="@style/SMECheckableButtonWithIcon"
+                                style="@style/SMECheckableButtonWithIconHalfStroke"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -174,7 +175,7 @@
 
                             <RadioButton
                                 android:id="@+id/business_type_rb_partnership"
-                                style="@style/SMECheckableButtonWithIcon"
+                                style="@style/SMECheckableButtonWithIconHalfStroke"
                                 android:layout_width="0sp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/content_spacing"
@@ -186,7 +187,7 @@
 
                             <RadioButton
                                 android:id="@+id/business_type_rb_corporation"
-                                style="@style/SMECheckableButtonWithIcon"
+                                style="@style/SMECheckableButtonWithIconHalfStroke"
                                 android:layout_width="0sp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -208,7 +209,7 @@
                 style="@style/SMEPrimaryButtonLarge"
                 android:layout_marginStart="@dimen/grid_1"
                 android:layout_marginEnd="@dimen/grid_1"
-                android:layout_marginBottom="@dimen/grid_1"
+                android:layout_marginBottom="@dimen/margin_16dp"
                 android:onClick="@{() -> handler.onNext()}"
                 android:alpha="@{(viewModel.isSelect() ? 1.0f: 0.5f)}"
                 android:enabled="@{viewModel.isSelect()}"

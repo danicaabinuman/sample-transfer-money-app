@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.unionbankph.corporate.feature.loan.FinancialInformationField" />
+
+        <variable
+            name="viewModel"
+            type="com.unionbankph.corporate.loan.financial_information.FinancialInformationViewModel" />
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.financial_information.FinancialInformationHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_as_personal_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/grid_1">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/MatchWrapParent"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/grid_3_half"
+                        android:background="@drawable/ic_flower" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMEHeadlineH2"
+                        android:layout_width="match_parent"
+                        android:layout_alignBaseline="@id/ic_contact_info"
+                        android:text="@string/title_financial_information" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/grid_1"
+                    android:paddingEnd="@dimen/grid_1"
+                    android:paddingBottom="@dimen/grid_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/linearlayoutHeader">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMECaption"
+                        setTextColorValidation="@{viewModel.formState.occupationError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_occupation" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:hint="@string/hint_occupation"
+                        app:error="@{viewModel.formState.occupationError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:hint="@string/hint_enter_occupation"
+                            android:maxLength="@integer/max_length_field_40"
+                            android:inputType="textPersonName|textCapWords"
+                            android:nextFocusDown="@id/tie_as_personal_info_middle_name"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.OCCUPATION)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.occupation}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        setTextColorValidation="@{viewModel.formState.positionError}"
+                        android:text="@string/title_position"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.positionError}"
+                        app:hintEnabled="false" >
+
+                        <AutoCompleteTextView
+                            android:id="@+id/financial_info_act_pob"
+                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_regular"
+                            android:hint="@string/hint_position"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.POSITION)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:textSize="@dimen/text_16" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        setTextColorValidation="@{viewModel.formState.monthlyIncomeError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_monthly_income"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.monthlyIncomeError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:hint="@string/hint_enter_amount"
+                            android:inputType="number"
+                            android:maxLength="@integer/max_length_amount"
+                            android:nextFocusDown="@id/editTextLastName"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.MONTHLY_INCOME)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.monthlyIncome}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        setTextColorValidation="@{viewModel.formState.tinIdError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_tin_id"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.tinIdError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:hint="@string/hind_id_number"
+                            android:inputType="number"
+                            android:maxLength="@integer/max_length_tin"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.TIN_ID)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.tinId}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        setTextColorValidation="@{viewModel.formState.sssIdError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_sss_id"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:error="@{viewModel.formState.sssIdError}"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:hint="@string/hind_id_number"
+                            android:inputType="number"
+                            android:maxLength="@integer/max_length_sss"
+                            android:nextFocusDown="@id/tie_as_personal_info_nationality"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.SSS_ID)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.sssId}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        setTextColorValidation="@{viewModel.formState.gsisIdError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_3"
+                        android:text="@string/title_gsis_id"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutFormThin"
+                        app:error="@{viewModel.formState.gsisIdError}"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:hint="@string/hind_id_number"
+                            android:inputType="number"
+                            android:maxLength="@integer/max_length_gsis"
+                            android:nextFocusDown="@id/tie_as_personal_info_nationality"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.GSIS_ID)}"
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.gsisId}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/buttonNext"
+                        style="@style/SMEPrimaryButtonLarge"
+                        android:onClick="@{() -> handler.onNext()}"
+                        android:layout_marginTop="@dimen/grid_7_half"
+                        android:alpha="@{viewModel.formState.dataValid ? 1.0f: 0.5f}"
+                        android:enabled="@{viewModel.formState.dataValid ? true : false}"
+                        android:text="@string/action_next" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -6,14 +6,14 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.databinding.UbLayoutItemCitizenBinding
+import com.unionbankph.corporate.databinding.FragmentItemCitizenBinding
 
 @EpoxyModelClass
 abstract class CitizenModel(
 ) : EpoxyModelWithHolder<CitizenModel.Holder>() {
 
    override fun getDefaultLayout(): Int {
-       return R.layout.ub_layout_item_citizen
+       return R.layout.fragment_item_citizen
    }
 
     @EpoxyAttribute
@@ -30,9 +30,9 @@ abstract class CitizenModel(
     }
 
     class Holder : EpoxyHolder() {
-        lateinit var binding: UbLayoutItemCitizenBinding
+        lateinit var binding: FragmentItemCitizenBinding
         override fun bindView(itemView: View) {
-            binding = UbLayoutItemCitizenBinding.bind(itemView)
+            binding = FragmentItemCitizenBinding.bind(itemView)
         }
     }
 }

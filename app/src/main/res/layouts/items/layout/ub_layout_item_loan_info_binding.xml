@@ -111,8 +111,8 @@
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginTop="@dimen/grid_5_half"
             android:layout_marginEnd="@dimen/grid_2"
-            android:text="@string/label_thirty_six_percent"
             android:gravity="start"
+            android:text="@string/label_thirty_six_percent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideLine"
             app:layout_constraintTop_toBottomOf="@id/item_loan_info_v_tenure" />
@@ -135,8 +135,7 @@
             android:layout_width="@dimen/match_constraint"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginTop="@dimen/grid_5_half"
-            android:layout_marginEnd="@dimen/grid_2"
-            android:text="@string/title_monthly_payment"
+            android:text="@string/title_estimated_monthly_payment_loan_info"
             app:layout_constraintEnd_toStartOf="@+id/guideLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_loan_info_v_interest_rate" />
