@@ -108,6 +108,7 @@ class RequestForPaymentActivity :
         binding.btnRequestPaymentCancel.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.btnCalculator.setOnClickListener {
