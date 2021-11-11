@@ -26,6 +26,7 @@ import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
+import com.unionbankph.corporate.auth.presentation.login.LoginFragment
 import com.unionbankph.corporate.bills_payment.data.model.Transaction
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
 import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
@@ -66,6 +67,11 @@ class UcPersonaliseSettingsFragment :
         initViewModel()
     }
 
+    override fun onViewsBound() {
+        super.onViewsBound()
+        init()
+    }
+
 
     override fun onInitializeListener() {
         super.onInitializeListener()
@@ -98,10 +104,14 @@ class UcPersonaliseSettingsFragment :
                 }
             })
             navigateToLocalSettings.observe(viewLifecycleOwner, EventObserver {
-                considerAsRecentUser(PromptTypeEnum.TRUST_DEVICE)
+                //considerAsRecentUser(PromptTypeEnum.TRUST_DEVICE)
                 rxPermission()
             })
         }
+    }
+
+    private fun init(){
+
     }
 
     private fun initSwitchListener(){
@@ -130,7 +140,7 @@ class UcPersonaliseSettingsFragment :
     }
 
     private fun initOnPermissions(){
-        viewModel.saveSettings(isCheckedNotif, isCheckedTrustDevice)
+        viewModel.saveSettings(isCheckedNotif, isCheckedTrustDevice,PromptTypeEnum.TRUST_DEVICE)
         when(isCheckedGallery){
             true -> {
                 listPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)

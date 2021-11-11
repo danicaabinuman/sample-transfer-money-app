@@ -25,15 +25,18 @@ class UcNominatePasswordViewModel @Inject constructor(
 
     val navigateResult: LiveData<Event<UserCreationAuth>> get() = _navigateResult
 
-    fun onClickedNext(password: String, secretToken: String) {
+    fun onClickedNext(password: String, secretToken: String, requestId: String) {
         val form = UcNominatePasswordForm().apply {
             this.password = password
             this.secretToken = secretToken
+            this.requestId = requestId
         }
         nominatePassword(form)
     }
 
     private fun nominatePassword(form: UcNominatePasswordForm) {
+        Log.e("form.secretToken",""+form.secretToken)
+        Log.e("form.requestId",""+form.requestId)
         authGateway.userCreationNominatePassword(form)
             .flatMap { cacheUserDetails(it).toSingle { it } }
             .subscribeOn(schedulerProvider.io())
@@ -61,7 +64,7 @@ class UcNominatePasswordViewModel @Inject constructor(
             auth?.isTrusted,
             auth?.readMcdTerms,
             auth?.trialDaysRemaining,
-            auth?.isTrusted,
+            auth?.trialMode,
         )
         return Observable.just(userDetails)
             .flatMapCompletable {

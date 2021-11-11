@@ -1,10 +1,12 @@
 package com.unionbankph.corporate.user_creation.presentation
 
 
+import android.util.Log
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.user_creation.data.UserCreationForm
+import com.unionbankph.corporate.user_creation.data.param.OTPSuccessData
 import com.unionbankph.corporate.user_creation.presentation.enter_name.UcEnterNameViewModel
 import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.UcEnterContactInfoViewModel
 import io.reactivex.subjects.BehaviorSubject
@@ -14,6 +16,9 @@ class UserCreationViewModel @Inject constructor() : BaseViewModel() {
 
     // Token from success otp
     private var otpSuccessToken: String = ""
+
+    // request_id from success otp
+    private var otpSuccessRequestId: String = ""
 
     // Form
     private var openAccountForm = UserCreationForm()
@@ -53,12 +58,16 @@ class UserCreationViewModel @Inject constructor() : BaseViewModel() {
         }
     }
 
-    fun setOTPVerificationOTPToken(token: String) {
+    fun setOTPVerificationOTPToken(token: String, requestId: String) {
         otpSuccessToken = token
+        otpSuccessRequestId = requestId
     }
 
-    fun getOTPSuccessToken(): String {
-        return otpSuccessToken
+    fun getOTPSuccessData(): OTPSuccessData {
+        return OTPSuccessData().apply {
+            secretToken = otpSuccessToken
+            requestID = otpSuccessRequestId
+        }
     }
 
     fun defaultForm() : UserCreationForm {
