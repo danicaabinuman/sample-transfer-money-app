@@ -856,6 +856,9 @@ class OTPActivity :
             UserCreationActivity.EXTRA_VERIFICATION_TOKEN,
             response.accessToken
         )
+        bundle.putString(UserCreationActivity.EXTRA_REQUEST_ID,
+            response.requestId
+        )
         intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
         navigator.navigateClearStacks(
             this,

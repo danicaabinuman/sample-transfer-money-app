@@ -14,6 +14,8 @@ import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPage
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.ActivityUserCreationBinding
 import com.unionbankph.corporate.user_creation.data.UserCreationForm
+import com.unionbankph.corporate.user_creation.data.param.OTPSuccessData
+import com.unionbankph.corporate.user_creation.data.param.PersonalizeSettings
 import com.unionbankph.corporate.user_creation.presentation.enter_name.UcEnterNameViewModel
 import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.UcEnterContactInfoViewModel
 
@@ -56,7 +58,8 @@ class UserCreationActivity :
             val form = JsonHelper.fromJson<UserCreationForm>(intent.getStringExtra(EXTRA_FORM))
             viewModel.setExistingFormData(form)
             viewModel.setOTPVerificationOTPToken(
-                intent.getStringExtra(EXTRA_VERIFICATION_TOKEN) ?: ""
+                intent.getStringExtra(EXTRA_VERIFICATION_TOKEN) ?: "",
+                intent.getStringExtra(EXTRA_REQUEST_ID) ?: ""
             )
             navigateUpToNominatePassword()
         }
@@ -130,7 +133,7 @@ class UserCreationActivity :
 
     fun getDefaultForm() : UserCreationForm = viewModel.defaultForm()
 
-    fun getOTPSuccessToken() : String = viewModel.getOTPSuccessToken()
+    fun getOTPSuccessData() : OTPSuccessData = viewModel.getOTPSuccessData()
 
     fun setIsScreenScrollable(isScrollable: Boolean) {
         val elevation = when (isScrollable) {
@@ -148,6 +151,7 @@ class UserCreationActivity :
         const val EXTRA_FROM_OTP = "from_otp"
         const val EXTRA_FORM = "form"
         const val EXTRA_VERIFICATION_TOKEN = "verification_token"
+        const val EXTRA_REQUEST_ID = "request_id"
 
         const val FRAGMENT_ENTER_NAME = "fragment_enter_name"
         const val TAG_GO_BACK_DAO_DIALOG = "user_creation_go_back_dialog"

@@ -14,14 +14,17 @@ import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.convertToDP
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.NewConfirmationBottomSheet
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxCombineValidator
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidator
+import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
 import com.unionbankph.corporate.app.util.ViewUtil
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.FragmentUcNominatePasswordBinding
+import com.unionbankph.corporate.trial_account.presentation.TrialAccountActivity
 import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -88,7 +91,8 @@ class UcNominatePasswordFragment :
         binding.buttonNext.setOnClickListener {
             viewModel.onClickedNext(
                 binding.textInputEditTextPassword.text.toString(),
-                userCreationActivity.getOTPSuccessToken()
+                userCreationActivity.getOTPSuccessData().secretToken!!,
+                userCreationActivity.getOTPSuccessData().requestID!!
             )
         }
     }
@@ -239,9 +243,25 @@ class UcNominatePasswordFragment :
             gravity = NewConfirmationBottomSheet.GRAVITY_CENTER
         )
         bottomSheet.setCallback( onPositiveClick = {
-            findNavController().navigate(R.id.action_nominate_to_permission_settings)
+            navigateTrialModeScreen()
+            //findNavController().navigate(R.id.action_nominate_to_permission_settings)
         })
         bottomSheet.show(childFragmentManager, NewConfirmationBottomSheet.TAG)
+    }
+
+    private fun navigateTrialModeScreen() {
+        val bundle = Bundle()
+        bundle.putString(
+            AutobahnFirebaseMessagingService.EXTRA_DATA,
+            getAppCompatActivity().intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
+        )
+        navigator.navigateClearStacks(
+            getAppCompatActivity(),
+            TrialAccountActivity::class.java,
+            bundle,
+            true,
+            Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     companion object {

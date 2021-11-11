@@ -8,5 +8,7 @@ data class UcNominatePasswordForm (
     @SerialName("password")
     var password: String? = null,
     @SerialName("secret_token")
-    var secretToken: String? = null
+    var secretToken: String? = null,
+    @SerialName("request_id")
+    var requestId: String? = null
 )
