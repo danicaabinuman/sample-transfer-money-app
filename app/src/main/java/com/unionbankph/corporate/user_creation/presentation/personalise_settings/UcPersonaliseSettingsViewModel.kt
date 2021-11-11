@@ -14,7 +14,6 @@ import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
 class UcPersonaliseSettingsViewModel @Inject constructor(
-    private val schedulerProvider: SchedulerProvider,
     private val settingsUseCase: SetPersonalSettingsUseCase
 ) :
     BaseViewModel() {
@@ -26,28 +25,6 @@ class UcPersonaliseSettingsViewModel @Inject constructor(
     private val _navigateToLocalSettings = MutableLiveData<Event<SettingsState>>()
 
     val navigateToLocalSettings: LiveData<Event<SettingsState>> get() = _navigateToLocalSettings
-
-
-//    fun refreshNotificationTokenIfNull() {
-//        settingsGateway.hasNotificationToken()
-//            .flatMapCompletable {
-//                if (!it) {
-//                    settingsGateway.setNotificationToken()
-//                } else {
-//                    Completable.complete()
-//                }
-//            }
-//            .subscribeOn(schedulerProvider.io())
-//            .observeOn(schedulerProvider.ui())
-//            .subscribe(
-//                {
-//                    _uiState.value = Event(UiState.Success)
-//                }, {
-//                    Timber.e(it, "refreshNotificationTokenIfNull Failed")
-//                    _uiState.value = Event(UiState.Error(it))
-//                })
-//            .addTo(disposables)
-//    }
 
     fun saveSettings(isChecked: Boolean, isCheckedTOTP: Boolean, promptType: PromptTypeEnum) {
         val param = PersonalizeSettings().apply {
@@ -74,50 +51,7 @@ class UcPersonaliseSettingsViewModel @Inject constructor(
             },
             params = param
         ).addTo(disposables)
-
-//        notificationGateway.getNotifications()
-//            .flatMap {
-//                notificationGateway.updateNotificationSettings(
-//                    NotificationForm(
-//                        it.notifications.sortedBy { it.notificationId }.toMutableList(),
-//                        isChecked
-//                    )
-//                )
-//            }
-//            .flatMapCompletable {
-//                if (isCheckedTOTP) {
-//                    settingsGateway.totpSubscribe(ManageDeviceForm(""))
-//                } else {
-//                    Completable.complete()
-//                }
-//            }
-//            .subscribeOn(schedulerProvider.io())
-//            .observeOn(schedulerProvider.ui())
-//            .doOnSubscribe { _uiState.value = Event(UiState.Loading) }
-//            .doFinally { _uiState.value = Event(UiState.Complete) }
-//            .subscribe(
-//                {
-//                    _navigateToLocalSettings.value = Event(SetSettingsSuccess)
-//                }, {
-//                    Timber.e(it, "saveSettings Failed")
-//                    _uiState.value = Event(UiState.Error(it))
-//                })
-//            .addTo(disposables)
     }
-
-//    fun considerAsRecentUser(promptTypeEnum: PromptTypeEnum) {
-//        settingsGateway.considerAsRecentUser(promptTypeEnum)
-//            .subscribeOn(schedulerProvider.newThread())
-//            .observeOn(schedulerProvider.ui())
-//            .subscribe(
-//                {
-//                    Timber.d("considerAsRecentUser")
-//                }, {
-//                    Timber.e(it, "considerAsRecentUser failed")
-//                    _uiState.value = Event(UiState.Error(it))
-//                })
-//            .addTo(disposables)
-//    }
 
     sealed class SettingsState
     object SetSettingsSuccess : SettingsState()
