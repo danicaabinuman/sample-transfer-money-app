@@ -6,18 +6,23 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
+import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.widget.dialog.ConfirmationBottomSheet
+import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.callback.OnConfirmationPageCallBack
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivityUserCreationBinding
 import com.unionbankph.corporate.user_creation.data.UserCreationForm
 import com.unionbankph.corporate.user_creation.data.param.OTPSuccessData
 import com.unionbankph.corporate.user_creation.data.param.PersonalizeSettings
 import com.unionbankph.corporate.user_creation.presentation.enter_name.UcEnterNameViewModel
 import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.UcEnterContactInfoViewModel
+import timber.log.Timber
 
 
 class UserCreationActivity :
@@ -35,6 +40,27 @@ class UserCreationActivity :
     override fun onViewModelBound() {
         super.onViewModelBound()
 
+        viewModel.uiState.observe(this, EventObserver {
+            when (it) {
+                is UiState.Loading -> {
+                    showProgressAlertDialog(this::class.java.simpleName)
+                }
+                is UiState.Complete -> {
+                    dismissProgressAlertDialog()
+                }
+                is UiState.Error -> {
+                    handleOnError(it.throwable)
+                }
+                is UiState.Exit -> {
+                    navigator.navigateClearStacks(
+                        this,
+                        LoginActivity::class.java,
+                        Bundle().apply { putBoolean(LoginActivity.EXTRA_SPLASH_SCREEN, false) },
+                        true
+                    )
+                }
+            }
+        })
     }
 
     override fun onViewsBound() {

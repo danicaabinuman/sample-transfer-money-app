@@ -9,7 +9,7 @@ import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account_setup.data.DebitCardState
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
-import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.SMETextViewModel_
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.text.SMETextViewModel_
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.databinding.ItemAdCardBinding

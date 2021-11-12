@@ -3,7 +3,7 @@
 
     <string-array name="array_dashboard_header">
         <item>@string/title_dashboard_header_dashboard</item>
-        <item>@string/title_dashboard_header_accounts</item>
+        <item>@string/title_dashboard_header_transact</item>
         <item>@string/title_dashboard_header_approvals</item>
         <item>@string/title_dashboard_header_notifications</item>
         <item>@string/title_dashboard_header_settings</item>

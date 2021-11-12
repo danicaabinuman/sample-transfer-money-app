@@ -263,12 +263,11 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun showDialogToDashboard() {
-        DialogFactory().createSMEDialog(
+        DialogFactory().createColoredSMEDialog(
             this,
-            isNewDesign = false,
             title = getString(R.string.title_no_available_accounts),
             iconResource = R.drawable.ic_money_box,
-            description = getString(R.string.message_no_account_eligible),
+            content = getString(R.string.message_no_account_eligible),
             positiveButtonText = getString(R.string.btn_back_to_dashboard),
             onPositiveButtonClicked = {
                 navigator.navigateClearStacks(
@@ -283,12 +282,11 @@ class NotNowCardPaymentsActivity :
     }
 
     private fun openNoAvailableAccountsDialog() {
-        DialogFactory().createSMEDialog(
+        DialogFactory().createColoredSMEDialog(
             this,
-            isNewDesign = false,
             title = getString(R.string.title_no_available_accounts),
             iconResource = R.drawable.ic_money_box,
-            description = getString(R.string.message_no_account_eligible),
+            content = getString(R.string.message_no_account_eligible),
             positiveButtonText = getString(R.string.action_got_it)
         ).show()
     }

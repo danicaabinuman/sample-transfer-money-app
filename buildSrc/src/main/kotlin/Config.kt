@@ -42,6 +42,18 @@ enum class Environment {
         return this.name.toLowerCase(Locale.getDefault()).capitalize()
     }
 
+    fun getEnvironmentURLPrefix(): String {
+        return when (this) {
+            DEV -> "dev-"
+            QAT -> "uat-"
+            QAT2 -> "uat2-"
+            QAT3 -> "uat3-"
+            STAGING -> "staging-"
+            PREPRODUCTION -> "preprod-"
+            PRODUCTION -> ""
+        }
+    }
+
 }
 
 enum class AppId(val value: String) {

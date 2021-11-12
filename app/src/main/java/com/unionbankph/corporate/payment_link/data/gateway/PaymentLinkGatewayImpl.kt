@@ -9,6 +9,7 @@ import com.unionbankph.corporate.payment_link.data.source.remote.PaymentLinkRemo
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
+import com.unionbankph.corporate.payment_link.domain.model.form.UpdateSettlementOnRequestPaymentForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
@@ -119,6 +120,18 @@ class PaymentLinkGatewayImpl
                     )
                 }
                 .flatMap { smeResponseProvider.executeResponseSingle(it) }
+    }
+
+    override fun getPaymentLogs(referenceId: String): Single<GetPaymentLogsResponse> {
+
+        return settingsCache.getAccessToken()
+            .flatMap {
+                paymentLinkRemote.getPaymentLogs(
+                    it,
+                    referenceId
+                )
+            }
+            .flatMap { smeResponseProvider.executeResponseSingle(it) }
     }
 
 

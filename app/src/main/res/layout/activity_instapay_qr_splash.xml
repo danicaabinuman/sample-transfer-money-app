@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFF3E5">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/qrViewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias=".3"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnAllow"
+        style="@style/SMEPrimaryButtonLarge"
+        android:text="@string/btn_allow"
+        android:layout_marginStart="@dimen/grid_5_half"
+        android:layout_marginEnd="@dimen/grid_5_half"
+        android:layout_marginBottom="@dimen/grid_5_half"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnNotNow"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnNotNow"
+        style="@style/SMESecondaryButtonLarge"
+        android:text="@string/action_not_now"
+        android:layout_marginStart="@dimen/grid_5_half"
+        android:layout_marginEnd="@dimen/grid_5_half"
+        android:layout_marginBottom="@dimen/grid_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/grid_6"
+        app:tabBackground="@drawable/viewpager_tab_selector"
+        android:background="#FFF3E5"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_arrow_back_rounded"
+        android:padding="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/action_skip"
+        style="@style/SMETertiaryButtonSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/allow_camera"
+        style="@style/SMESubtitle2"
+        android:paddingStart="@dimen/grid_7_half"
+        android:paddingEnd="@dimen/grid_7_half"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/grid_24"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.Ge
 import com.unionbankph.corporate.common.data.form.Pageable
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.corporate.domain.gateway.CorporateGateway
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import io.reactivex.Flowable
@@ -273,11 +274,19 @@ class DashboardFragmentViewModel
         }
     }
 
-    fun showMenuItem(menuId: String, isEnabled: Boolean) {
+    fun enableMenuItem(menuId: String, isEnabled: Boolean) {
         _dashboardViewState.value = _dashboardViewState.value?.also { it ->
             it.megaMenuList.find { it.id == menuId }.also {
                 it?.isVisible = true
                 it?.isEnabled = isEnabled
+            }
+        }
+    }
+
+    fun showHideMenuItem(menuId: String, isShow: Boolean) {
+        _dashboardViewState.value = _dashboardViewState.value?.also { it ->
+            it.megaMenuList.find { it.id == menuId }.also {
+                it?.isVisible = isShow
             }
         }
     }
@@ -293,5 +302,21 @@ class DashboardFragmentViewModel
 
     fun resetLoad() {
         pageable.resetLoad()
+    }
+
+    fun getDashboardMegaMenu() {
+        settingsGateway.getDashboardMegaMenu()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    it.forEachIndexed { _, item ->
+                        showHideMenuItem(item.featureCode?: "", item.isEnabled ?: false)
+                    }
+                }, {
+                    Timber.e(it, "getDashboardMegaMenu Failed")
+                    _dashboardViewState.postValue(_dashboardViewState.value)
+                })
+            .addTo(disposables)
     }
 }

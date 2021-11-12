@@ -37,6 +37,8 @@ class DaoConfirmationViewModel @Inject constructor(
 
     val isCheckedTNC = BehaviorSubject.createDefault(false)
 
+    val isCheckedIsUbEmployee = BehaviorSubject.createDefault(false)
+
     val homeAddress = BehaviorSubject.create<String>()
 
     private val _navigateNextStep = MutableLiveData<Event<DaoHit>>()
@@ -194,6 +196,7 @@ class DaoConfirmationViewModel @Inject constructor(
         val daoForm = daoForm.apply {
             saveType = "final"
             accountOpeningTnc = isCheckedTNC.value
+            unionBankOfficer = isCheckedIsUbEmployee.value
             page?.let {
                 page = if (it > 6) page else 7
             }

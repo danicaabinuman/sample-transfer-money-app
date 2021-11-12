@@ -58,16 +58,7 @@ class Constant {
 
         const val ACTION_SESSION_TIMEOUT = "session_timeout"
 
-        const val DASHBOARD_ACTION_REQUEST_PAYMENT = "request_payment"
-        const val DASHBOARD_ACTION_TRANSFER_FUNDS = "transfer_funds"
-        const val DASHBOARD_ACTION_PAY_BILLS = "pay_bills"
-        const val DASHBOARD_ACTION_DEPOSIT_CHECK = "deposit_check"
-        const val DASHBOARD_ACTION_APPLY_LOAN = "apply_loan"
-        const val DASHBOARD_ACTION_BRANCH_VISIT = "branch_visit"
-        const val DASHBOARD_ACTION_MANAGE_EXPENSES = "manage_expenses"
-        const val DASHBOARD_ACTION_E_BILLING = "e_billing"
         const val DASHBOARD_ACTION_MORE = "more"
-        const val DASHBOARD_ACTION_GENERATE_OTP = "generate_otp"
 
         const val DASHBOARD_ACTION_ADD_ACCOUNT = "add_account"
         const val DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS = "view_all_account"
@@ -79,6 +70,7 @@ class Constant {
 
         fun getDefaultCountryDao() = Selector(id = "204", value = "PHILIPPINES")
 
+        const val COUNTRY_CODE_ID_PH = 175
     }
 
     class Notification {
@@ -165,11 +157,27 @@ class Constant {
         }
     }
 
+    class PaymentMethod {
+        companion object {
+            const val INSTAPAY = "INSTAPAY"
+            const val UB_ONLINE = "UB ONLINE"
+            const val BAYAD_CENTER = "BAYD"
+            const val ECPAY = "ECPY"
+            const val LBC = "LBC"
+            const val PALAWAN = "PLWN"
+            const val CEBUANA_LHUILLER = "CEBL"
+            const val GRABPAY = "GRABPAY"
+            const val GCASH = "GCASH"
+            const val UNKNOWN = "Unknown"
+        }
+    }
+
     class MismatchIDDetails {
         companion object {
             const val FIRST_NAME = "FIRSTNAME_MISMATCHED"
             const val LAST_NAME = "LASTNAME_MISMATCHED"
             const val BIRTH_DATE = "BIRTHDATE_MISMATCHED"
+
         }
     }
 
@@ -200,6 +208,32 @@ class Constant {
         companion object {
             const val FILIPINO = "FILIPINO"
             const val NON_FILIPINO = "NON_FILIPINO"
+        }
+    }
+
+    class Banner {
+        companion object {
+            const val BUSINESS_PROFILE = "business_profile"
+            const val LEARN_MORE = "learn_more"
+        }
+    }
+
+    class MegaMenu {
+        companion object {
+            const val MSME_TRANSFER_FUNDS = "MSME_TRANSFER_FUNDS"
+            const val MSME_PAY_BILLS = "MSME_PAY_BILLS"
+            const val MSME_REQUEST_PAYMENT = "MSME_REQUEST_PAYMENT"
+            const val MSME_DEPOSIT_CHECK = "MSME_DEPOSIT_CHECK"
+            const val MSME_APPLY_LOAN = "MSME_APPLY_LOAN"
+            const val MSME_GENERATE_QR = "MSME_GENERATE_QR"
+        }
+    }
+
+    class SelectedAccountType {
+        companion object {
+            const val NO_OPEN_ACCOUNT = "NO_OPEN_ACCOUNT"
+            const val YES_UNIONBANK_ACCOUNT = "YES_UNIONBANK_ACCOUNT"
+            const val CONTINUE_EXISTING_ACCOUNT = "CONTINUE_EXISTING_ACCOUNT"
         }
     }
 }

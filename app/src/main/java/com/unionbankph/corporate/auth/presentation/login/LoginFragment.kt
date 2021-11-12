@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentSender
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -89,6 +90,8 @@ class LoginFragment :
 
     private var fullName: String = ""
 
+    private var isTrustDevice: Boolean = false
+
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
         setMargins(binding.textViewVersion, 0, getStatusBarHeight(), 0, 0)
@@ -108,6 +111,7 @@ class LoginFragment :
         viewModel.isTrustedDeviceOutput
             .subscribe {
                 if(!isSME) {binding.buttonGenerateOTP.visibility(it)}
+                isTrustDevice = it
             }.addTo(disposables)
         viewModel.enableBiometricLogin
             .subscribe {
@@ -492,6 +496,7 @@ class LoginFragment :
             if (!viewModel.cdaoFeature.value.notNullable()) {
                 loginViews()
             } else {
+                binding.textViewWelcomeBack.setVisible(false)
                 binding.tvSignUp.visibility(false)
                 binding.buttonLogin.visibility(false)
                 binding.tilUsername.visibility(false)
@@ -513,9 +518,9 @@ class LoginFragment :
             binding.llEmailSME.visibility(false)
             binding.llPasswordSME.visibility(false)
             binding.textViewMigration.visibility(true)
+            binding.textViewWelcomeBack.visibility(false)
         }
         binding.buttonLogin.loginEnableButton(false)
-        binding.textViewWelcomeBack.visibility(false)
         binding.textViewFullname.visibility(false)
         binding.buttonGenerateOTP.visibility(false)
     }
@@ -538,11 +543,8 @@ class LoginFragment :
         binding.textViewInitial.text = viewUtil.getCorporateOrganizationInitial(fullName)
         if (isSME) {
             binding.MSMEbtnLogin.visibility(true)
-            binding.tvUbCaption.visibility(true)
-            binding.buttonGenerateOTP.visibility(false)
-            binding.textViewLearnMore.visibility(false)
             binding.buttonLogin.visibility(false)
-            binding.textViewWelcomeBack.visibility(false)
+            binding.textViewWelcomeBack.setVisible(false)
             binding.MSMEbtnLogin.text = getString(R.string.use_password)
             binding.viewBadgeLayout.visibility(true)
         }else{
@@ -617,17 +619,18 @@ class LoginFragment :
             binding.ivWhitebg.visibility(false)
             binding.buttonLogin.visibility(false)
             binding.tvSignUp.visibility(false)
-            binding.imgFingerPrintMSME.setVisible(false)
-            binding.imgFaceIDMSME.setVisible(false)
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
-            binding.tvUbCaption.setVisible(false)
-            binding.textViewLearnMore.setVisible(true)
+            binding.textViewLearnMore.visibility(true)
             binding.llEmailSME.setVisible(true)
             binding.llPasswordSME.setVisible(true)
             binding.MSMEbtnLogin.setVisible(true)
             binding.MSMEForgotPassword.setVisible(true)
             binding.viewBadgeLayout.visibility(false)
+            binding.textViewWelcomeBack.setVisible(false)
+            if(isTrustDevice){binding.buttonGenerateOTP.visibility(true)}
+            binding.textViewMigration.visibility(false)
             } else {
+            binding.textViewWelcomeBack.visibility(false)
             binding.tilUsername.visibility(true)
             binding.tilPassword.visibility(true)
             binding.llEmailSME.visibility(false)
@@ -636,11 +639,11 @@ class LoginFragment :
             binding.buttonLogin.visibility(true)
             binding.buttonLogin.text = formatString(R.string.action_login)
             binding.buttonLogin.loginEnableButton(false)
-
+            binding.textViewMigration.visibility(true)
         }
         getTextViewFullName().visibility(false)
-        binding.textViewMigration.visibility(true)
-        binding.textViewWelcomeBack.visibility(false)
+
+
 
 
 
@@ -691,13 +694,8 @@ class LoginFragment :
             binding.tvForgotPassword.visibility(false)
             binding.MSMEbtnLogin.visibility(true)
             binding.MSMEForgotPassword.visibility(true)
-            binding.buttonGenerateOTP.visibility(false)
-            binding.imgFingerPrintMSME.visibility(false)
-            binding.imgFaceIDMSME.visibility(false)
-            binding.tvUbCaption.visibility(false)
+            if(isTrustDevice){binding.buttonGenerateOTP.visibility(true)}
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
-            binding.textViewMigration.visibility(true)
-            binding.textViewLearnMore.visibility(true)
         } else {
             binding.tilPassword.visibility(true)
             binding.tvSignUp.visibility(true)

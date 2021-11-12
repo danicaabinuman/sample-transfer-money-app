@@ -4,8 +4,10 @@ import android.os.Parcelable
 import com.rilixtech.Country
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.account.data.model.Status
+import com.unionbankph.corporate.app.common.extension.nullable
 import com.unionbankph.corporate.auth.data.model.CountryCode
-import com.unionbankph.corporate.fund_transfer.data.form.BeneficiaryForm
+import com.unionbankph.corporate.common.presentation.constant.Constant
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.*
 import kotlinx.serialization.builtins.nullable
@@ -13,8 +15,11 @@ import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
-import kotlinx.serialization.encoding.CompositeDecoder
+import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonDecoder
+import org.json.JSONObject
 import timber.log.Timber
 
 @Parcelize
@@ -88,211 +93,152 @@ data class CreationBeneficiaryDto(
     companion object : KSerializer<CreationBeneficiaryDto> {
 
         override val descriptor: SerialDescriptor = buildClassSerialDescriptor(this.toString()) {
-            element<String?>("account_number", isOptional = true)
-            element<List<Account>?>("accounts", isOptional = true)
-            element<String?>("address", isOptional = true)
-            element<BankDetails?>("bank_details", isOptional = true)
-            element<Int?>("channel_id", isOptional = true)
-            element<String?>("code", isOptional = true)
-            element<String?>("country_code_id", isOptional = true)
-            element<CountryCode?>("country_code", isOptional = true)
-            element<String?>("created_by", isOptional = true)
-            element<String?>("created_date", isOptional = true)
-            element<String?>("email_address", isOptional = true)
-            element<String?>("id", isOptional = true)
-            element<String?>("mobile_number", isOptional = true)
-            element<String?>("modified_by", isOptional = true)
-            element<String?>("modified_date", isOptional = true)
-            element<String?>("name", isOptional = true)
-            element<String?>("nickname", isOptional = true)
-            element<String?>("organization_id", isOptional = true)
-            element<String?>("instapay_code", isOptional = true)
-            element<SwiftBankDetails?>("swift_bank_details", isOptional = true)
+            element<String>("account_number", isOptional = true)
+            element<String>("address", isOptional = true)
+            element<String>("bank_details", isOptional = true)
+            element<String>("channel_id", isOptional = true)
+            element<String>("code", isOptional = true)
+            element<String>("country_code_id", isOptional = true)
+            element<String>("country_code", isOptional = true)
+            element<String>("created_by", isOptional = true)
+            element<String>("created_date", isOptional = true)
+            element<String>("id", isOptional = true)
+            element<String>("mobile_number", isOptional = true)
+            element<String>("modified_by", isOptional = true)
+            element<String>("modified_date", isOptional = true)
+            element<String>("name", isOptional = true)
+            element<String>("email_address", isOptional = true)
+            element<String>("nickname", isOptional = true)
+            element<String>("organization_id", isOptional = true)
+            element<String>("instapay_code", isOptional = true)
+            element<String>("accounts", isOptional = true)
+            element<String>("swift_bank_details", isOptional = true)
+        }
+
+        override fun serialize(encoder: Encoder, value: CreationBeneficiaryDto) {
+            val compositeEncoder = encoder.beginStructure(descriptor)
+            encodeSerializableString(0, compositeEncoder, value.accountNumber)
+            encodeSerializableString(1, compositeEncoder, value.address)
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                2,
+                BankDetails.serializer().nullable,
+                value.bankDetails
+            )
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                3,
+                Int.serializer().nullable,
+                value.channelId
+            )
+            encodeSerializableString(4, compositeEncoder, value.code)
+            encodeSerializableString(5, compositeEncoder, value.countryCodeId)
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                6,
+                CountryCode.serializer().nullable,
+                value.countryCode
+            )
+            encodeSerializableString(7, compositeEncoder, value.createdBy)
+            encodeSerializableString(8, compositeEncoder, value.createdDate)
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                9,
+                String.serializer().nullable,
+                value.id
+            )
+            encodeSerializableString(10, compositeEncoder, value.mobileNumber)
+            encodeSerializableString(11, compositeEncoder, value.modifiedBy)
+            encodeSerializableString(12, compositeEncoder, value.modifiedDate)
+            encodeSerializableString(13, compositeEncoder, value.name)
+            encodeSerializableString(14, compositeEncoder, value.emailAddress)
+            encodeSerializableString(15, compositeEncoder, value.nickname)
+            encodeSerializableString(16, compositeEncoder, value.organizationId)
+            encodeSerializableString(17, compositeEncoder, value.instapayCode)
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                18,
+                serializer<List<Account>>(),
+                value.accounts
+            )
+            compositeEncoder.encodeNullableSerializableElement(
+                descriptor,
+                19,
+                SwiftBankDetails.serializer().nullable,
+                value.swiftBankDetails
+            )
+            compositeEncoder.endStructure(descriptor)
+        }
+
+        private fun encodeSerializableString(
+            index: Int,
+            compositeOutput: CompositeEncoder,
+            value: String?
+        ) {
+            compositeOutput.encodeNullableSerializableElement(
+                descriptor,
+                index,
+                String.serializer().nullable,
+                value
+            )
         }
 
         override fun deserialize(decoder: Decoder): CreationBeneficiaryDto {
-            var accountNumber: String? = null
-            var accounts: List<Account>? = null
-            var address: String? = null
-            var bankDetails: BankDetails? = null
-            var channelId: Int? = null
-            var code: String? = null
-            var countryCodeId: String? = null
-            var countryCode: CountryCode? = null
-            var createdBy: String? = null
-            var createdDate: String? = null
-            var emailAddress: String? = null
-            var id: String? = null
-            var mobileNumber: String? = null
-            var modifiedBy: String? = null
-            var modifiedDate: String? = null
-            var name: String? = null
-            var nickName: String? = null
-            var organizationId: String? = null
-            var instapayCode: String? = null
-            var swiftBankDetails: SwiftBankDetails? = null
+            val jsonInput = decoder as? JsonDecoder ?: error("Can be deserialized only by JSON")
+            val json = jsonInput.decodeJsonElement().toString()
 
-            return try {
-                val inp: CompositeDecoder = decoder.beginStructure(Status.descriptor)
+            val jsonObject = JSONObject(json)
+            val countryCodeId = jsonObject.get("country_code_id")
 
-                loop@ while (true) {
-                    when (val i = inp.decodeElementIndex(Status.descriptor)) {
-                        CompositeDecoder.DECODE_DONE -> break@loop
-                        0 -> accountNumber = inp.decodeNullableSerializableElement(
-                            Status.descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        1 -> accounts = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            serializer<List<Account>>()
-                        )
-                        2 -> address = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        3 -> bankDetails = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            BankDetails.serializer()
-                        )
-                        4 -> channelId = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            Int.serializer().nullable
-                        )
-                        5 -> code = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        6 -> countryCodeId = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        7 -> countryCode = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            CountryCode.serializer()
-                        )
-                        8 -> createdBy = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        9 -> createdDate = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        10 -> emailAddress = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        11 -> id = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        12 -> mobileNumber = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        13 -> modifiedBy = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        14 -> modifiedDate = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        15 -> name = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        16 -> nickName = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        17 -> organizationId = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        18 -> instapayCode = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            String.serializer().nullable
-                        )
-                        19 -> swiftBankDetails = inp.decodeSerializableElement(
-                            descriptor,
-                            i,
-                            SwiftBankDetails.serializer()
-                        )
+            // [BANK AID FIX], overwrite the null country code id to PH country code id
+            when (countryCodeId) {
+                "null" -> jsonObject.put(
+                    "country_code_id",
+                    Constant.COUNTRY_CODE_ID_PH.toString()
+                )
+            }
 
-                        else -> throw SerializationException("Unknown index $i")
-                    }
-                }
-                inp.endStructure(Status.descriptor)
+            val accounts : MutableList<Account> = when (jsonObject.has("accounts") &&
+                    !jsonObject.isNull("accounts")) {
+                true -> JsonHelper.fromListJson(jsonObject.get("accounts").toString())
+                else -> mutableListOf()
+            }
 
-                CreationBeneficiaryDto().apply {
-                    this.accountNumber = accountNumber
-                    this.accounts = accounts?.toMutableList() ?: mutableListOf()
-                    this.address = address
-                    this.bankDetails = bankDetails
-                    this.code = code
-                    this.countryCodeId = countryCodeId
-                    this.countryCode = countryCode
-                    this.createdBy = createdBy
-                    this.createdDate = createdDate
-                    this.emailAddress = emailAddress
-                    this.id = id
-                    this.mobileNumber = mobileNumber
-                    this.modifiedBy = modifiedBy
-                    this.modifiedDate = modifiedDate
-                    this.channelId = channelId
-                    this.name = name
-                    this.nickname = nickName
-                    this.organizationId = organizationId
-                    this.instapayCode = instapayCode
-                    this.swiftBankDetails = swiftBankDetails
-                }
-            } catch (e: Exception) {
-                val value = decoder.decodeString()
+            return CreationBeneficiaryDto().apply {
+                this.accountNumber = getJsonAsString(jsonObject,"account_number")
+                this.address = getJsonAsString(jsonObject,"address")
+                this.bankDetails = getJsonAsObject(jsonObject, "bank_details")
+                this.channelId = getJsonAsString(jsonObject,"channel_id")?.toInt()
+                this.code = getJsonAsString(jsonObject,"code")
+                this.countryCode = getJsonAsObject(jsonObject, "country_code")
+                this.countryCodeId = getJsonAsObject(jsonObject, "country_code_id")
+                this.createdBy = getJsonAsString(jsonObject,"created_by")
+                this.createdDate = getJsonAsString(jsonObject,"created_date")
+                this.emailAddress = getJsonAsString(jsonObject,"email_address")
+                this.id = getJsonAsString(jsonObject,"id")
+                this.mobileNumber = getJsonAsString(jsonObject,"mobile_number")
+                this.modifiedBy = getJsonAsString(jsonObject,"modified_by")
+                this.modifiedDate = getJsonAsString(jsonObject,"modified_date")
+                this.name = getJsonAsString(jsonObject,"name")
+                this.nickname = getJsonAsString(jsonObject,"nickname")
+                this.organizationId = getJsonAsString(jsonObject,"organization_id")
+                this.instapayCode = getJsonAsString(jsonObject,"instapay_code")
+                this.accounts = accounts
+                this.swiftBankDetails = getJsonAsObject(jsonObject, "swift_bank_details")
+            }
+        }
 
-                Timber.e("Decoded exception $value")
+        private fun getJsonAsString(jsonObject : JSONObject, key: String) : String? {
+            return when (jsonObject.has(key) && !jsonObject.isNull(key)) {
+                true -> jsonObject.get(key).toString()
+                else -> String().nullable()
+            }
+        }
 
-                CreationBeneficiaryDto().apply {
-                    this.accountNumber = accountNumber
-                    this.accounts = accounts?.toMutableList() ?: mutableListOf()
-                    this.address = address
-                    this.bankDetails = bankDetails
-                    this.code = code
-                    this.countryCodeId = countryCodeId
-                    this.countryCode = countryCode
-                    this.createdBy = createdBy
-                    this.createdDate = createdDate
-                    this.emailAddress = emailAddress
-                    this.id = id
-                    this.mobileNumber = mobileNumber
-                    this.modifiedBy = modifiedBy
-                    this.channelId = channelId
-                    this.modifiedDate = modifiedDate
-                    this.name = name
-                    this.nickname = nickName
-                    this.organizationId = organizationId
-                    this.instapayCode = instapayCode
-                    this.swiftBankDetails = swiftBankDetails
-                }
+        inline fun <reified T> getJsonAsObject(jsonObject: JSONObject, key: String) : T? {
+            return when (jsonObject.has(key) && !jsonObject.isNull(key)) {
+                true -> JsonHelper.fromJson(jsonObject.get(key).toString()) as T
+                else -> null
             }
         }
     }

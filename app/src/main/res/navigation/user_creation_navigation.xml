@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/account_selection_fragment"
-        android:name="com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelection"
+        android:name="com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelectionFragment"
         tools:layout="@layout/fragment_uc_account_selection">
 
         <action
@@ -19,8 +19,8 @@
             app:popExitAnim="@anim/anim_exit_to_right"/>
 
         <action
-            android:id="@+id/action_dao_selection_activity"
-            app:destination="@id/dao_selection_activity"
+            android:id="@+id/action_dao_activity"
+            app:destination="@id/dao_activity"
             app:enterAnim="@anim/anim_enter_from_right"
             app:exitAnim="@anim/anim_exit_to_left"
             app:launchSingleTop="true"
@@ -170,10 +170,10 @@
         tools:layout="@layout/fragment_uc_confirmation_page"/>
 
     <activity
-        android:id="@+id/dao_selection_activity"
-        android:name="com.unionbankph.corporate.dao.presentation.selection.DaoSelectionActivity"
+        android:id="@+id/dao_activity"
+        android:name="com.unionbankph.corporate.dao.presentation.DaoActivity"
         android:label="dao_selection_activity"
-        tools:layout="@layout/activity_dao_selection" />
+        tools:layout="@layout/activity_dao" />
 
     <activity
         android:id="@+id/otp_activity"

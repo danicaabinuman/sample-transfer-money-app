@@ -13,6 +13,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
@@ -96,7 +97,7 @@ fun Fragment.showToolTip(title: String, content: String) {
         customView(R.layout.dialog_tool_tip)
     }
     val buttonClose =
-        toolTipDialog.view.findViewById<MaterialButton>(R.id.buttonClose)
+        toolTipDialog.view.findViewById<AppCompatButton>(R.id.buttonClose)
     val textViewTitle =
         toolTipDialog.view.findViewById<TextView>(R.id.textViewTitle)
     val textViewContent =

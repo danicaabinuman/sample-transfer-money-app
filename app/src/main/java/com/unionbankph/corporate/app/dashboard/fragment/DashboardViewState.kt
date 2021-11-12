@@ -1,7 +1,10 @@
 package com.unionbankph.corporate.app.dashboard.fragment
 
+import android.content.Context
+import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account.data.model.Account
 import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
+import com.unionbankph.corporate.common.presentation.constant.Constant
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -35,3 +38,37 @@ data class FeatureCardItem(
     var cardFooter: String? = null,
     var action: String? = null
 )
+
+@Serializable
+data class BannerCardItem(
+    var id: String? = null,
+    var header: String? = null,
+    var body: String? = null,
+    var footer: String? = null,
+    var src: String? = null,
+    var action: String? = null
+) {
+    companion object {
+
+        fun generateBannerItems(context: Context): List<BannerCardItem> {
+            return mutableListOf(
+                BannerCardItem(
+                    id = Constant.Banner.BUSINESS_PROFILE,
+                    header = context.getString(R.string.banner_business_profile_title),
+                    body = context.getString(R.string.banner_business_profile_body),
+                    footer = context.getString(R.string.banner_business_profile_footer),
+                    src = Constant.Banner.BUSINESS_PROFILE,
+                    action = Constant.Banner.BUSINESS_PROFILE
+                ),
+                BannerCardItem(
+                    id = Constant.Banner.LEARN_MORE,
+                    header = context.getString(R.string.banner_learn_more_title),
+                    body = context.getString(R.string.banner_learn_more_body),
+                    footer = context.getString(R.string.banner_learn_more_footer),
+                    src = Constant.Banner.LEARN_MORE,
+                    action = Constant.Banner.LEARN_MORE
+                )
+            )
+        }
+    }
+}
