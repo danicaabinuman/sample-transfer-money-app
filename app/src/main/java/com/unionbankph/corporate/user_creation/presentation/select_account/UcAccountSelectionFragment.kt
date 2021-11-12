@@ -74,9 +74,12 @@ class UcAccountSelectionFragment :
     }
 
     private fun initClickListener() {
-        binding.btnOpenAccount.setOnClickListener { viewModel.noOpenAccount() }
-        binding.btnExistingUbAccount.setOnClickListener { viewModel.yesUnionBankAccount() }
-        binding.btnContinueExistingAccountApplication.setOnClickListener { viewModel.continueExistingAccount() }
+        binding.btnOpenAccount.setOnClickListener {
+            findNavController().navigate(R.id.action_selection_to_reminder)
+        }
+        binding.btnContinueExistingAccountApplication.setOnClickListener {
+            findNavController().navigate(R.id.action_dao_activity)
+        }
     }
 
     private fun setSelectedButton(selectedAccountType: String) {
