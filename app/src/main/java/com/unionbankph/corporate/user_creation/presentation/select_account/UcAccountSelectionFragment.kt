@@ -5,21 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.navigation.fragment.findNavController
-import com.unionbankph.corporate.BuildConfig
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
-import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
-import com.unionbankph.corporate.app.common.platform.navigation.Navigator
-import com.unionbankph.corporate.auth.presentation.login.LoginActivity
 import com.unionbankph.corporate.common.presentation.constant.Constant
-import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
+import com.unionbankph.corporate.common.presentation.constant.URLDataEnum
 import com.unionbankph.corporate.databinding.FragmentUcAccountSelectionBinding
 import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
-import com.unionbankph.corporate.user_creation.presentation.UserCreationViewModel
 import io.reactivex.rxkotlin.addTo
-import timber.log.Timber
 
 class UcAccountSelectionFragment :
     BaseFragment<FragmentUcAccountSelectionBinding, UcAccountSelectionViewModel>() {
@@ -48,9 +42,9 @@ class UcAccountSelectionFragment :
 
             when (it) {
                 Constant.SelectedAccountType.NO_OPEN_ACCOUNT ->
-                    userCreationActivity.navigateToWebApps(UserCreationActivity.WEB_APP_ACCOUNT_OPENING)
+                    navigator.navigateBrowser(getAppCompatActivity(), URLDataEnum.ACCOUNT_OPENING_LINK)
                 Constant.SelectedAccountType.YES_UNIONBANK_ACCOUNT ->
-                    userCreationActivity.navigateToWebApps(UserCreationActivity.WEB_APP_ENROLlMENT)
+                    navigator.navigateBrowser(getAppCompatActivity(), URLDataEnum.ENROLLMENT_LINK)
                 Constant.SelectedAccountType.CONTINUE_EXISTING_ACCOUNT ->
                     findNavController().navigate(R.id.action_dao_activity)
             }
