@@ -17,7 +17,6 @@
             android:id="@+id/eligible_cl_header"
             style="@style/SMESubtitle1"
             android:layout_width="match_parent"
-            android:textSize="@dimen/text_16"
             android:layout_marginStart="@dimen/grid_2"
             android:layout_marginEnd="@dimen/grid_2"
             android:enabled="false"

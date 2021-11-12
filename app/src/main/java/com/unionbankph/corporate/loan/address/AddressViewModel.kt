@@ -115,7 +115,13 @@ class AddressViewModel @Inject constructor(
                             }
                             PERMANENT_ADDRESS_ZIP_CODE -> {
                                 permanentAddressZipCodeError = if (form.permanentAddressZipCode.isNullOrBlank()) {
-                                    context.getString(R.string.error_specific_field, context.getString(R.string.hint_zip_code))
+                                    if (form.permanentAddressZipCode == "" && sameAddress.value == true && !form.presentAddressLineOne.isNullOrBlank() &&
+                                        !form.presentAddressLineTwo.isNullOrBlank() && !form.presentAddressRegion.isNullOrBlank() &&
+                                        !form.presentAddressCity.isNullOrBlank() && !form.presentAddressZipCode.isNullOrBlank()) {
+                                        null
+                                    } else {
+                                        context.getString(R.string.error_specific_field, context.getString(R.string.hint_zip_code))
+                                    }
                                 } else {
                                     null
                                 }
@@ -161,7 +167,7 @@ class AddressViewModel @Inject constructor(
                    permanentAddressCity = null
                    permanentAddressRegion = null
                    permanentAddressZipCode = null
-                   formField = null
+                   //formField = null
                }
            }
            _form.value = _form.value
@@ -169,6 +175,7 @@ class AddressViewModel @Inject constructor(
         _sameAddress.value = !_sameAddress.value!!
     }
 
+    //TODO optimize/clean logic
     private suspend fun observeDataStream() {
         dataStreamFlow.debounce(500)
             .collect { data ->
@@ -189,19 +196,25 @@ class AddressViewModel @Inject constructor(
                             PERMANENT_ADDRESS_REGION -> form.permanentAddressRegion = data.first
                             PERMANENT_ADDRESS_ZIP_CODE -> form.permanentAddressZipCode = data.first
                         }
-                        if (sameAddress.value == false && !form.presentAddressLineOne.isNullOrEmpty() &&
+                        form.formField = data.second
+
+//                        if (data.second == PERMANENT_ADDRESS_ZIP_CODE && sameAddress.value == true) {
+//                            form.formField = null
+//                        }
+
+                        /*if (sameAddress.value == false && !form.presentAddressLineOne.isNullOrEmpty() &&
                             !form.presentAddressLineTwo.isNullOrEmpty() && !form.presentAddressCity.isNullOrEmpty() &&
                             !form.presentAddressRegion.isNullOrEmpty() && !form.presentAddressZipCode.isNullOrEmpty()) {
                             form.formField = null
                         } else {
-                            if (sameAddress.value == true && !form.presentAddressLineOne.isNullOrEmpty() &&
-                                !form.presentAddressLineTwo.isNullOrEmpty() && !form.presentAddressCity.isNullOrEmpty() &&
-                                !form.presentAddressRegion.isNullOrEmpty() && !form.presentAddressZipCode.isNullOrEmpty()) {
+                            if (sameAddress.value == true && !form.presentAddressLineOne.isNullOrEmpty() ||
+                                !form.presentAddressLineTwo.isNullOrEmpty() || !form.presentAddressCity.isNullOrEmpty() ||
+                                !form.presentAddressRegion.isNullOrEmpty() || !form.presentAddressZipCode.isNullOrEmpty()) {
                                 form.permanentAddressZipCode = null
                             } else {
                                 form.formField = data.second
                             }
-                        }
+                        }*/
                     }
                 }
             }

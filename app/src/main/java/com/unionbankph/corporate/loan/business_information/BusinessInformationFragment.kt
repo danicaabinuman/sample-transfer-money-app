@@ -57,7 +57,7 @@ class BusinessInformationFragment: BaseFragment<FragmentBusinessInformationBindi
                         val dateString = viewUtil.getDateFormatByCalendar(
                             Calendar.getInstance().apply {
                                 set(year, monthOfYear, dayOfMonth)
-                            }, DateFormatEnum.DATE_FORMAT_DATE_SLASH.value
+                            }, DateFormatEnum.DATE_FORMAT_MONTH_NAME_DATE_YEAR.value
                         )
                         viewModel?.onDataChange(dateString, BusinessInformationField.DATE_STARTED_BUSINESS)
                     }

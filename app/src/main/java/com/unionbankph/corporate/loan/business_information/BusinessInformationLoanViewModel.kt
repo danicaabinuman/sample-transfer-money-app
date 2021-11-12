@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.viewModelScope
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseViewModel
+import com.unionbankph.corporate.app.common.extension.isValidEmail
 import com.unionbankph.corporate.app.common.extension.isValidPhone
 import com.unionbankph.corporate.app.common.extension.updateFields
 import com.unionbankph.corporate.feature.loan.*
@@ -115,7 +116,7 @@ constructor(
                                 }
                             }
                             EMAIL -> {
-                                emailError = if (form.email.isNullOrBlank()) {
+                                if (!form.email.isValidEmail()) {
                                     context.getString(R.string.error_specific_field, context.getString(R.string.title_email))
                                 } else {
                                     null
@@ -127,7 +128,7 @@ constructor(
                         isDataValid = legalname?.isNotEmpty() == true && industry?.isNotEmpty() == true &&
                                 organization?.isNotEmpty() == true && numberOfEmployee?.isNotEmpty() == true &&
                                 businessTin?.isNotEmpty() == true && dateStartedBusiness?.isNotEmpty() == true &&
-                                mobile?.isNotEmpty() == true && /*landline?.isNotEmpty() == true &&*/ email?.isNotEmpty() == true
+                                form.email?.isValidEmail() == true && /*landline?.isNotEmpty() == true &&*/ email?.isNotEmpty() == true
                         }
                     }
                 }

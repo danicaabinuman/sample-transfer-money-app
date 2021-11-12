@@ -26,7 +26,6 @@
             android:drawablePadding="@dimen/grid_1"
             android:gravity="start|center"
             android:text="@{item.title}"
-            android:textSize="@dimen/text_15"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

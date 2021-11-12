@@ -74,7 +74,7 @@ class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBind
                         val dateString = viewUtil.getDateFormatByCalendar(
                             Calendar.getInstance().apply {
                                 set(year, monthOfYear, dayOfMonth)
-                            }, DateFormatEnum.DATE_FORMAT_DATE_SLASH.value
+                            }, DateFormatEnum.DATE_FORMAT_MONTH_NAME_DATE_YEAR.value
                         )
                         viewModel?.onDataChange(dateString, PersonalInformationField.DOB)
                     }

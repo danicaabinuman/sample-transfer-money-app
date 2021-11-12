@@ -101,6 +101,7 @@
                         android:layout_marginTop="@dimen/grid_1"
                         android:hint="@string/hint_first_name"
                         app:error="@{viewModel.formState.firstnameError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -108,7 +109,7 @@
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:digits="@string/digits_alpha"
                             android:hint="@string/hint_first_name"
                             android:inputType="textPersonName|textCapWords"
                             android:maxLength="@integer/max_length_field_40"
@@ -124,8 +125,8 @@
                         setTextColorValidation="@{viewModel.formState.middlenameError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
-                        android:text="@string/title_middle_name"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:text="@string/title_middle_name_optional"
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -134,6 +135,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.middlenameError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -141,7 +143,7 @@
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:digits="@string/digits_alpha"
                             android:hint="@string/hint_middle_name"
                             android:inputType="textPersonName|textCapWords"
                             android:maxLength="@integer/max_length_field_40"
@@ -157,7 +159,7 @@
                         setTextColorValidation="@{viewModel.formState.lastnameError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_last_name"
                         android:textAppearance="@style/SMECaption" />
 
@@ -167,6 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.lastnameError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -174,7 +177,7 @@
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:digits="@string/digits_alpha"
                             android:hint="@string/hint_last_name"
                             android:inputType="textPersonName|textCapWords"
                             android:maxLength="@integer/max_length_field_40"
@@ -189,7 +192,7 @@
                         setTextColorValidation="@{viewModel.formState.dobError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_date_of_birth"
                         android:textAppearance="@style/SMECaption" />
 
@@ -198,6 +201,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.dobError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -213,19 +217,20 @@
                         setTextColorValidation="@{viewModel.formState.pobError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_place_of_birth"
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:boxStrokeWidth="0.5dp"
                         app:endIconDrawable="@drawable/ic_vector_drop_down_line"
                         app:endIconTint="@color/dsColorMediumOrange"
                         app:error="@{viewModel.formState.pobError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <AutoCompleteTextView
@@ -235,10 +240,10 @@
                             android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_place_of_birth"
+                            android:inputType="none"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.POB)}"
                             android:paddingStart="@dimen/margin_14dp"
                             android:paddingTop="@dimen/margin_12dp"
-                            android:inputType="none"
                             android:paddingEnd="@dimen/margin_12dp"
                             android:paddingBottom="@dimen/margin_12dp"
                             android:textSize="@dimen/text_16" />
@@ -250,7 +255,7 @@
                         setTextColorValidation="@{viewModel.formState.genderError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_gender"
                         android:textAppearance="@style/SMECaption" />
 
@@ -299,12 +304,13 @@
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:boxStrokeWidth="0.5dp"
                         app:endIconDrawable="@drawable/ic_vector_drop_down_line"
                         app:endIconTint="@color/dsColorMediumOrange"
                         app:error="@{viewModel.formState.civilStatusError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <AutoCompleteTextView
@@ -312,10 +318,10 @@
                             style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
                             android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_civil_status"
+                            android:inputType="none"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.CIVIL_STATUS)}"
                             android:paddingStart="@dimen/margin_14dp"
                             android:paddingTop="@dimen/margin_12dp"
-                            android:inputType="none"
                             android:paddingEnd="@dimen/margin_12dp"
                             android:paddingBottom="@dimen/margin_12dp"
                             android:textSize="@dimen/text_16" />
@@ -326,7 +332,7 @@
                         android:id="@+id/tv_as_personal_info_email_dependents"
                         style="@style/SMECaption"
                         setTextColorValidation="@{viewModel.formState.dependentsError}"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_number_of_dependents" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -336,6 +342,7 @@
                         android:layout_marginTop="@dimen/grid_1"
                         android:hint="@string/hint_number_of_dependents"
                         app:error="@{viewModel.formState.dependentsError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -343,10 +350,9 @@
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:digits="@string/digits_alpha_numeric_symbols_email_no_space"
                             android:hint="@string/hint_number_of_dependents"
-                            android:maxLength="3"
                             android:inputType="number"
+                            android:maxLength="3"
                             android:nextFocusDown="@id/tie_as_personal_info_tin"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.DEPENDENTS)}"
                             android:singleLine="true"
@@ -358,7 +364,7 @@
                         android:id="@+id/tv_mobile_number_label"
                         style="@style/SMECaption"
                         setTextColorValidation="@{viewModel.formState.mobileError}"
-                        android:layout_marginTop="@dimen/grid_5_half"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_mobile_number" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -373,6 +379,7 @@
                             android:layout_marginTop="@dimen/grid_1"
                             android:focusableInTouchMode="false"
                             app:error="@{viewModel.formState.mobileError}"
+                            app:errorEnabled="true"
                             app:errorTextAppearance="@style/ZeroTextSizeAppearance"
                             app:hintEnabled="false">
 
@@ -426,6 +433,7 @@
                         style="@style/SMECaption"
                         setVisibilityByString="@{viewModel.formState.mobileError}"
                         android:layout_width="match_parent"
+                        android:layout_marginBottom="@dimen/margin_2dp"
                         android:paddingStart="@dimen/grid_3_half"
                         android:text="@{viewModel.formState.mobileError}"
                         android:textColor="@color/colorErrorColor"
@@ -436,7 +444,7 @@
                         android:id="@+id/tv_as_personal_info_email_address"
                         style="@style/SMECaption"
                         setTextColorValidation="@{viewModel.formState.emailError}"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_email_address" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -446,6 +454,7 @@
                         android:layout_marginTop="@dimen/grid_1"
                         android:hint="@string/hint_email_address_small_letter"
                         app:error="@{viewModel.formState.emailError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -466,8 +475,7 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/buttonNext"
                         style="@style/SMEPrimaryButtonLarge"
-                        android:layout_marginTop="@dimen/grid_7_half"
-                        android:alpha="@{viewModel.formState.dataValid ? 1.0f: 0.5f}"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:enabled="@{viewModel.formState.dataValid ? true : false}"
                         android:onClick="@{() -> handler.onNext()}"
                         android:text="@string/action_next" />

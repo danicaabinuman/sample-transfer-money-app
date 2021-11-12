@@ -94,13 +94,14 @@
                         android:layout_marginTop="@dimen/grid_1"
                         android:hint="@string/hint_occupation"
                         app:error="@{viewModel.formState.occupationError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:digits="@string/digits_alpha_numeric_specific_symbols"
+                            android:digits="@string/digits_alpha"
                             android:hint="@string/hint_enter_occupation"
                             android:maxLength="@integer/max_length_field_40"
                             android:inputType="textPersonName|textCapWords"
@@ -114,7 +115,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         setTextColorValidation="@{viewModel.formState.positionError}"
                         android:text="@string/title_position"
                         android:textAppearance="@style/SMECaption" />
@@ -122,13 +123,14 @@
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:boxStrokeWidth="0.5dp"
                         app:endIconDrawable="@drawable/ic_vector_drop_down_line"
                         app:endIconTint="@color/dsColorMediumOrange"
                         app:error="@{viewModel.formState.positionError}"
-                        app:hintEnabled="false" >
+                        app:errorEnabled="true"
+                        app:hintEnabled="false">
 
                         <AutoCompleteTextView
                             android:id="@+id/financial_info_act_pob"
@@ -150,7 +152,7 @@
                         setTextColorValidation="@{viewModel.formState.monthlyIncomeError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_monthly_income"
                         android:textAppearance="@style/SMECaption" />
 
@@ -159,6 +161,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.monthlyIncomeError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -166,7 +169,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="@string/digits_alpha_numeric_specific_symbols"
-                            android:hint="@string/hint_enter_amount"
+                            android:hint="@string/title_php_0_00"
                             android:inputType="number"
                             android:maxLength="@integer/max_length_amount"
                             android:nextFocusDown="@id/editTextLastName"
@@ -180,7 +183,7 @@
                         setTextColorValidation="@{viewModel.formState.tinIdError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_tin_id"
                         android:textAppearance="@style/SMECaption" />
 
@@ -189,6 +192,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.tinIdError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -209,7 +213,7 @@
                         setTextColorValidation="@{viewModel.formState.sssIdError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_sss_id"
                         android:textAppearance="@style/SMECaption" />
 
@@ -218,6 +222,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.sssIdError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -239,7 +244,7 @@
                         setTextColorValidation="@{viewModel.formState.gsisIdError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_gsis_id"
                         android:textAppearance="@style/SMECaption" />
 
@@ -248,6 +253,7 @@
                         app:error="@{viewModel.formState.gsisIdError}"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -269,8 +275,7 @@
                         android:id="@+id/buttonNext"
                         style="@style/SMEPrimaryButtonLarge"
                         android:onClick="@{() -> handler.onNext()}"
-                        android:layout_marginTop="@dimen/grid_7_half"
-                        android:alpha="@{viewModel.formState.dataValid ? 1.0f: 0.5f}"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:enabled="@{viewModel.formState.dataValid ? true : false}"
                         android:text="@string/action_next" />
 

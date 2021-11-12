@@ -15,6 +15,7 @@
     <string name="digits_alpha_numeric_symbols_email_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@.</string>
     <string name="digits_country_code">1234567890+</string>
     <string name="digits_alpha_numeric_specific_symbols">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,-()</string>
+    <string name="digits_alpha">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 
     <!--FingerPrint-->
     <string name="use_password">Use password</string>
@@ -785,7 +786,7 @@
     <string name="title_number_of_employees">Number of Employees</string>
     <string name="title_date_started_the_business">Date Started the Business</string>
     <string name="title_type_of_establishment">Type of Establishment</string>
-    <string name="title_years_in_operation">Years in Operation in Current Address</string>
+    <string name="title_years_in_operation">Years in Operation at Current Address</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -1641,6 +1642,7 @@
     <string name="hint_enter_occupation">Enter Occupation</string>
     <string name="hint_middle_name">Middle Name</string>
     <string name="title_middle_name">Middle Name</string>
+    <string name="title_middle_name_optional">Middle Name <font color="#BFBFBF">(Optional)</font></string>
     <string name="hint_enter_amount">Enter Amount</string>
     <string name="hint_last_name">Last Name</string>
     <string name="hint_preferred_branch">Preferred Branch</string>
@@ -1672,7 +1674,7 @@
     <string name="hint_organization">Organization</string>
     <string name="hint_number_of_employees">Number of employees</string>
     <string name="hint_select_date">Select Date</string>
-    <string name="hint_area_code">Area Code</string>
+    <string name="hint_area_code">Area Code + Number</string>
     <string name="hint_type_of_establishment">Type of Establishment</string>
     <string name="hint_years_in_operation">Years in Operation</string>
 
@@ -2560,6 +2562,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="header_user_creation_confirmation_page">Confirmation Page</string>
     <string name="hi">Hi %1$s!</string>
     <string name="desc_provide_complete_address">Please provide your complete address. We will use this information for card delivery.</string>
+    <string name="desc_please_provide_complete_address">Please provide your complete address.</string>
     <string name="desc_business_name">This is the name that appears in your registration certificate</string>
 
     <!--FaceID-->
@@ -2679,7 +2682,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="label_travel_planner">Travel planner</string>
     <string name="label_dry_cleaning">Dry cleaning</string>
     <string name="label_see_full_list">See full list of qualified businesses</string>
-    <string name="label_accomodation">Accomodation, food service activities businesses</string>
+    <string name="label_accomodation">Accomodation, food service activities</string>
     <string name="label_administrative">Administrative and support service activities</string>
     <string name="label_construction">Construction</string>
     <string name="label_manufacturing">Manufacturing</string>

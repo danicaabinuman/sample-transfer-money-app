@@ -62,6 +62,7 @@ abstract class MonthlyPaymentBreakdownMainModel :
                         valueLinePart2Length = 0.5f
                         valueLineColor = Color.TRANSPARENT
                         setValueTextColors(dataColor)
+                        rotationAngle = 15f
                     }
 
                     var result = PieData(dataSet)

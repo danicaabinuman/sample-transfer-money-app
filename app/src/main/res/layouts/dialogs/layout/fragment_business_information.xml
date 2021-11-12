@@ -97,6 +97,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.legalnameError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -104,10 +105,10 @@
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="@integer/max_length_field_40"
                             android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:hint="@string/hint_full_legal_name"
                             android:inputType="textPersonName|textCapWords"
+                            android:maxLength="@integer/max_length_field_40"
                             android:nextFocusDown="@id/tie_widget_address_line_2"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessInformationField.LEGAL_NAME)}"
                             android:singleLine="true"
@@ -120,18 +121,19 @@
                         setTextColorValidation="@{viewModel.formState.industryError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_industry" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:boxStrokeWidth="0.5dp"
                         app:endIconDrawable="@drawable/ic_vector_drop_down_line"
                         app:endIconTint="@color/dsColorMediumOrange"
                         app:error="@{viewModel.formState.industryError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <AutoCompleteTextView
@@ -146,8 +148,8 @@
                             android:paddingTop="@dimen/margin_12dp"
                             android:paddingEnd="@dimen/margin_12dp"
                             android:paddingBottom="@dimen/margin_12dp"
-                            android:textSize="@dimen/text_16"
-                            android:text="@{viewModel.form.industry}" />
+                            android:text="@{viewModel.form.industry}"
+                            android:textSize="@dimen/text_16" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,20 +158,21 @@
                         setTextColorValidation="@{viewModel.formState.organizationError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_organization"
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                        app:error="@{viewModel.formState.organizationError}"
-                        app:hintEnabled="false"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:boxStrokeWidth="0.5dp"
                         app:endIconDrawable="@drawable/ic_vector_drop_down_line"
-                        app:endIconTint="@color/dsColorMediumOrange">
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.organizationError}"
+                        app:errorEnabled="true"
+                        app:hintEnabled="false">
 
                         <AutoCompleteTextView
                             android:id="@+id/business_info_act_organization"
@@ -183,8 +186,8 @@
                             android:paddingTop="@dimen/margin_12dp"
                             android:paddingEnd="@dimen/margin_12dp"
                             android:paddingBottom="@dimen/margin_12dp"
-                            android:textSize="@dimen/text_16"
-                            android:text="@{viewModel.form.organization}" />
+                            android:text="@{viewModel.form.organization}"
+                            android:textSize="@dimen/text_16" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -193,7 +196,7 @@
                         setTextColorValidation="@{viewModel.formState.numberOfEmployeeError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_number_of_employees"
                         android:textAppearance="@style/SMECaption" />
 
@@ -202,6 +205,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.numberOfEmployeeError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -223,7 +227,7 @@
                         setTextColorValidation="@{viewModel.formState.businessTinError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/hint_business_tin" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -232,6 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.businessTinError}"
+                        app:errorEnabled="true"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -253,37 +258,14 @@
                         setTextColorValidation="@{viewModel.formState.dateStartedBusinessError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_date_started_the_business" />
 
-<!--
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/TextInputLayoutFormThin"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.dateStartedBusinessError}"
-                        app:hintEnabled="false">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/tie_widget_address_zip_code"
-                            style="@style/TextInputLayoutFormThinEditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:digits="@string/digits_only"
-                            android:hint="@string/hint_select_date"
-                            android:inputType="number"
-                            android:maxLength="4"
-                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessInformationField.DATE_STARTED_BUSINESS)}"
-                            android:singleLine="true" />
-                    </com.google.android.material.textfield.TextInputLayout>
--->
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/TextInputLayoutFormThin"
-                        android:layout_width="match_parent"
-                        app:error="@{viewModel.formState.dateStartedBusinessError}"
-                        android:layout_marginTop="@dimen/grid_1"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -318,8 +300,9 @@
                             android:layout_marginTop="@dimen/grid_1"
                             android:focusableInTouchMode="false"
                             app:error="@{viewModel.formState.mobileError}"
+                            app:errorEnabled="true"
                             app:errorTextAppearance="@style/ZeroTextSizeAppearance"
-                            app:hintEnabled="false">
+                            app:hintEnabled="false" >
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/tie_mobile_prefix"
@@ -371,6 +354,7 @@
                         style="@style/SMECaption"
                         setVisibilityByString="@{viewModel.formState.mobileError}"
                         android:layout_width="match_parent"
+                        android:layout_marginBottom="@dimen/margin_2dp"
                         android:paddingStart="@dimen/grid_3_half"
                         android:text="@{viewModel.formState.mobileError}"
                         android:textColor="@color/colorErrorColor"
@@ -381,7 +365,7 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         style="@style/SMECaption"
                         setTextColorValidation="@{viewModel.formState.landlineError}"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_landline_optional" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -390,7 +374,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.landlineError}"
-                        app:hintEnabled="false">
+                        app:hintEnabled="false"
+                        app:errorEnabled="true" >
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputLayoutFormThinEditText"
@@ -411,7 +396,7 @@
                         android:id="@+id/tv_as_personal_info_email_address"
                         style="@style/SMECaption"
                         setTextColorValidation="@{viewModel.formState.emailError}"
-                        android:layout_marginTop="@dimen/grid_3"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_email_address" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -421,7 +406,8 @@
                         android:layout_marginTop="@dimen/grid_1"
                         android:hint="@string/hint_email_address_small_letter"
                         app:error="@{viewModel.formState.emailError}"
-                        app:hintEnabled="false">
+                        app:hintEnabled="false"
+                        app:errorEnabled="true" >
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tie_as_personal_info_email"
@@ -441,8 +427,7 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_as_address_next"
                         style="@style/SMEPrimaryButtonLarge"
-                        android:layout_marginTop="@dimen/grid_3"
-                        android:alpha="@{viewModel.formState.dataValid ? 1.0f: 0.5f}"
+                        android:layout_marginTop="@dimen/margin_8dp"
                         android:enabled="@{viewModel.formState.dataValid ? true : false}"
                         android:onClick="@{() -> handler.onNext()}"
                         android:text="@string/action_next" />
