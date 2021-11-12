@@ -169,23 +169,7 @@ class UserCreationActivity :
         binding.appBarLayout.elevation = elevation
     }
 
-    fun navigateToWebApps(type: String) {
-
-        val url = when (type) {
-            WEB_APP_ACCOUNT_OPENING ->
-                formatString(R.string.url_portal_account_opening, BuildConfig.URL_ENV_PREFIX)
-            else ->
-                formatString(R.string.url_portal_enrollment, BuildConfig.URL_ENV_PREFIX)
-        }
-
-        Timber.e("Web App URL $url")
-        navigator.navigateBrowser(this, url)
-    }
-
     companion object {
-
-        const val WEB_APP_ENROLlMENT = "enrollment"
-        const val WEB_APP_ACCOUNT_OPENING = "account_opening"
 
         const val EXTRA_FROM_OTP = "from_otp"
         const val EXTRA_FORM = "form"
