@@ -5,8 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.bills_payment.presentation.frequent_biller_form.ManageFrequentBillerFormActivity
@@ -165,11 +168,11 @@ class BillingDetailsActivity :
 
         val paymentMethod = response.payorDetails?.paymentMethod
 
-        binding.imageViewLogo.setImageResource(
-            ConstantHelper.Drawable.getPaymentMethodLogo(
-            paymentMethod ?: Constant.PaymentMethod.UNKNOWN
-            )
+        val imageId = ConstantHelper.Drawable.getPaymentMethodLogo(
+            paymentMethod ?: Constant.PaymentMethod.GRABPAY
         )
+
+        binding.paymentMethodText.text = "Debit - Credit"
 
         binding.apply {
             tvRefNumber.text = response.paymentDetails?.referenceNo
@@ -178,6 +181,13 @@ class BillingDetailsActivity :
             tvDescription.text = response.paymentDetails?.paymentFor
             tvRemarks.text = response.paymentDetails?.description
             tvLinkUrl.text = response.paymentDetails?.paymentLink
+
+            if (imageId == 0){
+                paymentMethodText.visibility = View.VISIBLE
+            }
+            else{
+                imageId
+            }
         }
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
@@ -249,29 +259,29 @@ class BillingDetailsActivity :
         const val EXTRA_REFERENCE_NUMBER = "extra_reference_number"
     }
 
-//    private fun copyLink(){
-//        ivCopyButton.setOnClickListener{
-//            val copiedUrl = tvLinkUrl.text
-//            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//            val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
-//
-//            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
-//
-//            clipboard.setPrimaryClip(clip)
-//
-////            showToast("Copied to clipboard")
-//        }
-//    }
-//
-//    private fun shareLink() {
-//        ivShareButton.setOnClickListener {
-//            val intent = Intent()
-//            intent.action = Intent.ACTION_SEND
-//            intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
-//            intent.type = "text/plain"
-//            startActivity(Intent.createChooser(intent, "Share To:"))
-//        }
-//    }
+   /* private fun copyLink(){
+        ivCopyButton.setOnClickListener{
+            val copiedUrl = tvLinkUrl.text
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
+
+            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+
+            clipboard.setPrimaryClip(clip)
+
+            showToast("Copied to clipboard")
+        }
+    }
+
+    private fun shareLink() {
+        ivShareButton.setOnClickListener {
+            val intent = Intent()
+           intent.action = Intent.ACTION_SEND
+           intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Share To:"))
+        }
+    }*/
 
     override val viewModelClassType: Class<BillingDetailsViewModel>
         get() = BillingDetailsViewModel::class.java
