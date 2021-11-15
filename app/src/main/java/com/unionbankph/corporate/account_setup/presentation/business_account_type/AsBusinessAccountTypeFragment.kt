@@ -11,6 +11,7 @@ import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.enableButton
+import com.unionbankph.corporate.app.common.extension.enableButtonMSME
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.databinding.FragmentAsBusinessAccountTypeBinding
@@ -24,8 +25,8 @@ class AsBusinessAccountTypeFragment :
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            accountSetupActivity.popBackStack()
+        accountSetupActivity.apply {
+            setProgressValue(2)
         }
     }
 
@@ -55,7 +56,7 @@ class AsBusinessAccountTypeFragment :
     }
 
     private fun updateUI(type: Int) {
-        binding.buttonNext.enableButton(type >= 0)
+        binding.buttonNext.enableButtonMSME(type >= 0)
 
         when(type) {
             Constant.BusinessAccountType.STARTER -> {

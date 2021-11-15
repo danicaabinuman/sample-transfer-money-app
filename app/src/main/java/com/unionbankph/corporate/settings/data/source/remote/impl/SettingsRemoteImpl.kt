@@ -1,6 +1,8 @@
 package com.unionbankph.corporate.settings.data.source.remote.impl
 
 import com.unionbankph.corporate.BuildConfig
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.MegaMenuDto
 import com.unionbankph.corporate.auth.data.form.ChangePasswordForm
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.common.data.constant.ApiVersionEnum
@@ -27,6 +29,7 @@ import com.unionbankph.corporate.settings.data.source.remote.client.SettingsApiC
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.nio.channels.Selector
 import javax.inject.Inject
 
 /**
@@ -259,5 +262,16 @@ constructor(retrofit: Retrofit) : SettingsRemote {
 
     override fun getEnabledFeatures(): Single<Response<EnabledFeaturesDto>> {
         return settingsApiClient.getEnabledFeatures(ApiVersionEnum.V4.value)
+    }
+
+    override fun getDashboardMegaMenu(
+        accessToken: String
+    ): Single<Response<MutableList<MegaMenuDto>>> {
+        return settingsApiClient.getDashboardMegaMenu(
+            accessToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION
+        )
     }
 }

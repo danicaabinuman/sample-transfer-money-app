@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserCreationOTPVerified (
-    @SerialName("accessToken")
+    @SerialName("secret_token")
     var accessToken: String? = null
 )

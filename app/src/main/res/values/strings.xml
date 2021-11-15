@@ -9,6 +9,7 @@
     <string name="digits_alpha_numeric_symbols_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
     <string name="digits_alpha_numeric_special_char_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
     <string name="digits_with_restriction">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
+    <string name="digits_for_product_offered">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_with_restriction_with_space">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_website">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-@.,?:\/]</string>
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
@@ -650,6 +651,7 @@
     <string name="title_salutation">Salutation</string>
     <string name="title_first_name">First Name</string>
     <string name="title_monthly_income">Monthly Income</string>
+    <string name="title_middle_name">Middle Name</string>
     <string name="title_last_name">Last Name</string>
     <string name="title_tin_id">TIN ID</string>
     <string name="hind_id_number">ID Number</string>
@@ -787,6 +789,8 @@
     <string name="title_date_started_the_business">Date Started the Business</string>
     <string name="title_type_of_establishment">Type of Establishment</string>
     <string name="title_years_in_operation">Years in Operation at Current Address</string>
+    <string name="title_full_legal_name">Full legal name</string>
+    <string name="title_not_a_unionbank_employee">Not a UnionBank Employee</string>
 
     <string name="device_android">Android</string>
     <string name="device_tablet">Tablet</string>
@@ -1009,7 +1013,7 @@
     <string name="desc_dao_branch_transaction">Make your branch experience hassle-free. Schedule your cash and check deposits in advance.</string>
     <string name="desc_dao_confirmation_agreement">I agree to the UnionBank Account Opening Terms &amp; Conditions.</string>
     <string name="desc_confirm_your_details">Please review the information before submitting your application form.</string>
-    <string name="desc_dao_agreement_tnc">I agree to the Business Banking Terms &amp; Conditions.</string>
+    <string name="desc_dao_agreement_tnc">I agree to the Business Banking Terms &amp; Conditions</string>
     <string name="desc_dao_agreement_privacy">I agree to the UnionBank Privacy Policy</string>
     <string name="desc_contact_us">
         <![CDATA[
@@ -1028,6 +1032,7 @@
         <b>%1$s</b> Scheduled payment is not available for this biller.
         ]]>
     </string>
+    <string name="desc_dao_confirmation_unionbank_employee">I am not a UnionBank Employee</string>
 
 
     <string name="action_use_password">Use Password</string>
@@ -1140,7 +1145,6 @@
 
 
     <string name="error_message">Error message from resources</string>
-    <string name="error_invalid_input">Invalid Input</string>
     <string name="error_this_field">This field is required.</string>
     <string name="error_input_valid_amount">Please enter a valid amount.</string>
     <string name="error_input_valid_mobile_number">Please enter a valid mobile number.</string>
@@ -1166,6 +1170,7 @@
     <string name="error_no_aplha">No Alphabet</string>
     <string name="error_no_number">No Number</string>
     <string name="error_no_symbol">No Symbol</string>
+    <string name="error_code_not_found">Code not found.</string>
     <string name="error_title_under_maintenance">We\'ll be right back</string>
     <string name="error_msg_under_maintenance">We are currently undergoing system maintenance. Please check back in a bit.</string>
     <string name="dao_error_mismatch_response">ID details do not match.</string>
@@ -1556,6 +1561,7 @@
     <string name="msg_e_billing_unavailable">Sorry Electronic Billing is currently unavailable at the moment. Please check back again later.</string>
     <string name="msg_apply_loan_disclaimer">You will be redirected to our loan application gateway powered by Seekcap.ph, no information about you, your company or your transactions will be released for your protection.</string>
     <string name="msg_generic_feature_unavailable">Sorry this feature is unavailable at the moment. Please check back again later.</string>
+    <string name="msg_not_a_unionbank_employee">UnionBank employees will still be allowed to open a business account. System-generated emails will be sent to internal units for approval and assessment.</string>
 
     <string name="hint_account_number_format">[0000] [0000] [0000]</string>
     <string name="hint_other_bank_account_number_format">[0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [0000] [00]</string>
@@ -2170,6 +2176,7 @@
     <string name="tc_tat_content_3e">Termination of the Bank’s agreement/s with the Card brands; or</string>
     <string name="tc_tat_content_3f">Upon lawful orders of pertinent government authorities.</string>
     <string name="tc_tat_content_4">In addition to the foregoing, the Bank may terminate this Agreement for any cause without penalty, by giving the other Party at least thirty (30) days’ written notice prior to the intended date of termination.</string>
+    
     <string name="tc_eot_content_1">Upon termination of this Agreement:</string>
     <string name="tc_eot_content_1a">the Parties agree upon written request to immediately return all Proprietary Work, Confidential Information and all copies thereof belonging to the other party, within its possession or control; and</string>
     <string name="tc_eot_content_1b">all obligations incurred or existing against the Merchant, and all rights vested or accrued under this Agreement, shall survive the termination of this Agreement.</string>
@@ -2230,6 +2237,7 @@
     <string name="tc_lol_content_6">The Bank will, in providing the UnionBank Payment Gateway Service, rely upon information, instructions, and services from the Merchant, its employees, and agents and financial and credit institutions, and other third parties. Merchant fully assumes the risk associated with errors in such information, instructions and services provided that the Bank has accurately transmitted the data and/or complied with authorized instructions.</string>
     <string name="tc_lol_content_7">IN NO EVENT WILL THE BANK’S TOTAL LIABILITY ARISING OUT OF THIS AGREEMENT EXCEED THE LESSER OF THE FEES PAID TO THE BANK BY MERCHANT UNDER THIS AGREEMENT WITHIN THE 12 MONTH PERIOD PRIOR TO THE EVENT WHICH GAVE RISE TO THE CLAIM FOR DAMAGES OR PHP 20,000 FOR REGISTERED MERCHANT AND PHP 10,000</string>
     <string name="tc_lol_content_8">FOR UNREGISTERED MERCHANT. IN NO EVENT WILL THE BANK OR ITS LICENSORS HAVE ANY LIABILITY TO MASTER MERCHANT OR ANY OTHER PARTY FOR ANY LOST OPPORTUNITY OR PROFITS, COSTS OF PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES, OR FOR ANY INDIRECT, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR SPECIAL DAMAGES ARISING OUT OF THIS AGREEMENT, UNDER ANY CAUSE OF ACTION OR THEORY OF LIABILITY (INCLUDING NEGLIGENCE), AND WHETHER OR NOT THE BANK HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. THESE LIMITATIONS WILL APPLY NOTWITHSTANDING ANY FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.</string>
+    
     <string name="tc_indemnification_content_1">Merchant shall indemnify and hold the Bank, its directors, officers, employees and agents harmless from and against, and defend any claim, suit or proceeding and pay any settlement amounts or damages awarded by a court of final jurisdiction arising out of claims (i) resulting from the willful acts, omissions or negligence of Merchant, its employees or agents; (ii) relating to any claims filed in respect of infringement of a third party right in connection with the Software and/or Service; and (iii) resulting from non-compliance with PCI-DSS and Cards brand ruling, or (iv) resulting from non-compliance with its undertakings in this Agreement.</string>
     <string name="tc_indemnification_content_2">The Bank will be entitled to have full conduct of all proceedings and negotiations relating to any such claim and in its discretion to accept, dispute, compromise, or otherwise deal with the same and shall be under no liability in respect thereof to the merchant and the Merchant shall provide any and all assistance in connection with such claim that the Bank may require.</string>
 
@@ -2241,6 +2249,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
 \n\nIn case of such events, the time for performance required by either party under this Agreement shall be suspended for any period during which the performance is prevented by the event</string>
 
     <string name="tc_mh_content">In the event that the Merchant has concerns regarding the payment gateway and its usage, the Merchant may contact UnionBank’s Customer Corporate Care by phone: (02) 667-2668 or by Email: union3c@unionbankph.com, Monday-Friday 8:30-5:30 (except holidays).</string>
+    
     <string name="tc_general_content_1">The Parties are independent contractors. No agency, partnership, joint-venture or formal business organization of any kind is created by this Agreement and neither Party shall have the right to bind the other, or represent to any person that it has the right to do so. Merchant shall conduct its activities under this Agreement as its own principal and not as agent of the Bank.</string>
     <string name="tc_general_content_2">No waiver of any breach of this Agreement shall be deemed to be a waiver of any other or of any subsequent breach. The failure of either Party to enforce at any time any of the provisions of this Agreement shall in no way be interpreted as a waiver of such provision.</string>
     <string name="tc_general_content_3">Unless otherwise provided in this Agreement, all remedies shall be cumulative and in addition to and not in lieu of any other remedies to either Party at law, in equity, or otherwise. Furthermore, there shall be no obligation upon either Party to exercise a specific remedy.</string>
@@ -2377,6 +2386,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hello_what_is_your_name">Hello, what is your name?</string>
     <string name="user_creation_input_reminder">Before we begin, please ensure that the following details in your application matches with details in your ID:</string>
     <string name="hello_name">Hello, %1$s!</string>
+
     <string name="user_creation_title_reminder">Before we begin, please ensure that the\nfollowing details in your application matches\nwith details in your ID:</string>
     <string name="desc_user_creation_reminders">
         <![CDATA[
@@ -2519,6 +2529,72 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hint_e_g_9900008987">9900008987</string>
     <string name="error_mobile_field">Must start with an 8 or 9.</string>
     <string name="error_gender_is_required">Gender is required.</string>
+    <string name="request">Request</string>
+    <string name="scan">Scan</string>
+    <string name="allow_camera">Allow us to use your phone’s camera to scan other Instapay QR Codes</string>
+    <string name="btn_allow">Allow</string>
+    <string name="qr_code">QR Code</string>
+    <string name="instapay_qr_detail">Place the QR code in the center of the square. It will scan the QR code automatically.</string>
+    <string name="title_view_more">View More</string>
+    <string name="activity_log">Activity Log</string>
+    <string name="percent_3_5">3.5% + Php 15.00</string>
+    <string name="percent_3_5_per_transaction">3.5% + Php 15.00 per transaction</string>
+    <string name="set_up_fee">Set-Up Fee</string>
+    <string name="tc_waived">Waived</string>
+    <string name="tc_annual_mid_fee_per_account">Annual MID Fee per account</string>
+    <string name="tc_transaction_handling_fee">Transaction Handling Fee</string>
+    <string name="tc_php_15_00_per_transaction">PHP 15.00 per transaction</string>
+    <string name="tc_main_settlement_account_unionbank_account_number">Main Settlement Account (Unionbank Account Number)</string>
+    <string name="tc_php_400_00">PHP 400.00</string>
+    <string name="tc_chargeback_fee">Chargeback Fee</string>
+    <string name="tc_1_00">+ 1.00%</string>
+    <string name="tc_international_cards">International Cards</string>
+    <string name="tc_visa_mastercard">Visa, MasterCard</string>
+    <string name="tc_credit_card_brands">Credit Card Brands</string>
+    <string name="tc_merchant_name">Merchant Name</string>
+    <string name="tc_merchant_description_on_statement">Merchant Description on Statement</string>
+    <string name="tc_t_2_banking_days">T+2 banking days</string>
+    <string name="tc_settlement">Settlement</string>
+    <string name="tc_cwt_bir_2307">CWT/BIR 2307)</string>
+    <string name="tc_transactions">Transactions</string>
+    <string name="tc_quarterly_release_of">(Quarterly release of</string>
+    <string name="tc_0_5_only_applicable_to_card">0.5%*</string>
+    <string name="tc_withholding_tax">Withholding Tax</string>
+    <string name="tc_mastercard">MasterCard</string>
+    <string name="tc_visa">Visa</string>
+    <string name="tc_merchant_discount_rate">Merchant Discount Rate:</string>
+    <string name="tc_2_00">2.00%</string>
+    <string name="e_wallet_gcash_grabpay">E-Wallets (GCash &amp; Grabpay)</string>
+    <string name="annual_mid_fee_per_account_for_card_facility_only">Annual MID Fee per account for Card Facility only</string>
+    <string name="waived">Waived</string>
+    <string name="merchant_discount_rate">Merchant Discount Rate:</string>
+    <string name="visa_mastercard">Visa, MasterCard</string>
+    <string name="visa_mastercard_with_slash">Visa/MasterCard</string>
+    <string name="visa">Visa</string>
+    <string name="mastercard">MasterCard</string>
+    <string name="withholding_tax">Withholding Tax</string>
+    <string name="_0_5_only_applicable_to_card">0.5% only applicable to Card</string>
+    <string name="quarterly_release_of">(Quarterly release of</string>
+    <string name="transactions">Transactions</string>
+    <string name="cwt_bir_2307">CWT/BIR 2307)</string>
+    <string name="international_cards">International Cards</string>
+    <string name="_1_00">+ 1.00%</string>
+    <string name="chargeback_fee">Chargeback Fee</string>
+    <string name="php_400_00">PHP 400.00</string>
+    <string name="php_15_00">PHP 15.00</string>
+    <string name="over_the_counter_cash_payments">Over-the-Counter Cash Payments</string>
+    <string name="php_20_00">Php 20.00</string>
+    <string name="free_until_further_notice">Free until further notice</string>
+    <string name="free_until_further_notice_parenthesis">(Free until further notice)</string>
+    <string name="merchant_description_on_statement">Merchant Description on Statement</string>
+    <string name="merchant_name">Merchant Name</string>
+    <string name="settlement_all_channels">Settlement All Channels</string>
+    <string name="t_2_banking_days">T+2 banking days</string>
+    <string name="settlement_card_transaction_in_lieu_of_security_deposit">Settlement Card Transaction In lieu of security deposit</string>
+    <string name="t_7_to_t_14_banking_days">T+7 to T+14 banking days</string>
+    <string name="nominated_settlement_account_unionbank_account_number">Nominated Settlement Account (Unionbank Account Number)</string>
+    <string name="invalid_qr">Invalid QR</string>
+    <string name="invalid_qr_body">We can\'t scan this QR. Please try scanning an Instapay QR PH code. </string>
     <string name="one_last_thing">One last thing...</string>
     <string name="what_s_your_average_monthly_volume">What\'s your average monthly sales?</string>
     <string name="below_10k">Below 10K</string>
@@ -2529,6 +2605,21 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="message_no_account_eligible">Seems like your accounts are not eligible for this feature. You may open an account by clicking this button.</string>
     <string name="title_no_available_accounts">No Available Accounts</string>
     <string name="progress_saved">Progress saved</string>
+    <string name="title_use_photo">Use Photo</string>
+    <string name="title_delete_photo">Are you sure you want to remove this photo?</string>
+    <string name="btn_delete_this_photo">YES, DELETE THIS PHOTO</string>
+    <string name="how_many_employees">How many employees do you \nhave?</string>
+    <string name="item_not_uploaded">Item wasn\'t uploaded</string>
+    <string name="invalid_filesize_desc">File size exceeds the maximum allowed size. Maximum file size is 2 MB</string>
+    <string name="invalid_filetype_desc">File format is not supported. Only .jpeg, .png and .pdf are accepted.</string>
+    <string name="branch">Branch </string>
+    <string name="add_another_address">+ Add another address</string>
+    <string name="pending">Pending</string>
+    <string name="pending_message">We\'re currently reviewing \nyour application.</string>
+    <string name="declined">Declined</string>
+    <string name="declined_message">Your application has been \ndeclined.</string>
+    <string name="approved">Approved</string>
+    <string name="approved_message">Congratulations! Your application \nhas been approved.</string>
     <string name="user_creation_success_title">You\'re Logged in</string>
     <string name="user_creation_success_desc">Create a meaningful and powerful \n mobile banking experiences</string>
     <string name="title_permission_settings">Let\'s personalise your banking experience seamless</string>
@@ -2985,7 +3076,25 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="as_citizenship_title">Are you a Filipino citizen?</string>
     <string name="as_citizenship_yes">Yes, I live in the Philippines</string>
     <string name="as_citizenship_no">No, I live outside the Philippines</string>
-
-
-
+    <string name="as_non_filipino_citizenship_title">We\'re Sorry</string>
+    <string name="as_non_filipino_citizenship_section_title">RM Details</string>
+    <string name="as_non_filipino_citizenship_description">Application is limited to Filipino citizens residing in the Philippines. A UnionBank officer will reach out to you.</string>
+    <string name="title_trial_mode_days">You are on Trial Mode\nfor %1$s!</string>
+    <string name="as_business_information_sub_title">This is the name that appears in your registration certificate</string>
+    <string name="banner_business_profile_title">Create a digital\npresence for your SME</string>
+    <string name="banner_business_profile_body">A digital catalog to attract more customers and grow your sales.</string>
+    <string name="banner_business_profile_footer">Make a business profile</string>
+    <string name="banner_learn_more_title">Set up a\nfree online store</string>
+    <string name="banner_learn_more_body">Linker.store can make online\nselling easier for you.</string>
+    <string name="banner_learn_more_footer">Learn more</string>
+    <string name="title_globallinker">Globallinker</string>
+    <string name="mega_menu_request_payment">Request\nPayment</string>
+    <string name="mega_menu_transfer_funds">Transfer\nFunds</string>
+    <string name="mega_menu_pay_bills">Pay\nBills</string>
+    <string name="mega_menu_apply_loan">Apply\nLoan</string>
+    <string name="mega_menu_deposit_check">Deposit\nCheck</string>
+    <string name="mega_menu_generate_qr">Generate\nQR</string>
+    <string name="msg_no_id_list">There are currently no IDs\n enabled for DAO.</string>
+    <string name="msg_something_went_wrong">We need a little more time to get the latest list of valid IDs. Please try again in a couple of minutes.</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>

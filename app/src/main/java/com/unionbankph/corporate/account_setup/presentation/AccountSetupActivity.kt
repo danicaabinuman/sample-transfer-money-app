@@ -2,24 +2,19 @@ package com.unionbankph.corporate.account_setup.presentation
 
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.account_setup.data.PersonalInfoInput
+import com.unionbankph.corporate.account_setup.data.PersonalInformation
 import com.unionbankph.corporate.app.base.BaseActivity
-import com.unionbankph.corporate.app.common.extension.enableButton
-import com.unionbankph.corporate.app.common.extension.formatString
 import com.unionbankph.corporate.app.common.extension.visibility
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
-import com.unionbankph.corporate.dao.presentation.DaoActivity
 import com.unionbankph.corporate.databinding.ActivityAccountSetupBinding
 import timber.log.Timber
 
@@ -94,7 +89,7 @@ class AccountSetupActivity :
         this.currentScreen = currentScreen
     }
 
-    fun setPersonalInfoInput(form: PersonalInfoInput) {
+    fun setPersonalInfoInput(form: PersonalInformation) {
         Timber.e("Personal Info")
         viewModel.setPersonalInfoInput(form)
     }
@@ -124,6 +119,13 @@ class AccountSetupActivity :
 
     fun setToolbarButtonType(type: Int) {
         viewModel.setToolbarButtonType(type)
+    }
+
+    fun setBackButtonIcon(icon: Int) {
+        when (icon) {
+            BACK_ARROW_ICON -> setDrawableBackButton(R.drawable.ic_msme_back_button_orange, R.color.colorDarkOrange, true)
+            else -> setDrawableBackButton(R.drawable.ic_vector_x, R.color.colorDarkOrange, true)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -190,13 +192,13 @@ class AccountSetupActivity :
         const val BUTTON_SAVE_EXIT = 1
         const val BUTTON_CLOSE = 2
 
-        const val BACK_ARROW = 100
-        const val BACK_X = 101
+        const val BACK_ARROW_ICON = 100
+        const val BACK_X_ICON = 101
 
         const val BUSINESS_TYPE_SCREEN = 1
         const val BUSINESS_ACCOUNT_TYPE_SCREEN = 2
 
-        const val PAGE_SIZE_SOLE_PROP = 10
+        const val PAGE_SIZE_SOLE_PROP = 14
     }
 
 

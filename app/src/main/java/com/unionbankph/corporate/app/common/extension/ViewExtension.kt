@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.app.common.extension
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.text.*
@@ -10,12 +12,10 @@ import android.text.style.AbsoluteSizeSpan
 import android.text.style.ClickableSpan
 import android.util.TypedValue
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.common.platform.glide.GlideApp
+import com.unionbankph.corporate.app.common.widget.validator.validation.RxValidationResult
 import com.unionbankph.corporate.common.presentation.constant.Constant
 import com.unionbankph.corporate.common.presentation.constant.EditTextStyleEnum
 import java.util.*
@@ -170,17 +171,18 @@ fun EditText.setEnableView(isEnable: Boolean) {
     }
 }
 
-fun EditText.setEnableViewSME(isEnable: Boolean) {
+fun EditText.setEnableDropdownFields(isEnable: Boolean) {
     val textInputLayout = getTextInputLayout(this)
     if (isEnable) {
         this.isEnabled = true
         this.isClickable = true
         this.setContextCompatBackground(R.color.colorTransparent)
         textInputLayout?.alpha = 1f
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_vector_drop_down_line, 0)
     } else {
         this.isEnabled = false
         this.isClickable = false
-        this.setContextCompatBackground(R.drawable.bg_edit_text_disabled)
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_vector_drop_down_line_disabled, 0)
         textInputLayout?.alpha = 0.5f
     }
 }
@@ -271,7 +273,7 @@ fun TextView.enableButtonMSME(isEnabled: Boolean) {
         this.setContextCompatTextColor(R.color.colorWhite)
     } else {
         this.alpha = 0.5f
-        this.setContextCompatTextColor(R.color.colorButtonGray)
+        this.setContextCompatTextColor(R.color.dsColorPrimaryButtonTextDisabled)
     }
 }
 
@@ -497,4 +499,55 @@ fun Context.getAccentColor(): Int {
 fun Int.convertToDP(context: Context) : Int {
     val scale = context.resources.displayMetrics.density
     return (this * scale + 0.5f).toInt()
+}
+
+fun CheckBox.setMSMETheme() {
+    this.buttonTintList = ColorStateList(
+        arrayOf(
+            intArrayOf(-android.R.attr.state_checked), // unchecked
+            intArrayOf(android.R.attr.state_checked) // checked
+        ),
+        intArrayOf(
+            Color.parseColor("#BFBFBF"),  //unchecked color
+            Color.parseColor("#FF8200")
+        )
+    )
+}
+
+fun TextView.setFieldLabelError(isProper: Boolean) {
+    this.setTextColor(when (isProper) {
+        true -> ContextCompat.getColor(this.context, R.color.dsColorDarkGray)
+        else -> ContextCompat.getColor(this.context, R.color.colorErrorColor)
+    })
+}
+
+fun TextView.setFieldFooterError(validation: RxValidationResult<EditText>) {
+    this.let {
+        it.visibility = when (validation.isProper) {
+            true -> View.GONE
+            else -> View.VISIBLE
+        }
+        it.text = validation.message
+    }
+}
+
+fun TextInputLayout.setBlankError(isProper: Boolean) {
+    this.error = when (isProper) {
+        true -> ""
+        else -> " "
+    }
+}
+
+fun View.setGenderDividerColor(isProper: Boolean) {
+    this.background = when (isProper) {
+        true -> ContextCompat.getDrawable(this.context, R.color.dsColorLightGray)
+        else -> ContextCompat.getDrawable(this.context, R.color.colorErrorColor)
+    }
+}
+
+fun ConstraintLayout.setGenderContainerBackground(isProper: Boolean) {
+    this.background = when (isProper) {
+        true -> ContextCompat.getDrawable(this.context, R.drawable.bg_secondary_bordered_button_default)
+        else -> ContextCompat.getDrawable(this.context, R.drawable.bg_error_bordered)
+    }
 }

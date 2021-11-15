@@ -1,13 +1,28 @@
 package com.unionbankph.corporate.payment_link.presentation.billing_details
 
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import com.unionbankph.corporate.app.base.BaseActivity
+import com.unionbankph.corporate.app.common.extension.setVisible
+import com.unionbankph.corporate.app.common.platform.events.EventObserver
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
+import com.unionbankph.corporate.bills_payment.presentation.frequent_biller_form.ManageFrequentBillerFormActivity
+import com.unionbankph.corporate.common.presentation.constant.Constant
+import com.unionbankph.corporate.common.presentation.helper.ConstantHelper
+import com.unionbankph.corporate.common.presentation.helper.JsonHelper
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivityBillingDetailsBinding
+import com.unionbankph.corporate.payment_link.domain.model.PaymentLogsModel
 import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLinkByReferenceIdResponse
+import com.unionbankph.corporate.payment_link.domain.model.response.GetPaymentLogsResponse
+import com.unionbankph.corporate.payment_link.presentation.activity_logs.ActivityLogsActivity
+import com.unionbankph.corporate.payment_link.presentation.activity_logs.PaymentHistoryLogsAdapter
 import timber.log.Timber
 import java.lang.NumberFormatException
 import java.text.DecimalFormat
@@ -17,56 +32,88 @@ import java.util.*
 class BillingDetailsActivity :
     BaseActivity<ActivityBillingDetailsBinding, BillingDetailsViewModel>() {
 
+    private lateinit var mAdapter: PaymentHistoryLogsAdapter
+
     override fun onViewModelBound() {
         super.onViewModelBound()
+        Timber.e("onViewModelBound Test")
+        setupOutputs()
     }
 
     override fun onViewsBound() {
         super.onViewsBound()
 
-//        binding.btnViewMore.setOnClickListener{
-//            val intent = Intent(this@BillingDetailsActivity, ActivityLogsActivity::class.java)
-//            startActivity(intent)
-//        }
-
-        backButton()
+        initEvents()
+        initRecyclerView()
         setupInputs()
-        setupOutputs()
-
+        buttonViewMore()
     }
 
-    private fun backButton() {
-        binding.btnBack.setOnClickListener() {
-            finish()
-        }
+    private fun initEvents() {
+
+        binding.btnBack.setOnClickListener { onBackPressed() }
+
+        binding.cardViewMore.root.setOnClickListener { navigateToActivityLogs() }
     }
 
     private fun setupInputs() {
+        val referenceNumber = intent.getStringExtra(EXTRA_REFERENCE_NUMBER).toString()
+        viewModel.initBundleData(referenceNumber)
+    }
 
-        val referenceNmber = intent.getStringExtra(EXTRA_REFERENCE_NUMBER).toString()
-        binding.billingDetailsLoading.visibility = View.VISIBLE
-        viewModel.initBundleData(
-            referenceNmber
-        )
+    private fun initRecyclerView(){
+
+        mAdapter = PaymentHistoryLogsAdapter(context, PaymentHistoryLogsAdapter.BILLING_ADAPTER)
+        binding.rvPaymentLogs.layoutManager = getLinearLayoutManager()
+        binding.rvPaymentLogs.adapter = mAdapter
+        binding.rvPaymentLogs.visibility = View.VISIBLE
 
     }
 
     private fun setupOutputs() {
-        viewModel.paymentLinkDetailsResponse.observe(this, Observer {
-            binding.billingDetailsLoading.visibility = View.GONE
-            updatePaymentLinkDetails(it)
-        })
 
-        viewModel.uiState.observe(this, Observer {
-            it.getContentIfNotHandled().let { event ->
-                when (event) {
-                    is UiState.Error -> {
-                        binding.billingDetailsLoading.visibility = View.GONE
-                        handleOnError(event.throwable)
-                    }
+        viewModel.uiState.observe(this, EventObserver {
+            when (it) {
+                is UiState.Loading -> {
+                    showProgressAlertDialog(this::class.java.simpleName)
+                }
+                is UiState.Complete -> {
+                    dismissProgressAlertDialog()
+                }
+                is UiState.Error -> {
+                    handleOnError(it.throwable)
                 }
             }
         })
+
+        viewModel.state.observe(this, {
+            updatePaymentLinkDetails(it.paymentDetails!!)
+            mAdapter.appendData(it.paymentLogs?.take(3) ?: mutableListOf())
+
+            if (it.paymentLogs?.size!!.toInt() < 4){
+                binding.cardViewMore.cardViewAll.visibility = View.GONE
+            } else {
+                binding.cardViewMore.cardViewAll.visibility = View.VISIBLE
+            }
+        })
+    }
+
+    private fun navigateToActivityLogs() {
+        val bundle = Bundle().apply {
+            putString(
+                ActivityLogsActivity.EXTRA_ACTIVITY_LOGS,
+                JsonHelper.toJson(viewModel.state.value?.paymentLogs)
+            )
+            Timber.e("navigateToActivityLogs " + JsonHelper.toJson(viewModel.state.value?.paymentLogs))
+        }
+        navigator.navigate(
+            this,
+            ActivityLogsActivity::class.java,
+            bundle,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     private fun updatePaymentLinkDetails(response: GetPaymentLinkByReferenceIdResponse) {
@@ -118,149 +165,14 @@ class BillingDetailsActivity :
         binding.tvPayorName.text = response.payorDetails?.fullName
         binding.tvPayorEmail.text = response.payorDetails?.emailAddress
         binding.tvPayorContactNumber.text = response.payorDetails?.mobileNumber
-        var paymentMethod = response.payorDetails?.paymentMethod
-        binding.paymentMethodText.text = paymentMethod.toString()
 
-        if (paymentMethod == "INSTAPAY"){
-            binding.apply {
-                instapayLogo.visibility = View.VISIBLE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-            }
-        } else if (paymentMethod == "GCASH"){
-            binding.apply {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-                gcashLogo.visibility = View.VISIBLE
-            }
+        val paymentMethod = response.payorDetails?.paymentMethod
 
-        } else if (paymentMethod == "GRABPAY"){
-            binding.apply {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.VISIBLE
-                gcashLogo.visibility = View.GONE
-            }
+        val imageId = ConstantHelper.Drawable.getPaymentMethodLogo(
+            paymentMethod ?: Constant.PaymentMethod.GRABPAY
+        )
 
-        } else if (paymentMethod == "UB ONLINE"){
-            binding.apply {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.VISIBLE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            }
-        }
-        else if (paymentMethod == "CEBUANALHUILLIER"){
-            binding.apply {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.VISIBLE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            }
-        }
-        else if (paymentMethod == "PALAWAN"){
-            binding.apply {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.VISIBLE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            }
-        }
-        else if (paymentMethod == "LBC"){
-            binding.apply {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.VISIBLE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            }
-        }
-        else if (paymentMethod == "ECPAY"){
-            binding.apply {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.VISIBLE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            }
-        }
-        else if (paymentMethod == "BAYADCENTER"){
-            binding.apply {
-                instapayLogo.visibility = View.VISIBLE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-            }
-        }
-        else {
-            binding.apply {
-                instapayLogo.visibility = View.GONE
-                ubLogo.visibility = View.GONE
-                bayadCenterLogo.visibility = View.GONE
-                ecpayLogo.visibility = View.GONE
-                lbcLogo.visibility = View.GONE
-                palawanLogo.visibility = View.GONE
-                cebuanaLogo.visibility = View.GONE
-                gcashLogo.visibility = View.GONE
-                grabpayLogo.visibility = View.GONE
-
-                if (paymentMethod.toString() == "ECPY") {
-                    paymentMethodText.text = "EcPay"
-                } else if (paymentMethod.toString() == "BAYD") {
-                    paymentMethodText.text = "Bayad Center"
-                } else if (paymentMethod.toString() == "PLWN") {
-                    paymentMethodText.text = "Palawan"
-                } else if (paymentMethod.toString() == "CEBL") {
-                    paymentMethodText.text = "Cebuana"
-                }
-                paymentMethodText.visibility = View.VISIBLE
-            }
-        }
+        binding.paymentMethodText.text = "Debit - Credit"
 
         binding.apply {
             tvRefNumber.text = response.paymentDetails?.referenceNo
@@ -269,6 +181,13 @@ class BillingDetailsActivity :
             tvDescription.text = response.paymentDetails?.paymentFor
             tvRemarks.text = response.paymentDetails?.description
             tvLinkUrl.text = response.paymentDetails?.paymentLink
+
+            if (imageId == 0){
+                paymentMethodText.visibility = View.VISIBLE
+            }
+            else{
+                imageId
+            }
         }
 
         val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
@@ -332,34 +251,37 @@ class BillingDetailsActivity :
 
     }
 
+    private fun buttonViewMore(){
+        binding.cardViewMore.root.setOnClickListener { navigateToActivityLogs() }
+    }
 
     companion object {
         const val EXTRA_REFERENCE_NUMBER = "extra_reference_number"
     }
 
-//    private fun copyLink(){
-//        ivCopyButton.setOnClickListener{
-//            val copiedUrl = tvLinkUrl.text
-//            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-//            val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
-//
-//            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
-//
-//            clipboard.setPrimaryClip(clip)
-//
-////            showToast("Copied to clipboard")
-//        }
-//    }
-//
-//    private fun shareLink() {
-//        ivShareButton.setOnClickListener {
-//            val intent = Intent()
-//            intent.action = Intent.ACTION_SEND
-//            intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
-//            intent.type = "text/plain"
-//            startActivity(Intent.createChooser(intent, "Share To:"))
-//        }
-//    }
+   /* private fun copyLink(){
+        ivCopyButton.setOnClickListener{
+            val copiedUrl = tvLinkUrl.text
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("Copied to clipboard", copiedUrl)
+
+            Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+
+            clipboard.setPrimaryClip(clip)
+
+            showToast("Copied to clipboard")
+        }
+    }
+
+    private fun shareLink() {
+        ivShareButton.setOnClickListener {
+            val intent = Intent()
+           intent.action = Intent.ACTION_SEND
+           intent.putExtra(Intent.EXTRA_TEXT, tvLinkUrl.text.toString())
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Share To:"))
+        }
+    }*/
 
     override val viewModelClassType: Class<BillingDetailsViewModel>
         get() = BillingDetailsViewModel::class.java

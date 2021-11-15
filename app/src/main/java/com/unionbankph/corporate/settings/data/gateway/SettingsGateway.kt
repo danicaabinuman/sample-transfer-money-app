@@ -1,5 +1,7 @@
 package com.unionbankph.corporate.settings.data.gateway
 
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.GenericMenuItem
+import com.unionbankph.corporate.app.common.widget.recyclerview.itemmodel.sme.MegaMenuDto
 import com.unionbankph.corporate.auth.data.form.ChangePasswordForm
 import com.unionbankph.corporate.auth.data.model.CountryCode
 import com.unionbankph.corporate.auth.data.model.Permissions
@@ -200,4 +202,9 @@ interface SettingsGateway {
     fun getEnabledFeatures(): Completable
     fun saveEnabledFeatures(enabledFeatures: MutableList<String>): Completable
     fun isEnabledFeature(featuresEnum: FeaturesEnum): Single<Boolean>
+
+    fun isTrialMode(): Maybe<Boolean>
+    fun getTrialModeDaysRemaining(): Maybe<String>
+
+    fun getDashboardMegaMenu(): Single<MutableList<MegaMenuDto>>
 }

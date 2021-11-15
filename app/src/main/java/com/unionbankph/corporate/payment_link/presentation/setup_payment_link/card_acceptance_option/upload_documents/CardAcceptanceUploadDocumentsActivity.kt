@@ -179,11 +179,10 @@ class CardAcceptanceUploadDocumentsActivity :
                         val fileDescriptor : ParcelFileDescriptor = context.contentResolver.openFileDescriptor(fileUri,"r")!!
                         val fileType: String? = applicationContext.contentResolver.getType(fileUri)
                         if (fileType != DOCU_PDF){
-                            DialogFactory().createSMEDialog(
+                            DialogFactory().createColoredSMEDialog(
                                 this,
-                                isNewDesign = false,
                                 title = getString(R.string.item_not_uploaded),
-                                description = getString(R.string.invalid_filetype_desc),
+                                content = getString(R.string.invalid_filetype_desc),
                                 positiveButtonText = getString(R.string.action_try_again),
                                 onPositiveButtonClicked = {
                                     imgView.setImageBitmap(null)
@@ -215,11 +214,10 @@ class CardAcceptanceUploadDocumentsActivity :
                         val fileType: String? = applicationContext.contentResolver.getType(imageUri)
                         val fileSize: Long = fileDescriptor.length
                         if (fileSize > MAX_FILESIZE_2MB){
-                            DialogFactory().createSMEDialog(
+                            DialogFactory().createColoredSMEDialog(
                                 this,
-                                isNewDesign = false,
                                 title = getString(R.string.item_not_uploaded),
-                                description = getString(R.string.invalid_filesize_desc),
+                                content = getString(R.string.invalid_filesize_desc),
                                 positiveButtonText = getString(R.string.action_try_again),
                                 onPositiveButtonClicked = {
                                     imgView.setImageBitmap(null)
@@ -228,11 +226,10 @@ class CardAcceptanceUploadDocumentsActivity :
                             ).show()
                         }
                         if (fileType != IMAGE_JPEG && fileType != IMAGE_PNG){
-                            DialogFactory().createSMEDialog(
+                            DialogFactory().createColoredSMEDialog(
                                 this,
-                                isNewDesign = false,
                                 title = getString(R.string.item_not_uploaded),
-                                description = getString(R.string.invalid_filetype_desc),
+                                content = getString(R.string.invalid_filetype_desc),
                                 positiveButtonText = getString(R.string.action_try_again),
                                 onPositiveButtonClicked = {
                                     imgView.setImageBitmap(null)

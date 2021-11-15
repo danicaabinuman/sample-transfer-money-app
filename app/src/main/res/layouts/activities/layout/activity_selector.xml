@@ -5,6 +5,7 @@
     android:id="@+id/constraintLayout"
     style="@style/MatchParent"
     android:focusable="true"
+    android:background="@color/colorWhite"
     android:focusableInTouchMode="true">
 
     <include
@@ -19,14 +20,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/colorWhite"
         app:layout_constraintTop_toBottomOf="@+id/viewToolBar">
 
         <include
             android:id="@+id/view_search_layout"
-            layout="@layout/widget_search_layout"
+            layout="@layout/widget_selector_search_layout"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
+            android:elevation="@dimen/grid_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

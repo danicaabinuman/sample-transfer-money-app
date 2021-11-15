@@ -238,6 +238,8 @@ dependencies {
     implementation(Libraries.stv)
     implementation(Libraries.playServicesAuth)
     implementation(Libraries.playServicesAuthPhone)
+    implementation(Libraries.journeyappsZxing)
+    implementation(Libraries.budiyev)
     kapt(Libraries.epoxyProcessor)
     implementation(Libraries.biometric)
     implementation(Libraries.philJayChart)
@@ -360,6 +362,12 @@ fun setupProductFlavors(
         "String",
         "MSME_CLIENT_SECRET",
         buildGradle.properties["msmeClientSecret${env.getDisplayName()}"].toString()
+    )
+
+    productFlavor.buildConfigField(
+        "String",
+        "URL_ENV_PREFIX",
+        "\"${env.getEnvironmentURLPrefix()}\""
     )
 }
 

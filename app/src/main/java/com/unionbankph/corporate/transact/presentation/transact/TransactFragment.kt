@@ -41,6 +41,7 @@ import com.unionbankph.corporate.settings.presentation.SettingsViewModel
 import com.unionbankph.corporate.settings.presentation.ShowSettingsError
 import com.unionbankph.corporate.settings.presentation.ShowSettingsHasPermission
 import io.reactivex.rxkotlin.addTo
+import timber.log.Timber
 
 class TransactFragment :
     BaseFragment<FragmentSendRequestBinding, SettingsViewModel>(),
@@ -352,6 +353,8 @@ class TransactFragment :
         eventBus.settingsSyncEvent.flowable.subscribe {
             when (it.eventType) {
                 SettingsSyncEvent.ACTION_PUSH_TUTORIAL_TRANSACT -> {
+                    Timber.e("ACTION_PUSH_TUTORIAL_TRANSACT")
+
                     isClickedHelpTutorial = true
                     eventBus.settingsSyncEvent.emmit(
                         BaseEvent(SettingsSyncEvent.ACTION_DISABLE_NAVIGATION_BOTTOM)

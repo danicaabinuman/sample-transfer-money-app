@@ -171,13 +171,14 @@
 
                     <RelativeLayout
                         style="@style/MatchWrapParent">
+
                         <Spinner
                             android:id="@+id/dropdownPaymentLinkExport"
-                            android:layout_height="wrap_content"
                             android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:background="@drawable/a_spinner_outline"
-                            android:spinnerMode="dropdown"
-                            android:dropDownSelector="#000" />
+                            android:dropDownSelector="#000"
+                            android:spinnerMode="dropdown" />
 
                         <ImageView
                             android:layout_width="@dimen/grid_5"

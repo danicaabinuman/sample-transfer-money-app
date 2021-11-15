@@ -1,14 +1,17 @@
 package com.unionbankph.corporate.user_creation.presentation.nominate_password
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
 import com.unionbankph.corporate.app.common.platform.events.Event
 import com.unionbankph.corporate.auth.data.AuthGateway
-import com.unionbankph.corporate.auth.data.model.UserCreationOTPVerified
+import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,9 +21,9 @@ class UcNominatePasswordViewModel @Inject constructor(
     private val authGateway: AuthGateway
 ) : BaseViewModel() {
 
-    private val _navigateResult = MutableLiveData<Event<UserCreationOTPVerified>>()
+    private val _navigateResult = MutableLiveData<Event<UserCreationAuth>>()
 
-    val navigateResult: LiveData<Event<UserCreationOTPVerified>> get() = _navigateResult
+    val navigateResult: LiveData<Event<UserCreationAuth>> get() = _navigateResult
 
     fun onClickedNext(password: String, secretToken: String) {
         val form = UcNominatePasswordForm().apply {
@@ -32,6 +35,7 @@ class UcNominatePasswordViewModel @Inject constructor(
 
     private fun nominatePassword(form: UcNominatePasswordForm) {
         authGateway.userCreationNominatePassword(form)
+            .flatMap { cacheUserDetails(it).toSingle { it } }
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
             .doOnSubscribe { _uiState.value = Event(UiState.Loading) }
@@ -45,5 +49,23 @@ class UcNominatePasswordViewModel @Inject constructor(
                     _uiState.value = Event(UiState.Error(it))
                 }
             ).addTo(disposables)
+    }
+
+    private fun cacheUserDetails(auth: UserCreationAuth?): Completable {
+        val userDetails = UserCreationDetails(
+            auth?.token,
+            auth?.role,
+            auth?.corporateUser,
+            auth?.approvalGroups,
+            auth?.isPolicyAgreed,
+            auth?.isTrusted,
+            auth?.readMcdTerms,
+            auth?.trialDaysRemaining,
+            auth?.isTrusted,
+        )
+        return Observable.just(userDetails)
+            .flatMapCompletable {
+                authGateway.saveCredential(userDetails)
+            }
     }
 }

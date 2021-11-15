@@ -4,6 +4,8 @@ import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.toDistinctByKey
 import com.unionbankph.corporate.auth.data.form.ECredForm
 import com.unionbankph.corporate.auth.data.model.CorporateUser
+import com.unionbankph.corporate.auth.data.model.UserCreationCorporateUser
+import com.unionbankph.corporate.auth.data.model.UserCreationDetails
 import com.unionbankph.corporate.auth.data.model.UserDetails
 import com.unionbankph.corporate.auth.data.source.local.AuthCache
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
@@ -91,7 +93,72 @@ constructor(
         }
     }
 
+
     private fun saveCorporateUser(corporateUser: CorporateUser) {
+        var recentUsers = mutableListOf<RecentUser>()
+        if (sharedPreferenceUtil.recentUsersSharedPref().get() != "") {
+            recentUsers = JsonHelper.fromListJson(sharedPreferenceUtil.recentUsersSharedPref().get())
+            val foundUser = recentUsers.find { it.userEmail == corporateUser.emailAddress }
+            if (foundUser == null) {
+                recentUsers.add(
+                    RecentUser(
+                        corporateUser.emailAddress,
+                        isAskTrustDevice = false,
+                        isAskBiometric = false
+                    )
+                )
+                val recentUsersString = JsonHelper.toJson(
+                    recentUsers.toDistinctByKey { it.userEmail }
+                )
+                sharedPreferenceUtil.recentUsersSharedPref().set(recentUsersString)
+            }
+        } else {
+            recentUsers.add(
+                RecentUser(
+                    corporateUser.emailAddress,
+                    isAskTrustDevice = false,
+                    isAskBiometric = false
+                )
+            )
+            val recentUsersString = JsonHelper.toJson(recentUsers)
+            sharedPreferenceUtil.recentUsersSharedPref().set(recentUsersString)
+        }
+    }
+
+    override fun saveCredential(userCreationDetails: UserCreationDetails): Completable {
+        return Completable.fromAction {
+            val accessToken = userCreationDetails.token?.accessToken.notNullable()
+            val corporateUserString = JsonHelper.toJson(userCreationDetails.corporateUser)
+            val corporateUser = JsonHelper.fromJson<UserCreationCorporateUser>(corporateUserString)
+            val fullName = "${corporateUser.firstName} ${corporateUser.lastName}"
+            if (sharedPreferenceUtil.fingerPrintTokenSharedPref().get() != "" &&
+                (corporateUser.emailAddress != sharedPreferenceUtil.emailSharedPref().get())) {
+                sharedPreferenceUtil.isNewUserDetectedSharedPref().set(true)
+            }
+            if (corporateUser.emailAddress != sharedPreferenceUtil.emailSharedPref().get()) {
+                sharedPreferenceUtil.fingerPrintTokenSharedPref().delete()
+                sharedPreferenceUtil.totpTokenPref().delete()
+            }
+            saveUserCreationCorporateUser(corporateUser)
+            cacheManager.put(CacheManager.ACCESS_TOKEN, accessToken)
+            cacheManager.put(CacheManager.CORPORATE_USER, corporateUserString)
+            cacheManager.put(CacheManager.ROLE, userCreationDetails.role)
+            sharedPreferenceUtil.isLoggedIn().set(true)
+            sharedPreferenceUtil.isReadMCDTerms().set(userCreationDetails.readMcdTerms.notNullable())
+            sharedPreferenceUtil.isTrustedDevice().set(userCreationDetails.isTrusted ?: false)
+            if (userCreationDetails.isTrusted == true) {
+                sharedPreferenceUtil.totpTokenPref()
+                    .set(userCreationDetails.corporateUser?.secretToken.notNullable())
+            }
+            sharedPreferenceUtil.fullNameSharedPref().set(fullName)
+            sharedPreferenceUtil.emailSharedPref().set(corporateUser.emailAddress.notNullable())
+            sharedPreferenceUtil.isTrialMode().set(userCreationDetails.trialMode ?: false)
+            sharedPreferenceUtil.trialModeDaysRemainingSharedPref().set(userCreationDetails.trialDaysRemaining.toString())
+        }
+    }
+
+
+    private fun saveUserCreationCorporateUser(corporateUser: UserCreationCorporateUser) {
         var recentUsers = mutableListOf<RecentUser>()
         if (sharedPreferenceUtil.recentUsersSharedPref().get() != "") {
             recentUsers = JsonHelper.fromListJson(sharedPreferenceUtil.recentUsersSharedPref().get())

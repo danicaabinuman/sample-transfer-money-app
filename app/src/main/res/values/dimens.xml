@@ -361,7 +361,7 @@
 
     <dimen name="ds_sme_big_button">56dp</dimen>
     <dimen name="ds_sme_large_button">40dp</dimen>
-    <dimen name="ds_sme_small_button">32dp</dimen>
+    <dimen name="ds_sme_small_button">40dp</dimen>
     <dimen name="ds_sme_large_button_radius">4dp</dimen>
     <dimen name="ds_sme_small_button_radius">30dp</dimen>
     <dimen name="ds_sme_button_with_icon_radius">6dp</dimen>

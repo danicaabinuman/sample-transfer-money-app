@@ -201,4 +201,13 @@ constructor(
             validateNominatedUserForm
         )
     }
+
+    override fun getListIds(
+        userToken: String?
+    ): Single<Response<MutableList<IdDto>>> {
+        return daoApiClient.getListIds(
+            BuildConfig.CLIENT_API_VERSION,
+            userToken
+        )
+    }
 }

@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
-import androidx.activity.addCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.textfield.TextInputLayout
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.account_setup.data.PersonalInfoInput
+import com.unionbankph.corporate.account_setup.data.GenderEnum
+import com.unionbankph.corporate.account_setup.data.PersonalInformation
 import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
-import com.unionbankph.corporate.account_setup.presentation.AccountSetupViewModel
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
@@ -45,17 +45,12 @@ class AsPersonalInformationFragment
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
 
-
         accountSetupActivity.apply {
             setIsScreenScrollable(false)
             setToolbarButtonType(AccountSetupActivity.BUTTON_SAVE_EXIT)
             showToolbarButton(true)
             showProgress(true)
-            setProgressValue(1)
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            accountSetupActivity.popBackStack()
+            setProgressValue(6)
         }
     }
 
@@ -66,6 +61,9 @@ class AsPersonalInformationFragment
 
     override fun onViewsBound() {
         super.onViewsBound()
+
+        binding.cbAsPersonalInfoNotUsCitizen.setMSMETheme()
+
         validateForm()
         initViewBindings()
     }
@@ -106,9 +104,10 @@ class AsPersonalInformationFragment
 
         val hasExistingData =
             accountSetupActivity.viewModel.state.value?.hasPersonalInfoInput ?: false
+
         if (hasExistingData) {
             viewModel.populateFieldsWithExisting(
-                accountSetupActivity.viewModel.state.value?.personalInfoInput ?: PersonalInfoInput()
+                accountSetupActivity.viewModel.state.value?.personalInformation ?: PersonalInformation()
             )
         }
     }
@@ -116,10 +115,6 @@ class AsPersonalInformationFragment
     private fun initEventListeners() {
         eventBus.inputSyncEvent.flowable.subscribe {
             when (it.eventType) {
-                SingleSelectorTypeEnum.GENDER.name -> {
-                    val selector = JsonHelper.fromJson<Selector>(it.payload)
-                    viewModel.input.genderInput.onNext(selector)
-                }
                 SingleSelectorTypeEnum.CIVIL_STATUS.name -> {
                     val selector = JsonHelper.fromJson<Selector>(it.payload)
                     viewModel.input.civilStatusInput.onNext(selector)
@@ -132,8 +127,11 @@ class AsPersonalInformationFragment
         binding.buttonNext.setOnClickListener {
             attemptSubmit()
         }
-        binding.tieAsPersonalInfoGender.setOnClickListener {
-            navigateSingleSelector(SingleSelectorTypeEnum.GENDER.name)
+        binding.includeAsPersonalInfoGender.rbWidgetGenderSelectionMale.setOnClickListener {
+            viewModel.input.genderInput.onNext(GenderEnum.MALE)
+        }
+        binding.includeAsPersonalInfoGender.rbWidgetGenderSelectionFemale.setOnClickListener {
+            viewModel.input.genderInput.onNext(GenderEnum.FEMALE)
         }
         binding.tieAsPersonalInfoCivilStatus.setOnClickListener {
             navigateSingleSelector(SingleSelectorTypeEnum.CIVIL_STATUS.name)
@@ -236,7 +234,7 @@ class AsPersonalInformationFragment
             hasSkip = false,
             minLength = resources.getInteger(R.integer.min_length_field),
             maxLength = resources.getInteger(R.integer.max_length_field_40),
-            editText = binding.tieAsPersonalInfoGender,
+            editText = binding.includeAsPersonalInfoGender.tieWidgetGenderSelection,
             customErrorMessage = String.format(
                 getString(R.string.error_specific_field),
                 getString(R.string.title_gender)
@@ -292,7 +290,14 @@ class AsPersonalInformationFragment
             binding.includeAsPersonalInfoMobile.tilMobilePrefix
         )
         initError(emailObservable, binding.tvAsPersonalInfoEmailAddress)
-        initError(genderObservable, binding.tvAsPersonalInfoGender)
+        initError(
+            genderObservable,
+            binding.includeAsPersonalInfoGender.tvWidgetGenderSelectionLabel,
+            binding.includeAsPersonalInfoGender.tvWidgetGenderSelectionError,
+            binding.includeAsPersonalInfoGender.tilWidgetGenderSelection,
+            binding.includeAsPersonalInfoGender.vWidgetGenderSelectionDividerBorder,
+            binding.includeAsPersonalInfoGender.clWidgetGenderSelectionContainer
+        )
         initError(civilStatusObservable, binding.tvAsPersonalInfoCivilStatus)
         initError(tinObservable, binding.tvAsPersonalInfoTin)
         initError(dobObservable, binding.tvAsPersonalInfoDob)
@@ -345,7 +350,7 @@ class AsPersonalInformationFragment
             }.addTo(disposables)
         viewModel.input.genderInput
             .subscribe {
-                binding.tieAsPersonalInfoGender.setTextNullable(it.value ?: "")
+                setSelectedGender(it)
             }.addTo(disposables)
         viewModel.input.civilStatusInput
             .subscribe {
@@ -375,6 +380,14 @@ class AsPersonalInformationFragment
             }.addTo(disposables)
     }
 
+    private fun setSelectedGender(it: GenderEnum?) {
+        binding.includeAsPersonalInfoGender.apply {
+            rbWidgetGenderSelectionMale.isChecked = it == GenderEnum.MALE
+            rbWidgetGenderSelectionFemale.isChecked = it == GenderEnum.FEMALE
+            tieWidgetGenderSelection.setTextNullable(it?.value!!)
+        }
+    }
+
     private fun attemptSubmit() {
         if (viewModel.hasValidForm()) {
             syncInputs()
@@ -388,34 +401,26 @@ class AsPersonalInformationFragment
         textInputEditTextObservable: Observable<RxValidationResult<EditText>>,
         labelTextView: TextView,
         errorTextView: TextView? = null,
-        textInputLayout: TextInputLayout? = null
+        textInputLayout: TextInputLayout? = null,
+        divider: View? = null,
+        container: ConstraintLayout? = null
     ) {
         textInputEditTextObservable
             .subscribeOn(schedulerProvider.computation())
             .observeOn(schedulerProvider.ui())
             .subscribe { validation ->
                 viewUtil.setError(validation)
-                labelTextView.setTextColor(
-                    when (validation.isProper) {
-                        true -> ContextCompat.getColor(requireContext(), R.color.dsColorDarkGray)
-                        else -> ContextCompat.getColor(requireContext(), R.color.colorErrorColor)
-                    }
-                )
 
-                errorTextView?.let {
-                    it.visibility = when (validation.isProper) {
-                        true -> View.GONE
-                        else -> View.VISIBLE
-                    }
-                    it.text = validation.message
-                }
+                labelTextView.setFieldLabelError(validation.isProper)
 
-                textInputLayout?.let {
-                    it.error = when (validation.isProper) {
-                        true -> ""
-                        else -> " "
-                    }
-                }
+                errorTextView?.setFieldFooterError(validation)
+
+                textInputLayout?.setBlankError(validation.isProper)
+
+                divider?.setGenderDividerColor(validation.isProper)
+
+                container?.setGenderContainerBackground(validation.isProper)
+
             }.addTo(formDisposable)
     }
 
@@ -426,7 +431,7 @@ class AsPersonalInformationFragment
             tieAsPersonalInfoLastName.refresh()
             includeAsPersonalInfoMobile.tieMobileNumber.refresh()
             tieAsPersonalInfoEmail.refresh()
-            tieAsPersonalInfoGender.refresh()
+            includeAsPersonalInfoGender.tieWidgetGenderSelection.refresh()
             tieAsPersonalInfoCivilStatus.refresh()
             tieAsPersonalInfoTin.refresh()
             tieAsPersonalInfoDob.refresh()

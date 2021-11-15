@@ -83,9 +83,9 @@ class SetupPaymentLinkActivity :
 
             val role = cacheManager.getObject(CacheManager.ROLE) as? Role
             val orgName = role?.organizationName
-            val businessName = binding.etBusinessName.text.toString()
             val businessWebsite = binding.etBusinessWebsites.text.toString()
             val businessProductsOffered = binding.etBusinessProductsOffered.text.toString()
+            val businessName = binding.etBusinessName.text.toString()
 
             viewModel.createMerchant(
                     CreateMerchantForm(

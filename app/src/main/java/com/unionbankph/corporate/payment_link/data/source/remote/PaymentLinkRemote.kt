@@ -3,6 +3,7 @@ package com.unionbankph.corporate.payment_link.data.source.remote
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
+import com.unionbankph.corporate.payment_link.domain.model.form.UpdateSettlementOnRequestPaymentForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
@@ -33,4 +34,6 @@ interface PaymentLinkRemote {
     fun getBusinessInformation(accessToken: String, getRMOBusinessInformationForm: GetRMOBusinessInformationForm) : Single<Response<GetRMOBusinessInformationResponse>>
 
     fun updateSettlementOnRequestPayment(accessToken: String, updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm) : Single<Response<UpdateSettlementOnRequestPaymentResponse>>
+
+    fun getPaymentLogs(accessToken: String, referenceId: String) : Single<Response<GetPaymentLogsResponse>>
 }

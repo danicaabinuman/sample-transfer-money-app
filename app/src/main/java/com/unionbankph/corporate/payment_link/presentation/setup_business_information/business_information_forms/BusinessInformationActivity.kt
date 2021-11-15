@@ -534,12 +534,11 @@ class BusinessInformationActivity :
 
 
     private fun showDialogToDashboard() {
-        DialogFactory().createSMEDialog(
+        DialogFactory().createColoredSMEDialog(
             this,
-            isNewDesign = false,
             title = getString(R.string.progress_saved),
             iconResource = R.drawable.ic_money_box,
-            description = getString(R.string.progress_saved),
+            content = getString(R.string.progress_saved),
             positiveButtonText = getString(R.string.btn_back_to_dashboard),
             onPositiveButtonClicked = {
                 navigator.navigate(

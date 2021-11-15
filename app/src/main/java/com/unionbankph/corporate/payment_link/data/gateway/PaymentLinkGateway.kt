@@ -3,6 +3,7 @@ package com.unionbankph.corporate.payment_link.data.gateway
 import com.unionbankph.corporate.payment_link.domain.model.form.CreateMerchantForm
 import com.unionbankph.corporate.payment_link.domain.model.form.GeneratePaymentLinkForm
 import com.unionbankph.corporate.payment_link.domain.model.form.PutPaymentLinkStatusForm
+import com.unionbankph.corporate.payment_link.domain.model.form.UpdateSettlementOnRequestPaymentForm
 import com.unionbankph.corporate.payment_link.domain.model.rmo.RMOBusinessInformationForm
 import com.unionbankph.corporate.payment_link.domain.model.form.*
 import com.unionbankph.corporate.payment_link.domain.model.response.*
@@ -32,8 +33,9 @@ interface PaymentLinkGateway {
 
     fun submitBusinessInformation(rmoBusinessInformation : RMOBusinessInformationForm) : Single<RMOBusinessInformationResponse>
 
+    fun getPaymentLogs(referenceId: String) : Single<GetPaymentLogsResponse>
+
     fun getBusinessInformation(getRMOBusinessInformation : GetRMOBusinessInformationForm) : Single<GetRMOBusinessInformationResponse>
 
     fun updateSettlementOnRequestPayment(updateSettlementOnRequestPaymentForm: UpdateSettlementOnRequestPaymentForm) : Single<UpdateSettlementOnRequestPaymentResponse>
-
 }

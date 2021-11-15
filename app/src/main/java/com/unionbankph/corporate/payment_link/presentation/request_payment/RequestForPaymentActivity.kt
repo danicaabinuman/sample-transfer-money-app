@@ -55,6 +55,7 @@ class RequestForPaymentActivity :
         setupInputs()
         setupOutputs()
         buttonDisable()
+        buttonCalculatorDisabled()
 
         requiredFields()
         paymentLinkExpiry()
@@ -107,6 +108,7 @@ class RequestForPaymentActivity :
         binding.btnRequestPaymentCancel.setOnClickListener {
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.btnCalculator.setOnClickListener {
@@ -165,7 +167,6 @@ class RequestForPaymentActivity :
         viewModel.soleAccount.observe(this, Observer {
             currentAccount = it
             binding.requestPaymentLoading.visibility = View.GONE
-            populateNominatedSettlementAccount(it)
             accounts = mutableListOf()
             accounts.add(it)
 
@@ -173,13 +174,14 @@ class RequestForPaymentActivity :
 
         viewModel.accounts.observe(this, Observer {
             binding.requestPaymentLoading.visibility = View.GONE
-            populateNominatedSettlementAccount(it.first())
             accounts = it
         })
 
         viewModel.accountsBalances.observe(this, Observer {
             binding.requestPaymentLoading.visibility = View.GONE
-            populateNominatedSettlementAccount(it.first())
+            accounts = it
+            this.currentAccount = accounts.find { it.id == this.currentAccount.id }?.copy()!!
+            populateNominatedSettlementAccount(currentAccount)
         })
 
         viewModel.updateSettlementOnRequestPaymentResponse.observe(this, Observer {
@@ -201,22 +203,23 @@ class RequestForPaymentActivity :
                 }
             }
         })
+
+
     }
 
     private fun validateForm(){
         val amountString = binding.etAmount.text.toString()
         val paymentForString = binding.etPaymentFor.text.toString()
 
-        if (
-            (amountString.length) > 4 &&
-            (paymentForString.length in 1..255)
-        ){
-            if (amountString == "PHP 0"){buttonDisable()}
-            else if (amountString == "PHP 0."){buttonDisable()}
-            else if (amountString == "PHP 0.0"){buttonDisable()}
-            else if (amountString == "PHP 0.00"){buttonDisable()}
-            else{
-                buttonEnable()}
+
+        val amountChecker = amountString.replace("PHP","").replace(" ","")
+
+        when (amountString) {
+            "PHP 0", "PHP 0.", "PHP 0.0", "PHP 0.00" -> {buttonDisable()}
+        }
+
+        if (amountChecker.isNotEmpty() && paymentForString.length in 1..100){
+            buttonEnable()
         } else {
             buttonDisable()
         }
@@ -237,9 +240,9 @@ class RequestForPaymentActivity :
     }
 
     private fun buttonEnable(){
-        binding.btnRequestPaymentGenerate.isEnabled = true
-        binding.btnRequestPaymentGenerate.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
-        binding.btnRequestPaymentGenerate.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
+        binding.btnRequestPaymentGenerate?.isEnabled = true
+        binding.btnRequestPaymentGenerate?.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorWhite))
+        binding.btnRequestPaymentGenerate?.setBackgroundResource(R.drawable.bg_splash_payment_request_button)
     }
 
     private fun requiredFields(){
@@ -267,6 +270,7 @@ class RequestForPaymentActivity :
                         Timber.e(e)
                         e.printStackTrace()
                     }
+
                 validateForm()
             }
         })
@@ -340,7 +344,7 @@ class RequestForPaymentActivity :
     }
 
     private fun openNominateAccounts(){
-        if(accounts.size>1){
+        if(accounts.size>0){
             nominateSettlementAccountFragment = NominateSettlementAccountFragment.newInstance(JsonHelper.toJson(accounts))
             nominateSettlementAccountFragment?.setOnNominateSettlementAccountListener(this)
             nominateSettlementAccountFragment?.show(

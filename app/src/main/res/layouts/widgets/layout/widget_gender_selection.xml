@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_widget_gender_selection_label"
+        style="@style/SMECaption"
+        android:layout_marginTop="@dimen/grid_5_half"
+        android:text="@string/title_gender" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_widget_gender_selection"
+        style="@style/TextInputLayoutFormThin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
+        android:visibility="gone"
+        android:layout_weight="1"
+        app:errorTextAppearance="@style/ZeroTextSizeAppearance"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tie_widget_gender_selection"
+            style="@style/TextInputLayoutFormThinEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title_gender"
+            android:inputType="textPersonName"
+            android:maxLength="@integer/max_length_check_number"
+            android:singleLine="true" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_widget_gender_selection_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_secondary_bordered_button_default"
+            android:padding="0.5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_widget_gender_selection">
+
+            <RadioButton
+                android:id="@+id/rb_widget_gender_selection_male"
+                style="@style/SMECheckableButtonText.Start"
+                android:layout_width="0dp"
+                android:text="@string/title_male"
+                android:checked="false"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/v_widget_gender_selection_divider_border" />
+
+            <View
+                android:id="@+id/v_widget_gender_selection_divider_border"
+                android:layout_width="0.5dp"
+                android:layout_height="0dp"
+                android:background="@color/dsColorLightGray"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/rb_widget_gender_selection_male"
+                app:layout_constraintEnd_toStartOf="@id/rb_widget_gender_selection_female"/>
+
+            <RadioButton
+                android:id="@+id/rb_widget_gender_selection_female"
+                style="@style/SMECheckableButtonText.End"
+                android:text="@string/title_female"
+                android:layout_width="0dp"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/v_widget_gender_selection_divider_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:checked="false"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_widget_gender_selection"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.48"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="percent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_widget_gender_selection_error"
+        style="@style/SMECaption"
+        android:layout_width="match_parent"
+        android:paddingStart="@dimen/grid_2"
+        android:textColor="@color/colorErrorColor"
+        android:visibility="gone"
+        tools:text="Gender Error"
+        android:layout_marginTop="@dimen/grid_1"
+        tools:visibility="visible" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

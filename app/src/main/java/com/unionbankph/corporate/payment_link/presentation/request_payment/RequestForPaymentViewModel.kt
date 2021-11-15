@@ -93,9 +93,9 @@ class RequestForPaymentViewModel
                     if (it.message.equals("Unable to generate new link, your merchant is currently disabled.", true)){
                         _linkDetailsState.value = ErrorMerchantDisabled(it)
                     } else {
-//                        _linkDetailsState.value = ShouldContinueGenerate(true)
-                        _uiState.value = Event(UiState.Error(it))
+                        _linkDetailsState.value = ShouldContinueGenerate(true)
                     }
+
                 }
             ),
             doOnSubscribeEvent = {

@@ -165,11 +165,10 @@ class OnboardingUploadPhotosActivity :
                                 val fileType: String? = applicationContext.contentResolver.getType(imageUri)
                                 val fileSize: Long = fileDescriptor.length
                                 if (fileSize > MAX_FILESIZE_2MB){
-                                    DialogFactory().createSMEDialog(
+                                    DialogFactory().createColoredSMEDialog(
                                         this,
-                                        isNewDesign = false,
                                         title = "Item wasn't uploaded",
-                                        description = "File size exceeds the maximum allowed size. Maximum file size is 2 MB",
+                                        content = "File size exceeds the maximum allowed size. Maximum file size is 2 MB",
                                         positiveButtonText = "TRY AGAIN",
                                         onPositiveButtonClicked = {
                                             uriArrayList.remove(imageUri)
@@ -179,11 +178,10 @@ class OnboardingUploadPhotosActivity :
                                     binding.btnNext.isEnabled = false
                                 }
                                 if (fileType != IMAGE_JPEG && fileType != IMAGE_PNG){
-                                    DialogFactory().createSMEDialog(
+                                    DialogFactory().createColoredSMEDialog(
                                         this,
-                                        isNewDesign = false,
                                         title = getString(R.string.item_not_uploaded),
-                                        description = getString(R.string.invalid_filetype_desc),
+                                        content = getString(R.string.invalid_filetype_desc),
                                         positiveButtonText = getString(R.string.action_try_again),
                                         onPositiveButtonClicked = {
                                             uriArrayList.remove(imageUri)
@@ -209,11 +207,10 @@ class OnboardingUploadPhotosActivity :
                         val fileType: String? = applicationContext.contentResolver.getType(imageUri)
                         val fileSize: Long = fileDescriptor.length
                         if (fileSize > MAX_FILESIZE_2MB){
-                            DialogFactory().createSMEDialog(
+                            DialogFactory().createColoredSMEDialog(
                                 this,
-                                isNewDesign = false,
                                 title = getString(R.string.item_not_uploaded),
-                                description = getString(R.string.invalid_filesize_desc),
+                                content = getString(R.string.invalid_filesize_desc),
                                 positiveButtonText = getString(R.string.action_try_again),
                                 onPositiveButtonClicked = {
                                     uriArrayList.remove(imageUri)
@@ -223,11 +220,10 @@ class OnboardingUploadPhotosActivity :
                             binding.btnNext.isEnabled = false
                         }
                         if (fileType != IMAGE_JPEG && fileType != IMAGE_PNG){
-                            DialogFactory().createSMEDialog(
+                            DialogFactory().createColoredSMEDialog(
                                 this,
-                                isNewDesign = false,
                                 title = getString(R.string.item_not_uploaded),
-                                description = getString(R.string.invalid_filetype_desc),
+                                content = getString(R.string.invalid_filetype_desc),
                                 positiveButtonText = getString(R.string.action_try_again),
                                 onPositiveButtonClicked = {
                                     uriArrayList.remove(imageUri)
