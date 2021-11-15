@@ -67,7 +67,7 @@ object Libraries {
         const val rxPermission = "0.10.2"
         const val kotlinX = "1.2.2"
         const val kotlinXConverter = "0.8.0"
-        const val coreKtx = "1.3.2"
+        const val coreKtx = "1.6.0"
         const val kotlinReflect = "1.5.20"
         const val multiDex = "2.0.0"
         const val stetho = "1.5.0"
