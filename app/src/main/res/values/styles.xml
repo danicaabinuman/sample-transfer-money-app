@@ -202,6 +202,14 @@
         <item name="android:maxLines">10</item>
     </style>
 
+    <style name="TextViewDarkDetailForm" parent="TextViewDark">
+        <item name="android:textSize">@dimen/text_10</item>
+        <item name="layout_constraintHorizontal_bias">0.5</item>
+        <item name="textColor">#6D6D6D</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:maxLines">10</item>
+    </style>
+
     <style name="TextViewOrangeForm" parent="TextViewOrange">
         <item name="android:textSize">@dimen/text_10</item>
         <item name="layout_constraintHorizontal_bias">0.5</item>
@@ -460,6 +468,14 @@
         <item name="android:theme">?appBarTheme</item>
     </style>
 
+    <style name="InstapayQrAppBarLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">#FFF3E5</item>
+        <item name="popupTheme">?appBarTheme</item>
+        <item name="android:theme">?appBarTheme</item>
+    </style>
+
     <style name="AppBarLayoutWithAnimator" parent="Widget.MaterialComponents.AppBarLayout.Surface">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -577,6 +593,17 @@
         <item name="android:singleLine">true</item>
         <item name="android:hint">@string/title_search</item>
         <item name="android:imeOptions">actionSearch</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+    <style name="EditTextSearchView.Selector">
+        <item name="android:background">@drawable/bg_border_orange_msme</item>
+        <item name="android:theme">@style/TextInputEditTextAccent</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:drawableStart">@null</item>
+        <item name="android:drawableLeft">@null</item>
+        <item name="android:padding">10dp</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
@@ -1111,6 +1138,12 @@
         <item name="android:textColor">@drawable/style_secondary_button_text</item>
     </style>
 
+    <style name="SMECheckableButtonBig" parent="SMEBigButton">
+        <item name="android:background">@drawable/style_checkable_button</item>
+        <item name="android:textColor">@drawable/style_checkable_button_text</item>
+        <item name="android:button">@null</item>
+    </style>
+
     <style name="SMESecondaryButtonBigHalfStrokeWidth" parent="SMEBigButton">
         <item name="android:background">@drawable/style_secondary_bordered_half_width_stroke</item>
         <item name="android:textColor">@drawable/style_secondary_button_text</item>
@@ -1132,6 +1165,25 @@
         <item name="android:background">@drawable/style_button_with_icon</item>
         <item name="android:textColor">@color/dsColorDarkGray</item>
         <item name="android:button">@null</item>
+    </style>
+
+    <style name="SMECheckableButtonText" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">41dp</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:padding">@dimen/grid_1_half</item>
+        <item name="android:textColor">@drawable/style_checkable_button_text</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+    </style>
+
+    <style name="SMECheckableButtonText.Start">
+        <item name="android:background">@drawable/style_checkable_button_start</item>
+    </style>
+
+    <style name="SMECheckableButtonText.End">
+        <item name="android:background">@drawable/style_checkable_button_end</item>
     </style>
 
     <style name="SMECheckableButtonWithIconHalfStroke" parent="Widget.AppCompat.CompoundButton.RadioButton">
@@ -1314,5 +1366,18 @@
         <item name="android:maxLength">@integer/max_length_check_number</item>
         <item name="android:textSize">@dimen/text_12</item>
     </style>
+
+    <style name="ToolbarTransparentSME">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="titleTextColor">@color/colorGray</item>
+        <item name="layout_scrollFlags">scroll|enterAlways|snap</item>
+        <item name="android:background">@color/jumio_white</item>
+        <item name="contentInsetLeft">@dimen/grid_0</item>
+        <item name="contentInsetStart">@dimen/grid_0</item>
+        <item name="contentInsetStartWithNavigation">@dimen/grid_0</item>
+    </style>
+
 
 </resources>

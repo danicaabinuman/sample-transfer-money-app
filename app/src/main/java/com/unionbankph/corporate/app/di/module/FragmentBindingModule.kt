@@ -4,8 +4,10 @@ import com.unionbankph.corporate.account.presentation.account_list.AccountFragme
 import com.unionbankph.corporate.account.presentation.own_account.OwnAccountFragment
 import com.unionbankph.corporate.account_setup.presentation.address.AsAddressFragment
 import com.unionbankph.corporate.account_setup.presentation.business_account_type.AsBusinessAccountTypeFragment
+import com.unionbankph.corporate.account_setup.presentation.business_info.AsBusinessInformationFragment
 import com.unionbankph.corporate.account_setup.presentation.business_type.AsBusinessTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipFragment
+import com.unionbankph.corporate.account_setup.presentation.citizenship.non_filipino.AsNonFilipinoCitizenFragment
 import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationFragment
 import com.unionbankph.corporate.account_setup.presentation.debit_card_type.AsDebitCardTypeFragment
 import com.unionbankph.corporate.account_setup.presentation.reminders.AsRemindersFragment
@@ -58,6 +60,19 @@ import com.unionbankph.corporate.dao.presentation.welcome_enter.DaoWelcomeEnterF
 import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selection.BeneficiaryFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
+import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.AllowPhoneCamera
+import com.unionbankph.corporate.loan.address.AddressFragment
+import com.unionbankph.corporate.loan.applyloan.LoansFragment
+import com.unionbankph.corporate.loan.business_address.BusinessAddressFragment
+import com.unionbankph.corporate.loan.business_information.BusinessInformationFragment
+import com.unionbankph.corporate.loan.businesstype.BusinessTypeFragment
+import com.unionbankph.corporate.loan.calculator.LoansCalculatorFragment
+import com.unionbankph.corporate.loan.citizen.CitizenFragment
+import com.unionbankph.corporate.loan.contactinformation.ContactInformationFragment
+import com.unionbankph.corporate.loan.financial_information.FinancialInformationFragment
+import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoFragment
+import com.unionbankph.corporate.loan.personal_information.PersonalInformationFragment
+import com.unionbankph.corporate.loan.reminders.FewRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
@@ -93,10 +108,10 @@ import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_name.UcEnterNameFragment
 import com.unionbankph.corporate.user_creation.presentation.nominate_password.UcNominatePasswordFragment
 import com.unionbankph.corporate.user_creation.presentation.reminder.UcReminderFragment
-import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelection
 import com.unionbankph.corporate.user_creation.presentation.tnc.UcTNCFragment
 import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.UcTNCReminderFragment
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsFragment
+import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelectionFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -406,7 +421,7 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun accountSelectionFragment(): UcAccountSelection
+    abstract fun accountSelectionFragment(): UcAccountSelectionFragment //UcAccountSelection
 
     @PerActivity
     @ContributesAndroidInjector

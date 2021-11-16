@@ -651,7 +651,6 @@
     <string name="title_salutation">Salutation</string>
     <string name="title_first_name">First Name</string>
     <string name="title_monthly_income">Monthly Income</string>
-    <string name="title_middle_name">Middle Name</string>
     <string name="title_last_name">Last Name</string>
     <string name="title_tin_id">TIN ID</string>
     <string name="hind_id_number">ID Number</string>
@@ -2625,25 +2624,14 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_permission_settings">Let\'s personalise your banking experience seamless</string>
     <string name="desc_permission_settings">Allow the following permissions now for a seamless experience. You can easily change this later on in\nSettings.</string>
     <string name="action_save_settings">SAVE THESE SETTINGS</string>
-    <string name="title_use_photo">Use Photo</string>
-    <string name="title_delete_photo">Are you sure you want to remove this photo?</string>
-    <string name="btn_delete_this_photo">YES, DELETE THIS PHOTO</string>
-    <string name="add_another_address">+ Add another address</string>
     <string name="desc_trust_device">Secure your access with this device</string>
-    <string name="how_many_employees">How many employees do you \nhave?</string>
     <string name="title_app_generated_otp">App-Generated OTP</string>
     <string name="desc_app_generated_otp">For a seamless OTP experience</string>
     <string name="desc_notification_1006">Get alerts and confirmation</string>
     <string name="title_camera_and_photo_album">Camera and Photo Album</string>
     <string name="desc_camera_and_photo_album">For QR Scanning and Check Deposits</string>
     <string name="title_location">Location</string>
-    <string name="pending">Pending</string>
-    <string name="branch">Branch </string>
-    <string name="pending_message">We\'re currently reviewing \nyour application.</string>
     <string name="desc_location">For branch visits and ATM locator</string>
-    <string name="item_not_uploaded">Item wasn\'t uploaded</string>
-    <string name="invalid_filetype_desc">File format is not supported. Only .jpeg, .png and .pdf are accepted.</string>
-    <string name="invalid_filesize_desc">File size exceeds the maximum allowed size. Maximum file size is 2 MB</string>
 
     <string name="title_contacts">Contacts</string>
     <string name="desc_contacts">Allow access to your Contacts</string>
@@ -3097,4 +3085,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="msg_no_id_list">There are currently no IDs\n enabled for DAO.</string>
     <string name="msg_something_went_wrong">We need a little more time to get the latest list of valid IDs. Please try again in a couple of minutes.</string>
     <string name="something_went_wrong">Something went wrong</string>
+
+    <string name="error_invalid_input">Invalid Input</string>
+    <string name="title_business_info">Business Information</string>
 </resources>

@@ -378,7 +378,7 @@ class DashboardFragment :
             Constant.DASHBOARD_ACTION_MORE -> {
                 openMenuBottomSheet()
             }
-            Constant.DASHBOARD_ACTION_APPLY_LOAN -> {
+            Constant.DASHBOARD_ACTION_DEFAULT_LOANS -> {
                 navigator.navigate(
                     (activity as DashboardActivity),
                     LoanActivity::class.java,
