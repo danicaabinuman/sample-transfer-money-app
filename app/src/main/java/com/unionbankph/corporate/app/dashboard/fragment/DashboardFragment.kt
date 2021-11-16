@@ -395,6 +395,16 @@ class DashboardFragment :
             Constant.Banner.LEARN_MORE -> {
                 navigator.navigateBrowser(getAppCompatActivity(), URLDataEnum.GLOBALLINKER)
             }
+            Constant.MegaMenu.MSME_APPLY_LOAN -> {
+                navigator.navigate(
+                    (activity as DashboardActivity),
+                    LoanActivity::class.java,
+                    null,
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+                )
+            }
         }
     }
 
