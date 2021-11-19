@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.products.ProductsCameraDataHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSelectedPhotos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:padding="@dimen/grid_1"
+        android:paddingTop="@dimen/grid_2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddPhotos2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dashed"
+            android:onClick="@{() -> handler.onAddPhotos() }"
+            android:paddingStart="@dimen/grid_11"
+            android:paddingTop="@dimen/grid_2"
+            android:paddingEnd="@dimen/grid_11"
+            android:paddingBottom="@dimen/grid_2"
+            android:text="@string/add_photos_2"
+            android:textColor="#9b9b9b"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvMaximumFileSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="Maximum file size is 2MB. Accepted file types are .jpeg and .png"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAddPhotos2" />
+
+        <GridView
+            android:id="@+id/gv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_3"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:numColumns="2"
+            app:layout_constraintTop_toBottomOf="@+id/tvMaximumFileSize" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonNext"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:text="@string/action_next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

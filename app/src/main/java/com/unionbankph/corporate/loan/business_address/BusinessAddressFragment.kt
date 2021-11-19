@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
@@ -101,7 +102,8 @@ class BusinessAddressFragment: BaseFragment<FragmentBusinessAddressBinding, Busi
     }
 
     override fun onNext() {
-        //findNavController().navigate(R.id.nav_to_businessInformation)
+//        findNavController().navigate(R.id.nav_to_onboardingUploadPhotosActivity)
+        findNavController().navigate(R.id.nav_to_productsFragment)
     }
 
 

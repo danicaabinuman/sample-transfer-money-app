@@ -125,10 +125,10 @@ constructor(
                         }
 
                         form.apply {
-                        isDataValid = legalname?.isNotEmpty() == true && industry?.isNotEmpty() == true &&
+                        isDataValid = true /*legalname?.isNotEmpty() == true && industry?.isNotEmpty() == true &&
                                 organization?.isNotEmpty() == true && numberOfEmployee?.isNotEmpty() == true &&
                                 businessTin?.isNotEmpty() == true && dateStartedBusiness?.isNotEmpty() == true &&
-                                form.email?.isValidEmail() == true && /*landline?.isNotEmpty() == true &&*/ email?.isNotEmpty() == true
+                                form.email?.isValidEmail() == true && *//*landline?.isNotEmpty() == true &&*//* email?.isNotEmpty() == true*/
                         }
                     }
                 }

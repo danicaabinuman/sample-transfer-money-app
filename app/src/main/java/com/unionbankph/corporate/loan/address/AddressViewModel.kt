@@ -129,10 +129,10 @@ class AddressViewModel @Inject constructor(
                         }
 
                         form.apply {
-                            isDataValid = presentAddressLineOne?.isNotEmpty() == true && presentAddressLineTwo?.isNotEmpty() == true && presentAddressCity?.isNotEmpty() == true &&
+                            isDataValid = true /*presentAddressLineOne?.isNotEmpty() == true && presentAddressLineTwo?.isNotEmpty() == true && presentAddressCity?.isNotEmpty() == true &&
                                     presentAddressRegion?.isNotEmpty() == true && presentAddressZipCode?.isNotEmpty() == true && permanentAddressLineOne?.isNotEmpty() == true &&
                                     permanentAddressLineTwo?.isNotEmpty() == true && permanentAddressCity?.isNotEmpty() == true && permanentAddressRegion?.isNotEmpty() == true &&
-                                    permanentAddressZipCode?.isNotEmpty() == true
+                                    permanentAddressZipCode?.isNotEmpty() == true*/
                         }
                     }
                 }

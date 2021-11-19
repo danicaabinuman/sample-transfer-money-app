@@ -148,12 +148,12 @@ constructor(
                             }
                         }
                         form.apply {
-                            isDataValid =
-                                form.firstname?.isNotEmpty() == true && form.middlename?.isNotEmpty() == true &&
+                            isDataValid = true
+                                /*form.firstname?.isNotEmpty() == true && form.middlename?.isNotEmpty() == true &&
                                         form.lastname?.isNotEmpty() == true && form.dob?.isNotEmpty() == true &&
                                          pob?.isNotEmpty() == true && civilStatus?.isNotEmpty() == true &&
                                         form.gender?.isNotEmpty() == true && form.dependents?.isNotEmpty() == true &&
-                                        form.mobile?.isValidPhone() == true && form.email?.isValidEmail() == true
+                                        form.mobile?.isValidPhone() == true && form.email?.isValidEmail() == true*/
                         }
                     }
                 }

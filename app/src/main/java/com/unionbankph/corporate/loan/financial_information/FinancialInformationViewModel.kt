@@ -91,8 +91,8 @@ constructor(
                         }
 
                         form.apply {
-                        isDataValid = occupation?.isNotEmpty() == true && position?.isNotEmpty() == true &&
-                                monthlyIncome?.isNotEmpty() == true && tinId?.isNotEmpty() == true
+                        isDataValid = true /*occupation?.isNotEmpty() == true && position?.isNotEmpty() == true &&
+                                monthlyIncome?.isNotEmpty() == true && tinId?.isNotEmpty() == true*/
                         }
                     }
                 }

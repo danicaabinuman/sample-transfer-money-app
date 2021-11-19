@@ -8,12 +8,14 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.signature.ObjectKey
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.common.platform.glide.GlideApp
 import org.w3c.dom.Text
 
 
@@ -21,6 +23,18 @@ import org.w3c.dom.Text
 fun setDrawable(imageView: ImageView, source: Int?) {
     source?.let {
         Glide.with(imageView.context)
+            .load(source)
+            .into(imageView)
+    }
+}
+
+@BindingAdapter("setBitmapImage")
+fun setBitmapImage(imageView: ImageView, source: Int?) {
+    source?.let {
+        Glide.with(imageView.context)
+            .asBitmap()
+            .signature(ObjectKey("1"))
+            .fitCenter()
             .load(source)
             .into(imageView)
     }
@@ -142,6 +156,8 @@ fun setBackgroundColorDisableByString(view: View, source: String?) {
         }
     }
 }
+
+
 
 
 

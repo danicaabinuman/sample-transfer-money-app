@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account.presentation.account_history_detail.AccountTransactionHistoryDetailsActivity
 import com.unionbankph.corporate.app.base.BaseActivity
 import com.unionbankph.corporate.app.common.extension.formatString
+import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.app.common.widget.dialog.DialogFactory
+import com.unionbankph.corporate.app.dashboard.DashboardActivity
 import com.unionbankph.corporate.databinding.ActivityLoginBinding
+import com.unionbankph.corporate.loan.LoanActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashFrameActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 
@@ -22,7 +26,7 @@ class LoginActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        if (settingsUtil.isEmulator()) {
+        /*if (settingsUtil.isEmulator()) {
             showErrorAndExit(
                 formatString(R.string.title_emulator_detected),
                 formatString(R.string.msg_emulator_not_supported)
@@ -46,17 +50,26 @@ class LoginActivity :
                         isAnimated = false
                     )
                 }
-            } else {
-                navigator.replaceFragment(
-                    R.id.fl_login,
-                    LoginFragment(),
-                    null,
-                    supportFragmentManager,
-                    "LoginFragment",
-                    false
-                )
-            }
-        }
+            } else {*/
+//                navigator.replaceFragment(
+//                    R.id.fl_login,
+//                    LoginFragment(),
+//                    null,
+//                    supportFragmentManager,
+//                    "LoginFragment",
+//                    false
+//                )
+
+        navigator.navigate(
+            this,
+            LoanActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
+        )
+            /*}
+        }*/
     }
 
     private fun showErrorAndExit(
