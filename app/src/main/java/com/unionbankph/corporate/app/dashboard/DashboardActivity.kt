@@ -776,9 +776,6 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener { navigateOrganizationScreen() }
                 binding.viewToolbar.textViewTitle.text = headerDashboard[position]
             }
-            if(binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD] && !DashboardFragment().isVisible){
-                popStackFragmentDashboard()
-            }
 //            if (isSME) {
 //                if (position == bottomNavigationItems[FRAGMENT_APPROVALS]) {
 //                    removeElevation(binding.viewToolbar.appBarLayout)
@@ -816,12 +813,12 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             }
             initForceTutorialTabs(position)
         } else {
-            if(binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD] && !DashboardFragment().isVisible){
-                popStackFragmentDashboard()
-            }
             eventBus.settingsSyncEvent.emmit(
                 BaseEvent(SettingsSyncEvent.ACTION_SCROLL_TO_TOP)
             )
+        }
+        if(binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD] && !DashboardFragment().isVisible){
+            popStackFragmentDashboard()
         }
         binding.viewPagerBTR.currentItem = position
         return true
