@@ -485,6 +485,12 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         )
     }
 
+    private fun popStackFragmentDashboard(){
+        val dashboardFragment =
+            adapter?.getItem(bottomNavigationItems[FRAGMENT_DASHBOARD] ?:0)!!
+        dashboardFragment.childFragmentManager.popBackStackImmediate()
+    }
+
     fun popStackFragmentSettings() {
         val settingsFragment =
             adapter?.getItem(bottomNavigationItems[FRAGMENT_SETTINGS] ?: 4)!!
@@ -658,7 +664,20 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     override fun onBackPressed() {
-        if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
+        if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD]) {
+            val dashboardFragment =
+                adapter?.getItem(bottomNavigationItems[FRAGMENT_DASHBOARD] ?: 0)!!
+                if(dashboardFragment.isAdded){
+                    val count = dashboardFragment.childFragmentManager.backStackEntryCount
+                    if (count == 0){
+                        showLogoutBottomSheet()
+                    }else{
+                        if(!DashboardFragment().isVisible){
+                            popStackFragmentDashboard()
+                        }
+                    }
+                }
+        }else if (binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) {
             val settingsFragment =
                 adapter?.getItem(bottomNavigationItems[FRAGMENT_SETTINGS]!!)!!
             if (settingsFragment.isAdded) {
@@ -757,6 +776,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener { navigateOrganizationScreen() }
                 binding.viewToolbar.textViewTitle.text = headerDashboard[position]
             }
+            if(binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD] && !DashboardFragment().isVisible){
+                popStackFragmentDashboard()
+            }
 //            if (isSME) {
 //                if (position == bottomNavigationItems[FRAGMENT_APPROVALS]) {
 //                    removeElevation(binding.viewToolbar.appBarLayout)
@@ -794,6 +816,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             }
             initForceTutorialTabs(position)
         } else {
+            if(binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD] && !DashboardFragment().isVisible){
+                popStackFragmentDashboard()
+            }
             eventBus.settingsSyncEvent.emmit(
                 BaseEvent(SettingsSyncEvent.ACTION_SCROLL_TO_TOP)
             )

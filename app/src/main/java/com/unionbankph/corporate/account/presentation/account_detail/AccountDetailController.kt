@@ -130,6 +130,7 @@ abstract class AccountDetailHeaderModel :
 
         holder.binding.apply {
 
+            viewAccountHeader.textViewCorporateName.text = viewUtil.getStringOrEmpty(account.name)
             viewAccountHeader.textViewAccountNumber.text = viewUtil.getStringOrEmpty(
                 viewUtil.getAccountNumberFormat(account.accountNumber)
             )
@@ -183,7 +184,8 @@ abstract class AccountDetailHeaderModel :
                 viewAccountHeader.textViewAvailableBalance.text = availableBalance?.value ?: Constant.EMPTY
                 viewAccountDetails.textViewAvailableBalanceDetail.text = availableBalance?.value ?: Constant.EMPTY
                 viewAccountDetails.textViewCurrentBalance.text = currentBalance?.value ?: Constant.EMPTY
-                viewAccountHeader.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
+                //viewAccountHeader.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_gray)
+                viewAccountHeader.cardViewAccount.setBackgroundResource(R.drawable.bg_card_view_gradient_orange)
                 viewAccountDetails.textViewAccountStatusTitle.visibility(true)
                 viewAccountDetails.textViewAccountStatus.visibility(true)
                 viewAccountDetails.view3.visibility(true)
