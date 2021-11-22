@@ -373,7 +373,14 @@ class DashboardFragment :
                 )
             }
             Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS -> {
-                (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
+               // (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
+                navigator.addFragmentWithAnimation(
+                    R.id.frameLayoutTransact,
+                    AccountFragment(),
+                    null,
+                    childFragmentManager,
+                    AccountFragment.TEST_DATA_ACCOUNT
+                )
             }
             Constant.DASHBOARD_ACTION_MORE -> {
                 openMenuBottomSheet()
