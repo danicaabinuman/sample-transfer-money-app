@@ -266,7 +266,7 @@ class ApprovalOngoingFragment :
             .subscribe {
                 clickSelectAllButton()
             }.addTo(disposables)
-        RxView.clicks(dashBoardActivity.textViewEditApprovals())
+        RxView.clicks(dashBoardActivity.btnEditApproval())
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
