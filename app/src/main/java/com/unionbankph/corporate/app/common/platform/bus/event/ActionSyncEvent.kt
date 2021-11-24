@@ -48,5 +48,6 @@ class ActionSyncEvent : BaseEventBus<String>() {
         const val ACTION_SIGNATURE_USE_THIS = "signature_use_this"
         const val ACTION_SIGNATURE_USE_THIS_SKIP = "signature_use_this_skip"
         const val ACTION_PLOT_SIGNATORY_DETAILS = "plot_signatory_details"
+        const val ACTION_VIEW_ALL_ACCOUNTS = "view_all_accounts"
     }
 }

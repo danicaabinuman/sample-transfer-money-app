@@ -414,7 +414,7 @@ abstract class FeatureCardModel : EpoxyModelWithHolder<FeatureCardModel.Holder>(
             /*cardViewFeature.setOnClickListener {
                 callbacks.onDashboardActionEmit(featureItem.action!!, true)
             }*/
-            ivBannerArrow.setOnClickListener {
+            cardViewFeature.setOnClickListener {
                 callbacks.onApplyLoans()
             }
         }

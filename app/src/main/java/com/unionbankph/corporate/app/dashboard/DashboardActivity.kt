@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
@@ -118,6 +119,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     private var isBackButtonPaymentList: Boolean = false
 
     private lateinit var transactFragment: TransactFragment
+
+    private var isBackButtonFragmentAccount: Boolean = false
 
     override fun onViewsBound() {
         super.onViewsBound()
@@ -237,7 +240,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         initEventBus()
         initDataBus()
         tutorialEngineUtil.setOnTutorialListener(this)
-        RxView.clicks(binding.viewToolbar.imageViewLogout)
+        RxView.clicks(binding.viewToolbar.btnLogout)
             .throttleFirst(
                 resources.getInteger(R.integer.time_button_debounce).toLong(),
                 TimeUnit.MILLISECONDS
@@ -399,9 +402,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     setToolbarTitle(
                         getString(R.string.title_payment_links),
                         hasBackButton = true,
-                        hasMenuItem = true
+                        hasMenuItem = false
                     )
-
+                    binding.viewToolbar.btnHelp.visibility(false)
+                    binding.viewToolbar.btnScan.visibility(false)
                     runPostDelayed({
                         transactFragment.navigateToPaymentLinkFragment()
                     }, 100)
@@ -409,6 +413,25 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             }
         }) {
             Timber.e(it, "transactSyncEvent error: ${it.message}")
+        }.addTo(disposables)
+
+        eventBus.actionSyncEvent.flowable.subscribe({
+            when(it.eventType) {
+                ActionSyncEvent.ACTION_VIEW_ALL_ACCOUNTS -> {
+                    setToolbarTitle(
+                        getString(R.string.title_dashboard_header_accounts),
+                        hasBackButton = true,
+                        hasMenuItem = false
+                    )
+                    binding.viewToolbar.btnRequestPayment.visibility(false)
+                    binding.viewToolbar.btnHelp.visibility(false)
+                    binding.viewToolbar.btnScan.visibility(false)
+                    isBackButtonFragmentAccount = true
+                }
+
+            }
+        }){
+            Timber.e(it, "actionSyncEvent error:  ${it.message}")
         }.addTo(disposables)
     }
 
@@ -486,9 +509,18 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     private fun popStackFragmentDashboard(){
+        isBackButtonFragmentAccount = false
+        setToolbarTitle(
+            getString(R.string.title_dashboard_header_dashboard),
+            hasBackButton = false,
+            hasMenuItem = true
+        )
         val dashboardFragment =
             adapter?.getItem(bottomNavigationItems[FRAGMENT_DASHBOARD] ?:0)!!
         dashboardFragment.childFragmentManager.popBackStackImmediate()
+        binding.viewToolbar.btnRequestPayment.visibility(true)
+        binding.viewToolbar.btnHelp.visibility(true)
+        binding.viewToolbar.btnScan.visibility(true)
     }
 
     fun popStackFragmentSettings() {
@@ -579,7 +611,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             .name
         when (fragmentTag) {
             NotificationLogTabFragment.FRAGMENT_NOTIFICATION_LOG_DETAIL -> {
-                binding.viewToolbar.imageViewMarkAllAsRead.visibility(false)
+                binding.viewToolbar.btnMarkAll.visibility(false)
                 setToolbarTitle(
                     getString(
                         R.string.title_dashboard_header_notifications
@@ -589,7 +621,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 )
             }
             else -> {
-                binding.viewToolbar.imageViewMarkAllAsRead.visibility(hasNotificationLogs)
+                binding.viewToolbar.btnMarkAll.visibility(hasNotificationLogs)
                 setToolbarTitle(
                     getString(
                         R.string.title_dashboard_header_notifications
@@ -601,48 +633,6 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         }
     }
 
-
-    fun faceIDPrompt(toEncrypt: String) {
-        if (BiometricManager.from(applicationContext).canAuthenticate() != BiometricManager
-                .BIOMETRIC_SUCCESS
-        ) return
-
-        if (TextUtils.isEmpty(toEncrypt)) return
-        if (BiometricManager.from(applicationContext).canAuthenticate() == BiometricManager
-                .BIOMETRIC_SUCCESS
-        ) {
-            val executor = ContextCompat.getMainExecutor(applicationContext)
-            val biometricPrompt = BiometricPrompt(
-                this, executor,
-                object : BiometricPrompt.AuthenticationCallback() {
-                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-
-                    }
-
-                    override fun onAuthenticationError(
-                        errorCode: Int,
-                        errString: CharSequence
-                    ) {
-
-                        if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
-
-                        }
-                    }
-
-                    override fun onAuthenticationFailed() {
-                    }
-                })
-
-            val promptInfo = BiometricPrompt.PromptInfo.Builder()
-                .setTitle(getString(R.string.title_login_in_using_faceid))
-                .setSubtitle(getString(R.string.confirm_fingerprint_description))
-                .setNegativeButtonText(getString(R.string.btn_cancel))
-                .setNegativeButtonText(getString(R.string.action_cancel))
-                .setConfirmationRequired(false)
-                .build()
-            biometricPrompt.authenticate(promptInfo)
-        }
-    }
 
     private fun popBackStackTransact() {
         val transactTabFragment = adapter?.getItem(bottomNavigationItems[FRAGMENT_TRANSACT] ?: 1)!!
@@ -659,7 +649,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 hasBackButton = false,
                 hasMenuItem = true
             )
-            binding.viewToolbar.btnRequestPayment.visibility = View.GONE
+            binding.viewToolbar.btnHelp.visibility(true)
+            binding.viewToolbar.btnScan.visibility(true)
         }
     }
 
@@ -672,7 +663,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     if (count == 0){
                         showLogoutBottomSheet()
                     }else{
-                        if(!DashboardFragment().isVisible){
+                        if(isBackButtonFragmentAccount){
                             popStackFragmentDashboard()
                         }
                     }
@@ -736,16 +727,16 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 isBackButtonPaymentList && position == bottomNavigationItems[FRAGMENT_TRANSACT]
             ) {
                 binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility(false)
-                binding.viewToolbar.imageViewLogout.visibility(false)
-                binding.viewToolbar.imageViewMarkAllAsRead.visibility(false)
+                binding.viewToolbar.btnLogout.visibility(false)
+                binding.viewToolbar.btnMarkAll.visibility(false)
                 binding.viewToolbar.btnRequestPayment.visibility(
                     when (binding.viewPagerBTR.currentItem) {
                         bottomNavigationItems[FRAGMENT_TRANSACT] -> true
                         else -> false
                     }
                 )
-                binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
-                if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
+                binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_msme_back_button_orange)
+                //if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
                 binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
                 binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener {
                     when (binding.viewPagerBTR.currentItem) {
@@ -766,9 +757,11 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 ) {
                     isBackButtonFragmentAlerts = true
                 }
-                binding.viewToolbar.imageViewMarkAllAsRead.visibility(
+                binding.viewToolbar.btnMarkAll.visibility(
                     position == bottomNavigationItems[FRAGMENT_NOTIFICATIONS] && hasNotificationLogs
                 )
+                binding.viewToolbar.btnScan.visibility(position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
+                        position == bottomNavigationItems[FRAGMENT_TRANSACT])
                 binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.circle_medium_gradient_orange)
                 if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.clearTheme()
                 binding.viewToolbar.viewBadge.textViewInitial.visibility = View.VISIBLE
@@ -796,20 +789,19 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                         (position == bottomNavigationItems[FRAGMENT_SETTINGS] &&
                                 stackFlagSettings)
             )
-
             binding.viewToolbar.btnRequestPayment.visibility(
                 position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
-                        (isBackButtonPaymentList && (position == bottomNavigationItems[FRAGMENT_TRANSACT]))
+                        ((position == bottomNavigationItems[FRAGMENT_TRANSACT]))
             )
             if (position == bottomNavigationItems[FRAGMENT_SETTINGS]) {
                 val settingsFragment =
                     adapter?.getItem(bottomNavigationItems[FRAGMENT_SETTINGS]!!)!!
                 if (settingsFragment.isAdded) {
                     val count = settingsFragment.childFragmentManager.backStackEntryCount
-                    binding.viewToolbar.imageViewLogout.visibility(count == 1)
+                    binding.viewToolbar.btnLogout.visibility(count == 1)
                 }
             } else {
-                binding.viewToolbar.imageViewLogout.visibility(false)
+                binding.viewToolbar.btnLogout.visibility(false)
             }
             initForceTutorialTabs(position)
         } else {
@@ -817,9 +809,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 BaseEvent(SettingsSyncEvent.ACTION_SCROLL_TO_TOP)
             )
         }
-        if(binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD] && !DashboardFragment().isVisible){
+        if(binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD] && isBackButtonFragmentAccount){
             popStackFragmentDashboard()
         }
+
         binding.viewPagerBTR.currentItem = position
         return true
     }
@@ -838,7 +831,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         if (view != null) {
             when (view) {
                 binding.viewToolbar.btnHelp,
-                binding.viewToolbar.imageViewLogout,
+                binding.viewToolbar.btnLogout,
                 binding.viewToolbar.viewBadge.viewBadgeLayout -> {
                     val constraintSet = ConstraintSet()
                     val constraintLayoutTutorial =
@@ -903,7 +896,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
                         )
                     }
-                    binding.viewToolbar.imageViewLogout -> {
+                    binding.viewToolbar.btnLogout -> {
                         viewModel.setTutorialUser(false)
                         eventBus.settingsSyncEvent.emmit(
                             BaseEvent(SettingsSyncEvent.ACTION_ENABLE_NAVIGATION_BOTTOM)
@@ -1274,9 +1267,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     private fun startTutorialLogout() {
         tutorialEngineUtil.startTutorial(
             this,
-            binding.viewToolbar.imageViewLogout,
+            binding.viewToolbar.btnLogout,
             R.layout.frame_tutorial_upper_right,
-            getCircleFloatSize(binding.viewToolbar.imageViewLogout),
+            getCircleFloatSize(binding.viewToolbar.btnLogout),
             true,
             getString(R.string.msg_tutorial_logout),
             GravityEnum.BOTTOM,
@@ -1367,9 +1360,10 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         binding.viewToolbar.textViewTitle.text = title
         binding.viewToolbar.btnHelp.visibility(hasMenuItem)
         if (!hasBackButton) {
-            binding.viewToolbar.imageViewLogout.visibility(
+            binding.viewToolbar.btnLogout.visibility(
                 binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]
             )
+            if(binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_SETTINGS]) binding.viewToolbar.btnScan.visibility(false)
             binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.circle_medium_gradient_orange)
             if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.clearTheme()
             binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener { navigateOrganizationScreen() }
@@ -1377,14 +1371,15 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
             setOrganizationBadge(organizationBadgeCount)
         } else {
             binding.viewToolbar.viewBadgeCount.widgetBadgeNormalLayout.visibility(false)
-            binding.viewToolbar.imageViewLogout.visibility(false)
-            binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_arrow_back_white_24dp)
-            if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
+            binding.viewToolbar.btnLogout.visibility(false)
+            binding.viewToolbar.viewBadge.imageViewInitial.setImageResource(R.drawable.ic_msme_back_button_orange)
+            //if (isSME) binding.viewToolbar.viewBadge.imageViewInitial.setColor(R.color.colorInfo)
             binding.viewToolbar.viewBadge.viewBadgeLayout.setOnClickListener {
                 when (binding.viewPagerBTR.currentItem) {
                     bottomNavigationItems[FRAGMENT_SETTINGS] -> popStackFragmentSettings()
                     bottomNavigationItems[FRAGMENT_NOTIFICATIONS] -> popStackFragmentNotifications()
                     bottomNavigationItems[FRAGMENT_TRANSACT] -> popBackStackTransact()
+                    bottomNavigationItems[FRAGMENT_DASHBOARD] -> popStackFragmentDashboard()
                 }
             }
             binding.viewToolbar.viewBadge.textViewInitial.visibility = View.GONE
@@ -1411,17 +1406,19 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     fun btnHelp(): ConstraintLayout = binding.viewToolbar.btnHelp
 
-    fun imageViewMarkAllAsRead(): ImageView = binding.viewToolbar.imageViewMarkAllAsRead
+    fun imageViewMarkAllAsRead(): ConstraintLayout = binding.viewToolbar.btnMarkAll
 
     fun viewApprovalsNavigation(): View =
         binding.viewApprovalsNavigation.viewApprovalsNavigationLayout
 
-    fun textViewEditApprovals(): AppCompatTextView = binding.viewToolbar.textViewEditApprovals
+    fun textViewEditApprovals(): TextView = binding.viewToolbar.tvEdit
+
+    fun btnEditApproval(): ConstraintLayout = binding.viewToolbar.btnEditApproval
 
     fun allowMultipleSelectionApprovals(allowMultipleSelectionApprovals: Boolean) {
         this.allowMultipleSelectionApprovals = allowMultipleSelectionApprovals
         if (binding.bottomNavigationBTR.currentItem == bottomNavigationItems[FRAGMENT_APPROVALS]) {
-            binding.viewToolbar.textViewEditApprovals.visibility(allowMultipleSelectionApprovals)
+            binding.viewToolbar.btnEditApproval.visibility(allowMultipleSelectionApprovals)
         }
     }
 
