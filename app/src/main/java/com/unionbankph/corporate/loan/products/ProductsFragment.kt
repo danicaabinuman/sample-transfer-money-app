@@ -64,8 +64,8 @@ class ProductsFragment : BaseFragment<FragmentProductsBinding,
 
     override fun addPhotos() {
         findNavController().navigate(
-            R.id.nav_to_productsCameraActivity/*,
-            bundleOf(ProductsCameraFragment.ARGS_CAMERA_MODE to CameraMode.NEW_PHOTO)*/
+            R.id.nav_products_to_productsCamera,
+            bundleOf(ProductsCameraFragment.ARGS_CAMERA_MODE to CameraMode.NEW_PHOTO)
         )
     }
 

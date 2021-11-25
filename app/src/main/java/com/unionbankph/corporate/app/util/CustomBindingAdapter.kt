@@ -1,7 +1,9 @@
 package com.unionbankph.corporate.app.util
 
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.View
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
@@ -17,6 +19,8 @@ import com.google.android.material.textview.MaterialTextView
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.common.platform.glide.GlideApp
 import org.w3c.dom.Text
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputLayout
 
 
 @BindingAdapter("setDrawable")
@@ -145,7 +149,6 @@ fun setVisibilityByString(textView: TextView, status: String?) {
     }
 }
 
-
 @BindingAdapter("setBackgroundColorDisableByString")
 fun setBackgroundColorDisableByString(view: View, source: String?) {
     view.apply {
@@ -157,6 +160,16 @@ fun setBackgroundColorDisableByString(view: View, source: String?) {
     }
 }
 
+@BindingAdapter("setTextColorNullAndNotNull")
+fun setTextColorNullAndNotNull(textView: TextView, status: String?) {
+    textView.apply {
+        if (status.isNullOrEmpty()) {
+            setTextColor(context.getColor(R.color.dsColorLightGray))
+        } else {
+            setTextColor(context.getColor(R.color.dsColorDarkGray))
+        }
+    }
+}
 
 
 

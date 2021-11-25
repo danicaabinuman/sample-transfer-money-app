@@ -110,7 +110,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="@string/digits_alpha"
-                            android:hint="@string/hint_first_name"
+                            android:hint="@string/hint_john"
                             android:inputType="textPersonName|textCapWords"
                             android:maxLength="@integer/max_length_field_40"
                             android:nextFocusDown="@id/tie_as_personal_info_middle_name"
@@ -144,7 +144,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="@string/digits_alpha"
-                            android:hint="@string/hint_middle_name"
+                            android:hint="@string/hint_dela"
                             android:inputType="textPersonName|textCapWords"
                             android:maxLength="@integer/max_length_field_40"
                             android:nextFocusDown="@id/editTextLastName"
@@ -178,7 +178,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="@string/digits_alpha"
-                            android:hint="@string/hint_last_name"
+                            android:hint="@string/hint_cruz"
                             android:inputType="textPersonName|textCapWords"
                             android:maxLength="@integer/max_length_field_40"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.LAST_NAME)}"
@@ -222,6 +222,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/personal_info_til_pob"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -235,9 +236,10 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/personal_info_act_pob"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
                             android:cursorVisible="false"
                             android:focusable="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_place_of_birth"
                             android:inputType="none"
@@ -302,6 +304,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/personal_info_til_civil"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -314,8 +317,9 @@
                         app:hintEnabled="false">
 
                         <AutoCompleteTextView
-                            android:id="@+id/personal_info_act_civil_status"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:id="@+id/personal_info_act_civil"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_civil_status"
                             android:inputType="none"
@@ -406,7 +410,7 @@
                             android:layout_marginStart="@dimen/grid_1"
                             android:layout_marginTop="@dimen/grid_1"
                             android:layout_weight="1"
-                            android:hint="@string/hint_e_g_9900008987"
+                            android:hint="@string/hint_e_g_98781234567"
                             app:error="@{viewModel.formState.mobileError}"
                             app:errorTextAppearance="@style/ZeroTextSizeAppearance"
                             app:hintEnabled="false">
@@ -417,7 +421,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="@string/digits_only"
-                                android:hint="@string/hint_e_g_9900008987"
+                                android:hint="@string/hint_e_g_98781234567"
                                 android:inputType="phone"
                                 android:maxLength="@integer/max_length_check_number"
                                 android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.MOBILE)}"
@@ -452,7 +456,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
-                        android:hint="@string/hint_email_address_small_letter"
                         app:error="@{viewModel.formState.emailError}"
                         app:errorEnabled="true"
                         app:hintEnabled="false">
@@ -463,9 +466,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="@string/digits_alpha_numeric_symbols_email_no_space"
-                            android:hint="@string/hint_email_address_small_letter"
+                            android:hint="@string/hint_john_cruz_mail"
                             android:inputType="textEmailAddress"
-                            android:nextFocusDown="@id/tie_as_personal_info_tin"
+                            android:nextFocusDown="@id/buttonNext"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, PersonalInformationField.EMAIL)}"
                             android:singleLine="true"
                             android:text="@{viewModel.form.email}" />

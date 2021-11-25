@@ -92,7 +92,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
-                        android:hint="@string/hint_occupation"
                         app:error="@{viewModel.formState.occupationError}"
                         app:errorEnabled="true"
                         app:hintEnabled="false">
@@ -121,6 +120,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/financial_info_til_pob"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -156,7 +156,47 @@
                         android:text="@string/title_monthly_income"
                         android:textAppearance="@style/SMECaption" />
 
-                    <com.google.android.material.textfield.TextInputLayout
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/linearLayoutAmount"
+                        android:layout_width="match_parent"
+                        android:gravity="start"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:background="@drawable/bg_border_rectangle"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/grid_2"
+                        android:paddingTop="@dimen/grid_1_10"
+                        android:paddingEnd="@dimen/grid_4"
+                        android:paddingBottom="@dimen/grid_1"
+                        android:layout_marginBottom="@dimen/margin_8dp"
+                        app:errorEnabled="true"
+                        app:hintEnabled="false" >
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/SMEBody"
+                            android:textSize="16sp"
+                            android:layout_marginEnd="@dimen/grid_1_half"
+                            setTextColorNullAndNotNull="@{viewModel.form.monthlyIncome}"
+                            android:text="@string/label_php" />
+
+                        <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
+                            android:id="@+id/autoFormatEditText"
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:focusable="true"
+                            android:hint="@string/title_0_00"
+                            android:textSize="16sp"
+                            android:textColor="@color/dsColorBody"
+                            android:fontFamily="@string/font_family_regular"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.MONTHLY_INCOME)}"
+                            android:maxLength="11"
+                            android:visibility="visible" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--<com.google.android.material.textfield.TextInputLayout
                         style="@style/TextInputLayoutFormThin"
                         android:layout_width="match_parent"
                         android:layout_marginTop="@dimen/grid_1"
@@ -164,20 +204,47 @@
                         app:errorEnabled="true"
                         app:hintEnabled="false">
 
+                        &lt;!&ndash;<com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
+                            android:id="@+id/autoFormatEditText"
+                            style="@style/TextInputLayoutFormThinEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:focusable="true"
+                            android:hint="@string/title_php_0_00"
+                            android:maxLength="11"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.MONTHLY_INCOME)}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="@{viewModel.form.monthlyIncome == null ? null : `PHP` + viewModel.form.monthlyIncome}" />
+&ndash;&gt;
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/financial_information_tie_income"
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:hint="@string/title_php_0_00"
-                            android:inputType="number"
+                            android:inputType="numberDecimal|numberSigned"
+                            android:digits="@string/digit_test"
                             android:maxLength="@integer/max_length_amount"
                             android:nextFocusDown="@id/editTextLastName"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.MONTHLY_INCOME)}"
                             android:singleLine="true"
-                            android:text="@{viewModel.form.monthlyIncome}" />
+                            android:text="@{viewModel.monthlyIncome}" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>-->
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_mobile_field_error"
+                        style="@style/SMECaption"
+                        setVisibilityByString="@{viewModel.formState.monthlyIncomeError}"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="@dimen/margin_2dp"
+                        android:paddingStart="@dimen/grid_3_half"
+                        android:text="@{viewModel.formState.monthlyIncomeError}"
+                        android:textColor="@color/colorErrorColor"
+                        tools:text="Monthly income required"
+                        tools:visibility="visible" />
 
                     <TextView
                         setTextColorValidation="@{viewModel.formState.tinIdError}"
@@ -232,7 +299,7 @@
                             android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:hint="@string/hind_id_number"
                             android:inputType="number"
-                            android:maxLength="@integer/max_length_sss"
+                            android:maxLength="@integer/max_length_sss_id"
                             android:nextFocusDown="@id/tie_as_personal_info_nationality"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.SSS_ID)}"
                             android:singleLine="true"

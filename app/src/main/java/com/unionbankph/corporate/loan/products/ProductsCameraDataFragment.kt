@@ -8,13 +8,14 @@ import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.databinding.FragmentProductsCameraDataBinding
+import com.unionbankph.corporate.loan.LoanActivity
 import com.unionbankph.corporate.loan.products.camera.ProductsCameraActivity
 
 class ProductsCameraDataFragment : BaseFragment<FragmentProductsCameraDataBinding,
         ProductsCameraDataViewModel>(), ProductsCameraDataHandler
 {
 
-    private val activity by lazyFast { getAppCompatActivity() as ProductsCameraActivity }
+    private val activity by lazyFast { getAppCompatActivity() as LoanActivity }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentProductsCameraDataBinding
         get() = FragmentProductsCameraDataBinding::inflate
@@ -40,7 +41,7 @@ class ProductsCameraDataFragment : BaseFragment<FragmentProductsCameraDataBindin
 
     override fun onViewsBound() {
         super.onViewsBound()
-        //checkArgs()
+        checkArgs()
         initViews()
     }
 
@@ -60,7 +61,7 @@ class ProductsCameraDataFragment : BaseFragment<FragmentProductsCameraDataBindin
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                activity.finish()
+                findNavController().navigate(R.id.nav_productsData_to_products)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -78,6 +79,7 @@ class ProductsCameraDataFragment : BaseFragment<FragmentProductsCameraDataBindin
         }
         binding.lifecycleOwner = this
         binding.handler = this
+        binding.viewModel = viewModel
     }
 
     private fun initViews() {
@@ -93,7 +95,7 @@ class ProductsCameraDataFragment : BaseFragment<FragmentProductsCameraDataBindin
     }
 
     override fun onAddPhotos() {
-//        findNavController().navigate(R.id.nav_to_productsCameraFragment)
+        findNavController().navigate(R.id.nav_productsData_to_productsCamera)
     }
 
 }

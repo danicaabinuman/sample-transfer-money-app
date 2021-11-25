@@ -116,7 +116,7 @@ constructor(
                                 }
                             }
                             EMAIL -> {
-                                if (!form.email.isValidEmail()) {
+                                emailError = if (!form.email.isValidEmail()) {
                                     context.getString(R.string.error_specific_field, context.getString(R.string.title_email))
                                 } else {
                                     null
@@ -125,10 +125,10 @@ constructor(
                         }
 
                         form.apply {
-                        isDataValid = true /*legalname?.isNotEmpty() == true && industry?.isNotEmpty() == true &&
-                                organization?.isNotEmpty() == true && numberOfEmployee?.isNotEmpty() == true &&
+                        isDataValid = legalname?.isNotEmpty() == true && industry?.isNotEmpty() == true &&
+                                /*organization?.isNotEmpty() == true &&*/ numberOfEmployee?.isNotEmpty() == true &&
                                 businessTin?.isNotEmpty() == true && dateStartedBusiness?.isNotEmpty() == true &&
-                                form.email?.isValidEmail() == true && *//*landline?.isNotEmpty() == true &&*//* email?.isNotEmpty() == true*/
+                                form.email?.isValidEmail() == true /*landline?.isNotEmpty() == true &&*//* email?.isNotEmpty() == true*/
                         }
                     }
                 }
@@ -155,7 +155,7 @@ constructor(
                         when (data.second) {
                             LEGAL_NAME -> form.legalname = data.first
                             INDUSTRY -> form.industry = data.first
-                            ORGANIZATION -> form.organization = data.first
+                            //ORGANIZATION -> form.organization = data.first
                             NUMBER_OF_EMPLOYEE -> form.numberOfEmployee = data.first
                             BUSINESS_TIN -> form.businessTin = data.first
                             DATE_STARTED_BUSINESS -> form.dateStartedBusiness = data.first

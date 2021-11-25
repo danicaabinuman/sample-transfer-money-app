@@ -115,13 +115,13 @@ class AddressViewModel @Inject constructor(
                             }
                             PERMANENT_ADDRESS_ZIP_CODE -> {
                                 permanentAddressZipCodeError = if (form.permanentAddressZipCode.isNullOrBlank()) {
-                                    if (form.permanentAddressZipCode == "" && sameAddress.value == true && !form.presentAddressLineOne.isNullOrBlank() &&
+                                    /*if (form.permanentAddressZipCode == "" && sameAddress.value == true && !form.presentAddressLineOne.isNullOrBlank() &&
                                         !form.presentAddressLineTwo.isNullOrBlank() && !form.presentAddressRegion.isNullOrBlank() &&
                                         !form.presentAddressCity.isNullOrBlank() && !form.presentAddressZipCode.isNullOrBlank()) {
                                         null
-                                    } else {
+                                    } else {*/
                                         context.getString(R.string.error_specific_field, context.getString(R.string.hint_zip_code))
-                                    }
+                                    /*}*/
                                 } else {
                                     null
                                 }
@@ -129,10 +129,10 @@ class AddressViewModel @Inject constructor(
                         }
 
                         form.apply {
-                            isDataValid = true /*presentAddressLineOne?.isNotEmpty() == true && presentAddressLineTwo?.isNotEmpty() == true && presentAddressCity?.isNotEmpty() == true &&
+                            isDataValid = presentAddressLineOne?.isNotEmpty() == true && presentAddressLineTwo?.isNotEmpty() == true && presentAddressCity?.isNotEmpty() == true &&
                                     presentAddressRegion?.isNotEmpty() == true && presentAddressZipCode?.isNotEmpty() == true && permanentAddressLineOne?.isNotEmpty() == true &&
                                     permanentAddressLineTwo?.isNotEmpty() == true && permanentAddressCity?.isNotEmpty() == true && permanentAddressRegion?.isNotEmpty() == true &&
-                                    permanentAddressZipCode?.isNotEmpty() == true*/
+                                    permanentAddressZipCode?.isNotEmpty() == true
                         }
                     }
                 }

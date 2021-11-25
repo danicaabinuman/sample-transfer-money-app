@@ -4,9 +4,16 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="handler"
             type="com.unionbankph.corporate.loan.products.ProductsCameraDataHandler" />
+
+        <variable
+            name="viewModel"
+            type="com.unionbankph.corporate.loan.products.ProductsCameraDataViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

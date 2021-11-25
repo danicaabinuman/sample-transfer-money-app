@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.loan.financial_information
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -35,6 +36,9 @@ constructor(
     private val _form = MutableLiveData<FinancialInformationForm>()
     val form: LiveData<FinancialInformationForm> = _form
 
+    private val _monthlyIncome = MutableLiveData<String>()
+    val monthlyIncome: LiveData<String> = _monthlyIncome
+
     private val _financialInformationSuccess = MutableLiveData(false)
     val financialInformationSuccess: LiveData<Boolean> = _financialInformationSuccess
 
@@ -68,31 +72,38 @@ constructor(
                                 }
                             }
                             TIN_ID -> {
-                                tinIdError = if (form.tinId.isNullOrBlank()) {
+                                tinIdError = if (form.tinId?.length!! < 9) {
+                                    "Minimum of 9 characters"
+                                } else if (form.tinId.isNullOrBlank()) {
                                     context.getString(R.string.error_specific_field, context.getString(R.string.title_tin_id))
                                 } else {
                                     null
                                 }
                             }
-                            /*SSS_ID -> {
-                                sssIdError = if (form.sssId.isNullOrBlank()) {
+                            SSS_ID -> {
+                                sssIdError = if (form.sssId?.length!! < 10) {
+                                    "Minimum of 10 characters"
+                                } else if (form.sssId.isNullOrBlank()) {
                                     context.getString(R.string.error_specific_field, context.getString(R.string.title_sss_id_optional))
                                 } else {
                                     null
                                 }
                             }
                             GSIS_ID -> {
-                                gsisIdError = if (form.gsisId.isNullOrBlank()) {
+                                gsisIdError = if (form.gsisId?.length!! < 11) {
+                                    "Minimum of 11 characters"
+                                } else if (form.gsisId.isNullOrBlank()) {
                                     context.getString(R.string.error_specific_field, context.getString(R.string.title_gsis_id_optional))
                                 } else {
                                     null
                                 }
-                            }*/
+                            }
                         }
 
                         form.apply {
-                        isDataValid = true /*occupation?.isNotEmpty() == true && position?.isNotEmpty() == true &&
-                                monthlyIncome?.isNotEmpty() == true && tinId?.isNotEmpty() == true*/
+                        isDataValid = occupation?.isNotEmpty() == true && position?.isNotEmpty() == true &&
+                                monthlyIncome?.isNotEmpty() == true && tinId?.isNotEmpty() == true &&
+                                tinId?.length!! >= 9
                         }
                     }
                 }
@@ -119,7 +130,11 @@ constructor(
                         when (data.second) {
                             OCCUPATION -> form.occupation = data.first
                             POSITION -> form.position = data.first
-                            MONTHLY_INCOME -> form.monthlyIncome = data.first
+                            MONTHLY_INCOME -> {
+                                form.monthlyIncome = data.first
+                                //val newValue = data.first.replace("PHP ","").replace(",","")
+                                ///_monthlyIncome.value = context.getString(R.string.format_amount_comma, newValue.toFloat())
+                            }
                             TIN_ID -> form.tinId = data.first
                             SSS_ID -> form.sssId = data.first
                             GSIS_ID -> form.gsisId = data.first

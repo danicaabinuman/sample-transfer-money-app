@@ -26,7 +26,7 @@ class LoginActivity :
 
     override fun onViewsBound() {
         super.onViewsBound()
-        /*if (settingsUtil.isEmulator()) {
+        if (settingsUtil.isEmulator()) {
             showErrorAndExit(
                 formatString(R.string.title_emulator_detected),
                 formatString(R.string.msg_emulator_not_supported)
@@ -50,26 +50,17 @@ class LoginActivity :
                         isAnimated = false
                     )
                 }
-            } else {*/
-//                navigator.replaceFragment(
-//                    R.id.fl_login,
-//                    LoginFragment(),
-//                    null,
-//                    supportFragmentManager,
-//                    "LoginFragment",
-//                    false
-//                )
-
-        navigator.navigate(
-            this,
-            LoanActivity::class.java,
-            null,
-            isClear = false,
-            isAnimated = true,
-            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_UP
-        )
-            /*}
-        }*/
+            } else {
+                navigator.replaceFragment(
+                    R.id.fl_login,
+                    LoginFragment(),
+                    null,
+                    supportFragmentManager,
+                    "LoginFragment",
+                    false
+                )
+            }
+        }
     }
 
     private fun showErrorAndExit(

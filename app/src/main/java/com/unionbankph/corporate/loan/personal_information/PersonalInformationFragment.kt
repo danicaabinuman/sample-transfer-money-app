@@ -1,24 +1,27 @@
 package com.unionbankph.corporate.loan.personal_information
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
-import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.convertToCalendar
 import com.unionbankph.corporate.app.common.extension.lazyFast
-import com.unionbankph.corporate.app.common.extension.observe
 import com.unionbankph.corporate.app.common.extension.showDatePicker
 import com.unionbankph.corporate.common.presentation.constant.DateFormatEnum
 import com.unionbankph.corporate.databinding.FragmentPersonalInformationBinding
 import com.unionbankph.corporate.feature.loan.PersonalInformationField
 import com.unionbankph.corporate.loan.LoanActivity
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
+import java.time.LocalDate
+import java.time.Period
 import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBinding, PersonalInformationViewModel>(),
         PersonalInformationHandler
 {
@@ -50,21 +53,6 @@ class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBind
         }
 
         binding.apply {
-            personalInfoActPob.setAdapter(
-                ArrayAdapter(
-                    activity,
-                    R.layout.dropdown_menu_popup_item,
-                    resources.getStringArray(R.array.dummy_place_of_birth)
-                )
-            )
-            personalInfoActCivilStatus.setAdapter(
-                ArrayAdapter(
-                    activity,
-                    R.layout.dropdown_menu_popup_item,
-                    resources.getStringArray(R.array.dummy_civil_status)
-                )
-            )
-
             personalInformationTieDob.setOnClickListener {
                 showDatePicker(
                     minDate = Calendar.getInstance().apply { set(Calendar.YEAR, 1900) },
@@ -76,11 +64,44 @@ class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBind
                                 set(year, monthOfYear, dayOfMonth)
                             }, DateFormatEnum.DATE_FORMAT_MONTH_NAME_DATE_YEAR.value
                         )
-                        viewModel?.onDataChange(dateString, PersonalInformationField.DOB)
+                        if (getAge(year, monthOfYear, dayOfMonth) >= 18) {
+                            viewModel?.onDataChange(dateString, PersonalInformationField.DOB)
+                        } else {
+                            viewModel?.onDataChange(resources.getString(R.string.hint_date_of_birth), PersonalInformationField.DOB)
+                        }
                     }
                 )
             }
+
+            //TODO - CLEANUP CODE (END DRAWABLE ISSUE NOT ROTATING WHEN CLICK)
+            personalInfoActPob.setOnDismissListener {
+                personalInfoTilPob.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            personalInfoActPob.setOnClickListener { v ->
+                if (personalInfoActPob.isPopupShowing) {
+                    personalInfoTilPob.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    personalInfoTilPob.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
+            personalInfoActCivil.setOnDismissListener {
+                personalInfoTilCivil.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            personalInfoActCivil.setOnClickListener { v ->
+                if (personalInfoActCivil.isPopupShowing) {
+                    personalInfoTilCivil.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    personalInfoTilCivil.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
         }
+    }
+
+    fun getAge(year: Int, month: Int, dayOfMonth: Int): Int {
+        return Period.between(
+            LocalDate.of(year, month, dayOfMonth),
+            LocalDate.now()
+        ).years
     }
 
     override fun onResume() {
@@ -94,13 +115,14 @@ class PersonalInformationFragment : BaseFragment<FragmentPersonalInformationBind
                     resources.getStringArray(R.array.dummy_place_of_birth)
                 )
             )
-            personalInfoActCivilStatus.setAdapter(
+            personalInfoActCivil.setAdapter(
                 ArrayAdapter(
                     activity,
                     R.layout.dropdown_menu_popup_item,
                     resources.getStringArray(R.array.dummy_civil_status)
                 )
             )
+
         }
     }
 

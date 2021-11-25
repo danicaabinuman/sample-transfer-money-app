@@ -110,7 +110,9 @@
                             android:inputType="textPersonName|textCapWords"
                             android:nextFocusDown="@id/tie_widget_address_line_2"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessAddressField.ADDRESS_LINE_ONE)}"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.addressLineOne}" />
+
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,7 +145,9 @@
                             android:inputType="textPersonName|textCapWords"
                             android:nextFocusDown="@id/tie_widget_address_zip_code"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessAddressField.ADDRESS_LINE_TWO)}"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.addressLineTwo}" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
@@ -155,6 +159,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/business_address_til_city"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -168,7 +173,8 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/business_address_act_city"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
@@ -191,6 +197,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/business_address_til_province"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -204,8 +211,8 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/business_address_act_province"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
-                            android:cursorVisible="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"                            android:cursorVisible="false"
                             android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_province"
@@ -227,6 +234,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/business_address_til_region"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -240,7 +248,8 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/business_address_act_region"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
@@ -282,7 +291,8 @@
                             android:inputType="number"
                             android:maxLength="4"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessAddressField.ZIP_CODE)}"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.zipCode}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -295,6 +305,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/business_address_til_establishment"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -308,7 +319,8 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/business_address_act_establishment"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
@@ -348,7 +360,8 @@
                             android:inputType="number"
                             android:maxLength="4"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessAddressField.YEARS_IN_OPERATION)}"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:text="@{viewModel.form.yearsInOperation}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

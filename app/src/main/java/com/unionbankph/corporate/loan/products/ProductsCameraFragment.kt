@@ -15,6 +15,7 @@ import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.extension.observe
 import com.unionbankph.corporate.databinding.FragmentProductsCameraBinding
+import com.unionbankph.corporate.loan.LoanActivity
 import com.unionbankph.corporate.loan.products.camera.ProductsCameraActivity
 import io.reactivex.rxkotlin.addTo
 import java.io.File
@@ -26,7 +27,7 @@ class ProductsCameraFragment : BaseFragment<FragmentProductsCameraBinding,
         ProductsCameraViewModel>(), ProductsCameraHandler
 {
 
-    private val activity by lazyFast { getAppCompatActivity() as ProductsCameraActivity }
+    private val activity by lazyFast { getAppCompatActivity() as LoanActivity }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentProductsCameraBinding
         get() = FragmentProductsCameraBinding::inflate
@@ -52,7 +53,7 @@ class ProductsCameraFragment : BaseFragment<FragmentProductsCameraBinding,
 
     override fun onViewsBound() {
         super.onViewsBound()
-        //checkArgs()
+        checkArgs()
         initViews()
         initCheckPermission()
     }
@@ -107,7 +108,7 @@ class ProductsCameraFragment : BaseFragment<FragmentProductsCameraBinding,
                 }
             }*/
             findNavController().navigate(
-                R.id.nav_to_productsCameraDataFragment,
+                R.id.nav_camera_to_productsData,
                 bundleOf(ProductsCameraDataFragment.ARGS_IMAGE_FILE to it.toString())
             )
             viewModel.setImage(null)
@@ -165,7 +166,7 @@ class ProductsCameraFragment : BaseFragment<FragmentProductsCameraBinding,
     private fun initViews() {
 
         binding.apply {
-            cameraView.setLifecycleOwner(this@ProductsCameraFragment)
+            cameraView.setLifecycleOwner(viewLifecycleOwner)
             cameraView.addCameraListener(object : CameraListener() {
 
                 override fun onPictureTaken(result: PictureResult) {
@@ -185,7 +186,7 @@ class ProductsCameraFragment : BaseFragment<FragmentProductsCameraBinding,
     }
 
     override fun onNext() {
-
+        ARGS_CAMERA_MODE
     }
 
     override fun onCaptureImage() {

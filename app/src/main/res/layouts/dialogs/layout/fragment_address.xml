@@ -163,6 +163,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/address_info_til_city_present"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -176,7 +177,8 @@
 
                     <AutoCompleteTextView
                             android:id="@+id/address_info_act_city_present"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
@@ -200,6 +202,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/address_info_til_region_present"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -213,7 +216,8 @@
 
                     <AutoCompleteTextView
                             android:id="@+id/address_info_act_region_present"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
@@ -276,6 +280,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="-7dp"
+                        android:buttonTint="@color/bg_checkbox_toggle_color"
                         android:layout_marginTop="@dimen/grid_1_half"
                         android:enabled="@{viewModel.form.presentAddressLineOne == null &amp;&amp; viewModel.form.presentAddressLineTwo == null &amp;&amp; viewModel.form.presentAddressCity == null &amp;&amp; viewModel.form.presentAddressRegion == null &amp;&amp; viewModel.form.presentAddressZipCode == null ? false : true }"
                         android:minHeight="@dimen/button_small_size"
@@ -306,11 +311,13 @@
                         app:errorEnabled="true"
                         app:hintEnabled="false" >
 
+                        <!--android:backgroundTint="@{viewModel.sameAddress ? @color/colorTransparent : @color/colorDisableTextInputEditText}"-->
+                        <!--android:enabled="@{viewModel.sameAddress ? true : false}"-->
+
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@{viewModel.sameAddress ? @color/colorTransparent : @color/colorDisableTextInputEditText}"
                             android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:enabled="@{viewModel.sameAddress ? true : false}"
                             android:hint="@string/title_line_1"
@@ -344,7 +351,6 @@
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@{viewModel.sameAddress ? @color/colorTransparent : @color/colorDisableTextInputEditText}"
                             android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:enabled="@{viewModel.sameAddress ? true : false}"
                             android:hint="@string/title_line_2"
@@ -366,6 +372,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/address_info_til_city_permanent"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -378,10 +385,12 @@
                         app:errorEnabled="true"
                         app:hintEnabled="false" >
 
+                        <!--android:background="@{viewModel.sameAddress ? @drawable/bg_edit_text_enable_stroke : @drawable/bg_edit_text_disable_stroke}"-->
+
                         <AutoCompleteTextView
                             android:id="@+id/address_info_act_city_permanent"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
-                            android:background="@{viewModel.sameAddress ? @drawable/bg_edit_text_enable_stroke : @drawable/bg_edit_text_disable_stroke}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:cursorVisible="false"
                             android:enabled="@{viewModel.sameAddress ? true : false}"
                             android:focusable="false"
@@ -406,6 +415,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/address_info_til_region_permanent"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -420,8 +430,8 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/address_info_act_region_permanent"
-                            style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
-                            android:background="@{viewModel.sameAddress ? @drawable/bg_edit_text_enable_stroke : @drawable/bg_edit_text_disable_stroke}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:cursorVisible="false"
                             android:enabled="@{viewModel.sameAddress ? true : false}"
                             android:focusable="false"
@@ -458,7 +468,6 @@
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="@{viewModel.sameAddress ? @color/colorTransparent : @color/colorDisableTextInputEditText}"
                             android:digits="@string/digits_only"
                             android:enabled="@{viewModel.sameAddress ? true : false}"
                             android:hint="@string/hint_zip_code"

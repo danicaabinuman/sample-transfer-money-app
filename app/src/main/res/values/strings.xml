@@ -4,6 +4,7 @@
     <string name="digits_numeric_space">1 0123456789</string>
     <string name="digits_only">0123456789</string>
     <string name="digits_amount">0123456789,.</string>
+    <string name="digit_test"> 0123456789,.PH</string>
     <string name="digits_alpha_numeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
     <string name="digits_alpha_numeric_symbols">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
     <string name="digits_alpha_numeric_symbols_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,\n</string>
@@ -274,6 +275,7 @@
     <string name="title_php"><b>PHP</b></string>
     <string name="title_usd">USD</string>
     <string name="title_php_0_00">PHP 0.00</string>
+    <string name="title_0_00">0.00</string>
     <string name="title_remarks">Remarks</string>
     <string name="title_desc_reminders">Please be reminded of the following:</string>
     <string name="title_deposit_to">Deposit to</string>
@@ -1644,7 +1646,7 @@
     <string name="hint_date_of_incorporation">Date of Incorporation</string>
     <string name="hint_salutation">Salutation</string>
     <string name="hint_first_name">First Name</string>
-    <string name="hint_enter_occupation">Enter Occupation</string>
+    <string name="hint_enter_occupation">Enter occupation</string>
     <string name="hint_middle_name">Middle Name</string>
     <string name="title_middle_name">Middle Name</string>
     <string name="title_middle_name_optional">Middle Name <font color="#BFBFBF">(Optional)</font></string>
@@ -2524,8 +2526,10 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="header_contact_info">Where can we reach you?</string>
     <string name="title_contact_info">Contact Information</string>
     <string name="hint_email_address_small_letter">Email address</string>
+    <string name="hint_john_cruz_mail">johncruz@mail.com</string>
     <string name="hint_number_of_dependents">Number of Dependents</string>
     <string name="hint_e_g_9900008987">9900008987</string>
+    <string name="hint_e_g_98781234567">9878 123 4567</string>
     <string name="error_mobile_field">Must start with an 8 or 9.</string>
     <string name="error_gender_is_required">Gender is required.</string>
     <string name="request">Request</string>
@@ -2730,7 +2734,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_mins">Minutes</string>
     <string name="title_days">Days</string>
     <string name="title_five_days">5 Days *</string>
-    <string name="title_thirty_days">30 Day</string>
+    <string name="title_thirty_days">30 Days</string>
 
     <!--    Loan Terms-->
     <string name="title_loan_amount">Loan Amount</string>
@@ -2842,6 +2846,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="label_you_may_reach_out">You may reach out to us at <font color="#FF8200">business@unionbankph.com</font> should you need further assistance.</string>
     <string name="label_php_zero">PHP 0</string>
     <string name="format_php">PHP %,.2f</string>
+    <string name="format_amount_comma">PHP %,.0f</string>
     <string name="format_months">%d months</string>
     <string name="format_annual_rate">%1$ %%</string>
     <string name="title_what_is_this_loan_for">What is this loan for?</string>
@@ -3088,4 +3093,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
 
     <string name="error_invalid_input">Invalid Input</string>
     <string name="title_business_info">Business Information</string>
+    <string name="hint_john">John</string>
+    <string name="hint_dela">Dela</string>
+    <string name="hint_cruz">Cruz</string>
 </resources>

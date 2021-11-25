@@ -846,7 +846,7 @@
         <item name="android:inputType">textCapSentences|textMultiLine</item>
     </style>
 
-    <style name="TextInputLayoutFormThinEditText.DropDownOrange">
+    <style name="TextInputLayoutFormThinEditText.DropDownOrange" >
         <item name="android:focusable">false</item>
         <item name="android:cursorVisible">false</item>
         <item name="android:layout_marginBottom">@dimen/grid_1_half</item>
