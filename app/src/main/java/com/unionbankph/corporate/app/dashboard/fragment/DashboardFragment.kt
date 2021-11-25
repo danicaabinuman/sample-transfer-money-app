@@ -370,7 +370,8 @@ class DashboardFragment :
             }
             Constant.MegaMenu.MSME_REQUEST_PAYMENT -> {
                 eventBus.transactSyncEvent.emmit(
-                    BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST)
+                    //BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST)
+                    BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST_DASHBOARD)
                 )
             }
             Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS -> {

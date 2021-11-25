@@ -148,8 +148,25 @@ class RequestPaymentSplashActivity :
                 startActivity(intent)
                 finish()
             }
+        }else if(fromWhatTab.equals(DashboardViewModel.FROM_DASHBOARD_TAB)){
 
-
+            if(merchantExists){
+                eventBus.transactSyncEvent.emmit(
+                    BaseEvent(TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST_DASHBOARD)
+                )
+                finish()
+            }else{
+                fromWhatTab = intent.getStringExtra(EXTRA_FROM_WHAT_TAB)
+                if(fromWhatTab == null){
+                    fromWhatTab = DashboardViewModel.FROM_REQUEST_PAYMENT_BUTTON
+                }else{
+                    fromWhatTab = DashboardViewModel.FROM_TRANSACT_TAB
+                }
+                val intent = Intent(this, BusinessInformationActivity::class.java)
+                intent.putExtra(EXTRA_FROM_WHAT_TAB,fromWhatTab)
+                startActivity(intent)
+                finish()
+            }
         }
 
 

@@ -120,6 +120,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
 
     private lateinit var transactFragment: TransactFragment
 
+    private lateinit var dashboardFragment: DashboardFragment
+
     private var isBackButtonFragmentAccount: Boolean = false
 
     override fun onViewsBound() {
@@ -397,7 +399,6 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 }
                 TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST -> {
                     isBackButtonPaymentList = true
-                    binding.bottomNavigationBTR.currentItem = 1
 
                     setToolbarTitle(
                         getString(R.string.title_payment_links),
@@ -408,6 +409,30 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                     binding.viewToolbar.btnScan.visibility(false)
                     runPostDelayed({
                         transactFragment.navigateToPaymentLinkFragment()
+                    }, 100)
+                }
+            }
+        }) {
+            Timber.e(it, "transactSyncEvent error: ${it.message}")
+        }.addTo(disposables)
+
+        eventBus.transactSyncEvent.flowable.subscribe({
+            when (it.eventType) {
+                TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST_DASHBOARD -> {
+                    viewModel.validateMerchant(DashboardViewModel.FROM_DASHBOARD_TAB)
+                }
+                TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST_DASHBOARD -> {
+
+                    setToolbarTitle(
+                        getString(R.string.title_payment_links),
+                        hasBackButton = true,
+                        hasMenuItem = false
+                    )
+                    binding.viewToolbar.btnHelp.visibility(false)
+                    binding.viewToolbar.btnScan.visibility(false)
+                    isBackButtonFragmentAccount = true
+                    runPostDelayed({
+                        dashboardFragment.navigateToPaymentLinkFragment()
                     }, 100)
                 }
             }
@@ -814,6 +839,9 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         if(binding.viewPagerBTR.currentItem == bottomNavigationItems[FRAGMENT_DASHBOARD] && isBackButtonFragmentAccount){
             popStackFragmentDashboard()
         }
+        if(isBackButtonPaymentList && position == bottomNavigationItems[FRAGMENT_TRANSACT]){
+            popBackStackTransact()
+        }
 
         binding.viewPagerBTR.currentItem = position
         return true
@@ -1100,11 +1128,12 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     private fun initViewPager() {
 
         transactFragment = TransactFragment()
+        dashboardFragment = DashboardFragment()
 
         adapter = ViewPagerAdapter(
             supportFragmentManager
         )
-        adapter?.addFragment(DashboardFragment(), FRAGMENT_DASHBOARD)
+        adapter?.addFragment(dashboardFragment, FRAGMENT_DASHBOARD)
         adapter?.addFragment(transactFragment, FRAGMENT_TRANSACT)
         adapter?.addFragment(ApprovalFragment(), FRAGMENT_APPROVALS)
         adapter?.addFragment(NotificationLogTabFragment(), FRAGMENT_NOTIFICATIONS)
