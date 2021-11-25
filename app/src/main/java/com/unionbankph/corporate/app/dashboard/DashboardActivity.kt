@@ -780,6 +780,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
                 position == bottomNavigationItems[FRAGMENT_APPROVALS] &&
                         allowMultipleSelectionApprovals
             )
+            binding.viewToolbar.btnEditApproval.visibility(position == bottomNavigationItems[FRAGMENT_APPROVALS])
+            binding.viewToolbar.btnEditApproval.setEnableView(allowMultipleSelectionApprovals)
             binding.viewToolbar.btnHelp.visibility(
                 position == bottomNavigationItems[FRAGMENT_DASHBOARD] ||
                         position == bottomNavigationItems[FRAGMENT_TRANSACT] ||
@@ -1418,7 +1420,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     fun allowMultipleSelectionApprovals(allowMultipleSelectionApprovals: Boolean) {
         this.allowMultipleSelectionApprovals = allowMultipleSelectionApprovals
         if (binding.bottomNavigationBTR.currentItem == bottomNavigationItems[FRAGMENT_APPROVALS]) {
-            binding.viewToolbar.btnEditApproval.visibility(allowMultipleSelectionApprovals)
+            binding.viewToolbar.btnEditApproval.setEnableView(allowMultipleSelectionApprovals)
         }
     }
 
