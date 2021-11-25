@@ -418,6 +418,7 @@ class DashboardViewModel @Inject constructor(
     companion object{
         const val FROM_REQUEST_PAYMENT_BUTTON = "from_accounts_tab"
         const val FROM_TRANSACT_TAB = "from_transact_tab"
+        const val FROM_DASHBOARD_TAB = "from_dashboard_tab"
         const val PENDING = "PENDING"
         const val INACTIVE = "INACTIVE"
         const val ACTIVE = "ACTIVE"

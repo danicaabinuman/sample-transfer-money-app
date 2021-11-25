@@ -200,9 +200,7 @@ class DaoJumioVerificationFragment :
                     } else {
                         enableItems(true)
                     }
-                    if (!viewModel.isEditMode.value.notNullable()) {
-                        setCheckedState(it)
-                    }
+                    setCheckedState(it)
                 }.addTo(disposables)
 
         }
