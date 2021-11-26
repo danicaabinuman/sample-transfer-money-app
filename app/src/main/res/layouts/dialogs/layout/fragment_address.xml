@@ -101,7 +101,7 @@
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.presentAddressLineOneError}"
                         app:errorEnabled="true"
-                        app:hintEnabled="false" >
+                        app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tie_widget_address_line_1"
@@ -126,7 +126,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_8dp"
-                        android:text="@string/title_line_2" />
+                        android:text="@string/title_line_two_optional" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/TextInputLayoutFormThin"
@@ -135,9 +135,9 @@
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.presentAddressLineTwoError}"
                         app:errorEnabled="true"
-                        app:hintEnabled="false" >
+                        app:hintEnabled="false">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tie_widget_address_line_2"
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
@@ -150,6 +150,45 @@
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PRESENT_ADDRESS_LINE_TWO)}"
                             android:singleLine="true"
                             android:text="@{viewModel.form.presentAddressLineTwo}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/tv_widget_address_province"
+                        setTextColorValidation="@{viewModel.formState.presentAddressProvinceError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:text="@string/title_province"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/address_info_til_province_present"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.presentAddressProvinceError}"
+                        app:errorEnabled="true"
+                        app:hintEnabled="false">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/address_info_act_province_present"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_regular"
+                            android:hint="@string/title_province"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PRESENT_ADDRESS_PROVINCE)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:textSize="@dimen/text_16" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -173,9 +212,9 @@
                         app:endIconTint="@color/dsColorMediumOrange"
                         app:error="@{viewModel.formState.presentAddressCityError}"
                         app:errorEnabled="true"
-                        app:hintEnabled="false" >
+                        app:hintEnabled="false">
 
-                    <AutoCompleteTextView
+                        <AutoCompleteTextView
                             android:id="@+id/address_info_act_city_present"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -184,45 +223,6 @@
                             android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_city"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PRESENT_ADDRESS_CITY)}"
-                            android:paddingStart="@dimen/margin_14dp"
-                            android:paddingTop="@dimen/margin_12dp"
-                            android:paddingEnd="@dimen/margin_12dp"
-                            android:paddingBottom="@dimen/margin_12dp"
-                            android:textSize="@dimen/text_16" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        android:id="@+id/tv_widget_address_region"
-                        setTextColorValidation="@{viewModel.formState.presentAddressRegionError}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_8dp"
-                        android:text="@string/title_region"
-                        android:textAppearance="@style/SMECaption" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/address_info_til_region_present"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="@dimen/grid_1"
-                        app:boxStrokeWidth="0.5dp"
-                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
-                        app:endIconTint="@color/dsColorMediumOrange"
-                        app:error="@{viewModel.formState.presentAddressRegionError}"
-                        app:errorEnabled="true"
-                        app:hintEnabled="false" >
-
-                    <AutoCompleteTextView
-                            android:id="@+id/address_info_act_region_present"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:cursorVisible="false"
-                            android:focusable="false"
-                            android:fontFamily="@string/font_family_regular"
-                            android:hint="@string/title_region"
-                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PRESENT_ADDRESS_REGION)}"
                             android:paddingStart="@dimen/margin_14dp"
                             android:paddingTop="@dimen/margin_12dp"
                             android:paddingEnd="@dimen/margin_12dp"
@@ -247,9 +247,9 @@
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.presentAddressZipCodeError}"
                         app:errorEnabled="true"
-                        app:hintEnabled="false" >
+                        app:hintEnabled="false">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/tie_widget_address_zip_code"
                             style="@style/TextInputLayoutFormThinEditText"
                             android:layout_width="match_parent"
@@ -280,9 +280,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="-7dp"
-                        android:buttonTint="@color/bg_checkbox_toggle_color"
                         android:layout_marginTop="@dimen/grid_1_half"
-                        android:enabled="@{viewModel.form.presentAddressLineOne == null &amp;&amp; viewModel.form.presentAddressLineTwo == null &amp;&amp; viewModel.form.presentAddressCity == null &amp;&amp; viewModel.form.presentAddressRegion == null &amp;&amp; viewModel.form.presentAddressZipCode == null ? false : true }"
+                        android:buttonTint="@color/bg_checkbox_toggle_color"
+                        android:enabled="@{viewModel.form.presentAddressLineOne == null &amp;&amp; viewModel.form.presentAddressLineTwo == null &amp;&amp; viewModel.form.presentAddressCity == null &amp;&amp; viewModel.form.presentAddressProvince == null &amp;&amp; viewModel.form.presentAddressZipCode == null ? false : true }"
                         android:minHeight="@dimen/button_small_size"
                         android:onClick="@{() -> viewModel.setSameAddress()}"
                         android:text="@string/desc_same_as_present_address"
@@ -309,7 +309,7 @@
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.permanentAddressLineOneError}"
                         app:errorEnabled="true"
-                        app:hintEnabled="false" >
+                        app:hintEnabled="false">
 
                         <!--android:backgroundTint="@{viewModel.sameAddress ? @color/colorTransparent : @color/colorDisableTextInputEditText}"-->
                         <!--android:enabled="@{viewModel.sameAddress ? true : false}"-->
@@ -336,7 +336,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_8dp"
-                        android:text="@string/title_line_2" />
+                        android:text="@string/title_line_two_optional" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/TextInputLayoutFormThin"
@@ -345,7 +345,7 @@
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.permanentAddressLineTwoError}"
                         app:errorEnabled="true"
-                        app:hintEnabled="false" >
+                        app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputLayoutFormThinEditText"
@@ -360,6 +360,48 @@
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PERMANENT_ADDRESS_LINE_TWO)}"
                             android:singleLine="true"
                             android:text="@{viewModel.form.permanentAddressLineTwo}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <TextView
+                        setTextColorValidation="@{viewModel.formState.permanentAddressProvinceError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:text="@string/title_province"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/address_info_til_province_permanent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:enabled="@{viewModel.sameAddress ? true : false}"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.permanentAddressProvinceError}"
+                        app:errorEnabled="true"
+                        app:hintEnabled="false">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/address_info_act_province_permanent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:cursorVisible="false"
+                            android:enabled="@{viewModel.sameAddress ? true : false}"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_regular"
+                            android:hint="@string/title_province"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PERMANENT_ADDRESS_PROVINCE)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:text="@{viewModel.form.permanentAddressProvince}"
+                            android:textSize="@dimen/text_16" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -383,7 +425,7 @@
                         app:endIconTint="@color/dsColorMediumOrange"
                         app:error="@{viewModel.formState.permanentAddressCityError}"
                         app:errorEnabled="true"
-                        app:hintEnabled="false" >
+                        app:hintEnabled="false">
 
                         <!--android:background="@{viewModel.sameAddress ? @drawable/bg_edit_text_enable_stroke : @drawable/bg_edit_text_disable_stroke}"-->
 
@@ -400,49 +442,8 @@
                             android:paddingStart="@dimen/margin_14dp"
                             android:paddingTop="@dimen/margin_12dp"
                             android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
                             android:text="@{viewModel.form.permanentAddressCity}"
-                            android:paddingBottom="@dimen/margin_12dp"
-                            android:textSize="@dimen/text_16" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
-                        setTextColorValidation="@{viewModel.formState.permanentAddressRegionError}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_8dp"
-                        android:text="@string/title_region"
-                        android:textAppearance="@style/SMECaption" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/address_info_til_region_permanent"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_1"
-                        android:enabled="@{viewModel.sameAddress ? true : false}"
-                        app:boxStrokeWidth="0.5dp"
-                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
-                        app:endIconTint="@color/dsColorMediumOrange"
-                        app:error="@{viewModel.formState.permanentAddressRegionError}"
-                        app:errorEnabled="true"
-                        app:hintEnabled="false" >
-
-                        <AutoCompleteTextView
-                            android:id="@+id/address_info_act_region_permanent"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:cursorVisible="false"
-                            android:enabled="@{viewModel.sameAddress ? true : false}"
-                            android:focusable="false"
-                            android:fontFamily="@string/font_family_regular"
-                            android:hint="@string/title_region"
-                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AddressInformationField.PERMANENT_ADDRESS_REGION)}"
-                            android:paddingStart="@dimen/margin_14dp"
-                            android:paddingTop="@dimen/margin_12dp"
-                            android:text="@{viewModel.form.permanentAddressRegion}"
-                            android:paddingEnd="@dimen/margin_12dp"
-                            android:paddingBottom="@dimen/margin_12dp"
                             android:textSize="@dimen/text_16" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -462,7 +463,7 @@
                         android:layout_marginTop="@dimen/grid_1"
                         app:error="@{viewModel.formState.permanentAddressZipCodeError}"
                         app:errorEnabled="true"
-                        app:hintEnabled="false" >
+                        app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
                             style="@style/TextInputLayoutFormThinEditText"
