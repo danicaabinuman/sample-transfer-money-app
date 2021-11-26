@@ -326,8 +326,6 @@
                             android:focusable="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:cursorVisible="false"
-                            android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_civil_status"
                             android:inputType="none"
