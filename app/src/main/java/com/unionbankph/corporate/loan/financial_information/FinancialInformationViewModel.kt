@@ -65,7 +65,7 @@ constructor(
                                 }
                             }
                             MONTHLY_INCOME -> {
-                                monthlyIncomeError = if (form.monthlyIncome.isNullOrBlank()) {
+                                monthlyIncomeError = if (form.monthlyIncome?.replace("PHP ", "").isNullOrBlank()) {
                                     context.getString(R.string.error_specific_field, context.getString(R.string.title_monthly_income))
                                 } else {
                                     null
@@ -102,8 +102,8 @@ constructor(
 
                         form.apply {
                         isDataValid = occupation?.isNotEmpty() == true && position?.isNotEmpty() == true &&
-                                monthlyIncome?.isNotEmpty() == true && tinId?.isNotEmpty() == true &&
-                                tinId?.length!! >= 9
+                                !monthlyIncome?.replace("PHP ", "").isNullOrBlank() &&
+                                tinId?.isNotEmpty() == true && tinId?.length!! >= 9
                         }
                     }
                 }
@@ -120,7 +120,7 @@ constructor(
     }
 
     private suspend fun observeDataStream() {
-        dataStreamFlow.debounce(500)
+        dataStreamFlow.debounce(0)
             .collect { data ->
                 _form.updateFields {
                     if (it.value == null) {

@@ -236,10 +236,10 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/personal_info_act_pob"
-                            android:cursorVisible="false"
-                            android:focusable="false"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:cursorVisible="false"
+                            android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_place_of_birth"
                             android:inputType="none"
@@ -320,6 +320,8 @@
                             android:id="@+id/personal_info_act_civil"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:cursorVisible="false"
+                            android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
                             android:hint="@string/hint_civil_status"
                             android:inputType="none"
