@@ -72,7 +72,7 @@ class SplashStartedScreenActivity :
             this,
             SplashFrameOnboardingActivity::class.java,
             null,
-            isClear = true,
+            isClear = false,
             isAnimated = true,
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
