@@ -123,7 +123,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_8dp"
-                        android:text="@string/title_line_2" />
+                        android:text="@string/title_line_two_optional" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/TextInputLayoutFormThin"
@@ -143,10 +143,47 @@
                             android:hint="@string/title_line_2"
                             android:maxLength="@integer/max_length_field_50"
                             android:inputType="textPersonName|textCapWords"
-                            android:nextFocusDown="@id/tie_widget_address_zip_code"
+                            android:nextFocusDown="@id/business_address_til_province"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessAddressField.ADDRESS_LINE_TWO)}"
                             android:singleLine="true"
                             android:text="@{viewModel.form.addressLineTwo}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        setTextColorValidation="@{viewModel.formState.cityError}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8dp"
+                        android:text="@string/title_province"
+                        android:textAppearance="@style/SMECaption" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/business_address_til_province"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        app:boxStrokeWidth="0.5dp"
+                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                        app:endIconTint="@color/dsColorMediumOrange"
+                        app:error="@{viewModel.formState.provinceError}"
+                        app:errorEnabled="true"
+                        app:hintEnabled="false">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/business_address_act_province"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:fontFamily="@string/font_family_regular"
+                            android:hint="@string/hint_province"
+                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessAddressField.PROVINCE)}"
+                            android:paddingStart="@dimen/margin_14dp"
+                            android:paddingTop="@dimen/margin_12dp"
+                            android:paddingEnd="@dimen/margin_12dp"
+                            android:paddingBottom="@dimen/margin_12dp"
+                            android:textSize="@dimen/text_16" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -189,48 +226,12 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <TextView
-                        setTextColorValidation="@{viewModel.formState.cityError}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_8dp"
-                        android:text="@string/title_province"
-                        android:textAppearance="@style/SMECaption" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/business_address_til_province"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/grid_1"
-                        app:boxStrokeWidth="0.5dp"
-                        app:endIconDrawable="@drawable/ic_vector_drop_down_line"
-                        app:endIconTint="@color/dsColorMediumOrange"
-                        app:error="@{viewModel.formState.provinceError}"
-                        app:errorEnabled="true"
-                        app:hintEnabled="false">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/business_address_act_province"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"                            android:cursorVisible="false"
-                            android:focusable="false"
-                            android:fontFamily="@string/font_family_regular"
-                            android:hint="@string/hint_province"
-                            android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessAddressField.PROVINCE)}"
-                            android:paddingStart="@dimen/margin_14dp"
-                            android:paddingTop="@dimen/margin_12dp"
-                            android:paddingEnd="@dimen/margin_12dp"
-                            android:paddingBottom="@dimen/margin_12dp"
-                            android:textSize="@dimen/text_16" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <TextView
                         setTextColorValidation="@{viewModel.formState.regionError}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_region"
+                        android:visibility="gone"
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -240,6 +241,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
                         app:boxStrokeWidth="0.5dp"
+                        android:visibility="gone"
                         app:endIconDrawable="@drawable/ic_vector_drop_down_line"
                         app:endIconTint="@color/dsColorMediumOrange"
                         app:error="@{viewModel.formState.regionError}"

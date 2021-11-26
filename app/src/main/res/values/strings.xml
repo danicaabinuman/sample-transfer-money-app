@@ -784,6 +784,7 @@
     <string name="title_middle_name_if_applicable">Middle Name, if applicable</string>
     <string name="title_line_1">Line 1</string>
     <string name="title_line_2">Line 2</string>
+    <string name="title_line_two_optional">Line 2 <font color="#BFBFBF">(Optional)</font></string>
     <string name="title_region">Region</string>
     <string name="title_industry">Industry</string>
     <string name="title_number_of_employees">Number of Employees</string>
@@ -3096,4 +3097,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hint_john">John</string>
     <string name="hint_dela">Dela</string>
     <string name="hint_cruz">Cruz</string>
+    <string name="title_take_photos_products">Take photos of your products or photos that best describe the services offered</string>
+    <string name="title_you_can_take_photos_products">You can take photos of your current stocks /\n inventory with max of 6 photos</string>
 </resources>

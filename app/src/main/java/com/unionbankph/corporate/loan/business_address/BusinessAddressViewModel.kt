@@ -121,7 +121,7 @@ constructor(
                         form.apply {
                         isDataValid = addressLineOne?.isNotEmpty() == true && addressLineTwo?.isNotEmpty() == true &&
                                 city?.isNotEmpty() == true && province?.isNotEmpty() == true &&
-                                region?.isNotEmpty() == true && zipCode?.isNotEmpty() == true &&
+                                /*region?.isNotEmpty() == true &&*/ zipCode?.isNotEmpty() == true &&
                                 establishment?.isNotEmpty() == true && yearsInOperation?.isNotEmpty() == true
                         }
                     }

@@ -54,14 +54,14 @@ class AddressFragment: BaseFragment<FragmentAddressBinding, AddressViewModel>(),
                 }
             }
 
-            addressInfoActRegionPresent.setOnDismissListener {
-                addressInfoTilRegionPresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            addressInfoActProvincePresent.setOnDismissListener {
+                addressInfoTilProvincePresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
             }
-            addressInfoActRegionPresent.setOnClickListener { v ->
-                if (addressInfoActRegionPresent.isPopupShowing) {
-                    addressInfoTilRegionPresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+            addressInfoActProvincePresent.setOnClickListener { v ->
+                if (addressInfoActProvincePresent.isPopupShowing) {
+                    addressInfoTilProvincePresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
                 } else {
-                    addressInfoTilRegionPresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                    addressInfoTilProvincePresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
                 }
             }
 
@@ -76,14 +76,14 @@ class AddressFragment: BaseFragment<FragmentAddressBinding, AddressViewModel>(),
                 }
             }
 
-            addressInfoActRegionPermanent.setOnDismissListener {
-                addressInfoTilRegionPermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            addressInfoActProvincePermanent.setOnDismissListener {
+                addressInfoTilProvincePermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
             }
-            addressInfoActRegionPermanent.setOnClickListener { v ->
-                if (addressInfoActRegionPermanent.isPopupShowing) {
-                    addressInfoTilRegionPermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+            addressInfoActProvincePermanent.setOnClickListener { v ->
+                if (addressInfoActProvincePermanent.isPopupShowing) {
+                    addressInfoTilProvincePermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
                 } else {
-                    addressInfoTilRegionPermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                    addressInfoTilProvincePermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
                 }
             }
 
@@ -101,7 +101,7 @@ class AddressFragment: BaseFragment<FragmentAddressBinding, AddressViewModel>(),
                     resources.getStringArray(R.array.dummy_data)
                 )
             )
-            addressInfoActRegionPresent.setAdapter(
+            addressInfoActProvincePresent.setAdapter(
                 ArrayAdapter(
                     activity,
                     R.layout.dropdown_menu_popup_item,
@@ -115,7 +115,7 @@ class AddressFragment: BaseFragment<FragmentAddressBinding, AddressViewModel>(),
                     resources.getStringArray(R.array.dummy_data)
                 )
             )
-            addressInfoActRegionPermanent.setAdapter(
+            addressInfoActProvincePermanent.setAdapter(
                 ArrayAdapter(
                     activity,
                     R.layout.dropdown_menu_popup_item,
