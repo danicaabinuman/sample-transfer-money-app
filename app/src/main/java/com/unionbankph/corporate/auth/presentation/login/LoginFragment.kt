@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentSender
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -62,11 +61,13 @@ import com.unionbankph.corporate.databinding.FragmentLoginBinding
 import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreActivity
+import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 /**
  * Created by herald on 2/17/21
@@ -348,11 +349,12 @@ class LoginFragment :
         if(!isSME){binding.imageViewBackground.visibility(true)}
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if(fullName.isEmpty() && binding.MSMEbtnLogin.visibility == View.VISIBLE && isSME){
-                binding.MSMEbtnLogin.visibility(false)
-                binding.MSMEForgotPassword.visibility(false)
-                binding.llEmailSME.visibility(false)
-                binding.llPasswordSME.visibility(false)
-                initFreshLogin()
+                navigator.navigateClearStacks(
+                    getAppCompatActivity(),
+                    LoginActivity::class.java,
+                    Bundle().apply { putBoolean(LoginActivity.EXTRA_SPLASH_SCREEN, false) },
+                    true
+                )
             }else{
                 getAppCompatActivity().finish()
             }
@@ -1064,7 +1066,7 @@ class LoginFragment :
         val objectAnimator =
             ObjectAnimator.ofFloat(binding.imageViewLogoAnimate.root, "y", y.toFloat())
         Timber.d("y axis:${y.toFloat()}")
-        objectAnimator.duration = resources.getInteger(R.integer.anim_duration_medium).toLong()
+        objectAnimator.duration = applicationContext.resources.getInteger(R.integer.anim_duration_medium).toLong()
         objectAnimator.start()
         runPostDelayed(
             {
