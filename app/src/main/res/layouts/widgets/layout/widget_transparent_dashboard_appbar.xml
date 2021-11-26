@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/content_spacing_small"
             android:paddingBottom="@dimen/content_spacing_small"
+            android:paddingEnd="@dimen/content_item_spacing"
             android:layout_gravity="start">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -44,8 +45,7 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ic_scan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/ImageViewIcon"
                     app:srcCompat="@drawable/ic_scan"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +76,7 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ic_request"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/ImageViewIcon"
                     app:srcCompat="@drawable/ic_request"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -98,13 +97,129 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnEditApproval"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/grid_7"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@id/btnHelp"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/grid_1"
+                android:visibility="gone"
+                >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_edit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:srcCompat="@drawable/ic_edit"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_edit"
+                    app:tint="?colorImage"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action_edit"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_1_half"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnMarkAll"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/grid_7"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@id/btnHelp"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/grid_1"
+                android:visibility="gone"
+                >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_markAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_check_outline_white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_markAll"
+                    app:tint="?colorImage"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_markAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_mark_all"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_1_half"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/grid_7"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
+                app:layout_constraintEnd_toStartOf="@id/btnHelp"
+                app:layout_constraintTop_toTopOf="@+id/viewBadge"
+                android:gravity="center_horizontal"
+                android:padding="@dimen/grid_1"
+                android:visibility="gone"
+                >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ic_logout"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    app:srcCompat="@drawable/ic_exit"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tv_logout"
+                    app:tint="?colorImage"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_logout"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/grid_1_half"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btnHelp"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/grid_7"
                 android:orientation="vertical"
-                android:layout_marginEnd="@dimen/grid_1"
+
                 app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewMarkAllAsRead"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/viewBadge"
                 android:gravity="center_horizontal"
                 android:padding="@dimen/grid_1">
@@ -191,50 +306,50 @@
 
 
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewMarkAllAsRead"
-                style="@style/ImageViewIcon"
-                android:layout_marginEnd="@dimen/content_spacing"
-                android:background="?selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="center"
-                android:visibility="gone"
-                app:layout_constraintVertical_bias="0"
-                app:tint="?colorImage"
-                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
-                app:layout_constraintEnd_toStartOf="@+id/textViewEditApprovals"
-                app:layout_constraintTop_toTopOf="@+id/viewBadge"
-                app:srcCompat="@drawable/ic_check_outline_white" />
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:id="@+id/imageViewMarkAllAsRead"-->
+<!--                style="@style/ImageViewIcon"-->
+<!--                android:layout_marginEnd="@dimen/content_spacing"-->
+<!--                android:background="?selectableItemBackgroundBorderless"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:scaleType="center"-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_constraintVertical_bias="0"-->
+<!--                app:tint="?colorImage"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/textViewEditApprovals"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/viewBadge"-->
+<!--                app:srcCompat="@drawable/ic_check_outline_white" />-->
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textViewEditApprovals"
-                style="@style/TextViewThemeLarge"
-                android:layout_marginEnd="@dimen/content_spacing"
-                android:background="?selectableItemBackgroundBorderless"
-                android:padding="@dimen/text_view_padding"
-                android:text="@string/action_edit"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
-                app:layout_constraintEnd_toStartOf="@+id/imageViewLogout"
-                app:layout_constraintTop_toTopOf="@+id/viewBadge" />
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:id="@+id/textViewEditApprovals"-->
+<!--                style="@style/TextViewThemeLarge"-->
+<!--                android:layout_marginEnd="@dimen/content_spacing"-->
+<!--                android:background="?selectableItemBackgroundBorderless"-->
+<!--                android:padding="@dimen/text_view_padding"-->
+<!--                android:text="@string/action_edit"-->
+<!--                android:textAllCaps="true"-->
+<!--                android:textStyle="bold"-->
+<!--                android:visibility="gone"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/imageViewLogout"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/viewBadge" />-->
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageViewLogout"
-                style="@style/ImageViewIcon"
-                android:layout_marginEnd="@dimen/content_spacing"
-                android:background="?selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="center"
-                android:visibility="gone"
-                app:tint="?colorImage"
-                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/viewBadge"
-                app:srcCompat="@drawable/ic_logout_white" />
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:id="@+id/imageViewLogout"-->
+<!--                style="@style/ImageViewIcon"-->
+<!--                android:layout_marginEnd="@dimen/content_spacing"-->
+<!--                android:background="?selectableItemBackgroundBorderless"-->
+<!--                android:clickable="true"-->
+<!--                android:focusable="true"-->
+<!--                android:scaleType="center"-->
+<!--                android:visibility="gone"-->
+<!--                app:tint="?colorImage"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/viewBadge"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/btnHelp"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/viewBadge"-->
+<!--                app:srcCompat="@drawable/ic_logout_white" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

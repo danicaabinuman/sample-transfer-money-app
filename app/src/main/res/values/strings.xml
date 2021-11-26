@@ -3094,6 +3094,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
 
     <string name="error_invalid_input">Invalid Input</string>
     <string name="title_business_info">Business Information</string>
+    <string name="title_mark_all">Mark All</string>
     <string name="hint_john">John</string>
     <string name="hint_dela">Dela</string>
     <string name="hint_cruz">Cruz</string>
