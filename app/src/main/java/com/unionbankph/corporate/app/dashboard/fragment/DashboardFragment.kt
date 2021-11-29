@@ -17,6 +17,7 @@ import com.unionbankph.corporate.app.App
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.*
 import com.unionbankph.corporate.app.common.platform.bus.event.AccountSyncEvent
+import com.unionbankph.corporate.app.common.platform.bus.event.ActionSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.SettingsSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.TransactSyncEvent
 import com.unionbankph.corporate.app.common.platform.bus.event.base.BaseEvent
@@ -38,6 +39,7 @@ import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTu
 import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.databinding.FragmentDashboardBinding
 import com.unionbankph.corporate.fund_transfer.presentation.organization_transfer.OrganizationTransferActivity
+import com.unionbankph.corporate.loan.LoanActivity
 import com.unionbankph.corporate.mcd.presentation.list.CheckDepositActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
 import com.unionbankph.corporate.settings.data.constant.PermissionNameEnum
@@ -82,7 +84,6 @@ class DashboardFragment :
             initListener()
             initTutorialViewModel()
             initViewModel()
-
             initTrialMode()
             initSettingsViewModel()
             initMenuSettings()
@@ -313,7 +314,7 @@ class DashboardFragment :
     }
 
     override fun onDashboardActionEmit(actionId: String, isEnabled: Boolean) {
-        if (isOnTrialMode) return
+        //if (isOnTrialMode) return
 
         when (actionId) {
             Constant.MegaMenu.MSME_TRANSFER_FUNDS -> {
@@ -369,17 +370,35 @@ class DashboardFragment :
             }
             Constant.MegaMenu.MSME_REQUEST_PAYMENT -> {
                 eventBus.transactSyncEvent.emmit(
-                    BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST)
+                    //BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST)
+                    BaseEvent(TransactSyncEvent.ACTION_VALIDATE_MERCHANT_EXIST_DASHBOARD)
                 )
             }
             Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS -> {
-                (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
+               // (activity as DashboardActivity).bottomNavigationBTR().currentItem = 1
+                eventBus.actionSyncEvent.emmit(
+                    BaseEvent(ActionSyncEvent.ACTION_VIEW_ALL_ACCOUNTS)
+                )
+                navigator.addFragmentWithAnimation(
+                    R.id.frameLayoutTransact,
+                    AccountFragment(),
+                    null,
+                    childFragmentManager,
+                    AccountFragment.TEST_DATA_ACCOUNT
+                )
             }
             Constant.DASHBOARD_ACTION_MORE -> {
                 openMenuBottomSheet()
             }
             Constant.DASHBOARD_ACTION_DEFAULT_LOANS -> {
-                Timber.e("Default Loans Clicked")
+                navigator.navigate(
+                    (activity as DashboardActivity),
+                    LoanActivity::class.java,
+                    null,
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+                )
             }
             Constant.DASHBOARD_ACTION_DEFAULT_EARNINGS -> {
                 Timber.e("Default Earnings Clicked")
@@ -387,6 +406,16 @@ class DashboardFragment :
             Constant.Banner.BUSINESS_PROFILE,
             Constant.Banner.LEARN_MORE -> {
                 navigator.navigateBrowser(getAppCompatActivity(), URLDataEnum.GLOBALLINKER)
+            }
+            Constant.MegaMenu.MSME_APPLY_LOAN -> {
+                navigator.navigate(
+                    (activity as DashboardActivity),
+                    LoanActivity::class.java,
+                    null,
+                    isClear = false,
+                    isAnimated = true,
+                    transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+                )
             }
         }
     }
@@ -396,6 +425,17 @@ class DashboardFragment :
             viewModel.dashboardViewState.value?.megaMenuList as ArrayList<GenericMenuItem>
         )
         moreBottomSheet.show(childFragmentManager, "MoreBottomSheet")
+    }
+
+    override fun onApplyLoans() {
+        navigator.navigate(
+            (activity as DashboardActivity),
+            LoanActivity::class.java,
+            null,
+            isClear = false,
+            isAnimated = true,
+            transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
     }
 
     override fun onTapErrorRetry(id: String, position: Int) {

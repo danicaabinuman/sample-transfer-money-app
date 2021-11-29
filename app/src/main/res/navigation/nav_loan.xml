@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_loan_graph"
+    app:startDestination="@id/loansFragment">
+
+    <fragment
+        android:id="@+id/loansFragment"
+        android:name="com.unionbankph.corporate.loan.applyloan.LoansFragment"
+        android:label="LoansFragment" >
+        <action
+            android:id="@+id/nav_to_loansCalculatorFragment"
+            app:destination="@id/loansCalculatorFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/loansCalculatorFragment"
+        android:name="com.unionbankph.corporate.loan.calculator.LoansCalculatorFragment"
+        android:label="LoansCalculatorFragment" >
+        <action
+            android:id="@+id/nav_to_fewRemindersFragment"
+            app:destination="@id/fewRemindersFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/fewRemindersFragment"
+        android:name="com.unionbankph.corporate.loan.reminders.FewRemindersFragment"
+        android:label="FewRemindersFragment" >
+        <action
+            android:id="@+id/nav_to_citizenFragment"
+            app:destination="@id/citizenFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/citizenFragment"
+        android:name="com.unionbankph.corporate.loan.citizen.CitizenFragment"
+        android:label="CitizenFragment" >
+        <action
+            android:id="@+id/nav_to_nonFilipinoFragment"
+            app:destination="@id/nonFilipinoFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+        <action
+            android:id="@+id/nav_to_businessType"
+            app:destination="@id/businessType"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nonFilipinoFragment"
+        android:name="com.unionbankph.corporate.loan.nonfilipino.NonFilipinoFragment"
+        android:label="NonFilipinoFragment" />
+    <fragment
+        android:id="@+id/businessType"
+        android:name="com.unionbankph.corporate.loan.businesstype.BusinessTypeFragment"
+        android:label="BusinessType" >
+        <action
+            android:id="@+id/nav_to_contactInformationFragment"
+            app:destination="@id/contactInformationFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactInformationFragment"
+        android:name="com.unionbankph.corporate.loan.contactinformation.ContactInformationFragment"
+        android:label="ContactInformationFragment" >
+        <action
+            android:id="@+id/nav_to_personalInformationFragment"
+            app:destination="@id/personalInformationFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalInformationFragment"
+        android:name="com.unionbankph.corporate.loan.personal_information.PersonalInformationFragment"
+        android:label="PersonalInformationFragment" >
+        <action
+            android:id="@+id/nav_to_financialInformationFragment"
+            app:destination="@id/financialInformationFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/financialInformationFragment"
+        android:name="com.unionbankph.corporate.loan.financial_information.FinancialInformationFragment"
+        android:label="FinancialInformationFragment" >
+        <action
+            android:id="@+id/nav_to_addressFragment"
+            app:destination="@id/addressFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.unionbankph.corporate.loan.address.AddressFragment"
+        android:label="AddressFragment" >
+        <action
+            android:id="@+id/nav_to_businessInformationFragment"
+            app:destination="@id/businessInformationFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/businessInformationFragment"
+        android:name="com.unionbankph.corporate.loan.business_information.BusinessInformationFragment"
+        android:label="BusinessInformationFragment" >
+        <action
+            android:id="@+id/nav_to_businessAddressFragment"
+            app:destination="@id/businessAddressFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/businessAddressFragment"
+        android:name="com.unionbankph.corporate.loan.business_address.BusinessAddressFragment"
+        android:label="BusinessAddressFragment" />
+
+</navigation>

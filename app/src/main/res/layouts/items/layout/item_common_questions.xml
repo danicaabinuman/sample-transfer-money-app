@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.applyloan.CommonQuestions" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_common_questions_cl_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1_10"
+            android:clickable="true"
+            android:focusable="true">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/item_common_questions_tv_title"
+                style="@style/SMEBody"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/grid_7"
+                android:gravity="start|center"
+                android:paddingStart="@dimen/grid_2"
+                android:paddingEnd="@dimen/grid_2"
+                android:text="@{item.title}"
+                app:layout_constraintEnd_toStartOf="@+id/item_common_questions_iv_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/others" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/item_common_questions_iv_icon"
+                android:layout_width="@dimen/grid_3"
+                android:layout_height="@dimen/grid_3"
+                android:layout_margin="@dimen/grid_1_10"
+                android:rotation="@{item.expand ? 180 : 360}"
+                android:src="@drawable/ic_dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:rotation="180" />
+
+            <com.airbnb.epoxy.EpoxyRecyclerView
+                android:id="@+id/item_common_questions_erv_bullet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:clipToPadding="false"
+                android:layoutAnimation="@anim/anim_layout_animation_fall_down"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                android:paddingTop="@dimen/content_spacing"
+                android:paddingBottom="@dimen/content_spacing"
+                app:itemSpacing="@dimen/content_item_spacing"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_common_questions_tv_title"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

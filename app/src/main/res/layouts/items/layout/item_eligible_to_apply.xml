@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.applyloan.Eligible" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_eligible_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/SMEBody"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/grid_7_half"
+            android:layout_marginStart="@dimen/grid_2"
+            android:drawableStart="@drawable/bg_bullet"
+            android:drawablePadding="@dimen/grid_1"
+            android:gravity="start|center"
+            android:text="@{item.title}"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/others" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

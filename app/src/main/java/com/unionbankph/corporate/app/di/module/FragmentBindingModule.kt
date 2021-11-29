@@ -61,6 +61,18 @@ import com.unionbankph.corporate.fund_transfer.presentation.beneficiary_selectio
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_done.ManageScheduledTransferDoneFragment
 import com.unionbankph.corporate.fund_transfer.presentation.scheduled.scheduled_transfer_ongoing.ManageScheduledTransferOngoingFragment
 import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.AllowPhoneCamera
+import com.unionbankph.corporate.loan.address.AddressFragment
+import com.unionbankph.corporate.loan.applyloan.LoansFragment
+import com.unionbankph.corporate.loan.business_address.BusinessAddressFragment
+import com.unionbankph.corporate.loan.business_information.BusinessInformationFragment
+import com.unionbankph.corporate.loan.businesstype.BusinessTypeFragment
+import com.unionbankph.corporate.loan.calculator.LoansCalculatorFragment
+import com.unionbankph.corporate.loan.citizen.CitizenFragment
+import com.unionbankph.corporate.loan.contactinformation.ContactInformationFragment
+import com.unionbankph.corporate.loan.financial_information.FinancialInformationFragment
+import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoFragment
+import com.unionbankph.corporate.loan.personal_information.PersonalInformationFragment
+import com.unionbankph.corporate.loan.reminders.FewRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
 import com.unionbankph.corporate.notification.presentation.notification_log.NotificationLogTabFragment
@@ -96,10 +108,10 @@ import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import com.unionbankph.corporate.user_creation.presentation.enter_name.UcEnterNameFragment
 import com.unionbankph.corporate.user_creation.presentation.nominate_password.UcNominatePasswordFragment
 import com.unionbankph.corporate.user_creation.presentation.reminder.UcReminderFragment
-import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelectionFragment
 import com.unionbankph.corporate.user_creation.presentation.tnc.UcTNCFragment
 import com.unionbankph.corporate.user_creation.presentation.tnc_reminder.UcTNCReminderFragment
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsFragment
+import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelectionFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -409,7 +421,7 @@ abstract class FragmentBindingModule {
 
     @PerActivity
     @ContributesAndroidInjector
-    abstract fun accountSelectionFragment(): UcAccountSelectionFragment
+    abstract fun accountSelectionFragment(): UcAccountSelectionFragment //UcAccountSelection
 
     @PerActivity
     @ContributesAndroidInjector
@@ -438,6 +450,14 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun ucConfirmationMessageFragment(): UcConfirmationMessageFragment
+
+ /*   @PerActivity
+    @ContributesAndroidInjector
+    abstract fun bottomSheetUploadPhotos(): OnboardingUploadPhotosFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun bottomSheetUploadBir(): CardAcceptanceUploadDocumentFragment*/
 
     @PerActivity
     @ContributesAndroidInjector
@@ -471,9 +491,49 @@ abstract class FragmentBindingModule {
     @ContributesAndroidInjector
     abstract fun asAddressFragment(): AsAddressFragment
 
+   /* @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asTermsOfServiceViewPager(): AsTermsOfServiceViewPager
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun asPrivacyPolicyViewPager(): AsPrivacyPolicyViewPager*/
+
     @PerActivity
     @ContributesAndroidInjector
     abstract fun asDebitCardTypeFragment(): AsDebitCardTypeFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun loansFragment(): LoansFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun loansCalculatorFragment(): LoansCalculatorFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun fewRemindersFragment(): FewRemindersFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun citizenFragment(): CitizenFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun nonFilipinoFragment(): NonFilipinoFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessTypeFragment(): BusinessTypeFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun contactInformationFragment(): ContactInformationFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun personalInformationFragment(): PersonalInformationFragment
 
     @PerActivity
     @ContributesAndroidInjector
@@ -498,6 +558,22 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun cardAcceptanceUploadDocumentFragment(): CardAcceptanceUploadDocumentFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun financialInformationFragment(): FinancialInformationFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun addressFragment(): AddressFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessInformationFragment(): BusinessInformationFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun businessAddressFragment(): BusinessAddressFragment
 
     @PerActivity
     @ContributesAndroidInjector

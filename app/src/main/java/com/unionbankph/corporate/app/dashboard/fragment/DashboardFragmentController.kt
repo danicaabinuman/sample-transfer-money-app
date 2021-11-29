@@ -84,19 +84,19 @@ constructor(
             isRefreshed
         )
 
-        sMETextView {
-            id("label-accounts")
-            style(Constant.SMETextViewStyle.SUBTITLE2)
-            text(this@DashboardFragmentController.context.getString(R.string.title_accounts))
-        }
+//        sMETextView {
+//            id("label-accounts")
+//            style(Constant.SMETextViewStyle.SUBTITLE2)
+//            text(this@DashboardFragmentController.context.getString(R.string.title_accounts))
+//        }
 
-//        DashboardHeaderModel_()
-//            .id("dashboard-header")
-//            .context(context)
-//            .helloName(dashboardViewState.name ?: "null")
-//            .buttonText(accountButtonText)
-//            .callbacks(dashboardAdapterCallback)
-//            .addTo(this)
+        DashboardHeaderModel_()
+            .id("dashboard-header")
+            .context(context)
+            .helloName(dashboardViewState.name ?: "null")
+            .buttonText(accountButtonText)
+            .callbacks(dashboardAdapterCallback)
+            .addTo(this)
 
         initialAccountLoadingModel
             .addIf(pageable.isInitialLoad && isRefreshed && !hasInitialFetchError, this)
@@ -411,8 +411,11 @@ abstract class FeatureCardModel : EpoxyModelWithHolder<FeatureCardModel.Holder>(
             imageViewIcon.setImageResource(
                 ConstantHelper.Drawable.getFeatureCardIcon(featureItem.action!!)
             )
-            cardViewFeature.setOnClickListener {
+            /*cardViewFeature.setOnClickListener {
                 callbacks.onDashboardActionEmit(featureItem.action!!, true)
+            }*/
+            cardViewFeature.setOnClickListener {
+                callbacks.onApplyLoans()
             }
         }
     }

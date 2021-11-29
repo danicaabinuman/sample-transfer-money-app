@@ -177,6 +177,7 @@ dependencies {
     implementation(Libraries.material)
     implementation(Libraries.recyclerView)
     implementation(Libraries.cardView)
+    implementation(Libraries.gridLayout)
     /* Core */
     implementation(Libraries.rxRelay)
     implementation(Libraries.rxBinding2)
@@ -241,6 +242,15 @@ dependencies {
     implementation(Libraries.budiyev)
     kapt(Libraries.epoxyProcessor)
     implementation(Libraries.biometric)
+    implementation(Libraries.philJayChart)
+    implementation(Libraries.coroutinesCore)
+    implementation(Libraries.coroutinesAndroid)
+    implementation(Libraries.lifecycleViewModelKtx)
+    implementation(Libraries.lifecycleViewModelLiveData)
+    implementation(Libraries.lifecycleViewModelRuntime)
+    implementation(Libraries.lifecycleViewModelSavedState)
+    //kapt(Libraries.lifecycleKapt)
+
 
     // Third party SDK
     implementation(Libraries.jumioCore)

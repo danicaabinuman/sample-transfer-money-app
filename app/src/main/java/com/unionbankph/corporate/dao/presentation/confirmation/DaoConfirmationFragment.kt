@@ -305,9 +305,6 @@ class DaoConfirmationFragment :
     }
 
     private fun init() {
-        if (App.isSupportedInProduction) {
-            binding.btnIdVerification.isInvisible = true
-        }
         viewModel.loadDaoForm(daoActivity.viewModel.defaultDaoForm())
         ivSignature = binding.viewSignature.imageView
         viewOverlay = binding.viewSignature.viewOverLay.root

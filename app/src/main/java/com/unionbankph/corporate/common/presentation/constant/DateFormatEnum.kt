@@ -13,5 +13,6 @@ enum class DateFormatEnum(val value: String) {
     DATE_FORMAT_THREE_DATE("MMM dd, yyyy"),
     DATE_FORMAT_DATE_SLASH("MM/dd/yyyy"),
     DATE_FORMAT_WITHOUT_TIME("MMMM dd, yyyy, EEEE"),
-    DATE_FORMAT_TIME("h:mm a");
+    DATE_FORMAT_TIME("h:mm a"),
+    DATE_FORMAT_MONTH_NAME_DATE_YEAR("MMMM dd, yyyy");
 }

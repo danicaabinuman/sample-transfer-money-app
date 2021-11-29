@@ -166,7 +166,6 @@
                 android:id="@+id/imageViewTips"
                 style="@style/TextViewThemeLarge"
                 android:gravity="center"
-                android:rotation="90"
                 android:text="@string/msg_check_deposit_camera_tips_1"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"

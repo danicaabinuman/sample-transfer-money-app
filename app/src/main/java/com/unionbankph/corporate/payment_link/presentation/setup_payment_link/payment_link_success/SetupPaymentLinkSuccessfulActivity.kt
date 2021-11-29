@@ -47,6 +47,12 @@ class SetupPaymentLinkSuccessfulActivity :
                     )
                     finish()
                 }
+                DashboardViewModel.FROM_DASHBOARD_TAB -> {
+                    eventBus.transactSyncEvent.emmit(
+                        BaseEvent(TransactSyncEvent.ACTION_GO_TO_PAYMENT_LINK_LIST_DASHBOARD)
+                    )
+                    finish()
+                }
             }
         }
     }

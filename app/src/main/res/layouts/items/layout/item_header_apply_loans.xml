@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/apply_loans_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/apply_loans_iv_header"
+            style="@style/SMECardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_18dp"
+            android:layout_marginEnd="@dimen/margin_18dp"
+            android:backgroundTint="@color/colorTransparent"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/grid_23_190"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/bg_loan_graph" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/apply_loans_tv_header"
+            style="@style/SMEHeadlineH2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_18dp"
+            android:layout_marginTop="@dimen/grid_7_half"
+            android:layout_marginEnd="@dimen/margin_18dp"
+            android:gravity="center"
+            android:text="@string/header_apply_up_to"
+            android:textColor="@color/colorSMEMediumOrange"
+            android:textSize="@dimen/text_24"
+            app:layout_constraintTop_toBottomOf="@+id/apply_loans_iv_header" />
+
+        <TextView
+            android:id="@+id/apply_loans_tv_description"
+            style="@style/SMEBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_18dp"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/margin_18dp"
+            android:gravity="center"
+            android:lineSpacingExtra="3sp"
+            android:text="@string/description_apply_up_to"
+            app:layout_constraintTop_toBottomOf="@+id/apply_loans_tv_header" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_loans_b_apply_now"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_marginStart="@dimen/margin_18dp"
+            android:layout_marginTop="@dimen/grid_4"
+            android:layout_marginEnd="@dimen/margin_18dp"
+            android:text="@string/action_apply_now"
+            android:textAllCaps="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apply_loans_tv_description"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_loans_b_reference_code"
+            style="@style/SMESecondaryButtonLarge"
+            android:layout_marginStart="@dimen/margin_18dp"
+            android:layout_marginTop="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/margin_18dp"
+            android:layout_marginBottom="@dimen/margin_16dp"
+            android:text="@string/action_reference_code"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/apply_loans_b_apply_now" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

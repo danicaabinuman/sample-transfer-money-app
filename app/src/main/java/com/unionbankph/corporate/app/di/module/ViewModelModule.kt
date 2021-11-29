@@ -1,6 +1,5 @@
 package com.unionbankph.corporate.app.di.module
 
-import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.unionbankph.corporate.account.presentation.account_detail.AccountDetailViewModel
@@ -15,7 +14,6 @@ import com.unionbankph.corporate.account_setup.presentation.address.AsAddressVie
 import com.unionbankph.corporate.account_setup.presentation.business_info.AsBusinessInformationViewModel
 import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipFragment
 import com.unionbankph.corporate.account_setup.presentation.citizenship.AsCitizenshipViewModel
-import com.unionbankph.corporate.account_setup.presentation.citizenship.non_filipino.AsNonFilipinoCitizenFragment
 import com.unionbankph.corporate.account_setup.presentation.citizenship.non_filipino.AsNonFilipinoCitizenViewModel
 import com.unionbankph.corporate.account_setup.presentation.personal_info.AsPersonalInformationViewModel
 import com.unionbankph.corporate.app.dashboard.DashboardViewModel
@@ -99,6 +97,19 @@ import com.unionbankph.corporate.fund_transfer.presentation.ubp.UBPViewModel
 import com.unionbankph.corporate.general.presentation.transaction_filter.TransactionFilterViewModel
 import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_scanner.InstapayQrScannerViewModel
 import com.unionbankph.corporate.instapay_qr.presentation.instapay_qr_splash.InstapayQrSplashViewModel
+import com.unionbankph.corporate.loan.LoanMainViewModel
+import com.unionbankph.corporate.loan.address.AddressViewModel
+import com.unionbankph.corporate.loan.applyloan.LoansViewModel
+import com.unionbankph.corporate.loan.business_address.BusinessAddressViewModel
+import com.unionbankph.corporate.loan.business_information.BusinessInformationLoanViewModel
+import com.unionbankph.corporate.loan.businesstype.BusinessTypeViewModel
+import com.unionbankph.corporate.loan.calculator.LoansCalculatorViewModel
+import com.unionbankph.corporate.loan.citizen.CitizenViewModel
+import com.unionbankph.corporate.loan.contactinformation.ContactInformationViewModel
+import com.unionbankph.corporate.loan.financial_information.FinancialInformationViewModel
+import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoViewModel
+import com.unionbankph.corporate.loan.personal_information.PersonalInformationViewModel
+import com.unionbankph.corporate.loan.reminders.FewRemindersViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
 import com.unionbankph.corporate.mcd.presentation.confirmation.CheckDepositConfirmationViewModel
@@ -134,8 +145,6 @@ import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.ca
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.YesAcceptCardPaymentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.card_acceptance_option.upload_documents.CardAcceptanceUploadDocumentsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.nominate_settlement_account.NominateSettlementViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
-import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentMethodsViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_success.SetupPaymentLinkSuccessfulViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.terms_of_service.TermsOfServiceViewModel
 import com.unionbankph.corporate.settings.presentation.SettingsViewModel
@@ -157,6 +166,7 @@ import com.unionbankph.corporate.user_creation.presentation.enter_contact_info.U
 import com.unionbankph.corporate.user_creation.presentation.nominate_password.UcNominatePasswordViewModel
 import com.unionbankph.corporate.user_creation.presentation.personalise_settings.UcPersonaliseSettingsViewModel
 import com.unionbankph.corporate.trial_account.presentation.TrialAccountViewModel
+import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.FeesAndChargesViewModel
 import com.unionbankph.corporate.payment_link.presentation.setup_payment_link.payment_link_channels.PaymentLinkChannelsViewModel
 import com.unionbankph.corporate.user_creation.presentation.select_account.UcAccountSelectionViewModel
 import dagger.Binds
@@ -776,6 +786,16 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(MerchantApplicationReceivedViewModel::class)
+    abstract fun merchantApplicationReceivedViewModel(viewModel: MerchantApplicationReceivedViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MerchantApplicationRejectedViewModel::class)
+    abstract fun merchantApplicationRejectedViewModel(viewModel: MerchantApplicationRejectedViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(InstapayQrSplashViewModel::class)
     abstract fun instapayQrSplashViewMOdel(viewModel: RequestPaymentSplashViewModel): ViewModel
 
@@ -861,6 +881,51 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
+    @ViewModelKey(LoansViewModel::class)
+    abstract fun loansViewModel(viewModel: LoansViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoanMainViewModel::class)
+    abstract fun loanMainViewModel(viewModel: LoanMainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LoansCalculatorViewModel::class)
+    abstract fun loansCalculatorViewModel(viewModel: LoansCalculatorViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FewRemindersViewModel::class)
+    abstract fun fewRemindersViewModel(viewModel: FewRemindersViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CitizenViewModel::class)
+    abstract fun citizenViewModel(viewModel: CitizenViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NonFilipinoViewModel::class)
+    abstract fun nonFilipinoViewModel(viewModel: NonFilipinoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BusinessTypeViewModel::class)
+    abstract fun businessTypeViewModel(viewModel: BusinessTypeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ContactInformationViewModel::class)
+    abstract fun contactInformationViewModel(viewModel: ContactInformationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PersonalInformationViewModel::class)
+    abstract fun personalInformationViewModel(viewModel: PersonalInformationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
     @ViewModelKey(AsCitizenshipViewModel::class)
     abstract fun asCitizenshipViewModel(viewModel: AsCitizenshipViewModel): ViewModel
 
@@ -918,6 +983,32 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BusinessPolicyCameraViewModel::class)
     abstract fun businessPolicyCameraViewModel(viewModel: BusinessPolicyCameraViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NotNowCardPaymentsViewModel::class)
+    abstract fun notNowCardPaymentsViewModel(viewModel: NotNowCardPaymentsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FinancialInformationViewModel::class)
+    abstract fun financialInformationViewModel(viewModel: FinancialInformationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddressViewModel::class)
+    abstract fun addressViewModel(viewModel: AddressViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BusinessInformationLoanViewModel::class)
+    abstract fun businessInformationLoanViewModel(viewModel: BusinessInformationLoanViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BusinessAddressViewModel::class)
+    abstract fun businessAddressViewModel(viewModel: BusinessAddressViewModel): ViewModel
+
 
     @Binds
     @IntoMap

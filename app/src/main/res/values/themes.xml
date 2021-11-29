@@ -54,6 +54,26 @@
         <item name="android:windowBackground">@drawable/bg_content_background</item>
         <item name="appBarTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:ambientShadowAlpha">0.05</item>
+        <item name="android:spotShadowAlpha">0.05</item>
+    </style>
+
+    <style name="AppThemeLoans" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorAccentSME</item>
+    </style>
+
+    <style name="ThemeOverlay.Custom.Button" parent="">
+        <item name="colorPrimary">@color/colorSMEMediumOrange</item>
+    </style>
+
+    <style name="SliderCustomTheme" parent="AppThemeLoans">
+        <item name="thumbColor">@color/colorSMEMediumOrange</item>
+        <item name="thumbStrokeWidth">@dimen/grid_1_5</item>
+        <item name="tickColor">@android:color/transparent</item>
+        <item name="thumbStrokeColor">@color/colorWhite</item>
+        <item name="trackHeight">@dimen/grid_1_10</item>
+        <item name="trackColorInactive">@color/dsColorLightGray30</item>
+        <item name="trackColorActive">@color/dsColorOrangeForDarkGradient</item>
     </style>
 
     <style name="CustomJumioAppTheme" parent="AppThemeSME">
@@ -209,6 +229,17 @@
     <style name="BaseDialogTheme" parent="Base.Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="colorAccent">?colorAccentApp</item>
+    </style>
+
+    <style name="GridRadioButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 </resources>

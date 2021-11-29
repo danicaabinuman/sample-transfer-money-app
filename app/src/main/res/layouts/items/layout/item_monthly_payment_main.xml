@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.calculator.LoanCalculatorState" />
+
+        <variable
+            name="loanMonths"
+            type="Integer" />
+
+        <variable
+            name="loanAmount"
+            type="Float" />
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.calculator.LoansCalculatorHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/monthly_payment_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_3_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginBottom="@dimen/grid_2"
+            app:cardCornerRadius="@dimen/margin_8dp"
+            app:cardElevation="@dimen/margin_4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/dsColorExtraLightGray">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_16dp"
+                android:paddingBottom="@dimen/margin_16dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthly_payment_tv_how_much"
+                    style="@style/SMESubtitle2"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:gravity="center"
+                    android:text="@string/title_how_much_do_you_need"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/test"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/grid_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_how_much">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/linearLayoutAmount"
+                        android:layout_width="@dimen/margin_200dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:background="@drawable/bg_border_rectangle"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/grid_4"
+                        android:paddingTop="@dimen/grid_1"
+                        android:paddingEnd="@dimen/grid_4"
+                        android:paddingBottom="@dimen/grid_1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/SMESubtitle1"
+                            android:layout_marginEnd="@dimen/grid_1_half"
+                            android:text="@string/label_php" />
+
+                        <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
+                            android:id="@+id/autoFormatEditText"
+                            style="@style/SMESubtitle1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:focusable="true"
+                            android:hint="0"
+                            android:maxLength="11"
+                            android:textSize="@dimen/text_18"
+                            android:visibility="visible"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/seekBar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:max="1000000"
+                        android:maxHeight="12dp"
+                        android:min="50000"
+                        android:paddingStart="@dimen/grid_1"
+                        android:paddingEnd="@dimen/grid_1"
+                        android:progressDrawable="@drawable/bg_custom_slider_progress"
+                        android:splitTrack="false"
+                        android:thumb="@drawable/ic_vector_thumb_state_drawable"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/linearLayoutAmount" />
+
+                    <include
+                        android:id="@+id/viewTicks"
+                        layout="@layout/widget_seekbar_ticks"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="21dp"
+                        android:layout_marginEnd="21dp"
+                        app:layout_constraintEnd_toEndOf="@id/seekBar"
+                        app:layout_constraintStart_toStartOf="@id/seekBar"
+                        app:layout_constraintTop_toBottomOf="@id/seekBar" />
+
+                    <TextView
+                        android:id="@+id/tvBelow10K"
+                        style="@style/SMEBodyMediumGray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_1"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginBottom="@dimen/grid_2"
+                        android:text="@string/label_fifty_thousand"
+                        android:textSize="@dimen/text_10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewTicks" />
+
+                    <TextView
+                        android:id="@+id/tvAbove5M"
+                        style="@style/SMEBodyMediumGray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/grid_1"
+                        android:layout_marginEnd="@dimen/grid_1"
+                        android:layout_marginBottom="@dimen/grid_2"
+                        android:text="@string/label_one_million"
+                        android:textSize="@dimen/text_10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/viewTicks" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linearLayoutAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_4"
+                    android:background="@drawable/bg_border_rectangle"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/grid_4"
+                    android:paddingTop="@dimen/grid_1"
+                    android:paddingEnd="@dimen/grid_4"
+                    android:paddingBottom="@dimen/grid_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_how_much">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/SMESubtitle1"
+                        android:layout_marginEnd="@dimen/grid_1_half"
+                        android:text="@string/label_php" />
+
+                    <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
+                        android:id="@+id/monthly_payment_afet_amount"
+                        style="@style/SMESubtitle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhite"
+                        android:text="@{item.amount.toString()}"
+                        android:enabled="true"
+                        android:focusable="true"
+                        android:hint="0"
+                        android:maxLength="11"
+                        android:textSize="@dimen/text_18"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/monthly_payment_sb_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:paddingStart="@dimen/grid_1"
+                    android:paddingEnd="@dimen/grid_1"
+                    app:values="@array/initial_fifty_to_million"
+                    android:valueFrom="50000"
+                    android:valueTo="1000000"
+                    android:stepSize="10000"
+                    style="@style/SliderCustomTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutAmount"/>
+
+                <include
+                    android:id="@+id/viewTicks"
+                    layout="@layout/widget_seekbar_ticks"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginEnd="21dp"
+                    app:layout_constraintEnd_toEndOf="@id/monthly_payment_sb_amount"
+                    app:layout_constraintStart_toStartOf="@id/monthly_payment_sb_amount"
+                    app:layout_constraintTop_toBottomOf="@id/monthly_payment_sb_amount" />
+
+                <TextView
+                    android:id="@+id/tvBelow10K"
+                    style="@style/SMEBodyMediumGray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginBottom="@dimen/grid_2"
+                    android:text="@string/label_fifty_thousand"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewTicks" />
+
+                <TextView
+                    android:id="@+id/tvAbove5M"
+                    style="@style/SMEBodyMediumGray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:layout_marginBottom="@dimen/grid_2"
+                    android:text="@string/label_above_one_million"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewTicks" />-->
+
+                <View
+                    android:id="@+id/monthly_payment_v_divider"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:background="@drawable/bg_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/test" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthly_payment_tv_how_long"
+                    style="@style/SMESubtitle2"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/margin_24dp"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:gravity="center"
+                    android:text="@string/title_how_long_can_you_repay"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/monthly_payment_v_divider" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/monthly_payment_mbtg_how_long"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_60dp"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:theme="@style/ThemeOverlay.Custom.Button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_how_long"
+                    app:singleSelection="true">
+
+                    <Button
+                        android:id="@+id/monthly_payment_b_three"
+                        style="@style/SMEToggleButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="@{() -> handler.onMonths(3)}"
+                        android:text="@string/label_three" />
+
+                    <Button
+                        android:id="@+id/monthly_payment_b_six"
+                        style="@style/SMEToggleButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="@{() -> handler.onMonths(6)}"
+                        android:text="@string/label_six" />
+
+                    <Button
+                        android:id="@+id/monthly_payment_b_twelve"
+                        style="@style/SMEToggleButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="@{() -> handler.onMonths(12)}"
+                        android:text="@string/label_twelve" />
+
+                    <Button
+                        android:id="@+id/monthly_payment_b_twenty_four"
+                        style="@style/SMEToggleButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="@{() -> handler.onMonths(24)}"
+                        android:text="@string/label_twenty_four" />
+
+                    <Button
+                        android:id="@+id/monthly_payment_b_thirty_six"
+                        style="@style/SMEToggleButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:onClick="@{() -> handler.onMonths(36)}"
+                        android:text="@string/label_thirty_six" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/monthly_payment_cl_monthly_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/margin_24dp"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:background="@drawable/bg_tertiary_pressed_radius4_transparent_border1"
+                    android:paddingBottom="@dimen/grid_2"
+                    app:layout_constraintBottom_toTopOf="@+id/monthly_payment_b_apply_now"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_mbtg_how_long">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/monthly_payment_tv_monthly_payment"
+                        style="@style/SMEBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/grid_2"
+                        android:layout_marginTop="@dimen/grid_2"
+                        android:layout_marginEnd="@dimen/grid_2"
+                        android:gravity="center"
+                        android:text="@string/title_your_estimated_monthly_payment"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/monthly_payment_tv_amount"
+                        style="@style/SMEHeadlineH1"
+                        android:layout_width="match_parent"
+                        android:layout_marginStart="@dimen/grid_2"
+                        android:layout_marginTop="@dimen/grid_1_half"
+                        android:layout_marginEnd="@dimen/grid_2"
+                        android:gravity="center"
+                        android:text="@string/label_php_zero"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/monthly_payment_tv_monthly_payment" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/monthly_payment_b_apply_now"
+                    style="@style/SMEPrimaryButtonLarge"
+                    android:layout_marginStart="@dimen/margin_16dp"
+                    android:layout_marginTop="@dimen/grid_3"
+                    android:layout_marginEnd="@dimen/margin_16dp"
+                    android:alpha="@{loanMonths != 0 &amp;&amp; loanAmount != 0.0f ? 1.0f: 0.5f}"
+                    android:enabled="@{loanMonths != 0 &amp;&amp; loanAmount != 0.0f ? true : false}"
+                    android:text="@string/action_apply_now"
+                    android:textAllCaps="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_cl_monthly_payment"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

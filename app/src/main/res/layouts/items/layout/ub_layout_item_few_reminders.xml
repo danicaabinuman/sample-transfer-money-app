@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/grid_2"
+        android:clipToPadding="false"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchParent"
+            android:background="@color/colorWhite"
+            android:padding="@dimen/grid_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_as_reminders_header"
+                style="@style/SMEHeadlineH2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/grid_1"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:text="@string/title_just_a_few_reminders"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_as_address_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/grid_5_half"
+                android:src="@drawable/bg_as_reminders"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_as_reminders_header" />
+
+            <ImageView
+                android:id="@+id/iv_as_reminders_bullet_1"
+                android:layout_width="@dimen/circle_icon_size_2"
+                android:layout_height="@dimen/circle_icon_size_2"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/grid_3"
+                android:src="@drawable/ic_check_circle_orange"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_as_address_icon" />
+
+            <TextView
+                android:id="@+id/tv_as_reminders_bullet_1"
+                style="@style/SMEBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginEnd="@dimen/grid_9_half"
+                android:text="@string/account_setup_reminder_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_as_reminders_bullet_1"
+                app:layout_constraintTop_toTopOf="@id/iv_as_reminders_bullet_1" />
+
+            <ImageView
+                android:id="@+id/iv_as_reminders_bullet_2"
+                android:layout_width="@dimen/circle_icon_size_2"
+                android:layout_height="@dimen/circle_icon_size_2"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/grid_4"
+                android:src="@drawable/ic_check_circle_orange"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_as_reminders_bullet_1" />
+
+            <TextView
+                android:id="@+id/tv_as_reminders_bullet_2"
+                style="@style/SMEBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginEnd="@dimen/grid_9_half"
+                android:text="@string/account_setup_reminder_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_as_reminders_bullet_2"
+                app:layout_constraintTop_toTopOf="@id/iv_as_reminders_bullet_2" />
+
+            <ImageView
+                android:id="@+id/iv_as_reminders_bullet_3"
+                android:layout_width="@dimen/circle_icon_size_2"
+                android:layout_height="@dimen/circle_icon_size_2"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/grid_3"
+                android:src="@drawable/ic_check_circle_orange"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_as_reminders_bullet_2" />
+
+            <TextView
+                android:id="@+id/tv_as_reminders_bullet_3"
+                style="@style/SMEBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginEnd="@dimen/grid_9_half"
+                android:text="@string/account_setup_reminder_3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_as_reminders_bullet_3"
+                app:layout_constraintTop_toTopOf="@id/iv_as_reminders_bullet_3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintGuide_percent="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="percent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_as_reminders_begin_setup"
+                style="@style/SMEPrimaryButtonLarge"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/grid_4"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:layout_marginBottom="@dimen/grid_1"
+                android:text="@string/title_begin_application"
+                android:onClick="@{onClickListener}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_as_reminders_bullet_3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/few_reminders_tv_header"
+            style="@style/SMEHeadlineH2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="@string/title_just_a_few_reminders"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/few_reminders_tv_background"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/grid_23_190"
+            android:layout_marginTop="@dimen/grid_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/few_reminders_tv_header"
+            app:srcCompat="@drawable/bg_id" />
+
+        <ImageView
+            android:id="@+id/few_reminders_iv_few_reminders"
+            android:layout_width="@dimen/circle_icon_size_2"
+            android:layout_height="@dimen/circle_icon_size_2"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_4"
+            android:src="@drawable/ic_check_circle_orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/few_reminders_tv_background" />
+
+        <TextView
+            android:id="@+id/few_reminders_tv_few_reminders"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_9_half"
+            android:text="@string/account_setup_reminder_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/few_reminders_iv_few_reminders"
+            app:layout_constraintTop_toTopOf="@id/few_reminders_iv_few_reminders" />
+
+        <ImageView
+            android:id="@+id/few_reminders_iv_prepare"
+            android:layout_width="@dimen/circle_icon_size_2"
+            android:layout_height="@dimen/circle_icon_size_2"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_4"
+            android:src="@drawable/ic_check_circle_orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/few_reminders_tv_few_reminders" />
+
+        <TextView
+            android:id="@+id/few_reminders_tv_prepare"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_9_half"
+            android:text="@string/title_prepare_a_valid_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/few_reminders_iv_prepare"
+            app:layout_constraintTop_toTopOf="@id/few_reminders_iv_prepare" />
+
+        <ImageView
+            android:id="@+id/few_reminders_iv_validate"
+            android:layout_width="@dimen/circle_icon_size_2"
+            android:layout_height="@dimen/circle_icon_size_2"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_4"
+            android:src="@drawable/ic_check_circle_orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/few_reminders_tv_prepare" />
+
+        <TextView
+            android:id="@+id/few_reminders_tv_validate"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_9_half"
+            android:text="@string/title_we_will_be_validating"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/few_reminders_iv_validate"
+            app:layout_constraintTop_toTopOf="@id/few_reminders_iv_validate" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_loans_b_apply_now"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_marginTop="@dimen/grid_4"
+            android:text="@string/title_begin_application"
+            android:onClick="@{onClickListener}"
+            android:clickable="true"
+            android:focusable="true"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+</layout>

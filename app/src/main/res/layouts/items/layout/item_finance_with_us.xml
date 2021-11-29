@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.applyloan.FinanceWithUs" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_finance_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_72dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_finance_tv_title"
+            style="@style/SMEBody"
+            android:lineSpacingExtra="@dimen/margin_3dp"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/grid_1_10"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:text="@{item.title}"
+            app:layout_constraintBottom_toTopOf="@+id/item_finance_others_v_divider"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/others" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_finance_ubmsme_tv_title"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/item_finance_others_v_divider"
+            android:text="@{item.ubmsmeTitle}"
+            android:visibility="@{item.ubmsmeTitle == null ? View.GONE: View.VISIBLE}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_sub_parent"
+            app:layout_constraintStart_toEndOf="@+id/guideLine_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/others" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_finance_ubmsme_iv_ubmsme"
+            setDrawable="@{item.ubmsmeIcon}"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="@dimen/grid_5_half"
+            android:visibility="@{item.ubmsmeIcon == null ? View.GONE: View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@id/item_finance_others_v_divider"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_sub_parent"
+            app:layout_constraintStart_toEndOf="@+id/guideLine_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_orange_check" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_finance_others_tv_title"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            app:layout_constraintBottom_toTopOf="@+id/item_finance_others_v_divider"
+            android:gravity="center"
+            android:text="@{item.othersTitle}"
+            android:visibility="@{item.othersTitle == null ? View.GONE: View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_sub_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/others" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_finance_others_iv_others"
+            setDrawable="@{item.othersIcon}"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="@dimen/grid_5_half"
+            android:visibility="@{item.othersIcon == null ? View.GONE: View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@id/item_finance_others_v_divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_sub_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_orange_check" />
+
+        <View
+            android:id="@+id/item_finance_others_v_divider"
+            style="@style/BorderHorizontal"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:background="@drawable/bg_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLine_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_sub_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

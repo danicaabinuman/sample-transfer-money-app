@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.unionbankph.corporate.loan.applyloan.KeyFeatures" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_key_features_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_3"
+        android:layout_marginBottom="@dimen/grid_2"
+        android:background="@drawable/bg_rectangle_rounded_white">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/item_key_features_cl_background"
+            setDrawable="@{item.icon}"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="@dimen/grid_1"
+            android:background="@drawable/bg_key_features"
+            android:padding="@dimen/grid_1_11"
+            app:layout_constraintBottom_toTopOf="@id/item_key_features_tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:src="@drawable/ic_low_interest_rates" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_key_features_tv_title"
+            style="@style/SMEBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12dp"
+            android:layout_marginBottom="@dimen/grid_1"
+            android:gravity="center"
+            android:text="@{item.title}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_key_features_cl_background"
+            tools:text="@string/action_more" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

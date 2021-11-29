@@ -143,11 +143,11 @@
     <color name="dsColorMediumOrange">#FF8200</color>
     <color name="dsColorLightOrange">#FFF3E5</color>
     <color name="dsColorDarkGray">#4B4948</color>
-        <color name="dsColorMediumGray">#9B9B9B</color>
+    <color name="dsColorMediumGray">#9B9B9B</color>
     <color name="dsColorExtraLightGray">#F8F8F8</color>
     <color name="dsColorSystemError">#FE3D2F</color>
     <color name="dsColorSystemSuccess">#3BB537</color>
-    <color name="dsColorOrangeForDarkGradient">#FF8955</color>\
+    <color name="dsColorOrangeForDarkGradient">#FF8955</color>
 
     <color name="dsColorUnpaidBackground">#FFDA1C</color>
     <color name="dsColorPendingBackground">@color/dsColorMediumOrange</color>
@@ -220,6 +220,8 @@
     <color name="dsColorChipDefaultBorder">@color/dsColorLightGray</color>
     <color name="dsColorChipDisabled">@color/dsColorLightOrange</color>
     <color name="dsColorChipTextDisabled">@color/dsColorMediumOrange</color>
+
+    <color name="colorTeal">#01A8AA</color>
 
     <!-- Checkable Button Text-->
     <color name="colorCheckableChecked">@color/colorWhite</color>

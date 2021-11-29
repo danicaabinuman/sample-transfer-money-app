@@ -6,6 +6,7 @@ object BuildPlugins {
         const val firebaseCrashlytics = "2.4.1"
         const val googleServices = "4.3.4"
         const val kotlin = "1.4.30"
+        const val kotlin_version = "1.5.21"
         const val klint = "9.2.1"
         const val buildKonfig = "0.4.1"
     }
@@ -22,7 +23,7 @@ object BuildPlugins {
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.buildTools}"
     const val kotlinGradlePlugin =
-        "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_version}"
     const val kotlinXSerializerPlugin =
         "org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}"
     const val navigationSafeArgsPlugin =
@@ -31,6 +32,7 @@ object BuildPlugins {
     const val googleServicesPlugin = "com.google.gms:google-services:${Versions.googleServices}"
     const val klintPlugin = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.klint}"
     const val buildKonfigPlugin = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.buildKonfig}"
+
 }
 
 object Libraries {
@@ -46,6 +48,7 @@ object Libraries {
         const val activityAndroidX = "1.0.0"
         const val fragmentAndroidX = "1.1.0"
         const val navigation = "2.4.0-alpha02"
+        const val gridLayout = "1.0.0-beta01"
 
         // Core
         const val okhttp = "3.9.0"
@@ -64,7 +67,7 @@ object Libraries {
         const val rxPermission = "0.10.2"
         const val kotlinX = "1.2.2"
         const val kotlinXConverter = "0.8.0"
-        const val coreKtx = "1.3.2"
+        const val coreKtx = "1.6.0"
         const val kotlinReflect = "1.5.20"
         const val multiDex = "2.0.0"
         const val stetho = "1.5.0"
@@ -87,6 +90,7 @@ object Libraries {
         const val materialDialogLifeCycle = "3.2.1"
         const val epoxy = "4.6.2"
         const val epoxyViewBinding = "2.6.0"
+        const val philJayChart = "v3.1.0"
 
         //epoxy = "2.19.0"
         const val shimmer = "2.1.0"
@@ -107,6 +111,12 @@ object Libraries {
         const val smartCropper = "v2.1.3"
         const val paris = "1.5.0"
         const val stv = "1.0.0"
+
+        //Lifecycle
+        const val lifecycle_version = "2.4.0"
+
+        //Coroutines
+        const val coroutines_version = "1.3.9"
 
         //Third Party SDK
         const val jumio = "3.9.2@aar"
@@ -133,8 +143,8 @@ object Libraries {
     const val support = "androidx.legacy:legacy-support-v4:${Versions.support}"
     const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
     const val material = "com.google.android.material:material:${Versions.material}"
-    const val constraintlayout =
-        "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    const val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    const val gridLayout = "androidx.gridlayout:gridlayout:${Versions.gridLayout}"
 
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"
@@ -202,6 +212,23 @@ object Libraries {
     const val journeyappsZxing = "com.journeyapps:zxing-android-embedded:${Versions.journeyappsZxing}"
     const val budiyev = "com.budiyev.android:code-scanner:${Versions.budiyev}"
     const val biometric = "androidx.biometric:biometric:${Versions.biometric}"
+
+    //Coroutines
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines_version}"
+    const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_version}"
+
+    //Lifecycle
+    const val lifecycleViewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle_version}"
+    const val lifecycleViewModelLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle_version}"
+    const val lifecycleViewModelRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle_version}"
+    const val lifecycleViewModelSavedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle_version}"
+
+    //Lifecycle AnnotationProcessorWithJava8
+    /*const val lifecycleKapt = "androidx.lifecycle-compiler:${Versions.lifecycle_version}"
+    const val lifecycleCommonJava8 = "androidx.lifecycle-common-java8:${Versions.lifecycle_version}"*/
+
+    // Third party library
+    const val philJayChart = "com.github.PhilJay:MPAndroidChart:${Versions.philJayChart}"
 
     // Jumio
     const val jumioCore = "com.jumio.android:core:${Versions.jumio}"

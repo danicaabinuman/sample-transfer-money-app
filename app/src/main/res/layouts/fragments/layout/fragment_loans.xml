@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            app:layout_constraintTop_toTopOf="parent"
+            android:scrollbars="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/loans_erv_apply_loans"
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:stateListAnimator="@animator/animator_toolbar_elevation"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/margin_8dp"
+            android:paddingBottom="@dimen/content_spacing"
+            android:background="@color/colorWhite"
+            app:itemSpacing="@dimen/content_item_spacing" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

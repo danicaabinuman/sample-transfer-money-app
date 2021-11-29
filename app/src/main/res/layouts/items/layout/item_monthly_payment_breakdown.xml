@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/monthly_payment_breakdown_cl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginTop="@dimen/grid_3_half"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginBottom="@dimen/grid_2"
+            app:cardCornerRadius="@dimen/margin_8dp"
+            app:cardElevation="@dimen/margin_4dp"
+            app:strokeColor="@color/dsColorExtraLightGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthly_payment_breakdown_tv_header"
+                    style="@style/SMEBody"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@string/font_family_medium"
+                    android:gravity="start"
+                    android:padding="@dimen/grid_2"
+                    android:text="@string/title_monthly_payment_breakdown"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/monthly_payment_breakdown_v_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGreyLight"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_tv_header" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/monthly_payment_breakdown_pc_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/grid_27"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_v_divider" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthly_payment_breakdown_tv_principal"
+                    style="@style/SMECaption"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_5_half"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:drawableStart="@drawable/bg_bullet"
+                    android:drawablePadding="@dimen/grid_1"
+                    android:text="@string/title_principal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_pc_chart" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthly_payment_breakdown_tv_principal_value"
+                    style="@style/SMEBody"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_5_half"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:gravity="start"
+                    android:text="@string/label_five_hundred_thousand"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_pc_chart" />
+
+                <View
+                    android:id="@+id/monthly_payment_breakdown_v_divider_principal"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:background="@drawable/bg_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_tv_principal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthly_payment_breakdown_tv_interest"
+                    style="@style/SMECaption"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_5_half"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:drawableStart="@drawable/bg_bullet"
+                    android:drawablePadding="@dimen/grid_1"
+                    android:drawableTint="@color/colorTeal"
+                    android:text="@string/title_interest"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_v_divider_principal" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthly_payment_breakdown_tv_interest_value"
+                    style="@style/SMEBody"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_5_half"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:gravity="start"
+                    android:text="@string/label_five_hundred_thousand"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_v_divider_principal" />
+
+                <View
+                    android:id="@+id/border_salutation_interest"
+                    style="@style/BorderHorizontal"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/content_spacing"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:background="@drawable/bg_line"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/monthly_payment_breakdown_tv_interest" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthly_payment_breakdown_tv_monthly_payment"
+                    style="@style/SMECaption"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_5_half"
+                    android:layout_marginBottom="@dimen/grid_5_half"
+                    android:minWidth="0dp"
+                    android:text="@string/title_estimated_monthly_payment"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/border_salutation_interest" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/monthly_payment_breakdown_tv_monthly_payment_value"
+                    style="@style/SMEBody"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_5_half"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:layout_marginBottom="@dimen/grid_5_half"
+                    android:gravity="start"
+                    android:text="@string/label_five_hundred_thousand"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/guideLine"
+                    app:layout_constraintTop_toBottomOf="@+id/border_salutation_interest" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

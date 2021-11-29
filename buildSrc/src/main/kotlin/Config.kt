@@ -2,7 +2,7 @@ import java.util.*
 
 object AndroidSdk {
     const val min = 21
-    const val compile = 30
+    const val compile = 31
     const val target = compile
     const val dimension = "version"
     const val applicationId = "com.unionbankph.corporate"

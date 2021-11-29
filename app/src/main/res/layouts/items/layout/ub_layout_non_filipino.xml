@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/non_filipino_iv_background"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/grid_23_190"
+            android:layout_marginTop="@dimen/grid_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideLine"
+            app:srcCompat="@drawable/bg_were_sorry" />
+
+        <TextView
+            android:id="@+id/non_filipino_tv_header"
+            style="@style/SMEHeadlineH2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_7_half"
+            android:gravity="center"
+            android:text="@string/title_were_sorry"
+            android:textColor="@color/colorDarkOrange"
+            android:textSize="@dimen/text_30"
+            app:layout_constraintTop_toBottomOf="@+id/non_filipino_iv_background" />
+
+        <TextView
+            android:id="@+id/non_filipino_tv_limited"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginStart="@dimen/grid_8"
+            android:layout_marginEnd="@dimen/grid_8"
+            android:text="@string/label_application_is_limited"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/non_filipino_tv_header" />
+
+        <TextView
+            android:id="@+id/non_filipino_tv_reach_out"
+            style="@style/SMEBody"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/grid_3_half"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/grid_8"
+            android:layout_marginEnd="@dimen/grid_8"
+            android:text="@string/label_you_may_reach_out"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/non_filipino_tv_limited" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_loans_b_apply_now"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_marginTop="@dimen/grid_4"
+            android:text="@string/btn_back_to_dashboard"
+            android:onClick="@{onClickListener}"
+            android:clickable="true"
+            android:focusable="true"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLine"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.18"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

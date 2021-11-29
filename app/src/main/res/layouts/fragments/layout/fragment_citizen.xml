@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.citizen.CitizenHandler" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/MatchParent"
+            android:orientation="vertical"
+            android:padding="@dimen/grid_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_as_citizenship_title"
+                style="@style/SMEHeadlineH2"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/grid_7"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:text="@string/as_citizenship_title"
+                android:textColor="@color/colorInfo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_as_citizenship"
+                style="@style/MatchConstraint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/grid_11_half"
+                android:layout_marginBottom="@dimen/margin_24dp"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toTopOf="@id/tv_as_citizenship_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_as_citizenship_title"
+                app:srcCompat="@drawable/bg_citizenship" />
+
+            <TextView
+                android:id="@+id/tv_as_citizenship_description"
+                style="@style/SMEBody"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/grid_3"
+                android:layout_marginEnd="@dimen/grid_3"
+                android:gravity="top|center"
+                android:layout_height="0dp"
+                android:text="@string/title_before_we_proceed_please"
+                app:layout_constraintBottom_toTopOf="@id/btn_as_citizenship_yes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_as_citizenship"
+                app:layout_constraintVertical_bias="1"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_as_citizenship_yes"
+                style="@style/SMESecondaryButtonBigHalfStrokeWidthGradient"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/grid_4"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:onClick="@{() -> handler.onWhere(true)}"
+                android:text="@string/as_citizenship_yes"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toTopOf="@id/btn_as_citizenship_no"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintTop_toBottomOf="@id/tv_as_citizenship_description" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_as_citizenship_no"
+                style="@style/SMESecondaryButtonBigHalfStrokeWidthGradient"
+                android:layout_marginStart="@dimen/grid_1"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginEnd="@dimen/grid_1"
+                android:layout_marginBottom="@dimen/grid_2"
+                android:onClick="@{() -> handler.onWhere(false)}"
+                android:text="@string/as_citizenship_no"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_as_citizenship_yes" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
