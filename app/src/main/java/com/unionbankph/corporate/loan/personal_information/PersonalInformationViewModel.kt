@@ -88,8 +88,9 @@ constructor(
                             }
                             DOB -> {
                                 dobError =
-                                    if (form.dob.isNullOrBlank()) {
-                                        context.getString(R.string.error_invalid_input)
+                                    if (form.dob.isNullOrBlank() /* == context.resources.getString(R.string.hint_date_of_birth)*/) {
+//                                        context.getString(R.string.error_invalid_input)
+                                        "Age must be 18 years old or above"
                                     } else {
                                         null
                                     }
@@ -149,7 +150,7 @@ constructor(
                         }
                         form.apply {
                             isDataValid =
-                                form.firstname?.isNotEmpty() == true && form.middlename?.isNotEmpty() == true &&
+                                form.firstname?.isNotEmpty() == true && /*form.middlename?.isNotEmpty() == true &&*/
                                         form.lastname?.isNotEmpty() == true && form.dob?.isNotEmpty() == true &&
                                          pob?.isNotEmpty() == true && civilStatus?.isNotEmpty() == true &&
                                         form.gender?.isNotEmpty() == true && form.dependents?.isNotEmpty() == true &&
@@ -188,7 +189,13 @@ constructor(
                             FIRST_NAME -> form.firstname = data.first
                             MIDDLE_NAME -> form.middlename = data.first
                             LAST_NAME -> form.lastname = data.first
-                            DOB -> form.dob = data.first
+                            DOB -> {
+                                if (data.first == context.resources.getString(R.string.hint_date_of_birth)) {
+                                    form.dob = null //context.resources.getString(R.string.hint_date_of_birth)
+                                } else {
+                                    form.dob = data.first
+                                }
+                            }
                             POB -> form.pob = data.first
                             GENDER -> form.gender = data.first
                             CIVIL_STATUS -> form.civilStatus = data.first

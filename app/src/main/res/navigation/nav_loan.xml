@@ -138,6 +138,62 @@
     <fragment
         android:id="@+id/businessAddressFragment"
         android:name="com.unionbankph.corporate.loan.business_address.BusinessAddressFragment"
-        android:label="BusinessAddressFragment" />
+        android:label="BusinessAddressFragment" >
+        <action
+            android:id="@+id/nav_to_onboardingUploadPhotosActivity"
+            app:destination="@id/onboardingUploadPhotosActivity"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+        <action
+            android:id="@+id/nav_to_productsFragment"
+            app:destination="@id/productsFragment"
+            app:enterAnim="@anim/anim_enter_from_right"
+            app:exitAnim="@anim/anim_exit_to_left"
+            app:popEnterAnim="@anim/anim_enter_from_left"
+            app:popExitAnim="@anim/anim_exit_to_right" />
+    </fragment>
+    <activity
+        android:id="@+id/onboardingUploadPhotosActivity"
+        android:name="com.unionbankph.corporate.payment_link.presentation.onboarding.upload_photos.OnboardingUploadPhotosActivity"
+        android:label="OnboardingUploadPhotosActivity" />
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.unionbankph.corporate.loan.products.ProductsFragment"
+        android:label="ProductsFragment" >
+        <action
+            android:id="@+id/nav_products_to_productsCamera"
+            app:destination="@id/productsCameraFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/productsCameraFragment2"
+        android:name="com.unionbankph.corporate.loan.products.ProductsCameraFragment"
+        android:label="ProductsCameraFragment" >
+        <action
+            android:id="@+id/nav_camera_to_productsData"
+            app:destination="@id/productsCameraDataFragment2"
+            app:popUpTo="@id/productsCameraDataFragment2"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/nav_camera_to_products2"
+            app:destination="@id/productsFragment"
+            app:popUpTo="@id/productsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/productsCameraDataFragment2"
+        android:name="com.unionbankph.corporate.loan.products.ProductsCameraDataFragment"
+        android:label="ProductsCameraDataFragment" >
+        <action
+            android:id="@+id/nav_productsData_to_products"
+            app:destination="@id/productsFragment"
+            app:popUpTo="@id/productsFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/nav_productsData_to_productsCamera"
+            app:destination="@id/productsCameraFragment2"
+            app:launchSingleTop="true" />
+    </fragment>
 
 </navigation>

@@ -1,0 +1,574 @@
+{
+    "data": [
+        {
+            "code": "280",
+            "description": "abra",
+            "id": 85,
+            "title": "ABRA"
+        },
+        {
+            "code": "860",
+            "description": "agusan del norte",
+            "id": 32,
+            "title": "AGUSAN DEL NORTE"
+        },
+        {
+            "code": "850",
+            "description": "agusan del sur",
+            "id": 51,
+            "title": "AGUSAN DEL SUR"
+        },
+        {
+            "code": "560",
+            "description": "aklan",
+            "id": 30,
+            "title": "AKLAN"
+        },
+        {
+            "code": "450",
+            "description": "albay",
+            "id": 28,
+            "title": "ALBAY"
+        },
+        {
+            "code": "571",
+            "description": "antique",
+            "id": 56,
+            "title": "ANTIQUE"
+        },
+        {
+            "code": "320",
+            "description": "aurora",
+            "id": 68,
+            "title": "AURORA"
+        },
+        {
+            "code": "730",
+            "description": "basilan",
+            "id": 39,
+            "title": "BASILAN"
+        },
+        {
+            "code": "211",
+            "description": "bataan",
+            "id": 91,
+            "title": "BATAAN"
+        },
+        {
+            "code": "390",
+            "description": "batanes",
+            "id": 26,
+            "title": "BATANES"
+        },
+        {
+            "code": "420",
+            "description": "batangas",
+            "id": 27,
+            "title": "BATANGAS"
+        },
+        {
+            "code": "260",
+            "description": "benguet",
+            "id": 84,
+            "title": "BENGUET"
+        },
+        {
+            "code": "654",
+            "description": "biliran",
+            "id": 43,
+            "title": "BILIRAN SUB-PROVINCE"
+        },
+        {
+            "code": "630",
+            "description": "bohol",
+            "id": 42,
+            "title": "BOHOL"
+        },
+        {
+            "code": "870",
+            "description": "bukidnon",
+            "id": 52,
+            "title": "BUKIDNON"
+        },
+        {
+            "code": "301",
+            "description": "bulacan province",
+            "id": 12,
+            "title": "BULACAN PROVINCE"
+        },
+        {
+            "code": "350",
+            "description": "cagayan",
+            "id": 3,
+            "title": "CAGAYAN"
+        },
+        {
+            "code": "460",
+            "description": "camarines norte",
+            "id": 78,
+            "title": "CAMARINES NORTE"
+        },
+        {
+            "code": "443",
+            "description": "camarines sur",
+            "id": 21,
+            "title": "CAMARINES SUR"
+        },
+        {
+            "code": "910",
+            "description": "camiguin",
+            "id": 23,
+            "title": "CAMIGUIN"
+        },
+        {
+            "code": "581",
+            "description": "capiz",
+            "id": 40,
+            "title": "CAPIZ"
+        },
+        {
+            "code": "480",
+            "description": "catanduanes",
+            "id": 73,
+            "title": "CATANDUANES"
+        },
+        {
+            "code": "410",
+            "description": "cavite province",
+            "id": 77,
+            "title": "CAVITE PROVINCE"
+        },
+        {
+            "code": "600",
+            "description": "cebu province",
+            "id": 34,
+            "title": "CEBU PROVINCE"
+        },
+        {
+            "code": "810",
+            "description": "davao del norte",
+            "id": 50,
+            "title": "DAVAO DEL NORTE"
+        },
+        {
+            "code": "800",
+            "description": "davao del sur",
+            "id": 29,
+            "title": "DAVAO DEL SUR"
+        },
+        {
+            "code": "820",
+            "description": "davao oriental",
+            "id": 31,
+            "title": "DAVAO ORIENTAL"
+        },
+        {
+            "code": "682",
+            "description": "eastern samar",
+            "id": 45,
+            "title": "EASTERN SAMAR"
+        },
+        {
+            "code": "504",
+            "description": "guimaras sub-pro.",
+            "id": 74,
+            "title": "GUIMARAS SUBPROVINCE"
+        },
+        {
+            "code": "360",
+            "description": "ifugao",
+            "id": 69,
+            "title": "IFUGAO"
+        },
+        {
+            "code": "290",
+            "description": "ilocos norte",
+            "id": 67,
+            "title": "ILOCOS NORTE"
+        },
+        {
+            "code": "270",
+            "description": "ilocos sur",
+            "id": 93,
+            "title": "ILOCOS SUR"
+        },
+        {
+            "code": "500",
+            "description": "iloilo province",
+            "id": 79,
+            "title": "ILOILO PROVINCE"
+        },
+        {
+            "code": "330",
+            "description": "isabela",
+            "id": 20,
+            "title": "ISABELA"
+        },
+        {
+            "code": "380",
+            "description": "kalinga apayao",
+            "id": 70,
+            "title": "KALINGA-APAYAO"
+        },
+        {
+            "code": "142",
+            "description": "kalookan city [north]",
+            "id": 18,
+            "title": "KALOOKAN CITY [NORTH]"
+        },
+        {
+            "code": "140",
+            "description": "kalookan city [south]",
+            "id": 87,
+            "title": "KALOOKAN CITY [SOUTH]"
+        },
+        {
+            "code": "250",
+            "description": "la union",
+            "id": 66,
+            "title": "LA UNION"
+        },
+        {
+            "code": "400",
+            "description": "laguna",
+            "id": 71,
+            "title": "LAGUNA"
+        },
+        {
+            "code": "920",
+            "description": "lanao del norte",
+            "id": 4,
+            "title": "LANAO DEL NORTE"
+        },
+        {
+            "code": "930",
+            "description": "lanao del sur",
+            "id": 7,
+            "title": "LANAO DEL SUR"
+        },
+        {
+            "code": "174",
+            "description": "las pinas",
+            "id": 90,
+            "title": "LAS PINAS"
+        },
+        {
+            "code": "650",
+            "description": "leyte",
+            "id": 15,
+            "title": "LEYTE PROVINCE"
+        },
+        {
+            "code": "960",
+            "description": "maguindanao",
+            "id": 55,
+            "title": "MAGUINDANAO"
+        },
+        {
+            "code": "120",
+            "description": "makati",
+            "id": 58,
+            "title": "MAKATI"
+        },
+        {
+            "code": "147",
+            "description": "malabon",
+            "id": 61,
+            "title": "MALABON"
+        },
+        {
+            "code": "155",
+            "description": "mandaluyong",
+            "id": 62,
+            "title": "MANDALUYONG"
+        },
+        {
+            "code": "180",
+            "description": "marikina",
+            "id": 64,
+            "title": "MARIKINA"
+        },
+        {
+            "code": "490",
+            "description": "marinduque",
+            "id": 10,
+            "title": "MARINDUQUE"
+        },
+        {
+            "code": "541",
+            "description": "masbate province",
+            "id": 48,
+            "title": "MASBATE PROVINCE"
+        },
+        {
+            "code": "100",
+            "description": "manila",
+            "id": 57,
+            "title": "METRO MANILA"
+        },
+        {
+            "code": "510",
+            "description": "mindoro occidental",
+            "id": 5,
+            "title": "MINDORO OCCIDENTAL"
+        },
+        {
+            "code": "520",
+            "description": "mindoro oriental",
+            "id": 75,
+            "title": "MINDORO ORIENTAL"
+        },
+        {
+            "code": "720",
+            "description": "misamis occidental",
+            "id": 16,
+            "title": "MISAMIS OCCIDENTAL"
+        },
+        {
+            "code": "901",
+            "description": "misamis oriental",
+            "id": 53,
+            "title": "MISAMIS ORIENTAL"
+        },
+        {
+            "code": "262",
+            "description": "mountain province",
+            "id": 9,
+            "title": "MOUNTAIN PROVINCE"
+        },
+        {
+            "code": "177",
+            "description": "muntinlupa",
+            "id": 81,
+            "title": "MUNTINLUPA"
+        },
+        {
+            "code": "141",
+            "description": "navotas",
+            "id": 60,
+            "title": "NAVOTAS"
+        },
+        {
+            "code": "610",
+            "description": "negros occidental",
+            "id": 41,
+            "title": "NEGROS OCCIDENTAL"
+        },
+        {
+            "code": "620",
+            "description": "negros oriental",
+            "id": 11,
+            "title": "NEGROS ORIENTAL"
+        },
+        {
+            "code": "940",
+            "description": "north cotabato",
+            "id": 24,
+            "title": "NORTH COTABATO"
+        },
+        {
+            "code": "640",
+            "description": "northern samar",
+            "id": 36,
+            "title": "NORTHERN SAMAR"
+        },
+        {
+            "code": "311",
+            "description": "nueva ecija",
+            "id": 94,
+            "title": "NUEVA ECIJA"
+        },
+        {
+            "code": "370",
+            "description": "nueva vizcaya",
+            "id": 95,
+            "title": "NUEVA VIZCAYA"
+        },
+        {
+            "code": "530",
+            "description": "palawan",
+            "id": 76,
+            "title": "PALAWAN"
+        },
+        {
+            "code": "200",
+            "description": "pampanga",
+            "id": 82,
+            "title": "PAMPANGA"
+        },
+        {
+            "code": "240",
+            "description": "pangasinan",
+            "id": 92,
+            "title": "PANGASINAN"
+        },
+        {
+            "code": "170",
+            "description": "paranaque",
+            "id": 63,
+            "title": "PARANAQUE"
+        },
+        {
+            "code": "130",
+            "description": "pasay city",
+            "id": 59,
+            "title": "PASAY CITY"
+        },
+        {
+            "code": "160",
+            "description": "pasig",
+            "id": 80,
+            "title": "PASIG"
+        },
+        {
+            "code": "162",
+            "description": "pateros",
+            "id": 89,
+            "title": "PATEROS"
+        },
+        {
+            "code": "110",
+            "description": "quezon city",
+            "id": 2,
+            "title": "QUEZON CITY"
+        },
+        {
+            "code": "430",
+            "description": "quezon province",
+            "id": 72,
+            "title": "QUEZON PROVINCE"
+        },
+        {
+            "code": "340",
+            "description": "quirino province",
+            "id": 86,
+            "title": "QUIRINO PROVINCE"
+        },
+        {
+            "code": "186",
+            "description": "rizal province",
+            "id": 65,
+            "title": "RIZAL PROVINCE"
+        },
+        {
+            "code": "550",
+            "description": "romblon province",
+            "id": 49,
+            "title": "ROMBLON PROVINCE"
+        },
+        {
+            "code": "150",
+            "description": "san juan",
+            "id": 8,
+            "title": "SAN JUAN"
+        },
+        {
+            "code": "951",
+            "description": "sarangani",
+            "id": 33,
+            "title": "SARANGANI"
+        },
+        {
+            "code": "623",
+            "description": "siquijor",
+            "id": 35,
+            "title": "SIQUIJOR"
+        },
+        {
+            "code": "470",
+            "description": "sorsogon province",
+            "id": 13,
+            "title": "SORSOGON PROVINCE"
+        },
+        {
+            "code": "9500",
+            "description": "SOUTH COTABATO",
+            "id": 54,
+            "title": "SOUTH COTABATO"
+        },
+        {
+            "code": "661",
+            "description": "southern leyte",
+            "id": 37,
+            "title": "SOUTHERN LEYTE"
+        },
+        {
+            "code": "981",
+            "description": "sultan kudarat",
+            "id": 25,
+            "title": "SULTAN KUDARAT"
+        },
+        {
+            "code": "740",
+            "description": "sulu province",
+            "id": 47,
+            "title": "SULU PROVINCE"
+        },
+        {
+            "code": "842",
+            "description": "surigao del norte",
+            "id": 22,
+            "title": "SURIGAO DEL NORTE"
+        },
+        {
+            "code": "830",
+            "description": "surigao del sur",
+            "id": 17,
+            "title": "SURIGAO DEL SUR"
+        },
+        {
+            "code": "163",
+            "description": "taguig",
+            "id": 1,
+            "title": "TAGUIG"
+        },
+        {
+            "code": "230",
+            "description": "tarlac",
+            "id": 83,
+            "title": "TARLAC"
+        },
+        {
+            "code": "750",
+            "description": "tawi-tawi",
+            "id": 6,
+            "title": "TAWI-TAWI"
+        },
+        {
+            "code": "144",
+            "description": "valenzuela city",
+            "id": 88,
+            "title": "VALENZUELA CITY"
+        },
+        {
+            "code": "672",
+            "description": "western samar",
+            "id": 44,
+            "title": "WESTERN SAMAR"
+        },
+        {
+            "code": "220",
+            "description": "zambales",
+            "id": 19,
+            "title": "ZAMBALES"
+        },
+        {
+            "code": "710",
+            "description": "zamboanga del norte",
+            "id": 46,
+            "title": "ZAMBOANGA DEL NORTE"
+        },
+        {
+            "code": "704",
+            "description": "zamboanga del sur",
+            "id": 38,
+            "title": "ZAMBOANGA DEL SUR"
+        },
+        {
+            "code": "705",
+            "description": "zamboanga sibugay",
+            "id": 14,
+            "title": "ZAMBOANGA SIBUGAY"
+        }
+    ]
+}

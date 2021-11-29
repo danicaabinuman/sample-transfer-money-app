@@ -63,6 +63,18 @@ class BusinessInformationFragment: BaseFragment<FragmentBusinessInformationBindi
                     }
                 )
             }
+
+            //TODO - CLEANUP CODE (END DRAWABLE ISSUE NOT ROTATING WHEN CLICK)
+            businessInfoActIndustry.setOnDismissListener {
+                businessInfoTilIndustry.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            businessInfoActIndustry.setOnClickListener { v ->
+                if (businessInfoActIndustry.isPopupShowing) {
+                    businessInfoTilIndustry.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    businessInfoTilIndustry.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
         }
     }
 

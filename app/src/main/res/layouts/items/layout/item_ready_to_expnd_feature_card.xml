@@ -68,21 +68,36 @@
             <TextView
                 android:id="@+id/textViewCardFooter"
                 style="@style/SMETertiaryButtonLarge"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/grid_2"
-                android:layout_marginTop="@dimen/grid_3_half"
-                android:layout_marginBottom="@dimen/grid_2"
+                android:layout_width="wrap_content"
                 android:gravity="start"
+                android:layout_height="wrap_content"
                 android:minHeight="0dp"
-                android:paddingTop="@dimen/grid_1_half"
+                android:focusable="false"
+                android:enabled="false"
                 android:paddingBottom="@dimen/grid_1_half"
-                android:text="@string/action_apply_loan"
+                android:paddingTop="@dimen/grid_1_half"
                 android:textColor="@color/dsColorMediumOrange"
+                android:textAllCaps="false"
+                android:layout_marginStart="@dimen/grid_2"
+                android:layout_marginBottom="@dimen/grid_2"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideLine"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewCardContent" />
+                app:layout_constraintHorizontal_bias="0"
+                android:text="@string/title_apply_for_a_loan"
+                android:layout_marginTop="@dimen/grid_3_half"
+                app:layout_constraintTop_toBottomOf="@id/textViewCardContent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <ImageView
+                android:id="@+id/iv_banner_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintHorizontal_bias="0"
+                android:layout_marginStart="@dimen/grid_3_half"
+                android:src="@drawable/ic_vector_circle_arrow"
+                app:layout_constraintStart_toEndOf="@id/textViewCardFooter"
+                app:layout_constraintTop_toTopOf="@id/textViewCardFooter"
+                app:layout_constraintBottom_toBottomOf="@id/textViewCardFooter"
+                app:layout_constraintEnd_toStartOf="@id/guideLine"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageViewIcon"

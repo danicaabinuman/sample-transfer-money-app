@@ -762,6 +762,10 @@
             android:name="com.unionbankph.corporate.loan.LoanActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
             android:launchMode="standard"/>
+        <activity
+            android:name="com.unionbankph.corporate.loan.products.camera.ProductsCameraActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|locale|fontScale"
+            android:launchMode="standard" />
 
         <!-- Others -->
         <meta-data

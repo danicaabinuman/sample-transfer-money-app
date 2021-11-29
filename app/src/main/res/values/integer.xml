@@ -15,6 +15,7 @@
     <integer name="max_length_check_number">10</integer>
     <integer name="max_length_field">50</integer>
     <integer name="max_length_sss">9</integer>
+    <integer name="max_length_sss_id">10</integer>
     <integer name="max_length_gsis">11</integer>
     <integer name="max_length_tin">12</integer>
     <integer name="max_length_mobile_number_ph">10</integer>

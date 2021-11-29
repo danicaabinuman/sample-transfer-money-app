@@ -4,10 +4,10 @@
 
     <item
         android:id="@+id/menu_crop"
+        android:icon="@drawable/ic_crop_white"
         android:orderInCategory="6"
         android:title="@string/action_crop"
         android:visible="false"
-        android:icon="@drawable/ic_crop_white"
         app:showAsAction="ifRoom" />
 
     <item
@@ -72,5 +72,30 @@
         android:title="@string/action_select_all"
         android:visible="false"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_flash_on_black"
+        android:icon="@drawable/ic_flash_on_white_24dp"
+        app:iconTint="@color/colorBlack"
+        android:title="@string/title_menu_flash"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_flash_off_black"
+        android:icon="@drawable/ic_flash_off_white_24dp"
+        app:iconTint="@color/colorBlack"
+        android:title="@string/title_menu_flash"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_crop_black"
+        android:icon="@drawable/ic_crop_white"
+        app:iconTint="@color/colorBlack"
+        android:title="@string/action_crop"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
 
 </menu>

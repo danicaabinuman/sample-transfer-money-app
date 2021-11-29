@@ -109,6 +109,11 @@ import com.unionbankph.corporate.loan.contactinformation.ContactInformationViewM
 import com.unionbankph.corporate.loan.financial_information.FinancialInformationViewModel
 import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoViewModel
 import com.unionbankph.corporate.loan.personal_information.PersonalInformationViewModel
+import com.unionbankph.corporate.loan.products.ProductsCameraDataViewModel
+import com.unionbankph.corporate.loan.products.ProductsCameraPreviewViewModel
+import com.unionbankph.corporate.loan.products.ProductsCameraViewModel
+import com.unionbankph.corporate.loan.products.ProductsViewModel
+import com.unionbankph.corporate.loan.products.camera.ProductsCameraMainViewModel
 import com.unionbankph.corporate.loan.reminders.FewRemindersViewModel
 import com.unionbankph.corporate.payment_link.presentation.payment_link_details.LinkDetailsViewModel
 import com.unionbankph.corporate.mcd.presentation.camera.CheckDepositCameraViewModel
@@ -1019,4 +1024,29 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(UcAccountSelectionViewModel::class)
     abstract fun ucAccountSelectionViewModel(viewModel: UcAccountSelectionViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProductsViewModel::class)
+    abstract fun productsViewModel(viewModel: ProductsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProductsCameraViewModel::class)
+    abstract fun productsCameraViewModel(viewModel: ProductsCameraViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProductsCameraPreviewViewModel::class)
+    abstract fun productsCameraPreviewViewModel(viewModel: ProductsCameraPreviewViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProductsCameraDataViewModel::class)
+    abstract fun productsCameraDataViewModel(viewModel: ProductsCameraDataViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProductsCameraMainViewModel::class)
+    abstract fun productsCameraMainViewModel(viewModel: ProductsCameraMainViewModel): ViewModel
 }

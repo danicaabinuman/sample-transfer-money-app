@@ -183,6 +183,8 @@ dependencies {
     implementation(Libraries.rxBinding2)
     implementation(Libraries.rxJava)
     implementation(Libraries.rxJava2Adapter)
+    implementation(Libraries.retrofitGson)
+    implementation(Libraries.gson)
     implementation(Libraries.rxAndroid)
     implementation(Libraries.rxKotlin)
     implementation(Libraries.rxSharedPreference)
