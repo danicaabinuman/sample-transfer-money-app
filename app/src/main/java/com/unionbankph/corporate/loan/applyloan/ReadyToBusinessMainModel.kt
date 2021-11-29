@@ -20,7 +20,7 @@ abstract class ReadyToBusinessMainModel : EpoxyModelWithHolder<ReadyToBusinessMa
 
     override fun bind(holder: Holder) {
         holder.binding.apply {
-            textViewCardFooter.setOnClickListener {
+            cardViewFeature.setOnClickListener {
                 clickListener(it)
             }
         }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.products.ProductsHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_activity_upload_photos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clUploadPhotosIntro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvUploadPhotosIntro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_2"
+                    android:text="@string/title_take_photos_products"
+                    android:textSize="@dimen/text_28"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvMaximum6Photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_2"
+                    android:layout_marginTop="@dimen/margin_4dp"
+                    android:text="@string/title_you_can_take_photos_products"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvUploadPhotosIntro" />
+
+                <ImageView
+                    android:id="@+id/ivUploadPhotos"
+                    android:layout_width="@dimen/margin_260dp"
+                    android:layout_height="@dimen/margin_260dp"
+                    android:layout_marginTop="@dimen/grid_10"
+                    android:src="@drawable/ic_products"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMaximum6Photos" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAddPhotos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_36dp"
+                    android:layout_marginTop="@dimen/grid_6"
+                    android:onClick="@{() -> handler.addPhotos() }"
+                    android:layout_marginBottom="@dimen/grid_2"
+                    android:background="@drawable/bg_gradient_orange_ed5635"
+                    android:paddingStart="@dimen/margin_12dp"
+                    android:paddingEnd="@dimen/margin_12dp"
+                    android:text="@string/add_photos"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivUploadPhotos" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

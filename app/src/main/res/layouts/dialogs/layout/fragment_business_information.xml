@@ -125,6 +125,7 @@
                         android:text="@string/title_industry" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/business_info_til_industry"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -160,6 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_8dp"
                         android:text="@string/title_organization"
+                        android:visibility="gone"
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -167,6 +169,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
+                        android:visibility="gone"
                         app:boxStrokeWidth="0.5dp"
                         app:endIconDrawable="@drawable/ic_vector_drop_down_line"
                         app:endIconTint="@color/dsColorMediumOrange"
@@ -180,6 +183,7 @@
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:fontFamily="@string/font_family_regular"
+                            android:visibility="gone"
                             android:hint="@string/hint_organization"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessInformationField.ORGANIZATION)}"
                             android:paddingStart="@dimen/margin_14dp"
@@ -338,7 +342,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:digits="@string/digits_only"
-                                android:hint="@string/hint_e_g_9900008987"
+                                android:hint="@string/hint_e_g_98781234567"
                                 android:inputType="phone"
                                 android:maxLength="@integer/max_length_check_number"
                                 android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessInformationField.MOBILE)}"
@@ -404,7 +408,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
-                        android:hint="@string/hint_email_address_small_letter"
                         app:error="@{viewModel.formState.emailError}"
                         app:hintEnabled="false"
                         app:errorEnabled="true" >
@@ -415,9 +418,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:digits="@string/digits_alpha_numeric_symbols_email_no_space"
-                            android:hint="@string/hint_email_address_small_letter"
+                            android:hint="@string/hint_john_cruz_mail"
                             android:inputType="textEmailAddress"
-                            android:nextFocusDown="@id/tie_as_personal_info_tin"
+                            android:nextFocusDown="@id/btn_as_address_next"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, BusinessInformationField.EMAIL)}"
                             android:singleLine="true"
                             android:text="@{viewModel.form.email}" />

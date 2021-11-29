@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
+import com.unionbankph.corporate.app.common.extension.observe
 import com.unionbankph.corporate.databinding.FragmentFinancialInformationBinding
 import com.unionbankph.corporate.loan.LoanActivity
 
@@ -39,6 +40,21 @@ class FinancialInformationFragment: BaseFragment<FragmentFinancialInformationBin
         activity.apply {
             showProgress(true)
             setProgressValue(2)
+        }
+
+        binding.apply {
+
+            //TODO - CLEANUP CODE (END DRAWABLE ISSUE NOT ROTATING WHEN CLICK)
+            financialInfoActPob.setOnDismissListener {
+                financialInfoTilPob.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            financialInfoActPob.setOnClickListener { v ->
+                if (financialInfoActPob.isPopupShowing) {
+                    financialInfoTilPob.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    financialInfoTilPob.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
         }
     }
 

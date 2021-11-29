@@ -254,7 +254,6 @@
     </string-array>
 
     <string-array name="dummy_civil_status" >
-        <item>Deceased</item>
         <item>Single</item>
         <item>Married</item>
         <item>Widowed</item>

@@ -1,0 +1,112 @@
+{
+    "data": [
+        {
+            "code": "1",
+            "description": "National Capital Region (NCR)",
+            "id": 1,
+            "title": "NATIONAL CAPITAL REGION (NCR)"
+        },
+        {
+            "code": "2",
+            "description": "Region I  (ILOCOS REGION)",
+            "id": 2,
+            "title": "REGION I  (ILOCOS REGION)"
+        },
+        {
+            "code": "3",
+            "description": "REGION II  (CAGAYAN VALLEY)",
+            "id": 3,
+            "title": "REGION II  (CAGAYAN VALLEY)"
+        },
+        {
+            "code": "4",
+            "description": "REGION III  (CENTRAL LUZON)",
+            "id": 4,
+            "title": "REGION III  (CENTRAL LUZON)"
+        },
+        {
+            "code": "5",
+            "description": "REGION IV-A  (CALABARZON)",
+            "id": 5,
+            "title": "REGION IV-A  (CALABARZON)"
+        },
+        {
+            "code": "6",
+            "description": "MIMAROPA REGION",
+            "id": 6,
+            "title": "MIMAROPA REGION"
+        },
+        {
+            "code": "7",
+            "description": "REGION V  (BICOL REGION)",
+            "id": 7,
+            "title": "REGION V  (BICOL REGION)"
+        },
+        {
+            "code": "8",
+            "description": "REGION VI (WESTERN VISAYAS)",
+            "id": 8,
+            "title": "REGION VI (WESTERN VISAYAS)"
+        },
+        {
+            "code": "9",
+            "description": "Region VII  (CENTRAL VISAYAS)",
+            "id": 9,
+            "title": "REGION VII  (CENTRAL VISAYAS)"
+        },
+        {
+            "code": "10",
+            "description": "Region VIII  (EASTERN VISAYAS)",
+            "id": 10,
+            "title": "REGION VIII  (EASTERN VISAYAS)"
+        },
+        {
+            "code": "11",
+            "description": "Region IX (ZAMBOANGA PENINSULA)",
+            "id": 11,
+            "title": "REGION IX (ZAMBOANGA PENINSULA)"
+        },
+        {
+            "code": "12",
+            "description": "Region X  (NORTHERN MINDANAO)",
+            "id": 12,
+            "title": "REGION X  (NORTHERN MINDANAO)"
+        },
+        {
+            "code": "13",
+            "description": "Region XI  (DAVAO REGION)",
+            "id": 13,
+            "title": "REGION XI  (DAVAO REGION)"
+        },
+        {
+            "code": "14",
+            "description": "Region XII  (SOCCSKSARGEN)",
+            "id": 14,
+            "title": "REGION XII  (SOCCSKSARGEN)"
+        },
+        {
+            "code": "15",
+            "description": "Region XIII (Caraga)",
+            "id": 15,
+            "title": "REGION XIII (CARAGA)"
+        },
+        {
+            "code": "16",
+            "description": "Cordillera Administrative Region  (CAR)",
+            "id": 16,
+            "title": "CORDILLERA ADMINISTRATIVE REGION  (CAR)"
+        },
+        {
+            "code": "17",
+            "description": "AUTONOMOUS  REGION  IN MUSLIM  MINDANAO  (ARMM)",
+            "id": 17,
+            "title": "AUTONOMOUS  REGION  IN MUSLIM  MINDANAO  (ARMM)"
+        },
+        {
+            "code": "18",
+            "description": "OTHERS",
+            "id": 18,
+            "title": "OTHERS"
+        }
+    ]
+}

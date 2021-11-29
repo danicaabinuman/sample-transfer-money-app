@@ -19,7 +19,7 @@ data class KeyFeatures(
                 ), KeyFeatures(
                     id = 1,
                     title = context.getString(R.string.title_easy_application),
-                    icon = R.drawable.ic_easy_application
+                    icon = R.drawable.ic_easy_application_loan
                 ), KeyFeatures(
                     id = 2,
                     title = context.getString(R.string.title_fast_approval),

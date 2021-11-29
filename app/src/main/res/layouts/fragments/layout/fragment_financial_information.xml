@@ -92,7 +92,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/grid_1"
-                        android:hint="@string/hint_occupation"
                         app:error="@{viewModel.formState.occupationError}"
                         app:errorEnabled="true"
                         app:hintEnabled="false">
@@ -121,6 +120,7 @@
                         android:textAppearance="@style/SMECaption" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/financial_info_til_pob"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -164,18 +164,23 @@
                         app:errorEnabled="true"
                         app:hintEnabled="false">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <com.unionbankph.corporate.app.common.widget.edittext.autoformat.currencyedittext.CurrencyEditText
+                            android:id="@+id/financial_information_tie_income"
                             style="@style/TextInputLayoutFormThinEditText"
-                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:hint="@string/title_php_0_00"
-                            android:inputType="number"
+                            android:digits="@string/digit_test"
                             android:maxLength="@integer/max_length_amount"
                             android:nextFocusDown="@id/editTextLastName"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.MONTHLY_INCOME)}"
                             android:singleLine="true"
-                            android:text="@{viewModel.form.monthlyIncome}" />
+                            android:text="@{viewModel.form.monthlyIncome}"
+                            android:layout_width="match_parent"
+                            android:paddingStart="@dimen/content_spacing"
+                            android:inputType="numberDecimal"
+                            android:paddingEnd="@dimen/content_spacing"
+                            app:currencySymbol="@string/title_php"
+                            app:useCurrencySymbolAsHint="true" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -232,7 +237,7 @@
                             android:digits="@string/digits_alpha_numeric_specific_symbols"
                             android:hint="@string/hind_id_number"
                             android:inputType="number"
-                            android:maxLength="@integer/max_length_sss"
+                            android:maxLength="@integer/max_length_sss_id"
                             android:nextFocusDown="@id/tie_as_personal_info_nationality"
                             android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, FinancialInformationField.SSS_ID)}"
                             android:singleLine="true"

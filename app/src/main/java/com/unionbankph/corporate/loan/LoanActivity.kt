@@ -37,7 +37,7 @@ class LoanActivity : BaseActivity<ActivityLoanBinding, LoanMainViewModel>() {
     }
 
     fun setProgressValue(step: Int) {
-        val progressValue = step * 100 / 5
+        val progressValue = step * 100 / 7
         ObjectAnimator.ofInt(binding.progressAction, "progress", progressValue)
             .setDuration(150)
             .start()

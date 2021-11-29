@@ -41,13 +41,58 @@ class AddressFragment: BaseFragment<FragmentAddressBinding, AddressViewModel>(),
                 showProgress(true)
                 setProgressValue(3)
             }
+
+            //TODO - CLEANUP CODE (END DRAWABLE ISSUE NOT ROTATING WHEN CLICK)
+            addressInfoActCityPresent.setOnDismissListener {
+                addressInfoTilCityPresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            addressInfoActCityPresent.setOnClickListener { v ->
+                if (addressInfoActCityPresent.isPopupShowing) {
+                    addressInfoTilCityPresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    addressInfoTilCityPresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
+
+            addressInfoActProvincePresent.setOnDismissListener {
+                addressInfoTilProvincePresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            addressInfoActProvincePresent.setOnClickListener { v ->
+                if (addressInfoActProvincePresent.isPopupShowing) {
+                    addressInfoTilProvincePresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    addressInfoTilProvincePresent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
+
+            addressInfoActCityPermanent.setOnDismissListener {
+                addressInfoTilCityPermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            addressInfoActCityPermanent.setOnClickListener { v ->
+                if (addressInfoActCityPermanent.isPopupShowing) {
+                    addressInfoTilCityPermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    addressInfoTilCityPermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
+
+            addressInfoActProvincePermanent.setOnDismissListener {
+                addressInfoTilProvincePermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            addressInfoActProvincePermanent.setOnClickListener { v ->
+                if (addressInfoActProvincePermanent.isPopupShowing) {
+                    addressInfoTilProvincePermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    addressInfoTilProvincePermanent.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
+
         }
     }
 
     override fun onResume() {
         super.onResume()
         binding.apply {
-
 
             addressInfoActCityPresent.setAdapter(
                 ArrayAdapter(
@@ -56,7 +101,7 @@ class AddressFragment: BaseFragment<FragmentAddressBinding, AddressViewModel>(),
                     resources.getStringArray(R.array.dummy_data)
                 )
             )
-            addressInfoActRegionPresent.setAdapter(
+            addressInfoActProvincePresent.setAdapter(
                 ArrayAdapter(
                     activity,
                     R.layout.dropdown_menu_popup_item,
@@ -70,7 +115,7 @@ class AddressFragment: BaseFragment<FragmentAddressBinding, AddressViewModel>(),
                     resources.getStringArray(R.array.dummy_data)
                 )
             )
-            addressInfoActRegionPermanent.setAdapter(
+            addressInfoActProvincePermanent.setAdapter(
                 ArrayAdapter(
                     activity,
                     R.layout.dropdown_menu_popup_item,

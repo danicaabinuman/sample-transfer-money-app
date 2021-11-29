@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.unionbankph.corporate.loan.products.ProductsCameraPreviewViewModel" />
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.loan.products.ProductsCameraPreviewHandler" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/colorWhite"
+        android:id="@+id/cl_parent"
+        style="@style/MatchParent">
+
+        <me.pqpo.smartcropperlib.view.CropImageView
+            android:id="@+id/imageViewCrop"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_marginBottom="@dimen/content_spacing"
+            app:civLineColor="?colorAccent"
+            app:civMagnifierCrossColor="?colorAccent"
+            app:civPointColor="?colorAccent"
+            app:civPointFillColor="?colorAccent"
+            app:civShowEdgeMidPoint="true"
+            app:civShowGuideLine="false"
+            android:visibility="gone"
+            app:civShowMagnifier="true"
+            app:layout_constraintBottom_toTopOf="@+id/tv_done"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.otaliastudios.zoom.ZoomImageView
+            android:id="@+id/iv_preview"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_marginBottom="@dimen/content_spacing"
+            android:transitionName="@string/image_animation_tag"
+            app:layout_constraintBottom_toTopOf="@+id/buttonUseThis"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:minZoom="1.0" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/iv_preview"
+            app:layout_constraintEnd_toEndOf="@id/iv_preview"
+            app:layout_constraintStart_toStartOf="@id/iv_preview"
+            app:layout_constraintTop_toTopOf="@id/iv_preview" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonUseThis"
+            style="@style/RoundedButtonOrange"
+            android:layout_marginStart="@dimen/content_margin"
+            android:layout_marginEnd="@dimen/content_margin"
+            android:layout_marginBottom="@dimen/content_spacing_half"
+            android:text="@string/title_use_photo"
+            app:layout_constraintBottom_toTopOf="@+id/buttonRetake"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonRetake"
+            style="@style/RoundedButtonLightOverlay"
+            android:layout_marginStart="@dimen/content_margin"
+            android:layout_marginEnd="@dimen/content_margin"
+            android:layout_marginBottom="@dimen/content_group_spacing"
+            android:text="@string/action_retake"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_cancel"
+            style="@style/TextViewThemeLarge"
+            android:layout_margin="@dimen/content_spacing"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/text_view_padding"
+            android:visibility="gone"
+            android:text="@string/action_cancel"
+            android:textAllCaps="true"
+            android:textColor="?colorAccent"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_done"
+            style="@style/TextViewThemeLarge"
+            android:layout_margin="@dimen/content_spacing"
+            android:layout_marginTop="@dimen/content_spacing"
+            android:layout_marginEnd="@dimen/content_spacing"
+            android:background="?selectableItemBackground"
+            android:padding="@dimen/text_view_padding"
+            android:text="@string/action_done"
+            android:textAllCaps="true"
+            android:textColor="?colorAccent"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <include
+            android:id="@+id/viewLoadingState"
+            style="@style/WrapContent"
+            android:visibility="gone"
+            layout="@layout/widget_loading_state"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

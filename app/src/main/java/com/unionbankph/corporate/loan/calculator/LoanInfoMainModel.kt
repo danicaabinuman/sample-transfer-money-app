@@ -47,7 +47,7 @@ abstract class LoanInfoMainModel : EpoxyModelWithHolder<LoanInfoMainModel.Holder
                 loanTenure = loanTenure,
                 annualInterestRate = INTEREST_RATE.toFloat(),
                 monthlyPayment = monthlyPayment,
-                totalInterestPayable = annualInterestRate,
+                totalInterestPayable = loanAmount?.times(0.36.toFloat())/*annualInterestRate*/,
                 totalAmountPayable = totalAmountPayable
             )
 

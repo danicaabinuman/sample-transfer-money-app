@@ -72,6 +72,10 @@ import com.unionbankph.corporate.loan.contactinformation.ContactInformationFragm
 import com.unionbankph.corporate.loan.financial_information.FinancialInformationFragment
 import com.unionbankph.corporate.loan.nonfilipino.NonFilipinoFragment
 import com.unionbankph.corporate.loan.personal_information.PersonalInformationFragment
+import com.unionbankph.corporate.loan.products.ProductsCameraDataFragment
+import com.unionbankph.corporate.loan.products.ProductsCameraFragment
+import com.unionbankph.corporate.loan.products.ProductsCameraPreviewFragment
+import com.unionbankph.corporate.loan.products.ProductsFragment
 import com.unionbankph.corporate.loan.reminders.FewRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingRemindersFragment
 import com.unionbankph.corporate.mcd.presentation.onboarding.CheckDepositOnBoardingScreenFragment
@@ -578,4 +582,20 @@ abstract class FragmentBindingModule {
     @PerActivity
     @ContributesAndroidInjector
     abstract fun asBusinessInformationFragment(): AsBusinessInformationFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun productsFragment(): ProductsFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun productsCameraFragment(): ProductsCameraFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun productsCameraPreviewFragment(): ProductsCameraPreviewFragment
+
+    @PerActivity
+    @ContributesAndroidInjector
+    abstract fun productsCameraDataFragment(): ProductsCameraDataFragment
 }

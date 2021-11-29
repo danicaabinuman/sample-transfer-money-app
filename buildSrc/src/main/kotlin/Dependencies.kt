@@ -1,7 +1,7 @@
 object BuildPlugins {
 
     object Versions {
-        const val buildTools = "4.1.2"
+        const val buildTools = "4.2.0"
         const val navigationSafeArgs = "2.4.0-alpha02"
         const val firebaseCrashlytics = "2.4.1"
         const val googleServices = "4.3.4"
@@ -73,6 +73,7 @@ object Libraries {
         const val stetho = "1.5.0"
         const val stethoOkhttp3 = "1.5.0"
         const val biometric = "1.1.0"
+        const val gson = "2.8.7"
 
         // Google
         const val firebase = "16.0.1"
@@ -155,6 +156,8 @@ object Libraries {
     const val kotlinX = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinX}"
     const val kotlinXConverter =
         "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.kotlinXConverter}"
+    const val retrofitGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit2}"
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
     const val rxJava2Adapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit2}"
     const val rxRelay = "com.jakewharton.rxrelay2:rxrelay:${Versions.rxRelay}"
     const val rxBinding2 = "com.jakewharton.rxbinding2:rxbinding:${Versions.rxBinding2}"

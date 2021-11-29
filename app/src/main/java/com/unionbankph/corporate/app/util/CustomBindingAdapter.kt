@@ -1,26 +1,44 @@
 package com.unionbankph.corporate.app.util
 
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.View
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.signature.ObjectKey
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.app.common.platform.glide.GlideApp
 import org.w3c.dom.Text
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputLayout
 
 
 @BindingAdapter("setDrawable")
 fun setDrawable(imageView: ImageView, source: Int?) {
     source?.let {
         Glide.with(imageView.context)
+            .load(source)
+            .into(imageView)
+    }
+}
+
+@BindingAdapter("setBitmapImage")
+fun setBitmapImage(imageView: ImageView, source: Int?) {
+    source?.let {
+        Glide.with(imageView.context)
+            .asBitmap()
+            .signature(ObjectKey("1"))
+            .fitCenter()
             .load(source)
             .into(imageView)
     }
@@ -131,7 +149,6 @@ fun setVisibilityByString(textView: TextView, status: String?) {
     }
 }
 
-
 @BindingAdapter("setBackgroundColorDisableByString")
 fun setBackgroundColorDisableByString(view: View, source: String?) {
     view.apply {
@@ -142,6 +159,18 @@ fun setBackgroundColorDisableByString(view: View, source: String?) {
         }
     }
 }
+
+@BindingAdapter("setTextColorNullAndNotNull")
+fun setTextColorNullAndNotNull(textView: TextView, status: String?) {
+    textView.apply {
+        if (status.isNullOrEmpty()) {
+            setTextColor(context.getColor(R.color.dsColorLightGray))
+        } else {
+            setTextColor(context.getColor(R.color.dsColorDarkGray))
+        }
+    }
+}
+
 
 
 

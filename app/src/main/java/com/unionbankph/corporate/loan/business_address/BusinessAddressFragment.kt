@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
@@ -41,6 +42,52 @@ class BusinessAddressFragment: BaseFragment<FragmentBusinessAddressBinding, Busi
                 showProgress(true)
                 setProgressValue(5)
             }
+
+            //TODO - CLEANUP CODE (END DRAWABLE ISSUE NOT ROTATING WHEN CLICK)
+            businessAddressActCity.setOnDismissListener {
+                businessAddressTilCity.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            businessAddressActCity.setOnClickListener { v ->
+                if (businessAddressActCity.isPopupShowing) {
+                    businessAddressTilCity.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    businessAddressTilCity.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
+
+            businessAddressActProvince.setOnDismissListener {
+                businessAddressTilProvince.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            businessAddressActProvince.setOnClickListener { v ->
+                if (businessAddressActProvince.isPopupShowing) {
+                    businessAddressTilProvince.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    businessAddressTilProvince.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
+
+            businessAddressActRegion.setOnDismissListener {
+                businessAddressTilRegion.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            businessAddressActRegion.setOnClickListener { v ->
+                if (businessAddressActRegion.isPopupShowing) {
+                    businessAddressTilRegion.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    businessAddressTilRegion.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
+
+            businessAddressActEstablishment.setOnDismissListener {
+                businessAddressTilEstablishment.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+            }
+            businessAddressActEstablishment.setOnClickListener { v ->
+                if (businessAddressActEstablishment.isPopupShowing) {
+                    businessAddressTilEstablishment.setEndIconDrawable(R.drawable.ic_vector_dropdown_up)
+                } else {
+                    businessAddressTilEstablishment.setEndIconDrawable(R.drawable.ic_vector_dropdown_down)
+                }
+            }
+
 
         }
     }
@@ -101,7 +148,8 @@ class BusinessAddressFragment: BaseFragment<FragmentBusinessAddressBinding, Busi
     }
 
     override fun onNext() {
-        //findNavController().navigate(R.id.nav_to_businessInformation)
+//        findNavController().navigate(R.id.nav_to_onboardingUploadPhotosActivity)
+//        findNavController().navigate(R.id.nav_to_productsFragment)
     }
 
 
