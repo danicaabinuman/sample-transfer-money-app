@@ -243,25 +243,9 @@ class UcNominatePasswordFragment :
             gravity = NewConfirmationBottomSheet.GRAVITY_CENTER
         )
         bottomSheet.setCallback( onPositiveClick = {
-            navigateTrialModeScreen()
-            //findNavController().navigate(R.id.action_nominate_to_permission_settings)
+            findNavController().navigate(R.id.action_nominate_to_permission_settings)
         })
         bottomSheet.show(childFragmentManager, NewConfirmationBottomSheet.TAG)
-    }
-
-    private fun navigateTrialModeScreen() {
-        val bundle = Bundle()
-        bundle.putString(
-            AutobahnFirebaseMessagingService.EXTRA_DATA,
-            getAppCompatActivity().intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
-        )
-        navigator.navigateClearStacks(
-            getAppCompatActivity(),
-            TrialAccountActivity::class.java,
-            bundle,
-            true,
-            Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
-        )
     }
 
     companion object {
