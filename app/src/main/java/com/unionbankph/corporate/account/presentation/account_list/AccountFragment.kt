@@ -258,7 +258,12 @@ class AccountFragment :
             .observeOn(schedulerProvider.ui())
             .subscribe { filter ->
                 binding.viewSearchLayout.imageViewClearText.visibility(filter.text().isNotEmpty())
-                if (filter.view().isFocused) {
+                if(filter.text().isNotEmpty()){
+                    binding.viewSearchLayout.editTextSearch.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0, 0)
+                }else{
+                    binding.viewSearchLayout.editTextSearch.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_search, 0)
+                }
+                 if (filter.view().isFocused) {
                     viewModel.pageable.filter = filter.text().toString().nullable()
                     getAccounts(true)
                 }
