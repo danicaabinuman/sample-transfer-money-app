@@ -77,7 +77,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="packed" />
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:layout_marginTop="@dimen/grid_10"/>
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/bg_signup_illustration"
@@ -89,7 +90,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:srcCompat="@drawable/ic_signup_screen"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/MSMESignUp"
                     app:layout_constraintHeight_percent=".35"
                     android:visibility="gone"
                     />
@@ -424,7 +424,7 @@
                     android:layout_height="@dimen/image_view_login_fingerprint_size"
                     android:layout_marginTop="@dimen/grid_1"
                     android:background="?selectableItemBackgroundBorderless"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/MSMEForgotPassword"
@@ -438,7 +438,7 @@
                     android:layout_height="@dimen/image_view_login_fingerprint_size"
                     android:layout_marginTop="@dimen/grid_1"
                     android:background="?selectableItemBackgroundBorderless"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/MSMEForgotPassword"
@@ -451,7 +451,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="@dimen/grid_20"
-                    app:layout_constraintTop_toBottomOf="@+id/bg_signup_illustration"
+                    app:layout_constraintTop_toBottomOf="@+id/imgFingerPrintMSME"
                     android:layout_marginStart="@dimen/content_spacing"
                     android:layout_marginEnd="@dimen/content_spacing"
                     android:textAllCaps="true"
@@ -466,7 +466,7 @@
                     style="@style/SMESecondaryButtonLarge"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="@dimen/grid_1_half"
+                    android:layout_marginTop="@dimen/msme_content_spacing"
                     app:layout_constraintTop_toBottomOf="@+id/MSMESignUp"
                     android:layout_marginStart="@dimen/content_spacing"
                     android:layout_marginEnd="@dimen/content_spacing"
