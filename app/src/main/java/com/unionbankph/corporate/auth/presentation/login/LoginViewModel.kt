@@ -235,6 +235,23 @@ class LoginViewModel @Inject constructor(
             .addTo(disposables)
     }
 
+    fun onClickLetsGo() {
+        settingsGateway.setUdid()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .doOnSubscribe { _loginState.value = ShowLoginLoading }
+            .doFinally { _loginState.value = ShowLoginDismissLoading }
+            .subscribe(
+                {
+                    Timber.e( "onClickLetsGo Success")
+                }, {
+                    Timber.e(it, "onClickedNext failed")
+                    _loginState.value = ShowLoginError(it)
+                }
+            )
+            .addTo(disposables)
+    }
+
 }
 
 sealed class LoginState
