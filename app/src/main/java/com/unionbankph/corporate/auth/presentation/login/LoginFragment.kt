@@ -62,6 +62,7 @@ import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.settings.presentation.learn_more.LearnMoreActivity
 import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity
+import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity.Companion.existingUser
 import com.unionbankph.corporate.settings.presentation.totp.TOTPActivity
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
@@ -348,11 +349,19 @@ class LoginFragment :
     private fun initViewBackPressedLogin(){
         if(!isSME){binding.imageViewBackground.visibility(true)}
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            if(fullName.isEmpty() && binding.MSMEbtnLogin.visibility == View.VISIBLE && isSME){
+            if(fullName.isEmpty() && binding.MSMEbtnLogin.visibility == View.VISIBLE && isSME && existingUser == 0){
                 navigator.navigateClearStacks(
                     getAppCompatActivity(),
                     LoginActivity::class.java,
                     Bundle().apply { putBoolean(LoginActivity.EXTRA_SPLASH_SCREEN, false) },
+                    true
+                )
+            }else if(existingUser == 1){
+                existingUser = 0
+                navigator.navigateClearStacks(
+                    getAppCompatActivity(),
+                    SplashStartedScreenActivity::class.java,
+                    null,
                     true
                 )
             }else{
@@ -495,7 +504,7 @@ class LoginFragment :
 
     private fun initFreshLogin() {
         if (isSME) {
-            if (!viewModel.cdaoFeature.value.notNullable()) {
+            if (!viewModel.cdaoFeature.value.notNullable() || existingUser == 1) {
                 loginViews()
             } else {
                 binding.textViewWelcomeBack.setVisible(false)
@@ -608,6 +617,12 @@ class LoginFragment :
             binding.buttonLogin.id, ConstraintSet.BOTTOM
         )
         constraintSet.clone(binding.constraintLayout)
+
+        constraintSet.connect(
+            binding.MSMEbtnLogin.id, ConstraintSet.TOP,
+            binding.MSMEForgotPassword.id, ConstraintSet.BOTTOM
+        )
+        constraintSet.clone(binding.constraintLayout)
         if (isSME) {
             binding.tilUsername.visibility(false)
             binding.tilPassword.visibility(false)
@@ -698,6 +713,8 @@ class LoginFragment :
             binding.MSMEForgotPassword.visibility(true)
             if(isTrustDevice){binding.buttonGenerateOTP.visibility(true)}
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
+            binding.imgFaceIDMSME.visibility(false)
+            binding.imgFingerPrintMSME.visibility(false)
         } else {
             binding.tilPassword.visibility(true)
             binding.tvSignUp.visibility(true)
@@ -942,6 +959,7 @@ class LoginFragment :
     }
 
     private fun initLoginSuccess(it: ShowLoginSuccess) {
+        viewModel.onClickLetsGo()
         getEditTextUsername().clearFocus()
         getEditTextPassword().clearFocus()
         val bundle = Bundle()

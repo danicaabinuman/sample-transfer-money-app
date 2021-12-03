@@ -129,7 +129,7 @@ class RequestPaymentSplashActivity :
             val intent = if(merchantExists){
                 Intent(this, RequestForPaymentActivity::class.java)
             }else{
-                Intent(this, BusinessInformationActivity::class.java)
+                Intent(this, SetupPaymentLinkActivity::class.java)
             }
             intent.putExtra(EXTRA_FROM_WHAT_TAB,fromWhatTab)
             startActivity(intent)
@@ -143,7 +143,7 @@ class RequestPaymentSplashActivity :
                 )
                 finish()
             }else{
-                val intent = Intent(this, BusinessInformationActivity::class.java)
+                val intent = Intent(this, SetupPaymentLinkActivity::class.java)
                 intent.putExtra(EXTRA_FROM_WHAT_TAB,fromWhatTab)
                 startActivity(intent)
                 finish()
@@ -162,7 +162,7 @@ class RequestPaymentSplashActivity :
                 }else{
                     fromWhatTab = DashboardViewModel.FROM_TRANSACT_TAB
                 }
-                val intent = Intent(this, BusinessInformationActivity::class.java)
+                val intent = Intent(this, SetupPaymentLinkActivity::class.java)
                 intent.putExtra(EXTRA_FROM_WHAT_TAB,fromWhatTab)
                 startActivity(intent)
                 finish()

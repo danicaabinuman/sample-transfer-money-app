@@ -57,6 +57,7 @@ import com.unionbankph.corporate.settings.presentation.SettingsFragment
 import com.unionbankph.corporate.settings.presentation.fingerprint.FingerprintBottomSheet
 import com.unionbankph.corporate.payment_link.presentation.onboarding.RequestPaymentSplashActivity
 import com.unionbankph.corporate.payment_link.presentation.payment_link_list.PaymentLinkListFragment
+import com.unionbankph.corporate.settings.presentation.splash.SplashStartedScreenActivity.Companion.existingUser
 import com.unionbankph.corporate.transact.presentation.transact.TransactFragment
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
@@ -1126,7 +1127,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     }
 
     private fun initViewPager() {
-
+        existingUser = 0
         transactFragment = TransactFragment()
         dashboardFragment = DashboardFragment()
 
