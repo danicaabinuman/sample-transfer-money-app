@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/viewSearchLayout"
-        layout="@layout/widget_search_layout"
+        layout="@layout/widget_search_layout_msme"
         android:layout_width="@dimen/match_constraint"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

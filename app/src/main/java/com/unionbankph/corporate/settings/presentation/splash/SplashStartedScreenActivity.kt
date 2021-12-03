@@ -13,6 +13,7 @@ import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
 import com.unionbankph.corporate.app.common.platform.navigation.Navigator
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
+import com.unionbankph.corporate.auth.presentation.login.LoginFragment
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.ActivitySplashStartedScreenBinding
 
@@ -53,7 +54,8 @@ class SplashStartedScreenActivity :
             //viewModel.onClickedLetsGo()
         }
         binding.tvNoThanks.setOnClickListener {
-            onBackPressed()
+            navigateLoginScreen()
+            existingUser = 1
         }
     }
 
@@ -75,6 +77,18 @@ class SplashStartedScreenActivity :
             isClear = false,
             isAnimated = true,
             transitionActivity = Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
+        )
+    }
+
+    private fun navigateLoginScreen(){
+        navigator.replaceFragment(
+            R.id.fl_wrapper,
+            LoginFragment(),
+            null,
+            supportFragmentManager,
+            "LoginFragment",
+            false
+
         )
     }
 
@@ -118,6 +132,9 @@ class SplashStartedScreenActivity :
         )
     }
 
+    companion object{
+        var existingUser = 0
+    }
 
     override val viewModelClassType: Class<SplashStartedScreenViewModel>
         get() = SplashStartedScreenViewModel::class.java

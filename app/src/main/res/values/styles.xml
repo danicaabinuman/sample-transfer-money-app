@@ -608,6 +608,29 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
     </style>
 
+    <style name="EditTextSearchViewMSME">
+        <item name="android:layout_width">@dimen/match_constraint</item>
+        <item name="android:layout_height">@dimen/field_height_search</item>
+        <item name="android:background">@drawable/bg_edittext_search</item>
+        <item name="android:paddingLeft">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingRight">@dimen/field_content_spacing_normal</item>
+        <item name="android:paddingTop">@dimen/field_padding</item>
+        <item name="android:paddingBottom">@dimen/field_padding</item>
+        <item name="android:drawableEnd">@drawable/ic_search</item>
+        <item name="android:drawableRight">@drawable/ic_search</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+        <item name="android:drawablePadding">@dimen/image_view_icon_padding</item>
+        <item name="android:textColor">@color/colorInfo</item>
+        <item name="android:textSize">@dimen/text_12</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:hint">@string/title_search</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+    </style>
+
+
     <style name="EditTextReferenceNumber">
         <item name="android:layout_width">@dimen/match_constraint</item>
         <item name="android:layout_height">@dimen/field_height_search</item>
