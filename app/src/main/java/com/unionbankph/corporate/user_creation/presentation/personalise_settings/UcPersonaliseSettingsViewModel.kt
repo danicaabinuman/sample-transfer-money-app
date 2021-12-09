@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.user_creation.presentation.personalise_settings
 
+import android.app.Notification
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
@@ -27,6 +28,11 @@ class UcPersonaliseSettingsViewModel @Inject constructor(
     val navigateToLocalSettings: LiveData<Event<SettingsState>> get() = _navigateToLocalSettings
 
     fun saveSettings(isChecked: Boolean, isCheckedTOTP: Boolean, promptType: PromptTypeEnum) {
+        if(!isChecked){
+            Notification()
+        }else{
+
+        }
         val param = PersonalizeSettings().apply {
             notification = isChecked
             totp = isCheckedTOTP

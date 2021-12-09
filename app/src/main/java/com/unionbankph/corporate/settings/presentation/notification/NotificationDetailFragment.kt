@@ -58,7 +58,7 @@ class NotificationDetailFragment :
                     setSwitchCompatData(it.data)
                 }
                 is ShowNotificationData -> {
-                    notification = it.data.notifications?.find {
+                    notification = it.data.notifications.find {
                         it.notificationId == notification.notificationId
                     } ?: notification
                     setSwitchCompatData(notification)

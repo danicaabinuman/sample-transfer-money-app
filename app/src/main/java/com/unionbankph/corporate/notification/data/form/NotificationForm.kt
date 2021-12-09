@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class NotificationForm(
 
     @SerialName("notifications")
-    var notifications: MutableList<Notification>? = null/*mutableListOf()*/,
+    var notifications: MutableList<Notification> = mutableListOf(),
 
     @SerialName("receive_all_notifications")
     var receiveAllNotifications: Boolean? = null

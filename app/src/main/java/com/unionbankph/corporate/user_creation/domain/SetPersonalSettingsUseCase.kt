@@ -28,13 +28,17 @@ class SetPersonalSettingsUseCase
         return notificationGateway.getNotifications()
             .flatMap {
                 notificationGateway.updateNotificationSettings(
-                    NotificationForm(it.notifications.sortedBy { it.notificationId }.toMutableList(),
+                    NotificationForm(
+                        it.notifications?.sortedBy { it.notificationId }?.toMutableList() ?: mutableListOf(),
                         params?.notification)
                 )
+            }.flatMapCompletable { settingsGateway.considerAsRecentUser(params?.promptTypeEnum!!) }
+            .toSingle{
+                true
             }.flatMapCompletableIf(
                 {params?.totp == true},
                 { settingsGateway.totpSubscribe(ManageDeviceForm(""))
-                    .startWith { settingsGateway.considerAsRecentUser(params?.promptTypeEnum!!) }}
+                    /*.startWith { settingsGateway.considerAsRecentUser(params?.promptTypeEnum!!) }*/}
             ).toSingle {
                 true
             }

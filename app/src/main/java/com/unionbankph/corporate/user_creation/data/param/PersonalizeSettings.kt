@@ -5,7 +5,6 @@ import com.unionbankph.corporate.notification.data.model.Notification
 
 data class PersonalizeSettings(
     var notification: Boolean? = null,
-    var notifications: MutableList<Notification>? = null,
     var totp: Boolean? = null,
     var promptTypeEnum: PromptTypeEnum? = null,
 )

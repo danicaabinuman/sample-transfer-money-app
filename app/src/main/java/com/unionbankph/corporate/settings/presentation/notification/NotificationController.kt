@@ -60,7 +60,7 @@ constructor(
             .title(context.getString(R.string.title_send_me_notification))
             .addTo(this)
 
-        notificationDto.notifications?.forEachIndexed { index, notification ->
+        notificationDto.notifications.forEachIndexed { index, notification ->
             notificationItem {
                 id(notification.notificationId)
                 hasFirst(index == 0)
