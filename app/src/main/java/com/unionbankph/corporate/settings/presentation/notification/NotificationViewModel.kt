@@ -30,7 +30,8 @@ class NotificationViewModel @Inject constructor(
         notificationGateway.getNotifications()
             .map {
                 NotificationDto(
-                    it.notifications.sortedBy { it.notificationId }.toMutableList(),
+                    it.notifications?.sortedBy { it.notificationId }?.toMutableList() ?: mutableListOf(),
+//                    it.notifications.sortedBy { it.notificationId }.toMutableList(),
                     it.receiveAllNotifications
                 )
             }
@@ -64,7 +65,8 @@ class NotificationViewModel @Inject constructor(
         notificationGateway.updateNotificationSettings(notificationForm)
             .map {
                 NotificationDto(
-                    it.notifications.sortedBy { it.notificationId }.toMutableList(),
+                    it.notifications?.sortedBy { it.notificationId }?.toMutableList() ?: mutableListOf(),
+//                    it.notifications.sortedBy { it.notificationId }.toMutableList(),
                     it.receiveAllNotifications
                 )
             }
@@ -80,7 +82,7 @@ class NotificationViewModel @Inject constructor(
             }
             .subscribe(
                 {
-                    if (notificationForm.notifications.size == 1) {
+                    if (notificationForm.notifications?.size == 1) {
                         eventBus.resultSyncEvent.emmit(
                             BaseEvent(
                                 ResultSyncEvent.ACTION_UPDATE_NOTIFICATION,

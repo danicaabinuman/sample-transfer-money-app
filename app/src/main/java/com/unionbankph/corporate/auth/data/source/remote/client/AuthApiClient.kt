@@ -30,6 +30,7 @@ import com.unionbankph.corporate.auth.data.form.ResetPasswordVerifyForm
 import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
 import com.unionbankph.corporate.common.data.model.Message
+import com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
 import com.unionbankph.corporate.user_creation.data.form.ValidateContactInfoForm
 import io.reactivex.Single
 import retrofit2.Response
@@ -167,8 +168,8 @@ interface AuthApiClient {
         @Path("api_version")
         apiVersion: String,
         @Body
-        form: com.unionbankph.corporate.user_creation.data.form.UcNominatePasswordForm
-    ): Single<Response<UserCreationAuth>>
+        form: UcNominatePasswordForm
+    ): Single<Response<Auth>>
 
     @POST("msme/api/{api_version}/corporate-users/resend-otp")
     fun userCreationResendOTP(

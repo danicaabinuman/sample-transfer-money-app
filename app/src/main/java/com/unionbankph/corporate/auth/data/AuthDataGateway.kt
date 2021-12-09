@@ -216,7 +216,7 @@ constructor(
 
     override fun userCreationNominatePassword(
         form: UcNominatePasswordForm
-    ): Single<UserCreationAuth> {
+    ): Single<Auth> {
         return authRemote.userCreationNominatePassword(form)
             .flatMap { responseProvider.executeResponseSingle(it) }
     }

@@ -78,7 +78,7 @@ interface AuthGateway {
 
     fun userCreationValidateContact(validateContactInfoForm: ValidateContactInfoForm) : Single<Auth>
     fun userCreationValidateOTP(verifyOTPForm: VerifyOTPForm) : Single<UserCreationOTPVerified>
-    fun userCreationNominatePassword(form: UcNominatePasswordForm) : Single<UserCreationAuth>
+    fun userCreationNominatePassword(form: UcNominatePasswordForm) : Single<Auth>
     fun userCreationResendOTP(form: ResendOTPForm) : Single<Auth>
 
     fun nominateEmailMigration(

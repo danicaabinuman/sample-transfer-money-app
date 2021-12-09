@@ -20,20 +20,14 @@ data class UserCreationDetails(
     @SerialName("approval_groups")
     val approvalGroups: MutableList<Int>? = null,
 
-    @SerialName("read_mcd_terms")
+    @SerialName("is_policy_agreed")
     var isPolicyAgreed: Boolean? = null,
 
     @SerialName("trusted")
     var isTrusted: Boolean? = null,
 
-    @SerialName("readMcdTerms")
-    var readMcdTerms: Boolean? = null,
-
-    @SerialName("trial_days_remaining")
-    var trialDaysRemaining: Int? = null,
-
-    @SerialName("trial_mode")
-    var trialMode: Boolean? = null
+    @SerialName("read_mcd_terms")
+    var readMcdTerms: Boolean? = null
 
 )
 
@@ -90,7 +84,7 @@ data class UserCreationCorporateUser(
     val lastName: String? = null,
 
     @SerialName("countryCode")
-    var countryCode: UserCreationCountryCode? = null,
+    var countryCode: CountryCode? = null,
 
     @SerialName("mobile_number")
     var mobileNumber: String? = null,
@@ -107,26 +101,3 @@ data class UserCreationCorporateUser(
     @SerialName("full_name")
     val fullName: String? = null
 )
-
-@Parcelize
-@Serializable
-data class UserCreationCountryCode(
-
-    @SerialName("id")
-    var id: Int? = null,
-
-    @SerialName("name")
-    val name: String? = null,
-
-    @SerialName("code")
-    val code: String? = null,
-
-    @SerialName("status")
-    val status: Int? = null,
-
-    @SerialName("preferred")
-    val preferred: Int? = null,
-
-    @SerialName("calling_code")
-    val callingCode: String? = null
-) : Parcelable
