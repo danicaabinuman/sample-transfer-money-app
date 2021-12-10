@@ -21,9 +21,9 @@ class UcNominatePasswordViewModel @Inject constructor(
     private val authGateway: AuthGateway
 ) : BaseViewModel() {
 
-    private val _navigateResult = MutableLiveData<Event<UserCreationAuth>>()
+    private val _navigateResult = MutableLiveData<Event<Auth>>()
 
-    val navigateResult: LiveData<Event<UserCreationAuth>> get() = _navigateResult
+    val navigateResult: LiveData<Event<Auth>> get() = _navigateResult
 
     fun onClickedNext(password: String, secretToken: String, requestId: String) {
         val form = UcNominatePasswordForm().apply {
@@ -54,17 +54,16 @@ class UcNominatePasswordViewModel @Inject constructor(
             ).addTo(disposables)
     }
 
-    private fun cacheUserDetails(auth: UserCreationAuth?): Completable {
-        val userDetails = UserCreationDetails(
+    private fun cacheUserDetails(auth: Auth?): Completable {
+        val userDetails = UserDetails(
             auth?.token,
             auth?.role,
             auth?.corporateUser,
             auth?.approvalGroups,
             auth?.isPolicyAgreed,
             auth?.isTrusted,
-            auth?.readMcdTerms,
-            auth?.trialDaysRemaining,
-            auth?.trialMode,
+            auth?.readMcdTerms
+
         )
         return Observable.just(userDetails)
             .flatMapCompletable {

@@ -64,7 +64,7 @@ class NotificationViewModel @Inject constructor(
         notificationGateway.updateNotificationSettings(notificationForm)
             .map {
                 NotificationDto(
-                    it.notifications.sortedBy { it.notificationId }.toMutableList(),
+                   it.notifications.sortedBy { it.notificationId }.toMutableList(),
                     it.receiveAllNotifications
                 )
             }

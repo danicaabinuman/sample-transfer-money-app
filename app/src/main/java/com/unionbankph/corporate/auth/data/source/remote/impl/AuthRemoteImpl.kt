@@ -213,7 +213,7 @@ constructor(
 
     override fun userCreationNominatePassword(
         form: UcNominatePasswordForm
-    ): Single<Response<UserCreationAuth>> {
+    ): Single<Response<Auth>> {
         return authApiClient.userCreationNominatePassword(
             BuildConfig.MSME_CLIENT_API_VERSION,
             form

@@ -152,9 +152,7 @@ constructor(
             }
             sharedPreferenceUtil.fullNameSharedPref().set(fullName)
             sharedPreferenceUtil.emailSharedPref().set(corporateUser.emailAddress.notNullable())
-            sharedPreferenceUtil.isTrialMode().set(userCreationDetails.trialMode ?: false)
-            sharedPreferenceUtil.trialModeDaysRemainingSharedPref().set(userCreationDetails.trialDaysRemaining.toString())
-        }
+            }
     }
 
 
