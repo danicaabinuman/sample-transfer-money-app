@@ -136,6 +136,13 @@ class OTPActivity :
                 is ShowTOTPBottomSheet -> {
                     attemptShowTOTPBottomSheet(it.isTOTPEnabled)
                 }
+                is ShowDemoOrgID -> {
+                    viewModel.getDemoOrgDetails(it.id)
+                }
+
+                is ShowDemoOrgDetailsSuccess -> {
+                    navigateNextScreen(it.isTrialMode)
+                }
             }
         })
     }
@@ -682,7 +689,8 @@ class OTPActivity :
         when (page) {
             PAGE_LOGIN -> {
                 if (privacyAgreed) {
-                    navigateDashboardScreen()
+                    //navigateDashboardScreen()
+                    viewModel.getOrgID()
                 } else {
                     navigatePrivacyPolicyScreen()
                 }
@@ -902,15 +910,10 @@ class OTPActivity :
     }
 
     private fun navigateTrialModeScreen() {
-        val bundle = Bundle()
-        bundle.putString(
-            AutobahnFirebaseMessagingService.EXTRA_DATA,
-            intent.getStringExtra(AutobahnFirebaseMessagingService.EXTRA_DATA)
-        )
         navigator.navigateClearStacks(
             this,
             TrialAccountActivity::class.java,
-            bundle,
+            null,
             true,
             Navigator.TransitionActivity.TRANSITION_SLIDE_LEFT
         )
@@ -988,6 +991,14 @@ class OTPActivity :
             }
         )
         totpBottomSheet.show(supportFragmentManager, TOTPBottomSheet::class.java.simpleName)
+    }
+
+    private fun navigateNextScreen(isTrialMode: Boolean) {
+        if(isTrialMode){
+            navigateTrialModeScreen()
+        }else{
+            navigateDashboardScreen()
+        }
     }
 
     private fun isTOTPScreen(loginType: String?): Boolean = loginType == LOGIN_TYPE_TOTP

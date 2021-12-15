@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.auth.data
 
 import com.unionbankph.corporate.app.util.SettingsUtil
+import com.unionbankph.corporate.approval.data.model.ApprovalHierarchyDto
 import com.unionbankph.corporate.auth.data.form.*
 import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.auth.data.source.local.AuthCache
@@ -63,6 +64,10 @@ constructor(
 
     override fun saveCredential(userCreationDetails: UserCreationDetails): Completable {
         return authCache.saveCredential(userCreationDetails)
+    }
+
+    override fun saveDemoDetail(demoOrgDetails: DemoOrgDetails): Completable {
+        return authCache.saveDemoDetail(demoOrgDetails)
     }
 
     override fun login(loginForm: LoginForm): Single<Auth> {
@@ -225,6 +230,14 @@ constructor(
         form: ResendOTPForm
     ): Single<Auth> {
         return authRemote.userCreationResendOTP(form)
+            .flatMap { responseProvider.executeResponseSingle(it) }
+    }
+
+    override fun userCreationGetDemoDetails(
+        id: String
+    ): Single<Auth> {
+        return settingsGateway.getAccessToken()
+            .flatMap { authRemote.userCreationGetDemoDetails(it,id) }
             .flatMap { responseProvider.executeResponseSingle(it) }
     }
 

@@ -54,6 +54,8 @@ interface AuthGateway {
 
     fun saveCredential(userCreationDetails: UserCreationDetails): Completable
 
+    fun saveDemoDetail(demoOrgDetails: DemoOrgDetails): Completable
+
     fun login(loginForm: LoginForm): Single<Auth>
     fun eBankingResendOTPMigration(
         temporaryCorporateUserId: String,
@@ -80,6 +82,7 @@ interface AuthGateway {
     fun userCreationValidateOTP(verifyOTPForm: VerifyOTPForm) : Single<UserCreationOTPVerified>
     fun userCreationNominatePassword(form: UcNominatePasswordForm) : Single<Auth>
     fun userCreationResendOTP(form: ResendOTPForm) : Single<Auth>
+    fun userCreationGetDemoDetails(id: String) : Single<Auth>
 
     fun nominateEmailMigration(
         temporaryCorporateUserId: String,

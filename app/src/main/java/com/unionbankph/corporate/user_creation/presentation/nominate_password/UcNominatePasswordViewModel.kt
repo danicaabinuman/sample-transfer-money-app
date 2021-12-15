@@ -1,6 +1,5 @@
 package com.unionbankph.corporate.user_creation.presentation.nominate_password
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.unionbankph.corporate.app.base.BaseViewModel
@@ -35,8 +34,6 @@ class UcNominatePasswordViewModel @Inject constructor(
     }
 
     private fun nominatePassword(form: UcNominatePasswordForm) {
-        Log.e("form.secretToken",""+form.secretToken)
-        Log.e("form.requestId",""+form.requestId)
         authGateway.userCreationNominatePassword(form)
             .flatMap { cacheUserDetails(it).toSingle { it } }
             .subscribeOn(schedulerProvider.io())

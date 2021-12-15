@@ -109,6 +109,8 @@ constructor(private val rxSharedPreferences: RxSharedPreferences) {
 
     private val trialModeDaysRemainingSharedPref = "trialModeDaysRemainingSharedPref"
 
+    private val getOrgID = "orgID"
+
 
     fun notificationTokenPref() = rxSharedPreferences.getString(notificationTokenPref, "")
 
@@ -244,4 +246,6 @@ constructor(private val rxSharedPreferences: RxSharedPreferences) {
     fun isTrialMode() = rxSharedPreferences.getBoolean(isTrialMode, false)
 
     fun trialModeDaysRemainingSharedPref() = rxSharedPreferences.getString(trialModeDaysRemainingSharedPref,"")
+
+    fun getOrgID() = rxSharedPreferences.getString(getOrgID, "")
 }

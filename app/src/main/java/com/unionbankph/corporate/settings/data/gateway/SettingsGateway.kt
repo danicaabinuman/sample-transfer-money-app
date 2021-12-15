@@ -205,6 +205,6 @@ interface SettingsGateway {
 
     fun isTrialMode(): Maybe<Boolean>
     fun getTrialModeDaysRemaining(): Maybe<String>
-
+    fun getOrgID(): Maybe<String>
     fun getDashboardMegaMenu(): Single<MutableList<MegaMenuDto>>
 }

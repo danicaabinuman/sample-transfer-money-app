@@ -43,5 +43,11 @@ data class Auth(
     val corporateUser: CorporateUser? = null,
 
     @SerialName("approval_groups")
-    val approvalGroups: MutableList<Int>? = null
+    val approvalGroups: MutableList<Int>? = null,
+
+    @SerialName("trial_days_remaining")
+    var trialDaysRemaining: Int? = null,
+
+    @SerialName("trial_mode")
+    var trialMode: Boolean? = null
 )

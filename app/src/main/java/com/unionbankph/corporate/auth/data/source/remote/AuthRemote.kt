@@ -73,6 +73,11 @@ interface AuthRemote {
         form: ResendOTPForm
     ): Single<Response<Auth>>
 
+    fun userCreationGetDemoDetails(
+        accessToken: String,
+        id: String,
+    ): Single<Response<Auth>>
+
     fun nominatePasswordActivation(
         activationPasswordForm: ActivationPasswordForm
     ): Single<Response<PasswordToken>>
