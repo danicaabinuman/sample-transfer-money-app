@@ -53,8 +53,8 @@ class AccountDetailActivity :
         super.afterLayout(savedInstanceState)
         initToolbar(binding.viewToolbar.toolbar, binding.viewToolbar.appBarLayout)
         setToolbarTitle(binding.viewToolbar.tvToolbar, getString(R.string.title_account_details))
-        setDrawableBackButton(R.drawable.ic_close_white_24dp)
-    }
+        setDrawableBackButton(R.drawable.ic_close_white_24dp, R.color.colorDarkOrange, true)
+        }
 
     override fun onViewsBound() {
         super.onViewsBound()

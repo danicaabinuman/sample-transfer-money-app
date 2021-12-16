@@ -102,8 +102,6 @@
                         android:id="@+id/til_business_name"
                         style="@style/TextInputLayoutForm"
                         android:layout_width="match_parent"
-                        app:errorEnabled="true"
-                        app:errorTextColor="#ED5635"
                         app:hintEnabled="false">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -115,7 +113,6 @@
                             android:hint="@string/hint_storehandle"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
-
 
                     <TextView
                         android:id="@+id/tvErrorMessage"

@@ -979,7 +979,9 @@ class OTPActivity :
     private fun attemptShowTOTPBottomSheet(isTOTPEnabled: Boolean) {
         if (isTOTPEnabled && settingsUtil.isTimeAutomatic()) {
             showTOTPBottomSheet()
-        }
+        }/*else{
+            onClickedResendOTP()
+        }*/
     }
 
     private fun showTOTPBottomSheet() {

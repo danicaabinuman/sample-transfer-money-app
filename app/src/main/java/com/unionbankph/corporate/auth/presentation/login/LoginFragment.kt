@@ -112,7 +112,7 @@ class LoginFragment :
     private fun initBinding() {
         viewModel.isTrustedDeviceOutput
             .subscribe {
-                if(!isSME) {binding.buttonGenerateOTP.visibility(it)}
+                binding.buttonGenerateOTP.visibility(it)
                 isTrustDevice = it
             }.addTo(disposables)
         viewModel.enableBiometricLogin
@@ -644,7 +644,7 @@ class LoginFragment :
             binding.MSMEForgotPassword.setVisible(true)
             binding.viewBadgeLayout.visibility(false)
             binding.textViewWelcomeBack.setVisible(false)
-            if(isTrustDevice){binding.buttonGenerateOTP.visibility(true)}
+            //if(isTrustDevice){binding.buttonGenerateOTP.visibility(true)}
             binding.textViewMigration.visibility(false)
             } else {
             binding.textViewWelcomeBack.visibility(false)
@@ -711,7 +711,7 @@ class LoginFragment :
             binding.tvForgotPassword.visibility(false)
             binding.MSMEbtnLogin.visibility(true)
             binding.MSMEForgotPassword.visibility(true)
-            if(isTrustDevice){binding.buttonGenerateOTP.visibility(true)}
+            //if(isTrustDevice){binding.buttonGenerateOTP.visibility(true)}
             binding.MSMEbtnLogin.text = formatString(R.string.title_login)
             binding.imgFaceIDMSME.visibility(false)
             binding.imgFingerPrintMSME.visibility(false)
@@ -959,7 +959,6 @@ class LoginFragment :
     }
 
     private fun initLoginSuccess(it: ShowLoginSuccess) {
-        viewModel.onClickLetsGo()
         getEditTextUsername().clearFocus()
         getEditTextPassword().clearFocus()
         val bundle = Bundle()
