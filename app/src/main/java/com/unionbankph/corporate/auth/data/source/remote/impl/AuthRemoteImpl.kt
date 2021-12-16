@@ -228,6 +228,19 @@ constructor(
         )
     }
 
+    override fun userCreationGetDemoDetails(
+        accessToken: String,
+        id: String
+    ): Single<Response<Auth>> {
+        return authApiClient.userCreationGetDemoDetails(
+            accessToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            id
+        )
+    }
+
     override fun nominateEmailMigration(
         temporaryCorporateUserId: String,
         migrationNominateEmailForm: MigrationNominateEmailForm

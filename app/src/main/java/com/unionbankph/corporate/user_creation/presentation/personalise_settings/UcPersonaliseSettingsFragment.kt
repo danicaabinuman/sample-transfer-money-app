@@ -1,49 +1,22 @@
 package com.unionbankph.corporate.user_creation.presentation.personalise_settings
 
 import android.Manifest
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.biometric.BiometricManager
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.lifecycle.lifecycleOwner
-import com.jakewharton.rxbinding2.view.RxView
-import com.mtramin.rxfingerprint.RxFingerprint
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
-import com.unionbankph.corporate.app.common.extension.setVisible
 import com.unionbankph.corporate.app.common.platform.events.EventObserver
-import com.unionbankph.corporate.app.common.platform.navigation.Navigator
-import com.unionbankph.corporate.app.dashboard.DashboardActivity
-import com.unionbankph.corporate.app.service.fcm.AutobahnFirebaseMessagingService
 import com.unionbankph.corporate.auth.presentation.login.LoginActivity
-import com.unionbankph.corporate.auth.presentation.login.LoginFragment
-import com.unionbankph.corporate.bills_payment.data.model.Transaction
 import com.unionbankph.corporate.common.presentation.constant.PromptTypeEnum
-import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialError
-import com.unionbankph.corporate.common.presentation.viewmodel.ShowTutorialHasTutorial
-import com.unionbankph.corporate.common.presentation.viewmodel.TutorialViewModel
 import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.databinding.FragmentUcPersonaliseSettingsBinding
-import com.unionbankph.corporate.notification.data.form.NotificationForm
-import com.unionbankph.corporate.settings.data.form.ManageDeviceForm
 import com.unionbankph.corporate.settings.presentation.*
-import com.unionbankph.corporate.settings.presentation.general.GeneralSettingsViewModel
-import com.unionbankph.corporate.settings.presentation.profile.ProfileSettingsFragment
-import com.unionbankph.corporate.trial_account.presentation.TrialAccountActivity
 import com.unionbankph.corporate.user_creation.presentation.UserCreationActivity
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import java.util.concurrent.TimeUnit
 
 
 class UcPersonaliseSettingsFragment :
@@ -65,11 +38,6 @@ class UcPersonaliseSettingsFragment :
     override fun onViewModelBound() {
         super.onViewModelBound()
         initViewModel()
-    }
-
-    override fun onViewsBound() {
-        super.onViewsBound()
-        init()
     }
 
 
@@ -103,15 +71,19 @@ class UcPersonaliseSettingsFragment :
                     }
                 }
             })
-            navigateToLocalSettings.observe(viewLifecycleOwner, EventObserver {
+            getDemoDetails.observe(viewLifecycleOwner, EventObserver {
                 //considerAsRecentUser(PromptTypeEnum.TRUST_DEVICE)
+                viewModel.getOrgID()
+            })
+            getLocalSettings.observe(viewLifecycleOwner, EventObserver{
+                viewModel.getDemoOrgDetails(it)
+            })
+
+            navigateToLocalSettings.observe(viewLifecycleOwner, EventObserver{
                 rxPermission()
             })
+
         }
-    }
-
-    private fun init(){
-
     }
 
     private fun initSwitchListener(){

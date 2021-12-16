@@ -147,4 +147,6 @@ interface SettingsCache {
 
     fun isTrialMode(): Maybe<Boolean>
     fun getTrialModeDaysRemaining(): Maybe<String>
+    fun getOrgID(): Maybe<String>
+
 }

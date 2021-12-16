@@ -3,10 +3,7 @@ package com.unionbankph.corporate.auth.data.source.local.impl
 import com.unionbankph.corporate.app.common.extension.notNullable
 import com.unionbankph.corporate.app.common.extension.toDistinctByKey
 import com.unionbankph.corporate.auth.data.form.ECredForm
-import com.unionbankph.corporate.auth.data.model.CorporateUser
-import com.unionbankph.corporate.auth.data.model.UserCreationCorporateUser
-import com.unionbankph.corporate.auth.data.model.UserCreationDetails
-import com.unionbankph.corporate.auth.data.model.UserDetails
+import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.auth.data.source.local.AuthCache
 import com.unionbankph.corporate.common.data.source.local.cache.CacheManager
 import com.unionbankph.corporate.common.data.source.local.sharedpref.SharedPreferenceUtil
@@ -90,6 +87,7 @@ constructor(
             }
             sharedPreferenceUtil.fullNameSharedPref().set(fullName)
             sharedPreferenceUtil.emailSharedPref().set(corporateUser.emailAddress.notNullable())
+            sharedPreferenceUtil.getOrgID().set(userDetails.corporateUser?.id.notNullable())
         }
     }
 
@@ -122,6 +120,13 @@ constructor(
             )
             val recentUsersString = JsonHelper.toJson(recentUsers)
             sharedPreferenceUtil.recentUsersSharedPref().set(recentUsersString)
+        }
+    }
+
+    override fun saveDemoDetail(demoOrgDetails: DemoOrgDetails): Completable {
+        return Completable.fromAction {
+            sharedPreferenceUtil.isTrialMode().set(demoOrgDetails.trialMode ?: false)
+            sharedPreferenceUtil.trialModeDaysRemainingSharedPref().set(demoOrgDetails.trialDaysRemaining.toString())
         }
     }
 

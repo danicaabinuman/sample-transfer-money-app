@@ -1023,4 +1023,10 @@ constructor(
             sharedPreferenceUtil.trialModeDaysRemainingSharedPref().get()
         }
     }
+
+    override fun getOrgID(): Maybe<String> {
+        return Maybe.fromCallable {
+            sharedPreferenceUtil.getOrgID().get()
+        }
+    }
 }

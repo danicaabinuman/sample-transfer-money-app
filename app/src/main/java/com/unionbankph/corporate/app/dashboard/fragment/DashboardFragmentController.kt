@@ -271,6 +271,10 @@ abstract class DashboardHeaderModel: EpoxyModelWithHolder<DashboardHeaderModel.H
             else -> Constant.DASHBOARD_ACTION_VIEW_ALL_ACCOUNTS
         }
 
+        when (buttonText) {
+            context.getString(R.string.action_add) -> holder.binding.textViewAccountLabel.visibility = View.GONE
+        }
+
         holder.binding.buttonAccountAction.setOnClickListener {
             callbacks.onDashboardActionEmit(action, true)
         }

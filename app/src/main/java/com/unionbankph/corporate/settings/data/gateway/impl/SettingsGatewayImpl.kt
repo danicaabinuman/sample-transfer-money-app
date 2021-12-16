@@ -512,6 +512,10 @@ constructor(
         return settingsCache.getTrialModeDaysRemaining()
     }
 
+    override fun getOrgID(): Maybe<String> {
+        return settingsCache.getOrgID()
+    }
+
     override fun getDashboardMegaMenu(): Single<MutableList<MegaMenuDto>> {
         return settingsCache.getAccessToken()
             .flatMap { settingsRemote.getDashboardMegaMenu(it) }

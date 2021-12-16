@@ -16,10 +16,7 @@ import com.unionbankph.corporate.auth.data.form.NominatePasswordResendOTPForm
 import com.unionbankph.corporate.auth.data.form.ResendOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordOTPForm
 import com.unionbankph.corporate.auth.data.form.ResetPasswordResendOTPForm
-import com.unionbankph.corporate.auth.data.model.Auth
-import com.unionbankph.corporate.auth.data.model.ECredLoginDto
-import com.unionbankph.corporate.auth.data.model.ECredLoginOTPDto
-import com.unionbankph.corporate.auth.data.model.UserCreationOTPVerified
+import com.unionbankph.corporate.auth.data.model.*
 import com.unionbankph.corporate.bills_payment.data.gateway.BillsPaymentGateway
 import com.unionbankph.corporate.bills_payment.data.model.BillsPaymentVerify
 import com.unionbankph.corporate.common.data.form.VerifyOTPForm
@@ -27,13 +24,14 @@ import com.unionbankph.corporate.common.data.model.ApiError
 import com.unionbankph.corporate.common.data.model.Message
 import com.unionbankph.corporate.common.domain.provider.SchedulerProvider
 import com.unionbankph.corporate.common.presentation.helper.JsonHelper
+import com.unionbankph.corporate.common.presentation.viewmodel.state.UiState
 import com.unionbankph.corporate.fund_transfer.data.gateway.FundTransferGateway
 import com.unionbankph.corporate.fund_transfer.data.model.FundTransferVerify
 import com.unionbankph.corporate.settings.data.gateway.SettingsGateway
 import com.unionbankph.corporate.settings.data.model.OTPSettingsDto
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.zipWith
 import io.reactivex.subjects.BehaviorSubject
 import timber.log.Timber
 import java.util.*
@@ -428,7 +426,55 @@ class OTPViewModel @Inject constructor(
                 _otpState.value = ShowOTPCompleteTimer(isClickedResendOTP.value ?: false)
             }.subscribe().addTo(disposables)
     }
-}
+
+    fun getOrgID() {
+        settingsGateway.getOrgID()
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .doOnSubscribe { _otpState.value = ShowOTPLoading }
+            .subscribe(
+                {
+                    _otpState.value = ShowDemoOrgID(it)
+                }, {
+                    Timber.e("uc getOrgID err: %s", it.message)
+                    _otpState.value = ShowOTPDismissLoading
+                    _otpState.value = ShowOTPError(it)
+                })
+            .addTo(disposables)
+        }
+
+    fun getDemoOrgDetails(id: String) {
+        authGateway.userCreationGetDemoDetails(id)
+            .flatMap { cacheDemoOrgDetails(it).toSingle { it } }
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.ui())
+            .doOnSubscribe { _otpState.value = ShowOTPLoading }
+            .subscribe (
+                {
+                    _otpState.value = ShowDemoOrgDetailsSuccess(it.trialMode ?: false)
+                },
+                {
+                    Timber.e("uc getDemoOrgDetails err: %s", it.message)
+                    _otpState.value = ShowOTPDismissLoading
+                    _otpState.value = ShowOTPError(it)
+                }
+            ).addTo(disposables)
+    }
+
+    private fun cacheDemoOrgDetails(auth: Auth?): Completable {
+        val demoOrgDetails = DemoOrgDetails(
+            auth?.trialDaysRemaining,
+            auth?.trialMode,
+
+            )
+        return Observable.just(demoOrgDetails)
+            .flatMapCompletable {
+                authGateway.saveDemoDetail(demoOrgDetails)
+            }
+        }
+    }
+
+
 
 sealed class OTPState
 
@@ -454,6 +500,10 @@ data class ShowOTPSuccessFundTransfer(
 data class ShowOTPSuccessBillsPayment(
     val billsPaymentVerify: BillsPaymentVerify
 ) : OTPState()
+
+data class ShowDemoOrgID(val id: String) : OTPState()
+
+data class ShowDemoOrgDetailsSuccess(val isTrialMode: Boolean) : OTPState()
 
 data class ShowOTPLoginSuccess(val privacyAgreed: Boolean) : OTPState()
 

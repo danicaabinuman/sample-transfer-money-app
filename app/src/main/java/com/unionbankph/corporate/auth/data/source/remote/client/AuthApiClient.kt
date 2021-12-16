@@ -179,6 +179,20 @@ interface AuthApiClient {
         verifyOTPForm: ResendOTPForm
     ): Single<Response<Auth>>
 
+    @GET("msme/api/{api_version}/corporate-users/demo-details/{id}")
+    fun userCreationGetDemoDetails(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String,
+        @Path("id")
+        id: String
+    ): Single<Response<Auth>>
+
     @POST("api/{api_version}/config/policy")
     fun privacyPolicy(
         @Header("Authorization")
