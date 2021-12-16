@@ -129,6 +129,8 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
         super.onViewsBound()
         initViewPager()
         initBottomNavigation()
+
+        isOnTrialMode = sharedPreferenceUtil.isTrialMode().get()
     }
 
     override fun onViewModelBound() {
