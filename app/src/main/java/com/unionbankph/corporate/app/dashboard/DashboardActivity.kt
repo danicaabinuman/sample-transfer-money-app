@@ -74,7 +74,7 @@ class DashboardActivity : BaseActivity<ActivityDashboardBinding, DashboardViewMo
     FingerprintBottomSheet.OnFingerPrintListener {
 
     private val headerDashboard by lazyFast {
-        resources.getStringArray(R .array.array_dashboard_header).toMutableList()
+        resources.getStringArray(R.array.array_dashboard_header).toMutableList()
     }
 
     var isOnTrialMode = false
