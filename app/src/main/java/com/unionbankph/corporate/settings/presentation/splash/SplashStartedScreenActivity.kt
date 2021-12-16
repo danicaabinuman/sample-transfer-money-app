@@ -35,7 +35,8 @@ class SplashStartedScreenActivity :
         viewModel.uiState.observe(this, EventObserver {
             when (it) {
                 is UiState.Success -> {
-                    navigateOnboardingScreen()
+                    //navigateOnboardingScreen()
+                    navigateLoginScreen()
                 }
                 is UiState.Loading -> {
                     showProgressAlertDialog(this::class.java.simpleName)
@@ -54,7 +55,11 @@ class SplashStartedScreenActivity :
             //viewModel.onClickedLetsGo()
         }
         binding.tvNoThanks.setOnClickListener {
-            navigateLoginScreen()
+            if (!sharedPreferenceUtil.isLaunched().get()) {
+                viewModel.onClickedLetsGo()
+            }else{
+                navigateLoginScreen()
+            }
             existingUser = 1
         }
     }

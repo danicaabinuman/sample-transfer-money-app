@@ -959,9 +959,6 @@ class LoginFragment :
     }
 
     private fun initLoginSuccess(it: ShowLoginSuccess) {
-        if (!sharedPreferenceUtil.isLaunched().get()) {
-            viewModel.onClickLetsGo()
-        }
         getEditTextUsername().clearFocus()
         getEditTextPassword().clearFocus()
         val bundle = Bundle()
