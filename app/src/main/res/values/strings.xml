@@ -14,7 +14,7 @@
     <string name="digits_with_restriction_with_space">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
     <string name="digits_website">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890[-@.,?:\/]</string>
     <string name="digits_special_characters">[-!@#$%^&amp;*()_+|~=`\\\{}\[\]:\";\'&lt;&gt;?,.\/]</string>
-    <string name="digits_alpha_numeric_symbols_email_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@.</string>
+    <string name="digits_alpha_numeric_symbols_email_no_space">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@._</string>
     <string name="digits_country_code">1234567890+</string>
     <string name="digits_alpha_numeric_specific_symbols">\ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.,-()</string>
     <string name="digits_alpha">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
@@ -2669,7 +2669,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="title_face_id">Face ID</string>
     <string name="msg_face_id">All face ID data stored on this device can be used to access your account</string>
     <string name="msg_trial_mode">You are on Trial Mode\nfor 30 days</string>
-    <string name="msg_setup_account">Setup you account so you may enjoy using\nthe MSME Business Banking services.</string>
+    <string name="msg_setup_account">Setup your account so you may enjoy using\nthe MSME Business Banking services.</string>
     <string name="unlock_key_features">Unlock key features like:</string>
     <string name="title_accept_multiple_payments">Accept multiple payment methods</string>
     <string name="msg_accept_multiple_payments">Accept payments from 50,000+ payment\nchannel partners globally</string>

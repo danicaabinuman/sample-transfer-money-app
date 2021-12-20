@@ -69,6 +69,8 @@ class OTPActivity :
     private var accountType: String? = null
 
     private var smsBroadcastReceiver: SMSReceiver? = null
+    
+    private var resendOTPCount: Int = 3
 
     override fun afterLayout(savedInstanceState: Bundle?) {
         super.afterLayout(savedInstanceState)
@@ -364,7 +366,8 @@ class OTPActivity :
                 viewModel.resendOTPFundTransfer(ResendOTPForm(auth.requestId))
             }
             PAGE_USER_CREATION -> {
-                viewModel.userCreationResendOTP(ResendOTPForm(auth.requestId))
+                resendOTPCount = resendOTPCount.minus(1)
+                viewModel.userCreationResendOTP(ResendOTPForm(auth.requestId), resendOTPCount)
             }
         }
     }
@@ -760,12 +763,13 @@ class OTPActivity :
             auth = it.auth
             initEnableResendButton(false)
             pinCodeEditText.clearPinCode()
-            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_30))
-            initEnableResendButton(false)
-            viewModel.countDownTimer(
-                resources.getInteger(R.integer.resend_otp_code_period).toLong(),
-                resources.getInteger(R.integer.resend_otp_code_count_30).toLong()
-            )
+            if (resendOTPCount in 1..3){
+                initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_30))
+                viewModel.countDownTimer(
+                    resources.getInteger(R.integer.resend_otp_code_period).toLong(),
+                    resources.getInteger(R.integer.resend_otp_code_count_30).toLong()
+                )
+            }
             MaterialDialog(this).show {
                 lifecycleOwner(this@OTPActivity)
                 title(R.string.title_code_resent)
@@ -945,7 +949,7 @@ class OTPActivity :
         viewModel.otpType.onNext(auth.otpType ?: LOGIN_TYPE_SMS)
         if (isTOTPScreen(loginType)) {
             initEnableResendButton(true)
-            binding.tvVerifyAccountDesc.text = formatString(R.string.desc_verify_account_totp)
+//            binding.tvVerifyAccountDesc.text = formatString(R.string.desc_verify_account_totp)
             binding.textViewDidNotReceived.visibility(false)
             binding.tvResendTimer.setVisible(false)
             binding.btnResend.text = formatString(R.string.action_receive_via_otp)
@@ -953,7 +957,17 @@ class OTPActivity :
 
             viewModel.attemptShowTOTPDialog()
         } else {
-            binding.tvVerifyAccountDesc.text = formatString(
+//            binding.tvVerifyAccountDesc.text = formatString(
+//                R.string.desc_verify_account_sms,
+//                formatString(
+//                    R.string.param_color,
+//                    convertColorResourceToHex(if (isSME) getAccentColor() else R.color.colorWhite),
+//                    auth.mobileNumber?.substring(auth.mobileNumber?.length?.minus(4) ?: 0)
+//                )
+//            ).toHtmlSpan()
+            when (page){
+                PAGE_USER_CREATION -> {
+                    binding.tvVerifyAccountDesc.text = formatString(
                 R.string.desc_verify_account_sms,
                 formatString(
                     R.string.param_color,
@@ -961,14 +975,19 @@ class OTPActivity :
                     auth.mobileNumber?.substring(auth.mobileNumber?.length?.minus(4) ?: 0)
                 )
             ).toHtmlSpan()
-            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count))
+                    binding.btnResend.text = formatString(R.string.action_resend_code)
+                }
+                    else -> {
+                        binding.btnResend.text = formatString(R.string.action_resend)
+                    }
+            }
+            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_30))
             initEnableResendButton(false)
             viewModel.countDownTimer(
                 resources.getInteger(R.integer.resend_otp_code_period).toLong(),
                 resources.getInteger(R.integer.resend_otp_code_count_30).toLong()
             )
-            binding.textViewDidNotReceived.text = formatString(R.string.desc_did_not_receive_code)
-            binding.btnResend.text = formatString(R.string.action_resend_code)
+            binding.textViewDidNotReceived.text = formatString(R.string.desc_didnt_receive_code)
             binding.textViewDidNotReceived.visibility(true)
             binding.tvResendTimer.visibility(true)
             binding.btnResend.visibility(true)
@@ -979,9 +998,7 @@ class OTPActivity :
     private fun attemptShowTOTPBottomSheet(isTOTPEnabled: Boolean) {
         if (isTOTPEnabled && settingsUtil.isTimeAutomatic()) {
             showTOTPBottomSheet()
-        }/*else{
-            onClickedResendOTP()
-        }*/
+        }
     }
 
     private fun showTOTPBottomSheet() {
