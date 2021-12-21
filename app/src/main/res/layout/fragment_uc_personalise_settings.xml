@@ -56,7 +56,7 @@
                 style="@style/SMESubtitle2"
                 android:layout_width="match_parent"
                 android:id="@+id/tvTrustDevice"
-                android:layout_marginTop="@dimen/grid_3"
+                android:layout_marginTop="@dimen/content_spacing"
                 android:layout_marginStart="@dimen/grid_1"
                 android:text="@string/action_trust_device"
                 app:layout_constraintStart_toStartOf="parent"

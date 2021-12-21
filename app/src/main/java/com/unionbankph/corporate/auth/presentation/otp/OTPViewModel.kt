@@ -378,7 +378,7 @@ class OTPViewModel @Inject constructor(
             ).addTo(disposables)
     }
 
-    fun userCreationResendOTP(resendOTPForm: ResendOTPForm) {
+    fun userCreationResendOTP(resendOTPForm: ResendOTPForm, resendOTPCount: Int) {
         authGateway.userCreationResendOTP(resendOTPForm)
             .subscribeOn(schedulerProvider.io())
             .observeOn(schedulerProvider.ui())
@@ -387,7 +387,11 @@ class OTPViewModel @Inject constructor(
             .subscribe(
                 {
                     if (otpType.value.notNullable() == TYPE_SMS) {
-                        isClickedResendOTP.onNext(true)
+                        if (resendOTPCount in 1..3){
+                            isClickedResendOTP.onNext(false)
+                        }else{
+                            isClickedResendOTP.onNext(true)
+                        }
                     }
                     _otpState.value = ShowOTPSuccessResend(it)
                 }, {
