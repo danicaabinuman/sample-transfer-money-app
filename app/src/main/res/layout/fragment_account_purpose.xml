@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.unionbankph.corporate.account_setup.presentation.account_purpose.AccountPurposeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/accountPurpose_bNext"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:padding="@dimen/grid_1">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/accountPurpose_ivLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:background="@drawable/ic_account_purpose"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/accountPurpose_tvTitle"
+                    style="@style/SMEHeadlineH2"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="@dimen/grid_3_half"
+                    android:text="@string/title_account_purpose"
+                    app:layout_constraintBottom_toBottomOf="@+id/accountPurpose_ivLogo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/accountPurpose_ivLogo"
+                    app:layout_constraintTop_toTopOf="@+id/accountPurpose_ivLogo" />
+
+                <TextView
+                    android:id="@+id/accountPurpose_tvPurposeLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/margin_36dp"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/hint_select_purpose"
+                    android:textAppearance="@style/SMECaption"
+                    app:layout_constraintStart_toStartOf="@+id/accountPurpose_ivLogo"
+                    app:layout_constraintTop_toBottomOf="@+id/accountPurpose_ivLogo" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/accountPurpose_tilPurpose"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_1"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    app:boxStrokeWidth="0.5dp"
+                    app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                    app:endIconTint="@color/dsColorMediumOrange"
+                    app:errorEnabled="true"
+                    app:hintEnabled="false"
+                    app:error="@{viewModel.formState.purposeError}"
+                    app:layout_constraintTop_toBottomOf="@+id/accountPurpose_tvPurposeLabel">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/financial_info_act_pob"
+                        style="@style/TextInputLayoutFormThinEditText.DropDownOrange"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:fontFamily="@string/font_family_regular"
+                        android:hint="@string/hint_select_purpose"
+                        android:paddingStart="@dimen/margin_14dp"
+                        android:paddingTop="@dimen/margin_12dp"
+                        android:paddingEnd="@dimen/margin_12dp"
+                        android:paddingBottom="@dimen/margin_12dp"
+                        android:textSize="@dimen/text_16" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/accountPurpose_tilSpecify"
+                    style="@style/TextInputLayoutFormThin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_2"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    app:boxStrokeWidth="0.5dp"
+                    app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                    app:errorEnabled="true"
+                    app:hintEnabled="false"
+                    app:error="@{viewModel.formState.specificationError}"
+                    app:layout_constraintTop_toBottomOf="@+id/accountPurpose_tilPurpose">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/TextInputLayoutFormThinEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:hint="@string/hint_please_specify"
+                        android:inputType="text|textMultiLine" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/accountPurpose_tvMonthlyTransactionsLabel"
+                    style="@style/SMECaption"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/grid_1"
+                    android:layout_marginTop="@dimen/grid_4"
+                    android:layout_marginEnd="@dimen/grid_1"
+                    android:text="@string/what_s_your_average_monthly_volume"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/accountPurpose_tilSpecify" />
+
+                <include
+                    android:id="@+id/accountPurpose_wasMonthlyTransactions"
+                    layout="@layout/widget_amount_slider"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/grid_1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/accountPurpose_tvMonthlyTransactionsLabel" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/accountPurpose_bNext"
+            style="@style/SMEPrimaryButtonLarge"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/grid_2"
+            android:layout_marginEnd="@dimen/grid_2"
+            android:layout_marginBottom="@dimen/grid_5_half"
+            android:enabled="true"
+            android:text="@string/action_next"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

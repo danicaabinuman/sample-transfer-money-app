@@ -1,5 +1,6 @@
 package com.unionbankph.corporate.loan.financial_information
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -18,6 +19,7 @@ import com.unionbankph.corporate.feature.loan.FinancialInformationField.Companio
 import com.unionbankph.corporate.feature.loan.FinancialInformationForm
 import com.unionbankph.corporate.feature.loan.FinancialInformationState
 import com.unionbankph.corporate.feature.loan.PersonalInformationField
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
@@ -25,6 +27,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
+@FlowPreview
+@SuppressLint("StaticFieldLeak")
 class FinancialInformationViewModel @Inject
 constructor(
     val context: Context

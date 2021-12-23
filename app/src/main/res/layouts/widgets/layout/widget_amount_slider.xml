@@ -1,106 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/bg_border_rectangle"
-    android:padding="@dimen/grid_1"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/tvAverageMonthlyVolume"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutAmount"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_2"
-        android:paddingStart="@dimen/grid_4"
-        android:paddingEnd="@dimen/grid_4"
-        android:paddingTop="@dimen/grid_1"
-        android:paddingBottom="@dimen/grid_1"
         android:background="@drawable/bg_border_rectangle"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
+        android:padding="@dimen/grid_1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAverageMonthlyVolume">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_marginEnd="@dimen/grid_1_half"
-            style="@style/SMESubtitle1"
-            android:text="@string/label_php"/>
-
-        <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
-            android:id="@+id/autoFormatEditText"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/SMESubtitle1"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/grid_2"
+            android:background="@drawable/bg_border_rectangle"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/grid_4"
+            android:paddingTop="@dimen/grid_1"
+            android:paddingEnd="@dimen/grid_4"
+            android:paddingBottom="@dimen/grid_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/colorWhite"
-            android:focusable="true"
-            android:maxLength="11"
-            android:visibility="visible"
-            android:textSize="@dimen/text_18"
-            android:hint="0"/>
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/SMESubtitle1"
+                android:layout_marginEnd="@dimen/grid_1_half"
+                android:text="@string/label_php" />
 
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_2"
-        android:thumb="@drawable/ic_vector_thumb_state_drawable"
-        android:splitTrack="false"
-        android:maxHeight="12dp"
-        android:paddingStart="@dimen/grid_1"
-        android:paddingEnd="@dimen/grid_1"
-        android:progress="25"
-        android:progressDrawable="@drawable/bg_custom_slider_progress"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutAmount"/>
+            <com.unionbankph.corporate.app.common.widget.edittext.autoformat.AutoFormatEditText
+                android:id="@+id/autoFormatEditText"
+                style="@style/SMESubtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:focusable="true"
+                android:hint="0"
+                android:maxLength="11"
+                android:textSize="@dimen/text_18"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/viewTicks"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        layout="@layout/widget_seekbar_ticks"
-        android:layout_marginStart="21dp"
-        android:layout_marginEnd="21dp"
-        app:layout_constraintStart_toStartOf="@id/seekBar"
-        app:layout_constraintTop_toBottomOf="@id/seekBar"
-        app:layout_constraintEnd_toEndOf="@id/seekBar"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <TextView
-        android:id="@+id/tvBelow10K"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/below_10k"
-        android:textSize="@dimen/text_10"
-        style="@style/SMEBodyMediumGray"
-        android:layout_marginTop="@dimen/grid_1"
-        android:layout_marginStart="@dimen/grid_1"
-        app:layout_constraintTop_toBottomOf="@+id/viewTicks"
-        android:layout_marginBottom="@dimen/grid_2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <androidx.appcompat.widget.AppCompatSeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_2"
+            android:maxHeight="12dp"
+            android:paddingStart="@dimen/grid_1"
+            android:paddingEnd="@dimen/grid_1"
+            android:progress="25"
+            android:progressDrawable="@drawable/bg_custom_slider_progress"
+            android:splitTrack="false"
+            android:thumb="@drawable/ic_vector_thumb_state_drawable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutAmount" />
 
-    <TextView
-        android:id="@+id/tvAbove5M"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/grid_1"
-        android:layout_marginTop="@dimen/grid_1"
-        android:text="@string/above_3m"
-        style="@style/SMEBodyMediumGray"
-        android:textSize="@dimen/text_10"
-        android:layout_marginBottom="@dimen/grid_2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewTicks"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <include
+            android:id="@+id/viewTicks"
+            layout="@layout/widget_seekbar_ticks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:layout_marginEnd="21dp"
+            app:layout_constraintEnd_toEndOf="@id/seekBar"
+            app:layout_constraintStart_toStartOf="@id/seekBar"
+            app:layout_constraintTop_toBottomOf="@id/seekBar" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvBelow10K"
+            style="@style/SMEBodyMediumGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/grid_1"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginBottom="@dimen/grid_2"
+            android:text="@string/below_10k"
+            android:textSize="@dimen/text_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewTicks" />
+
+        <TextView
+            android:id="@+id/tvAbove5M"
+            style="@style/SMEBodyMediumGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:layout_marginBottom="@dimen/grid_2"
+            android:text="@string/above_3m"
+            android:textSize="@dimen/text_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewTicks" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
