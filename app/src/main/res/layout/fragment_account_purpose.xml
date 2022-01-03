@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.unionbankph.corporate.feature.account_setup.AccountPurposeField" />
+
+        <variable
+            name="handler"
+            type="com.unionbankph.corporate.account_setup.presentation.account_purpose.AccountPurposeHandler" />
+
         <variable
             name="viewModel"
             type="com.unionbankph.corporate.account_setup.presentation.account_purpose.AccountPurposeViewModel" />
@@ -77,9 +84,9 @@
                     app:boxStrokeWidth="0.5dp"
                     app:endIconDrawable="@drawable/ic_vector_drop_down_line"
                     app:endIconTint="@color/dsColorMediumOrange"
+                    app:error="@{viewModel.formState.purposeError}"
                     app:errorEnabled="true"
                     app:hintEnabled="false"
-                    app:error="@{viewModel.formState.purposeError}"
                     app:layout_constraintTop_toBottomOf="@+id/accountPurpose_tvPurposeLabel">
 
                     <AutoCompleteTextView
@@ -89,6 +96,7 @@
                         android:focusable="false"
                         android:fontFamily="@string/font_family_regular"
                         android:hint="@string/hint_select_purpose"
+                        android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AccountPurposeField.PURPOSE)}"
                         android:paddingStart="@dimen/margin_14dp"
                         android:paddingTop="@dimen/margin_12dp"
                         android:paddingEnd="@dimen/margin_12dp"
@@ -107,9 +115,9 @@
                     android:layout_marginEnd="@dimen/grid_1"
                     app:boxStrokeWidth="0.5dp"
                     app:endIconDrawable="@drawable/ic_vector_drop_down_line"
+                    app:error="@{viewModel.formState.specificationError}"
                     app:errorEnabled="true"
                     app:hintEnabled="false"
-                    app:error="@{viewModel.formState.specificationError}"
                     app:layout_constraintTop_toBottomOf="@+id/accountPurpose_tilPurpose">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -117,7 +125,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:hint="@string/hint_please_specify"
-                        android:inputType="text|textMultiLine" />
+                        android:inputType="text|textMultiLine"
+                        android:onTextChanged="@{(text,start,before,count) -> viewModel.onDataChange(text, AccountPurposeField.SPECIFICATION)}"
+                        android:text="@{viewModel.form.specification}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,6 +165,7 @@
             android:layout_marginBottom="@dimen/grid_5_half"
             android:enabled="true"
             android:text="@string/action_next"
+            app:clickWithDebounce="@{() -> handler.onNext()}"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

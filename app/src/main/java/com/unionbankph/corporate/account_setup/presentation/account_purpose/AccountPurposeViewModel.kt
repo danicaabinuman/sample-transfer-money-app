@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import com.unionbankph.corporate.R
 import com.unionbankph.corporate.account_setup.data.GenderEnum
 import com.unionbankph.corporate.account_setup.data.PersonalInformation
@@ -19,6 +20,9 @@ import com.unionbankph.corporate.feature.loan.AddressInformationForm
 import com.unionbankph.corporate.settings.presentation.form.Selector
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @SuppressLint("StaticFieldLeak")
@@ -76,6 +80,35 @@ class AccountPurposeViewModel @Inject constructor(
     }
 
     init {
+        viewModelScope.launch {
+            observeDataStream()
+        }
 
+        form.observeForever(formObserver)
+    }
+
+    private suspend fun observeDataStream() {
+        dataStreamFlow.debounce(500)
+            .collect { data ->
+                _form.updateFields {
+                    if (it.value == null) {
+                        it.value = AccountPurposeForm()
+                    }
+                    it.value?.let { form ->
+                        when (data.second) {
+                            AccountPurposeField.PURPOSE -> form.purpose = data.first
+                            AccountPurposeField.SPECIFICATION -> form.specification = data.first
+                            AccountPurposeField.AMOUNT -> form.amount = data.first.toDouble()
+                        }
+                        form.formField = data.second
+                    }
+                }
+            }
+    }
+
+    fun onDataChange(text: CharSequence, field: Int) {
+        viewModelScope.launch {
+            dataStreamFlow.emit(Pair(text.toString(), field))
+        }
     }
 }

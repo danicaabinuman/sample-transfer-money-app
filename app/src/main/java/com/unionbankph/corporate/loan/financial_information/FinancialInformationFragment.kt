@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.unionbankph.corporate.R
+import com.unionbankph.corporate.account_setup.presentation.AccountSetupActivity
 import com.unionbankph.corporate.app.base.BaseFragment
 import com.unionbankph.corporate.app.common.extension.lazyFast
 import com.unionbankph.corporate.app.common.extension.observe
@@ -13,9 +14,9 @@ import com.unionbankph.corporate.databinding.FragmentFinancialInformationBinding
 import com.unionbankph.corporate.loan.LoanActivity
 
 
-class FinancialInformationFragment: BaseFragment<FragmentFinancialInformationBinding, FinancialInformationViewModel>(),
-    FinancialInformationHandler
-{
+class FinancialInformationFragment :
+    BaseFragment<FragmentFinancialInformationBinding, FinancialInformationViewModel>(),
+    FinancialInformationHandler {
 
     private val activity by lazyFast { getAppCompatActivity() as LoanActivity }
 
@@ -92,7 +93,10 @@ class FinancialInformationFragment: BaseFragment<FragmentFinancialInformationBin
     }
 
     override fun onNext() {
-
-        findNavController().navigate(R.id.nav_to_addressFragment)
+        if (requireActivity() is AccountSetupActivity) {
+            findNavController().navigate(R.id.action_to_account_purpose)
+        } else {
+            findNavController().navigate(R.id.nav_to_addressFragment)
+        }
     }
 }
