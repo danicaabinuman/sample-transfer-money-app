@@ -25,18 +25,20 @@ constructor(
             .zipWith(daoGateway.getReferenceNumber())
             .flatMap {
                 daoGateway.getProvinces(
-                    it.first.nullable(),
-                    it.second.nullable()
+                    it.first /*,
+                    it.second.nullable()*/
                 )
             }
             .flatMap { responseProvider.executeResponseSingle(it) }
-            .map { provinces ->
-                provinces.map {
-                    val selector = Selector()
-                    selector.id = it.id
-                    selector.value = it.value
-                    selector
-                }.toMutableList()
+            .map { response ->
+                response.records.let { provinces ->
+                    provinces.map {
+                        val selector = Selector()
+                        selector.id = it.id
+                        selector.value = it.value
+                        selector
+                    }.toMutableList()
+                }
             }
     }
 }

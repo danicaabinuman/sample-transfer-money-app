@@ -18,6 +18,7 @@ import com.unionbankph.corporate.dao.domain.form.DaoGetSignatoryForm
 import com.unionbankph.corporate.dao.domain.form.ValidateNominatedUserForm
 import com.unionbankph.corporate.dao.domain.gateway.DaoGateway
 import com.unionbankph.corporate.dao.domain.model.SignatoryDetail
+import com.unionbankph.corporate.settings.data.source.local.SettingsCache
 import io.reactivex.Completable
 import io.reactivex.Single
 import okhttp3.RequestBody
@@ -166,6 +167,12 @@ constructor(
         referenceNumber: String?
     ): Single<Response<MutableList<ProvinceDto>>> {
         return daoRemote.getProvinces(userToken, referenceNumber)
+    }
+
+    override fun getProvinces(
+        userToken: String
+    ): Single<Response<ProvincesDtoResponse>> {
+        return daoRemote.getProvinces(userToken)
     }
 
     override fun getOccupations(

@@ -165,6 +165,15 @@ constructor(
         )
     }
 
+    override fun getProvinces(userToken: String): Single<Response<ProvincesDtoResponse>> {
+        return daoApiClient.getProvinces(
+            userToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION
+        )
+    }
+
     override fun getOccupations(
         userToken: String?,
         referenceNumber: String?,

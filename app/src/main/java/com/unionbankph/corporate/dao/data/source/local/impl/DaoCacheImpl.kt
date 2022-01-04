@@ -17,11 +17,17 @@ constructor(
 
     override fun getAccessToken(): Single<String> {
         return Single.fromCallable {
-            if (cacheManager.getObject(CacheManager.DAO_SIGNATORY_DETAILS) != null) {
+            val token  = if (cacheManager.getObject(CacheManager.DAO_SIGNATORY_DETAILS) != null) {
                 val signatoryDetail = cacheManager.getObject(CacheManager.DAO_SIGNATORY_DETAILS) as SignatoryDetail
                 signatoryDetail.userToken
             } else {
                 cacheManager.get(CacheManager.DAO_ACCESS_TOKEN)
+            }
+
+            if(token.isNullOrEmpty()){
+                cacheManager.accessToken()
+            } else {
+                token
             }
         }
     }

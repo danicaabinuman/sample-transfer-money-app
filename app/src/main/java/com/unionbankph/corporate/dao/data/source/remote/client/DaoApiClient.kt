@@ -141,6 +141,18 @@ interface DaoApiClient {
         referenceNumber: String?
     ): Single<Response<MutableList<ProvinceDto>>>
 
+    @GET("msme/api/cdao/{api_version}/provinces")
+    fun getProvinces(
+        @Header("Authorization")
+        accessToken: String,
+        @Header("x-client-id")
+        clientId: String,
+        @Header("x-client-secret")
+        clientSecret: String,
+        @Path("api_version")
+        apiVersion: String
+    ): Single<Response<ProvincesDtoResponse>>
+
     @GET("api/{api_version}/dao/occupations")
     fun getOccupations(
         @Path("api_version")
