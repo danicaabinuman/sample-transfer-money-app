@@ -162,6 +162,13 @@ constructor(
         return daoRemote.getCities(userToken, referenceNumber, provinceCode)
     }
 
+    override fun getCities(
+        userToken: String,
+        provinceCode: String
+    ): Single<Response<CityDtoResponse>> {
+        return daoRemote.getCities(userToken, provinceCode)
+    }
+
     override fun getProvinces(
         userToken: String?,
         referenceNumber: String?
