@@ -154,6 +154,19 @@ constructor(
         )
     }
 
+    override fun getCities(
+        userToken: String,
+        provinceCode: String
+    ): Single<Response<CityDtoResponse>> {
+        return daoApiClient.getCities(
+            userToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION,
+            provinceCode
+        )
+    }
+
     override fun getProvinces(
         userToken: String?,
         referenceNumber: String?
@@ -162,6 +175,15 @@ constructor(
             BuildConfig.CLIENT_API_VERSION,
             userToken,
             referenceNumber
+        )
+    }
+
+    override fun getProvinces(userToken: String): Single<Response<ProvincesDtoResponse>> {
+        return daoApiClient.getProvinces(
+            userToken,
+            BuildConfig.MSME_CLIENT_ID,
+            BuildConfig.MSME_CLIENT_SECRET,
+            BuildConfig.MSME_CLIENT_API_VERSION
         )
     }
 

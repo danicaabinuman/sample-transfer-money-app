@@ -26,20 +26,23 @@ constructor(
             .flatMap {
                 params?.let { provinceCode ->
                     daoGateway.getCities(
-                        it.first.nullable(),
-                        it.second.nullable(),
+                        it.first,
+                        /*it.second.nullable(),*/
                         provinceCode
                     )
                 }
             }
             .flatMap { responseProvider.executeResponseSingle(it) }
-            .map { list ->
-                list.map {
-                    val selector = Selector()
-                    selector.id = it.id
-                    selector.value = it.value
-                    selector
-                }.toMutableList()
+            .map { response ->
+                response.records.let { list ->
+                    list.map {
+                        val selector = Selector()
+                        selector.id = it.id
+                        selector.value = it.value
+                        selector
+                    }.toMutableList()
+
+                }
             }
     }
 

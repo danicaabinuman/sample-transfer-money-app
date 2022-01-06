@@ -77,10 +77,17 @@ interface DaoRemote {
         provinceCode: String
     ): Single<Response<MutableList<CityDto>>>
 
+    fun getCities(
+        userToken: String,
+        provinceCode: String
+    ): Single<Response<CityDtoResponse>>
+
     fun getProvinces(
         userToken: String?,
         referenceNumber: String?
     ): Single<Response<MutableList<ProvinceDto>>>
+
+    fun getProvinces(userToken: String): Single<Response<ProvincesDtoResponse>>
 
     fun getOccupations(
         userToken: String?,
