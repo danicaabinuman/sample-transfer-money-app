@@ -3100,4 +3100,6 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="hint_cruz">Cruz</string>
     <string name="title_take_photos_products">Take photos of your products or photos that best describe the services offered</string>
     <string name="title_you_can_take_photos_products">You can take photos of your current stocks /\n inventory with max of 6 photos</string>
+    <string name="title_account_purpose">Account Purpose</string>
+    <string name="hint_please_specify">Please specify</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.unionbankph.corporate.app.util
 
 import android.content.res.ColorStateList
+import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.AutoCompleteTextView
@@ -21,6 +22,7 @@ import com.unionbankph.corporate.app.common.platform.glide.GlideApp
 import org.w3c.dom.Text
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
+import com.unionbankph.corporate.generated.callback.OnClickListener
 
 
 @BindingAdapter("setDrawable")
@@ -47,7 +49,7 @@ fun setBitmapImage(imageView: ImageView, source: Int?) {
 @BindingAdapter("backgroundColor")
 fun View.setBackgroundColor(source: Int?) {
     source?.let {
-        if (source  % 2 == 0) {
+        if (source % 2 == 0) {
             this.setBackgroundColor(this.context.getColor(R.color.dsColorExtraLightGray))
         } else {
             this.setBackgroundColor(this.context.getColor(R.color.colorDisableItem))
@@ -58,7 +60,7 @@ fun View.setBackgroundColor(source: Int?) {
 @BindingAdapter("backgroundColorTextView")
 fun setBackgroundColorTextView(textView: TextView, source: Int?) {
     source?.let {
-        if (source  % 2 == 0) {
+        if (source % 2 == 0) {
             textView.setBackgroundColor(textView.context.getColor(R.color.colorDisableItem))
         } else {
             textView.setBackgroundColor(textView.context.getColor(R.color.dsColorExtraLightGray))
@@ -153,9 +155,11 @@ fun setVisibilityByString(textView: TextView, status: String?) {
 fun setBackgroundColorDisableByString(view: View, source: String?) {
     view.apply {
         if (source.isNullOrEmpty()) {
-            view.backgroundTintList = ColorStateList.valueOf(context.getColor(R.color.colorTransparent))
+            view.backgroundTintList =
+                ColorStateList.valueOf(context.getColor(R.color.colorTransparent))
         } else {
-            view.backgroundTintList = ColorStateList.valueOf(context.getColor(R.color.dsColorLightGray))
+            view.backgroundTintList =
+                ColorStateList.valueOf(context.getColor(R.color.dsColorLightGray))
         }
     }
 }
@@ -171,6 +175,19 @@ fun setTextColorNullAndNotNull(textView: TextView, status: String?) {
     }
 }
 
+@BindingAdapter("clickWithDebounce")
+fun setDebounceClickListener(view: View, onClickListener: View.OnClickListener) {
+    val debounceTime = 800L
+    var lastClickTime: Long = 0
 
+    val clickWithDebounce: (view: View) -> Unit = {
+        if (SystemClock.elapsedRealtime() - lastClickTime >= debounceTime) {
+            onClickListener.onClick(it)
+        }
+        lastClickTime = SystemClock.elapsedRealtime()
+    }
+
+    view.setOnClickListener(clickWithDebounce)
+}
 
 

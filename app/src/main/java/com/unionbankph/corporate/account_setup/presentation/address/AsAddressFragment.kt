@@ -74,7 +74,7 @@ class AsAddressFragment : BaseFragment<FragmentAsAddressBinding, AsAddressViewMo
 
         viewModel.state.observe(viewLifecycleOwner, EventObserver {
             accountSetupActivity.viewModel.setAddressInput(it)
-            findNavController().navigate(R.id.action_business_information)
+            findNavController().navigate(R.id.action_to_financial_information)
         })
 
         val hasExistingData =
