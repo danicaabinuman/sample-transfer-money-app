@@ -1210,6 +1210,8 @@
         <b>%1$s.</b>
         ]]>
     </string>
+    <string name="msg_otp_resend_otp_failed">Resend Failed!</string>
+    <string name="msg_otp_resend_exceed_tries">You\'ve exceeded the number of tries. Please try again after 15 minutes</string>
     <string name="msg_multiple_deletion_scheduled_transfer">Are you sure you want to delete the selected transactions?</string>
     <string name="msg_cancel_fund_transfer_transaction">You are about to leave the Fund Transfer Form. Any unsaved changes will be lost. Would you like to proceed?</string>
     <string name="msg_exit_dao">You are about to leave the account opening form. Any unsaved changes will be lost. Would you like to proceed?</string>
@@ -2672,7 +2674,7 @@ Neither Party shall be liable for any failure to perform its obligations under t
     <string name="msg_setup_account">Setup your account so you may enjoy using\nthe MSME Business Banking services.</string>
     <string name="unlock_key_features">Unlock key features like:</string>
     <string name="title_accept_multiple_payments">Accept multiple payment methods</string>
-    <string name="msg_accept_multiple_payments">Accept payments from 50,000+ payment\nchannel partners globally</string>
+    <string name="msg_accept_multiple_payments">Accept payments from 50,000+ payment\nchannel partners globally.</string>
     <string name="title_payment_link">Get paid easily with payment links</string>
     <string name="msg_payment_link">Create Payment Links in seconds and instantly\nshare with your customers via Facebook\nMessenger, Email, SMS, Viber, Whatsapp and\nmore!</string>
     <string name="title_cotinue_account_setup">Continue Account Setup</string>

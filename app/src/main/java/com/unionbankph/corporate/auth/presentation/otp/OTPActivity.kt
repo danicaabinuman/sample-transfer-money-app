@@ -367,7 +367,29 @@ class OTPActivity :
             }
             PAGE_USER_CREATION -> {
                 resendOTPCount = resendOTPCount.minus(1)
-                viewModel.userCreationResendOTP(ResendOTPForm(auth.requestId), resendOTPCount)
+                if (resendOTPCount in 0..3){
+                    viewModel.userCreationResendOTP(ResendOTPForm(auth.requestId), resendOTPCount)
+                }else{
+                    resendOTPCount = 3
+                    initEnableResendButton(false)
+                    pinCodeEditText.clearPinCode()
+                    initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_900))
+                    viewModel.countDownTimer(
+                        resources.getInteger(R.integer.resend_otp_code_period).toLong(),
+                        resources.getInteger(R.integer.resend_otp_code_count_900).toLong()
+                    )
+                    MaterialDialog(this).show {
+                        lifecycleOwner(this@OTPActivity)
+                        title(R.string.msg_otp_resend_otp_failed)
+                        message(R.string.msg_otp_resend_exceed_tries)
+                        positiveButton(
+                            res = R.string.action_close,
+                            click = {
+                                it.dismiss()
+                            }
+                        )
+                    }
+                }
             }
         }
     }
@@ -763,13 +785,11 @@ class OTPActivity :
             auth = it.auth
             initEnableResendButton(false)
             pinCodeEditText.clearPinCode()
-            if (resendOTPCount in 1..3){
-                initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_30))
-                viewModel.countDownTimer(
-                    resources.getInteger(R.integer.resend_otp_code_period).toLong(),
-                    resources.getInteger(R.integer.resend_otp_code_count_30).toLong()
-                )
-            }
+            initStartResendCodeCount(resources.getInteger(R.integer.resend_otp_code_count_30))
+            viewModel.countDownTimer(
+                resources.getInteger(R.integer.resend_otp_code_period).toLong(),
+                resources.getInteger(R.integer.resend_otp_code_count_30).toLong()
+            )
             MaterialDialog(this).show {
                 lifecycleOwner(this@OTPActivity)
                 title(R.string.title_code_resent)
