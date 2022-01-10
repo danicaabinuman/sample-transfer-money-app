@@ -387,11 +387,12 @@ class OTPViewModel @Inject constructor(
             .subscribe(
                 {
                     if (otpType.value.notNullable() == TYPE_SMS) {
-                        if (resendOTPCount in 1..3){
+                        isClickedResendOTP.onNext(false)
+                        /*if (resendOTPCount in 1..3){
                             isClickedResendOTP.onNext(false)
                         }else{
                             isClickedResendOTP.onNext(true)
-                        }
+                        }*/
                     }
                     _otpState.value = ShowOTPSuccessResend(it)
                 }, {
