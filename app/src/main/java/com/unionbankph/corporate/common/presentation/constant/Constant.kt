@@ -183,7 +183,7 @@ class Constant {
 
     class BusinessType {
         companion object {
-            const val INDIVIDUAL = 0
+            const val INDIVIDUAL = 7
             const val SOLE_PROP = 1
             const val PARTNERSHIP = 2
             const val CORPORATION = 3
