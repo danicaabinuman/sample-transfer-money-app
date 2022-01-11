@@ -192,8 +192,8 @@ class Constant {
 
     class BusinessAccountType {
         companion object {
-            const val STARTER = 101
-            const val CHECK = 102
+            const val STARTER = 1
+            const val CHECK = 2
         }
     }
 
